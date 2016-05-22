@@ -82,26 +82,4 @@ TEST_F(test_markov_chain, basic_test) {
     }
 }
 
-TEST_F(test_markov_chain, demo_text_generation_with_markov_chains) {
-    mzlib::csentence_o_matic sentence_o_matic;
-    std::stringstream ss(m_hesse_quotes);
-    std::string word;
-    do {
-        ss >> word;
-        sentence_o_matic.read_next(word);
-    }
-    while(ss);
-    sentence_o_matic.wrap_up();
-    
-    std::string generated = "";
-    do {
-        generated += "\n";
-        generated += sentence_o_matic.get_next();
-    }
-    while(generated.length() < 10000);
-    
-    //std::cout << generated;
-    ASSERT_TRUE(generated.length() >= 10000); // how do you test meaningless content?
-}
-
 }

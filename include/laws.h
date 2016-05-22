@@ -14,7 +14,7 @@ namespace mzlib
             const cbody* const, 
             const cbody* const, 
             const double)> 
-                interface_law_of_gravitation;
+        interface_law_of_gravitation;
     
     inline math::cvector2d universal_law_of_gravitation(
         const cbody* const body1, 
