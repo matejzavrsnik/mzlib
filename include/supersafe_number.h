@@ -32,32 +32,32 @@ private:
 
 public:
 
-  csupersafe_number(const T number) :
-    m_keys{
-      util::get_random_double(),
-      util::get_random_double()},
-    m_number{number},
-    m_controls{
-      calculate_control_value(0),
-      calculate_control_value(1)}
-  {
-  }
+    csupersafe_number(const T number) :
+        m_keys{
+            util::get_random_double(),
+            util::get_random_double()},
+        m_number{number},
+        m_controls{
+            calculate_control_value(0),
+            calculate_control_value(1)}
+    {
+    }
 
-  operator T() const
-  {
-    if(util::dbl(calculate_control_value(0)).equals(m_controls[0]) &&
-       util::dbl(calculate_control_value(1)).equals(m_controls[1]))
+    operator T() const
     {
-      // passed integrity control!
-      return m_number;
+        if(util::dbl(calculate_control_value(0)).equals(m_controls[0]) &&
+           util::dbl(calculate_control_value(1)).equals(m_controls[1]))
+        {
+            // passed integrity control!
+            return m_number;
+        }
+        else
+        {
+            // Didn't pass integrity control!
+            // Nice try, Illuminati! HHAHAahha!!!11
+            throw compromised_number(); // Abort the mission!
+        }
     }
-    else
-    {
-      // Didn't pass integrity control!
-      // Nice try, Illuminati! HHAHAahha!!!11
-      throw compromised_number(); // Abort the mission!
-    }
-  }
 
 };
 

@@ -11,14 +11,14 @@ namespace mzlib
 {
     typedef std::function<
         math::cvector2d (
-            const std::shared_ptr<cbody>, 
-            const std::shared_ptr<cbody>, 
+            const cbody* const, 
+            const cbody* const, 
             const double)> 
                 interface_law_of_gravitation;
     
     inline math::cvector2d universal_law_of_gravitation(
-        const std::shared_ptr<cbody> body1, 
-        const std::shared_ptr<cbody> body2, 
+        const cbody* const body1, 
+        const cbody* const body2, 
         const double gravitational_constant)
     {
         double sqare_distance = body1->get_location().square_distance_to(body2->get_location()); 
@@ -30,8 +30,8 @@ namespace mzlib
     }
 
     inline math::cvector2d more_entertaining_law_of_gravitation(
-        const std::shared_ptr<cbody> body1, 
-        const std::shared_ptr<cbody> body2, 
+        const cbody* const body1, 
+        const cbody* const body2, 
         const double gravitational_constant)
     {
         double sqare_distance = body1->get_location().square_distance_to(body2->get_location()); 
