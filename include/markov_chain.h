@@ -1,0 +1,101 @@
+// 
+// Author: Matej Zavrsnik (matejzavrsnik.com)
+//
+
+#ifndef MARKOV_CHAIN_H
+#define	MARKOV_CHAIN_H
+
+
+#include <vector>
+#include <utility>
+#include <map>
+#include <locale>
+
+#include "utilities.h"
+
+namespace mzlib
+{
+    // generic markov chain generator
+    template<class T>
+    class cmarkov_chain
+    {
+    
+    private:
+        
+        T m_previous_state; // initialising
+        bool m_previous_state_set = false; // initialising
+        
+        T m_next_state; // generating
+        std::map<T, mzlib::util::cprobabilator<T>> m_states;
+        
+        const T get_random_state() {
+            return mzlib::util::get_random_element(m_states)->first;
+        }
+        
+    protected:
+        
+        void read(T state) {
+            if(m_previous_state_set) {
+                m_states[m_previous_state].add_event(state);
+                m_previous_state = state;
+            }
+            else {
+                m_previous_state = state;
+                m_previous_state_set = true;
+            }
+        }
+        
+        const T get() {
+            T& return_state = m_next_state;
+            mzlib::util::cprobabilator<T>& probabilator = m_states[m_next_state];
+            if(probabilator.count_events() == 0) {
+                m_next_state = get_random_state();
+            }
+            else {
+                m_next_state = probabilator.get_event();
+            }
+            return return_state;
+        }
+        
+    public:
+        
+        virtual void read_next(T state) {  
+            read(state);
+        }
+        
+        void wrap_up() {
+            for(auto& state : m_states) {
+                state.second.wrap_up();
+            }
+            m_next_state = get_random_state();
+        }
+        
+        virtual T get_next() {
+            return get();
+        }
+    };
+    
+    // specialisation of generic markov chain generator that generates sentences
+    class csentence_o_matic : public cmarkov_chain<std::string>
+    {
+        
+    public:
+        
+        void read_next(std::string state) override {
+            std::vector<std::string> split = util::split_string_puctuation(state);
+            for(auto& word : split) {
+                read(word);
+            }
+        }
+        
+        std::string get_next() override {
+            std::string sentence = util::sentence_assemblarator([&](){return get();});
+            return sentence;
+        }
+        
+    };
+    
+}
+
+#endif	/* MARKOV_CHAIN_H */
+
