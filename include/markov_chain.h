@@ -7,9 +7,7 @@
 
 
 #include <vector>
-#include <utility>
 #include <map>
-#include <locale>
 
 #include "utilities.h"
 

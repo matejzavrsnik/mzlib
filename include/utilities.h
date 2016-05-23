@@ -105,7 +105,8 @@ namespace util
     }
     
     template<typename T>
-    std::size_t get_number_of_decimals(T num)
+    std::size_t 
+    get_number_of_decimals(T num)
     {
         //todo: needs special rule for denormalised values
         // convert to string first
@@ -133,7 +134,7 @@ namespace util
     // adds to vector, unless the element is already in.
     // returns iterator to element in the vector
     template<class T>
-    typename std::vector<T>::iterator
+    typename std::vector<T>::iterator 
     push_back_unique(std::vector<T>& v, const T& element) 
     {
         auto sought_element = std::find(v.begin(), v.end(), element);
@@ -220,10 +221,8 @@ namespace util
         }
     };
     
-    inline
-    std::vector<std::string> 
-    split_string_puctuation
-    (const std::string& str) 
+    inline std::vector<std::string> 
+    split_string_puctuation(const std::string& str) 
     {
         std::vector<std::string> split_string;
         std::string new_candidate = "";
@@ -251,10 +250,8 @@ namespace util
     // If given language token generator, this function assembles sentences.
     // Tokens can be punctuation marks or words.
     // Stops when words generator produces one of sentence ending punctuations: .?!
-    inline
-    std::string 
-    sentence_assemblarator
-    (std::function<std::string()> words_generator) 
+    inline std::string 
+    sentence_assemblarator(std::function<std::string()> words_generator) 
     {
         // get first word
         std::string word = words_generator();
@@ -321,8 +318,7 @@ namespace util
     }
 
     // Replace all occurrences of a string in a string
-    inline
-    void 
+    inline void 
     string_replace(std::string& str, const std::string& replace_what, const std::string& replace_with) {
         for(size_t pos = 0; 
             (pos = str.find(replace_what, pos)) != std::string::npos; 
@@ -332,8 +328,7 @@ namespace util
         }
     }
     
-    inline
-    std::string
+    inline std::string
     get_substring_between(const std::string& str, const std::string& start, const std::string& end)
     {
         std::string result;
@@ -348,8 +343,7 @@ namespace util
     
     
     // Change a string into one that is suitable for filename
-    inline
-    std::string 
+    inline std::string 
     filenamearise(const std::string filename_candidate, char space_ch)
     {
         std::string filenamearised = "";
@@ -365,8 +359,7 @@ namespace util
     }
     
     // Read file contents and return it in a string
-    inline
-    std::string 
+    inline std::string 
     read_file(std::string filename) {
         std::ifstream filestream(filename);
         std::stringstream buffer;
@@ -375,8 +368,7 @@ namespace util
     }
 
     // Save string contents into a file
-    inline
-    void 
+    inline void 
     save_file(std::string filename, std::string content)
     {
         std::ofstream out(filename);
@@ -385,8 +377,7 @@ namespace util
     }
 
     // List all files in a directory
-    inline
-    std::vector<std::string> 
+    inline std::vector<std::string> 
     list_files(std::string directory, bool include_hidden = true)
     {
         std::vector<std::string> files;	
@@ -408,8 +399,7 @@ namespace util
         return files;
     }
     
-    inline
-    std::string
+    inline std::string
     extract_filename_from_path(std::string path)
     {
         size_t pos = path.find_last_of("/\\");
@@ -421,8 +411,7 @@ namespace util
 // if project includes that, it will see, compile, and be able to use the following functions
 #ifdef BOOST_FILESYSTEM_FILESYSTEM_HPP    
     // List all files in a directory using boost
-    inline
-    std::vector<std::string> 
+    inline std::vector<std::string> 
     boost_list_files(std::string directory, bool include_hidden = true)
     {
         std::vector<std::string> files;
@@ -447,8 +436,8 @@ namespace util
 // defined in libxml++.h
 // if project includes libxml++ lib, it will see, compile, and be able to use the following functions
 #ifdef __LIBXMLCPP_H
-    inline
-    void delete_all_but(std::vector<std::string> names, xmlpp::Node* from_node) {
+    inline void 
+    delete_all_but(std::vector<std::string> names, xmlpp::Node* from_node) {
         if(from_node == nullptr) return;
         std::list<xmlpp::Node*> children = from_node->get_children();
         for(xmlpp::Node* child : children) {
@@ -460,8 +449,8 @@ namespace util
         }
     }
 
-    inline
-    void delete_all_attributes_but(std::vector<std::string> names, xmlpp::Node* from_node)
+    inline void 
+    delete_all_attributes_but(std::vector<std::string> names, xmlpp::Node* from_node)
     {
         xmlpp::Element* from_element = dynamic_cast<xmlpp::Element*>(from_node);
         if(from_element == nullptr) return;
@@ -475,14 +464,14 @@ namespace util
         }
     }
 
-    inline
-    void delete_all_attributes(xmlpp::Node* from_node)
+    inline void 
+    delete_all_attributes(xmlpp::Node* from_node)
     {
         delete_all_attributes_but({}, from_node);
     }
 
-    inline
-    void delete_all_but_xpath(std::string xpath, xmlpp::Node* from_node) 
+    inline void 
+    delete_all_but_xpath(std::string xpath, xmlpp::Node* from_node) 
     {
         std::vector<xmlpp::Node*> content_div = from_node->find(xpath);
         if(content_div.size() > 0) {
@@ -493,8 +482,8 @@ namespace util
         }
     }
 
-    inline
-    void delete_all_xpath(std::string xpath, xmlpp::Node* from_node) 
+    inline void 
+    delete_all_xpath(std::string xpath, xmlpp::Node* from_node) 
     {
         std::vector<xmlpp::Node*> nodes_found = from_node->find(xpath);
         for(xmlpp::Node* node_found : nodes_found) {
@@ -503,8 +492,8 @@ namespace util
         }
     }
 
-    inline
-    std::string get_content(std::string xpath, xmlpp::Node* from_node)
+    inline std::string 
+    get_content(std::string xpath, xmlpp::Node* from_node)
     {
         if(from_node == nullptr) return "";
         std::string content;
