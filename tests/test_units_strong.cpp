@@ -2,7 +2,7 @@
 // Author: Matej Zavrsnik (matejzavrsnik.com)
 //
 
-#include "../include/units.h"
+#include "../include/units_strong.h"
 #include "gtest/gtest.h"
 
 namespace {
@@ -11,13 +11,13 @@ using namespace mzlib::units;
     
 // The fixture
     
-class test_units : public ::testing::Test {
+class test_units_strong : public ::testing::Test {
  protected:
 
-  test_units() {
+  test_units_strong() {
   }
   
-  virtual ~test_units() {
+  virtual ~test_units_strong() {
   }
 
   virtual void SetUp() {
@@ -33,17 +33,17 @@ class test_units : public ::testing::Test {
 // Tests
 
 
-TEST_F(test_units, length_default_constructor) {
+TEST_F(test_units_strong, length_default_constructor) {
     clength l1;
     ASSERT_TRUE(l1.equals(0_nm_).within_epsilon(1_nm_));
 }
 
-TEST_F(test_units, length_operator_equals) {
+TEST_F(test_units_strong, length_operator_equals) {
     length1 = 100_m_;
     ASSERT_TRUE(length1.equals(100_m_).within_epsilon(1_nm_));
 }
 
-TEST_F(test_units, length_units_factors) {
+TEST_F(test_units_strong, length_units_factors) {
     clength length_nm = 1_nm_;
     ASSERT_DOUBLE_EQ(length_nm / 1_m_, 1e-9);
     clength length_um = 1_um_;
@@ -84,7 +84,7 @@ TEST_F(test_units, length_units_factors) {
     ASSERT_DOUBLE_EQ(length_au / 1_m_, 1.49597871e11);
 }
 
-TEST_F(test_units, length_operator_plus) {
+TEST_F(test_units_strong, length_operator_plus) {
     length1 = 1_km_;
     length1 = length1 + 1_km_;
     ASSERT_TRUE(length1.equals(2_km_).within_epsilon(1_nm_));
@@ -92,7 +92,7 @@ TEST_F(test_units, length_operator_plus) {
     ASSERT_TRUE(length1.equals(3_km_).within_epsilon(1_nm_));
 }
 
-TEST_F(test_units, length_operator_minus) {
+TEST_F(test_units_strong, length_operator_minus) {
     length1 = 3_km_;
     length1 = length1 - 1_km_;
     ASSERT_TRUE(length1.equals(2_km_).within_epsilon(1_nm_));
@@ -100,14 +100,14 @@ TEST_F(test_units, length_operator_minus) {
     ASSERT_TRUE(length1.equals(1_km_).within_epsilon(1_nm_));
 }
 
-TEST_F(test_units, length_operator_divide) {
+TEST_F(test_units_strong, length_operator_divide) {
     double ratio;
     length1 = 6_km_;
     ratio = length1 / 3_km_;
     ASSERT_DOUBLE_EQ(ratio, 2);
 }
 
-TEST_F(test_units, length_operator_divide_by_unitless) {
+TEST_F(test_units_strong, length_operator_divide_by_unitless) {
     length1 = 6_km_;
     length1 = length1 / 3;
     ASSERT_TRUE(length1.equals(2_km_).within_epsilon(1_nm_));
@@ -115,13 +115,13 @@ TEST_F(test_units, length_operator_divide_by_unitless) {
     ASSERT_TRUE(length1.equals(1_km_).within_epsilon(1_nm_));
 }
 
-TEST_F(test_units, length_operator_multiply) {
+TEST_F(test_units_strong, length_operator_multiply) {
     length1 = 6_km_;
     carea area = length1 * 3_km_;
     ASSERT_TRUE(area.equals(18_km2_).within_epsilon(1_mm2_));
 }
 
-TEST_F(test_units, length_operator_multiply_with_unitless) {
+TEST_F(test_units_strong, length_operator_multiply_with_unitless) {
     length1 = 6_km_;
     length1 = length1 * 3;
     ASSERT_TRUE(length1.equals(18_km_).within_epsilon(1_nm_));
@@ -129,7 +129,7 @@ TEST_F(test_units, length_operator_multiply_with_unitless) {
     ASSERT_TRUE(length1.equals(36_km_).within_epsilon(1_nm_));
 }
 
-TEST_F(test_units, transform_from_length_area) {
+TEST_F(test_units_strong, transform_from_length_area) {
     //carea area = 5_km_ * 4_km_;
     //ASSERT_TRUE(area.equals(20_km2_).within_epsilon(1_mm2_));
     // fix:
@@ -137,7 +137,7 @@ TEST_F(test_units, transform_from_length_area) {
     //ASSERT_TRUE(length1.equals(10_km2_).within_epsilon(1_mm2_));
 }
 
-TEST_F(test_units, transforms_time_length_speed) {
+TEST_F(test_units_strong, transforms_time_length_speed) {
     //cspeed speed = 100_km_ / 100_h_;
     //ASSERT_TRUE(speed.equals(1_km_per_h).within_epsilon(1_m_per_s_));
     //length1 = speed * 100_h_;

@@ -42,7 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_space.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
-	${OBJECTDIR}/tests/test_units.o \
+	${OBJECTDIR}/tests/test_units_strong.o \
 	${OBJECTDIR}/tests/test_utilities.o \
 	${OBJECTDIR}/tests/test_vector.o
 
@@ -106,10 +106,10 @@ ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
 
-${OBJECTDIR}/tests/test_units.o: tests/test_units.cpp 
+${OBJECTDIR}/tests/test_units_strong.o: tests/test_units_strong.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_units.o tests/test_units.cpp
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_units_strong.o tests/test_units_strong.cpp
 
 ${OBJECTDIR}/tests/test_utilities.o: tests/test_utilities.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests

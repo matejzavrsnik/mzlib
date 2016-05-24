@@ -17,7 +17,7 @@
       <itemPath>include/space.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
       <itemPath>include/units.h</itemPath>
-      <itemPath>include/units_foundation.h</itemPath>
+      <itemPath>include/units_strong.h</itemPath>
       <itemPath>include/utilities.h</itemPath>
       <itemPath>include/vector.h</itemPath>
     </logicalFolder>
@@ -33,7 +33,7 @@
       <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
       <itemPath>tests/test_space.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
-      <itemPath>tests/test_units.cpp</itemPath>
+      <itemPath>tests/test_units_strong.cpp</itemPath>
       <itemPath>tests/test_utilities.cpp</itemPath>
       <itemPath>tests/test_vector.cpp</itemPath>
     </logicalFolder>
@@ -105,7 +105,7 @@
       </item>
       <item path="include/units.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/units_foundation.h" ex="false" tool="3" flavor2="0">
+      <item path="include/units_strong.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -125,7 +125,7 @@
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/test_units.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/test_units_strong.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -197,7 +197,7 @@
       </item>
       <item path="include/units.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/units_foundation.h" ex="false" tool="3" flavor2="0">
+      <item path="include/units_strong.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -217,7 +217,7 @@
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/test_units.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/test_units_strong.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
