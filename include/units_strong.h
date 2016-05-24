@@ -177,8 +177,10 @@ class carea; class cspeed; class cltime; class clength;
     
 // Length
 QUANTITY_DEFINITION_START(clength, m)
-   friend carea  operator* (const clength lhs, const clength rhs);
-   friend cspeed operator/ (const clength lhs, const cltime  rhs);
+   friend carea operator* (const clength lhs, const clength rhs);
+   friend clength operator/ (const carea lhs, const clength rhs);
+   friend cspeed operator/ (const clength lhs, const cltime rhs);
+   friend cltime operator/ (const clength lhs, const cspeed rhs);
 QUANTITY_DEFINITION_END(clength, m)
 // SI units
 UNIT_DEFINITION(clength, nm,  1e-9, m)
@@ -204,6 +206,7 @@ UNIT_DEFINITION(clength, au,  1.49597871e11, m) // astronomical unit
         
 // Area 
 QUANTITY_DEFINITION_START(carea, m2)
+   friend clength operator/ (const carea lhs, const clength rhs);
 QUANTITY_DEFINITION_END(carea, m2)
 // SI units
 UNIT_DEFINITION(carea, mm2, 1e-6, m2)
@@ -217,10 +220,12 @@ UNIT_DEFINITION(carea, acre, 4046.86, m2)
     
 // Speed 
 QUANTITY_DEFINITION_START(cspeed, m_per_s)
+   friend clength operator* (const cspeed lhs, const cltime rhs);
+   friend cltime operator/ (const clength lhs, const cspeed rhs);
 QUANTITY_DEFINITION_END(cspeed, m_per_s)
 // SI units
 UNIT_DEFINITION(cspeed, km_per_s, 1e-3, m_per_s)
-UNIT_DEFINITION(cspeed, km_per_h, 3.6, m_per_s)
+UNIT_DEFINITION(cspeed, km_per_h, 0.2777, m_per_s)
   
 // Mass
 QUANTITY_DEFINITION_START(cmass, kg)
@@ -237,7 +242,8 @@ UNIT_DEFINITION(cmass, ounce, 0.0283495, kg)
    
 // Time
 QUANTITY_DEFINITION_START(cltime, s)
-   friend cspeed operator / (const clength lhs, const cltime rhs);
+   friend cspeed operator/ (const clength lhs, const cltime rhs);
+   friend clength operator* (const cspeed lhs, const cltime rhs);
 QUANTITY_DEFINITION_END(cltime, s)
 // SI units
 UNIT_DEFINITION(cltime, ns,  1e-9, s)
@@ -254,8 +260,30 @@ UNIT_DEFINITION(cltime, century, 3.156e+9, s)
     
 // Operations that change quantity (Can there be others except multiplication and division?)
   
-inline carea  operator * (const clength lhs, const clength rhs) {return operator "" _m2_(lhs.value *  rhs.value);}
-inline cspeed operator / (const clength lhs, const cltime  rhs) {return operator "" _m_per_s_(lhs.value /  rhs.value);}
+inline carea operator* (const clength lhs, const clength rhs) 
+{
+   return operator "" _m2_(lhs.value * rhs.value);
+}
+
+inline cspeed operator/ (const clength lhs, const cltime  rhs) 
+{
+   return operator "" _m_per_s_(lhs.value / rhs.value);
+}
+
+inline clength operator/ (const carea lhs, const clength rhs)
+{
+   return operator "" _m_(lhs.value / rhs.value);
+}
+
+inline clength operator* (const cspeed lhs, const cltime  rhs)
+{
+   return operator "" _m_(lhs.value * rhs.value);
+}
+
+inline cltime operator/ (const clength lhs, const cspeed rhs)
+{
+   return operator "" _s_(lhs.value / rhs.value);
+}
 
 } } // namespace mzlib::units
 

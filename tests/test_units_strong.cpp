@@ -130,20 +130,20 @@ TEST_F(test_units_strong, length_operator_multiply_with_unitless) {
 }
 
 TEST_F(test_units_strong, transform_from_length_area) {
-    //carea area = 5_km_ * 4_km_;
-    //ASSERT_TRUE(area.equals(20_km2_).within_epsilon(1_mm2_));
+    carea area = 5_km_ * 4_km_;
+    ASSERT_TRUE(area.equals(20_km2_).within_epsilon(1_mm2_));
     // fix:
-    //length1 = area / 2_km_;
-    //ASSERT_TRUE(length1.equals(10_km2_).within_epsilon(1_mm2_));
+    length1 = area / 2_km_;
+    ASSERT_TRUE(length1.equals(10_km_).within_epsilon(1_mm_));
 }
 
 TEST_F(test_units_strong, transforms_time_length_speed) {
-    //cspeed speed = 100_km_ / 100_h_;
-    //ASSERT_TRUE(speed.equals(1_km_per_h).within_epsilon(1_m_per_s_));
-    //length1 = speed * 100_h_;
-    //ASSERT_TRUE(length1.equals(100_km_).within_epsilon(1_nm_));
-    //cltime time = speed / 100_km_;
-    //ASSERT_TRUE(time.equals(100_h_).within_epsilon(1_ns_));
+    cspeed speed = 100_km_ / 100_h_;
+    ASSERT_TRUE(speed.equals(1_km_per_h_).within_epsilon(1_m_per_s_));
+    length1 = speed * 100_h_;
+    ASSERT_TRUE(length1.equals(100_km_).within_epsilon(1_nm_));
+    cltime time = 100_km_ / speed;
+    ASSERT_TRUE(time.equals(100_h_).within_epsilon(1_ns_));
 }
 
 }
