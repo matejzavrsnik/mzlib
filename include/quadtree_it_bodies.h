@@ -91,7 +91,7 @@ private:
 
 public:
 
-   quadtree_it_bodies (cquadnode<T>* node) : 
+   explicit quadtree_it_bodies (cquadnode<T>* node) : 
       m_start_node(node) 
    { 
       setup(m_start_node); 

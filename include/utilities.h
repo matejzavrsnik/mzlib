@@ -35,7 +35,8 @@ private:
 public:
         
    explicit dbl (double val) : 
-      m_val(val) 
+      m_val(val),
+      m_compared_to(val)
    {
    }
         
@@ -359,7 +360,7 @@ inline std::string get_substring_between (const std::string& str, const std::str
     
     
 // Change a string into one that is suitable for filename
-inline std::string filenamearise (const std::string filename_candidate, char space_ch)
+inline std::string filenamearise (const std::string& filename_candidate, char space_ch)
 {
    std::string filenamearised = "";
    for (auto letter : filename_candidate) {
@@ -394,8 +395,6 @@ inline void save_file (std::string filename, std::string content)
 inline std::vector<std::string> list_files (std::string directory, bool include_hidden = true)
 {
    std::vector<std::string> files;	
-   std::ifstream inn;
-   std::string str;
    DIR *pDIR;
    struct dirent *entry;
    if ( (pDIR=opendir(directory.c_str())) ) {

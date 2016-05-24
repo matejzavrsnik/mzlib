@@ -33,9 +33,9 @@ public:
    cquadtree (
       const mzlib::math::cvector2d& top_left, 
       const mzlib::math::cvector2d& bottom_right, 
-      const double smallest_node_width )
+      const double smallest_node_width ) :
+      m_root(std::make_shared<cquadnode<T>>())
    {
-      m_root = std::make_shared<cquadnode<T>>();
       m_root->create(top_left, bottom_right, smallest_node_width, nullptr);
    }
         

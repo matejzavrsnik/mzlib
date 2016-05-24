@@ -13,19 +13,9 @@ namespace {
     
 class test_markov_chain : public ::testing::Test {
  protected:
-
-  std::string m_hesse_quotes;
      
-  test_markov_chain() {
-      m_hesse_quotes = 
-          "I have always believed, and I still believe, that whatever good or bad fortune may "
-          "come our way we can always give it meaning and transform it into something of value. " 
-          "What could I say to you that would be of value, except that perhaps you seek too much, " 
-          "that as a result of your seeking you cannot find. We are not going in circles, we are "
-          "going upwards. The path is a spiral; we have already climbed many steps. It may be important "
-          "to great thinkers to examine the world, to explain and despise it. But I think it is only "
-          "important to love the world, not to despise it, not for us to hate each other, but to be "
-          "able to regard the world and ourselves and all beings with love, admiration and respect.";
+  test_markov_chain ()
+  {
   }
   
   virtual ~test_markov_chain() {

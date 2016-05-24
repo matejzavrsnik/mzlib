@@ -21,7 +21,7 @@ public:
    {
    }
 
-   cbody(std::string name) : 
+   explicit cbody(std::string name) : 
        cmass_centre(), 
        m_name(name), 
        m_force(), 

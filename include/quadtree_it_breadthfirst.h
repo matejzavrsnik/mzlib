@@ -37,7 +37,7 @@ private:
         
 public:
 
-   quadtree_it_breadthfirst(cquadnode<T>* node)
+   explicit quadtree_it_breadthfirst(cquadnode<T>* node)
    { 
       if (node!=nullptr) {
          m_queue.push(node);

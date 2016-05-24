@@ -51,7 +51,7 @@ class quadtree_it_postorder : public std::iterator<std::forward_iterator_tag, T>
         
 public:
 
-   quadtree_it_postorder (cquadnode<T>* node) : 
+   explicit quadtree_it_postorder (cquadnode<T>* node) : 
       m_current_node(node)
    { 
       if (node!=nullptr) {
