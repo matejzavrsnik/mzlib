@@ -17,7 +17,7 @@ namespace util {
 #include <intrin.h>
 uint64_t cycle_count()
 {
-    return __rdtsc();
+   return __rdtsc();
 }
 
 //  Linux/GCC
@@ -25,14 +25,14 @@ uint64_t cycle_count()
 
 uint64_t cycle_count()
 {
-    unsigned int lo,hi;
-    __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-    return ((uint64_t)hi << 32) | lo;
+   unsigned int lo,hi;
+   __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
+   return ((uint64_t)hi << 32) | lo;
 }
 
 #endif
 
-}} // namespaces
+} } // namespaces
 
-#endif	/* CPUCYCLE_H */
+#endif // CPUCYCLE_H
 
