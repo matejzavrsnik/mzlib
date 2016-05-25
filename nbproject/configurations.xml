@@ -64,8 +64,8 @@
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
-          <commandLine>-Wextra -Wpedantic</commandLine>
-          <warningLevel>2</warningLevel>
+          <commandLine>-Wall -Wextra -Wpedantic -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-missing-braces -Wstrict-aliasing=1 -Wfloat-equal -Wdouble-promotion -Wmissing-include-dirs -Wno-return-local-addr -Wswitch-default -Wswitch-enum -Wsync-nand -Wunused -Wuninitialized -Wstrict-overflow=5 -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wmissing-format-attribute -Wtrampolines -Wundef -Wunsafe-loop-optimizations -Wc++11-compat -Wconversion -Wno-conversion-null -Wzero-as-null-pointer-constant -Wparentheses -Wuseless-cast -Wconversion -Wlogical-op -Wvarargs -Wno-aggressive-loop-optimizations -Wpadded -Wredundant-decls -Winline -Wvector-operation-performance -Wno-virtual-move-assign -Wvla</commandLine>
+          <warningLevel>0</warningLevel>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
@@ -150,8 +150,8 @@
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
-          <commandLine>-Wextra -Wpedantic</commandLine>
-          <warningLevel>2</warningLevel>
+          <commandLine>-Wall -Wextra -Wpedantic -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-missing-braces -Wstrict-aliasing=1 -Wfloat-equal -Wdouble-promotion -Wmissing-include-dirs -Wno-return-local-addr -Wswitch-default -Wswitch-enum -Wsync-nand -Wunused -Wuninitialized -Wstrict-overflow=5 -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wmissing-format-attribute -Wtrampolines -Wundef -Wunsafe-loop-optimizations -Wc++11-compat -Wconversion -Wno-conversion-null -Wzero-as-null-pointer-constant -Wparentheses -Wuseless-cast -Wconversion -Wlogical-op -Wvarargs -Wno-aggressive-loop-optimizations -Wpadded -Wredundant-decls -Winline -Wvector-operation-performance -Wno-virtual-move-assign -Wvla</commandLine>
+          <warningLevel>0</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

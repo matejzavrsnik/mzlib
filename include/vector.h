@@ -10,6 +10,8 @@
 #include <initializer_list>
 #include <array>
 
+#include "utilities.h"
+
 namespace mzlib { 
 namespace math {
 
@@ -147,12 +149,12 @@ public:
     
    TYPE length () const 
    {
-      TYPE length = 0;
+      TYPE len = 0;
       for (size_t i=0; i<DIM; ++i) {
-         length += std::pow(m_array[i], 2);
+         len += std::pow(m_array[i], 2);
       }
-      length = std::sqrt(length);
-      return length;
+      len = std::sqrt(len);
+      return len;
    }
     
    cvector<TYPE, DIM> normalise () const
@@ -165,15 +167,28 @@ public:
       return result;
    }
     
+   // I don't think gcc v4.8.3 handles std::is_integral well. It still reports a
+   // floating point comparing problem in this function.
+   //todo: remove the diagnostic suppression after it's been fixed. Or after I am proved wrong.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfloat-equal"
    bool operator== (const cvector<TYPE,DIM>& other) const
    {
       for (size_t i=0; i<DIM; ++i) {
-         if (m_array[i] != other.m_array[i] )
+         //todo: switch to is_integral_v when C++17 is available
+         if (std::is_floating_point<TYPE>::value) {
+            if (!util::dbl(m_array[i]).equals(other.m_array[i])) {
+               return false;
+            }
+         }
+         else if (m_array[i] != other.m_array[i]) {
             return false;
+         }
       }
       return true;
    }
-    
+#pragma GCC diagnostic pop
+   
    cvector<TYPE,DIM> operator+ (const cvector<TYPE,DIM>& other) const 
    {  
       cvector<TYPE, DIM> result(*this);

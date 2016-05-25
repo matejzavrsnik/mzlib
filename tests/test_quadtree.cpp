@@ -18,10 +18,10 @@ protected:
    virtual void TearDown () {}
 
    double smallest_node_width = 50;
-   mzlib::math::cvector2d top_left = {-50,-50};
-   mzlib::math::cvector2d bottom_right = {50,50};
-   mzlib::math::cvector2d centre = {0,0};
-   mzlib::cquadtree<int> tree2 = {top_left, bottom_right, smallest_node_width};
+   mzlib::math::cvector2d m_top_left = {-50,-50};
+   mzlib::math::cvector2d m_bottom_right = {50,50};
+   mzlib::math::cvector2d m_centre = {0,0};
+   mzlib::cquadtree<int> m_tree2 = {m_top_left, m_bottom_right, smallest_node_width};
 
 };
 
@@ -114,9 +114,9 @@ TEST_F(test_cquadtree, add)
    };
    for (auto coor : coordinates_of_interest)
    {
-      ASSERT_EQ(coor.should_be_in, tree2.is_in({coor.x, coor.y})) 
+      ASSERT_EQ(coor.should_be_in, m_tree2.is_in({coor.x, coor.y})) 
          << "for coordinates: " << coor.x << "," << coor.y;
-      ASSERT_EQ(coor.should_be_in, tree2.add(0, {coor.x, coor.y}))
+      ASSERT_EQ(coor.should_be_in, m_tree2.add(0, {coor.x, coor.y}))
          << "for coordinates: " << coor.x << "," << coor.y;
    }
 }
@@ -124,7 +124,7 @@ TEST_F(test_cquadtree, add)
 TEST_F(test_cquadtree, iterator_it_postorder)
 {
    double node_width = 25;
-   mzlib::cquadtree<int> tree3 = {top_left, bottom_right, node_width};
+   mzlib::cquadtree<int> tree3 = {m_top_left, m_bottom_right, node_width};
    
    struct t_expected {
       double top_left_0;
@@ -175,7 +175,7 @@ TEST_F(test_cquadtree, iterator_it_postorder)
 TEST_F(test_cquadtree, iterator_it_breadthfirst)
 {
    double node_width = 25;
-   mzlib::cquadtree<int> tree3 = {top_left, bottom_right, node_width};
+   mzlib::cquadtree<int> tree3 = {m_top_left, m_bottom_right, node_width};
    
    struct t_expected {
       double top_left_0;
@@ -236,18 +236,18 @@ TEST_F(test_cquadtree, iterator_order)
    int body_ne = 3;
     
    // Add them in mixed order
-   tree2.add(body_se, se);
-   tree2.add(body_nw, nw);
-   tree2.add(body_sw, sw);
-   tree2.add(body_ne, ne);
+   m_tree2.add(body_se, se);
+   m_tree2.add(body_nw, nw);
+   m_tree2.add(body_sw, sw);
+   m_tree2.add(body_ne, ne);
 
    // Check if they all turn out and in correct order nw -> ne -> sw -> se
-   mzlib::cquadtree<int>::iterator it = tree2.begin();
+   mzlib::cquadtree<int>::iterator it = m_tree2.begin();
    ASSERT_EQ(body_nw, *it); ++it;
    ASSERT_EQ(body_ne, *it); ++it;
    ASSERT_EQ(body_sw, *it); ++it;
    ASSERT_EQ(body_se, *it); ++it;
-   ASSERT_EQ(tree2.end(), it);
+   ASSERT_EQ(m_tree2.end(), it);
 }
 
 TEST_F(test_cquadtree, iterator_one_node_many_bodies_other_nodes_none)
@@ -256,11 +256,11 @@ TEST_F(test_cquadtree, iterator_one_node_many_bodies_other_nodes_none)
    const int number_of_bodies_inserted = 10;
    for (double i=1; i<=number_of_bodies_inserted; i++)
    {
-      tree2.add(i, top_left.move_by({i,i}));
+      m_tree2.add(i, m_top_left.move_by({i,i}));
    }
    // Are all of them iterated over
    int bodies_seen = 0;
-   for (auto body = tree2.begin(); body != tree2.end(); ++body, ++bodies_seen);
+   for (auto body = m_tree2.begin(); body != m_tree2.end(); ++body, ++bodies_seen);
    ASSERT_EQ(number_of_bodies_inserted, bodies_seen);
 }
 
@@ -272,13 +272,13 @@ TEST_F(test_cquadtree, iterator_many_bodies_each_node)
    {
       for(double j=1; j<2*smallest_node_width; j++)
       {
-         tree2.add(0, top_left.move_by({i, j}));
+         m_tree2.add(0, m_top_left.move_by({i, j}));
          ++number_of_bodies_inserted;
       }
    }
    // Are all of them iterated over
    int bodies_seen = 0;
-   for(auto body = tree2.begin(); body != tree2.end(); ++body, ++bodies_seen);
+   for(auto body = m_tree2.begin(); body != m_tree2.end(); ++body, ++bodies_seen);
    ASSERT_EQ(number_of_bodies_inserted, bodies_seen);
 }
 

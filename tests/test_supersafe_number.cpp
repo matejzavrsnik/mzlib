@@ -28,7 +28,9 @@ protected:
 
 // Tests
 
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 TEST_F(test_supersafe_number, demo_test)
 {
     s_int i_number = 12; // store number on creation, after that can't change
@@ -52,7 +54,7 @@ TEST_F(test_supersafe_number, demo_test)
     *number_address = 14; // modify it outside the class that protects it
     ASSERT_THROW(i = i_number, mzlib::compromised_number); // on access, it will detect the modification and throw
 }
-#pragma GCC diagnostic warning "-Wunused-variable"
+#pragma GCC diagnostic pop
 
 TEST_F(test_supersafe_number, construction) {
     // assignment does not change the value it was initialised with
