@@ -49,7 +49,7 @@ TEST_F(test_supersafe_number, demo_test)
     // will take some creativity
     int i;
     int* number_address = (int*)&i_number;
-    number_address += 3; // get access: 4th int in memory layout is the number that is protected
+    number_address += sizeof(std::vector<double>) / sizeof(int); // get access to the protected number
     ASSERT_NO_THROW(i = i_number);
     *number_address = 14; // modify it outside the class that protects it
     ASSERT_THROW(i = i_number, mzlib::compromised_number); // on access, it will detect the modification and throw

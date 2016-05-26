@@ -230,7 +230,7 @@ public:
       throw eempty(); // I couldn't imagine other way out of this
    }
    
-   unsigned count_events () 
+   unsigned count_events () const 
    {
       return m_events.size();
    }
