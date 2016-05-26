@@ -6,20 +6,21 @@
 #define	LAWS_H
 
 #include "vector.h"
+#include "mass_centre.h"
 
 namespace mzlib
 {
 
 typedef std::function<
    math::cvector2d (
-      const cbody* const, 
-      const cbody* const, 
+      const cmass_centre* const, 
+      const cmass_centre* const, 
       const double)> 
    interface_law_of_gravitation;
     
 inline math::cvector2d universal_law_of_gravitation(
-   const cbody* const body1, 
-   const cbody* const body2, 
+   const cmass_centre* const body1, 
+   const cmass_centre* const body2, 
    const double gravitational_constant)
    {
       double sqare_distance = body1->get_location().square_distance_to(body2->get_location()); 
@@ -31,8 +32,8 @@ inline math::cvector2d universal_law_of_gravitation(
    }
 
 inline math::cvector2d more_entertaining_law_of_gravitation(
-   const cbody* const body1, 
-   const cbody* const body2, 
+   const cmass_centre* const body1, 
+   const cmass_centre* const body2, 
    const double gravitational_constant)
    {
       double sqare_distance = body1->get_location().square_distance_to(body2->get_location()); 

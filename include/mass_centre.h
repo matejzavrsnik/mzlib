@@ -7,11 +7,11 @@
 
 #include "vector.h"
 
-namespace mzlib
-{
+namespace mzlib {
 
 class cmass_centre
 {
+
 private:
      
    math::cvector2d m_location;
@@ -31,16 +31,6 @@ public:
    {
    }
         
-   double get_x () const
-   { 
-      return m_location[0]; 
-   }
-
-   double get_y () const
-   { 
-      return m_location[1]; 
-   }  
-
    void set_mass (double mass)
    { 
       m_mass = mass; 
@@ -98,7 +88,42 @@ public:
    }
 };
 
-}
+// cmass_centre will be hard to identify uniquely, because all members might be
+// floating point numbers. It is practical to allow binding it with some user
+// defined data, so that they can be marked in some way, either labelled or
+// equiped with unique id, or whatever.
+template <class T>
+class cbinded_mass_centre : public cmass_centre
+{
+
+private:
+   
+   T m_binded_data;
+   
+public:
+   
+   cbinded_mass_centre()
+   {
+   }
+   
+   cbinded_mass_centre(const T& binded_data)
+   {
+      m_binded_data = binded_data;
+   }
+   
+   T get_binded_data() const
+   {
+      return m_binded_data;
+   }
+   
+   void set_binded_data(const T& binded_data)
+   {
+      m_binded_data = binded_data;
+   }
+   
+};
+
+} // namespace mzlib
     
 #endif	/* MASS_CENTRE_H */
 

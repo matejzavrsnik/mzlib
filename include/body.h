@@ -10,20 +10,19 @@
 #include "mass_centre.h"
 
 namespace mzlib {
-    
-class cbody : public cmass_centre
+
+class cbody : public cbinded_mass_centre<std::string>
 {
-      
+
 public:
         
    cbody() : 
-      cbody("") 
+      cbinded_mass_centre<std::string>() 
    {
    }
 
-   explicit cbody(std::string name) : 
-       cmass_centre(), 
-       m_name(name), 
+   explicit cbody(const std::string& binded_data) : 
+       cbinded_mass_centre<std::string>(binded_data), 
        m_force(), 
        m_velocity(), 
        m_gravity() 
@@ -35,11 +34,6 @@ public:
    cbody& operator=(const cbody&) = default;
    cbody& operator=(cbody&&) = default;
    ~cbody() = default;
-        
-   const std::string& get_name () const
-   { 
-      return m_name; 
-   }
         
    void set_velocity (const math::cvector2d& velocity) 
    { 
@@ -73,7 +67,6 @@ public:
 
 private:
         
-   const std::string m_name;
    math::cvector2d m_force;
    math::cvector2d m_velocity;
    math::cvector2d m_gravity;
