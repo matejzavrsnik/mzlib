@@ -106,12 +106,13 @@ public:
    {
    }
    
-   cbinded_mass_centre(const T& binded_data)
+   cbinded_mass_centre(const T& binded_data, math::cvector2d location = {0,0}, double mass = 0) :
+      m_binded_data(binded_data),   
+      cmass_centre(location, mass)
    {
-      m_binded_data = binded_data;
    }
    
-   T get_binded_data() const
+   T& get_binded_data()
    {
       return m_binded_data;
    }

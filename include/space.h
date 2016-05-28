@@ -20,8 +20,6 @@ class cspace
         
 public:
         
-   typedef std::shared_ptr<cspace> ptr;
-        
    // TODO: A monstrosity!! Space dimensions are undefined. Make quadtree dynamic at some point
    cspace (
       const mzlib::math::cvector2d& top_left, 
@@ -49,12 +47,22 @@ public:
    cspace& operator= (cspace&&) = default;
    ~cspace () = default;
         
-   void add_body (std::shared_ptr<cbody> body) 
+   void add_body (cbody body) 
    {
-      m_bodies.add(body, body->get_location());
+      m_bodies.add(body);
+   }
+   
+   cbody* find_body (cbody& body)
+   {
+      for (cbody& found : m_bodies) {
+         if (found.get_binded_data() == body.get_binded_data()) {
+            return &found;
+         }
+      }
+      return nullptr;
    }
         
-   cquadtree<std::shared_ptr<cbody>>& get_bodies ()
+   cquadtree<cbody_forces>& get_bodies ()
    {
       return m_bodies;
    }
@@ -76,15 +84,15 @@ public:
         
    void calculate_forces () 
    {
-      for (auto this_body : m_bodies) {
-         this_body->set_force({0.0,0.0});
-         for (auto another_body : m_bodies) {
-            if (this_body != another_body) {
+      for (cbody& this_body : m_bodies) {
+         this_body.get_binded_data().set_force({0.0,0.0});
+         for (cbody& another_body : m_bodies) {
+            if (&this_body != &another_body) {
                math::cvector2d gravity_force = m_fun_law_of_gravitation(
-                  this_body.get(), 
-                  another_body.get(), 
+                  &this_body, 
+                  &another_body, 
                   m_gravitational_constant);
-               this_body->add_force(gravity_force);
+               this_body.get_binded_data().add_force(gravity_force);
             }
          }
       }
@@ -92,18 +100,18 @@ public:
         
    void calculate_positions (double time_pixel) 
    {
-      for (auto body : m_bodies) {
-         math::cvector2d velocity_initial = body->get_velocity();
+      for (cbody& body : m_bodies) {
+         math::cvector2d velocity_initial = body.get_binded_data().get_velocity();
          math::cvector2d acceleration{0};
-         acceleration = body->get_force() / body->get_mass();
+         acceleration = body.get_binded_data().get_force() / body.get_mass();
          math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
          if (velocity_final.length() > m_max_velocity) {
             acceleration = {0.0,0.0};
             velocity_final = velocity_initial;
          }
          math::cvector2d location_final = (velocity_initial*time_pixel) + (acceleration*time_pixel)/2; 
-         body->add_location(location_final);
-         body->set_velocity(velocity_final);
+         body.add_location(location_final);
+         body.get_binded_data().set_velocity(velocity_final);
       }
    }
         
@@ -124,7 +132,7 @@ public:
         
 private:
 
-   cquadtree<std::shared_ptr<cbody>> m_bodies;
+   cquadtree<cbody_forces> m_bodies;
    double m_gravitational_constant = consts::gravitational_constant;
    double m_max_velocity = consts::light_speed;
    interface_law_of_gravitation m_fun_law_of_gravitation = universal_law_of_gravitation;

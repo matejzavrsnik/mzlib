@@ -74,17 +74,17 @@ public:
       }
    }
 
-   bool add (T body, math::cvector2d location) 
+   bool add (cbinded_mass_centre<T> body) 
    {
-      if (is_leaf() && is_in(location)) { 
+      if (is_leaf() && is_in(body.get_location())) { 
          // at this point is leaf and body is within node bounds
          m_bodies.push_back(body);
          return true;
       }
-      else if (m_child_nw->is_in(location)) return m_child_nw->add(body, location);
-      else if (m_child_ne->is_in(location)) return m_child_ne->add(body, location);
-      else if (m_child_sw->is_in(location)) return m_child_sw->add(body, location);
-      else if (m_child_se->is_in(location)) return m_child_se->add(body, location);
+      else if (m_child_nw->is_in(body.get_location())) return m_child_nw->add(body);
+      else if (m_child_ne->is_in(body.get_location())) return m_child_ne->add(body);
+      else if (m_child_sw->is_in(body.get_location())) return m_child_sw->add(body);
+      else if (m_child_se->is_in(body.get_location())) return m_child_se->add(body);
       return false;
    }
        
@@ -214,11 +214,11 @@ private:
    std::shared_ptr<cquadnode<T>> m_child_se;
    std::shared_ptr<cquadnode<T>> m_parent;
         
-   std::vector<T> m_bodies;
-   mzlib::cmass_centre m_mass_centre;
+   std::vector<cbinded_mass_centre<T>> m_bodies;
+   cbinded_mass_centre<T> m_mass_centre;
         
-   mzlib::math::cvector2d m_top_left;
-   mzlib::math::cvector2d m_bottom_right;
+   math::cvector2d m_top_left;
+   math::cvector2d m_bottom_right;
 };
 
 } // namespace mzlib

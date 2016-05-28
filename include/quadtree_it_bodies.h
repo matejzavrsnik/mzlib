@@ -14,14 +14,15 @@ namespace mzlib {
 // Const iterator through all bodies
 // Order of traversal: parent -> nw -> ne -> sw -> se -> parent
 template<class T>
-class quadtree_it_bodies : public std::iterator<std::forward_iterator_tag, T>
+class quadtree_it_bodies : 
+   public std::iterator<std::forward_iterator_tag, cbinded_mass_centre<T>>
 {
 
 private:
 
    cquadnode<T>* m_start_node;
    cquadnode<T>* m_leaf;
-   typename std::vector<T>::iterator m_body_it;
+   typename std::vector<cbinded_mass_centre<T>>::iterator m_body_it;
 
    cquadnode<T>* next_viable_leaf (const cquadnode<T>* const leaf) const 
    {
@@ -100,27 +101,27 @@ public:
    quadtree_it_bodies (quadtree_it_bodies&&) = default;
    quadtree_it_bodies (const quadtree_it_bodies&) = default;
 
-   quadtree_it_bodies* operator++ () 
+   quadtree_it_bodies<T>* operator++ () 
    { 
       return next_body(); 
    }
         
-   quadtree_it_bodies* operator++ (int) 
+   quadtree_it_bodies<T>* operator++ (int) 
    { 
       return next_body(); 
    }
 
-   T& operator-> () const
+   cbinded_mass_centre<T>* operator-> ()
    { 
-      return *m_body_it;
+      return &(*m_body_it);
    }
 
-   T& operator* () const
+   cbinded_mass_centre<T>& operator* ()
    { 
       return *m_body_it; 
    }
 
-   bool operator== (const quadtree_it_bodies& other) const 
+   bool operator== (const quadtree_it_bodies<T>& other) const 
    { 
       // Infinite recursion guard
       if(this == &other) return true;
@@ -133,7 +134,7 @@ public:
          this->m_start_node == other.m_start_node);  
    }
 
-   bool operator!= (const quadtree_it_bodies& other) const 
+   bool operator!= (const quadtree_it_bodies<T>& other) const 
    { 
       return !(*this == other); 
    }

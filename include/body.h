@@ -11,29 +11,23 @@
 
 namespace mzlib {
 
-class cbody : public cbinded_mass_centre<std::string>
+class cbody_forces
 {
 
 public:
-        
-   cbody() : 
-      cbinded_mass_centre<std::string>() 
-   {
-   }
 
-   explicit cbody(const std::string& binded_data) : 
-       cbinded_mass_centre<std::string>(binded_data), 
+   cbody_forces() :  
        m_force(), 
        m_velocity(), 
        m_gravity() 
    {
    }
         
-   cbody(const cbody&) = default;
-   cbody(cbody && ) = default;
-   cbody& operator=(const cbody&) = default;
-   cbody& operator=(cbody&&) = default;
-   ~cbody() = default;
+   cbody_forces(const cbody_forces&) = default;
+   cbody_forces(cbody_forces && ) = default;
+   cbody_forces& operator=(const cbody_forces&) = default;
+   cbody_forces& operator=(cbody_forces&&) = default;
+   ~cbody_forces() = default;
         
    void set_velocity (const math::cvector2d& velocity) 
    { 
@@ -63,14 +57,35 @@ public:
    void set_force (const math::cvector2d& force) 
    { 
       m_force = force; 
-   }       
+   }
+   
+   void set_name (const std::string& name) 
+   { 
+      m_name = name; 
+   }
+   
+   bool operator== (cbody_forces& other)
+   {
+      if (&other == this) {
+         return true;
+      }
+      return (this->m_name == other.m_name);
+   }
+   
+   bool operator!= (cbody_forces& other)
+   {
+      return !(*this == other);
+   }
 
 private:
         
    math::cvector2d m_force;
    math::cvector2d m_velocity;
    math::cvector2d m_gravity;
+   std::string m_name; //todo: make identifiable by some other means
 };
+
+using cbody = cbinded_mass_centre<cbody_forces>;
 
 } // namespace mzlib
 

@@ -45,9 +45,15 @@ public:
    cquadtree& operator= (cquadtree&&) = delete;
    virtual ~cquadtree () = default;
         
-   bool add (T body, math::cvector2d location) 
+   bool add (cbinded_mass_centre<T> body) 
    { 
-      return m_root->add(body, location); 
+      return m_root->add(body); 
+   }
+   
+   bool add (T data, math::cvector2d location, double mass = 0) 
+   { 
+      auto body = cbinded_mass_centre<T>(data, location, mass);
+      return m_root->add(body); 
    }
 
    bool is_in (math::cvector2d location) const 
