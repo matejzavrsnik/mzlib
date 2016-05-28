@@ -22,7 +22,7 @@ private:
 
    cquadnode<T>* m_start_node;
    cquadnode<T>* m_leaf;
-   typename std::vector<cbinded_mass_centre<T>>::iterator m_body_it;
+   typename std::vector<std::shared_ptr<cbinded_mass_centre<T>>>::iterator m_body_it;
 
    cquadnode<T>* next_viable_leaf (const cquadnode<T>* const leaf) const 
    {
@@ -111,16 +111,18 @@ public:
       return next_body(); 
    }
 
+   //todo: rethink: allowing non-const access to mass centres might break quadtree integrity.
+   //      for instance, changing location on body can make it be in wrong node.
    cbinded_mass_centre<T>* operator-> ()
    { 
-      return &(*m_body_it);
+      return (*m_body_it).get();
    }
 
    cbinded_mass_centre<T>& operator* ()
    { 
-      return *m_body_it; 
+      return *(*m_body_it); 
    }
-
+   
    bool operator== (const quadtree_it_bodies<T>& other) const 
    { 
       // Infinite recursion guard

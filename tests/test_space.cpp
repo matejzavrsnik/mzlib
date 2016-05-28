@@ -69,7 +69,7 @@ TEST_F(test_space, sun_force_on_earth)
     earth.set_mass(mzlib::consts::earth_mass);
     
     space->add_body(sun);
-	space->add_body(earth);
+	 space->add_body(earth);
     space->calculate_forces();
     
     mzlib::math::cvector2d f_sun = space->find_body(sun)->get_binded_data().get_force();

@@ -30,6 +30,12 @@ public:
       m_mass(mass) 
    {
    }
+   
+   cmass_centre(const cmass_centre&) = default;
+   cmass_centre(cmass_centre && ) = default;
+   cmass_centre& operator=(const cmass_centre&) = default;
+   cmass_centre& operator=(cmass_centre&&) = default;
+   ~cmass_centre() = default;
         
    void set_mass (double mass)
    { 
@@ -111,6 +117,12 @@ public:
       cmass_centre(location, mass)
    {
    }
+   
+   cbinded_mass_centre(const cbinded_mass_centre&) = default;
+   cbinded_mass_centre(cbinded_mass_centre && ) = default;
+   cbinded_mass_centre& operator=(const cbinded_mass_centre&) = default;
+   cbinded_mass_centre& operator=(cbinded_mass_centre&&) = default;
+   ~cbinded_mass_centre() = default;
    
    T& get_binded_data()
    {

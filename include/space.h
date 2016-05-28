@@ -52,7 +52,7 @@ public:
       m_bodies.add(body);
    }
    
-   cbody* find_body (cbody& body)
+   const cbody* find_body (cbody& body)
    {
       for (cbody& found : m_bodies) {
          if (found.get_binded_data() == body.get_binded_data()) {

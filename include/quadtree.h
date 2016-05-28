@@ -46,19 +46,22 @@ public:
         
    bool add (cbinded_mass_centre<T> body) 
    { 
-      return m_root->add(body); 
+      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
+         std::make_shared<cbinded_mass_centre<T>>(body);
+      return m_root->add(mass_centre_ptr); 
    }
    
    bool add (T data, math::cvector2d location, double mass = 0) 
    { 
-      auto body = cbinded_mass_centre<T>(data, location, mass);
-      return m_root->add(body); 
+      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
+         std::make_shared<cbinded_mass_centre<T>>(data, location, mass);
+      return m_root->add(mass_centre_ptr); 
    }
    
    bool remove (const T data)
    {
       //todo: I need to find mass centre here and in node, that is crazy. rethink.
-      const cbinded_mass_centre<T>* const body = find(data);
+      const cbinded_mass_centre<T>* body = find(data);
       if(body != nullptr) {
          m_root->remove(*body);
          return true;
@@ -75,7 +78,7 @@ public:
 
    const cbinded_mass_centre<T>* find (T data)
    {
-      for (cbinded_mass_centre<T>& body : *this) {
+      for (const mzlib::cbinded_mass_centre<int>& body : *this) {
          if (body.get_binded_data() == data) {
             return &body;
          }

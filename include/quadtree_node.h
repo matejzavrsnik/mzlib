@@ -75,20 +75,20 @@ public:
       }
    }
 
-   bool add (cbinded_mass_centre<T> body) 
+   bool add (std::shared_ptr<cbinded_mass_centre<T>> body_ptr) 
    {
-      if (is_in(body.get_location())) {
-         m_mass_centre.add_to_mass_centre(body);
+      if (is_in(body_ptr->get_location())) {
+         m_mass_centre.add_to_mass_centre(*body_ptr);
       }
-      if (is_leaf() && (is_in(body.get_location()))) { 
+      if (is_leaf() && (is_in(body_ptr->get_location()))) { 
          // at this point is leaf and body is within node bounds
-         m_bodies.push_back(body);
+         m_bodies.push_back(body_ptr);
          return true;
       }
-      else if (m_child_nw->is_in(body.get_location())) return m_child_nw->add(body);
-      else if (m_child_ne->is_in(body.get_location())) return m_child_ne->add(body);
-      else if (m_child_sw->is_in(body.get_location())) return m_child_sw->add(body);
-      else if (m_child_se->is_in(body.get_location())) return m_child_se->add(body);
+      else if (m_child_nw->is_in(body_ptr->get_location())) return m_child_nw->add(body_ptr);
+      else if (m_child_ne->is_in(body_ptr->get_location())) return m_child_ne->add(body_ptr);
+      else if (m_child_sw->is_in(body_ptr->get_location())) return m_child_sw->add(body_ptr);
+      else if (m_child_se->is_in(body_ptr->get_location())) return m_child_se->add(body_ptr);
       return false;
    }
    
@@ -100,11 +100,11 @@ public:
       if (is_leaf() && is_in(body.get_location())) { 
          // at this point is leaf and body is within node bounds
          auto found_body = std::find_if(m_bodies.begin(), m_bodies.end(), 
-            [&](cbinded_mass_centre<T>& mc) { 
-               return mc.get_binded_data() == body.get_binded_data(); 
+            [&](std::shared_ptr<cbinded_mass_centre<T>> mc) { 
+               return mc->get_binded_data() == body.get_binded_data(); 
          });
          if(found_body != m_bodies.end()) {
-            m_mass_centre.remove_from_mass_centre(*found_body);
+            m_mass_centre.remove_from_mass_centre(**found_body);
             return true;
          }
          else {
@@ -254,7 +254,7 @@ private:
    std::shared_ptr<cquadnode<T>> m_child_se;
    std::shared_ptr<cquadnode<T>> m_parent;
         
-   std::vector<cbinded_mass_centre<T>> m_bodies;
+   std::vector<std::shared_ptr<cbinded_mass_centre<T>>> m_bodies;
    cbinded_mass_centre<T> m_mass_centre;
         
    math::cvector2d m_top_left;
