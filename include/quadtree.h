@@ -54,7 +54,35 @@ public:
       auto body = cbinded_mass_centre<T>(data, location, mass);
       return m_root->add(body); 
    }
+   
+   bool remove (const T data)
+   {
+      //todo: I need to find mass centre here and in node, that is crazy. rethink.
+      const cbinded_mass_centre<T>* const body = find(data);
+      if(body != nullptr) {
+         m_root->remove(*body);
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+   
+   const cmass_centre& get_mass_centre () const
+   {
+      return m_root->get_mass_centre();
+   }
 
+   const cbinded_mass_centre<T>* find (T data)
+   {
+      for (cbinded_mass_centre<T>& body : *this) {
+         if (body.get_binded_data() == data) {
+            return &body;
+         }
+      }
+      return nullptr; // not found
+   }
+   
    bool is_in (math::cvector2d location) const 
    { 
       return m_root->is_in(location); 

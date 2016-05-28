@@ -121,6 +121,56 @@ TEST_F(test_cquadtree, add)
    }
 }
 
+TEST_F(test_cquadtree, find_body_basic)
+{
+   m_tree2.add(1, {25,25}, 100);
+   m_tree2.add(2, {-25,-25}, 100);
+   const mzlib::cbinded_mass_centre<int>* one = m_tree2.find(1);
+   const mzlib::cbinded_mass_centre<int>* two = m_tree2.find(2);
+   ASSERT_NE(nullptr, one);
+   ASSERT_NE(nullptr, two);
+   ASSERT_EQ(1, one->get_binded_data());
+   ASSERT_EQ(2, two->get_binded_data());
+}
+
+TEST_F(test_cquadtree, find_body_not_found)
+{
+   m_tree2.add(1, {25,25}, 100);
+   m_tree2.add(2, {-25,-25}, 100);
+   const mzlib::cbinded_mass_centre<int>* three = m_tree2.find(3);
+   ASSERT_EQ(nullptr, three);
+}
+
+TEST_F(test_cquadtree, remove_body_when_tree_empty)
+{
+   bool success = m_tree2.remove(2);
+   ASSERT_FALSE(success);
+}
+
+TEST_F(test_cquadtree, remove_body_last_body)
+{
+   m_tree2.add(1, {25,25}, 100);
+   bool success = m_tree2.remove(1);
+   ASSERT_TRUE(success);
+}
+
+TEST_F(test_cquadtree, remove_body_that_doesnt_exist)
+{
+   m_tree2.add(1, {25,25}, 100);
+   bool success = m_tree2.remove(2);
+   ASSERT_FALSE(success);
+}
+
+// break this test into more specific ones
+TEST_F(test_cquadtree, mass_centre_maintenance_basic)
+{
+   m_tree2.add(1, {25,25}, 100);
+   m_tree2.add(2, {-25,-25}, 100);
+   ASSERT_EQ(200, m_tree2.get_mass_centre().get_mass());
+   bool success = m_tree2.remove(1);
+   ASSERT_EQ(100, m_tree2.get_mass_centre().get_mass());
+}
+
 TEST_F(test_cquadtree, iterator_it_postorder)
 {
    double node_width = 25;

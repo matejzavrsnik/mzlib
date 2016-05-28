@@ -117,9 +117,9 @@ public:
       return m_binded_data;
    }
    
-   void set_binded_data(const T& binded_data)
+   const T& get_binded_data() const
    {
-      m_binded_data = binded_data;
+      return m_binded_data;
    }
    
 };

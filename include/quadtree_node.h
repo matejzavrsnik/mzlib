@@ -77,7 +77,10 @@ public:
 
    bool add (cbinded_mass_centre<T> body) 
    {
-      if (is_leaf() && is_in(body.get_location())) { 
+      if (is_in(body.get_location())) {
+         m_mass_centre.add_to_mass_centre(body);
+      }
+      if (is_leaf() && (is_in(body.get_location()))) { 
          // at this point is leaf and body is within node bounds
          m_bodies.push_back(body);
          return true;
@@ -88,7 +91,43 @@ public:
       else if (m_child_se->is_in(body.get_location())) return m_child_se->add(body);
       return false;
    }
-       
+   
+   bool remove (cbinded_mass_centre<T> body) 
+   {
+      if (is_in(body.get_location())) {
+         m_mass_centre.remove_from_mass_centre(body);
+      }
+      if (is_leaf() && is_in(body.get_location())) { 
+         // at this point is leaf and body is within node bounds
+         auto found_body = std::find_if(m_bodies.begin(), m_bodies.end(), 
+            [&](cbinded_mass_centre<T>& mc) { 
+               return mc.get_binded_data() == body.get_binded_data(); 
+         });
+         if(found_body != m_bodies.end()) {
+            m_mass_centre.remove_from_mass_centre(*found_body);
+            return true;
+         }
+         else {
+            return false;
+         }
+      }
+      else if (m_child_nw->is_in(body.get_location())) return m_child_nw->remove(body);
+      else if (m_child_ne->is_in(body.get_location())) return m_child_ne->remove(body);
+      else if (m_child_sw->is_in(body.get_location())) return m_child_sw->remove(body);
+      else if (m_child_se->is_in(body.get_location())) return m_child_se->remove(body);
+      return false;
+   }
+   
+   const std::vector<cbinded_mass_centre<T>>& get_bodies () const
+   {
+      return m_bodies;
+   }
+   
+   const cmass_centre& get_mass_centre() const
+   {
+      return m_mass_centre;
+   }
+   
    bool is_in(math::cvector2d location)
    {
       if (location[0] >  m_top_left[0] && 
