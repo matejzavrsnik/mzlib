@@ -62,7 +62,7 @@ public:
       return nullptr;
    }
         
-   cquadtree<cbody_forces>& get_bodies ()
+   cquadtree<cbody_properties>& get_bodies ()
    {
       return m_bodies;
    }
@@ -132,7 +132,7 @@ public:
         
 private:
 
-   cquadtree<cbody_forces> m_bodies;
+   cquadtree<cbody_properties> m_bodies;
    double m_gravitational_constant = consts::gravitational_constant;
    double m_max_velocity = consts::light_speed;
    interface_law_of_gravitation m_fun_law_of_gravitation = universal_law_of_gravitation;

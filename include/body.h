@@ -5,12 +5,12 @@
 #ifndef BODY_H
 #define	BODY_H
 
-#include <memory>
 #include "vector.h"
 #include "mass_centre.h"
+#include "utilities.h"
 
 namespace mzlib {
-
+   
 class cbody_forces
 {
 
@@ -58,34 +58,35 @@ public:
    { 
       m_force = force; 
    }
-   
-   void set_name (const std::string& name) 
-   { 
-      m_name = name; 
-   }
-   
-   bool operator== (cbody_forces& other)
-   {
-      if (&other == this) {
-         return true;
-      }
-      return (this->m_name == other.m_name);
-   }
-   
-   bool operator!= (cbody_forces& other)
-   {
-      return !(*this == other);
-   }
 
 private:
         
    math::cvector2d m_force;
    math::cvector2d m_velocity;
    math::cvector2d m_gravity;
-   std::string m_name; //todo: make identifiable by some other means
+
 };
 
-using cbody = cbinded_mass_centre<cbody_forces>;
+class cbody_properties : public cbody_forces, public util::cunique 
+{
+
+public:
+   
+   bool operator== (cbody_properties& other)
+   {
+      if (&other == this) {
+         return true;
+      }
+      return (this->id() == other.id());
+   }
+   
+   bool operator!= (cbody_properties& other)
+   {
+      return !(*this == other);
+   }
+};
+
+using cbody = cbinded_mass_centre<cbody_properties>;
 
 } // namespace mzlib
 

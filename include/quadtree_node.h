@@ -5,6 +5,7 @@
 #ifndef QUADTREE_NODE_H
 #define	QUADTREE_NODE_H
 
+#include <memory>
 #include "vector.h"
 #include "mass_centre.h"
 

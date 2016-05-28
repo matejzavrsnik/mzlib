@@ -62,13 +62,11 @@ TEST_F(test_space, big_ben_force_on_empire_state_building)
 TEST_F(test_space, sun_force_on_earth)
 {
     mzlib::cbody sun;
-    sun.get_binded_data().set_name("sun");
     sun.set_mass(mzlib::consts::sun_mass); // 1.99e30
     
     mzlib::cbody earth;
     earth.set_location({0,mzlib::consts::earth_distance_sun_average});
     earth.set_mass(mzlib::consts::earth_mass);
-    earth.get_binded_data().set_name("earth");
     
     space->add_body(sun);
 	space->add_body(earth);

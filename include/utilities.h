@@ -23,6 +23,39 @@
 namespace mzlib {
 namespace util {
 
+// adds to objects a capability to be easily identifiable across copies of itself
+class cunique
+{
+   
+private:
+   
+   int m_id;
+   
+   static int get_unique_int()
+   {
+      static int m_unique_int = 0;
+      return ++m_unique_int;
+   }
+   
+public:
+   
+   cunique()
+   {
+      m_id = get_unique_int();
+   }
+   
+   cunique(const cunique&) = default;
+   cunique(cunique && ) = default;
+   cunique& operator=(const cunique&) = default;
+   cunique& operator=(cunique&&) = default;
+   ~cunique() = default;   
+   
+   int id()
+   {
+      return m_id;
+   }
+};
+   
 // to compare doubles for equality
 class dbl
 {

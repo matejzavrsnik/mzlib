@@ -327,4 +327,20 @@ TEST_F(test_utilities, sentence_assemblarator_paretheses_handling) {
     ASSERT_EQ(sentence, "Veni (vidi dormivi)."); 
 }
 
+TEST_F(test_utilities, unique_basic) {
+    cunique a;
+    cunique b;
+    ASSERT_NE(a.id(), b.id()); 
+}
+
+TEST_F(test_utilities, unique_on_copy) {
+    cunique a;
+    cunique b;
+    cunique c(a);
+    cunique d = a;
+    ASSERT_NE(a.id(), b.id());
+    ASSERT_EQ(a.id(), c.id());
+    ASSERT_EQ(a.id(), d.id());
+}
+
 }
