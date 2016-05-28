@@ -4,3 +4,4 @@
 .dep.inc
 *.swp
 .directory
+*.original
