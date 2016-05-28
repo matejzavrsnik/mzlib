@@ -14,7 +14,7 @@ namespace mzlib {
 
 // Post-order iterator through all nodes
 template<class T>
-class quadtree_it_breadthfirst : public std::iterator<std::forward_iterator_tag, T>
+class quadtree_it_nodes_breadthfirst : public std::iterator<std::forward_iterator_tag, T>
 {
 
 private:
@@ -37,23 +37,23 @@ private:
         
 public:
 
-   explicit quadtree_it_breadthfirst(cquadnode<T>* node)
+   explicit quadtree_it_nodes_breadthfirst(cquadnode<T>* node)
    { 
       if (node!=nullptr) {
          m_queue.push(node);
       }
    }
 
-   quadtree_it_breadthfirst (quadtree_it_breadthfirst&&) = default;
-   quadtree_it_breadthfirst (const quadtree_it_breadthfirst&) = default;
+   quadtree_it_nodes_breadthfirst (quadtree_it_nodes_breadthfirst&&) = default;
+   quadtree_it_nodes_breadthfirst (const quadtree_it_nodes_breadthfirst&) = default;
 
-   quadtree_it_breadthfirst* operator++ () 
+   quadtree_it_nodes_breadthfirst* operator++ () 
    { 
       next_node();
       return this;
    }
         
-   quadtree_it_breadthfirst* operator++ (int) 
+   quadtree_it_nodes_breadthfirst* operator++ (int) 
    { 
       next_node();
       return this;
@@ -69,7 +69,7 @@ public:
       return *m_queue.front(); 
    }
 
-   bool operator== (const quadtree_it_breadthfirst& other) const 
+   bool operator== (const quadtree_it_nodes_breadthfirst& other) const 
    { 
       // Infinite recursion guard
       if (this == &other) return true;
@@ -77,7 +77,7 @@ public:
       return (this->m_queue.size() == other.m_queue.size());  
    }
 
-   bool operator!= (const quadtree_it_breadthfirst& other) const 
+   bool operator!= (const quadtree_it_nodes_breadthfirst& other) const 
    { 
       return !(*this == other); 
    }

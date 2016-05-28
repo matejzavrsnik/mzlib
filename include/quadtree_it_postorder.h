@@ -14,7 +14,7 @@ namespace mzlib {
 
 // Post-order iterator through all nodes
 template<class T>
-class quadtree_it_postorder : public std::iterator<std::forward_iterator_tag, T>
+class quadtree_it_nodes_postorder : public std::iterator<std::forward_iterator_tag, T>
 {
 
    private:
@@ -51,7 +51,7 @@ class quadtree_it_postorder : public std::iterator<std::forward_iterator_tag, T>
         
 public:
 
-   explicit quadtree_it_postorder (cquadnode<T>* node) : 
+   explicit quadtree_it_nodes_postorder (cquadnode<T>* node) : 
       m_current_node(node)
    { 
       if (node!=nullptr) {
@@ -61,16 +61,16 @@ public:
       }
    }
 
-   quadtree_it_postorder (quadtree_it_postorder&&) = default;
-   quadtree_it_postorder (const quadtree_it_postorder&) = default;
+   quadtree_it_nodes_postorder (quadtree_it_nodes_postorder&&) = default;
+   quadtree_it_nodes_postorder (const quadtree_it_nodes_postorder&) = default;
 
-   quadtree_it_postorder* operator++ () 
+   quadtree_it_nodes_postorder* operator++ () 
    { 
       next_node();
       return this;
    }
         
-   quadtree_it_postorder* operator++ (int) 
+   quadtree_it_nodes_postorder* operator++ (int) 
    { 
       next_node();
       return this;
@@ -86,7 +86,7 @@ public:
       return *m_current_node; 
    }
 
-   bool operator== (const quadtree_it_postorder& other) const 
+   bool operator== (const quadtree_it_nodes_postorder& other) const 
    { 
       // Infinite recursion guard
       if (this == &other) return true;
@@ -96,7 +96,7 @@ public:
          this->m_current_node == other.m_current_node);  
    }
 
-   bool operator!= (const quadtree_it_postorder& other) const 
+   bool operator!= (const quadtree_it_nodes_postorder& other) const 
    { 
       return !(*this == other); 
    }

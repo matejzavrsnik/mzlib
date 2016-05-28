@@ -24,11 +24,10 @@ private:
     
 public:
        
-   // Following is just for easier coding and most developers will expect
-   // something like cquadtree::iterator to exist
-   typedef quadtree_it_bodies<T>       iterator;
-   typedef quadtree_it_postorder<T>    it_postorder;
-   typedef quadtree_it_breadthfirst<T> it_breadthfirst;
+   // because developers would expect cquadtree::iterators to exist
+   typedef quadtree_it_bodies<T>             it_bodies;
+   typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
+   typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
       
    cquadtree (
       const mzlib::math::cvector2d& top_left, 
@@ -61,34 +60,34 @@ public:
       return m_root->is_in(location); 
    }
 
-   iterator begin () 
+   it_bodies begin () 
    { 
-      return iterator(m_root.get()); 
+      return it_bodies(m_root.get()); 
    }
    
-   iterator end () 
+   it_bodies end () 
    { 
-      return iterator(nullptr); 
+      return it_bodies(nullptr); 
    }
         
-   it_postorder begin_nodes_postorder ()
+   it_nodes_postorder begin_nodes_postorder ()
    { 
-      return it_postorder(m_root.get()); 
+      return it_nodes_postorder(m_root.get()); 
    }
 
-   it_postorder end_nodes_postorder ()
+   it_nodes_postorder end_nodes_postorder ()
    {
-      return it_postorder(nullptr); 
+      return it_nodes_postorder(nullptr); 
    }
         
-   it_breadthfirst begin_nodes_breadthfirst ()
+   it_nodes_breadthfirst begin_nodes_breadthfirst ()
    { 
-      return it_breadthfirst(m_root.get()); 
+      return it_nodes_breadthfirst(m_root.get()); 
    }
    
-   it_breadthfirst end_nodes_breadthfirst ()
+   it_nodes_breadthfirst end_nodes_breadthfirst ()
    { 
-      return it_breadthfirst(nullptr); 
+      return it_nodes_breadthfirst(nullptr); 
    }
 }; 
     

@@ -242,7 +242,7 @@ TEST_F(test_cquadtree, iterator_order)
    m_tree2.add(body_ne, ne);
 
    // Check if they all turn out and in correct order nw -> ne -> sw -> se
-   mzlib::cquadtree<int>::iterator it = m_tree2.begin();
+   mzlib::cquadtree<int>::it_bodies it = m_tree2.begin();
    ASSERT_EQ(body_nw, it->get_binded_data()); ++it;
    ASSERT_EQ(body_ne, it->get_binded_data()); ++it;
    ASSERT_EQ(body_sw, it->get_binded_data()); ++it;
