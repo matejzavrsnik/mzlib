@@ -27,7 +27,7 @@ protected:
 
 // Tests
 
-TEST_F(test_cquadtree, barnes_hut_simulation)
+TEST_F(test_cquadtree, barnes_hut_simulation_basic)
 {
    const int node_width = 20;
    const int quadrant_width = 100;
@@ -35,9 +35,9 @@ TEST_F(test_cquadtree, barnes_hut_simulation)
       {-quadrant_width,-quadrant_width}, 
       {quadrant_width, quadrant_width}, 
       node_width};
-   //      -100 -60    0        100
-   //        |-80|-40  |         |
-   // -100 --o o o o o   o o o o o
+   //      -100 -60    0     60  100
+   //        |-80|-40  |     | 80|
+   // -100 --* o o o o   o o o o o  <-- nodes 4, 5, 6
    //  -80 --o o o o o   o o o o o
    //  -60 --o o o o o   o o o o o
    //  -40 --o o o o o   o o o o o
@@ -46,27 +46,37 @@ TEST_F(test_cquadtree, barnes_hut_simulation)
    //        o o o o o   o o o o o
    //        o o o o o   o o o o o
    //        o o o o o   o o o o o
-   //        o o o o o   o o o o o
-   //  100 --o o o o o   o o o o o
-   tree3.add(0, {-89, -89}); // put three bodies into upper left most node
-   tree3.add(1, {-90, -90});
-   tree3.add(2, {-91, -91});
-   mzlib::math::cvector2d source_body_loc = { 90,  90};
-   int source_body = 3;
-   tree3.add(source_body, source_body_loc); // put one into lower right most node
-   mzlib::math::cvector2d nearby_body_loc = { 70,  70};
-   int nearby_body = 4;
-   tree3.add(nearby_body, nearby_body_loc); // put one into the neighbouring node
+   //        o o o o o   o o o * o  <-- nodes 2, 3
+   //  100 --o o o o o   o o o o *  <-- nodes 1
    
-   /*
-   double quotient = node_width / quadrant_width; // sort of covers own quadrant
-   for(mzphysics::cquadtree<int>::mass_centres_iterator mass_centres = 
-       tree.mc_begin(quotient, source_body_loc, source_body);
-       mass_centres != tree.mc_end();
-       ++mass_centres) {
-     
-   }
-   */
+   // put one into lower right most node
+   tree3.add(1, { 91,  91}, 11); 
+   // put two into the neighbouring node
+   tree3.add(2, { 72,  72}, 12);
+   tree3.add(3, { 73,  73}, 13);
+   // finally, put three bodies into upper left most node
+   tree3.add(4, {-94, -94}, 14); 
+   tree3.add(5, {-95, -95}, 15);
+   tree3.add(6, {-96, -96}, 16);
+
+   // sort of covers own quadrant, so from 0,0 to 100,100
+   double quotient = (double)node_width / (double)quadrant_width;
+   // first, a neighbouring body
+   mzlib::cquadtree<int>::it_masscentres mass_centres_it = tree3.begin_masscentres(1, quotient);
+   ASSERT_TRUE(mass_centres_it->get_location() == mzlib::math::cvector2d({72,72}));
+   ASSERT_TRUE(mass_centres_it->get_mass() == 12);
+   // second, a second neighbouring body
+   ++mass_centres_it;
+   ASSERT_TRUE(mass_centres_it->get_location() == mzlib::math::cvector2d({73,73}));
+   ASSERT_TRUE(mass_centres_it->get_mass() == 13);
+   // third, average mass centres of three far bodies
+   ++mass_centres_it;
+   ASSERT_TRUE(mass_centres_it->get_location() == mzlib::math::cvector2d({-95,-95})); // not quite
+   ASSERT_TRUE(mass_centres_it->get_mass() == 45);
+   // fourth, the end
+   ++mass_centres_it;
+   ASSERT_TRUE(mass_centres_it == tree3.end_masscentres());
+   
 }
 
 TEST_F(test_cquadtree, add)

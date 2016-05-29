@@ -7,6 +7,7 @@
 
 #include "quadtree_node.h"
 #include "quadtree_it_bodies.h"
+#include "quadtree_it_masscentres.h"
 #include "quadtree_it_postorder.h"
 #include "quadtree_it_breadthfirst.h"
 #include "vector.h"
@@ -26,6 +27,7 @@ public:
        
    // because developers would expect cquadtree::iterators to exist
    typedef quadtree_it_bodies<T>             it_bodies;
+   typedef quadtree_it_masscentres<T>        it_masscentres;
    typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
    typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
       
@@ -94,6 +96,8 @@ public:
 
    it_bodies begin () 
    { 
+      //todo: to iterate bodies in no determined order, I dont need special iterator 
+      //      anymore, because the root node will have pointers to all nodes underneath
       return it_bodies(m_root.get()); 
    }
    
@@ -102,6 +106,16 @@ public:
       return it_bodies(nullptr); 
    }
         
+   it_masscentres begin_masscentres (const T& data, double quotient)
+   {
+      return it_masscentres(data, quotient);
+   }
+   
+   it_masscentres end_masscentres ()
+   {
+      return it_masscentres();
+   }
+   
    it_nodes_postorder begin_nodes_postorder ()
    { 
       return it_nodes_postorder(m_root.get()); 
