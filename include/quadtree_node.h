@@ -75,52 +75,45 @@ public:
       }
    }
 
-   bool add (std::shared_ptr<cbinded_mass_centre<T>> body_ptr) 
+   void add (std::shared_ptr<cbinded_mass_centre<T>> mass_centre) 
    {
-      if (is_in(body_ptr->get_location())) {
-         m_mass_centre.add_to_mass_centre(*body_ptr);
+      if (is_in(mass_centre->get_location())) {
+         // insert
+         m_bodies.push_back(mass_centre);
+         m_mass_centre.add_to_mass_centre(*mass_centre);
+         if (is_leaf()) return; // nothing more to do
+         // if has children, insert there as well
+         if      (m_child_nw->is_in(mass_centre->get_location())) m_child_nw->add(mass_centre);
+         else if (m_child_ne->is_in(mass_centre->get_location())) m_child_ne->add(mass_centre);
+         else if (m_child_sw->is_in(mass_centre->get_location())) m_child_sw->add(mass_centre);
+         else if (m_child_se->is_in(mass_centre->get_location())) m_child_se->add(mass_centre);
       }
-      if (is_leaf() && (is_in(body_ptr->get_location()))) { 
-         // at this point is leaf and body is within node bounds
-         m_bodies.push_back(body_ptr);
-         return true;
-      }
-      else if (m_child_nw->is_in(body_ptr->get_location())) return m_child_nw->add(body_ptr);
-      else if (m_child_ne->is_in(body_ptr->get_location())) return m_child_ne->add(body_ptr);
-      else if (m_child_sw->is_in(body_ptr->get_location())) return m_child_sw->add(body_ptr);
-      else if (m_child_se->is_in(body_ptr->get_location())) return m_child_se->add(body_ptr);
-      return false;
    }
    
-   bool remove (cbinded_mass_centre<T> body) 
+   bool remove (const T& data) 
    {
-      if (is_in(body.get_location())) {
-         m_mass_centre.remove_from_mass_centre(body);
-      }
-      if (is_leaf() && is_in(body.get_location())) { 
-         // at this point is leaf and body is within node bounds
-         auto found_body = std::find_if(m_bodies.begin(), m_bodies.end(), 
-            [&](std::shared_ptr<cbinded_mass_centre<T>> mc) { 
-               return mc->get_binded_data() == body.get_binded_data(); 
-         });
-         if(found_body != m_bodies.end()) {
-            m_mass_centre.remove_from_mass_centre(**found_body);
-            return true;
-         }
-         else {
-            return false;
-         }
-      }
-      else if (m_child_nw->is_in(body.get_location())) return m_child_nw->remove(body);
-      else if (m_child_ne->is_in(body.get_location())) return m_child_ne->remove(body);
-      else if (m_child_sw->is_in(body.get_location())) return m_child_sw->remove(body);
-      else if (m_child_se->is_in(body.get_location())) return m_child_se->remove(body);
+      // downside of this approach: every subnode needs to find mass centre in it's own collection
+      // try to find the body in collection of bodies in this node
+      auto mass_centre_it = std::find_if (m_bodies.begin(), m_bodies.end(), 
+         [&](std::shared_ptr<cbinded_mass_centre<T>> mass_centre) { 
+            return mass_centre->get_binded_data() == data; 
+      });
+      // if no such mass centre here, go away
+      if (mass_centre_it == m_bodies.end()) return false; 
+      // if found, convert to mass centre ptr
+      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = *mass_centre_it;
+      // start removing
+      // no need to check if it is in the node, because of course it is; checked earlier
+      m_bodies.erase(mass_centre_it);
+      m_mass_centre.remove_from_mass_centre(*mass_centre_ptr);
+      // if leaf, this operation is done
+      if (is_leaf()) return true;
+      // if not leaf, delete in children too
+      if      (m_child_nw->is_in(mass_centre_ptr->get_location())) return m_child_nw->remove(data);
+      else if (m_child_ne->is_in(mass_centre_ptr->get_location())) return m_child_ne->remove(data);
+      else if (m_child_sw->is_in(mass_centre_ptr->get_location())) return m_child_sw->remove(data);
+      else if (m_child_se->is_in(mass_centre_ptr->get_location())) return m_child_se->remove(data);
       return false;
-   }
-   
-   const std::vector<cbinded_mass_centre<T>>& get_bodies () const
-   {
-      return m_bodies;
    }
    
    const cmass_centre& get_mass_centre() const

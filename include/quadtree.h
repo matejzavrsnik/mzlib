@@ -44,31 +44,32 @@ public:
    cquadtree& operator= (cquadtree&&) = delete;
    virtual ~cquadtree () = default;
         
-   bool add (cbinded_mass_centre<T> body) 
-   { 
+   bool add (cbinded_mass_centre<T> mass_centre) 
+   {
+      if (!m_root->is_in(mass_centre.get_location())) {
+         return false;
+      }
       std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
-         std::make_shared<cbinded_mass_centre<T>>(body);
-      return m_root->add(mass_centre_ptr); 
+         std::make_shared<cbinded_mass_centre<T>>(mass_centre);
+      m_root->add(mass_centre_ptr);
+      return true; 
    }
    
    bool add (T data, math::cvector2d location, double mass = 0) 
    { 
-      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
-         std::make_shared<cbinded_mass_centre<T>>(data, location, mass);
-      return m_root->add(mass_centre_ptr); 
-   }
-   
-   bool remove (const T data)
-   {
-      //todo: I need to find mass centre here and in node, that is crazy. rethink.
-      const cbinded_mass_centre<T>* body = find(data);
-      if(body != nullptr) {
-         m_root->remove(*body);
-         return true;
-      }
-      else {
+      if (!is_in(location)) {
+         //todo: expand tree instead
          return false;
       }
+      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
+         std::make_shared<cbinded_mass_centre<T>>(data, location, mass);
+      m_root->add(mass_centre_ptr); //todo: take care of name consistency body/mass_centre
+      return true; 
+   }
+   
+   bool remove (const T& data)
+   {
+      return m_root->remove(data);
    }
    
    const cmass_centre& get_mass_centre () const
