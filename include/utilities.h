@@ -1,5 +1,8 @@
-// 
-// Author: Matej Zavrsnik (matejzavrsnik.com)
+//
+// Copyright (c) 2015 Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
 //
 
 #ifndef UTILITIES_H

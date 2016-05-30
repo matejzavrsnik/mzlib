@@ -1,6 +1,10 @@
-// 
-// Author: Matej Zavrsnik (matejzavrsnik.com)
 //
+// Copyright (c) 2015 Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
+//
+
 
 #ifndef MASS_CENTRE_H
 #define	MASS_CENTRE_H

@@ -1,5 +1,8 @@
-// 
-// Author: Matej Zavrsnik (matejzavrsnik.com)
+//
+// Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
 //
 
 #include "gtest/gtest.h"

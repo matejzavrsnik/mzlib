@@ -1,6 +1,10 @@
 //
-// I am not really and author of this, apart from cosmetics.
 // Code heavily influenced by: http://stackoverflow.com/a/13772771
+//
+// Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
 //
 
 #ifndef CPUCYCLE_H

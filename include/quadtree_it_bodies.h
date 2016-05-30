@@ -1,5 +1,8 @@
-// 
-// Author: Matej Zavrsnik (matejzavrsnik.com)
+//
+// Copyright (c) 2015 Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
 //
 
 #ifndef QUADTREE_IT_BODIES_H
