@@ -5,20 +5,18 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/body.h"
 #include "../include/quadtree.h"
 #include "gtest/gtest.h"
 
 #include <functional>
 
-// The fixture    
-class test_cquadtree : public ::testing::Test 
+class fixture_cquadtree : public ::testing::Test 
 {
 
 protected:
 
-   test_cquadtree () {}
-   virtual ~test_cquadtree () {}
+   fixture_cquadtree () {}
+   virtual ~fixture_cquadtree () {}
    virtual void SetUp () {}
    virtual void TearDown () {}
 
@@ -30,9 +28,7 @@ protected:
 
 };
 
-// Tests
-
-TEST_F(test_cquadtree, barnes_hut_simulation_basic)
+TEST_F(fixture_cquadtree, barnes_hut_simulation_basic)
 {
    const int node_width = 20;
    const int quadrant_width = 100;
@@ -40,6 +36,7 @@ TEST_F(test_cquadtree, barnes_hut_simulation_basic)
       {-quadrant_width,-quadrant_width}, 
       {quadrant_width, quadrant_width}, 
       node_width};
+   
    //      -100 -60    0     60  100
    //        |-80|-40  |     | 80|
    // -100 --* o o o o   o o o o o  <-- bodies 4, 5, 6
@@ -72,7 +69,7 @@ TEST_F(test_cquadtree, barnes_hut_simulation_basic)
    for(; mass_centres_it != local_tree.end_masscentres(); ++mass_centres_it) {
       returned_mass_centres.push_back(*mass_centres_it);
    }
-
+   
    mzlib::math::cvector2d expected_location;
    double expected_mass;
    std::function<bool(mzlib::cmass_centre mc)> search_function = 
@@ -110,9 +107,10 @@ TEST_F(test_cquadtree, barnes_hut_simulation_basic)
    ASSERT_TRUE(found != returned_mass_centres.end());
   
 //todo: test with iterating for body that is not in the tree
+//todo: test with quotient 0
 }
 
-TEST_F(test_cquadtree, add)
+TEST_F(fixture_cquadtree, add)
 {
    struct t_coordinates {
       double x;
@@ -164,7 +162,7 @@ TEST_F(test_cquadtree, add)
    }
 }
 
-TEST_F(test_cquadtree, find_body_basic)
+TEST_F(fixture_cquadtree, find_body_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
@@ -176,7 +174,7 @@ TEST_F(test_cquadtree, find_body_basic)
    ASSERT_EQ(2, two->get_binded_data());
 }
 
-TEST_F(test_cquadtree, find_body_when_data_some_other_type)
+TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
 {
    mzlib::cquadtree<std::string> local_tree = {m_top_left, m_bottom_right, smallest_node_width};
    local_tree.add("one", {25,25}, 100);
@@ -189,7 +187,7 @@ TEST_F(test_cquadtree, find_body_when_data_some_other_type)
    ASSERT_EQ("two", two->get_binded_data());
 }
    
-TEST_F(test_cquadtree, find_body_not_found)
+TEST_F(fixture_cquadtree, find_body_not_found)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
@@ -197,20 +195,20 @@ TEST_F(test_cquadtree, find_body_not_found)
    ASSERT_EQ(nullptr, three);
 }
 
-TEST_F(test_cquadtree, remove_body_when_tree_empty)
+TEST_F(fixture_cquadtree, remove_body_when_tree_empty)
 {
    bool success = m_tree.remove(2);
    ASSERT_FALSE(success);
 }
 
-TEST_F(test_cquadtree, remove_body_last_body)
+TEST_F(fixture_cquadtree, remove_body_last_body)
 {
    m_tree.add(1, {25,25}, 100);
    bool success = m_tree.remove(1);
    ASSERT_TRUE(success);
 }
 
-TEST_F(test_cquadtree, remove_body_that_doesnt_exist)
+TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
 {
    m_tree.add(1, {25,25}, 100);
    bool success = m_tree.remove(2);
@@ -218,7 +216,7 @@ TEST_F(test_cquadtree, remove_body_that_doesnt_exist)
 }
 
 // break this test into more specific ones
-TEST_F(test_cquadtree, mass_centre_maintenance_basic)
+TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
@@ -227,7 +225,7 @@ TEST_F(test_cquadtree, mass_centre_maintenance_basic)
    ASSERT_EQ(100, m_tree.get_mass_centre().get_mass());
 }
 
-TEST_F(test_cquadtree, iterator_it_postorder)
+TEST_F(fixture_cquadtree, iterator_it_postorder)
 {
    double node_width = 25;
    mzlib::cquadtree<int> tree3 = {m_top_left, m_bottom_right, node_width};
@@ -278,7 +276,7 @@ TEST_F(test_cquadtree, iterator_it_postorder)
    ASSERT_TRUE(node == tree3.end_nodes_postorder());
 }
 
-TEST_F(test_cquadtree, iterator_it_breadthfirst)
+TEST_F(fixture_cquadtree, iterator_it_breadthfirst)
 {
    double node_width = 25;
    mzlib::cquadtree<int> tree3 = {m_top_left, m_bottom_right, node_width};
@@ -329,7 +327,7 @@ TEST_F(test_cquadtree, iterator_it_breadthfirst)
    ASSERT_TRUE(node == tree3.end_nodes_breadthfirst());
 }
 
-TEST_F(test_cquadtree, iterator_order)
+TEST_F(fixture_cquadtree, iterator_order)
 {
    mzlib::math::cvector2d se{ 25, 25};
    mzlib::math::cvector2d nw{-25,-25};
@@ -356,7 +354,7 @@ TEST_F(test_cquadtree, iterator_order)
    ASSERT_EQ(m_tree.end(), it);
 }
 
-TEST_F(test_cquadtree, iterator_one_node_many_bodies_other_nodes_none)
+TEST_F(fixture_cquadtree, iterator_one_node_many_bodies_other_nodes_none)
 {
    // Add many bodies to the same node
    const int number_of_bodies_inserted = 10;
@@ -370,7 +368,7 @@ TEST_F(test_cquadtree, iterator_one_node_many_bodies_other_nodes_none)
    ASSERT_EQ(number_of_bodies_inserted, bodies_seen);
 }
 
-TEST_F(test_cquadtree, iterator_many_bodies_each_node)
+TEST_F(fixture_cquadtree, iterator_many_bodies_each_node)
 {
    // just litter the tree with bodies
    int number_of_bodies_inserted = 0;

@@ -87,7 +87,7 @@ private:
          else if (node->m_bodies.size() > 0) {
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
             for(auto body : node->m_bodies) {
-               if(body->get_binded_data() == m_body->get_binded_data()) continue; // Skip original body
+               if (body->get_binded_data() == m_body->get_binded_data()) continue; // Skip original body
                m_mass_centres_queue.push(*body);
             }
             // Recurse: will pop first mass centre from queue
@@ -138,12 +138,12 @@ public:
    }
 
    cmass_centre& operator* ()
-   { 
+   {
       return m_next_mass_centre; 
    }
    
    bool operator== (const quadtree_it_masscentres<T>& other) const 
-   { 
+   {
       // Infinite recursion guard
       if (this == &other) return true;
       // Return equal only if they are both at the end. Other equalities are possible

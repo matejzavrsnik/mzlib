@@ -92,8 +92,8 @@ public:
          for (cbody& another_body : m_bodies) {
             if (&this_body != &another_body) {
                math::cvector2d gravity_force = m_fun_law_of_gravitation(
-                  &this_body, 
-                  &another_body, 
+                  this_body, 
+                  another_body, 
                   m_gravitational_constant);
                this_body.get_binded_data().add_force(gravity_force);
             }

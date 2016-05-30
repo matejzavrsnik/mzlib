@@ -10,21 +10,19 @@
 
 #include <fstream>
 
-// The fixture    
-class test_markov_chain : public ::testing::Test {
+class fixture_markov_chain : public ::testing::Test 
+{
 
 protected:
-     
-   test_markov_chain () {}
-   virtual ~test_markov_chain () {}
+   
+   fixture_markov_chain () {}
+   virtual ~fixture_markov_chain () {}
    virtual void SetUp() {}
    virtual void TearDown() {}
   
 };
 
-// Tests
-
-TEST_F(test_markov_chain, basic_test) 
+TEST_F(fixture_markov_chain, basic_test) 
 {
    mzlib::cmarkov_chain<int> markov_chain;
    // 1 -> 2 -> 1
