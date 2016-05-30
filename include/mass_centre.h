@@ -94,10 +94,15 @@ public:
    }
 };
 
-// cmass_centre will be hard to identify uniquely, because all members might be
-// floating point numbers. It is practical to allow binding it with some user
-// defined data, so that they can be marked in some way, either labelled or
-// equiped with unique id, or whatever.
+// Why is this binded mass centre class needed? Because mass centre is sometimes
+// not just a standalone thing with a mass and location, hanging somewhere. It can
+// also represent something, like a planet or star or something abstract. Now you
+// need to say, planet earth has a mass centre. Could create assemble earth object
+// and mass centre object into std::pair, but I don't like those firsts and seconds,
+// because you can't read from the code what it represents. You need to decrypt
+// object.first.second.second.first before you can tell what the code does. You 
+// need to rely on IDE to do this for you, but IDEs can sometimes be funny.
+// Long story short, this class is to attach any data of generic type T to a mass centre.
 template <class T>
 class cbinded_mass_centre : public cmass_centre
 {
