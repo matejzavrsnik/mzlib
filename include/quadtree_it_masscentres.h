@@ -53,6 +53,7 @@ private:
       if (m_nodes_queue.size() == 0) {
          // No more nodes? This is the end. My only friend, the end.
          set_done();
+         return; 
       }
       // By this point, queue of mass centres is depleted, but there are still nodes in need to be processed
       const cquadnode<T>* node = m_nodes_queue.front();
