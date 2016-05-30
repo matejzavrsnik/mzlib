@@ -104,7 +104,7 @@ class cbinded_mass_centre : public cmass_centre
 
 private:
    
-   T m_binded_data;
+   T m_binded_data; //todo: any better names out there?
    
 public:
    

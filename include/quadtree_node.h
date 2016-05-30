@@ -18,6 +18,7 @@ namespace mzlib {
 //    - Assumed order of iteration where it matters is nw -> ne -> sw -> se
     
 template <class T> class quadtree_it_bodies;
+template <class T> class quadtree_it_masscentres;
 template <class T> class quadtree_it_nodes_postorder;
 template <class T> class quadtree_it_nodes_breadthfirst;
     
@@ -26,6 +27,7 @@ class cquadnode : public std::enable_shared_from_this<cquadnode<T>>
 {
         
    friend class quadtree_it_bodies<T>;
+   friend class quadtree_it_masscentres<T>;
    friend class quadtree_it_nodes_postorder<T>;
    friend class quadtree_it_nodes_breadthfirst<T>;
         
@@ -72,6 +74,8 @@ public:
          m_child_sw->create(v4, v8, smallest_node_width, this->shared_from_this());
          m_child_se = std::make_shared<cquadnode<T>>();
          m_child_se->create(v5, v9, smallest_node_width, this->shared_from_this());
+         // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
+         m_mass_centre.set_location(v5); 
       }
    }
 
@@ -238,6 +242,16 @@ public:
       }
       return candidate;
    }
+   
+   const cbinded_mass_centre<T>* find (const T& data) const
+   {
+      for (auto& body : m_bodies) {
+         if (body->get_binded_data() == data) {
+            return body.get();
+         }
+      }
+      return nullptr; // not found
+   }
         
 private:
 
@@ -248,7 +262,7 @@ private:
    std::shared_ptr<cquadnode<T>> m_parent;
         
    std::vector<std::shared_ptr<cbinded_mass_centre<T>>> m_bodies;
-   cbinded_mass_centre<T> m_mass_centre;
+   cmass_centre m_mass_centre;
         
    math::cvector2d m_top_left;
    math::cvector2d m_bottom_right;

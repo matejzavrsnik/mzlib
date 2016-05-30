@@ -137,4 +137,17 @@ TEST_F(test_masscentre, remove_from_mass_centre) {
     }
 }
 
+TEST_F(test_masscentre, add_to_mass_centre_initialised_with_zero_mass) 
+{
+   mzlib::cmass_centre mass_centre;
+   mass_centre.set_location({50,50}); // some location
+   mass_centre.set_mass(0); // zero mass
+   
+   mass_centre.add_to_mass_centre({{10,10},10}); // add some non-zero mass
+   
+   // mass center should assume new body location and mass, regardless of what the location has been before
+   ASSERT_EQ(mass_centre.get_location(), mzlib::math::cvector2d({10,10}));
+   ASSERT_DOUBLE_EQ(mass_centre.get_mass(), 10);
+   
+}
 }

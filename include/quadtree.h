@@ -79,14 +79,9 @@ public:
       return m_root->get_mass_centre();
    }
 
-   const cbinded_mass_centre<T>* find (T data)
+   const cbinded_mass_centre<T>* find (const T& data)
    {
-      for (const mzlib::cbinded_mass_centre<int>& body : *this) {
-         if (body.get_binded_data() == data) {
-            return &body;
-         }
-      }
-      return nullptr; // not found
+      return m_root->find(data);
    }
    
    bool is_in (math::cvector2d location) const 
@@ -108,7 +103,7 @@ public:
         
    it_masscentres begin_masscentres (const T& data, double quotient)
    {
-      return it_masscentres(data, quotient);
+      return it_masscentres(m_root.get(), data, quotient);
    }
    
    it_masscentres end_masscentres ()
