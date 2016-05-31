@@ -18,13 +18,13 @@
 
 namespace mzlib {
 
-class cspace
+class cuniverse
 {
         
 public:
         
    // TODO: A monstrosity!! Space dimensions are undefined. Make quadtree dynamic at some point
-   cspace (
+   cuniverse (
       const mzlib::math::cvector2d& top_left, 
       const mzlib::math::cvector2d& bottom_right, 
       const double smallest_node_width) 
@@ -36,7 +36,7 @@ public:
    {
    }
 
-   cspace () : 
+   cuniverse () : 
       m_bodies (
          {-10e50,-10e50},
          { 10e50, 10e50},
@@ -44,11 +44,11 @@ public:
    {
    }
 
-   cspace (const cspace&) = default;
-   cspace (cspace && ) = default;
-   cspace& operator= (const cspace&) = default;
-   cspace& operator= (cspace&&) = default;
-   ~cspace () = default;
+   cuniverse (const cuniverse&) = default;
+   cuniverse (cuniverse && ) = default;
+   cuniverse& operator= (const cuniverse&) = default;
+   cuniverse& operator= (cuniverse&&) = default;
+   ~cuniverse () = default;
         
    void add_body (cbody& body) 
    {

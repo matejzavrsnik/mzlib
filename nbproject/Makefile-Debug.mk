@@ -40,9 +40,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_masscentre.o \
 	${OBJECTDIR}/tests/test_quadtree.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
-	${OBJECTDIR}/tests/test_space.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
 	${OBJECTDIR}/tests/test_units_strong.o \
+	${OBJECTDIR}/tests/test_universe.o \
 	${OBJECTDIR}/tests/test_utilities.o \
 	${OBJECTDIR}/tests/test_vector.o
 
@@ -96,11 +96,6 @@ ${OBJECTDIR}/tests/test_sentence_o_matic.o: tests/test_sentence_o_matic.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sentence_o_matic.o tests/test_sentence_o_matic.cpp
 
-${OBJECTDIR}/tests/test_space.o: tests/test_space.cpp 
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_space.o tests/test_space.cpp
-
 ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -110,6 +105,11 @@ ${OBJECTDIR}/tests/test_units_strong.o: tests/test_units_strong.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_units_strong.o tests/test_units_strong.cpp
+
+${OBJECTDIR}/tests/test_universe.o: tests/test_universe.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe.o tests/test_universe.cpp
 
 ${OBJECTDIR}/tests/test_utilities.o: tests/test_utilities.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
