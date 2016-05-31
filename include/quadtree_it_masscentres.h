@@ -18,18 +18,18 @@ namespace mzlib {
 // Const iterator through all mass centres
 template<class T>
 class quadtree_it_masscentres : 
-   public std::iterator<std::forward_iterator_tag, cbinded_mass_centre<T>>
+   public std::iterator<std::forward_iterator_tag, cbinded_mass_centre2d<T>>
 {
 
 private:
 
-   std::queue<cmass_centre> m_mass_centres_queue;
+   std::queue<cmass_centre2d> m_mass_centres_queue;
 
-   const cbinded_mass_centre<T>* m_body;
+   const cbinded_mass_centre2d<T>* m_body;
    
    std::queue<const cquadnode<T>*> m_nodes_queue;
    double m_quotient;
-   cmass_centre m_next_mass_centre;
+   cmass_centre2d m_next_mass_centre;
    bool m_done = false;
    
    void set_done ()
@@ -132,12 +132,12 @@ public:
       return this; 
    }
 
-   cmass_centre* operator-> ()
+   cmass_centre2d* operator-> ()
    {
       return &m_next_mass_centre;
    }
 
-   cmass_centre& operator* ()
+   cmass_centre2d& operator* ()
    {
       return m_next_mass_centre; 
    }

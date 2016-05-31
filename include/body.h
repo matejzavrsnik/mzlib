@@ -43,7 +43,8 @@ public:
    }
 };
 
-using cbody = cbinded_mass_centre<cbody_properties>;
+using cbody = cbinded_mass_centre2d<cbody_properties>;
+
 
 } // namespace mzlib
 

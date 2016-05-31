@@ -80,7 +80,7 @@ public:
       return m_gravitational_constant;
    }
         
-   void set_law_of_gravitation (interface_law_of_gravitation new_law) 
+   void set_law_of_gravitation (ilaw_of_gravitation2d new_law) 
    {
       m_fun_law_of_gravitation = new_law;
    }
@@ -138,7 +138,7 @@ private:
    cquadtree<cbody_properties> m_bodies;
    double m_gravitational_constant = consts::gravitational_constant;
    double m_max_velocity = consts::light_speed;
-   interface_law_of_gravitation m_fun_law_of_gravitation = universal_law_of_gravitation;
+   ilaw_of_gravitation2d m_fun_law_of_gravitation = universal_law_of_gravitation2d;
         
 };
 

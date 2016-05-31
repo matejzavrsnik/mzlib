@@ -82,7 +82,7 @@ public:
       }
    }
 
-   void add (std::shared_ptr<cbinded_mass_centre<T>> mass_centre) 
+   void add (std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre) 
    {
       if (is_in(mass_centre->location)) {
          // insert
@@ -102,13 +102,13 @@ public:
       // downside of this approach: every subnode needs to find mass centre in it's own collection
       // try to find the body in collection of bodies in this node
       auto mass_centre_it = std::find_if (m_bodies.begin(), m_bodies.end(), 
-         [&](std::shared_ptr<cbinded_mass_centre<T>> mass_centre) { 
+         [&](std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre) { 
             return mass_centre->data == data; 
       });
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return false; 
       // if found, convert to mass centre ptr
-      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = *mass_centre_it;
+      std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = *mass_centre_it;
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
@@ -123,7 +123,7 @@ public:
       return false;
    }
    
-   const cmass_centre& get_mass_centre() const
+   const cmass_centre2d& get_mass_centre() const
    {
       return m_mass_centre;
    }
@@ -246,7 +246,7 @@ public:
       return candidate;
    }
    
-   const cbinded_mass_centre<T>* find (const T& data) const
+   const cbinded_mass_centre2d<T>* find (const T& data) const
    {
       for (auto& body : m_bodies) {
          if (body->data == data) {
@@ -264,8 +264,8 @@ private:
    std::shared_ptr<cquadnode<T>> m_child_se;
    std::shared_ptr<cquadnode<T>> m_parent;
         
-   std::vector<std::shared_ptr<cbinded_mass_centre<T>>> m_bodies;
-   cmass_centre m_mass_centre;
+   std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>> m_bodies;
+   cmass_centre2d m_mass_centre;
         
    math::cvector2d m_top_left;
    math::cvector2d m_bottom_right;

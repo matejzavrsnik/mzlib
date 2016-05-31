@@ -13,38 +13,45 @@
 
 namespace mzlib {
 
+template <class VectorT>
 class cmass_centre
 {
 
 public:
      
-   math::cvector2d location;
+   VectorT location;
    double mass;
 
-   cmass_centre(math::cvector2d l = {0,0}, double m = 0) :
+   cmass_centre() :
+      location({0}),
+      mass(0)
+   {
+   }
+   
+   cmass_centre(VectorT l, double m) :
       location(l),
       mass(m)
    {
    }
    
-   cmass_centre(const cmass_centre&) = default;
-   cmass_centre(cmass_centre &&) = default;
-   cmass_centre& operator=(const cmass_centre&) = default;
-   cmass_centre& operator=(cmass_centre&&) = default;
-   ~cmass_centre() = default;
+   cmass_centre (const cmass_centre<VectorT>&) = default;
+   cmass_centre (cmass_centre<VectorT>&&) = default;
+   cmass_centre<VectorT>& operator= (const cmass_centre<VectorT>&) = default;
+   cmass_centre<VectorT>& operator= (cmass_centre<VectorT>&&) = default;
+   ~cmass_centre () = default;
    
-   void add_to_mass_centre (const cmass_centre& mc) 
+   void add_to_mass_centre (const cmass_centre<VectorT>& mc) 
    {
-      math::cvector2d new_location;
+      VectorT new_location;
       double new_mass = mass + mc.mass;
       new_location = (location * mass + mc.location * mc.mass) / new_mass;
       location = new_location;
       mass = new_mass;
    }
         
-   void remove_from_mass_centre(const cmass_centre& mc) 
+   void remove_from_mass_centre(const cmass_centre<VectorT>& mc) 
    {
-      math::cvector2d new_location;
+      VectorT new_location;
       double new_mass = mass - mc.mass;
       double sum_of_masses = new_mass + mc.mass;
       auto a = location * sum_of_masses;
@@ -64,31 +71,39 @@ public:
 // object.first.second.second.first before you can tell what the code does. You 
 // need to rely on IDE to do this for you, but IDEs can sometimes be funny.
 // Long story short, this class is to attach any data of generic type T to a mass centre.
-template <class T>
-class cbinded_mass_centre : public cmass_centre
+template <class DataT, class VectorT>
+class cbinded_mass_centre : public cmass_centre<VectorT>
 {
 
 public:
    
-   T data; //todo: any better names out there?
+   DataT data; //todo: any better names out there?
    
    cbinded_mass_centre()
    {
    }
    
-   cbinded_mass_centre(const T& binded_data, math::cvector2d location_ = {0,0}, double mass_ = 0) :
+   cbinded_mass_centre(const DataT& binded_data, VectorT location_ = {0}, double mass_ = 0) :
       data(binded_data),   
-      cmass_centre(location_, mass_)
+      cmass_centre<VectorT>(location_, mass_)
    {
    }
    
-   cbinded_mass_centre(const cbinded_mass_centre&) = default;
-   cbinded_mass_centre(cbinded_mass_centre && ) = default;
-   cbinded_mass_centre& operator=(const cbinded_mass_centre&) = default;
-   cbinded_mass_centre& operator=(cbinded_mass_centre&&) = default;
-   ~cbinded_mass_centre() = default;
+   cbinded_mass_centre (const cbinded_mass_centre<DataT,VectorT>&) = default;
+   cbinded_mass_centre (cbinded_mass_centre<DataT,VectorT> && ) = default;
+   cbinded_mass_centre<DataT,VectorT>& operator= (const cbinded_mass_centre<DataT,VectorT>&) = default;
+   cbinded_mass_centre<DataT,VectorT>& operator= (cbinded_mass_centre<DataT,VectorT>&&) = default;
+   ~cbinded_mass_centre () = default;
    
 };
+
+// convenient types
+
+using cmass_centre2d = cmass_centre<math::cvector2d>;
+using cmass_centre3d = cmass_centre<math::cvector3d>;
+template<class DataT> using cbinded_mass_centre2d = cbinded_mass_centre<DataT, math::cvector2d>;
+template<class DataT> using cbinded_mass_centre3d = cbinded_mass_centre<DataT, math::cvector3d>;
+
 
 } // namespace mzlib
     

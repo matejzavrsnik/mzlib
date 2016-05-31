@@ -33,7 +33,7 @@ private:
 public:
     
    // This weird constructor uses variadic templates to try to squeeze anything into a vector
-   template <typename... T> constexpr cvector (T... val) : 
+   template <typename... T> constexpr explicit cvector (T... val) : 
       m_array{val...} 
    {
    }

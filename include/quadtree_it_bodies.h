@@ -18,14 +18,14 @@ namespace mzlib {
 // Order of traversal: parent -> nw -> ne -> sw -> se -> parent
 template<class T>
 class quadtree_it_bodies : 
-   public std::iterator<std::forward_iterator_tag, cbinded_mass_centre<T>>
+   public std::iterator<std::forward_iterator_tag, cbinded_mass_centre2d<T>>
 {
 
 private:
 
    cquadnode<T>* m_start_node;
    cquadnode<T>* m_leaf;
-   typename std::vector<std::shared_ptr<cbinded_mass_centre<T>>>::iterator m_body_it;
+   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator m_body_it;
 
    cquadnode<T>* next_viable_leaf (const cquadnode<T>* const leaf) const 
    {
@@ -116,12 +116,12 @@ public:
 
    //todo: rethink: allowing non-const access to mass centres might break quadtree integrity.
    //      for instance, changing location on body can make it be in wrong node.
-   cbinded_mass_centre<T>* operator-> ()
+   cbinded_mass_centre2d<T>* operator-> ()
    { 
       return (*m_body_it).get();
    }
 
-   cbinded_mass_centre<T>& operator* ()
+   cbinded_mass_centre2d<T>& operator* ()
    { 
       return *(*m_body_it); 
    }

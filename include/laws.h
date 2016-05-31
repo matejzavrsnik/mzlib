@@ -13,39 +13,41 @@
 
 namespace mzlib
 {
-
-typedef std::function<
-   math::cvector2d (
-      const cmass_centre&, 
-      const cmass_centre&, 
-      const double)> 
-   interface_law_of_gravitation;
-    
-inline math::cvector2d universal_law_of_gravitation(
-   const cmass_centre& body1, 
-   const cmass_centre& body2, 
+   
+template<class VectorT> VectorT universal_law_of_gravitation(
+   const cmass_centre<VectorT>& body1, 
+   const cmass_centre<VectorT>& body2, 
    const double gravitational_constant)
    {
       double sqare_distance = body1.location.square_distance_to(body2.location); 
-      math::cvector2d force_on_body1 = -body1.location.direction_to(body2.location).normalise(); 
+      VectorT force_on_body1 = -body1.location.direction_to(body2.location).normalise(); 
       force_on_body1 *= body1.mass * body2.mass; // masses
       force_on_body1 /= sqare_distance; // distance
       force_on_body1 *= gravitational_constant; // factor
       return force_on_body1;
    }
 
-inline math::cvector2d more_entertaining_law_of_gravitation(
-   const cmass_centre& body1, 
-   const cmass_centre& body2, 
+template<class VectorT> VectorT entertaining_law_of_gravitation(
+   const cmass_centre<VectorT>& body1, 
+   const cmass_centre<VectorT>& body2, 
    const double gravitational_constant)
    {
       double sqare_distance = body1.location.square_distance_to(body2.location); 
-      math::cvector2d force_on_body1 = -body1.location.direction_to(body2.location).normalise(); // give vector a direction
+      VectorT force_on_body1 = -body1.location.direction_to(body2.location).normalise(); // give vector a direction
       force_on_body1 *= body1.mass * body2.mass; // masses
       force_on_body1 /= std::sqrt(sqare_distance); // distance
       force_on_body1 *= gravitational_constant; // factor
       return force_on_body1;
    }
+
+// for convenience
+
+using ilaw_of_gravitation2d = math::cvector2d (*) (const cmass_centre<math::cvector2d>&, const cmass_centre<math::cvector2d>&, const double);
+using ilaw_of_gravitation3d = math::cvector3d (*) (const cmass_centre<math::cvector3d>&, const cmass_centre<math::cvector3d>&, const double);
+ilaw_of_gravitation2d entertaining_law_of_gravitation2d = entertaining_law_of_gravitation<math::cvector2d>;
+ilaw_of_gravitation3d entertaining_law_of_gravitation3d = entertaining_law_of_gravitation<math::cvector3d>;
+ilaw_of_gravitation2d universal_law_of_gravitation2d = universal_law_of_gravitation<math::cvector2d>;
+ilaw_of_gravitation3d universal_law_of_gravitation3d = universal_law_of_gravitation<math::cvector3d>;
 
 }
 

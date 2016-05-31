@@ -65,15 +65,15 @@ TEST_F(fixture_cquadtree, barnes_hut_simulation_basic)
    double quotient = (double)node_width / (double)quadrant_width;
    // first, a neighbouring body
    mzlib::cquadtree<int>::it_masscentres mass_centres_it = local_tree.begin_masscentres(1, quotient);
-   std::vector<mzlib::cmass_centre> returned_mass_centres;
+   std::vector<mzlib::cmass_centre2d> returned_mass_centres;
    for(; mass_centres_it != local_tree.end_masscentres(); ++mass_centres_it) {
       returned_mass_centres.push_back(*mass_centres_it);
    }
    
    mzlib::math::cvector2d expected_location;
    double expected_mass;
-   std::function<bool(mzlib::cmass_centre mc)> search_function = 
-      [&expected_location, &expected_mass] (mzlib::cmass_centre mc) 
+   std::function<bool(mzlib::cmass_centre2d mc)> search_function = 
+      [&expected_location, &expected_mass] (mzlib::cmass_centre2d mc) 
       { 
          return (
             expected_location == mc.location &&
@@ -166,8 +166,8 @@ TEST_F(fixture_cquadtree, find_body_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const mzlib::cbinded_mass_centre<int>* one = m_tree.find(1);
-   const mzlib::cbinded_mass_centre<int>* two = m_tree.find(2);
+   const mzlib::cbinded_mass_centre2d<int>* one = m_tree.find(1);
+   const mzlib::cbinded_mass_centre2d<int>* two = m_tree.find(2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ(1, one->data);
@@ -179,8 +179,8 @@ TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
    mzlib::cquadtree<std::string> local_tree = {m_top_left, m_bottom_right, smallest_node_width};
    local_tree.add("one", {25,25}, 100);
    local_tree.add("two", {-25,-25}, 100);
-   const mzlib::cbinded_mass_centre<std::string>* one = local_tree.find("one");
-   const mzlib::cbinded_mass_centre<std::string>* two = local_tree.find("two");
+   const mzlib::cbinded_mass_centre2d<std::string>* one = local_tree.find("one");
+   const mzlib::cbinded_mass_centre2d<std::string>* two = local_tree.find("two");
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ("one", one->data);
@@ -191,7 +191,7 @@ TEST_F(fixture_cquadtree, find_body_not_found)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const mzlib::cbinded_mass_centre<int>* three = m_tree.find(3);
+   const mzlib::cbinded_mass_centre2d<int>* three = m_tree.find(3);
    ASSERT_EQ(nullptr, three);
 }
 

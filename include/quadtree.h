@@ -49,13 +49,13 @@ public:
    cquadtree& operator= (cquadtree&&) = delete;
    virtual ~cquadtree () = default;
         
-   bool add (cbinded_mass_centre<T> mass_centre) 
+   bool add (cbinded_mass_centre2d<T> mass_centre) 
    {
       if (!m_root->is_in(mass_centre.location)) {
          return false;
       }
-      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
-         std::make_shared<cbinded_mass_centre<T>>(mass_centre);
+      std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
+         std::make_shared<cbinded_mass_centre2d<T>>(mass_centre);
       m_root->add(mass_centre_ptr);
       return true; 
    }
@@ -66,8 +66,8 @@ public:
          //todo: expand tree instead
          return false;
       }
-      std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
-         std::make_shared<cbinded_mass_centre<T>>(data, location, mass);
+      std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
+         std::make_shared<cbinded_mass_centre2d<T>>(data, location, mass);
       m_root->add(mass_centre_ptr); //todo: take care of name consistency body/mass_centre
       return true; 
    }
@@ -77,12 +77,12 @@ public:
       return m_root->remove(data);
    }
    
-   const cmass_centre& get_mass_centre () const
+   const cmass_centre2d& get_mass_centre () const
    {
       return m_root->get_mass_centre();
    }
 
-   const cbinded_mass_centre<T>* find (const T& data)
+   const cbinded_mass_centre2d<T>* find (const T& data)
    {
       return m_root->find(data);
    }

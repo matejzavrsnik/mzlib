@@ -25,8 +25,8 @@ protected:
 TEST_F(fixture_masscentre, add_to_mass_centre) 
 {
    struct t_centres_of_mass {
-      mzlib::cmass_centre mass_centre;
-      mzlib::cmass_centre average_now;
+      mzlib::cmass_centre2d mass_centre;
+      mzlib::cmass_centre2d average_now;
    } test_mass_data[] = {
       {{{383,886},777}, {{383,886},777}},
       {{{915,793},335}, {{543.26978417266196,857.98291366906483},1112}},
@@ -80,7 +80,7 @@ TEST_F(fixture_masscentre, add_to_mass_centre)
    //    std::cout << "{{{" << a << "," << b << "}," << c << "}, {{" << d << "," << e << "}," << f << "}}," << std::endl;
    //}
         
-   mzlib::cmass_centre mc;
+   mzlib::cmass_centre2d mc;
    for (auto test_mass : test_mass_data) {
       mc.add_to_mass_centre(test_mass.mass_centre);
       ASSERT_DOUBLE_EQ(test_mass.average_now.location[0], mc.location[0]);
@@ -92,8 +92,8 @@ TEST_F(fixture_masscentre, add_to_mass_centre)
 TEST_F(fixture_masscentre, remove_from_mass_centre) 
 {
    struct t_centres_of_mass {
-      mzlib::cmass_centre mass_centre;
-      mzlib::cmass_centre average_now;
+      mzlib::cmass_centre2d mass_centre;
+      mzlib::cmass_centre2d average_now;
    } test_mass_data[] = {
       // Values are slightly different than in add part of the operation.
       // The precision errors creep into the calculation when removing mass centres
@@ -120,7 +120,7 @@ TEST_F(fixture_masscentre, remove_from_mass_centre)
    };
       
    size_t test_data_last_index = std::extent<decltype(test_mass_data)>::value-1;
-   mzlib::cmass_centre mc = test_mass_data[test_data_last_index].average_now;
+   mzlib::cmass_centre2d mc = test_mass_data[test_data_last_index].average_now;
    for(size_t index = test_data_last_index; index > 0; --index) {
       mc.remove_from_mass_centre(test_mass_data[index].mass_centre);
       // can't test with ASSERT_DOUBLE_EQ even with fudging the data, because release build will
@@ -133,7 +133,7 @@ TEST_F(fixture_masscentre, remove_from_mass_centre)
 
 TEST_F(fixture_masscentre, add_to_mass_centre_initialised_with_zero_mass) 
 {
-   mzlib::cmass_centre mass_centre;
+   mzlib::cmass_centre2d mass_centre;
    mass_centre.location = {50,50}; // some location
    mass_centre.mass = 0; // zero mass
    
