@@ -53,7 +53,7 @@ public:
    cunique& operator=(cunique&&) = default;
    ~cunique() = default;   
    
-   int id()
+   int id() const
    {
       return m_id;
    }

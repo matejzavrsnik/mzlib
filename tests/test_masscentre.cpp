@@ -83,9 +83,9 @@ TEST_F(fixture_masscentre, add_to_mass_centre)
    mzlib::cmass_centre mc;
    for (auto test_mass : test_mass_data) {
       mc.add_to_mass_centre(test_mass.mass_centre);
-      ASSERT_DOUBLE_EQ(test_mass.average_now.get_location()[0], mc.get_location()[0]);
-      ASSERT_DOUBLE_EQ(test_mass.average_now.get_location()[1], mc.get_location()[1]);
-      ASSERT_DOUBLE_EQ(test_mass.average_now.get_mass(), mc.get_mass());
+      ASSERT_DOUBLE_EQ(test_mass.average_now.location[0], mc.location[0]);
+      ASSERT_DOUBLE_EQ(test_mass.average_now.location[1], mc.location[1]);
+      ASSERT_DOUBLE_EQ(test_mass.average_now.mass, mc.mass);
    }
 }
 
@@ -125,21 +125,21 @@ TEST_F(fixture_masscentre, remove_from_mass_centre)
       mc.remove_from_mass_centre(test_mass_data[index].mass_centre);
       // can't test with ASSERT_DOUBLE_EQ even with fudging the data, because release build will
       // calculate slightly different values than debug.
-      ASSERT_NEAR(test_mass_data[index-1].average_now.get_location()[0], mc.get_location()[0], 1e-12);
-      ASSERT_NEAR(test_mass_data[index-1].average_now.get_location()[1], mc.get_location()[1], 1e-12);
-      ASSERT_DOUBLE_EQ(test_mass_data[index-1].average_now.get_mass(), mc.get_mass());
+      ASSERT_NEAR(test_mass_data[index-1].average_now.location[0], mc.location[0], 1e-12);
+      ASSERT_NEAR(test_mass_data[index-1].average_now.location[1], mc.location[1], 1e-12);
+      ASSERT_DOUBLE_EQ(test_mass_data[index-1].average_now.mass, mc.mass);
    }
 }
 
 TEST_F(fixture_masscentre, add_to_mass_centre_initialised_with_zero_mass) 
 {
    mzlib::cmass_centre mass_centre;
-   mass_centre.set_location({50,50}); // some location
-   mass_centre.set_mass(0); // zero mass
+   mass_centre.location = {50,50}; // some location
+   mass_centre.mass = 0; // zero mass
    
    mass_centre.add_to_mass_centre({{10,10},10}); // add some non-zero mass
    
    // mass center should assume new body location and mass, regardless of what the location has been before
-   ASSERT_EQ(mass_centre.get_location(), mzlib::math::cvector2d({10,10}));
-   ASSERT_DOUBLE_EQ(mass_centre.get_mass(), 10);
+   ASSERT_EQ(mass_centre.location, mzlib::math::cvector2d({10,10}));
+   ASSERT_DOUBLE_EQ(mass_centre.mass, 10);
 }

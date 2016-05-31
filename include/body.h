@@ -16,57 +16,11 @@ namespace mzlib {
    
 class cbody_forces
 {
-
+   
 public:
-
-   cbody_forces() :  
-       m_force(), 
-       m_velocity(), 
-       m_gravity() 
-   {
-   }
         
-   cbody_forces(const cbody_forces&) = default;
-   cbody_forces(cbody_forces && ) = default;
-   cbody_forces& operator=(const cbody_forces&) = default;
-   cbody_forces& operator=(cbody_forces&&) = default;
-   ~cbody_forces() = default;
-        
-   void set_velocity (const math::cvector2d& velocity) 
-   { 
-      m_velocity = velocity; 
-   }
-
-   void add_velocity (const math::cvector2d& velocity) 
-   { 
-      m_velocity += velocity; 
-   }
-        
-   math::cvector2d get_velocity () const
-   { 
-      return m_velocity; 
-   }
-        
-   math::cvector2d get_force () const
-   { 
-      return m_force; 
-   }
-        
-   void add_force (const math::cvector2d& force)
-   { 
-      m_force += force; 
-   }
-
-   void set_force (const math::cvector2d& force) 
-   { 
-      m_force = force; 
-   }
-
-private:
-        
-   math::cvector2d m_force;
-   math::cvector2d m_velocity;
-   math::cvector2d m_gravity;
+   math::cvector2d force;
+   math::cvector2d velocity;
 
 };
 
@@ -75,7 +29,7 @@ class cbody_properties : public cbody_forces, public util::cunique
 
 public:
    
-   bool operator== (cbody_properties& other)
+   bool operator== (const cbody_properties& other) const
    {
       if (&other == this) {
          return true;
@@ -83,7 +37,7 @@ public:
       return (this->id() == other.id());
    }
    
-   bool operator!= (cbody_properties& other)
+   bool operator!= (const cbody_properties& other) const
    {
       return !(*this == other);
    }

@@ -60,12 +60,12 @@ private:
       m_nodes_queue.pop(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
       double node_diagonal = node->get_bottom_right().distance_to(node->get_top_left());
-      double node_distance = m_body->get_location().distance_to(node->get_mass_centre().get_location());
+      double node_distance = m_body->location.distance_to(node->get_mass_centre().location);
       double node_quotient = node_diagonal / node_distance;
       // Now depending how far it is, we need to consider either just mass centre of the node, or individual bodies
       if (node_quotient < m_quotient) {
          // too far; we care nothing about this node beyond it's mass centre
-         if (node->get_mass_centre().get_mass() != 0) {
+         if (node->get_mass_centre().mass != 0) {
             // If it has any real mass at all, that is.
             m_next_mass_centre = node->get_mass_centre();
             return; // done; next mass centre prepared
@@ -87,7 +87,7 @@ private:
          else if (node->m_bodies.size() > 0) {
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
             for(auto body : node->m_bodies) {
-               if (body->get_binded_data() == m_body->get_binded_data()) continue; // Skip original body
+               if (body->data == m_body->data) continue; // Skip original body
                m_mass_centres_queue.push(*body);
             }
             // Recurse: will pop first mass centre from queue

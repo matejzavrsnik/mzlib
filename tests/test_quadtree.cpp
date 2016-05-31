@@ -76,8 +76,8 @@ TEST_F(fixture_cquadtree, barnes_hut_simulation_basic)
       [&expected_location, &expected_mass] (mzlib::cmass_centre mc) 
       { 
          return (
-            expected_location == mc.get_location() &&
-            mzlib::util::dbl(expected_mass).equals(mc.get_mass()));
+            expected_location == mc.location &&
+            mzlib::util::dbl(expected_mass).equals(mc.mass));
       };
       
    // Should return 3 mass centres
@@ -170,8 +170,8 @@ TEST_F(fixture_cquadtree, find_body_basic)
    const mzlib::cbinded_mass_centre<int>* two = m_tree.find(2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
-   ASSERT_EQ(1, one->get_binded_data());
-   ASSERT_EQ(2, two->get_binded_data());
+   ASSERT_EQ(1, one->data);
+   ASSERT_EQ(2, two->data);
 }
 
 TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
@@ -183,8 +183,8 @@ TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
    const mzlib::cbinded_mass_centre<std::string>* two = local_tree.find("two");
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
-   ASSERT_EQ("one", one->get_binded_data());
-   ASSERT_EQ("two", two->get_binded_data());
+   ASSERT_EQ("one", one->data);
+   ASSERT_EQ("two", two->data);
 }
    
 TEST_F(fixture_cquadtree, find_body_not_found)
@@ -220,9 +220,9 @@ TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   ASSERT_EQ(200, m_tree.get_mass_centre().get_mass());
+   ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    bool success = m_tree.remove(1);
-   ASSERT_EQ(100, m_tree.get_mass_centre().get_mass());
+   ASSERT_EQ(100, m_tree.get_mass_centre().mass);
 }
 
 TEST_F(fixture_cquadtree, iterator_it_postorder)
@@ -347,10 +347,10 @@ TEST_F(fixture_cquadtree, iterator_order)
 
    // Check if they all turn out and in correct order nw -> ne -> sw -> se
    mzlib::cquadtree<int>::it_bodies it = m_tree.begin();
-   ASSERT_EQ(body_nw, it->get_binded_data()); ++it;
-   ASSERT_EQ(body_ne, it->get_binded_data()); ++it;
-   ASSERT_EQ(body_sw, it->get_binded_data()); ++it;
-   ASSERT_EQ(body_se, it->get_binded_data()); ++it;
+   ASSERT_EQ(body_nw, it->data); ++it;
+   ASSERT_EQ(body_ne, it->data); ++it;
+   ASSERT_EQ(body_sw, it->data); ++it;
+   ASSERT_EQ(body_se, it->data); ++it;
    ASSERT_EQ(m_tree.end(), it);
 }
 

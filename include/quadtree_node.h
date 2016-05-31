@@ -78,22 +78,22 @@ public:
          m_child_se = std::make_shared<cquadnode<T>>();
          m_child_se->create(v5, v9, smallest_node_width, this->shared_from_this());
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
-         m_mass_centre.set_location(v5); 
+         m_mass_centre.location = v5; 
       }
    }
 
    void add (std::shared_ptr<cbinded_mass_centre<T>> mass_centre) 
    {
-      if (is_in(mass_centre->get_location())) {
+      if (is_in(mass_centre->location)) {
          // insert
          m_bodies.push_back(mass_centre);
          m_mass_centre.add_to_mass_centre(*mass_centre);
          if (is_leaf()) return; // nothing more to do
          // if has children, insert there as well
-         if      (m_child_nw->is_in(mass_centre->get_location())) m_child_nw->add(mass_centre);
-         else if (m_child_ne->is_in(mass_centre->get_location())) m_child_ne->add(mass_centre);
-         else if (m_child_sw->is_in(mass_centre->get_location())) m_child_sw->add(mass_centre);
-         else if (m_child_se->is_in(mass_centre->get_location())) m_child_se->add(mass_centre);
+         if      (m_child_nw->is_in(mass_centre->location)) m_child_nw->add(mass_centre);
+         else if (m_child_ne->is_in(mass_centre->location)) m_child_ne->add(mass_centre);
+         else if (m_child_sw->is_in(mass_centre->location)) m_child_sw->add(mass_centre);
+         else if (m_child_se->is_in(mass_centre->location)) m_child_se->add(mass_centre);
       }
    }
    
@@ -103,7 +103,7 @@ public:
       // try to find the body in collection of bodies in this node
       auto mass_centre_it = std::find_if (m_bodies.begin(), m_bodies.end(), 
          [&](std::shared_ptr<cbinded_mass_centre<T>> mass_centre) { 
-            return mass_centre->get_binded_data() == data; 
+            return mass_centre->data == data; 
       });
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return false; 
@@ -116,10 +116,10 @@ public:
       // if leaf, this operation is done
       if (is_leaf()) return true;
       // if not leaf, delete in children too
-      if      (m_child_nw->is_in(mass_centre_ptr->get_location())) return m_child_nw->remove(data);
-      else if (m_child_ne->is_in(mass_centre_ptr->get_location())) return m_child_ne->remove(data);
-      else if (m_child_sw->is_in(mass_centre_ptr->get_location())) return m_child_sw->remove(data);
-      else if (m_child_se->is_in(mass_centre_ptr->get_location())) return m_child_se->remove(data);
+      if      (m_child_nw->is_in(mass_centre_ptr->location)) return m_child_nw->remove(data);
+      else if (m_child_ne->is_in(mass_centre_ptr->location)) return m_child_ne->remove(data);
+      else if (m_child_sw->is_in(mass_centre_ptr->location)) return m_child_sw->remove(data);
+      else if (m_child_se->is_in(mass_centre_ptr->location)) return m_child_se->remove(data);
       return false;
    }
    
@@ -249,7 +249,7 @@ public:
    const cbinded_mass_centre<T>* find (const T& data) const
    {
       for (auto& body : m_bodies) {
-         if (body->get_binded_data() == data) {
+         if (body->data == data) {
             return body.get();
          }
       }

@@ -50,7 +50,7 @@ public:
    cspace& operator= (cspace&&) = default;
    ~cspace () = default;
         
-   void add_body (cbody body) 
+   void add_body (cbody& body) 
    {
       m_bodies.add(body);
    }
@@ -58,7 +58,7 @@ public:
    const cbody* find_body (cbody& body)
    {
       for (cbody& found : m_bodies) {
-         if (found.get_binded_data() == body.get_binded_data()) {
+         if (found.data == body.data) {
             return &found;
          }
       }
@@ -88,14 +88,14 @@ public:
    void calculate_forces () 
    {
       for (cbody& this_body : m_bodies) {
-         this_body.get_binded_data().set_force({0.0,0.0});
+         this_body.data.force = {0.0,0.0};
          for (cbody& another_body : m_bodies) {
             if (&this_body != &another_body) {
                math::cvector2d gravity_force = m_fun_law_of_gravitation(
                   this_body, 
                   another_body, 
                   m_gravitational_constant);
-               this_body.get_binded_data().add_force(gravity_force);
+               this_body.data.force += gravity_force;
             }
          }
       }
@@ -104,17 +104,17 @@ public:
    void calculate_positions (double time_pixel) 
    {
       for (cbody& body : m_bodies) {
-         math::cvector2d velocity_initial = body.get_binded_data().get_velocity();
+         math::cvector2d velocity_initial = body.data.velocity;
          math::cvector2d acceleration{0};
-         acceleration = body.get_binded_data().get_force() / body.get_mass();
+         acceleration = body.data.force / body.mass;
          math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
          if (velocity_final.length() > m_max_velocity) {
             acceleration = {0.0,0.0};
             velocity_final = velocity_initial;
          }
          math::cvector2d location_final = (velocity_initial*time_pixel) + (acceleration*time_pixel)/2; 
-         body.add_location(location_final);
-         body.get_binded_data().set_velocity(velocity_final);
+         body.location += location_final;
+         body.data.velocity = velocity_final;
       }
    }
         

@@ -51,7 +51,7 @@ public:
         
    bool add (cbinded_mass_centre<T> mass_centre) 
    {
-      if (!m_root->is_in(mass_centre.get_location())) {
+      if (!m_root->is_in(mass_centre.location)) {
          return false;
       }
       std::shared_ptr<cbinded_mass_centre<T>> mass_centre_ptr = 
