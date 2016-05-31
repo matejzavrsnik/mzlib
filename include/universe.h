@@ -50,14 +50,14 @@ public:
    cuniverse& operator= (cuniverse&&) = default;
    ~cuniverse () = default;
         
-   void add_body (cbody& body) 
+   void add_body (cbody2d& body) 
    {
       m_bodies.add(body);
    }
    
-   const cbody* find_body (cbody& body)
+   const cbody2d* find_body (cbody2d& body)
    {
-      for (cbody& found : m_bodies) {
+      for (cbody2d& found : m_bodies) {
          if (found.data == body.data) {
             return &found;
          }
@@ -65,7 +65,7 @@ public:
       return nullptr;
    }
         
-   cquadtree<cbody_properties>& get_bodies ()
+   cquadtree<cbody_properties2d>& get_bodies ()
    {
       return m_bodies;
    }
@@ -87,9 +87,9 @@ public:
         
    void calculate_forces () 
    {
-      for (cbody& this_body : m_bodies) {
+      for (cbody2d& this_body : m_bodies) {
          this_body.data.force = {0.0,0.0};
-         for (cbody& another_body : m_bodies) {
+         for (cbody2d& another_body : m_bodies) {
             if (&this_body != &another_body) {
                math::cvector2d gravity_force = m_fun_law_of_gravitation(
                   this_body, 
@@ -103,7 +103,7 @@ public:
         
    void calculate_positions (double time_pixel) 
    {
-      for (cbody& body : m_bodies) {
+      for (cbody2d& body : m_bodies) {
          math::cvector2d velocity_initial = body.data.velocity;
          math::cvector2d acceleration{0};
          acceleration = body.data.force / body.mass;
@@ -135,7 +135,7 @@ public:
         
 private:
 
-   cquadtree<cbody_properties> m_bodies;
+   cquadtree<cbody_properties2d> m_bodies;
    double m_gravitational_constant = consts::gravitational_constant;
    double m_max_velocity = consts::light_speed;
    ilaw_of_gravitation2d m_fun_law_of_gravitation = universal_law_of_gravitation2d;

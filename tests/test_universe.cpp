@@ -33,10 +33,10 @@ TEST_F(fixture_universe, set_gravitational_constant)
 
 TEST_F(fixture_universe, big_ben_force_on_empire_state_building)
 {
-   mzlib::cbody big_ben;
+   mzlib::cbody2d big_ben;
    big_ben.mass = 10e8_kg; // 10e8 kg
     
-   mzlib::cbody empire_state_building;
+   mzlib::cbody2d empire_state_building;
    empire_state_building.location = {0,5000.0_km}; // 5000 km
    empire_state_building.mass = 10e9_kg; // 10e9 kg
     
@@ -53,10 +53,10 @@ TEST_F(fixture_universe, big_ben_force_on_empire_state_building)
 
 TEST_F(fixture_universe, sun_force_on_earth)
 {
-   mzlib::cbody sun;
+   mzlib::cbody2d sun;
    sun.mass = mzlib::consts::sun_mass; // 1.99e30
     
-   mzlib::cbody earth;
+   mzlib::cbody2d earth;
    earth.location = {0,mzlib::consts::earth_distance_sun_average};
    earth.mass = mzlib::consts::earth_mass;
     
@@ -73,10 +73,10 @@ TEST_F(fixture_universe, sun_force_on_earth)
 
 TEST_F(fixture_universe, long_earth_around_the_sun)
 {
-   mzlib::cbody sun;
+   mzlib::cbody2d sun;
    sun.mass = 1.989e30;
     
-   mzlib::cbody earth;
+   mzlib::cbody2d earth;
    mzlib::math::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
    earth.location = earth_location_start;
    earth.mass = mzlib::consts::earth_mass;
