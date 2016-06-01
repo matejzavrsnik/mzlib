@@ -327,31 +327,28 @@ TEST_F(fixture_cquadtree, iterator_it_breadthfirst)
    ASSERT_TRUE(node == tree3.end_nodes_breadthfirst());
 }
 
-TEST_F(fixture_cquadtree, iterator_order)
+TEST_F(fixture_cquadtree, iterator_all_bodies)
 {
-   mzlib::math::cvector2d se{ 25, 25};
-   mzlib::math::cvector2d nw{-25,-25};
-   mzlib::math::cvector2d sw{-25, 25};        
-   mzlib::math::cvector2d ne{ 25,-25};
-    
-   int body_se = 0;
-   int body_nw = 1;
-   int body_sw = 2;
-   int body_ne = 3;
-    
-   // Add them in mixed order
-   m_tree.add(body_se, se);
-   m_tree.add(body_nw, nw);
-   m_tree.add(body_sw, sw);
-   m_tree.add(body_ne, ne);
+   m_tree.add(0, { 25, 25});
+   m_tree.add(1, {-25,-25});
+   m_tree.add(2, {-25, 25});
+   m_tree.add(3, { 25,-25});
+   
+   std::map<int, bool> bodies_retrieved;
+   
+   bodies_retrieved[0] = false;
+   bodies_retrieved[1] = false;
+   bodies_retrieved[2] = false;
+   bodies_retrieved[3] = false;
 
-   // Check if they all turn out and in correct order nw -> ne -> sw -> se
-   mzlib::cquadtree<int>::it_bodies it = m_tree.begin();
-   ASSERT_EQ(body_nw, it->data); ++it;
-   ASSERT_EQ(body_ne, it->data); ++it;
-   ASSERT_EQ(body_sw, it->data); ++it;
-   ASSERT_EQ(body_se, it->data); ++it;
-   ASSERT_EQ(m_tree.end(), it);
+   // Check if they can all be retrieved
+   for(std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> body : m_tree) {
+      bodies_retrieved[body->data] = true;
+   }
+   
+   for(auto entry : bodies_retrieved) {
+      ASSERT_TRUE(entry.second); // assert retrieved
+   }
 }
 
 TEST_F(fixture_cquadtree, iterator_one_node_many_bodies_other_nodes_none)

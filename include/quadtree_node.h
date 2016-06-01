@@ -255,6 +255,16 @@ public:
       }
       return nullptr; // not found
    }
+   
+   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator begin()
+   {
+      return m_bodies.begin();
+   }
+   
+   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator end()
+   {
+      return m_bodies.end();
+   }
         
 private:
 
@@ -264,6 +274,11 @@ private:
    std::shared_ptr<cquadnode<T>> m_child_se;
    std::shared_ptr<cquadnode<T>> m_parent;
         
+   // All bodies that are in this node, and in all it's subnodes, are stored in
+   // this vector of shared pointers. This is to enable quick traversal of all
+   // bodies stored here, and with that an effective search solution too. If it
+   // wasn't for the fact that what is stored in here are pointers, which will be
+   // causing cache misses all the time, it should look like using std::vector.
    std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>> m_bodies;
    cmass_centre2d m_mass_centre;
         

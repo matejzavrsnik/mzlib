@@ -9,7 +9,6 @@
 #define QUADREEE_H
 
 #include "quadtree_node.h"
-#include "quadtree_it_bodies.h"
 #include "quadtree_it_masscentres.h"
 #include "quadtree_it_postorder.h"
 #include "quadtree_it_breadthfirst.h"
@@ -28,8 +27,8 @@ private:
     
 public:
        
-   // because developers would expect cquadtree::iterators to exist
-   typedef quadtree_it_bodies<T>             it_bodies;
+   // And the 1st prize for the longest type name goes to:
+   typedef typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator it_bodies;
    typedef quadtree_it_masscentres<T>        it_masscentres;
    typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
    typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
@@ -96,12 +95,12 @@ public:
    { 
       //todo: to iterate bodies in no determined order, I dont need special iterator 
       //      anymore, because the root node will have pointers to all nodes underneath
-      return it_bodies(m_root.get()); 
+      return m_root->begin(); 
    }
    
    it_bodies end () 
    { 
-      return it_bodies(nullptr); 
+      return m_root->end(); 
    }
         
    it_masscentres begin_masscentres (const T& data, double quotient)
