@@ -20,7 +20,6 @@ namespace mzlib {
 //    - Rightmost (W) and downmost (S) coordinates are inclusive.
 //    - Assumed order of iteration where it matters is nw -> ne -> sw -> se
     
-template <class T> class quadtree_it_bodies;
 template <class T> class quadtree_it_masscentres;
 template <class T> class quadtree_it_nodes_postorder;
 template <class T> class quadtree_it_nodes_breadthfirst;
@@ -29,7 +28,6 @@ template<class T>
 class cquadnode : public std::enable_shared_from_this<cquadnode<T>>
 {
         
-   friend class quadtree_it_bodies<T>;
    friend class quadtree_it_masscentres<T>;
    friend class quadtree_it_nodes_postorder<T>;
    friend class quadtree_it_nodes_breadthfirst<T>;
@@ -99,12 +97,9 @@ public:
    
    bool remove (const T& data) 
    {
-      // downside of this approach: every subnode needs to find mass centre in it's own collection
-      // try to find the body in collection of bodies in this node
-      auto mass_centre_it = std::find_if (m_bodies.begin(), m_bodies.end(), 
-         [&](std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre) { 
-            return mass_centre->data == data; 
-      });
+      // downside of the approach where every node contains all bodies under it: 
+      // every subnode needs to find mass centre in it's own collection
+      auto mass_centre_it = find_body(data);
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return false; 
       // if found, convert to mass centre ptr
@@ -121,6 +116,31 @@ public:
       else if (m_child_sw->is_in(mass_centre_ptr->location)) return m_child_sw->remove(data);
       else if (m_child_se->is_in(mass_centre_ptr->location)) return m_child_se->remove(data);
       return false;
+   }
+   
+   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator find_body(const T& data)
+   {
+      typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator mass_centre_it = 
+         std::find_if (m_bodies.begin(), m_bodies.end(), 
+            [&](std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre) { 
+               return mass_centre->data == data; 
+         });
+      return mass_centre_it;
+   }
+   
+   bool move(const T& data, math::cvector2d new_location)
+   {
+      auto mass_centre_it = find_body(data);
+      auto mass_centre = *mass_centre_it;
+      if(mass_centre == nullptr) return false;
+      if(mass_centre->location == new_location) return true;
+      // so, with corner cases handled, here's the thing:
+      remove(data);
+      mass_centre->location = new_location;
+      add(mass_centre);
+      //todo: there are faster option: in majority of cases, bodies will not cross
+      //      node borders, in which case body can be directly updated and mass centre
+      //      handled and that is it. But first things first.
    }
    
    const cmass_centre2d& get_mass_centre() const
@@ -248,7 +268,7 @@ public:
    
    const cbinded_mass_centre2d<T>* find (const T& data) const
    {
-      for (auto& body : m_bodies) {
+      for (auto body : m_bodies) {
          if (body->data == data) {
             return body.get();
          }

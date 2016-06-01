@@ -71,6 +71,11 @@ public:
       return true; 
    }
    
+   bool move (const T& data, math::cvector2d new_location)
+   {
+      return m_root->move(data,new_location);
+   }
+   
    bool remove (const T& data)
    {
       return m_root->remove(data);

@@ -215,14 +215,26 @@ TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
    ASSERT_FALSE(success);
 }
 
-// break this test into more specific ones
+TEST_F(fixture_cquadtree, move_basic)
+{
+   m_tree.add(1, {25,25}, 150);
+   m_tree.add(2, {23,23}, 150);
+   ASSERT_EQ(300, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({24,24}), m_tree.get_mass_centre().location);
+   m_tree.move(2, {21,21});
+   ASSERT_EQ(300, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({23,23}), m_tree.get_mass_centre().location);
+}
+
 TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({0,0}), m_tree.get_mass_centre().location);
    bool success = m_tree.remove(1);
    ASSERT_EQ(100, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({-25,-25}), m_tree.get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, iterator_it_postorder)
