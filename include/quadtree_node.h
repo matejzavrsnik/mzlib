@@ -9,6 +9,7 @@
 #define	QUADTREE_NODE_H
 
 #include <memory>
+#include <algorithm> // std::find_if
 #include "vector.h"
 #include "mass_centre.h"
 

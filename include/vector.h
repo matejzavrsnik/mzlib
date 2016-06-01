@@ -13,7 +13,7 @@
 #include <initializer_list>
 #include <array>
 
-#include "utilities.h"
+#include "dbl.h"
 
 namespace mzlib { 
 namespace math {

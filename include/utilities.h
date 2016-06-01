@@ -8,8 +8,6 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include <cmath>
-#include <limits>
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -17,132 +15,15 @@
 #include <vector>
 #include <map>
 #include <algorithm>
-#include <chrono>
-#include <random>
 #include <locale>
 #include <fstream>
 #include <dirent.h>
 
+#include "utils_random.h" // cprobabilator needs it at least
+
 namespace mzlib {
 namespace util {
-
-// adds to objects a capability to be easily identifiable across copies of itself
-class cunique
-{
-   
-private:
-   
-   int m_id;
-   
-   static int get_unique_int()
-   {
-      static int m_unique_int = 0;
-      return ++m_unique_int;
-   }
-   
-public:
-   
-   cunique()
-   {
-      m_id = get_unique_int();
-   }
-   
-   cunique(const cunique&) = default;
-   cunique(cunique && ) = default;
-   cunique& operator=(const cunique&) = default;
-   cunique& operator=(cunique&&) = default;
-   ~cunique() = default;   
-   
-   int id() const
-   {
-      return m_id;
-   }
-};
-   
-// to compare doubles for equality
-class dbl
-{
-
-private:
-
-   double m_val;
-   double m_compared_to;
         
-public:
-        
-   explicit dbl (double val) : 
-      m_val(val),
-      m_compared_to(val)
-   {
-   }
-        
-   dbl& equals (double val) 
-   {
-      m_compared_to = val;
-      return *this;
-   }
-        
-   operator bool () const 
-   {
-      const double delta = std::abs(m_val-m_compared_to);
-      const double magnitude_candidate = std::abs(m_val+m_compared_to);
-      const double magnitude = (magnitude_candidate >= 1 ? magnitude_candidate : 1);
-      const int units_in_last_place = 4;
-      const double allowed_delta = std::numeric_limits<double>::epsilon() * magnitude * units_in_last_place;
-      return delta < allowed_delta || delta < std::numeric_limits<double>::min();
-   }
-        
-   bool within_epsilon (double eps = 1e-10) const 
-   {
-      return std::abs(m_val-m_compared_to) <= eps;
-   }
-
-};
-    
-inline unsigned int get_random_integer ()
-{
-   static unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-   static std::mt19937 generator(seed);
-   return generator();
-}
-    
-inline double get_random_double_between_0_1 ()
-{
-   unsigned random_number = get_random_integer();
-   return (double)random_number / (double)std::mt19937::max();
-}
-
-inline double get_random_double ()
-{
-   // rand() will never return completely random type T when T is a floating point type, 
-   // because the integer value will be converted to a floating point value with all 
-   // decimal digits 0, I invented the following trick.
-
-   // cast to double immediately to make sure the division will be cast properly
-   double numerator = get_random_integer();
-   double denominator = get_random_integer();
-   // collect some decimal digits
-   double decimals = numerator / denominator;
-   // collect whole digits too
-   double final_rand = get_random_integer() + decimals;
-   return final_rand;
-}
-    
-inline unsigned int get_random_integer_between (unsigned from, unsigned to)
-{
-   double random_number = get_random_double_between_0_1();
-   return (random_number * (to - from) + from);
-}
-    
-template<class T, class U> typename std::map<T,U>::iterator 
-get_random_element (std::map<T,U>& from_map) 
-{
-   unsigned random = get_random_integer_between(0, from_map.size()-1);
-   auto result = from_map.begin();
-   std::advance(result, random);
-   return result;
-}
-    
 template<typename T> std::size_t 
 get_number_of_decimals (T num)
 {

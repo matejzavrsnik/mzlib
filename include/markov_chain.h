@@ -13,6 +13,7 @@
 #include <map>
 
 #include "utilities.h"
+#include "utils_random.h"
 
 namespace mzlib
 {

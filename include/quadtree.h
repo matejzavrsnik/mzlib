@@ -98,8 +98,6 @@ public:
 
    it_bodies begin () 
    { 
-      //todo: to iterate bodies in no determined order, I dont need special iterator 
-      //      anymore, because the root node will have pointers to all nodes underneath
       return m_root->begin(); 
    }
    

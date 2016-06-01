@@ -9,6 +9,7 @@
 #include "gtest/gtest.h"
 
 #include <functional>
+#include <map>
 
 class fixture_cquadtree : public ::testing::Test 
 {

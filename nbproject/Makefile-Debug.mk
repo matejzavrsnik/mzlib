@@ -36,14 +36,17 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/tests/test_dbl.o \
 	${OBJECTDIR}/tests/test_markov_chain.o \
 	${OBJECTDIR}/tests/test_masscentre.o \
 	${OBJECTDIR}/tests/test_quadtree.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
+	${OBJECTDIR}/tests/test_unique.o \
 	${OBJECTDIR}/tests/test_units_strong.o \
 	${OBJECTDIR}/tests/test_universe.o \
 	${OBJECTDIR}/tests/test_utilities.o \
+	${OBJECTDIR}/tests/test_utils_random.o \
 	${OBJECTDIR}/tests/test_vector.o
 
 
@@ -76,6 +79,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
+${OBJECTDIR}/tests/test_dbl.o: tests/test_dbl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_dbl.o tests/test_dbl.cpp
+
 ${OBJECTDIR}/tests/test_markov_chain.o: tests/test_markov_chain.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -101,6 +109,11 @@ ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
 
+${OBJECTDIR}/tests/test_unique.o: tests/test_unique.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_unique.o tests/test_unique.cpp
+
 ${OBJECTDIR}/tests/test_units_strong.o: tests/test_units_strong.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -115,6 +128,11 @@ ${OBJECTDIR}/tests/test_utilities.o: tests/test_utilities.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utilities.o tests/test_utilities.cpp
+
+${OBJECTDIR}/tests/test_utils_random.o: tests/test_utils_random.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_random.o tests/test_utils_random.cpp
 
 ${OBJECTDIR}/tests/test_vector.o: tests/test_vector.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
