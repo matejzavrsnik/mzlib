@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_dbl.o \
 	${OBJECTDIR}/tests/test_markov_chain.o \
 	${OBJECTDIR}/tests/test_masscentre.o \
+	${OBJECTDIR}/tests/test_probabilator.o \
 	${OBJECTDIR}/tests/test_quadtree.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
@@ -47,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_universe.o \
 	${OBJECTDIR}/tests/test_utilities.o \
 	${OBJECTDIR}/tests/test_utils_random.o \
+	${OBJECTDIR}/tests/test_utils_string.o \
 	${OBJECTDIR}/tests/test_vector.o
 
 
@@ -54,8 +56,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-Wall -Wextra -Wpedantic -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-missing-braces -Wstrict-aliasing=1 -Wfloat-equal -Wdouble-promotion -Wmissing-include-dirs -Wno-return-local-addr -Wswitch-default -Wswitch-enum -Wsync-nand -Wunused -Wuninitialized -Wstrict-overflow=5 -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wmissing-format-attribute -Wtrampolines -Wundef -Wunsafe-loop-optimizations -Wc++11-compat -Wconversion -Wno-conversion-null -Wzero-as-null-pointer-constant -Wparentheses -Wuseless-cast -Wconversion -Wlogical-op -Wvarargs -Wno-aggressive-loop-optimizations -Wpadded -Wredundant-decls -Winline -Wvector-operation-performance -Wno-virtual-move-assign -Wvla
-CXXFLAGS=-Wall -Wextra -Wpedantic -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-missing-braces -Wstrict-aliasing=1 -Wfloat-equal -Wdouble-promotion -Wmissing-include-dirs -Wno-return-local-addr -Wswitch-default -Wswitch-enum -Wsync-nand -Wunused -Wuninitialized -Wstrict-overflow=5 -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wmissing-format-attribute -Wtrampolines -Wundef -Wunsafe-loop-optimizations -Wc++11-compat -Wconversion -Wno-conversion-null -Wzero-as-null-pointer-constant -Wparentheses -Wuseless-cast -Wconversion -Wlogical-op -Wvarargs -Wno-aggressive-loop-optimizations -Wpadded -Wredundant-decls -Winline -Wvector-operation-performance -Wno-virtual-move-assign -Wvla
+CCFLAGS=-Wall -Wextra -Wpedantic
+CXXFLAGS=-Wall -Wextra -Wpedantic
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -93,6 +95,11 @@ ${OBJECTDIR}/tests/test_masscentre.o: tests/test_masscentre.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_masscentre.o tests/test_masscentre.cpp
+
+${OBJECTDIR}/tests/test_probabilator.o: tests/test_probabilator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_probabilator.o tests/test_probabilator.cpp
 
 ${OBJECTDIR}/tests/test_quadtree.o: tests/test_quadtree.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
@@ -133,6 +140,11 @@ ${OBJECTDIR}/tests/test_utils_random.o: tests/test_utils_random.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_random.o tests/test_utils_random.cpp
+
+${OBJECTDIR}/tests/test_utils_string.o: tests/test_utils_string.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_string.o tests/test_utils_string.cpp
 
 ${OBJECTDIR}/tests/test_vector.o: tests/test_vector.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests

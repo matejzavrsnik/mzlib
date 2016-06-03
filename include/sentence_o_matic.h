@@ -9,6 +9,8 @@
 #define SENTENCE_O_MATIC_H
 
 #include "markov_chain.h"
+#include "utilities.h"
+#include "utils_string.h"
 
 namespace mzlib {
 

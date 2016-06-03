@@ -9,6 +9,7 @@
       <itemPath>include/laws.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
       <itemPath>include/mass_centre.h</itemPath>
+      <itemPath>include/probabilator.h</itemPath>
       <itemPath>include/quadtree.h</itemPath>
       <itemPath>include/quadtree_it_breadthfirst.h</itemPath>
       <itemPath>include/quadtree_it_masscentres.h</itemPath>
@@ -21,7 +22,10 @@
       <itemPath>include/units_strong.h</itemPath>
       <itemPath>include/universe.h</itemPath>
       <itemPath>include/utilities.h</itemPath>
+      <itemPath>include/utils_filesystem.h</itemPath>
+      <itemPath>include/utils_libcmlpp.h</itemPath>
       <itemPath>include/utils_random.h</itemPath>
+      <itemPath>include/utils_string.h</itemPath>
       <itemPath>include/vector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -33,6 +37,7 @@
       <itemPath>tests/test_dbl.cpp</itemPath>
       <itemPath>tests/test_markov_chain.cpp</itemPath>
       <itemPath>tests/test_masscentre.cpp</itemPath>
+      <itemPath>tests/test_probabilator.cpp</itemPath>
       <itemPath>tests/test_quadtree.cpp</itemPath>
       <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
@@ -41,6 +46,7 @@
       <itemPath>tests/test_universe.cpp</itemPath>
       <itemPath>tests/test_utilities.cpp</itemPath>
       <itemPath>tests/test_utils_random.cpp</itemPath>
+      <itemPath>tests/test_utils_string.cpp</itemPath>
       <itemPath>tests/test_vector.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -70,7 +76,7 @@
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-missing-braces -Wstrict-aliasing=1 -Wfloat-equal -Wdouble-promotion -Wmissing-include-dirs -Wno-return-local-addr -Wswitch-default -Wswitch-enum -Wsync-nand -Wunused -Wuninitialized -Wstrict-overflow=5 -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wmissing-format-attribute -Wtrampolines -Wundef -Wunsafe-loop-optimizations -Wc++11-compat -Wconversion -Wno-conversion-null -Wzero-as-null-pointer-constant -Wparentheses -Wuseless-cast -Wconversion -Wlogical-op -Wvarargs -Wno-aggressive-loop-optimizations -Wpadded -Wredundant-decls -Winline -Wvector-operation-performance -Wno-virtual-move-assign -Wvla</commandLine>
+          <commandLine>-Wall -Wextra -Wpedantic</commandLine>
           <warningLevel>0</warningLevel>
         </ccTool>
         <linkerTool>
@@ -94,6 +100,8 @@
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -119,7 +127,13 @@
       </item>
       <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/utils_filesystem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utils_libcmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/utils_random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utils_string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -130,6 +144,8 @@
       <item path="tests/test_markov_chain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_masscentre.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_probabilator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -146,6 +162,8 @@
       <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_utils_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_utils_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -168,7 +186,7 @@
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-missing-braces -Wstrict-aliasing=1 -Wfloat-equal -Wdouble-promotion -Wmissing-include-dirs -Wno-return-local-addr -Wswitch-default -Wswitch-enum -Wsync-nand -Wunused -Wuninitialized -Wstrict-overflow=5 -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wmissing-format-attribute -Wtrampolines -Wundef -Wunsafe-loop-optimizations -Wc++11-compat -Wconversion -Wno-conversion-null -Wzero-as-null-pointer-constant -Wparentheses -Wuseless-cast -Wconversion -Wlogical-op -Wvarargs -Wno-aggressive-loop-optimizations -Wpadded -Wredundant-decls -Winline -Wvector-operation-performance -Wno-virtual-move-assign -Wvla</commandLine>
+          <commandLine>-Wall -Wextra -Wpedantic</commandLine>
           <warningLevel>0</warningLevel>
         </ccTool>
         <fortranCompilerTool>
@@ -199,6 +217,8 @@
       </item>
       <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree_it_breadthfirst.h" ex="false" tool="3" flavor2="0">
@@ -223,7 +243,13 @@
       </item>
       <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/utils_filesystem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utils_libcmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/utils_random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utils_string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -234,6 +260,8 @@
       <item path="tests/test_markov_chain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_masscentre.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_probabilator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -250,6 +278,8 @@
       <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_utils_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_utils_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>

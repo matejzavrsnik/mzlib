@@ -77,26 +77,6 @@ TEST_F(fixture_utilities, push_back_if_not_in)
    ASSERT_EQ(v.size(), 3);
 }
 
-TEST_F(fixture_utilities, probabilator_basic_test) 
-{
-   cprobabilator<int> probabilator;
-   probabilator.add_event(0, 10); // event 1, probability 10%
-   probabilator.add_event(1, 30); // event 2, probability 30%
-   probabilator.add_event(2, 60); // event 3, probability 60%
-   probabilator.wrap_up();
-    
-   std::vector<int> event_occurences = {0,0,0};
-   int repetitions = 10000;
-   for(int i=0; i<repetitions; ++i) {
-      int event = probabilator.get_event();
-      event_occurences[event]++;
-   }
-    
-   ASSERT_NEAR(event_occurences[0], repetitions*0.1, repetitions*0.02); // event 0 happened 1000 times +- 200
-   ASSERT_NEAR(event_occurences[1], repetitions*0.3, repetitions*0.02); // event 1 happened 3000 times +- 200
-   ASSERT_NEAR(event_occurences[2], repetitions*0.6, repetitions*0.02); // event 2 happened 6000 times +- 200
-}
-
 TEST_F(fixture_utilities, get_index) 
 {
    std::vector<int> v;
@@ -119,63 +99,6 @@ TEST_F(fixture_utilities, get_index)
    auto it_9 = std::find(v.begin(), v.end(), 9);
    int index_9 = get_index(v, it_9);
    ASSERT_EQ(index_9, 9);
-}
-
-TEST_F(fixture_utilities, split_string_puctuation_basic) 
-{
-   std::string test = ",word!)";
-   std::vector<std::string> result = split_string_puctuation(test);
-   ASSERT_EQ(result.size(), 4);
-   ASSERT_EQ(result[0], ",");
-   ASSERT_EQ(result[1], "word");
-   ASSERT_EQ(result[2], "!");
-   ASSERT_EQ(result[3], ")");
-}
-
-TEST_F(fixture_utilities, split_string_puctuation_no_punctuations) 
-{
-   std::string test = "word";
-   std::vector<std::string> result = split_string_puctuation(test);
-   ASSERT_EQ(result.size(), 1);
-   ASSERT_EQ(result[0], "word");
-}
-
-TEST_F(fixture_utilities, split_string_puctuation_no_punctuations_at_beginning) 
-{
-   std::string test = "word).";
-   std::vector<std::string> result = split_string_puctuation(test);
-   ASSERT_EQ(result.size(), 3);
-   ASSERT_EQ(result[0], "word");
-   ASSERT_EQ(result[1], ")");
-   ASSERT_EQ(result[2], ".");
-}
-
-TEST_F(fixture_utilities, split_string_puctuation_no_punctuations_at_end) 
-{
-   std::string test = "\",word";
-   std::vector<std::string> result = split_string_puctuation(test);
-   ASSERT_EQ(result.size(), 3);
-   ASSERT_EQ(result[0], "\"");
-   ASSERT_EQ(result[1], ",");
-   ASSERT_EQ(result[2], "word");
-}
-
-TEST_F(fixture_utilities, split_string_puctuation_all_punctuations) 
-{
-   std::string test = "!?.,;:-\"()\n";
-   std::vector<std::string> result = split_string_puctuation(test);
-   ASSERT_EQ(result.size(), 11);
-   ASSERT_EQ(result[0], "!");
-   ASSERT_EQ(result[1], "?");
-   ASSERT_EQ(result[2], ".");
-   ASSERT_EQ(result[3], ",");
-   ASSERT_EQ(result[4], ";");
-   ASSERT_EQ(result[5], ":");
-   ASSERT_EQ(result[6], "-");
-   ASSERT_EQ(result[7], "\"");
-   ASSERT_EQ(result[8], "(");
-   ASSERT_EQ(result[9], ")");
-   ASSERT_EQ(result[10], "\n");
 }
 
 TEST_F(fixture_utilities, sentence_assemblarator_basic_test) 

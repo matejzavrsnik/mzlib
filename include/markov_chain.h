@@ -12,7 +12,7 @@
 #include <vector>
 #include <map>
 
-#include "utilities.h"
+#include "probabilator.h"
 #include "utils_random.h"
 
 namespace mzlib

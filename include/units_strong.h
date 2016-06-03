@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UNITS_FOUNDATION_H
-#define UNITS_FOUNDATION_H
+#ifndef UNITS_STRONG_H
+#define UNITS_STRONG_H
 
 #include <cmath> // std::fabs
 
