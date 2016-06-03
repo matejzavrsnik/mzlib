@@ -7,8 +7,6 @@
 
 #include "../include/utils_string.h"
 #include "gtest/gtest.h"
-
-using namespace mzlib::util;
     
 class fixture_utils_string : public ::testing::Test 
 {
@@ -25,7 +23,7 @@ protected:
 TEST_F(fixture_utils_string, split_string_puctuation_basic) 
 {
    std::string test = ",word!)";
-   std::vector<std::string> result = split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::util::split_string_puctuation(test);
    ASSERT_EQ(result.size(), 4);
    ASSERT_EQ(result[0], ",");
    ASSERT_EQ(result[1], "word");
@@ -36,7 +34,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_basic)
 TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations) 
 {
    std::string test = "word";
-   std::vector<std::string> result = split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::util::split_string_puctuation(test);
    ASSERT_EQ(result.size(), 1);
    ASSERT_EQ(result[0], "word");
 }
@@ -44,7 +42,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations)
 TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_beginning) 
 {
    std::string test = "word).";
-   std::vector<std::string> result = split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::util::split_string_puctuation(test);
    ASSERT_EQ(result.size(), 3);
    ASSERT_EQ(result[0], "word");
    ASSERT_EQ(result[1], ")");
@@ -54,7 +52,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_beginnin
 TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_end) 
 {
    std::string test = "\",word";
-   std::vector<std::string> result = split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::util::split_string_puctuation(test);
    ASSERT_EQ(result.size(), 3);
    ASSERT_EQ(result[0], "\"");
    ASSERT_EQ(result[1], ",");
@@ -64,7 +62,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_end)
 TEST_F(fixture_utils_string, split_string_puctuation_all_punctuations) 
 {
    std::string test = "!?.,;:-\"()\n";
-   std::vector<std::string> result = split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::util::split_string_puctuation(test);
    ASSERT_EQ(result.size(), 11);
    ASSERT_EQ(result[0], "!");
    ASSERT_EQ(result[1], "?");

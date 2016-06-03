@@ -8,8 +8,6 @@
 #include "../include/unique.h"
 #include "gtest/gtest.h"
 
-using namespace mzlib::util;
-
 class fixture_unique : public ::testing::Test 
 {
 
@@ -24,17 +22,17 @@ protected:
 
 TEST_F(fixture_unique, unique_demo) 
 {
-   cunique a;
-   cunique b;
+   mzlib::util::cunique a;
+   mzlib::util::cunique b;
    ASSERT_NE(a.id(), b.id()); 
 }
 
 TEST_F(fixture_unique, unique_on_copy) 
 {
-   cunique a;
-   cunique b;
-   cunique c(a);
-   cunique d = a;
+   mzlib::util::cunique a;
+   mzlib::util::cunique b;
+   mzlib::util::cunique c(a);
+   mzlib::util::cunique d = a;
    ASSERT_NE(a.id(), b.id());
    ASSERT_EQ(a.id(), c.id());
    ASSERT_EQ(a.id(), d.id());

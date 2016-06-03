@@ -5,14 +5,13 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "gtest/gtest.h"
-#include "../include/cpucycle.h"
-
 #define private public
 #define protected public
 
 #include "../include/supersafe_number.h"
 
+#include "gtest/gtest.h"
+#include "../include/cpucycle.h"
     
 class fixture_supersafe_number : public ::testing::Test 
 {

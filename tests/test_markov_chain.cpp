@@ -8,8 +8,6 @@
 #include "../include/markov_chain.h"
 #include "gtest/gtest.h"
 
-#include <fstream>
-
 class fixture_markov_chain : public ::testing::Test 
 {
 
