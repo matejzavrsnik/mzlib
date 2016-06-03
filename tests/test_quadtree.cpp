@@ -29,7 +29,7 @@ protected:
 
 };
 
-TEST_F(fixture_cquadtree, barnes_hut_simulation_basic)
+TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
 {
    const int node_width = 20;
    const int quadrant_width = 100;
@@ -107,8 +107,22 @@ TEST_F(fixture_cquadtree, barnes_hut_simulation_basic)
    found = std::find_if(returned_mass_centres.begin(), returned_mass_centres.end(), search_function);
    ASSERT_TRUE(found != returned_mass_centres.end());
   
-//todo: test with iterating for body that is not in the tree
 //todo: test with quotient 0
+}
+
+TEST_F(fixture_cquadtree, iterator_mass_centres_body_not_in_tree)
+{
+   // put some bodies into the tree
+   m_tree.add(1, { 25, 25}, 100);
+   m_tree.add(2, {-25,-25}, 100);
+   m_tree.add(3, { 25,-25}, 100);
+   // then try to iterate mass centres around body that is not in
+   mzlib::cquadtree<int>::it_masscentres mass_centres_it = m_tree.begin_masscentres(4, 0.2);
+   // preferably doesn't outright segfault
+   for(; mass_centres_it != m_tree.end_masscentres(); ++mass_centres_it) {
+      FAIL(); // and also should not find any
+   }
+   SUCCEED();
 }
 
 TEST_F(fixture_cquadtree, add)
@@ -167,8 +181,8 @@ TEST_F(fixture_cquadtree, find_body_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const mzlib::cbinded_mass_centre2d<int>* one = m_tree.find(1);
-   const mzlib::cbinded_mass_centre2d<int>* two = m_tree.find(2);
+   const std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> one = m_tree.find(1);
+   const std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> two = m_tree.find(2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ(1, one->data);
@@ -180,8 +194,8 @@ TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
    mzlib::cquadtree<std::string> local_tree = {m_top_left, m_bottom_right, smallest_node_width};
    local_tree.add("one", {25,25}, 100);
    local_tree.add("two", {-25,-25}, 100);
-   const mzlib::cbinded_mass_centre2d<std::string>* one = local_tree.find("one");
-   const mzlib::cbinded_mass_centre2d<std::string>* two = local_tree.find("two");
+   const std::shared_ptr<mzlib::cbinded_mass_centre2d<std::string>> one = local_tree.find("one");
+   const std::shared_ptr<mzlib::cbinded_mass_centre2d<std::string>> two = local_tree.find("two");
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ("one", one->data);
@@ -192,7 +206,7 @@ TEST_F(fixture_cquadtree, find_body_not_found)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const mzlib::cbinded_mass_centre2d<int>* three = m_tree.find(3);
+   const std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> three = m_tree.find(3);
    ASSERT_EQ(nullptr, three);
 }
 
@@ -225,6 +239,18 @@ TEST_F(fixture_cquadtree, move_basic)
    m_tree.move(2, {21,21});
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::math::cvector2d({23,23}), m_tree.get_mass_centre().location);
+}
+
+TEST_F(fixture_cquadtree, move_nonexistent_data)
+{
+   m_tree.add(1, {25,25}, 150);
+   m_tree.add(2, {23,23}, 150);
+   // hopefully doesn't crash
+   bool success = m_tree.move(3, {21,21});
+   ASSERT_FALSE(success);
+   // mass centre stays unchanged
+   ASSERT_EQ(300, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({24,24}), m_tree.get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)

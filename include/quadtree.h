@@ -86,7 +86,7 @@ public:
       return m_root->get_mass_centre();
    }
 
-   const cbinded_mass_centre2d<T>* find (const T& data)
+   const std::shared_ptr<cbinded_mass_centre2d<T>> find (const T& data)
    {
       return m_root->find(data);
    }

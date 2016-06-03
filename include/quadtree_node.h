@@ -129,9 +129,10 @@ public:
       return mass_centre_it;
    }
    
-   bool move(const T& data, math::cvector2d new_location)
+   bool move (const T& data, math::cvector2d new_location)
    {
       auto mass_centre_it = find_body(data);
+      if (mass_centre_it == m_bodies.end()) return false;
       auto mass_centre = *mass_centre_it;
       if(mass_centre == nullptr) return false;
       if(mass_centre->location == new_location) return true;
@@ -267,11 +268,11 @@ public:
       return candidate;
    }
    
-   const cbinded_mass_centre2d<T>* find (const T& data) const
+   const std::shared_ptr<cbinded_mass_centre2d<T>> find (const T& data) const
    {
       for (auto body : m_bodies) {
          if (body->data == data) {
-            return body.get();
+            return body;
          }
       }
       return nullptr; // not found
