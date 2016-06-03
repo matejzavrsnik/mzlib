@@ -44,12 +44,13 @@ template<class VectorT> VectorT entertaining_law_of_gravitation(
 
 using ilaw_of_gravitation2d = math::cvector2d (*) (const cmass_centre<math::cvector2d>&, const cmass_centre<math::cvector2d>&, const double);
 using ilaw_of_gravitation3d = math::cvector3d (*) (const cmass_centre<math::cvector3d>&, const cmass_centre<math::cvector3d>&, const double);
-ilaw_of_gravitation2d entertaining_law_of_gravitation2d = entertaining_law_of_gravitation<math::cvector2d>;
-ilaw_of_gravitation3d entertaining_law_of_gravitation3d = entertaining_law_of_gravitation<math::cvector3d>;
-ilaw_of_gravitation2d universal_law_of_gravitation2d = universal_law_of_gravitation<math::cvector2d>;
-ilaw_of_gravitation3d universal_law_of_gravitation3d = universal_law_of_gravitation<math::cvector3d>;
 
-}
+static ilaw_of_gravitation2d entertaining_law_of_gravitation2d = entertaining_law_of_gravitation<math::cvector2d>;
+static ilaw_of_gravitation3d entertaining_law_of_gravitation3d = entertaining_law_of_gravitation<math::cvector3d>;
+static ilaw_of_gravitation2d universal_law_of_gravitation2d = universal_law_of_gravitation<math::cvector2d>;
+static ilaw_of_gravitation3d universal_law_of_gravitation3d = universal_law_of_gravitation<math::cvector3d>;
+
+} // namespace mzlib
 
 #endif // LAWS_H
 
