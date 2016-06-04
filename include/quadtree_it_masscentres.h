@@ -75,10 +75,10 @@ private:
          // not too far; need to consider it in details
          if (node->has_children()) {
             // Queue up the children nodes. Rinse. Repeat.
-            m_nodes_queue.push(node->m_child_nw.get());
-            m_nodes_queue.push(node->m_child_ne.get());
-            m_nodes_queue.push(node->m_child_sw.get());
-            m_nodes_queue.push(node->m_child_se.get());
+            if(node->m_child_nw->m_bodies.size()) m_nodes_queue.push(node->m_child_nw.get());
+            if(node->m_child_ne->m_bodies.size()) m_nodes_queue.push(node->m_child_ne.get());
+            if(node->m_child_sw->m_bodies.size()) m_nodes_queue.push(node->m_child_sw.get());
+            if(node->m_child_se->m_bodies.size()) m_nodes_queue.push(node->m_child_se.get());
          }
          else if (node->m_bodies.size() > 0) {
             // So, by here, the node is not too far, is leaf, has bodies; line them up!

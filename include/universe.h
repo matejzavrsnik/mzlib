@@ -84,19 +84,25 @@ public:
    {
       m_fun_law_of_gravitation = new_law;
    }
+   
+   void set_barnes_hut_quotient (double quotient) 
+   {
+      m_barnes_hut_quotient = quotient;
+   }
         
    void calculate_forces () 
    {
       for (std::shared_ptr<cbody2d> this_body : m_bodies) {
          this_body->data.force = {0.0,0.0};
-         for (std::shared_ptr<cbody2d> another_body : m_bodies) {
-            if (this_body.get() != another_body.get()) {
-               math::cvector2d gravity_force = m_fun_law_of_gravitation(
-                  *this_body, 
-                  *another_body, 
-                  m_gravitational_constant);
-               this_body->data.force += gravity_force;
-            }
+         cquadtree<cbody_properties2d>::it_masscentres mass_centres_it = 
+            m_bodies.begin_masscentres(this_body->data, m_barnes_hut_quotient);
+         for (; mass_centres_it != m_bodies.end_masscentres(); ++mass_centres_it) {
+            auto another_mass_centre = *mass_centres_it;
+            math::cvector2d gravity_force = m_fun_law_of_gravitation(
+               *this_body, 
+               another_mass_centre, 
+               m_gravitational_constant);
+            this_body->data.force += gravity_force;
          }
       }
    }
@@ -139,6 +145,7 @@ private:
    double m_gravitational_constant = consts::gravitational_constant;
    double m_max_velocity = consts::light_speed;
    ilaw_of_gravitation2d m_fun_law_of_gravitation = universal_law_of_gravitation2d;
+   double m_barnes_hut_quotient = 0; // all bodies by default
         
 };
 
