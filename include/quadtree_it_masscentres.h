@@ -70,8 +70,6 @@ private:
             m_next_mass_centre = node->get_mass_centre();
             return; // done; next mass centre prepared
          }
-         // Recurse: will work on other queued nodes.
-         prepare_next_mass_centre();
       }
       else {
          // not too far; need to consider it in details
@@ -81,8 +79,6 @@ private:
             m_nodes_queue.push(node->m_child_ne.get());
             m_nodes_queue.push(node->m_child_sw.get());
             m_nodes_queue.push(node->m_child_se.get());
-            // Recurse: will work on queued nodes. Probably. You can never really tell with recursion, can you?
-            prepare_next_mass_centre();
          }
          else if (node->m_bodies.size() > 0) {
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
@@ -90,10 +86,11 @@ private:
                if (body->data == m_body->data) continue; // Skip original body
                m_mass_centres_queue.push(*body);
             }
-            // Recurse: will pop first mass centre from queue
-            prepare_next_mass_centre(); 
          }
       }
+      // Continue until you have the next m_next_mass_centre to show for it, or
+      // there is no more nodes and iteration finished.
+      prepare_next_mass_centre();
    }
    
 public:

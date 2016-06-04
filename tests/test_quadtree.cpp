@@ -5,6 +5,9 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
+#define private public
+#define protected public
+
 #include "../include/quadtree.h"
 #include "gtest/gtest.h"
 
@@ -29,7 +32,74 @@ protected:
 
 };
 
+TEST_F(fixture_cquadtree, tree_is_built_correctly)
+{
+   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25};
+
+   ASSERT_TRUE(local_tree.m_root->has_children());
+   ASSERT_EQ(mzlib::math::cvector2d({-50,-50}), local_tree.m_root->m_top_left);
+   ASSERT_EQ(mzlib::math::cvector2d({ 50, 50}), local_tree.m_root->m_bottom_right);
+   
+   ASSERT_TRUE(local_tree.m_root->m_child_nw->has_children());
+   ASSERT_TRUE(local_tree.m_root->m_child_ne->has_children());
+   ASSERT_TRUE(local_tree.m_root->m_child_sw->has_children());
+   ASSERT_TRUE(local_tree.m_root->m_child_se->has_children());
+
+   // -50 _ 0 _ 50
+   //   |nw |ne |
+   // 0 ----+---- 0
+   //   |sw |se |
+   // -50 _ 0 _ -50
+   
+   ASSERT_EQ(mzlib::math::cvector2d({-50,-50}), local_tree.m_root->m_child_nw->m_top_left);
+   ASSERT_EQ(mzlib::math::cvector2d({  0,  0}), local_tree.m_root->m_child_nw->m_bottom_right);
+   ASSERT_EQ(mzlib::math::cvector2d({  0,-50}), local_tree.m_root->m_child_ne->m_top_left);
+   ASSERT_EQ(mzlib::math::cvector2d({ 50,  0}), local_tree.m_root->m_child_ne->m_bottom_right);
+   ASSERT_EQ(mzlib::math::cvector2d({-50,  0}), local_tree.m_root->m_child_sw->m_top_left);
+   ASSERT_EQ(mzlib::math::cvector2d({  0, 50}), local_tree.m_root->m_child_sw->m_bottom_right);
+   ASSERT_EQ(mzlib::math::cvector2d({  0,  0}), local_tree.m_root->m_child_se->m_top_left);
+   ASSERT_EQ(mzlib::math::cvector2d({ 50, 50}), local_tree.m_root->m_child_se->m_bottom_right);
+   
+   ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_nw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_ne->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_sw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_se->has_children());
+
+   ASSERT_FALSE(local_tree.m_root->m_child_ne->m_child_nw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_ne->m_child_ne->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_ne->m_child_sw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_ne->m_child_se->has_children());
+   
+   ASSERT_FALSE(local_tree.m_root->m_child_sw->m_child_nw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_sw->m_child_ne->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_sw->m_child_sw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_sw->m_child_se->has_children());
+   
+   ASSERT_FALSE(local_tree.m_root->m_child_se->m_child_nw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_se->m_child_ne->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_se->m_child_sw->has_children());
+   ASSERT_FALSE(local_tree.m_root->m_child_se->m_child_se->has_children());
+}
+
 TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
+{
+   // two nodes in top left node
+   m_tree.add(1, {-45,-45}, 100);
+   m_tree.add(2, {-46,-46}, 100);
+   // two nodes in bottom right node
+   m_tree.add(3, { 45, 45}, 100);
+   m_tree.add(4, { 46, 46}, 100);
+   
+   double quotient = 1; // quotient 1 should barely cover the node the body is in
+   mzlib::cquadtree<int>::it_masscentres mass_centres_it = m_tree.begin_masscentres(4, quotient);
+   ASSERT_EQ(mzlib::math::cvector2d({-45.5,-45.5}), mass_centres_it->location);
+   ++mass_centres_it;
+   ASSERT_EQ(mzlib::math::cvector2d({45,45}), mass_centres_it->location);
+   ++mass_centres_it;
+   ASSERT_EQ(m_tree.end_masscentres(), mass_centres_it);
+}
+
+TEST_F(fixture_cquadtree, iterator_mass_centres_zero_quotient)
 {
    const int node_width = 20;
    const int quadrant_width = 100;
@@ -37,20 +107,6 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
       {-quadrant_width,-quadrant_width}, 
       {quadrant_width, quadrant_width}, 
       node_width};
-   
-   //      -100 -60    0     60  100
-   //        |-80|-40  |     | 80|
-   // -100 --* o o o o   o o o o o  <-- bodies 4, 5, 6
-   //  -80 --o o o o o   o o o o o
-   //  -60 --o o o o o   o o o o o
-   //  -40 --o o o o o   o o o o o
-   //        o o o o o   o o o o o
-   //    0 --
-   //        o o o o o   o o o o o
-   //        o o o o o   o o o o o
-   //        o o o o o   o o o o o
-   //        o o o o o   o o o * o  <-- bodies 2, 3
-   //  100 --o o o o o   o o o o *  <-- body 1
    
    // put one body into lower right most node
    local_tree.add(1, { 91,  91}, 11); 
@@ -63,51 +119,16 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
    local_tree.add(6, {-96, -96}, 16);
 
    // sort of covers own quadrant, so from 0,0 to 100,100
-   double quotient = (double)node_width / (double)quadrant_width;
+   double quotient = 0;
    // first, a neighbouring body
    mzlib::cquadtree<int>::it_masscentres mass_centres_it = local_tree.begin_masscentres(1, quotient);
    std::vector<mzlib::cmass_centre2d> returned_mass_centres;
    for(; mass_centres_it != local_tree.end_masscentres(); ++mass_centres_it) {
       returned_mass_centres.push_back(*mass_centres_it);
    }
-   
-   mzlib::math::cvector2d expected_location;
-   double expected_mass;
-   std::function<bool(mzlib::cmass_centre2d mc)> search_function = 
-      [&expected_location, &expected_mass] (mzlib::cmass_centre2d mc) 
-      { 
-         return (
-            expected_location == mc.location &&
-            mzlib::util::dbl(expected_mass).equals(mc.mass));
-      };
       
-   // Should return 3 mass centres
-   ASSERT_EQ(3, returned_mass_centres.size());
-   
-   // Should skip body 1, because we are interested in mass centres as seen from this body
-   expected_location = {91, 91};
-   expected_mass = 11;
-   auto found = std::find_if(returned_mass_centres.begin(), returned_mass_centres.end(), search_function);
-   ASSERT_TRUE(found == returned_mass_centres.end());
-   
-   // Should discover bodies 2 and 3, because they are not too far
-   expected_location = {72, 72};
-   expected_mass = 12;
-   found = std::find_if(returned_mass_centres.begin(), returned_mass_centres.end(), search_function);
-   ASSERT_TRUE(found != returned_mass_centres.end());
-
-   expected_location = {73, 73};
-   expected_mass = 13;
-   found = std::find_if(returned_mass_centres.begin(), returned_mass_centres.end(), search_function);
-   ASSERT_TRUE(found != returned_mass_centres.end());
-           
-   // And finally, should collapse bodies 4, 5, and 6 into one mass centre, because they are too far
-   expected_location = {-95.044444444444451, -95.044444444444451};
-   expected_mass = 45;
-   found = std::find_if(returned_mass_centres.begin(), returned_mass_centres.end(), search_function);
-   ASSERT_TRUE(found != returned_mass_centres.end());
-  
-//todo: test with quotient 0
+   // Should return all 5 other bodies
+   ASSERT_EQ(5, returned_mass_centres.size());
 }
 
 TEST_F(fixture_cquadtree, iterator_mass_centres_body_not_in_tree)
