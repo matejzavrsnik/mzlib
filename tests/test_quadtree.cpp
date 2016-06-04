@@ -253,6 +253,29 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
    ASSERT_EQ(mzlib::math::cvector2d({24,24}), m_tree.get_mass_centre().location);
 }
 
+TEST_F(fixture_cquadtree, change_mass_basic)
+{
+   m_tree.add(1, {5,5}, 100);
+   m_tree.add(2, {25,25}, 100);
+   ASSERT_EQ(200, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({15,15}), m_tree.get_mass_centre().location);
+   m_tree.change_mass(2, 300);
+   ASSERT_EQ(400, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({20,20}), m_tree.get_mass_centre().location);
+}
+
+TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
+{
+   m_tree.add(1, {5,5}, 100);
+   m_tree.add(2, {25,25}, 100);
+   // hopefully doesn't crash
+   bool success = m_tree.change_mass(3, 150);
+   ASSERT_FALSE(success);
+   // mass centre stays unchanged
+   ASSERT_EQ(200, m_tree.get_mass_centre().mass);
+   ASSERT_EQ(mzlib::math::cvector2d({15,15}), m_tree.get_mass_centre().location);
+}
+
 TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
 {
    m_tree.add(1, {25,25}, 100);

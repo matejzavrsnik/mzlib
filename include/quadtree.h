@@ -76,6 +76,11 @@ public:
       return m_root->move(data,new_location);
    }
    
+   bool change_mass (const T& data, double new_mass)
+   {
+      return m_root->change_mass(data,new_mass);
+   }
+   
    bool remove (const T& data)
    {
       return m_root->remove(data);

@@ -133,19 +133,34 @@ public:
    {
       auto mass_centre_it = find_body(data);
       if (mass_centre_it == m_bodies.end()) return false;
-      auto mass_centre = *mass_centre_it;
-      if(mass_centre == nullptr) return false;
-      if(mass_centre->location == new_location) return true;
+      auto mass_centre_ptr = *mass_centre_it;
+      if(mass_centre_ptr == nullptr) return false;
+      if(mass_centre_ptr->location == new_location) return true;
       // so, with corner cases handled, here's the thing:
       remove(data);
-      mass_centre->location = new_location;
-      add(mass_centre);
+      mass_centre_ptr->location = new_location;
+      add(mass_centre_ptr);
       //todo: there are faster option: in majority of cases, bodies will not cross
       //      node borders, in which case body can be directly updated and mass centre
       //      handled and that is it. But first things first.
+      return true;
    }
    
-   const cmass_centre2d& get_mass_centre() const
+   bool change_mass (const T& data, double new_mass)
+   {
+      auto mass_centre_it = find_body(data);
+      if (mass_centre_it == m_bodies.end()) return false;
+      auto mass_centre_ptr = *mass_centre_it;
+      if(mass_centre_ptr == nullptr) return false;
+      if(mass_centre_ptr->mass == new_mass) return true;
+      // so, with corner cases handled, here's the thing:
+      remove(data);
+      mass_centre_ptr->mass = new_mass;
+      add(mass_centre_ptr);
+      return true;
+   }
+   
+   const cmass_centre2d& get_mass_centre () const
    {
       return m_mass_centre;
    }
