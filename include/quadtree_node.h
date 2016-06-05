@@ -143,7 +143,7 @@ public:
       //todo: there are faster option: in majority of cases, bodies will not cross
       //      node borders, in which case body can be directly updated and mass centre
       //      handled and that is it. But first things first.
-      return true;
+      return is_in(new_location);
    }
    
    bool change_mass (const T& data, double new_mass)

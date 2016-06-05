@@ -24,6 +24,9 @@ class cquadtree
 private:
     
    std::shared_ptr<cquadnode<T>> m_root;
+   // A container for all bodies, even ones that didn't get into the tree itself.
+   // Every self respecting container should store stuff it promises.
+   std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>> m_all_bodies;
     
 public:
        
@@ -56,7 +59,8 @@ public:
       std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
          std::make_shared<cbinded_mass_centre2d<T>>(mass_centre);
       m_root->add(mass_centre_ptr);
-      return true; 
+      m_all_bodies.push_back(mass_centre_ptr);
+      return true;
    }
    
    bool add (T data, math::cvector2d location, double mass = 0) 
@@ -67,13 +71,34 @@ public:
       }
       std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
          std::make_shared<cbinded_mass_centre2d<T>>(data, location, mass);
-      m_root->add(mass_centre_ptr); //todo: take care of name consistency body/mass_centre
-      return true; 
+      m_root->add(mass_centre_ptr);
+      m_all_bodies.push_back(mass_centre_ptr);
+      return true;
    }
    
    bool move (const T& data, math::cvector2d new_location)
    {
-      return m_root->move(data,new_location);
+      bool moved_into_tree = m_root->move(data,new_location);
+      // if moving within the tree didn't succeed, but has been added to the tree,
+      // change properties on the body anyway and if new location is in the tree,
+      // re-insert it again
+      if(!moved_into_tree) { 
+         for(int i=0; i!=m_all_bodies.size(); ++i) {
+            if( m_all_bodies[i]->data == data) {
+               if(m_root->is_in(new_location)) {
+                  it_bodies mass_centre_it = m_all_bodies.begin() + i;
+                  m_root->add(*mass_centre_it); // add back
+                  moved_into_tree = true;
+               }
+               else {
+                  m_all_bodies[i]->location = new_location;
+                  moved_into_tree = false;
+               }
+               break;
+            }
+         }
+      }
+      return moved_into_tree;
    }
    
    bool change_mass (const T& data, double new_mass)
@@ -83,7 +108,14 @@ public:
    
    bool remove (const T& data)
    {
-      return m_root->remove(data);
+      if(m_root->remove(data)) {
+         for(int i=0; i!=m_all_bodies.size(); ++i) {
+            if( m_all_bodies[i]->data == data) {
+               m_all_bodies.erase(m_all_bodies.begin() + i);
+               break;
+            }
+         }
+      }
    }
    
    const cmass_centre2d& get_mass_centre () const
@@ -103,12 +135,12 @@ public:
 
    it_bodies begin () 
    { 
-      return m_root->begin(); 
+      return m_all_bodies.begin(); 
    }
    
    it_bodies end () 
    { 
-      return m_root->end(); 
+      return m_all_bodies.end(); 
    }
         
    it_masscentres begin_masscentres (const T& data, double quotient)
