@@ -57,9 +57,9 @@ public:
    
    const cbody2d* find_body (cbody2d& body)
    {
-      for (std::shared_ptr<cbody2d> found : m_bodies) {
-         if (found->data == body.data) {
-            return found.get();
+      for (cbody2d& found : m_bodies) {
+         if (found.data == body.data) {
+            return &found;
          }
       }
       return nullptr;
@@ -92,35 +92,35 @@ public:
         
    void calculate_forces () 
    {
-      for (std::shared_ptr<cbody2d> this_body : m_bodies) {
-         this_body->data.force = {0.0,0.0};
+      for (cbody2d& this_body : m_bodies) {
+         this_body.data.force = {0.0,0.0};
          cquadtree<cbody_properties2d>::it_masscentres mass_centres_it = 
-            m_bodies.begin_masscentres(this_body->data, m_barnes_hut_quotient);
+            m_bodies.begin_masscentres(this_body.data, m_barnes_hut_quotient);
          for (; mass_centres_it != m_bodies.end_masscentres(); ++mass_centres_it) {
             auto another_mass_centre = *mass_centres_it;
             math::cvector2d gravity_force = m_fun_law_of_gravitation(
-               *this_body, 
+               this_body, 
                another_mass_centre, 
                m_gravitational_constant);
-            this_body->data.force += gravity_force;
+            this_body.data.force += gravity_force;
          }
       }
    }
         
    void calculate_positions (double time_pixel) 
    {
-      for (std::shared_ptr<cbody2d> body : m_bodies) {
-         math::cvector2d velocity_initial = body->data.velocity;
+      for (cbody2d& body : m_bodies) {
+         math::cvector2d velocity_initial = body.data.velocity;
          math::cvector2d acceleration{0};
-         acceleration = body->data.force / body->mass;
+         acceleration = body.data.force / body.mass;
          math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
          if (velocity_final.length() > m_max_velocity) {
             acceleration = {0.0,0.0};
             velocity_final = velocity_initial;
          }
          math::cvector2d location_final = (velocity_initial*time_pixel) + (acceleration*time_pixel)/2; 
-         body->location += location_final;
-         body->data.velocity = velocity_final;
+         body.location += location_final;
+         body.data.velocity = velocity_final;
       }
    }
         

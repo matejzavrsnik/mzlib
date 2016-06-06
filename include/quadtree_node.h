@@ -12,6 +12,7 @@
 #include <algorithm> // std::find_if
 #include "vector.h"
 #include "mass_centre.h"
+#include "utils_missing_std.h"
 
 namespace mzlib {
 
@@ -20,7 +21,8 @@ namespace mzlib {
 //    - Leftmost (E) and topmost (N) coordinates are exclusive.
 //    - Rightmost (W) and downmost (S) coordinates are inclusive.
 //    - Assumed order of iteration where it matters is nw -> ne -> sw -> se
-    
+
+template <class T> class quadtree_it_bodies;
 template <class T> class quadtree_it_masscentres;
 template <class T> class quadtree_it_nodes_postorder;
 template <class T> class quadtree_it_nodes_breadthfirst;
@@ -29,6 +31,7 @@ template<class T>
 class cquadnode : public std::enable_shared_from_this<cquadnode<T>>
 {
         
+   friend class quadtree_it_bodies<T>;
    friend class quadtree_it_masscentres<T>;
    friend class quadtree_it_nodes_postorder<T>;
    friend class quadtree_it_nodes_breadthfirst<T>;
@@ -81,7 +84,7 @@ public:
       }
    }
 
-   void add (std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre) 
+   void add (cbinded_mass_centre2d<T>* mass_centre) 
    {
       if (is_in(mass_centre->location)) {
          // insert
@@ -104,7 +107,7 @@ public:
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return false; 
       // if found, convert to mass centre ptr
-      std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = *mass_centre_it;
+      cbinded_mass_centre2d<T>* mass_centre_ptr = *mass_centre_it;
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
@@ -119,11 +122,11 @@ public:
       return false;
    }
    
-   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator find_body(const T& data)
+   typename std::vector<cbinded_mass_centre2d<T>*>::iterator find_body(const T& data)
    {
-      typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator mass_centre_it = 
+      typename std::vector<cbinded_mass_centre2d<T>*>::iterator mass_centre_it = 
          std::find_if (m_bodies.begin(), m_bodies.end(), 
-            [&](std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre) { 
+            [&](cbinded_mass_centre2d<T>* mass_centre) { 
                return mass_centre->data == data; 
          });
       return mass_centre_it;
@@ -283,7 +286,7 @@ public:
       return candidate;
    }
    
-   const std::shared_ptr<cbinded_mass_centre2d<T>> find (const T& data) const
+   const cbinded_mass_centre2d<T>* find (const T& data) const
    {
       for (auto body : m_bodies) {
          if (body->data == data) {
@@ -291,16 +294,6 @@ public:
          }
       }
       return nullptr; // not found
-   }
-   
-   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator begin()
-   {
-      return m_bodies.begin();
-   }
-   
-   typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator end()
-   {
-      return m_bodies.end();
    }
         
 private:
@@ -316,7 +309,7 @@ private:
    // bodies stored here, and with that an effective search solution too. If it
    // wasn't for the fact that what is stored in here are pointers, which will be
    // causing cache misses all the time, it should look like using std::vector.
-   std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>> m_bodies;
+   std::vector<cbinded_mass_centre2d<T>*> m_bodies;
    cmass_centre2d m_mass_centre;
         
    math::cvector2d m_top_left;

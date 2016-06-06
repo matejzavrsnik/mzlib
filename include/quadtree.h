@@ -9,11 +9,13 @@
 #define QUADREEE_H
 
 #include "quadtree_node.h"
+#include "quadtree_it_bodies.h"
 #include "quadtree_it_masscentres.h"
 #include "quadtree_it_postorder.h"
 #include "quadtree_it_breadthfirst.h"
 #include "vector.h"
 #include "body.h"
+#include "utils_missing_std.h"
 
 namespace mzlib {
 
@@ -26,12 +28,12 @@ private:
    std::shared_ptr<cquadnode<T>> m_root;
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
-   std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>> m_all_bodies;
+   std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>> m_all_bodies;
     
 public:
        
    // And the 1st prize for the longest type name goes to:
-   typedef typename std::vector<std::shared_ptr<cbinded_mass_centre2d<T>>>::iterator it_bodies;
+   typedef quadtree_it_bodies<T> it_bodies;
    typedef quadtree_it_masscentres<T>        it_masscentres;
    typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
    typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
@@ -56,10 +58,10 @@ public:
       if (!m_root->is_in(mass_centre.location)) {
          return false;
       }
-      std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
-         std::make_shared<cbinded_mass_centre2d<T>>(mass_centre);
-      m_root->add(mass_centre_ptr);
-      m_all_bodies.push_back(mass_centre_ptr);
+      std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
+         std::make_unique<cbinded_mass_centre2d<T>>(mass_centre);
+      m_root->add(mass_centre_ptr.get());
+      m_all_bodies.push_back(std::move(mass_centre_ptr));
       return true;
    }
    
@@ -69,10 +71,10 @@ public:
          //todo: expand tree instead
          return false;
       }
-      std::shared_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
-         std::make_shared<cbinded_mass_centre2d<T>>(data, location, mass);
-      m_root->add(mass_centre_ptr);
-      m_all_bodies.push_back(mass_centre_ptr);
+      std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
+         std::make_unique<cbinded_mass_centre2d<T>>(data, location, mass);
+      m_root->add(mass_centre_ptr.get());
+      m_all_bodies.push_back(std::move(mass_centre_ptr));
       return true;
    }
    
@@ -86,8 +88,9 @@ public:
          for(int i=0; i!=m_all_bodies.size(); ++i) {
             if( m_all_bodies[i]->data == data) {
                if(m_root->is_in(new_location)) {
-                  it_bodies mass_centre_it = m_all_bodies.begin() + i;
-                  m_root->add(*mass_centre_it); // add back
+                  auto mass_centre_it = (m_all_bodies.begin() + i);
+                  cbinded_mass_centre2d<T>* mass_centre_ptr = (*mass_centre_it).get();
+                  m_root->add(mass_centre_ptr); // add back
                   moved_into_tree = true;
                }
                else {
@@ -112,10 +115,11 @@ public:
          for(int i=0; i!=m_all_bodies.size(); ++i) {
             if( m_all_bodies[i]->data == data) {
                m_all_bodies.erase(m_all_bodies.begin() + i);
-               break;
+               return true;
             }
          }
       }
+      return false;
    }
    
    const cmass_centre2d& get_mass_centre () const
@@ -123,7 +127,7 @@ public:
       return m_root->get_mass_centre();
    }
 
-   const std::shared_ptr<cbinded_mass_centre2d<T>> find (const T& data)
+   const cbinded_mass_centre2d<T>* find (const T& data)
    {
       return m_root->find(data);
    }
@@ -135,12 +139,12 @@ public:
 
    it_bodies begin () 
    { 
-      return m_all_bodies.begin(); 
+      return it_bodies(m_all_bodies.begin()); 
    }
    
    it_bodies end () 
    { 
-      return m_all_bodies.end(); 
+      return it_bodies(m_all_bodies.end()); 
    }
         
    it_masscentres begin_masscentres (const T& data, double quotient)

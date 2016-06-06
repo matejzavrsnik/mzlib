@@ -11,6 +11,7 @@
       <itemPath>include/mass_centre.h</itemPath>
       <itemPath>include/probabilator.h</itemPath>
       <itemPath>include/quadtree.h</itemPath>
+      <itemPath>include/quadtree_it_bodies.h</itemPath>
       <itemPath>include/quadtree_it_breadthfirst.h</itemPath>
       <itemPath>include/quadtree_it_masscentres.h</itemPath>
       <itemPath>include/quadtree_it_postorder.h</itemPath>
@@ -105,6 +106,8 @@
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/quadtree_it_bodies.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree_it_breadthfirst.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -223,6 +226,8 @@
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/quadtree_it_bodies.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree_it_breadthfirst.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -202,8 +202,8 @@ TEST_F(fixture_cquadtree, find_body_basic)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> one = m_tree.find(1);
-   const std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> two = m_tree.find(2);
+   const mzlib::cbinded_mass_centre2d<int>* one = m_tree.find(1);
+   const mzlib::cbinded_mass_centre2d<int>* two = m_tree.find(2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ(1, one->data);
@@ -215,8 +215,8 @@ TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
    mzlib::cquadtree<std::string> local_tree = {m_top_left, m_bottom_right, smallest_node_width};
    local_tree.add("one", { 25, 25}, 100);
    local_tree.add("two", {-25,-25}, 100);
-   const std::shared_ptr<mzlib::cbinded_mass_centre2d<std::string>> one = local_tree.find("one");
-   const std::shared_ptr<mzlib::cbinded_mass_centre2d<std::string>> two = local_tree.find("two");
+   const mzlib::cbinded_mass_centre2d<std::string>* one = local_tree.find("one");
+   const mzlib::cbinded_mass_centre2d<std::string>* two = local_tree.find("two");
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ("one", one->data);
@@ -227,7 +227,7 @@ TEST_F(fixture_cquadtree, find_body_not_found)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> three = m_tree.find(3);
+   const mzlib::cbinded_mass_centre2d<int>* three = m_tree.find(3);
    ASSERT_EQ(nullptr, three);
 }
 
@@ -282,19 +282,19 @@ TEST_F(fixture_cquadtree, move_beyond_tree_size)
    bool is_in_tree = m_tree.move(2, m_bottom_right + mzlib::math::cvector2d({0,10}));
    ASSERT_FALSE(is_in_tree); // should signal that it is out of tree
    bool still_finds_the_tree = false;
-   for(auto body : m_tree) { if (body->data == 2) { still_finds_the_tree = true; } }
+   for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
    
    // move even further out
    is_in_tree = m_tree.move(2, m_bottom_right + mzlib::math::cvector2d({0,12}));
    ASSERT_FALSE(is_in_tree);
-   for(auto body : m_tree) { if (body->data == 2) { still_finds_the_tree = true; } }
+   for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
    
    // move back to where it was, in the tree
    is_in_tree = m_tree.move(2, mzlib::math::cvector2d({0,12}));
    ASSERT_TRUE(is_in_tree);
-   for(auto body : m_tree) { if (body->data == 2) { still_finds_the_tree = true; } }
+   for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
    
 }
@@ -450,8 +450,8 @@ TEST_F(fixture_cquadtree, iterator_all_bodies)
    bodies_retrieved[3] = false;
 
    // Check if they can all be retrieved
-   for(std::shared_ptr<mzlib::cbinded_mass_centre2d<int>> body : m_tree) {
-      bodies_retrieved[body->data] = true;
+   for(mzlib::cbinded_mass_centre2d<int> body : m_tree) {
+      bodies_retrieved[body.data] = true;
    }
    
    for(auto entry : bodies_retrieved) {

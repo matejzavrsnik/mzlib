@@ -97,13 +97,13 @@ public:
 
    explicit quadtree_it_masscentres (const cquadnode<T>* const node, const T& data, double quotient)
    { 
-      const std::shared_ptr<cbinded_mass_centre2d<T>> found_body = node->find(data);
-      if (found_body == nullptr || found_body.get() == nullptr) 
+      const cbinded_mass_centre2d<T>* found_body = node->find(data);
+      if (found_body == nullptr) 
       {
          set_done();
          return;
       }
-      m_body = found_body.get();
+      m_body = found_body;
       m_quotient = quotient;
       m_nodes_queue.push(node);
       prepare_next_mass_centre();

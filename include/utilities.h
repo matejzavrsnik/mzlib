@@ -134,7 +134,7 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
    }
    return sentence;
 }
-    
+
 } } // namespace mzlib::util
 
 #endif // UTILITIES_H
