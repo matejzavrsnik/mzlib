@@ -24,6 +24,7 @@
       <itemPath>include/utilities.h</itemPath>
       <itemPath>include/utils_filesystem.h</itemPath>
       <itemPath>include/utils_libcmlpp.h</itemPath>
+      <itemPath>include/utils_missing_std.h</itemPath>
       <itemPath>include/utils_random.h</itemPath>
       <itemPath>include/utils_string.h</itemPath>
       <itemPath>include/vector.h</itemPath>
@@ -130,6 +131,8 @@
       <item path="include/utils_filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils_libcmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utils_missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils_random.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -246,6 +249,8 @@
       <item path="include/utils_filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils_libcmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utils_missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils_random.h" ex="false" tool="3" flavor2="0">
       </item>
