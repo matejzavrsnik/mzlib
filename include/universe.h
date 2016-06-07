@@ -29,7 +29,7 @@ public:
       const mzlib::math::cvector2d& bottom_right, 
       const double smallest_node_width) 
       : 
-      m_bodies (
+      m_quad_tree (
          top_left,
          bottom_right,
          smallest_node_width)
@@ -37,9 +37,9 @@ public:
    }
 
    cuniverse () : 
-      m_bodies (
-         {-10e50,-10e50},
-         { 10e50, 10e50},
+      m_quad_tree (
+         mzlib::math::cvector2d({-10e50,-10e50}),
+         mzlib::math::cvector2d({ 10e50, 10e50}),
          10e50/2-1)
    {
    }
@@ -52,12 +52,12 @@ public:
         
    void add_body (cbody2d& body) 
    {
-      m_bodies.add(body);
+      m_quad_tree.add(body);
    }
    
-   const cbody2d* find_body (cbody2d& body)
+   cbody2d const * find_body (cbody2d& body)
    {
-      for (cbody2d& found : m_bodies) {
+      for (const cbody2d& found : m_quad_tree) {
          if (found.data == body.data) {
             return &found;
          }
@@ -65,9 +65,9 @@ public:
       return nullptr;
    }
         
-   cquadtree<cbody_properties2d>& get_bodies ()
+   const cquadtree<cbody_properties2d>& get_tree () const
    {
-      return m_bodies;
+      return m_quad_tree;
    }
         
    void set_gravitational_constant (double gravitational_constant) 
@@ -92,24 +92,24 @@ public:
         
    void calculate_forces () 
    {
-      for (cbody2d& this_body : m_bodies) {
-         this_body.data.force = {0.0,0.0};
+      for (const cbody2d& this_body : m_quad_tree) {
+         m_quad_tree.access_data(this_body).force = {0.0,0.0};
          cquadtree<cbody_properties2d>::it_masscentres mass_centres_it = 
-            m_bodies.begin_masscentres(this_body.data, m_barnes_hut_quotient);
-         for (; mass_centres_it != m_bodies.end_masscentres(); ++mass_centres_it) {
+            m_quad_tree.begin_masscentres(this_body.data, m_barnes_hut_quotient);
+         for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
             auto another_mass_centre = *mass_centres_it;
             math::cvector2d gravity_force = m_fun_law_of_gravitation(
                this_body, 
                another_mass_centre, 
                m_gravitational_constant);
-            this_body.data.force += gravity_force;
+            m_quad_tree.access_data(this_body).force += gravity_force;
          }
       }
    }
         
    void calculate_positions (double time_pixel) 
    {
-      for (cbody2d& body : m_bodies) {
+      for (const cbody2d& body : m_quad_tree) {
          math::cvector2d velocity_initial = body.data.velocity;
          math::cvector2d acceleration{0};
          acceleration = body.data.force / body.mass;
@@ -119,8 +119,8 @@ public:
             velocity_final = velocity_initial;
          }
          math::cvector2d location_final = (velocity_initial*time_pixel) + (acceleration*time_pixel)/2; 
-         body.location += location_final;
-         body.data.velocity = velocity_final;
+         m_quad_tree.move(body.data, body.location + location_final);
+         m_quad_tree.access_data(body).velocity = velocity_final;
       }
    }
         
@@ -141,7 +141,7 @@ public:
         
 private:
 
-   cquadtree<cbody_properties2d> m_bodies;
+   cquadtree<cbody_properties2d> m_quad_tree;
    double m_gravitational_constant = consts::gravitational_constant;
    double m_max_velocity = consts::light_speed;
    ilaw_of_gravitation2d m_fun_law_of_gravitation = universal_law_of_gravitation2d;

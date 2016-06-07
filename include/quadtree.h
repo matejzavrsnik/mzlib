@@ -132,19 +132,27 @@ public:
       return m_root->find(data);
    }
    
+   T& access_data(const cbody2d& body)
+   {
+      // I know it looks stupid, but why searching for the body again?
+      // If someone deliberately wants to game the system, they can just 
+      // const_cast themselves. There is no const police.
+      return const_cast<T&>(body.data);
+   }
+   
    bool is_in (math::cvector2d location) const 
    { 
       return m_root->is_in(location); 
    }
 
-   it_bodies begin () 
+   it_bodies begin () const
    { 
-      return it_bodies(m_all_bodies.begin()); 
+      return it_bodies(m_all_bodies.cbegin()); 
    }
    
-   it_bodies end () 
+   it_bodies end () const
    { 
-      return it_bodies(m_all_bodies.end()); 
+      return it_bodies(m_all_bodies.cend()); 
    }
         
    it_masscentres begin_masscentres (const T& data, double quotient)

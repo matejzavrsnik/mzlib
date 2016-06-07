@@ -25,11 +25,12 @@ class quadtree_it_bodies :
 
 private:
 
-   typename std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>>::iterator m_body_it;
+   using iterator_type = typename std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>>::const_iterator;
+   iterator_type m_body_it;
 
 public:
 
-   explicit quadtree_it_bodies (typename std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>>::iterator it) : 
+   explicit quadtree_it_bodies (iterator_type it) : 
       m_body_it(it) 
    { 
    }
@@ -50,12 +51,12 @@ public:
    }
 
    //todo: needs to be const
-   cbinded_mass_centre2d<T>* operator-> ()
+   cbinded_mass_centre2d<T> const * operator-> () const
    { 
       return (*m_body_it).get();
    }
 
-   cbinded_mass_centre2d<T>& operator* ()
+   const cbinded_mass_centre2d<T>& operator* () const
    { 
       return *(*m_body_it); 
    }
