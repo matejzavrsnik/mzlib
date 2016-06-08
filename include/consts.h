@@ -15,6 +15,9 @@ namespace consts {
 
 using namespace mzlib::units;
 
+// math
+constexpr long double operator"" _pi          (long double pi)   { return pi*3.1415926535; }
+
 // measured
 const double earth_distance_sun_perihelion = 147098290.0_km;
 const double earth_distance_sun_aphelion   = 152096000.0_km;

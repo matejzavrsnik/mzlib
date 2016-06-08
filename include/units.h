@@ -40,9 +40,6 @@ constexpr long double operator"" _julian_year (long double jy)   { return jy*315
 // mass
 constexpr long double operator"" _kg          (long double kg)   { return kg; }
 
-// constants
-constexpr long double operator"" _pi          (long double pi)   { return pi*3.1415926535; }
-
 } } // namespace mzlib::units
 
 #endif // UNITS_H
