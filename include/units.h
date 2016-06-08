@@ -24,12 +24,23 @@ namespace units {
 // of my particular compiler. I also don't wish to define everything twice. Just call the function
 // with 5000.0_km instead of 5000_km and force the compiler to parse the token as floating-point.
     
-constexpr long double operator"" _km          (long double km)   { return km*1000; }     // meters
-constexpr long double operator"" _km_per_s    (long double kmps) { return kmps*1000; }   // meters per second
+// length
+constexpr long double operator"" _km          (long double km)   { return km*1000; }
+
+// speed
+constexpr long double operator"" _km_per_s    (long double kmps) { return kmps*1000; }
 constexpr long double operator"" _m_per_s     (long double mps)  { return mps; }
-constexpr long double operator"" _julian_year (long double jy)   { return jy*31558152; } // seconds
-constexpr long double operator"" _s           (long double s)    { return s; }           // seconds
-constexpr long double operator"" _kg          (long double kg)   { return kg; }          // kilograms
+
+// time
+constexpr long double operator"" _s           (long double s)    { return s; }
+constexpr long double operator"" _h           (long double h)    { return h*3600; }
+constexpr long double operator"" _day         (long double day)  { return day*86400; }
+constexpr long double operator"" _julian_year (long double jy)   { return jy*31558152; }
+
+// mass
+constexpr long double operator"" _kg          (long double kg)   { return kg; }
+
+// constants
 constexpr long double operator"" _pi          (long double pi)   { return pi*3.1415926535; }
 
 } } // namespace mzlib::units
