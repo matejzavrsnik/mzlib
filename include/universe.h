@@ -65,7 +65,7 @@ public:
       return nullptr;
    }
         
-   const cquadtree<cbody_properties2d>& get_tree () const
+   cquadtree<cbody_properties2d>& get_tree ()
    {
       return m_quad_tree;
    }

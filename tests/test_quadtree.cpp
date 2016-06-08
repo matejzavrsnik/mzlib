@@ -296,7 +296,6 @@ TEST_F(fixture_cquadtree, move_beyond_tree_size)
    ASSERT_TRUE(is_in_tree);
    for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
-   
 }
 
 TEST_F(fixture_cquadtree, change_mass_basic)
