@@ -189,6 +189,14 @@ public:
    {
       return m_bottom_right;
    }
+   
+   double get_diagonal_length() const
+   {
+      if(m_diagonal_length != -1) return m_diagonal_length;
+      
+      const_cast<double&>(m_diagonal_length) = m_top_left.distance_to(m_bottom_right);
+      return m_diagonal_length;
+   }
 
    bool is_leaf () const 
    {
@@ -314,6 +322,7 @@ private:
         
    math::cvector2d m_top_left;
    math::cvector2d m_bottom_right;
+   double m_diagonal_length = -1;
 };
 
 } // namespace mzlib

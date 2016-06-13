@@ -59,9 +59,8 @@ private:
       const cquadnode<T>* node = m_nodes_queue.front();
       m_nodes_queue.pop(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
-      double node_diagonal = node->get_bottom_right().distance_to(node->get_top_left());
       double node_distance = m_body->location.distance_to(node->get_mass_centre().location);
-      double node_quotient = node_diagonal / node_distance;
+      double node_quotient = node->get_diagonal_length() / node_distance;
       // Now depending how far it is, we need to consider either just mass centre of the node, or individual bodies
       if (node_quotient < m_quotient) {
          // too far; we care nothing about this node beyond it's mass centre
