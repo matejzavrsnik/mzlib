@@ -22,6 +22,11 @@ namespace math {
 // Motivation to write own class (goals):
 //   - boost::ublas::c_vector can't be constexpr and std::vector isn't mathematical
 //   - std::vector is dynamic and can't fail compilation if used with mixed dimensions
+
+// Should I implement base vector class and use that one in physical laws instead of
+// concrete template instantiations? No, laws should work with any vector type. I am
+// not building another framework. If laws are function templates, that is perfect.
+   
 template<class TYPE, size_t DIM>
 class cvector 
 {
