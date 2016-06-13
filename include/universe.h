@@ -55,7 +55,7 @@ public:
       m_quad_tree.add(body);
    }
    
-   cbody2d const * find_body (cbody2d& body)
+   cbody2d const * find_body (const cbody2d& body)
    {
       for (const cbody2d& found : m_quad_tree) {
          if (found.data == body.data) {
