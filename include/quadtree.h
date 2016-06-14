@@ -160,9 +160,10 @@ public:
       return it_masscentres(m_root.get(), data, quotient);
    }
    
-   it_masscentres end_masscentres ()
+   const it_masscentres end_masscentres () const
    {
-      return it_masscentres();
+      static it_masscentres end;
+      return end; // to avoid creating new ends every time; I know they are all the same
    }
    
    it_nodes_postorder begin_nodes_postorder ()
