@@ -140,12 +140,33 @@ public:
       if(mass_centre_ptr == nullptr) return false;
       if(mass_centre_ptr->location == new_location) return true;
       // so, with corner cases handled, here's the thing:
-      remove(data);
-      mass_centre_ptr->location = new_location;
-      add(mass_centre_ptr);
-      //todo: there are faster option: in majority of cases, bodies will not cross
-      //      node borders, in which case body can be directly updated and mass centre
-      //      handled and that is it. But first things first.
+      
+      math::cvector2d old_location = mass_centre_ptr->location;
+
+      bool crosses_node_border = false;
+      if(!is_leaf()) {
+         if     (m_child_nw->is_in(mass_centre_ptr->location) && m_child_nw->is_in(new_location)) m_child_nw->move(data, new_location);
+         else if(m_child_ne->is_in(mass_centre_ptr->location) && m_child_ne->is_in(new_location)) m_child_ne->move(data, new_location);
+         else if(m_child_sw->is_in(mass_centre_ptr->location) && m_child_sw->is_in(new_location)) m_child_sw->move(data, new_location);
+         else if(m_child_se->is_in(mass_centre_ptr->location) && m_child_se->is_in(new_location)) m_child_se->move(data, new_location);
+         else {
+            crosses_node_border = true;
+         }
+      }
+      
+      if(crosses_node_border) {
+         // in this case remove the body and insert it again in new position
+         remove(data);
+         mass_centre_ptr->location = new_location;
+         add(mass_centre_ptr);         
+      }
+      else {
+         // in this case just update mass centres
+         m_mass_centre.remove_from_mass_centre({old_location, mass_centre_ptr->mass});
+         mass_centre_ptr->location = new_location;
+         m_mass_centre.add_to_mass_centre(*mass_centre_ptr); 
+      }
+      
       return is_in(new_location);
    }
    

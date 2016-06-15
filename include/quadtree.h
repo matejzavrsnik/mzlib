@@ -81,6 +81,7 @@ public:
    bool move (const T& data, math::cvector2d new_location)
    {
       bool moved_into_tree = m_root->move(data,new_location);
+      
       // if moving within the tree didn't succeed, but has been added to the tree,
       // change properties on the body anyway and if new location is in the tree,
       // re-insert it again

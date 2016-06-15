@@ -251,15 +251,97 @@ TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
    ASSERT_FALSE(success);
 }
 
-TEST_F(fixture_cquadtree, move_basic)
+TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
 {
-   m_tree.add(1, {25,25}, 150);
-   m_tree.add(2, {23,23}, 150);
-   ASSERT_EQ(300, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({24,24}), m_tree.get_mass_centre().location);
-   m_tree.move(2, {21,21});
-   ASSERT_EQ(300, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({23,23}), m_tree.get_mass_centre().location);
+   //    -50    0     50
+   // -50 +--+--+--+--+ 
+   //     |  |  |  |  |   x means from
+   //     +--+--+--+--+   o means to
+   //     |  |  |  |  |
+   //   0 +--+--+--+--+ 
+   //     |  |  |xo|  |   -> move crosses no node borders
+   //     +--+--+--+--+
+   //     |  |  |  |  |
+   //  50 +--+--+--+--+ 
+   
+   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25};
+   local_tree.add(1, {5,5}, 150);
+   local_tree.add(2, {3,3}, 150);
+   
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   
+   local_tree.move(2, {1,1});
+   
+   // body hasn't moved out of node, mass centres are updated
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_EQ(mzlib::math::cvector2d({3,3}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({3,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({3,3}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
+}
+
+TEST_F(fixture_cquadtree, move_crosses_2nd_level_node_borders)
+{
+   //    -50    0     50
+   // -50 +--+--+--+--+ 
+   //     |  |  |  |  |   x means from
+   //     +--+--+--+--+   o means to
+   //     |  |  |  |  |
+   //   0 +--+--+--+--+ 
+   //     |  |  |x |o |   -> move crosses lower node borders, but not higher
+   //     +--+--+--+--+
+   //     |  |  |  |  |
+   //  50 +--+--+--+--+ 
+   
+   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25};
+   local_tree.add(1, {5,5}, 150);
+   local_tree.add(2, {3,3}, 150);
+   
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   
+   local_tree.move(2, {30,1});
+   
+   // body hasn't moved out of node, mass centres are updated
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_ne->find(2));
+   ASSERT_EQ(mzlib::math::cvector2d({17.5,3}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({17.5,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({30,1}), local_tree.m_root->m_child_se->m_child_ne->get_mass_centre().location);
+}
+
+TEST_F(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes)
+{
+   //    -50    0     50
+   // -50 +--+--+--+--+ 
+   //     |  |  |  |  |   x means from
+   //     +--+--+--+--+   o means to
+   //     |  |  |o |  |     -> move crosses lower and higher node borders
+   //   0 +--+--+--+--+ 
+   //     |  |  |x |  |
+   //     +--+--+--+--+
+   //     |  |  |  |  |
+   //  50 +--+--+--+--+ 
+   
+   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25};
+   local_tree.add(1, {5,5}, 150);
+   local_tree.add(2, {3,3}, 150);
+   
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   
+   local_tree.move(2, {1,-5});
+   
+   // body hasn't moved out of node, mass centres are updated
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_ne->m_child_sw->find(2));
+   ASSERT_EQ(mzlib::math::cvector2d({3,0}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({5,5}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({1,-5}), local_tree.m_root->m_child_ne->get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
+   ASSERT_EQ(mzlib::math::cvector2d({1,-5}), local_tree.m_root->m_child_ne->m_child_sw->get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, move_nonexistent_data)
