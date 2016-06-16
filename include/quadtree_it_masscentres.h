@@ -9,7 +9,7 @@
 #define QUADTREE_IT_MASSCENTRES_H
 
 #include <iterator>
-#include <queue>
+#include <vector>
 #include "quadtree.h"
 #include "mass_centre.h"
 
@@ -23,11 +23,11 @@ class quadtree_it_masscentres :
 
 private:
 
-   std::queue<cmass_centre2d> m_mass_centres_queue;
+   std::vector<cmass_centre2d> m_mass_centres_queue;
 
    const cbinded_mass_centre2d<T>* m_body;
    
-   std::queue<const cquadnode<T>*> m_nodes_queue;
+   std::vector<const cquadnode<T>*> m_nodes_queue;
    double m_quotient;
    cmass_centre2d m_next_mass_centre;
    bool m_done = false;
@@ -45,8 +45,8 @@ private:
       // This function is a bit logic-heavy ... ready? Here we go:
       if (m_mass_centres_queue.size() > 0) {
          // are mass centres in queue to return? Return those first
-         m_next_mass_centre = m_mass_centres_queue.front();
-         m_mass_centres_queue.pop(); // don't return same twice
+         m_next_mass_centre = m_mass_centres_queue.back();
+         m_mass_centres_queue.pop_back(); // don't return same twice
          return; // nothing more to do for now
       }
       // By this point, queue of readily available mass centres is depleted. See the queued nodes.
@@ -56,8 +56,8 @@ private:
          return; 
       }
       // By this point, queue of mass centres is depleted, but there are still nodes in need to be processed
-      const cquadnode<T>* node = m_nodes_queue.front();
-      m_nodes_queue.pop(); // don't use this node again
+      const cquadnode<T>* node = m_nodes_queue.back();
+      m_nodes_queue.pop_back(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
       double node_distance = m_body->location.distance_to(node->get_mass_centre().location);
       double node_quotient = node->get_diagonal_length() / node_distance;
@@ -74,16 +74,16 @@ private:
          // not too far; need to consider it in details
          if (node->has_children()) {
             // Queue up the children nodes. Rinse. Repeat.
-            if(node->m_child_nw->m_bodies.size()) m_nodes_queue.push(node->m_child_nw.get());
-            if(node->m_child_ne->m_bodies.size()) m_nodes_queue.push(node->m_child_ne.get());
-            if(node->m_child_sw->m_bodies.size()) m_nodes_queue.push(node->m_child_sw.get());
-            if(node->m_child_se->m_bodies.size()) m_nodes_queue.push(node->m_child_se.get());
+            if(node->m_child_nw->m_bodies.size()) m_nodes_queue.push_back(node->m_child_nw.get());
+            if(node->m_child_ne->m_bodies.size()) m_nodes_queue.push_back(node->m_child_ne.get());
+            if(node->m_child_sw->m_bodies.size()) m_nodes_queue.push_back(node->m_child_sw.get());
+            if(node->m_child_se->m_bodies.size()) m_nodes_queue.push_back(node->m_child_se.get());
          }
          else if (node->m_bodies.size() > 0) {
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
             for(auto body : node->m_bodies) {
                if (body->data == m_body->data) continue; // Skip original body
-               m_mass_centres_queue.push(*body);
+               m_mass_centres_queue.push_back(*body);
             }
          }
       }
@@ -104,7 +104,9 @@ public:
       }
       m_body = found_body;
       m_quotient = quotient;
-      m_nodes_queue.push(node);
+      m_mass_centres_queue.reserve(100);
+      m_nodes_queue.reserve(100);
+      m_nodes_queue.push_back(node);
       prepare_next_mass_centre();
    }
    
