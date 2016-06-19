@@ -92,9 +92,9 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
    
    double quotient = 1; // quotient 1 should barely cover the node the body is in
    mzlib::cquadtree<int>::it_masscentres mass_centres_it = m_tree.begin_masscentres(4, quotient);
-   ASSERT_EQ(mzlib::math::cvector2d({-45.5,-45.5}), mass_centres_it->location);
-   ++mass_centres_it;
    ASSERT_EQ(mzlib::math::cvector2d({45,45}), mass_centres_it->location);
+   ++mass_centres_it;
+   ASSERT_EQ(mzlib::math::cvector2d({-45.5,-45.5}), mass_centres_it->location);
    ++mass_centres_it;
    ASSERT_EQ(m_tree.end_masscentres(), mass_centres_it);
 }
