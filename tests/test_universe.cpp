@@ -25,12 +25,6 @@ protected:
   
 };
 
-TEST_F(fixture_universe, set_gravitational_constant)
-{
-   universe.set_gravitational_constant(0.5);
-   ASSERT_DOUBLE_EQ(0.5, universe.get_gravitational_constant());
-}
-
 TEST_F(fixture_universe, big_ben_force_on_empire_state_building)
 {
    mzlib::cbody2d big_ben;

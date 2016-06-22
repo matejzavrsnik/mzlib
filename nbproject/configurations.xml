@@ -46,6 +46,7 @@
       <itemPath>tests/test_unique.cpp</itemPath>
       <itemPath>tests/test_units_strong.cpp</itemPath>
       <itemPath>tests/test_universe.cpp</itemPath>
+      <itemPath>tests/test_universe_performance.cpp</itemPath>
       <itemPath>tests/test_utilities.cpp</itemPath>
       <itemPath>tests/test_utils_random.cpp</itemPath>
       <itemPath>tests/test_utils_string.cpp</itemPath>
@@ -164,6 +165,11 @@
       <item path="tests/test_units_strong.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_universe_performance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -284,6 +290,11 @@
       <item path="tests/test_units_strong.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_universe_performance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
