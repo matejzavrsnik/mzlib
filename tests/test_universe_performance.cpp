@@ -131,6 +131,8 @@ TEST_F(fixture_universe_performance, vector_3_objects)
    RunSimulation();
 }
 
+/*
+
 TEST_F(fixture_universe_performance, vector_5_objects)
 {
    PrepareTheUniverse(5, mzlib::cuniverse::implementation::naive);
@@ -444,3 +446,4 @@ TEST_F(fixture_universe_performance, quad_1280_objects_q3)
    PrepareTheUniverse(1280, mzlib::cuniverse::implementation::barnes_hut, 3);
    RunSimulation();
 }
+*/
