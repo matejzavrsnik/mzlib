@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_quadtree.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
+	${OBJECTDIR}/tests/test_twoway_streambuf.o \
 	${OBJECTDIR}/tests/test_unique.o \
 	${OBJECTDIR}/tests/test_units_strong.o \
 	${OBJECTDIR}/tests/test_universe.o \
@@ -116,6 +117,11 @@ ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
+
+${OBJECTDIR}/tests/test_twoway_streambuf.o: tests/test_twoway_streambuf.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_twoway_streambuf.o tests/test_twoway_streambuf.cpp
 
 ${OBJECTDIR}/tests/test_unique.o: tests/test_unique.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests

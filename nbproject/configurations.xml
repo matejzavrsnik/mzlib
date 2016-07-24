@@ -18,6 +18,7 @@
       <itemPath>include/quadtree_node.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
+      <itemPath>include/twoway_streambuf.h</itemPath>
       <itemPath>include/unique.h</itemPath>
       <itemPath>include/units.h</itemPath>
       <itemPath>include/units_strong.h</itemPath>
@@ -43,6 +44,7 @@
       <itemPath>tests/test_quadtree.cpp</itemPath>
       <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
+      <itemPath>tests/test_twoway_streambuf.cpp</itemPath>
       <itemPath>tests/test_unique.cpp</itemPath>
       <itemPath>tests/test_units_strong.cpp</itemPath>
       <itemPath>tests/test_universe.cpp</itemPath>
@@ -122,6 +124,8 @@
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/units.h" ex="false" tool="3" flavor2="0">
@@ -159,6 +163,8 @@
       <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -247,6 +253,8 @@
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/units.h" ex="false" tool="3" flavor2="0">
@@ -284,6 +292,8 @@
       <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
       </item>
