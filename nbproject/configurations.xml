@@ -6,6 +6,7 @@
       <itemPath>include/consts.h</itemPath>
       <itemPath>include/cpucycle.h</itemPath>
       <itemPath>include/dbl.h</itemPath>
+      <itemPath>include/genetic.h</itemPath>
       <itemPath>include/laws.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
       <itemPath>include/mass_centre.h</itemPath>
@@ -38,6 +39,7 @@
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
       <itemPath>tests/test_dbl.cpp</itemPath>
+      <itemPath>tests/test_genetic.cpp</itemPath>
       <itemPath>tests/test_markov_chain.cpp</itemPath>
       <itemPath>tests/test_masscentre.cpp</itemPath>
       <itemPath>tests/test_probabilator.cpp</itemPath>
@@ -100,6 +102,8 @@
       </item>
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/laws.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
@@ -151,6 +155,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_genetic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_markov_chain.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -229,6 +235,8 @@
       </item>
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/laws.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
@@ -280,6 +288,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_genetic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_markov_chain.cpp" ex="false" tool="1" flavor2="0">
       </item>
