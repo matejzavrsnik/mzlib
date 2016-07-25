@@ -65,7 +65,16 @@ get_index (std::vector<T>& v, typename std::vector<T>::iterator& it)
 {
    return std::distance(v.begin(), it);
 }
-    
+
+// creates vector of vectors; a matrix, so to speak
+template<class T> std::vector<std::vector<T>>
+create_matrix (size_t first_dim, size_t second_dim, T initial_value)
+{
+   std::vector<int> line(second_dim, initial_value);
+   std::vector<std::vector<int>> matrix(first_dim, line);
+   return std::move(matrix);
+}
+
 // given a language token generator, this function assembles sentences.
 // Tokens can be punctuation marks or words.
 // Stops when words generator produces one of sentence ending punctuations: .?!

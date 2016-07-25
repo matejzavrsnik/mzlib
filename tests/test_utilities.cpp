@@ -99,6 +99,18 @@ TEST_F(fixture_utilities, get_index)
    ASSERT_EQ(index_9, 9);
 }
 
+TEST_F(fixture_utilities, create_matrix_basic) 
+{
+   auto matrix = mzlib::util::create_matrix(2,3,0);
+   
+   ASSERT_EQ(2, matrix.size());
+   ASSERT_EQ(3, matrix[0].size());
+   ASSERT_EQ(3, matrix[1].size());
+   
+   ASSERT_EQ(0, matrix[0][0]);
+   ASSERT_EQ(0, matrix[1][2]);
+}
+
 TEST_F(fixture_utilities, sentence_assemblarator_basic_test) 
 {
    std::vector<std::string> words = {"veni", ",", "vidi", ",","dormivi", "."};
