@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm> // std::generate
 
 namespace mzlib {
 namespace util {
@@ -88,7 +89,41 @@ inline std::string extract_filename_from_path (std::string path)
    if (pos == std::string::npos) return "";
    return path.substr(pos+1, path.length()-pos);
 }    
-    
+
+inline int wagner_fisher_distance (std::string str1, std::string str2)
+{
+   // Optimised version of this algorithm only needs two vectors, current and 
+   // previous rows of the matrix
+   std::vector<int> prev_row (str2.length()+1, 0);
+   std::vector<int> curr_row (str2.length()+1, 0);
+   
+   int n=0;
+   std::generate (curr_row.begin(), curr_row.end(), [&n]{ return n++; });
+   
+   // The core of the algorithm: a crazy cacophony of narrowly avoided off-by-ones
+   for(int i = 1; i<str1.length()+1; i++) {
+      // Some maintenance due to the fact there are only two lines available
+      prev_row = curr_row;
+      std::fill (curr_row.begin(), curr_row.end(), 0);;
+      curr_row [0] = i;
+      
+      for(int j = 1; j<str2.length()+1; j++) {
+         if(str1 [i-1] == str2 [j-1]) {
+            curr_row [j] = prev_row [j-1];
+         }
+         else {
+            curr_row [j] = std::min ({
+               prev_row [j-1] +1, // substitution
+               prev_row [j]   +1, // deletion
+               curr_row [j-1] +1  // insertion
+            });
+         }
+      }
+   }
+
+   return curr_row [curr_row.size()-1];
+}
+
 } } // namespace mzlib::util
 
 #endif // UTILS_STRING_H
