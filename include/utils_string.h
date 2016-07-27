@@ -90,7 +90,7 @@ inline std::string extract_filename_from_path (std::string path)
    return path.substr(pos+1, path.length()-pos);
 }    
 
-inline int wagner_fischer_distance (std::string str1, std::string str2)
+inline int wagner_fischer_distance (const std::string& str1, const std::string& str2)
 {
    // Optimised version of this algorithm only needs two vectors, current and 
    // previous rows of the matrix
