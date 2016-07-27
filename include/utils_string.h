@@ -12,6 +12,8 @@
 #include <vector>
 #include <algorithm> // std::generate
 
+#include "utilities.h" // fast_threeway_min
+
 namespace mzlib {
 namespace util {
         
@@ -112,11 +114,11 @@ inline int wagner_fischer_distance (const std::string& str1, const std::string& 
             curr_row [j] = prev_row [j-1];
          }
          else {
-            curr_row [j] = std::min ({
+            curr_row [j] = fast_threeway_min(
                prev_row [j-1] +1, // substitution
                prev_row [j]   +1, // deletion
                curr_row [j-1] +1  // insertion
-            });
+            );
          }
       }
    }

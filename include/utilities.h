@@ -144,6 +144,25 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
    return sentence;
 }
 
+// Returns the smallest of three numbers 2x-3x faster than std::min({i,j,k})
+template <class T> T& fast_threeway_min_ref (T& min1, T& min2, T& min3)
+{
+   // Beware, min-field ahead!
+   return 
+      min1 < min2 ?
+         (min1 < min3 ? min1 : min3) :
+         (min2 < min3 ? min2 : min3);
+}
+
+template <class T> T&& fast_threeway_min (T&& min1, T&& min2, T&& min3)
+{
+   // Beware, min-field ahead!
+   return std::move(
+      min1 < min2 ?
+         (min1 < min3 ? min1 : min3) :
+         (min2 < min3 ? min2 : min3));
+}
+
 } } // namespace mzlib::util
 
 #endif // UTILITIES_H
