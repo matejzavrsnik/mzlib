@@ -103,13 +103,13 @@ inline int wagner_fischer_distance (const std::string& str1, const std::string& 
    std::generate (curr_row.begin(), curr_row.end(), [&n]{ return n++; });
    
    // The core of the algorithm: a crazy cacophony of narrowly avoided off-by-ones
-   for(int i = 1; i<str1.length()+1; i++) {
+   for(size_t i = 1; i<str1.length()+1; i++) {
       // Some maintenance due to the fact there are only two lines available
       prev_row = curr_row;
       std::fill (curr_row.begin(), curr_row.end(), 0);;
       curr_row [0] = i;
       
-      for(int j = 1; j<str2.length()+1; j++) {
+      for(size_t j = 1; j<str2.length()+1; j++) {
          if(str1 [i-1] == str2 [j-1]) {
             curr_row [j] = prev_row [j-1];
          }

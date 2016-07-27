@@ -56,12 +56,12 @@ protected:
          mzlib::cbody2d object;
          object.mass = 1000000000000;
          object.location = mzlib::math::cvector2d{
-            mzlib::util::get_random_integer_between(0,5000),
-            mzlib::util::get_random_integer_between(0,5000)
+            (double)mzlib::util::get_random_integer_between(0,5000),
+            (double)mzlib::util::get_random_integer_between(0,5000)
          };
          object.data.velocity = mzlib::math::cvector2d{
-            mzlib::util::get_random_integer_between(0,6)-3,
-            mzlib::util::get_random_integer_between(0,6)-3
+            (double)mzlib::util::get_random_integer_between(0,6)-3,
+            (double)mzlib::util::get_random_integer_between(0,6)-3
          };
          local_universe.add_body(object);
       }

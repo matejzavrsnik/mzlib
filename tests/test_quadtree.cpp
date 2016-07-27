@@ -410,6 +410,7 @@ TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::math::cvector2d({0,0}), m_tree.get_mass_centre().location);
    bool success = m_tree.remove(1);
+   ASSERT_TRUE(success);
    ASSERT_EQ(100, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::math::cvector2d({-25,-25}), m_tree.get_mass_centre().location);
 }
