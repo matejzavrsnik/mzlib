@@ -114,7 +114,7 @@ inline int wagner_fischer_distance (const std::string& str1, const std::string& 
             curr_row [j] = prev_row [j-1];
          }
          else {
-            curr_row [j] = fast_threeway_min(
+            curr_row [j] = fast_min(
                prev_row [j-1] +1, // substitution
                prev_row [j]   +1, // deletion
                curr_row [j-1] +1  // insertion
