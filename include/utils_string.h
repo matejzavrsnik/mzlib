@@ -128,9 +128,8 @@ inline int wagner_fischer_distance (const std::string& str1, const std::string& 
 
 inline bool string_ends_with (const std::string& str, const std::string& end) {
    if (str.length() >= end.length()) {
-      int comparisson = str.compare (str.length() - end.length(), end.length(), end);
-      const int strings_are_equal = 0;
-      return (comparisson == strings_are_equal);
+      const int comparisson = str.compare (str.length() - end.length(), end.length(), end);
+      return (comparisson == 0);
    }
    else {
       return false;
@@ -139,9 +138,8 @@ inline bool string_ends_with (const std::string& str, const std::string& end) {
 
 inline bool string_starts_with (const std::string& str, const std::string& start) {
    if (str.length() >= start.length()) {
-      int comparisson = str.compare (0, start.length(), start);
-      const int equals = 0;
-      return (comparisson == equals);
+      const int comparisson = str.compare (0, start.length(), start);
+      return (comparisson == 0);
    }
    else {
       return false;
@@ -190,7 +188,6 @@ inline std::vector<std::string>
 remove_strings_that_dont_start_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
 {
    std::vector<std::string> filtered;
-
    for (const auto& str : all_str) {
       bool is_on_the_list = false;
       for (const auto& end : ends) {
@@ -201,7 +198,6 @@ remove_strings_that_dont_start_with (const std::vector<std::string>& all_str, co
          }
       }
    }
-
    return std::move(filtered);
 }
 
@@ -209,7 +205,6 @@ inline std::vector<std::string>
 remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
 {
    std::vector<std::string> filtered;
-
    for (const auto& str : all_str) {
       bool is_on_the_list = false;
       for (const auto& end : ends) {
@@ -220,7 +215,6 @@ remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, cons
          }
       }
    }
-
    return std::move(filtered);
 }
 
