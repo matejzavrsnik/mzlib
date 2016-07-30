@@ -13,6 +13,7 @@
 #include <vector>
 #include <fstream>
 #include <dirent.h>
+#include <cstring>
 
 namespace mzlib {
 namespace util {
@@ -34,6 +35,7 @@ inline void save_file (std::string filename, std::string content)
    out.close();
 }
 
+namespace old {
 // List all files in a directory
 inline std::vector<std::string> list_files (std::string directory, bool include_hidden = true)
 {
@@ -48,6 +50,47 @@ inline std::vector<std::string> list_files (std::string directory, bool include_
          }
          std::string filename = entry->d_name;
          files.push_back(filename);
+      }
+      closedir(pDIR);
+   }
+   return files;
+}
+
+} // namespace old
+
+// is one of those . or .. "meta-directories"?
+bool is_meta_directory(const char* directory_name)
+{
+   // to exercise my C muscles a bit
+   int len_of_string = (int)strlen (directory_name);
+   const char* last_dot_pos = strrchr (directory_name, '.');
+   int len_to_last_dot = last_dot_pos - directory_name;
+   return len_of_string == (len_to_last_dot + 1);
+}
+
+inline std::vector<std::string> 
+list_files2 (const std::string& directory, bool recursive = false, bool include_hidden = false)
+{
+   std::vector<std::string> files;   
+   DIR *pDIR;
+   struct dirent *entry;
+   if ( (pDIR=opendir(directory.c_str())) ) {
+      while ( (entry = readdir(pDIR)) ) {
+         bool is_hidden = (entry->d_name[0] == '.');
+         bool is_directory = (entry->d_type == DT_DIR);
+         bool is_meta = is_meta_directory(entry->d_name);
+         if ((is_hidden && !include_hidden) || is_meta) {
+            continue;
+         }
+         if(is_directory && recursive) {
+            std::string subdir_name = directory + "/" + std::string(entry->d_name);
+            auto files_in_subdir = list_files2(subdir_name, true, include_hidden);
+            std::copy (files_in_subdir.begin(), files_in_subdir.end(), std::back_inserter(files));
+         }
+         else if (!is_directory) {
+            std::string filename = directory + "/" + std::string(entry->d_name);
+            files.push_back(filename);
+         }
       }
       closedir(pDIR);
    }

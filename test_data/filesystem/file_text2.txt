@@ -1,0 +1,1 @@
+content of filesystem/file_text2.txt

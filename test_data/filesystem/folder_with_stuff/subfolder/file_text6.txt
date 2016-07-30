@@ -1,0 +1,1 @@
+content of filesystem/folder_with_files_and_subfolder/file_text6.txt

@@ -50,6 +50,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_universe.o \
 	${OBJECTDIR}/tests/test_universe_performance.o \
 	${OBJECTDIR}/tests/test_utilities.o \
+	${OBJECTDIR}/tests/test_utils_filesystem.o \
 	${OBJECTDIR}/tests/test_utils_random.o \
 	${OBJECTDIR}/tests/test_utils_string.o \
 	${OBJECTDIR}/tests/test_vector.o
@@ -153,6 +154,11 @@ ${OBJECTDIR}/tests/test_utilities.o: tests/test_utilities.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utilities.o tests/test_utilities.cpp
+
+${OBJECTDIR}/tests/test_utils_filesystem.o: tests/test_utils_filesystem.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_filesystem.o tests/test_utils_filesystem.cpp
 
 ${OBJECTDIR}/tests/test_utils_random.o: tests/test_utils_random.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests
