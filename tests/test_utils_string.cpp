@@ -209,3 +209,87 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_middle)
    // 1 insertion
    ASSERT_EQ(1, result);
 }
+
+TEST_F(fixture_utils_string, string_ends_with)
+{
+   std::string test_string = "Fear is the little-death that brings total obliteration.";
+   ASSERT_TRUE (mzlib::util::string_ends_with(test_string, "obliteration."));
+   ASSERT_FALSE(mzlib::util::string_ends_with(test_string, "bliss."));
+}
+
+TEST_F(fixture_utils_string, string_starts_with)
+{
+   std::string test_string = "Fear is the little-death that brings total obliteration.";
+   ASSERT_TRUE (mzlib::util::string_starts_with(test_string, "Fear"));
+   ASSERT_FALSE(mzlib::util::string_starts_with(test_string, "Courage"));
+}
+
+TEST_F(fixture_utils_string, remove_strings_that_end_with)
+{
+   std::vector<std::string> list;
+   list.push_back("I must not fear"); 
+   list.push_back("Fear is the mind-killer");
+   list.push_back("Fear is the little-death that brings total obliteration");
+   list.push_back("I will face my fear");
+   list.push_back("I will permit it to pass over me and through me");
+   
+   auto filtered = mzlib::util::remove_strings_that_end_with (list, {"mind-killer", "obliteration", "me"});
+   
+   auto not_found = filtered.end();
+   ASSERT_EQ(2, filtered.size());
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I must not fear"));   
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will face my fear"));
+}
+
+
+TEST_F(fixture_utils_string, remove_strings_that_start_with)
+{
+   std::vector<std::string> list;
+   list.push_back("I must not fear"); 
+   list.push_back("Fear is the mind-killer");
+   list.push_back("Fear is the little-death that brings total obliteration");
+   list.push_back("I will face my fear");
+   list.push_back("I will permit it to pass over me and through me");
+   
+   auto filtered = mzlib::util::remove_strings_that_start_with (list, {"I must", "Fear"});
+   
+   auto not_found = filtered.end();
+   ASSERT_EQ(2, filtered.size());
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will face my fear"));
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will permit it to pass over me and through me"));
+}
+
+TEST_F(fixture_utils_string, remove_strings_that_dont_start_with)
+{
+   std::vector<std::string> list;
+   list.push_back("I must not fear"); 
+   list.push_back("Fear is the mind-killer");
+   list.push_back("Fear is the little-death that brings total obliteration");
+   list.push_back("I will face my fear");
+   list.push_back("I will permit it to pass over me and through me");
+   
+   auto filtered = mzlib::util::remove_strings_that_dont_start_with (list, {"I must", "Fear"});
+   
+   auto not_found = filtered.end();
+   ASSERT_EQ(3, filtered.size());
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I must not fear"));
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the mind-killer")); 
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
+}
+
+TEST_F(fixture_utils_string, remove_strings_that_dont_end_with)
+{
+   std::vector<std::string> list;
+   list.push_back("I must not fear"); 
+   list.push_back("Fear is the mind-killer");
+   list.push_back("Fear is the little-death that brings total obliteration");
+   list.push_back("I will face my fear");
+   list.push_back("I will permit it to pass over me and through me");
+   
+   auto filtered = mzlib::util::remove_strings_that_dont_end_with (list, {"mind-killer", "obliteration"});
+   
+   auto not_found = filtered.end();
+   ASSERT_EQ(2, filtered.size());
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the mind-killer"));
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
+}

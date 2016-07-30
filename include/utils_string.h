@@ -126,6 +126,104 @@ inline int wagner_fischer_distance (const std::string& str1, const std::string& 
    return curr_row [curr_row.size()-1];
 }
 
+inline bool string_ends_with (const std::string& str, const std::string& end) {
+   if (str.length() >= end.length()) {
+      int comparisson = str.compare (str.length() - end.length(), end.length(), end);
+      const int strings_are_equal = 0;
+      return (comparisson == strings_are_equal);
+   }
+   else {
+      return false;
+   }
+}
+
+inline bool string_starts_with (const std::string& str, const std::string& start) {
+   if (str.length() >= start.length()) {
+      int comparisson = str.compare (0, start.length(), start);
+      const int equals = 0;
+      return (comparisson == equals);
+   }
+   else {
+      return false;
+   }
+}
+
+inline std::vector<std::string> 
+remove_strings_that_end_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
+{
+   std::vector<std::string> filtered;
+   for (const auto& str : all_str) {
+      bool is_on_the_list = false;
+      for (const auto& end : ends) {
+         if (string_ends_with(str, end)) {
+            is_on_the_list = true;
+            break;
+         }
+      }
+      if(!is_on_the_list) {
+         filtered.push_back(str);
+      }
+   }
+   return std::move(filtered);
+}
+
+inline std::vector<std::string> 
+remove_strings_that_start_with (const std::vector<std::string>& all_str, const std::vector<std::string>& starts)
+{
+   std::vector<std::string> filtered;
+   for (const auto& str : all_str) {
+      bool is_on_the_list = false;
+      for (const auto& start : starts) {
+         if (string_starts_with(str, start)) {
+            is_on_the_list = true;
+            break;
+         }
+      }
+      if(!is_on_the_list) {
+         filtered.push_back(str);
+      }
+   }
+   return std::move(filtered);
+}
+
+inline std::vector<std::string> 
+remove_strings_that_dont_start_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
+{
+   std::vector<std::string> filtered;
+
+   for (const auto& str : all_str) {
+      bool is_on_the_list = false;
+      for (const auto& end : ends) {
+         is_on_the_list = string_starts_with(str, end);
+         if(is_on_the_list) {
+            filtered.push_back(str);
+            break;
+         }
+      }
+   }
+
+   return std::move(filtered);
+}
+
+inline std::vector<std::string> 
+remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
+{
+   std::vector<std::string> filtered;
+
+   for (const auto& str : all_str) {
+      bool is_on_the_list = false;
+      for (const auto& end : ends) {
+         is_on_the_list = string_ends_with(str, end);
+         if(is_on_the_list) {
+            filtered.push_back(str);
+            break;
+         }
+      }
+   }
+
+   return std::move(filtered);
+}
+
 } } // namespace mzlib::util
 
 #endif // UTILS_STRING_H
