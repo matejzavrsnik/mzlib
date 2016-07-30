@@ -19,7 +19,7 @@ namespace mzlib {
 namespace util {
     
 // Read file contents and return it in a string
-inline std::string read_file (std::string filename) 
+inline std::string read_file (const std::string& filename) 
 {
    std::ifstream filestream(filename);
    std::stringstream buffer;
@@ -28,9 +28,17 @@ inline std::string read_file (std::string filename)
 }
 
 // Save string contents into a file
-inline void save_file (std::string filename, std::string content)
+inline void save_file (const std::string& filename, const std::string& content)
 {
    std::ofstream out(filename);
+   out << content;
+   out.close();
+}
+
+// Append string contents to a file
+inline void append_file (const std::string& filename, const std::string& content)
+{
+   std::ofstream out(filename, std::ios::app);
    out << content;
    out.close();
 }

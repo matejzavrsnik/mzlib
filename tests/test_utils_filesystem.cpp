@@ -9,6 +9,7 @@
 #include "gtest/gtest.h"
 #include "../options.h"
 #include <algorithm>    
+#include <cstdio>
 
 class fixture_utils_filesystem : public ::testing::Test 
 {
@@ -89,4 +90,21 @@ TEST_F(fixture_utils_filesystem, is_meta_directory)
    ASSERT_TRUE (mzlib::util::is_meta_directory("avengers/."));
    ASSERT_TRUE (mzlib::util::is_meta_directory("avengers/.."));
    ASSERT_FALSE(mzlib::util::is_meta_directory("avengers/ironman"));
+}
+
+TEST_F(fixture_utils_filesystem, write_append_read_file)
+{
+   std::string temp_file = m_test_dir + "/temp_file";
+   std::string sample_content = "I must not fear.";
+   
+   mzlib::util::save_file (temp_file, sample_content);
+   std::string temp_file_content = mzlib::util::read_file(temp_file);
+   ASSERT_EQ(sample_content, temp_file_content);
+   
+   std::string additional_content = "Fear is the mind-killer.";
+   mzlib::util::append_file (temp_file, additional_content);
+   temp_file_content = mzlib::util::read_file(temp_file);
+   ASSERT_EQ(sample_content + additional_content, temp_file_content);
+   
+   std::remove (temp_file.c_str());
 }
