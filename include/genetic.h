@@ -40,9 +40,9 @@ public:
       return m_genome_pool[0].genome;
    }
     
-   double get_best_score () const
+   double get_lowest_penalty () const
    {
-      return m_genome_pool[0].score;
+      return m_genome_pool[0].penalty;
    }
     
    void set_survivers_count (uint survivers_count)
@@ -76,7 +76,7 @@ protected:
 
       tgenome seed_genome;
       seed_genome.genome = seed;
-      seed_genome.score = m_fitness_function(seed);
+      seed_genome.penalty = m_fitness_function(seed);
       
       m_genome_pool.assign(generation_size, seed_genome);
    }
@@ -84,7 +84,7 @@ protected:
    struct tgenome
    {
       TYPE genome;
-      double score;
+      double penalty;
    };
 
    struct tgenome_info 
@@ -99,8 +99,8 @@ private:
    
    void mutate_generation()
    {
-      // expected precondition: genome pool is already sorted by score and the
-      // element at [0] is the best specimen in the population.
+      // expected precondition: genome pool is already sorted by penalty and the
+      // element at [0] is the best specimen in the population = least penalised
       
       // mutate whole population skipping the best one (so skip [0])
       for (size_t i=1; i<m_genome_pool.size(); ++i) {
@@ -116,7 +116,7 @@ private:
          size_t zap_byte = mzlib::util::get_random_integer_between (0, genome_info.genome_size);
          size_t zap_bit = mzlib::util::get_random_integer_between (0, 8);
          genome_info.genome_pointer[zap_byte] ^= (1 << zap_bit); // engage radiation beam!
-         genome.score = m_fitness_function (genome.genome); // calculate new score
+         genome.penalty = m_fitness_function (genome.genome); // calculate new penalty
       }
    }
     
@@ -124,7 +124,8 @@ private:
    {
       std::sort(m_genome_pool.begin(), m_genome_pool.end(), 
          [](const tgenome& a, const tgenome& b) { 
-            return a.score > b.score; 
+            // advance one that is less penalised
+            return a.penalty < b.penalty; 
          });
        
       // keep the first m_survivors_count, copy the best over the rest of the slots

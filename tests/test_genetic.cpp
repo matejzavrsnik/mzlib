@@ -34,8 +34,8 @@ TEST_F(fixture_genetic, demo_test)
    auto fitness_function = 
       [](const int& candidate) {
          // test criteria: the closer to zero the better
-         // how algorithm works: the higher the score the better
-         return std::numeric_limits<int>::max() - std::abs(candidate);
+         // how algorithm works: the lower the penalty the better
+         return std::fabs(candidate);
       };
       
    mzlib::cgenetic_object<int> genetic(a_number, fitness_function, 100);
@@ -75,12 +75,7 @@ TEST_F(fixture_genetic, test_works_on_vector)
          // test criteria: each next number is 2x its index
          double sum_difference = 0;
          for (int i = 0; i<candidate.size(); ++i) {
-            if (candidate[i]<0) {
-               sum_difference += candidate[i];
-            }
-            else {
-               sum_difference -= std::abs(candidate[i] - 2*i);
-            }
+            sum_difference = std::fabs(candidate[i] - 2*i);
          }
          return sum_difference;
       };
@@ -88,13 +83,13 @@ TEST_F(fixture_genetic, test_works_on_vector)
    mzlib::cgenetic_container<std::vector<int>> genetic (
       numbers, sizeof(int), numbers.size(), fitness_function, 100);
    
-   double score_before = fitness_function(numbers);
+   double penalty_before = fitness_function(numbers);
    genetic.play_generations(1000);
-   double score_after = genetic.get_best_score();
+   double penalty_after = genetic.get_lowest_penalty();
    
    // Score after is better and fitness function considers all elements of vector,
    // therefore version on vectors works!
-   ASSERT_LT(score_before, score_after);
+   ASSERT_LT(penalty_after, penalty_before);
    
    // Algorithm will probably reach final solution in 1000 generations, but it
    // would still make a flaky test if I assert on it. Uncomment the code below
