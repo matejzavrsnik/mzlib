@@ -88,6 +88,17 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_basic)
    ASSERT_EQ(2, result);
 }
 
+TEST_F(fixture_utils_string, wagner_fischer_distance_basic_vectorversion) 
+{
+   std::vector<int> v1 = {1,2,3,4,5,6,7,8,9,10};
+   std::vector<int> v2 = {1,  3,4,6,6,7,8,9,10,11};
+   //                       o       s          a
+   // o - omitted, s - substituted, a - added : distance == 3
+  
+   int result = mzlib::util::wagner_fischer_distance(v1, v2);
+   ASSERT_EQ(3, result);
+}
+
 TEST_F(fixture_utils_string, wagner_fischer_distance_equal) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";

@@ -27,7 +27,7 @@ protected:
 
 TEST_F(fixture_genetic, demo_test) 
 {
-   // start with a biggest number
+   // start with a big number
    int a_number = 0b1111111111; // 10 bit switches to 0
    
    // setup a fitness function
