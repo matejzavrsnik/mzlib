@@ -21,28 +21,11 @@ class cgenetic
 {
    
 public:
-    
-   using ifitness_function = std::function<int(const TYPE& candidate)>;
-    
-   cgenetic (
-      const TYPE& seed, 
-      ifitness_function fitness_function, 
-      uint generation_size)
-   {
-      // remember fitness function
-      m_fitness_function = fitness_function;
-      
-      // create seed genome
-      tgenome seed_genome;
-      seed_genome.genome = seed;
-      seed_genome.score = m_fitness_function(seed);
-      
-      // create initial population from seed genomw
-      m_genome_pool.assign(generation_size, seed_genome);
-   };
-    
-   ~cgenetic () {};
-
+   
+   using ifitness_function = std::function<double(const TYPE& candidate)>;
+   
+   virtual ~cgenetic () {};
+   
    void play_generations (int count)
    {
       for(int i=0; i<count; ++i)
@@ -57,7 +40,7 @@ public:
       return m_genome_pool[0].genome;
    }
     
-   int get_best_score () const
+   double get_best_score () const
    {
       return m_genome_pool[0].score;
    }
@@ -81,15 +64,39 @@ public:
    {
       return m_mutation_rate;
    }
-    
-private:
-    
+   
+protected:
+
+   cgenetic (
+      const TYPE& seed, 
+      ifitness_function fitness_function,
+      uint generation_size)
+   {
+      m_fitness_function = fitness_function;
+
+      tgenome seed_genome;
+      seed_genome.genome = seed;
+      seed_genome.score = m_fitness_function(seed);
+      
+      m_genome_pool.assign(generation_size, seed_genome);
+   }
+   
    struct tgenome
    {
       TYPE genome;
-      int score;
+      double score;
    };
-    
+
+   struct tgenome_info 
+   {
+      size_t genome_size;
+      char* genome_pointer;
+   };
+
+   virtual tgenome_info get_zap_info (tgenome&) = 0;
+   
+private:
+   
    void mutate_generation()
    {
       // expected precondition: genome pool is already sorted by score and the
@@ -100,17 +107,15 @@ private:
          mutate_genome (m_genome_pool[i]);
       }
    }
-    
+   
    void mutate_genome (tgenome& genome)
    {
-      size_t size_of_object = sizeof(TYPE);
-      char* genome_pointer = reinterpret_cast<char*>(&genome.genome);
-      
       for(int rate=0; rate<m_mutation_rate; ++rate)
-      {  
-         size_t zap_byte = mzlib::util::get_random_integer_between (0, size_of_object);
+      {
+         tgenome_info genome_info = get_zap_info(genome);
+         size_t zap_byte = mzlib::util::get_random_integer_between (0, genome_info.genome_size);
          size_t zap_bit = mzlib::util::get_random_integer_between (0, 8);
-         genome_pointer[zap_byte] ^= (1 << zap_bit); // engage radiation beam!
+         genome_info.genome_pointer[zap_byte] ^= (1 << zap_bit); // engage radiation beam!
          genome.score = m_fitness_function (genome.genome); // calculate new score
       }
    }
@@ -122,17 +127,95 @@ private:
             return a.score > b.score; 
          });
        
-      // keep the first m_survivers_count, copy the best over the rest of the slots
+      // keep the first m_survivors_count, copy the best over the rest of the slots
       auto start = m_genome_pool.begin() + m_survivers_count;
       std::fill(start, m_genome_pool.end(), m_genome_pool[0]);
    }
 
    std::vector<tgenome> m_genome_pool;
-   ifitness_function m_fitness_function;
-
-   // settings
    uint m_mutation_rate = 1; // how many bits to mutate
    uint m_survivers_count = 1; // how many genomes should survive generation and multiply
+   ifitness_function m_fitness_function;
+   
+};
+  
+// This one works on single object, like a number, or struct.
+// It will determine where an address to change begins and how large the object
+// is using sizeof.
+template<class TYPE>
+class cgenetic_object : public cgenetic<TYPE>
+{
+   
+   using typename cgenetic<TYPE>::ifitness_function;
+   using typename cgenetic<TYPE>::tgenome;
+   using typename cgenetic<TYPE>::tgenome_info; 
+   
+public:
+   
+   cgenetic_object (
+      const TYPE& seed, 
+      ifitness_function fitness_function,
+      uint generation_size) :
+         cgenetic<TYPE> (seed, fitness_function, generation_size)
+   {
+   };
+   
+   ~cgenetic_object () {};
+    
+private:
+   
+   virtual tgenome_info get_zap_info (tgenome& genome) override {
+      tgenome_info info;
+      info.genome_size = sizeof(TYPE);
+      info.genome_pointer = reinterpret_cast<char*>(&genome.genome);;
+      return info;
+   }
+    
+};
+
+// This one works on containers. It will randomly change genome on objects that
+// can be accessed using operator[], whatever the container implementing this
+// operator might be. For this reason it can't determine the size of objects in
+// the container (at least I didn't figure out a way, I bet it exists) or the 
+// number of such objects; they need to be provided in addition to other stuff 
+// in the constructor.
+template<class TYPE>
+class cgenetic_container : public cgenetic<TYPE>
+{
+   
+   using typename cgenetic<TYPE>::ifitness_function;
+   using typename cgenetic<TYPE>::tgenome;
+   using typename cgenetic<TYPE>::tgenome_info;
+   
+public:
+   
+   cgenetic_container (
+      const TYPE& seed, 
+      const size_t seed_object_size,
+      const size_t seed_object_count,
+      ifitness_function fitness_function,
+      uint generation_size) :
+         cgenetic<TYPE> (seed, fitness_function, generation_size)
+   {
+      m_object_size = seed_object_size;
+      m_object_count = seed_object_count;
+   };
+   
+   virtual ~cgenetic_container () {};
+   
+private:
+
+   virtual tgenome_info get_zap_info (tgenome& genome) override {
+      tgenome_info info;
+      size_t zap_object = mzlib::util::get_random_integer_between (0, m_object_count);
+      info.genome_size = m_object_size;
+      info.genome_pointer = reinterpret_cast<char*>(&genome.genome[zap_object]);;
+      return info;
+   }
+   
+   size_t m_object_size;
+   size_t m_object_count;
+   
 };
    
 } // namespace mzlib

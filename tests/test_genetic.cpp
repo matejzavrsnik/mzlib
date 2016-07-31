@@ -9,6 +9,7 @@
 #include "gtest/gtest.h"
 
 #include "../include/utils_random.h"
+#include "../include/utilities.h"
 #include <cmath>
 #include <limits>
 
@@ -30,14 +31,14 @@ TEST_F(fixture_genetic, demo_test)
    int a_number = 0b1111111111; // 10 bit switches to 0
    
    // setup a fitness function
-   mzlib::cgenetic<int>::ifitness_function fitness_function = 
+   auto fitness_function = 
       [](const int& candidate) {
          // test criteria: the closer to zero the better
          // how algorithm works: the higher the score the better
          return std::numeric_limits<int>::max() - std::abs(candidate);
       };
       
-   mzlib::cgenetic<int> genetic(a_number, fitness_function, 100);
+   mzlib::cgenetic_object<int> genetic(a_number, fitness_function, 100);
 
    // explanation of a test:
    // if one bit will be changed on every generation, and with 100 population and
@@ -62,4 +63,43 @@ TEST_F(fixture_genetic, demo_test)
    
    genetic.play_generations(100);
    ASSERT_EQ(0, genetic.get_best_genome());
+}
+
+TEST_F(fixture_genetic, test_works_on_vector) 
+{
+   std::vector<int> numbers(5);
+   
+   // setup a fitness function
+   auto fitness_function = 
+      [](const std::vector<int>& candidate) {
+         // test criteria: each next number is 2x its index
+         double sum_difference = 0;
+         for (int i = 0; i<candidate.size(); ++i) {
+            if (candidate[i]<0) {
+               sum_difference += candidate[i];
+            }
+            else {
+               sum_difference -= std::abs(candidate[i] - 2*i);
+            }
+         }
+         return sum_difference;
+      };
+      
+   mzlib::cgenetic_container<std::vector<int>> genetic (
+      numbers, sizeof(int), numbers.size(), fitness_function, 100);
+   
+   double score_before = fitness_function(numbers);
+   genetic.play_generations(1000);
+   double score_after = genetic.get_best_score();
+   
+   // Score after is better and fitness function considers all elements of vector,
+   // therefore version on vectors works!
+   ASSERT_LT(score_before, score_after);
+   
+   // Algorithm will probably reach final solution in 1000 generations, but it
+   // would still make a flaky test if I assert on it. Uncomment the code below
+   // and put a breakpoint if you want to see the result
+   
+   //std::vector<int> numbers_after = genetic.get_best_genome();
+   //ASSERT_TRUE(true);
 }
