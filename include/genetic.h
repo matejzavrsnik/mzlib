@@ -65,20 +65,25 @@ public:
       return m_mutation_rate;
    }
    
+   void set_generation_size (size_t generation_size)
+   {
+      auto best = m_genome_pool[0];
+      m_genome_pool.resize(generation_size);
+      m_genome_pool.assign(generation_size, best);
+   }
+   
+   size_t get_generation_size ()
+   {
+      return m_genome_pool.size();
+   }
+   
 protected:
 
-   cgenetic (
-      const TYPE& seed, 
-      ifitness_function fitness_function,
-      uint generation_size)
+   cgenetic (const TYPE& seed, ifitness_function fitness_function)
    {
       m_fitness_function = fitness_function;
-
-      tgenome seed_genome;
-      seed_genome.genome = seed;
-      seed_genome.penalty = m_fitness_function(seed);
-      
-      m_genome_pool.assign(generation_size, seed_genome);
+      m_genome_pool.push_back({seed, m_fitness_function(seed)});
+      set_generation_size(100);
    }
    
    struct tgenome
@@ -151,11 +156,8 @@ class cgenetic_object : public cgenetic<TYPE>
    
 public:
    
-   cgenetic_object (
-      const TYPE& seed, 
-      ifitness_function fitness_function,
-      uint generation_size) :
-         cgenetic<TYPE> (seed, fitness_function, generation_size)
+   cgenetic_object (const TYPE& seed, ifitness_function fitness_function) :
+      cgenetic<TYPE> (seed, fitness_function)
    {
    };
    
@@ -184,11 +186,8 @@ class cgenetic_container : public cgenetic<TYPE>
    
 public:
    
-   cgenetic_container (
-      const TYPE& seed,
-      ifitness_function fitness_function,
-      uint generation_size) :
-         cgenetic<TYPE> (seed, fitness_function, generation_size)
+   cgenetic_container (const TYPE& seed, ifitness_function fitness_function) :
+      cgenetic<TYPE> (seed, fitness_function)
    {
       m_object_size = sizeof(typename TYPE::value_type);
       m_object_count = seed.size();
