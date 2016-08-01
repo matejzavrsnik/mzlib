@@ -25,7 +25,7 @@ protected:
    
 };
 
-TEST_F(fixture_genetic, demo_test) 
+TEST_F(fixture_genetic, works_on_objects) 
 {
    // start with a big number
    int a_number = 0b1111111111; // 10 bit switches to 0
@@ -65,7 +65,7 @@ TEST_F(fixture_genetic, demo_test)
    ASSERT_EQ(0, genetic.get_best_genome());
 }
 
-TEST_F(fixture_genetic, test_works_on_vector) 
+TEST_F(fixture_genetic, works_on_vector) 
 {
    std::vector<int> numbers(5);
    
@@ -80,8 +80,7 @@ TEST_F(fixture_genetic, test_works_on_vector)
          return sum_difference;
       };
       
-   mzlib::cgenetic_container<std::vector<int>> genetic (
-      numbers, sizeof(int), numbers.size(), fitness_function, 100);
+   mzlib::cgenetic_container<std::vector<int>> genetic (numbers, fitness_function, 100);
    
    double penalty_before = fitness_function(numbers);
    genetic.play_generations(1000);

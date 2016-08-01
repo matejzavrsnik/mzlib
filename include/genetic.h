@@ -15,7 +15,7 @@
 #include "utils_random.h"
 
 namespace mzlib {
-
+   
 template<class TYPE>
 class cgenetic
 {
@@ -140,9 +140,7 @@ private:
    
 };
   
-// This one works on single object, like a number, or struct.
-// It will determine where an address to change begins and how large the object
-// is using sizeof.
+// This one works on single object, like a number, or struct, or whatever.
 template<class TYPE>
 class cgenetic_object : public cgenetic<TYPE>
 {
@@ -174,12 +172,8 @@ private:
     
 };
 
-// This one works on containers. It will randomly change genome on objects that
-// can be accessed using operator[], whatever the container implementing this
-// operator might be. For this reason it can't determine the size of objects in
-// the container (at least I didn't figure out a way, I bet it exists) or the 
-// number of such objects; they need to be provided in addition to other stuff 
-// in the constructor.
+// This one works on containers. It will randomly select an object from it and 
+// change genome on objects that can be accessed using operator[]
 template<class TYPE>
 class cgenetic_container : public cgenetic<TYPE>
 {
@@ -191,15 +185,13 @@ class cgenetic_container : public cgenetic<TYPE>
 public:
    
    cgenetic_container (
-      const TYPE& seed, 
-      const size_t seed_object_size,
-      const size_t seed_object_count,
+      const TYPE& seed,
       ifitness_function fitness_function,
       uint generation_size) :
          cgenetic<TYPE> (seed, fitness_function, generation_size)
    {
-      m_object_size = seed_object_size;
-      m_object_count = seed_object_count;
+      m_object_size = sizeof(typename TYPE::value_type);
+      m_object_count = seed.size();
    };
    
    virtual ~cgenetic_container () {};
