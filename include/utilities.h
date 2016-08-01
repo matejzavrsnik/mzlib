@@ -77,6 +77,14 @@ create_matrix (size_t first_dim, size_t second_dim, T initial_value)
    return std::move(matrix);
 }
 
+template<class T> void copy_first_n_over_rest (std::vector<T>& v, size_t n)
+{
+   if (n >= v.size()) return;
+   for (uint to = n, from = 0; to < v.size(); ++to, from = to % n) {
+      v[to] = v[from];
+   }
+}
+
 // given a language token generator, this function assembles sentences.
 // Tokens can be punctuation marks or words.
 // Stops when words generator produces one of sentence ending punctuations: .?!

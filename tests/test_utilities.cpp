@@ -111,6 +111,17 @@ TEST_F(fixture_utilities, create_matrix_basic)
    ASSERT_EQ(0, matrix[1][2]);
 }
 
+TEST_F(fixture_utilities, copy_first_n_over_rest_basic) 
+{
+   std::vector<int> v = {1,2,3,4,5,6,7,8,9,10};
+   
+   mzlib::util::copy_first_n_over_rest(v, 3);
+   ASSERT_EQ(1, v[0]); ASSERT_EQ(2, v[1]); ASSERT_EQ(3, v[2]);
+   ASSERT_EQ(1, v[3]); ASSERT_EQ(2, v[4]); ASSERT_EQ(3, v[5]);
+   ASSERT_EQ(1, v[6]); ASSERT_EQ(2, v[7]); ASSERT_EQ(3, v[8]);
+   ASSERT_EQ(1, v[9]);
+}
+
 TEST_F(fixture_utilities, sentence_assemblarator_basic_test) 
 {
    std::vector<std::string> words = {"veni", ",", "vidi", ",","dormivi", "."};

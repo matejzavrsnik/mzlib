@@ -13,6 +13,8 @@
 #include <algorithm> // std::sort
    
 #include "utils_random.h"
+#include "utilities.h"
+
 
 namespace mzlib {
    
@@ -134,8 +136,7 @@ private:
          });
        
       // keep the first m_survivors_count, copy the best over the rest of the slots
-      auto start = m_genome_pool.begin() + m_survivers_count;
-      std::fill(start, m_genome_pool.end(), m_genome_pool[0]);
+      mzlib::util::copy_first_n_over_rest(m_genome_pool, m_survivers_count);
    }
 
    std::vector<tgenome> m_genome_pool;
