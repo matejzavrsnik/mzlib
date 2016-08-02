@@ -18,6 +18,7 @@
       <itemPath>include/quadtree_it_postorder.h</itemPath>
       <itemPath>include/quadtree_node.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
+      <itemPath>include/stopwatch.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
       <itemPath>include/twoway_streambuf.h</itemPath>
       <itemPath>include/unique.h</itemPath>
@@ -127,6 +128,8 @@
       <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -264,6 +267,8 @@
       <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
