@@ -47,10 +47,14 @@ public:
       m_root->create(top_left, bottom_right, smallest_node_width, nullptr);
    }
         
+   // prevent copying
    cquadtree (const cquadtree&) = delete;
-   cquadtree (cquadtree && ) = delete;
    cquadtree& operator= (const cquadtree&) = delete;
-   cquadtree& operator= (cquadtree&&) = delete;
+   
+   // allow moving
+   cquadtree (cquadtree && ) = default;
+   cquadtree& operator= (cquadtree&&) = default;
+   
    virtual ~cquadtree () = default;
         
    bool add (cbinded_mass_centre2d<T> mass_centre) 

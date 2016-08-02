@@ -57,10 +57,14 @@ public:
    {
    }
 
-   cuniverse (const cuniverse&) = default;
+   // prevent copying
+   cuniverse (const cuniverse&) = delete;
+   cuniverse& operator= (const cuniverse&) = delete;
+   
+   // allow moving
    cuniverse (cuniverse && ) = default;
-   cuniverse& operator= (const cuniverse&) = default;
    cuniverse& operator= (cuniverse&&) = default;
+   
    ~cuniverse () = default;
         
    void add_body (cbody2d& body) 
