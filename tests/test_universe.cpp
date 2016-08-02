@@ -25,24 +25,24 @@ protected:
   
 };
 
-TEST_F(fixture_universe, big_ben_force_on_empire_state_building)
+TEST_F(fixture_universe, force_between_earth_and_moon)
 {
-   mzlib::cbody2d big_ben;
-   big_ben.mass = 10e8_kg; // 10e8 kg
+   mzlib::cbody2d earth;
+   earth.mass = mzlib::consts::earth_mass;
     
-   mzlib::cbody2d empire_state_building;
-   empire_state_building.location = {0,5000.0_km}; // 5000 km
-   empire_state_building.mass = 10e9_kg; // 10e9 kg
+   mzlib::cbody2d moon;
+   moon.location = {0, mzlib::consts::earth_distance_moon_average};
+   moon.mass = mzlib::consts::moon_mass;
     
-   universe.add_body(big_ben);
-	universe.add_body(empire_state_building);
+   universe.add_body(earth);
+	universe.add_body(moon);
    universe.calculate_forces();
     
-   mzlib::math::cvector2d f_empire_state_building = empire_state_building.data.force;
-   mzlib::math::cvector2d f_big_ben = big_ben.data.force;
+   mzlib::math::cvector2d f_moon = universe.find_body(moon)->data.force;
+   mzlib::math::cvector2d f_earth = universe.find_body(earth)->data.force;
     
-   ASSERT_EQ(f_empire_state_building, -f_big_ben);
-   ASSERT_NEAR(f_big_ben.length(), 2.67e-7, 0.01); // 2.67e-7 +- 0.01
+   ASSERT_EQ(f_moon, -f_earth);
+   ASSERT_NEAR(f_earth.length(), 2e20, 0.05e20);
 }
 
 TEST_F(fixture_universe, sun_force_on_earth)
