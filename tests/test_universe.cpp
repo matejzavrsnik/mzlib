@@ -25,30 +25,10 @@ protected:
   
 };
 
-TEST_F(fixture_universe, force_between_earth_and_moon)
-{
-   mzlib::cbody2d earth;
-   earth.mass = mzlib::consts::earth_mass;
-    
-   mzlib::cbody2d moon;
-   moon.location = {0, mzlib::consts::earth_distance_moon_average};
-   moon.mass = mzlib::consts::moon_mass;
-    
-   universe.add_body(earth);
-	universe.add_body(moon);
-   universe.calculate_forces();
-    
-   mzlib::math::cvector2d f_moon = universe.find_body(moon)->data.force;
-   mzlib::math::cvector2d f_earth = universe.find_body(earth)->data.force;
-    
-   ASSERT_EQ(f_moon, -f_earth);
-   ASSERT_NEAR(f_earth.length(), 2e20, 0.05e20);
-}
-
 TEST_F(fixture_universe, sun_force_on_earth)
 {
    mzlib::cbody2d sun;
-   sun.mass = mzlib::consts::sun_mass; // 1.99e30
+   sun.mass = mzlib::consts::sun_mass;
     
    mzlib::cbody2d earth;
    earth.location = {0,mzlib::consts::earth_distance_sun_average};
@@ -65,10 +45,61 @@ TEST_F(fixture_universe, sun_force_on_earth)
    ASSERT_NEAR(f_earth.length(), 3.53e+22, 0.01e+22);
 }
 
+TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_than_0)
+{
+   mzlib::cuniverse local_universe;
+   mzlib::cuniverse::tproperties properties;
+   properties.m_implementation = mzlib::cuniverse::implementation::barnes_hut;
+   properties.m_barnes_hut_quotient = 1;
+   local_universe.set_properties(properties);
+   
+   mzlib::cbody2d sun;
+   sun.mass = mzlib::consts::sun_mass;
+    
+   mzlib::cbody2d earth;
+   mzlib::math::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
+   earth.location = earth_location_start;
+   earth.mass = mzlib::consts::earth_mass;
+   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+    
+   universe.add_body(sun);
+	universe.add_body(earth);
+   universe.forward_time(30.0_day, 1.0_day);
+   
+   mzlib::math::cvector2d earth_location_quarter_later = universe.find_body(earth)->location;
+   ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.1e10_m);
+   ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.1e10_m);
+}
+
+TEST_F(fixture_universe, sun_earth_month_travel_naive)
+{
+   mzlib::cuniverse local_universe;
+   mzlib::cuniverse::tproperties properties;
+   properties.m_implementation = mzlib::cuniverse::implementation::naive;
+   local_universe.set_properties(properties);
+   
+   mzlib::cbody2d sun;
+   sun.mass = mzlib::consts::sun_mass;
+    
+   mzlib::cbody2d earth;
+   mzlib::math::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
+   earth.location = earth_location_start;
+   earth.mass = mzlib::consts::earth_mass;
+   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+    
+   universe.add_body(sun);
+	universe.add_body(earth);
+   universe.forward_time(30.0_day, 1.0_day);
+   
+   mzlib::math::cvector2d earth_location_quarter_later = universe.find_body(earth)->location;
+   ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.1e10_m);
+   ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.1e10_m);
+}
+
 TEST_F(fixture_universe, long_earth_around_the_sun)
 {
    mzlib::cbody2d sun;
-   sun.mass = 1.989e30;
+   sun.mass = mzlib::consts::sun_mass;
     
    mzlib::cbody2d earth;
    mzlib::math::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
@@ -92,7 +123,7 @@ TEST_F(fixture_universe, long_earth_around_the_sun)
    ASSERT_NEAR(earth_location_year_later[0], 0, 10000000.0_km); // 4 days off
    ASSERT_NEAR(earth_location_year_later[1], mzlib::consts::earth_distance_sun_aphelion, 2000000.0_km); // 8 days off
 }
-
+      
 TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
 {
    mzlib::cbody2d sun;

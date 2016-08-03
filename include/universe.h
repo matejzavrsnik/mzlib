@@ -137,11 +137,13 @@ public:
          for (cbody2d& this_body : m_vector) {
             this_body.data.force = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {
-               math::cvector2d gravity_force = m_properties.m_law_of_gravitation(
-                  this_body, 
-                  that_body, 
-                  m_properties.m_gravitational_constant);
-               this_body.data.force += gravity_force;
+               if (this_body.data != that_body.data) { // body can't exert a force on itself,
+                  math::cvector2d gravity_force = m_properties.m_law_of_gravitation(
+                     this_body, 
+                     that_body, 
+                     m_properties.m_gravitational_constant);
+                  this_body.data.force += gravity_force;
+               }
             }
          }         
       }

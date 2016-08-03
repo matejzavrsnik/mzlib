@@ -25,6 +25,7 @@ namespace units {
 // with 5000.0_km instead of 5000_km and force the compiler to parse the token as floating-point.
     
 // length
+constexpr long double operator"" _m           (long double m)    { return m; } // mostly useful for readability
 constexpr long double operator"" _km          (long double km)   { return km*1000; }
 
 // speed
