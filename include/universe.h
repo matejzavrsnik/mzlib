@@ -77,7 +77,7 @@ public:
       }
    }
    
-   cbody2d const * find_body (const cbody2d& body)
+   cbody2d const * find_body (const cbody2d& body) const
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
          for (const cbody2d& found : m_quad_tree) {
