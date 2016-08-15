@@ -61,7 +61,7 @@ public:
    cuniverse (const cuniverse&) = delete;
    cuniverse& operator= (const cuniverse&) = delete;
    
-   // allow moving
+   // allow move
    cuniverse (cuniverse && ) = default;
    cuniverse& operator= (cuniverse&&) = default;
    
