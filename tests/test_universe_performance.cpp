@@ -5,9 +5,13 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
+#include <iostream>
+
 #include "../include/universe.h"
 #include "../include/units.h"
 #include "../include/utils_random.h"
+#include "../include/stopwatch.h"
+
 #include "gtest/gtest.h"
 
 using namespace mzlib::units;
@@ -16,434 +20,145 @@ using namespace mzlib::units;
 // The code is unlikely to be used often, but since it is written I'll let it stay.
 // Perhaps I'll need it again if I do any massive changes to the code.
 // Note: I know google test has parameterised tests, but those do not output
-// detailed information. Sample below.
+// detailed information.
 
 class fixture_universe_performance : public ::testing::Test 
 {
 
 protected:
    
-   fixture_universe_performance() :
-      local_universe(
-         mzlib::math::cvector2d{0,0}, 
-         mzlib::math::cvector2d{5000,5000}, 
-         50)
-   {}
+   fixture_universe_performance() {}
    virtual ~fixture_universe_performance() {}
    
-   virtual void SetUp() 
-   {
-   }
-   
+   virtual void SetUp()  {}
    virtual void TearDown() {}
 
-   mzlib::cuniverse local_universe;
-
-   void PrepareTheUniverse(
-      int num_of_bodies, 
+   std::vector<mzlib::cbody2d> generate_bodies (unsigned int num_of_bodies)
+   {
+      std::vector<mzlib::cbody2d> bodies;
+      // Numbers here selected so that there is the right amount of movement.
+      // Too little would not test the universe in dynamic situations.
+      // Too much would just scatter bodies out of reach of quadtree.
+      for(unsigned int i=0; i<num_of_bodies; ++i) {
+         mzlib::cbody2d object;
+         object.mass = 1000000000000;
+         object.location = mzlib::math::cvector2d {
+            (double)mzlib::util::get_random_integer_between(0,5000),
+            (double)mzlib::util::get_random_integer_between(0,5000)
+         };
+         object.data.velocity = mzlib::math::cvector2d {
+            (double)mzlib::util::get_random_integer_between(0,6)-3,
+            (double)mzlib::util::get_random_integer_between(0,6)-3
+         };
+         bodies.push_back(object);
+      }
+      return bodies;
+   }
+   
+   mzlib::cuniverse prepare_the_universe(
+      std::vector<mzlib::cbody2d> bodies, 
       mzlib::cuniverse::implementation implementation,
       double barnes_hut_quotient = 0)
    {
+      mzlib::cuniverse local_universe(
+         mzlib::math::cvector2d{0,0}, 
+         mzlib::math::cvector2d{5000,5000}, 
+         50);
       mzlib::cuniverse::tproperties properties;
       properties.m_barnes_hut_quotient = barnes_hut_quotient;
       properties.m_implementation = implementation;
       local_universe.set_properties(properties);
 
-      // Numbers here selected so that there is the right amount of movement.
-      // Too little would not test the universe in dynamic situations.
-      // Too much would just scatter bodies out of reach of quadtree.
-      for(int i=0; i<num_of_bodies; ++i) {
-         mzlib::cbody2d object;
-         object.mass = 1000000000000;
-         object.location = mzlib::math::cvector2d{
-            (double)mzlib::util::get_random_integer_between(0,5000),
-            (double)mzlib::util::get_random_integer_between(0,5000)
-         };
-         object.data.velocity = mzlib::math::cvector2d{
-            (double)mzlib::util::get_random_integer_between(0,6)-3,
-            (double)mzlib::util::get_random_integer_between(0,6)-3
-         };
-         local_universe.add_body(object);
+      for(auto& body : bodies) {
+         local_universe.add_body(body);
       }
+      
+      return std::move(local_universe);
    }
    
-   void RunSimulation()
+   void RunSimulation(mzlib::cuniverse& local_universe)
    {
-      local_universe.forward_time(1000,1);
+      local_universe.forward_time(10,1);
    }
    
 };
 
-/*
-
-Parameterised version of these tests don't display enough information.
-Sample of output below.
-
-INSTANTIATE_TEST_CASE_P(TestVector, fixture_universe_performance,
-   ::testing::Combine(
-      ::testing::Values(3,5),
-      ::testing::Values(mzlib::cuniverse::implementation::naive),
-      ::testing::Values(0.0))
-);
-
-INSTANTIATE_TEST_CASE_P(TestBarnesHut, fixture_universe_performance,
-   ::testing::Combine(
-      ::testing::Values(3,5),
-      ::testing::Values(mzlib::cuniverse::implementation::barnes_hut),
-      ::testing::Values(0.0,1.0,2.0,3.0))
-);
-
-
-TEST_P(fixture_universe_performance, all)
+TEST_F(fixture_universe_performance, proper)
 {
-   PrepareTheUniverse(
-      std::get<0>(GetParam()),
-      std::get<1>(GetParam()),
-      std::get<2>(GetParam()));
-   RunSimulation();
-   // nothing to assert, because it is used as performance test
+   // uncomment stuff here to do actual tests
+   //std::cout << "bodies\t\tbar0.0\t\tbar0.25\t\tbar0.5\t\tbar0.75\t\tbar1.0\t\tvector" << std::endl;
+   for(int bodies_count : {2, 4, /*8, 16, 32, 64, 128, 256, 512, 1024, 2000, 4000, 8000*/})
+   {
+      // sets of bodies, equal number, equal positions
+      auto bodies_control = generate_bodies (bodies_count);
+      auto bodies_barnes0 = bodies_control;
+      auto bodies_barnes1 = bodies_control;
+      auto bodies_barnes2 = bodies_control;
+      auto bodies_barnes3 = bodies_control;
+      auto bodies_barnes4 = bodies_control;
+      auto bodies_vector = bodies_control;
+
+      mzlib::util::cstopwatch stopwatch;
+
+      // naive
+      auto universe_vector = prepare_the_universe(bodies_vector, mzlib::cuniverse::implementation::naive);
+      auto start_naive = stopwatch.start();
+      if(bodies_count<=15000) {
+         RunSimulation(universe_vector);
+      }
+      auto end_naive = stopwatch.mark();
+      
+      // barnes-hut 0
+      auto universe_barnes_0 = prepare_the_universe(bodies_barnes0, mzlib::cuniverse::implementation::barnes_hut, 0);
+      auto start_barnes_0 = stopwatch.mark();
+      if(bodies_count<=15000) {
+         RunSimulation(universe_barnes_0);
+      }
+      auto end_barnes_0 = stopwatch.mark();
+      
+      // barnes-hut 1
+      auto universe_barnes_1 = prepare_the_universe(bodies_barnes1, mzlib::cuniverse::implementation::barnes_hut, 0.25);
+      auto start_barnes_1 = stopwatch.mark();
+      if(bodies_count<=15000) {
+         RunSimulation(universe_barnes_1);
+      }
+      auto end_barnes_1 = stopwatch.mark();
+      
+      // barnes-hut 2
+      auto universe_barnes_2 = prepare_the_universe(bodies_barnes2, mzlib::cuniverse::implementation::barnes_hut, 0.5);
+      auto start_barnes_2 = stopwatch.mark();
+      if(bodies_count<=15000) {
+         RunSimulation(universe_barnes_2);
+      }
+      auto end_barnes_2 = stopwatch.mark();
+      
+      // barnes-hut 3
+      auto universe_barnes_3 = prepare_the_universe(bodies_barnes3, mzlib::cuniverse::implementation::barnes_hut, 0.75);
+      auto start_barnes_3 = stopwatch.mark();
+      if(bodies_count<=15000) {
+         RunSimulation(universe_barnes_3);
+      }
+      auto end_barnes_3 = stopwatch.mark();
+
+      // barnes-hut 4
+      auto universe_barnes_4 = prepare_the_universe(bodies_barnes4, mzlib::cuniverse::implementation::barnes_hut, 1.0);
+      auto start_barnes_4 = stopwatch.mark();
+      if(bodies_count<=15000) {
+         RunSimulation(universe_barnes_4);
+      }
+      auto end_barnes_4 = stopwatch.mark();
+      
+      // neatly aligned output
+      //std::cout << std::fixed << std::setprecision(0)
+      //   << bodies_count << "\t\t" 
+      //   << stopwatch.get_wall_clock(start_barnes_0, end_barnes_0) << "\t\t" 
+      //   << stopwatch.get_wall_clock(start_barnes_1, end_barnes_1) << "\t\t" 
+      //   << stopwatch.get_wall_clock(start_barnes_2, end_barnes_2) << "\t\t" 
+      //   << stopwatch.get_wall_clock(start_barnes_3, end_barnes_3) << "\t\t" 
+      //   << stopwatch.get_wall_clock(start_barnes_4, end_barnes_4) << "\t\t" 
+      //   << stopwatch.get_wall_clock(start_naive, end_naive) << "\t\t"
+      //   << std::endl;
+   }
+   ASSERT_TRUE(true);
 }
 
- [----------] 8 tests from TestBarnesHut/fixture_universe_performance
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/0
- [       OK ] TestBarnesHut/fixture_universe_performance.all/0 (14 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/1
- [       OK ] TestBarnesHut/fixture_universe_performance.all/1 (27 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/2
- [       OK ] TestBarnesHut/fixture_universe_performance.all/2 (3 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/3
- [       OK ] TestBarnesHut/fixture_universe_performance.all/3 (4 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/4
- [       OK ] TestBarnesHut/fixture_universe_performance.all/4 (3 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/5
- [       OK ] TestBarnesHut/fixture_universe_performance.all/5 (21 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/6
- [       OK ] TestBarnesHut/fixture_universe_performance.all/6 (3 ms)
- [ RUN      ] TestBarnesHut/fixture_universe_performance.all/7
- [       OK ] TestBarnesHut/fixture_universe_performance.all/7 (27 ms)
- [----------] 8 tests from TestBarnesHut/fixture_universe_performance (103 ms total)
-*/
-
-
-TEST_F(fixture_universe_performance, vector_3_objects)
-{
-   PrepareTheUniverse(3, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-/*
-
-TEST_F(fixture_universe_performance, vector_5_objects)
-{
-   PrepareTheUniverse(5, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_10_objects)
-{
-   PrepareTheUniverse(10, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_20_objects)
-{
-   PrepareTheUniverse(20, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_40_objects)
-{
-   PrepareTheUniverse(40, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_80_objects)
-{
-   PrepareTheUniverse(80, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_160_objects)
-{
-   PrepareTheUniverse(160, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_320_objects)
-{
-   PrepareTheUniverse(320, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_640_objects)
-{
-   PrepareTheUniverse(640, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, vector_1280_objects)
-{
-   PrepareTheUniverse(1280, mzlib::cuniverse::implementation::naive);
-   RunSimulation();
-}
-
-
-
-
-
-
-TEST_F(fixture_universe_performance, quad_3_objects_q0)
-{
-   PrepareTheUniverse(3, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_5_objects_q0)
-{
-   PrepareTheUniverse(5, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_10_objects_q0)
-{
-   PrepareTheUniverse(10, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_20_objects_q0)
-{
-   PrepareTheUniverse(20, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_40_objects_q0)
-{
-   PrepareTheUniverse(40, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_80_objects_q0)
-{
-   PrepareTheUniverse(80, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_160_objects_q0)
-{
-   PrepareTheUniverse(160, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_320_objects_q0)
-{
-   PrepareTheUniverse(320, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_640_objects_q0)
-{
-   PrepareTheUniverse(640, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_1280_objects_q0)
-{
-   PrepareTheUniverse(1280, mzlib::cuniverse::implementation::barnes_hut, 0);
-   RunSimulation();
-}
-
-
-
-
-
-
-TEST_F(fixture_universe_performance, quad_3_objects_q1)
-{
-   PrepareTheUniverse(3, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_5_objects_q1)
-{
-   PrepareTheUniverse(5, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_10_objects_q1)
-{
-   PrepareTheUniverse(10, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_20_objects_q1)
-{
-   PrepareTheUniverse(20, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_40_objects_q1)
-{
-   PrepareTheUniverse(40, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_80_objects_q1)
-{
-   PrepareTheUniverse(80, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_160_objects_q1)
-{
-   PrepareTheUniverse(160, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_320_objects_q1)
-{
-   PrepareTheUniverse(320, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_640_objects_q1)
-{
-   PrepareTheUniverse(640, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_1280_objects_q1)
-{
-   PrepareTheUniverse(1280, mzlib::cuniverse::implementation::barnes_hut, 1);
-   RunSimulation();
-}
-
-
-
-
-
-
-TEST_F(fixture_universe_performance, quad_3_objects_q2)
-{
-   PrepareTheUniverse(3, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_5_objects_q2)
-{
-   PrepareTheUniverse(5, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_10_objects_q2)
-{
-   PrepareTheUniverse(10, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_20_objects_q2)
-{
-   PrepareTheUniverse(20, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_40_objects_q2)
-{
-   PrepareTheUniverse(40, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_80_objects_q2)
-{
-   PrepareTheUniverse(80, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_160_objects_q2)
-{
-   PrepareTheUniverse(160, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_320_objects_q2)
-{
-   PrepareTheUniverse(320, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_640_objects_q2)
-{
-   PrepareTheUniverse(640, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_1280_objects_q2)
-{
-   PrepareTheUniverse(1280, mzlib::cuniverse::implementation::barnes_hut, 2);
-   RunSimulation();
-}
-
-
-
-
-
-
-TEST_F(fixture_universe_performance, quad_3_objects_q3)
-{
-   PrepareTheUniverse(3, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_5_objects_q3)
-{
-   PrepareTheUniverse(5, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_10_objects_q3)
-{
-   PrepareTheUniverse(10, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_20_objects_q3)
-{
-   PrepareTheUniverse(20, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_40_objects_q3)
-{
-   PrepareTheUniverse(40, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_80_objects_q3)
-{
-   PrepareTheUniverse(80, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_160_objects_q3)
-{
-   PrepareTheUniverse(160, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_320_objects_q3)
-{
-   PrepareTheUniverse(320, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_640_objects_q3)
-{
-   PrepareTheUniverse(640, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-
-TEST_F(fixture_universe_performance, quad_1280_objects_q3)
-{
-   PrepareTheUniverse(1280, mzlib::cuniverse::implementation::barnes_hut, 3);
-   RunSimulation();
-}
-*/
