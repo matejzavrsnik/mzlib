@@ -197,6 +197,44 @@ parse_arguments (int argc, char **argv)
    return arguments;
 }
 
+// more readable substitute for bool for this specific meaning
+// let's see I'll need more of them in the future
+enum class isset { no, yes };
+
+// basic optional type 
+// doesn't do references, waiting for C++17 or whenever; good enough for now
+template<class T>
+class coptional
+{
+   
+private:
+   
+   T m_value;
+   isset m_set = isset::no;
+   
+public:
+   
+   class enotset : public std::exception {};
+      
+   T get() 
+   {
+      if(m_set == isset::no) throw enotset();
+      return m_value; 
+   }
+   
+   void set(T value)
+   {
+      m_value = value;
+      m_set = isset::yes;
+   }
+   
+   bool is_set()
+   {
+      return m_set == isset::yes;
+   }
+   
+};
+
 } } // namespace mzlib::util
 
 #endif // UTILITIES_H

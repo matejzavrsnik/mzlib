@@ -207,3 +207,14 @@ TEST_F(fixture_utilities, fast_threeway_min_rvalue)
    ASSERT_EQ(1, mzlib::util::fast_min(3, 1, 2));
    ASSERT_EQ(1, mzlib::util::fast_min(3, 2, 1));
 }
+
+TEST_F(fixture_utilities, coptional_basic) 
+{
+   mzlib::util::coptional<int> optional;
+   ASSERT_THROW(optional.get(), mzlib::util::coptional<int>::enotset);
+   ASSERT_FALSE(optional.is_set());
+   optional.set(5);
+   ASSERT_NO_THROW(optional.get());
+   ASSERT_EQ(5, optional.get());
+   ASSERT_TRUE(optional.is_set()); 
+}
