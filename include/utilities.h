@@ -20,6 +20,7 @@
 
 #include <memory> // for basic style for loop which uses unique_ptr
 #include "utils_missing_std.h" // for basic loop again: make_unique
+#include "exceptions.h" // basic for loop
 
 namespace mzlib {
 namespace util {
@@ -216,12 +217,10 @@ private:
    isset m_set = isset::no;
    
 public:
-   
-   class enotset : public std::exception {};
       
    T get() 
    {
-      if(m_set == isset::no) throw enotset();
+      if(m_set == isset::no) throw exception::not_set();
       return m_value; 
    }
    
@@ -278,7 +277,7 @@ public:
             result.push_back(val);
          }
       }
-      catch (mzlib::util::coptional<int>::enotset& e) {
+      catch (exception::not_set& e) {
          // ah, well. c'est la vie ...
          // let it return empty vector
       }

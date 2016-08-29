@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include "utils_random.h"
+#include "exceptions.h"
 
 namespace mzlib {
 namespace util {
@@ -17,10 +18,6 @@ namespace util {
 template<class T>
 class cprobabilator
 {
-
-public:
-        
-   class eempty : public std::exception {};
         
 private:
 
@@ -87,7 +84,7 @@ public:
             return event_it->first;
          }
       }
-      throw eempty(); // I couldn't imagine other way out of this
+      throw exception::is_empty(); // I couldn't imagine other way out of this
    }
    
    unsigned count_events () const 

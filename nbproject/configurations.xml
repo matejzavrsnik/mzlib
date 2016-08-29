@@ -6,6 +6,7 @@
       <itemPath>include/consts.h</itemPath>
       <itemPath>include/cpucycle.h</itemPath>
       <itemPath>include/dbl.h</itemPath>
+      <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
       <itemPath>include/laws.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
@@ -104,6 +105,8 @@
       <item path="include/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -243,6 +246,8 @@
       <item path="include/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
