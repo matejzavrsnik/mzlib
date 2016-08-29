@@ -18,10 +18,6 @@
 #include <map>
 #include <cstring>
 
-#include <memory> // for basic style for loop which uses unique_ptr
-#include "utils_missing_std.h" // for basic loop again: make_unique
-#include "exceptions.h" // basic for loop
-
 namespace mzlib {
 namespace util {
         
@@ -200,90 +196,6 @@ parse_arguments (int argc, char **argv)
    }
    return arguments;
 }
-
-// more readable substitute for bool for this specific meaning
-// let's see I'll need more of them in the future
-enum class isset { no, yes };
-
-// basic optional type 
-// doesn't do references, waiting for C++17 or whenever; good enough for now
-template<class T>
-class coptional
-{
-   
-private:
-   
-   T m_value;
-   isset m_set = isset::no;
-   
-public:
-      
-   T get() 
-   {
-      if(m_set == isset::no) throw exception::not_set();
-      return m_value; 
-   }
-   
-   void set(T value)
-   {
-      m_value = value;
-      m_set = isset::yes;
-   }
-   
-   bool is_set()
-   {
-      return m_set == isset::yes;
-   }
-   
-};
-
-// A builder to be able to write for loops like I did in my old commodore basic.
-// Serves no meaningful purpose but a regression into childhood :)
-template<class T>
-class cbasic_style_for
-{
-   
-private:
-   
-   mzlib::util::coptional<T> m_from;
-   mzlib::util::coptional<T> m_to;
-   mzlib::util::coptional<T> m_step;
-   
-public:
-   
-   static std::unique_ptr<cbasic_style_for> loop () 
-   {
-      return std::make_unique<cbasic_style_for>();
-   }
-   
-   cbasic_style_for* from (T f) 
-   { 
-      m_from.set(f);
-      return this; 
-   }
-   
-   cbasic_style_for* to (T t)
-   {
-      m_to.set(t);
-      return this;
-   }
-   
-   std::vector<T> step (T s)
-   {
-      std::vector<T> result;
-      try {
-         m_step.set(s);
-         for (size_t val = m_from.get(); val < m_to.get(); val += m_step.get()) {
-            result.push_back(val);
-         }
-      }
-      catch (exception::not_set& e) {
-         // ah, well. c'est la vie ...
-         // let it return empty vector
-      }
-      return result;
-   }
-};
 
 } } // namespace mzlib::util
 

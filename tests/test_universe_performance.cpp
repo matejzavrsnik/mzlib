@@ -13,7 +13,7 @@
 #include "../include/units.h"
 #include "../include/utils_random.h"
 #include "../include/stopwatch.h"
-#include "../include/utilities.h"
+#include "../include/c64_basic_for.h"
 
 #include "gtest/gtest.h"
 
@@ -103,7 +103,7 @@ protected:
 TEST_F(fixture_universe_performance, DISABLED_perform)
 {
    std::cout << "bodies\t\tbar0.0\t\tbar0.25\t\tbar0.5\t\tbar0.75\t\tbar1.0\t\tvector" << std::endl;
-   for (int bodies_count : mzlib::util::cbasic_style_for<int>::
+   for (int bodies_count : mzlib::util::c64_basic_for<int>::
             loop()->from(0)->to(10000)->step(100))
    {
       // sets of bodies, equal number, equal positions

@@ -11,6 +11,8 @@
 #ifndef UTILS_MISSING_STD_H
 #define	UTILS_MISSING_STD_H
 
+#include <memory>
+
 // in anticipation of adoption of the newer c++ standard
 namespace std {
 
