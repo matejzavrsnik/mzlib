@@ -20,7 +20,7 @@ class cbody_forces
    
 public:
         
-   VectorT force;
+   VectorT gravity;
    VectorT velocity;
 
 };

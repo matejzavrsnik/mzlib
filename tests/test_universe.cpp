@@ -38,8 +38,8 @@ TEST_F(fixture_universe, sun_force_on_earth)
 	universe.add_body(earth);
    universe.calculate_forces();
     
-   mzlib::math::cvector2d f_sun = universe.find_body(sun)->data.force;
-   mzlib::math::cvector2d f_earth = universe.find_body(earth)->data.force;
+   mzlib::math::cvector2d f_sun = universe.find_body(sun)->data.gravity;
+   mzlib::math::cvector2d f_earth = universe.find_body(earth)->data.gravity;
     
    ASSERT_EQ(f_earth, -f_sun);
    ASSERT_NEAR(f_earth.length(), 3.53e+22, 0.01e+22);

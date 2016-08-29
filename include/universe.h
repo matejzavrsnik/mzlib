@@ -120,7 +120,7 @@ public:
    {
       if(m_properties.m_implementation == implementation::barnes_hut) {
          for (const cbody2d& this_body : m_quad_tree) {
-            m_quad_tree.access_data(this_body).force = {0.0,0.0};
+            m_quad_tree.access_data(this_body).gravity = {0.0,0.0};
             cquadtree<cbody_properties2d>::it_masscentres mass_centres_it = 
                m_quad_tree.begin_masscentres(this_body.data, m_properties.m_barnes_hut_quotient);
             for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
@@ -129,20 +129,20 @@ public:
                   this_body, 
                   another_mass_centre, 
                   m_properties.m_gravitational_constant);
-               m_quad_tree.access_data(this_body).force += gravity_force;
+               m_quad_tree.access_data(this_body).gravity += gravity_force;
             }
          }
       }
       else if(m_properties.m_implementation == implementation::naive) {        
          for (cbody2d& this_body : m_vector) {
-            this_body.data.force = {0.0,0.0};
+            this_body.data.gravity = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
                   math::cvector2d gravity_force = m_properties.m_law_of_gravitation(
                      this_body, 
                      that_body, 
                      m_properties.m_gravitational_constant);
-                  this_body.data.force += gravity_force;
+                  this_body.data.gravity += gravity_force;
                }
             }
          }         
@@ -155,7 +155,7 @@ public:
          for (const cbody2d& body : m_quad_tree) {
             math::cvector2d velocity_initial = body.data.velocity;
             math::cvector2d acceleration{0};
-            acceleration = body.data.force / body.mass;
+            acceleration = body.data.gravity / body.mass;
             math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
             if (velocity_final.length() > m_properties.m_max_velocity) {
                acceleration = {0.0,0.0};
@@ -170,7 +170,7 @@ public:
          for (cbody2d& body : m_vector) {
             math::cvector2d velocity_initial = body.data.velocity;
             math::cvector2d acceleration{0};
-            acceleration = body.data.force / body.mass;
+            acceleration = body.data.gravity / body.mass;
             math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
             if (velocity_final.length() > m_properties.m_max_velocity) {
                acceleration = {0.0,0.0};
