@@ -8,7 +8,6 @@
 #ifndef LAWS_H
 #define	LAWS_H
 
-#include "vector.h"
 #include "mass_centre.h"
 
 namespace mzlib
