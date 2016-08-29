@@ -18,6 +18,9 @@
 #include <map>
 #include <cstring>
 
+#include <memory> // for basic style for loop which uses unique_ptr
+#include "utils_missing_std.h" // for basic loop again: make_unique
+
 namespace mzlib {
 namespace util {
         
@@ -233,6 +236,54 @@ public:
       return m_set == isset::yes;
    }
    
+};
+
+// A builder to be able to write for loops like I did in my old commodore basic.
+// Serves no meaningful purpose but a regression into childhood :)
+template<class T>
+class cbasic_style_for
+{
+   
+private:
+   
+   mzlib::util::coptional<T> m_from;
+   mzlib::util::coptional<T> m_to;
+   mzlib::util::coptional<T> m_step;
+   
+public:
+   
+   static std::unique_ptr<cbasic_style_for> loop () 
+   {
+      return std::make_unique<cbasic_style_for>();
+   }
+   
+   cbasic_style_for* from (T f) 
+   { 
+      m_from.set(f);
+      return this; 
+   }
+   
+   cbasic_style_for* to (T t)
+   {
+      m_to.set(t);
+      return this;
+   }
+   
+   std::vector<T> step (T s)
+   {
+      std::vector<T> result;
+      try {
+         m_step.set(s);
+         for (size_t val = m_from.get(); val < m_to.get(); val += m_step.get()) {
+            result.push_back(val);
+         }
+      }
+      catch (mzlib::util::coptional<int>::enotset& e) {
+         // ah, well. c'est la vie ...
+         // let it return empty vector
+      }
+      return result;
+   }
 };
 
 } } // namespace mzlib::util

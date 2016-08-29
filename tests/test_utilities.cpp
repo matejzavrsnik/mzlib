@@ -218,3 +218,15 @@ TEST_F(fixture_utilities, coptional_basic)
    ASSERT_EQ(5, optional.get());
    ASSERT_TRUE(optional.is_set()); 
 }
+
+TEST_F(fixture_utilities, cbasic_style_for_basic) 
+{
+   int should_be = 0;
+   int use_step = 10;
+   for(int is : mzlib::util::cbasic_style_for<int>::
+           loop()->from(0)->to(1000)->step(use_step))
+   {
+      ASSERT_EQ(should_be, is);
+      should_be += use_step;
+   }
+}
