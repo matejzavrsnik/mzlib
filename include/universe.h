@@ -57,9 +57,9 @@ public:
    {
    }
 
-   // prevent copying
-   cuniverse (const cuniverse&) = delete;
+   // can't allow copying because container uses std::unique_ptr
    cuniverse& operator= (const cuniverse&) = delete;
+   cuniverse (const cuniverse&) = delete; 
    
    // allow move
    cuniverse (cuniverse && ) = default;
@@ -133,7 +133,7 @@ public:
             }
          }
       }
-      else if(m_properties.m_implementation == implementation::naive) {
+      else if(m_properties.m_implementation == implementation::naive) {        
          for (cbody2d& this_body : m_vector) {
             this_body.data.force = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {

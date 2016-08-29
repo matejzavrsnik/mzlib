@@ -47,7 +47,7 @@ public:
       m_root->create(top_left, bottom_right, smallest_node_width, nullptr);
    }
         
-   // prevent copying
+   // can't allow copying due to std::unique_ptrs that are used
    cquadtree (const cquadtree&) = delete;
    cquadtree& operator= (const cquadtree&) = delete;
    
