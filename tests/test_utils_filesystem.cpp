@@ -41,7 +41,7 @@ TEST_F(fixture_utils_filesystem, list_files_defaults)
 
 TEST_F(fixture_utils_filesystem, list_files_recursive_nohidden) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, true, false);
+   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, mzlib::erecursive::yes, mzlib::einclude_hidden::no);
    
    auto not_found = list.end();
    ASSERT_EQ(6, list.size());
@@ -56,7 +56,7 @@ TEST_F(fixture_utils_filesystem, list_files_recursive_nohidden)
 
 TEST_F(fixture_utils_filesystem, list_files_recursive_hidden) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, true, true);
+   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, mzlib::erecursive::yes, mzlib::einclude_hidden::yes);
    
    auto not_found = list.end();
    ASSERT_EQ(8, list.size());
@@ -73,7 +73,7 @@ TEST_F(fixture_utils_filesystem, list_files_recursive_hidden)
 
 TEST_F(fixture_utils_filesystem, list_files_norecursive_hidden) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, false, true);
+   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, mzlib::erecursive::no, mzlib::einclude_hidden::yes);
    
    auto not_found = list.end();
    ASSERT_EQ(3, list.size());

@@ -14,8 +14,54 @@
 
 namespace mzlib {
    
-enum class isset { no, yes };
+class cbinary_option
+{
    
+public:
+   
+   enum /*not class*/ named_options { no, yes } m_named_value = no;
+  
+   // create from option
+   cbinary_option (named_options named_value) : 
+      m_named_value(named_value)
+   {
+   }
+   
+   // compare to option
+   bool operator== (named_options named_value) const
+   {
+      return m_named_value == named_value;
+   }
+
+   // convert from bool
+   cbinary_option (bool boolean_value) :
+      m_named_value(boolean_value ? yes : no)
+   {
+   }
+   
+   // convert to bool
+   operator bool () const
+   {
+      return m_named_value == yes;
+   }
+
+};
+
+// a generator to create real ones
+#define MZLIB_GENERATE_NEW_BINARY_OPTION(name) \
+class name : public cbinary_option \
+{ \
+public: \
+   using cbinary_option::cbinary_option; \
+};
+
+MZLIB_GENERATE_NEW_BINARY_OPTION( erecursive      );
+MZLIB_GENERATE_NEW_BINARY_OPTION( einclude_hidden );
+
+
+// can't easily make this one work. Something with moves? Will solve when need be.
+enum class eset { no, yes };
+
 } // namespace mzlib
 
 #endif	/* ENUMS_H */

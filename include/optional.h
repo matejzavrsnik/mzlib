@@ -23,25 +23,25 @@ class coptional
 private:
    
    T m_value;
-   isset m_set = isset::no;
+   eset m_set = eset::no;
    
 public:
       
    T get() 
    {
-      if(m_set == isset::no) throw exception::not_set();
+      if(m_set == eset::no) throw exception::not_set();
       return m_value; 
    }
    
    void set(T value)
    {
       m_value = value;
-      m_set = isset::yes;
+      m_set = eset::yes;
    }
    
    bool is_set()
    {
-      return m_set == isset::yes;
+      return m_set == eset::yes;
    }
    
 };

@@ -15,6 +15,8 @@
 #include <dirent.h>
 #include <cstring>
 
+#include "enums.h"
+
 namespace mzlib {
 namespace util {
     
@@ -77,7 +79,7 @@ bool is_meta_directory(const char* directory_name)
 }
 
 inline std::vector<std::string> 
-list_files2 (const std::string& directory, bool recursive = false, bool include_hidden = false)
+list_files2 (const std::string& directory, erecursive recursive = erecursive::no, einclude_hidden include_hidden = einclude_hidden::no)
 {
    std::vector<std::string> files;   
    DIR *pDIR;
@@ -87,12 +89,12 @@ list_files2 (const std::string& directory, bool recursive = false, bool include_
          bool is_hidden = (entry->d_name[0] == '.');
          bool is_directory = (entry->d_type == DT_DIR);
          bool is_meta = is_meta_directory(entry->d_name);
-         if ((is_hidden && !include_hidden) || is_meta) {
+         if ((is_hidden && include_hidden == einclude_hidden::no) || is_meta) {
             continue;
          }
-         if(is_directory && recursive) {
+         if(is_directory && recursive == erecursive::yes) {
             std::string subdir_name = directory + "/" + std::string(entry->d_name);
-            auto files_in_subdir = list_files2(subdir_name, true, include_hidden);
+            auto files_in_subdir = list_files2(subdir_name, recursive, include_hidden);
             std::copy (files_in_subdir.begin(), files_in_subdir.end(), std::back_inserter(files));
          }
          else if (!is_directory) {
