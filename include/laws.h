@@ -20,10 +20,10 @@ class cuniversal_law_of_gravitation
    
 public:
    
-   util::coptional_ref<cmass_centre<VectorT>> mass_centre1; 
-   util::coptional_ref<cmass_centre<VectorT>> mass_centre2; 
-   util::coptional_ref<double> gravitational_constant;
-   util::coptional_ref<VectorT> force_on_body1;
+   util::coptional<cmass_centre<VectorT>> mass_centre1; 
+   util::coptional<cmass_centre<VectorT>> mass_centre2; 
+   util::coptional<double> gravitational_constant;
+   util::coptional<VectorT> force_on_body1;
    
    void solve_for_force ()
    {

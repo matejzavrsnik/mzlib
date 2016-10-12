@@ -17,7 +17,7 @@ namespace util {
 // basic optional type 
 // doesn't really store references, waiting for C++17 or whenever, but good enough for now
 template<class T>
-class coptional_ref
+class coptional
 {
    
 private:

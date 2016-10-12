@@ -25,9 +25,9 @@ class c64_basic_for
    
 private:
    
-   mzlib::util::coptional_ref<T> m_from;
-   mzlib::util::coptional_ref<T> m_to;
-   mzlib::util::coptional_ref<T> m_step;
+   mzlib::util::coptional<T> m_from;
+   mzlib::util::coptional<T> m_to;
+   mzlib::util::coptional<T> m_step;
    
 public:
    
