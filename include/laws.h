@@ -9,45 +9,82 @@
 #define	LAWS_H
 
 #include "mass_centre.h"
+#include "optional.h"
 
 namespace mzlib
 {
+
+template<class VectorT>
+class cuniversal_law_of_gravitation
+{
    
-template<class VectorT> VectorT universal_law_of_gravitation(
-   const cmass_centre<VectorT>& body1, 
-   const cmass_centre<VectorT>& body2, 
-   const double gravitational_constant)
+public:
+   
+   util::coptional_ref<cmass_centre<VectorT>> mass_centre1; 
+   util::coptional_ref<cmass_centre<VectorT>> mass_centre2; 
+   util::coptional_ref<double> gravitational_constant;
+   util::coptional_ref<VectorT> force_on_body1;
+   
+   void solve_for_force ()
    {
-      double sqare_distance = body1.location.square_distance_to(body2.location); 
-      VectorT force_on_body1 = -body1.location.direction_to(body2.location).normalise(); 
-      force_on_body1 *= body1.mass * body2.mass; // masses
-      force_on_body1 /= sqare_distance; // distance
-      force_on_body1 *= gravitational_constant; // factor
-      return force_on_body1;
-   }
+      // check if needed parameters are provided
+      if (!mass_centre1.is_set() ||
+          !mass_centre2.is_set() ||
+          !gravitational_constant.is_set())
+      {
+         return;
+      }
 
-template<class VectorT> VectorT entertaining_law_of_gravitation(
-   const cmass_centre<VectorT>& body1, 
-   const cmass_centre<VectorT>& body2, 
-   const double gravitational_constant)
+      // make it easier to read
+      const cmass_centre<VectorT>& m1 = mass_centre1.get();
+      const cmass_centre<VectorT>& m2 = mass_centre2.get();
+      const double& G = gravitational_constant.get();
+
+      // get to business
+      VectorT m1_force = {0};
+      double sqare_distance = m1.location.square_distance_to(m2.location); 
+      m1_force = -m1.location.direction_to(m2.location).normalise(); 
+      m1_force *= m1.mass * m2.mass; // masses
+      m1_force /= sqare_distance; // distance
+      m1_force *= G; // factor
+
+      // done
+      force_on_body1.set(m1_force);
+   }
+   
+   // Because I noticed that if gravity is linearly proportional to distance,
+   // games are more fun. Seems like people have limited ability to intuitively
+   // grasp second order polynomials like in accelerated motion or gravity force.
+   void solve_for_fun_force ()
    {
-      double sqare_distance = body1.location.square_distance_to(body2.location); 
-      VectorT force_on_body1 = -body1.location.direction_to(body2.location).normalise(); // give vector a direction
-      force_on_body1 *= body1.mass * body2.mass; // masses
-      force_on_body1 /= std::sqrt(sqare_distance); // distance
-      force_on_body1 *= gravitational_constant; // factor
-      return force_on_body1;
+      // check if needed parameters are provided
+      if (!mass_centre1.is_set() ||
+          !mass_centre2.is_set() ||
+          !gravitational_constant.is_set())
+      {
+         return;
+      }
+
+      // make it easier to read
+      const cmass_centre<VectorT>& m1 = mass_centre1.get();
+      const cmass_centre<VectorT>& m2 = mass_centre2.get();
+      const double& G = gravitational_constant.get();
+
+      // get to business
+      VectorT m1_force = {0};
+      double sqare_distance = m1.location.square_distance_to(m2.location); 
+      m1_force = -m1.location.direction_to(m2.location).normalise(); 
+      m1_force *= m1.mass * m2.mass; // masses
+      m1_force /= std::sqrt(sqare_distance); // distance
+      m1_force *= G; // factor
+
+      // done
+      force_on_body1.set(m1_force);
    }
+   
+};
 
-// for convenience
-
-using ilaw_of_gravitation2d = math::cvector2d (*) (const cmass_centre<math::cvector2d>&, const cmass_centre<math::cvector2d>&, const double);
-using ilaw_of_gravitation3d = math::cvector3d (*) (const cmass_centre<math::cvector3d>&, const cmass_centre<math::cvector3d>&, const double);
-
-static ilaw_of_gravitation2d entertaining_law_of_gravitation2d = entertaining_law_of_gravitation<math::cvector2d>;
-static ilaw_of_gravitation3d entertaining_law_of_gravitation3d = entertaining_law_of_gravitation<math::cvector3d>;
-static ilaw_of_gravitation2d universal_law_of_gravitation2d = universal_law_of_gravitation<math::cvector2d>;
-static ilaw_of_gravitation3d universal_law_of_gravitation3d = universal_law_of_gravitation<math::cvector3d>;
+using cuniversal_law_of_gravitation2d = cuniversal_law_of_gravitation<math::cvector2d>;
 
 } // namespace mzlib
 

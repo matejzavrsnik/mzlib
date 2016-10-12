@@ -28,10 +28,15 @@ public:
       naive
    };
    
+   enum class law_of_gravitation {
+      realistic,
+      entertaining
+   };
+   
    struct tproperties {
       double m_gravitational_constant = consts::gravitational_constant;
       double m_max_velocity = consts::light_speed;
-      ilaw_of_gravitation2d m_law_of_gravitation = universal_law_of_gravitation2d;
+      law_of_gravitation m_law_of_gravitation = law_of_gravitation::realistic;
       double m_barnes_hut_quotient = 1.5;
       implementation m_implementation = implementation::barnes_hut;
    };
@@ -125,11 +130,17 @@ public:
                m_quad_tree.begin_masscentres(this_body.data, m_properties.m_barnes_hut_quotient);
             for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
                auto another_mass_centre = *mass_centres_it;
-               math::cvector2d gravity_force = m_properties.m_law_of_gravitation(
-                  this_body, 
-                  another_mass_centre, 
-                  m_properties.m_gravitational_constant);
-               m_quad_tree.access_data(this_body).gravity += gravity_force;
+               cuniversal_law_of_gravitation2d law;
+               law.mass_centre1.set(this_body);
+               law.mass_centre2.set(another_mass_centre);
+               law.gravitational_constant.set(m_properties.m_gravitational_constant);
+               if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
+                  law.solve_for_force();
+               }
+               else {
+                  law.solve_for_fun_force();
+               }
+               m_quad_tree.access_data(this_body).gravity += law.force_on_body1.get();
             }
          }
       }
@@ -138,11 +149,17 @@ public:
             this_body.data.gravity = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
-                  math::cvector2d gravity_force = m_properties.m_law_of_gravitation(
-                     this_body, 
-                     that_body, 
-                     m_properties.m_gravitational_constant);
-                  this_body.data.gravity += gravity_force;
+                  cuniversal_law_of_gravitation2d law;
+                  law.mass_centre1.set(this_body);
+                  law.mass_centre2.set(that_body);
+                  law.gravitational_constant.set(m_properties.m_gravitational_constant);
+                  if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
+                     law.solve_for_force();
+                  }
+                  else {
+                     law.solve_for_fun_force();
+                  }
+                  this_body.data.gravity += law.force_on_body1.get();
                }
             }
          }         
