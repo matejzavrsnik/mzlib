@@ -130,7 +130,7 @@ public:
                m_quad_tree.begin_masscentres(this_body.data, m_properties.m_barnes_hut_quotient);
             for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
                auto another_mass_centre = *mass_centres_it;
-               cuniversal_law_of_gravitation2d law;
+               cnewtons_law_of_gravitation2d law;
                law.mass_centre1.set(this_body);
                law.mass_centre2.set(another_mass_centre);
                law.gravitational_constant.set(m_properties.m_gravitational_constant);
@@ -149,7 +149,7 @@ public:
             this_body.data.gravity = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
-                  cuniversal_law_of_gravitation2d law;
+                  cnewtons_law_of_gravitation2d law;
                   law.mass_centre1.set(this_body);
                   law.mass_centre2.set(that_body);
                   law.gravitational_constant.set(m_properties.m_gravitational_constant);
@@ -171,14 +171,16 @@ public:
       if (m_properties.m_implementation == implementation::barnes_hut) {
          for (const cbody2d& body : m_quad_tree) {
             math::cvector2d velocity_initial = body.data.velocity;
-            math::cvector2d acceleration{0};
-            acceleration = body.data.gravity / body.mass;
-            math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
+            cnewtons_law_of_acceleration2d law_acc;
+            law_acc.f.set(body.data.gravity);
+            law_acc.m.set(body.mass);
+            law_acc.solve_for_acceleration();
+            math::cvector2d velocity_final = velocity_initial + law_acc.a.get() * time_pixel;
             if (velocity_final.length() > m_properties.m_max_velocity) {
-               acceleration = {0.0,0.0};
+               law_acc.a.set({0.0});
                velocity_final = velocity_initial;
             }
-            math::cvector2d location_final = (velocity_initial*time_pixel) + (acceleration*time_pixel)/2; 
+            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a.get()*time_pixel)/2; 
             m_quad_tree.move(body.data, body.location + location_final);
             m_quad_tree.access_data(body).velocity = velocity_final;
          }
@@ -186,14 +188,16 @@ public:
       else if (m_properties.m_implementation == implementation::naive) {
          for (cbody2d& body : m_vector) {
             math::cvector2d velocity_initial = body.data.velocity;
-            math::cvector2d acceleration{0};
-            acceleration = body.data.gravity / body.mass;
-            math::cvector2d velocity_final = velocity_initial + acceleration * time_pixel;
+            cnewtons_law_of_acceleration2d law_acc;
+            law_acc.f.set(body.data.gravity);
+            law_acc.m.set(body.mass);
+            law_acc.solve_for_acceleration();
+            math::cvector2d velocity_final = velocity_initial + law_acc.a.get() * time_pixel;
             if (velocity_final.length() > m_properties.m_max_velocity) {
-               acceleration = {0.0,0.0};
+               law_acc.a.set({0.0});
                velocity_final = velocity_initial;
             }
-            math::cvector2d location_final = (velocity_initial*time_pixel) + (acceleration*time_pixel)/2; 
+            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a.get()*time_pixel)/2; 
             body.location += location_final;
             body.data.velocity = velocity_final;
          }         

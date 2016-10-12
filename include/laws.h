@@ -15,7 +15,7 @@ namespace mzlib
 {
 
 template<class VectorT>
-class cuniversal_law_of_gravitation
+class cnewtons_law_of_gravitation
 {
    
 public:
@@ -84,7 +84,47 @@ public:
    
 };
 
-using cuniversal_law_of_gravitation2d = cuniversal_law_of_gravitation<math::cvector2d>;
+using cnewtons_law_of_gravitation2d = cnewtons_law_of_gravitation<math::cvector2d>;
+using cnewtons_law_of_gravitation3d = cnewtons_law_of_gravitation<math::cvector3d>;
+
+// Newton's second law of motion
+template<class VectorT>
+class cnewtons_law_of_acceleration
+{
+   
+public:
+      
+   util::coptional<VectorT> f;   
+   util::coptional<VectorT> a;
+   util::coptional<double>  m;
+   
+   void solve_for_force()
+   {
+      // check if needed parameters are provided
+      if (!a.is_set() || !m.is_set()) {
+         return;
+      }
+      
+      // get to business
+      f.set(m.get()*a.get());
+   }
+   
+   void solve_for_acceleration()
+   {
+      // check if needed parameters are provided
+      if (!f.is_set() || !m.is_set()) {
+         return;
+      }
+      
+      // get to business
+      a.set(f.get()/m.get());
+   }
+   
+};
+
+using cnewtons_law_of_acceleration2d = cnewtons_law_of_acceleration<math::cvector2d>;
+using cnewtons_law_of_acceleration3d = cnewtons_law_of_acceleration<math::cvector3d>;
+
 
 } // namespace mzlib
 
