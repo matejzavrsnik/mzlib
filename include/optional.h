@@ -15,9 +15,9 @@ namespace mzlib {
 namespace util {
 
 // basic optional type 
-// doesn't do references, waiting for C++17 or whenever; good enough for now
+// doesn't really store references, waiting for C++17 or whenever, but good enough for now
 template<class T>
-class coptional
+class coptional_ref
 {
    
 private:
@@ -27,13 +27,13 @@ private:
    
 public:
       
-   T get() 
+   const T& get() 
    {
       if(m_set == eset::no) throw exception::not_set();
       return m_value; 
    }
    
-   void set(T value)
+   void set(const T& value)
    {
       m_value = value;
       m_set = eset::yes;
