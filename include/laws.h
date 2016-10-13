@@ -36,9 +36,9 @@ public:
       }
 
       // make it easier to read
-      const cmass_centre<VectorT>& m1 = mass_centre1.get();
-      const cmass_centre<VectorT>& m2 = mass_centre2.get();
-      const double& G = gravitational_constant.get();
+      const cmass_centre<VectorT>& m1 = mass_centre1();
+      const cmass_centre<VectorT>& m2 = mass_centre2();
+      const double& G = gravitational_constant();
 
       // get to business
       VectorT m1_force = {0};
@@ -49,7 +49,7 @@ public:
       m1_force *= G; // factor
 
       // done
-      force_on_body1.set(m1_force);
+      force_on_body1 = m1_force;
    }
    
    // Because I noticed that if gravity is linearly proportional to distance,
@@ -66,9 +66,9 @@ public:
       }
 
       // make it easier to read
-      const cmass_centre<VectorT>& m1 = mass_centre1.get();
-      const cmass_centre<VectorT>& m2 = mass_centre2.get();
-      const double& G = gravitational_constant.get();
+      const cmass_centre<VectorT>& m1 = mass_centre1();
+      const cmass_centre<VectorT>& m2 = mass_centre2();
+      const double& G = gravitational_constant();
 
       // get to business
       VectorT m1_force = {0};
@@ -79,7 +79,7 @@ public:
       m1_force *= G; // factor
 
       // done
-      force_on_body1.set(m1_force);
+      force_on_body1 = m1_force;
    }
    
 };
@@ -106,7 +106,7 @@ public:
       }
       
       // get to business
-      f.set(m.get()*a.get());
+      f = m() * a();
    }
    
    void solve_for_acceleration()
@@ -117,7 +117,7 @@ public:
       }
       
       // get to business
-      a.set(f.get()/m.get());
+      a = f() / m();
    }
    
 };

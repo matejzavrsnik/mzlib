@@ -38,13 +38,13 @@ public:
    
    c64_basic_for* from (T f) 
    { 
-      m_from.set(f);
+      m_from = f;
       return this; 
    }
    
    c64_basic_for* to (T t)
    {
-      m_to.set(t);
+      m_to = t;
       return this;
    }
    
@@ -52,8 +52,8 @@ public:
    {
       std::vector<T> result;
       try {
-         m_step.set(s);
-         for (size_t val = m_from.get(); val < m_to.get(); val += m_step.get()) {
+         m_step = s;
+         for (size_t val = m_from(); val < m_to(); val += m_step()) {
             result.push_back(val);
          }
       }
