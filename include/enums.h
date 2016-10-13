@@ -20,7 +20,12 @@ class cbinary_option
 public:
    
    enum /*not class*/ named_options { no, yes } m_named_value = no;
-  
+
+   cbinary_option () : 
+      m_named_value(no)
+   {
+   }
+   
    // create from option
    cbinary_option (named_options named_value) : 
       m_named_value(named_value)
@@ -57,10 +62,7 @@ public: \
 
 MZLIB_GENERATE_NEW_BINARY_OPTION( erecursive      );
 MZLIB_GENERATE_NEW_BINARY_OPTION( einclude_hidden );
-
-
-// can't easily make this one work. Something with moves? Will solve when need be.
-enum class eset { no, yes };
+MZLIB_GENERATE_NEW_BINARY_OPTION( eset            );
 
 #undef MZLIB_GENERATE_NEW_BINARY_OPTION
 
