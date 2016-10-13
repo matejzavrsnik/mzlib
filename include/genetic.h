@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef GENETIC_H
-#define	GENETIC_H
+#ifndef MZLIB_GENETIC_H
+#define	MZLIB_GENETIC_H
 
 #include <vector>
 #include <functional>
@@ -287,5 +287,5 @@ TYPE mendel_smart(cgenetic<TYPE>& genetic)
 
 } // namespace mzlib
 
-#endif	/* GENETIC_H */
+#endif	/* MZLIB_GENETIC_H */
 

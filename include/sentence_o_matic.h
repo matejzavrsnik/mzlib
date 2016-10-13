@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef SENTENCE_O_MATIC_H
-#define SENTENCE_O_MATIC_H
+#ifndef MZLIB_SENTENCE_O_MATIC_H
+#define MZLIB_SENTENCE_O_MATIC_H
 
 #include "markov_chain.h"
 #include "utilities.h"
@@ -38,5 +38,5 @@ public:
 
 } // namespace mzlib
     
-#endif // SENTENCE_O_MATIC_H
+#endif /* MZLIB_SENTENCE_O_MATIC_H */
 

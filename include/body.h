@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef BODY_H
-#define	BODY_H
+#ifndef MZLIB_BODY_H
+#define	MZLIB_BODY_H
 
 #include "vector.h"
 #include "mass_centre.h"
@@ -53,5 +53,5 @@ using cbody3d = cbinded_mass_centre3d<cbody_properties3d>;
 
 } // namespace mzlib
 
-#endif	/* BODY_H */
+#endif	/* MZLIB_BODY_H */
 

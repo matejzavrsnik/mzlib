@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UNITS_H
-#define UNITS_H
+#ifndef MZLIB_UNITS_H
+#define MZLIB_UNITS_H
 
 namespace mzlib { 
 namespace units {
@@ -43,5 +43,5 @@ constexpr long double operator"" _kg          (long double kg)   { return kg; }
 
 } } // namespace mzlib::units
 
-#endif // UNITS_H
+#endif /* MZLIB_UNITS_H */
 

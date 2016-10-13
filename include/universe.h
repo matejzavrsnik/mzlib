@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef SPACE_H
-#define SPACE_H
+#ifndef MZLIB_SPACE_H
+#define MZLIB_SPACE_H
 
 #include <vector>
 #include <map>
@@ -230,5 +230,5 @@ private:
 
 } // namespace mzlib
 
-#endif // SPACE_H
+#endif /* MZLIB_SPACE_H */
 

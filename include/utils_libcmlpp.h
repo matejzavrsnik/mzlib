@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UTILS_LIBXMLPP_H
-#define UTILS_LIBXMLPP_H
+#ifndef MZLIB_UTILS_LIBXMLPP_H
+#define MZLIB_UTILS_LIBXMLPP_H
 
 #include <string>
 #include <iostream>
@@ -98,5 +98,5 @@ inline std::string get_content (std::string xpath, xmlpp::Node* from_node)
     
 } } // namespace mzlib::util
 
-#endif // UTILS_LIBXMLPP_H
+#endif /* MZLIB_UTILS_LIBXMLPP_H */
 

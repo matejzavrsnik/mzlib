@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UNIQUE_H
-#define	UNIQUE_H
+#ifndef MZLIB_UNIQUE_H
+#define	MZLIB_UNIQUE_H
 
 namespace mzlib {
 namespace util {
@@ -46,5 +46,5 @@ public:
 
 } } // namespace mzlib::util
 
-#endif	/* UNIQUE_H */
+#endif	/* MZLIB_UNIQUE_H */
 

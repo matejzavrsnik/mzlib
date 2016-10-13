@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef QUADTREE_NODE_H
-#define	QUADTREE_NODE_H
+#ifndef MZLIB_QUADTREE_NODE_H
+#define	MZLIB_QUADTREE_NODE_H
 
 #include <memory>
 #include <algorithm> // std::find_if
@@ -348,5 +348,5 @@ private:
 
 } // namespace mzlib
     
-#endif // QUADTREE_NODE_H
+#endif /* MZLIB_QUADTREE_NODE_H */
 

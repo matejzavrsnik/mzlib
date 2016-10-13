@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef CONSTS_H
-#define CONSTS_H
+#ifndef MZLIB_CONSTS_H
+#define MZLIB_CONSTS_H
 
 #include "units.h"
 
@@ -38,5 +38,5 @@ const double earth_orbit_length            = earth_distance_sun_average * 2.0_pi
 
 } } // namespace mzlib::consts
 
-#endif //CONSTS_H
+#endif /* MZLIB_CONSTS_H */
 

@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef ENUMS_H
-#define	ENUMS_H
+#ifndef MZLIB_ENUMS_H
+#define	MZLIB_ENUMS_H
 
 // More readable substitutes for simple booleans for specific meanings.
 // Let's see if I am correct in that I'll need more of them in the future and that
@@ -66,5 +66,5 @@ enum class eset { no, yes };
 
 } // namespace mzlib
 
-#endif	/* ENUMS_H */
+#endif	/* MZLIB_ENUMS_H */
 

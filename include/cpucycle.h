@@ -7,8 +7,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef CPUCYCLE_H
-#define	CPUCYCLE_H
+#ifndef MZLIB_CPUCYCLE_H
+#define	MZLIB_CPUCYCLE_H
 
 #include <stdint.h>
 
@@ -38,5 +38,5 @@ uint64_t cycle_count()
 
 } } // namespaces
 
-#endif // CPUCYCLE_H
+#endif /* MZLIB_CPUCYCLE_H */
 

@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef QUADTREE_IT_BODIES_H
-#define QUADTREE_IT_BODIES_H
+#ifndef MZLIB_QUADTREE_IT_BODIES_H
+#define MZLIB_QUADTREE_IT_BODIES_H
 
 #include <iterator>
 #include <memory>
@@ -77,4 +77,4 @@ public:
 
 } // namespace mzlib
 
-#endif // QUADTREE_IT_BODIES_H
+#endif /* MZLIB_QUADTREE_IT_BODIES_H */

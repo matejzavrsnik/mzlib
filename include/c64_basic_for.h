@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef C64_BASIC_FOR_H
-#define	C64_BASIC_FOR_H
+#ifndef MZLIB_C64_BASIC_FOR_H
+#define	MZLIB_C64_BASIC_FOR_H
 
 #include "optional.h"
 #include "utils_missing_std.h" // std::make_unique
@@ -67,5 +67,5 @@ public:
 
 } } // namespace mzlib::util
 
-#endif	/* C64_BASIC_FOR_H */
+#endif	/* MZLIB_C64_BASIC_FOR_H */
 

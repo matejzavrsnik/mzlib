@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#ifndef MZLIB_UTILITIES_H
+#define MZLIB_UTILITIES_H
 
 #include <string>
 #include <iomanip> // std::setprecision
@@ -199,5 +199,5 @@ parse_arguments (int argc, char **argv)
 
 } } // namespace mzlib::util
 
-#endif // UTILITIES_H
+#endif /* MZLIB_UTILITIES_H */
 

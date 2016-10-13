@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UTILS_STRING_H
-#define UTILS_STRING_H
+#ifndef MZLIB_UTILS_STRING_H
+#define MZLIB_UTILS_STRING_H
 
 #include <string>
 #include <vector>
@@ -221,5 +221,5 @@ remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, cons
 
 } } // namespace mzlib::util
 
-#endif // UTILS_STRING_H
+#endif /* MZLIB_UTILS_STRING_H */
 

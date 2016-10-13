@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MARKOV_CHAIN_H
-#define MARKOV_CHAIN_H
+#ifndef MZLIB_MARKOV_CHAIN_H
+#define MZLIB_MARKOV_CHAIN_H
 
 
 #include <vector>
@@ -85,5 +85,5 @@ public:
     
 }
 
-#endif // MARKOV_CHAIN_H
+#endif /* MZLIB_MARKOV_CHAIN_H */
 

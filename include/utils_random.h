@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UTILS_RANDOM_H
-#define UTILS_RANDOM_H
+#ifndef MZLIB_UTILS_RANDOM_H
+#define MZLIB_UTILS_RANDOM_H
 
 #include <map>
 #include <chrono>
@@ -61,5 +61,5 @@ get_random_element (std::map<T,U>& from_map)
 
 } } // namespace mzlib::util
 
-#endif // UTILS_RANDOM_H
+#endif /* MZLIB_UTILS_RANDOM_H */
 

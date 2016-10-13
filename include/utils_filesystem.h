@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UTILS_FILESYSTEM_H
-#define UTILS_FILESYSTEM_H
+#ifndef MZLIB_UTILS_FILESYSTEM_H
+#define MZLIB_UTILS_FILESYSTEM_H
 
 #include <string>
 #include <sstream>
@@ -134,5 +134,5 @@ inline std::vector<std::string> boost_list_files (std::string directory, bool in
     
 } } // namespace mzlib::util
 
-#endif // UTILS_FILESYSTEM_H
+#endif /* MZLIB_UTILS_FILESYSTEM_H */
 

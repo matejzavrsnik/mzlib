@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef DBL_H
-#define	DBL_H
+#ifndef MZLIB_DBL_H
+#define	MZLIB_DBL_H
 
 #include <cmath>
 #include <limits>
@@ -56,5 +56,5 @@ public:
 
 } } // namespace mzlib::util
 
-#endif	/* DBL_H */
+#endif	/* MZLIB_DBL_H */
 

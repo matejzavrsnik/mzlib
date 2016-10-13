@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef QUADREEE_H
-#define QUADREEE_H
+#ifndef MZLIB_QUADREEE_H
+#define MZLIB_QUADREEE_H
 
 #include "quadtree_node.h"
 #include "quadtree_it_bodies.h"
@@ -194,5 +194,5 @@ public:
     
 } // namespace mzlib
 
-#endif	/* QUADREEE_H */
+#endif	/* MZLIB_QUADREEE_H */
 

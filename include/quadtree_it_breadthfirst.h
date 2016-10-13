@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef QUADTREE_IT_BREADTHFIRST_H
-#define	QUADTREE_IT_BREADTHFIRST_H
+#ifndef MZLIB_QUADTREE_IT_BREADTHFIRST_H
+#define	MZLIB_QUADTREE_IT_BREADTHFIRST_H
 
 #include <iterator>
 #include <memory> // shared_ptr
@@ -88,5 +88,5 @@ public:
 
 } // namespace mzlib
 
-#endif // QUADTREE_IT_BREADTHFIRST_H
+#endif /* MZLIB_QUADTREE_IT_BREADTHFIRST_H */
 

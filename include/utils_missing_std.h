@@ -8,8 +8,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UTILS_MISSING_STD_H
-#define	UTILS_MISSING_STD_H
+#ifndef MZLIB_UTILS_MISSING_STD_H
+#define	MZLIB_UTILS_MISSING_STD_H
 
 #include <memory>
 
@@ -97,5 +97,5 @@ private:
 
 } // namespace std
 
-#endif	/* UTILS_MISSING_STD_H */
+#endif	/* MZLIB_UTILS_MISSING_STD_H */
 

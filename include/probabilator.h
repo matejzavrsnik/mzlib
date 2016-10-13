@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef PROBABILATOR_H
-#define	PROBABILATOR_H
+#ifndef MZLIB_PROBABILATOR_H
+#define	MZLIB_PROBABILATOR_H
 
 #include <algorithm>
 #include "utils_random.h"
@@ -96,5 +96,5 @@ public:
 
 } } // namespace mzlib::util
 
-#endif // PROBABILATOR_H
+#endif /* MZLIB_PROBABILATOR_H */
 

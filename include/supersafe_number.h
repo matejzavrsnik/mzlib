@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef SUPERSAFE_NUMBER_H
-#define SUPERSAFE_NUMBER_H
+#ifndef MZLIB_SUPERSAFE_NUMBER_H
+#define MZLIB_SUPERSAFE_NUMBER_H
 
 #include <vector>
 #include <exception>
@@ -66,5 +66,5 @@ public:
 
 } // namespace mzlib
 
-#endif // SUPERSAFE_NUMBER_H
+#endif /* MZLIB_SUPERSAFE_NUMBER_H */
 

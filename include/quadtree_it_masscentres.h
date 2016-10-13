@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef QUADTREE_IT_MASSCENTRES_H
-#define QUADTREE_IT_MASSCENTRES_H
+#ifndef MZLIB_QUADTREE_IT_MASSCENTRES_H
+#define MZLIB_QUADTREE_IT_MASSCENTRES_H
 
 #include <iterator>
 #include <vector>
@@ -159,5 +159,5 @@ public:
 
 } // namespace mzlib
 
-#endif // QUADTREE_IT_MASSCENTRES_H
+#endif /* MZLIB_QUADTREE_IT_MASSCENTRES_H */
 

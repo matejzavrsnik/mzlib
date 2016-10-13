@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef LAWS_H
-#define	LAWS_H
+#ifndef MZLIB_LAWS_H
+#define	MZLIB_LAWS_H
 
 #include "mass_centre.h"
 #include "optional.h"
@@ -128,5 +128,5 @@ using cnewtons_law_of_acceleration3d = cnewtons_law_of_acceleration<math::cvecto
 
 } // namespace mzlib
 
-#endif // LAWS_H
+#endif /* MZLIB_LAWS_H */
 

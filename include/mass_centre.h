@@ -6,8 +6,8 @@
 //
 
 
-#ifndef MASS_CENTRE_H
-#define	MASS_CENTRE_H
+#ifndef MZLIB_MASS_CENTRE_H
+#define	MZLIB_MASS_CENTRE_H
 
 #include "vector.h"
 
@@ -107,5 +107,5 @@ template<class DataT> using cbinded_mass_centre3d = cbinded_mass_centre<DataT, m
 
 } // namespace mzlib
     
-#endif	/* MASS_CENTRE_H */
+#endif	/* MZLIB_MASS_CENTRE_H */
 

@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef TWOWAY_STREAMBUF_H
-#define	TWOWAY_STREAMBUF_H
+#ifndef MZLIB_TWOWAY_STREAMBUF_H
+#define	MZLIB_TWOWAY_STREAMBUF_H
 
 #include <memory>
 
@@ -60,5 +60,5 @@ using twoway_streambuf = basic_twoway_streambuf<char, std::char_traits<char>>;
 
 } // namespace mzlib
 
-#endif	/* TWOWAY_STREAMBUF_H */
+#endif	/* MZLIB_TWOWAY_STREAMBUF_H */
 

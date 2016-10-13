@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef UNITS_STRONG_H
-#define UNITS_STRONG_H
+#ifndef MZLIB_UNITS_STRONG_H
+#define MZLIB_UNITS_STRONG_H
 
 #include <cmath> // std::fabs
 
@@ -297,5 +297,5 @@ inline cltime operator/ (const clength& lhs, const cspeed& rhs)
 
 } } // namespace mzlib::units
 
-#endif // UNITS_FOUNDATION_H
+#endif /* MZLIB_UNITS_STRONG_H */
 

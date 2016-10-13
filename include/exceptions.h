@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef EXCEPTIONS_H
-#define	EXCEPTIONS_H
+#ifndef MZLIB_EXCEPTIONS_H
+#define	MZLIB_EXCEPTIONS_H
 
 namespace mzlib {
 namespace exception {
@@ -16,5 +16,5 @@ class not_set : public std::exception {};
       
 } } // namespace mzlib::exception
 
-#endif // EXCEPTIONS_H
+#endif /* MZLIB_EXCEPTIONS_H */
 

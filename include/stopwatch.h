@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef STOPWATCH_H
-#define STOPWATCH_H
+#ifndef MZLIB_STOPWATCH_H
+#define MZLIB_STOPWATCH_H
 
 #include <chrono>
 #include <ctime>
@@ -80,5 +80,5 @@ public:
 
 } } // namespaces
 
-#endif // STOPWATCH_H
+#endif /* MZLIB_STOPWATCH_H */
 

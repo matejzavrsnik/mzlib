@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef MZLIB_VECTOR_H
+#define MZLIB_VECTOR_H
 
 #include <vector> // for conversion from std::vector
 #include <cmath> // std::pow, std::sqrt
@@ -325,5 +325,5 @@ using cpoint3d  = cvector<double, 3>;
     
 } } // namespace mzlib::math
 
-#endif // VECTOR_H
+#endif /* MZLIB_VECTOR_H */
 

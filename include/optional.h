@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef OPTIONAL_H
-#define	OPTIONAL_H
+#ifndef MZLIB_OPTIONAL_H
+#define	MZLIB_OPTIONAL_H
 
 #include "exceptions.h"
 #include "enums.h"
@@ -48,5 +48,5 @@ public:
 
 } } // namespace mzlib::util
 
-#endif	/* OPTIONAL_H */
+#endif	/* MZLIB_OPTIONAL_H */
 
