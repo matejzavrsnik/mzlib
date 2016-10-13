@@ -291,6 +291,10 @@ inline cltime operator/ (const clength& lhs, const cspeed& rhs)
    return operator "" _s_(lhs.value / rhs.value);
 }
 
+#undef QUANTITY_DEFINITION_START
+#undef QUANTITY_DEFINITION_END
+#undef UNIT_DEFINITION
+
 } } // namespace mzlib::units
 
 #endif // UNITS_FOUNDATION_H

@@ -62,6 +62,8 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( einclude_hidden );
 // can't easily make this one work. Something with moves? Will solve when need be.
 enum class eset { no, yes };
 
+#undef MZLIB_GENERATE_NEW_BINARY_OPTION
+
 } // namespace mzlib
 
 #endif	/* ENUMS_H */
