@@ -166,39 +166,59 @@ public:
       }
    }
         
+   std::tuple<math::cvector2d, math::cvector2d> 
+   calculate_final_velocity_and_position(
+      const math::cvector2d& gravity,
+      const math::cvector2d& velocity,
+      const math::cvector2d& location,
+      const double mass,
+      const double time) const
+   {
+      cnewtons_law_of_acceleration2d acceleration_equation;
+      acceleration_equation.f = gravity;
+      acceleration_equation.m = mass;
+      acceleration_equation.solve_for_acceleration();
+
+      cconstant_linear_acceleration_law2d final_parameters_equation;
+      final_parameters_equation.a = acceleration_equation.a.get();
+      final_parameters_equation.v_initial = velocity;
+      final_parameters_equation.r_initial = location;
+      final_parameters_equation.time = time;
+      final_parameters_equation.solve_for_final_location();
+      final_parameters_equation.solve_for_final_velocity();
+
+      math::cvector2d velocity_final = final_parameters_equation.v_final.get();
+      math::cvector2d location_final = final_parameters_equation.r_final.get();
+      
+      // cap it at predefined max velocity
+      if (velocity_final.length() > m_properties.m_max_velocity) {
+         velocity_final = velocity_final.normalise() * m_properties.m_max_velocity;
+      }
+      
+      // ship it!
+      return std::make_tuple(location_final, velocity_final);
+   }
+   
    void calculate_positions (double time_pixel) 
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
          for (const cbody2d& body : m_quad_tree) {
-            math::cvector2d velocity_initial = body.data.velocity;
-            cnewtons_law_of_acceleration2d law_acc;
-            law_acc.f = body.data.gravity;
-            law_acc.m = body.mass;
-            law_acc.solve_for_acceleration();
-            math::cvector2d velocity_final = velocity_initial + law_acc.a.get()*time_pixel;
-            if (velocity_final.length() > m_properties.m_max_velocity) {
-               law_acc.a = math::cvector2d{0.0};
-               velocity_final = velocity_initial;
-            }
-            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a.get()*time_pixel)/2; 
-            m_quad_tree.move(body.data, body.location + location_final);
+            math::cvector2d location_final;
+            math::cvector2d velocity_final;
+            // can't wait for "auto [location, velocity]" feature of C++17 !!
+            std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
+               body.data.gravity, body.data.velocity, body.location, body.mass, time_pixel);
+            m_quad_tree.move(body.data, location_final);
             m_quad_tree.access_data(body).velocity = velocity_final;
          }
       }
       else if (m_properties.m_implementation == implementation::naive) {
          for (cbody2d& body : m_vector) {
-            math::cvector2d velocity_initial = body.data.velocity;
-            cnewtons_law_of_acceleration2d law_acc;
-            law_acc.f = body.data.gravity;
-            law_acc.m = body.mass;
-            law_acc.solve_for_acceleration();
-            math::cvector2d velocity_final = velocity_initial + law_acc.a.get() * time_pixel;
-            if (velocity_final.length() > m_properties.m_max_velocity) {
-               law_acc.a = math::cvector2d{0.0};
-               velocity_final = velocity_initial;
-            }
-            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a.get()*time_pixel)/2; 
-            body.location += location_final;
+            math::cvector2d location_final, velocity_final;
+            // can't wait for "auto [location, velocity]" feature of C++17 !!
+            std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
+               body.data.gravity, body.data.velocity, body.location, body.mass, time_pixel);
+            body.location = location_final;
             body.data.velocity = velocity_final;
          }         
       }

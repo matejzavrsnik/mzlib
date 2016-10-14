@@ -125,6 +125,49 @@ public:
 using cnewtons_law_of_acceleration2d = cnewtons_law_of_acceleration<math::cvector2d>;
 using cnewtons_law_of_acceleration3d = cnewtons_law_of_acceleration<math::cvector3d>;
 
+template<class VectorT>
+class cconstant_linear_acceleration_law
+{
+   
+public:
+      
+   util::coptional<VectorT> v_initial;   
+   util::coptional<VectorT> v_final;
+   util::coptional<VectorT> r_initial;   
+   util::coptional<VectorT> r_final;
+   util::coptional<VectorT> a;
+   util::coptional<double>  time;
+   
+   void solve_for_final_velocity()
+   {
+      // check if needed parameters are provided
+      if (!v_initial.is_set() || 
+          !a.is_set() ||
+          !time.is_set()) {
+         return;
+      }
+      
+      // get to business
+      v_final = v_initial.get() + a.get() * time.get();
+   }
+   
+   void solve_for_final_location()
+   {
+      // check if needed parameters are provided
+      if (!r_initial.is_set() || 
+          !v_initial.is_set() ||
+          !time.is_set() ||
+          !a.is_set()) {
+         return;
+      }
+      
+      // get to business
+      r_final = r_initial.get() + v_initial.get() * time.get() + 0.5 * a.get() * time.get() * time.get();       
+   }
+};
+
+using cconstant_linear_acceleration_law2d = cconstant_linear_acceleration_law<math::cvector2d>;
+using cconstant_linear_acceleration_law3d = cconstant_linear_acceleration_law<math::cvector3d>;
 
 } // namespace mzlib
 
