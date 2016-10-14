@@ -27,23 +27,12 @@ public:
    
    void solve_for_force ()
    {
-      // check if needed parameters are provided
-      if (!m1.is_set() ||
-          !m2.is_set() ||
-          !G.is_set())
-      {
-         return;
-      }
-
-      // get to business
       VectorT m1_force = {0};
       double sqare_distance = m1.get().location.square_distance_to(m2.get().location); 
       m1_force = -m1.get().location.direction_to(m2.get().location).normalise(); 
       m1_force *= m1.get().mass * m2.get().mass; // masses
       m1_force /= sqare_distance; // distance
       m1_force *= G.get(); // factor
-
-      // done
       f1 = m1_force;
    }
    
@@ -52,23 +41,12 @@ public:
    // grasp second order polynomials like in accelerated motion or gravity force.
    void solve_for_fun_force ()
    {
-      // check if needed parameters are provided
-      if (!m1.is_set() ||
-          !m2.is_set() ||
-          !G.is_set())
-      {
-         return;
-      }
-
-      // get to business
       VectorT m1_force = {0};
       double sqare_distance = m1.get().location.square_distance_to(m2.get().location); 
       m1_force = -m1.get().location.direction_to(m2.get().location).normalise(); 
       m1_force *= m1.get().mass * m2.get().mass; // masses
       m1_force /= std::sqrt(sqare_distance); // distance
       m1_force *= G.get(); // factor
-
-      // done
       f1 = m1_force;
    }
    
@@ -90,23 +68,11 @@ public:
    
    void solve_for_force()
    {
-      // check if needed parameters are provided
-      if (!a.is_set() || !m.is_set()) {
-         return;
-      }
-      
-      // get to business
       f = m() * a();
    }
    
    void solve_for_acceleration()
    {
-      // check if needed parameters are provided
-      if (!f.is_set() || !m.is_set()) {
-         return;
-      }
-      
-      // get to business
       a = f.get() / m.get();
    }
    
@@ -130,28 +96,11 @@ public:
    
    void solve_for_final_velocity()
    {
-      // check if needed parameters are provided
-      if (!v_initial.is_set() || 
-          !a.is_set() ||
-          !time.is_set()) {
-         return;
-      }
-      
-      // get to business
       v_final = v_initial.get() + a.get() * time.get();
    }
    
    void solve_for_final_location()
    {
-      // check if needed parameters are provided
-      if (!r_initial.is_set() || 
-          !v_initial.is_set() ||
-          !time.is_set() ||
-          !a.is_set()) {
-         return;
-      }
-      
-      // get to business
       r_final = r_initial.get() + v_initial.get() * time.get() + 0.5 * a.get() * time.get() * time.get();       
    }
 };
