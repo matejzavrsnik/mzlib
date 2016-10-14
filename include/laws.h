@@ -36,9 +36,9 @@ public:
       }
 
       // make it easier to read
-      const cmass_centre<VectorT>& m1 = mass_centre1();
-      const cmass_centre<VectorT>& m2 = mass_centre2();
-      const double& G = gravitational_constant();
+      const cmass_centre<VectorT>& m1 = mass_centre1.get();
+      const cmass_centre<VectorT>& m2 = mass_centre2.get();
+      const double& G = gravitational_constant.get();
 
       // get to business
       VectorT m1_force = {0};
@@ -66,9 +66,9 @@ public:
       }
 
       // make it easier to read
-      const cmass_centre<VectorT>& m1 = mass_centre1();
-      const cmass_centre<VectorT>& m2 = mass_centre2();
-      const double& G = gravitational_constant();
+      const cmass_centre<VectorT>& m1 = mass_centre1.get();
+      const cmass_centre<VectorT>& m2 = mass_centre2.get();
+      const double& G = gravitational_constant.get();
 
       // get to business
       VectorT m1_force = {0};
@@ -117,7 +117,7 @@ public:
       }
       
       // get to business
-      a = f() / m();
+      a = f.get() / m.get();
    }
    
 };

@@ -53,7 +53,7 @@ public:
       std::vector<T> result;
       try {
          m_step = s;
-         for (size_t val = m_from(); val < m_to(); val += m_step()) {
+         for (size_t val = m_from.get(); val < m_to.get(); val += m_step.get()) {
             result.push_back(val);
          }
       }

@@ -213,11 +213,11 @@ TEST_F(fixture_utilities, fast_threeway_min_rvalue)
 TEST_F(fixture_utilities, coptional_basic) 
 {
    mzlib::util::coptional<int> optional;
-   ASSERT_THROW(optional(), mzlib::exception::not_set);
+   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
    ASSERT_FALSE(optional.is_set());
    optional = 5;
-   ASSERT_NO_THROW(optional());
-   ASSERT_EQ(5, optional());
+   ASSERT_NO_THROW(optional.get());
+   ASSERT_EQ(5, optional.get());
    ASSERT_TRUE(optional.is_set()); 
 }
 

@@ -140,7 +140,7 @@ public:
                else {
                   law.solve_for_fun_force();
                }
-               m_quad_tree.access_data(this_body).gravity += law.force_on_body1();
+               m_quad_tree.access_data(this_body).gravity += law.force_on_body1.get();
             }
          }
       }
@@ -159,7 +159,7 @@ public:
                   else {
                      law.solve_for_fun_force();
                   }
-                  this_body.data.gravity += law.force_on_body1();
+                  this_body.data.gravity += law.force_on_body1.get();
                }
             }
          }         
@@ -175,12 +175,12 @@ public:
             law_acc.f = body.data.gravity;
             law_acc.m = body.mass;
             law_acc.solve_for_acceleration();
-            math::cvector2d velocity_final = velocity_initial + law_acc.a()*time_pixel;
+            math::cvector2d velocity_final = velocity_initial + law_acc.a.get()*time_pixel;
             if (velocity_final.length() > m_properties.m_max_velocity) {
                law_acc.a = math::cvector2d{0.0};
                velocity_final = velocity_initial;
             }
-            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a()*time_pixel)/2; 
+            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a.get()*time_pixel)/2; 
             m_quad_tree.move(body.data, body.location + location_final);
             m_quad_tree.access_data(body).velocity = velocity_final;
          }
@@ -192,12 +192,12 @@ public:
             law_acc.f = body.data.gravity;
             law_acc.m = body.mass;
             law_acc.solve_for_acceleration();
-            math::cvector2d velocity_final = velocity_initial + law_acc.a() * time_pixel;
+            math::cvector2d velocity_final = velocity_initial + law_acc.a.get() * time_pixel;
             if (velocity_final.length() > m_properties.m_max_velocity) {
                law_acc.a = math::cvector2d{0.0};
                velocity_final = velocity_initial;
             }
-            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a()*time_pixel)/2; 
+            math::cvector2d location_final = (velocity_initial*time_pixel) + (law_acc.a.get()*time_pixel)/2; 
             body.location += location_final;
             body.data.velocity = velocity_final;
          }         
