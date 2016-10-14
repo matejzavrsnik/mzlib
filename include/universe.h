@@ -131,16 +131,16 @@ public:
             for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
                auto another_mass_centre = *mass_centres_it;
                cnewtons_law_of_gravitation2d law;
-               law.mass_centre1 = this_body;
-               law.mass_centre2 = another_mass_centre;
-               law.gravitational_constant = m_properties.m_gravitational_constant;
+               law.m1 = this_body;
+               law.m2 = another_mass_centre;
+               law.G = m_properties.m_gravitational_constant;
                if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
                   law.solve_for_force();
                }
                else {
                   law.solve_for_fun_force();
                }
-               m_quad_tree.access_data(this_body).gravity += law.force_on_body1.get();
+               m_quad_tree.access_data(this_body).gravity += law.f1.get();
             }
          }
       }
@@ -150,16 +150,16 @@ public:
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
                   cnewtons_law_of_gravitation2d law;
-                  law.mass_centre1 = this_body;
-                  law.mass_centre2 = that_body;
-                  law.gravitational_constant = m_properties.m_gravitational_constant;
+                  law.m1 = this_body;
+                  law.m2 = that_body;
+                  law.G = m_properties.m_gravitational_constant;
                   if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
                      law.solve_for_force();
                   }
                   else {
                      law.solve_for_fun_force();
                   }
-                  this_body.data.gravity += law.force_on_body1.get();
+                  this_body.data.gravity += law.f1.get();
                }
             }
          }         

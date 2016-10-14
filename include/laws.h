@@ -20,36 +20,31 @@ class cnewtons_law_of_gravitation
    
 public:
    
-   util::coptional<cmass_centre<VectorT>> mass_centre1; 
-   util::coptional<cmass_centre<VectorT>> mass_centre2; 
-   util::coptional<double> gravitational_constant;
-   util::coptional<VectorT> force_on_body1;
+   util::coptional<cmass_centre<VectorT>> m1; 
+   util::coptional<cmass_centre<VectorT>> m2; 
+   util::coptional<double> G;
+   util::coptional<VectorT> f1;
    
    void solve_for_force ()
    {
       // check if needed parameters are provided
-      if (!mass_centre1.is_set() ||
-          !mass_centre2.is_set() ||
-          !gravitational_constant.is_set())
+      if (!m1.is_set() ||
+          !m2.is_set() ||
+          !G.is_set())
       {
          return;
       }
 
-      // make it easier to read
-      const cmass_centre<VectorT>& m1 = mass_centre1.get();
-      const cmass_centre<VectorT>& m2 = mass_centre2.get();
-      const double& G = gravitational_constant.get();
-
       // get to business
       VectorT m1_force = {0};
-      double sqare_distance = m1.location.square_distance_to(m2.location); 
-      m1_force = -m1.location.direction_to(m2.location).normalise(); 
-      m1_force *= m1.mass * m2.mass; // masses
+      double sqare_distance = m1.get().location.square_distance_to(m2.get().location); 
+      m1_force = -m1.get().location.direction_to(m2.get().location).normalise(); 
+      m1_force *= m1.get().mass * m2.get().mass; // masses
       m1_force /= sqare_distance; // distance
-      m1_force *= G; // factor
+      m1_force *= G.get(); // factor
 
       // done
-      force_on_body1 = m1_force;
+      f1 = m1_force;
    }
    
    // Because I noticed that if gravity is linearly proportional to distance,
@@ -58,28 +53,23 @@ public:
    void solve_for_fun_force ()
    {
       // check if needed parameters are provided
-      if (!mass_centre1.is_set() ||
-          !mass_centre2.is_set() ||
-          !gravitational_constant.is_set())
+      if (!m1.is_set() ||
+          !m2.is_set() ||
+          !G.is_set())
       {
          return;
       }
 
-      // make it easier to read
-      const cmass_centre<VectorT>& m1 = mass_centre1.get();
-      const cmass_centre<VectorT>& m2 = mass_centre2.get();
-      const double& G = gravitational_constant.get();
-
       // get to business
       VectorT m1_force = {0};
-      double sqare_distance = m1.location.square_distance_to(m2.location); 
-      m1_force = -m1.location.direction_to(m2.location).normalise(); 
-      m1_force *= m1.mass * m2.mass; // masses
+      double sqare_distance = m1.get().location.square_distance_to(m2.get().location); 
+      m1_force = -m1.get().location.direction_to(m2.get().location).normalise(); 
+      m1_force *= m1.get().mass * m2.get().mass; // masses
       m1_force /= std::sqrt(sqare_distance); // distance
-      m1_force *= G; // factor
+      m1_force *= G.get(); // factor
 
       // done
-      force_on_body1 = m1_force;
+      f1 = m1_force;
    }
    
 };
