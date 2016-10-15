@@ -22,7 +22,7 @@ public:
         
    void read_next (std::string state) override 
    {
-      std::vector<std::string> split = util::split_string_puctuation(state);
+      std::vector<std::string> split = split_string_puctuation(state);
       for (auto& word : split) {
          read(word);
       }
@@ -30,13 +30,13 @@ public:
         
    std::string get_next () override 
    {
-      std::string sentence = util::sentence_assemblarator([&](){return get();});
+      std::string sentence = sentence_assemblarator([&](){return get();});
       return sentence;
    }
         
 };
 
-} // namespace mzlib
+} // namespace
     
 #endif /* MZLIB_SENTENCE_O_MATIC_H */
 

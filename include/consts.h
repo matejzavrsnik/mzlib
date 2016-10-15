@@ -11,10 +11,14 @@
 #include "units.h"
 
 namespace mzlib { 
+// purpose of this nested namespace: to not pollute the library's namespace with
+// numerous constants here. If the number of valuable constants is ever slightly
+// increased, and that is the plan, they might be more numerous than classes and 
+// functions themselves.
 namespace consts {
-
-using namespace mzlib::units;
-
+   
+using namespace units; 
+   
 // math
 constexpr long double operator"" _pi          (long double pi)   { return pi*3.1415926535; }
 
@@ -36,7 +40,7 @@ const double sun_mass                      = 1.98855e30_kg;
 // derived
 const double earth_orbit_length            = earth_distance_sun_average * 2.0_pi;
 
-} } // namespace mzlib::consts
+} } // namespace
 
 #endif /* MZLIB_CONSTS_H */
 

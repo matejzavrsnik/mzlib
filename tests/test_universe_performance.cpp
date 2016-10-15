@@ -45,13 +45,13 @@ protected:
       for(unsigned int i=0; i<num_of_bodies; ++i) {
          mzlib::cbody2d object;
          object.mass = 1000000000000;
-         object.location = mzlib::math::cvector2d {
-            (double)mzlib::util::get_random_integer_between(0,5000),
-            (double)mzlib::util::get_random_integer_between(0,5000)
+         object.location = mzlib::cvector2d {
+            (double)mzlib::get_random_integer_between(0,5000),
+            (double)mzlib::get_random_integer_between(0,5000)
          };
-         object.data.velocity = mzlib::math::cvector2d {
-            (double)mzlib::util::get_random_integer_between(0,6)-3,
-            (double)mzlib::util::get_random_integer_between(0,6)-3
+         object.data.velocity = mzlib::cvector2d {
+            (double)mzlib::get_random_integer_between(0,6)-3,
+            (double)mzlib::get_random_integer_between(0,6)-3
          };
          bodies.push_back(object);
       }
@@ -64,8 +64,8 @@ protected:
       double barnes_hut_quotient = 0)
    {
       mzlib::cuniverse local_universe(
-         mzlib::math::cvector2d{0,0}, 
-         mzlib::math::cvector2d{5000,5000}, 
+         mzlib::cvector2d{0,0}, 
+         mzlib::cvector2d{5000,5000}, 
          50);
       mzlib::cuniverse::tproperties properties;
       properties.m_barnes_hut_quotient = barnes_hut_quotient;
@@ -81,7 +81,7 @@ protected:
    
    double run_simulation(mzlib::cuniverse local_universe)
    {
-      mzlib::util::cstopwatch stopwatch;
+      mzlib::cstopwatch stopwatch;
       auto start = stopwatch.start();
       local_universe.forward_time(1,1);
       auto end = stopwatch.stop();
@@ -103,7 +103,7 @@ protected:
 TEST_F(fixture_universe_performance, DISABLED_perform)
 {
    std::cout << "bodies\t\tbar0.0\t\tbar0.25\t\tbar0.5\t\tbar0.75\t\tbar1.0\t\tvector" << std::endl;
-   for (int bodies_count : mzlib::util::c64_basic_for<int>::
+   for (int bodies_count : mzlib::c64_basic_for<int>::
             loop()->from(0)->to(10000)->step(100))
    {
       // sets of bodies, equal number, equal positions

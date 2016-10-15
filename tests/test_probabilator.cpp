@@ -22,7 +22,7 @@ protected:
 
 TEST_F(fixture_probabilator, demo_test) 
 {
-   mzlib::util::cprobabilator<int> probabilator;
+   mzlib::cprobabilator<int> probabilator;
    probabilator.add_event(0, 10); // event 1, probability 10%
    probabilator.add_event(1, 30); // event 2, probability 30%
    probabilator.add_event(2, 60); // event 3, probability 60%

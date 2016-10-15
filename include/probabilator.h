@@ -13,7 +13,6 @@
 #include "exceptions.h"
 
 namespace mzlib {
-namespace util {
    
 template<class T>
 class cprobabilator
@@ -94,7 +93,7 @@ public:
 
 };
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif /* MZLIB_PROBABILATOR_H */
 

@@ -26,7 +26,7 @@ public:
 };
 
 template <class VectorT>
-class cbody_properties : public cbody_forces<VectorT>, public util::cunique 
+class cbody_properties : public cbody_forces<VectorT>, public cunique 
 {
 
 public:
@@ -45,13 +45,13 @@ public:
    }
 };
 
-using cbody_properties2d = cbody_properties<math::cvector2d>;
-using cbody_properties3d = cbody_properties<math::cvector3d>;
+using cbody_properties2d = cbody_properties<cvector2d>;
+using cbody_properties3d = cbody_properties<cvector3d>;
 using cbody2d = cbinded_mass_centre2d<cbody_properties2d>;
 using cbody3d = cbinded_mass_centre3d<cbody_properties3d>;
 
 
-} // namespace mzlib
+} // namespace
 
 #endif	/* MZLIB_BODY_H */
 

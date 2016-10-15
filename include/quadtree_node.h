@@ -48,8 +48,8 @@ public:
    // Creation needs to be done outside the constructor, because to be able to call shared_from_this(),
    // an object needs an owning shared_ptr, otherwise there is risk of two shared_ptrs owning same object.
    void create (
-      const mzlib::math::cvector2d& top_left, 
-      const mzlib::math::cvector2d& bottom_right, 
+      const cvector2d& top_left, 
+      const cvector2d& bottom_right, 
       const double smallest_node_width, 
       std::shared_ptr<cquadnode> parent = nullptr) 
    {
@@ -62,15 +62,15 @@ public:
          // square subnodes by defining them with top-left and    ->   4-5-6
          // bottom-right vectors, we need 9 separate vectors           7-8-9
          double subnode_width = node_width / 2; // each of four subnodes is half as wide
-         mzlib::math::cvector2d v1 = top_left;
-         mzlib::math::cvector2d v2 = v1.move_by({subnode_width, 0.0}); // 1 -> 2 -> 3
-         mzlib::math::cvector2d v3 = v2.move_by({subnode_width, 0.0}); // v nw v ne v
-         mzlib::math::cvector2d v4 = v1.move_by({0.0, subnode_width}); // 4    5    6
-         mzlib::math::cvector2d v5 = v2.move_by({0.0, subnode_width}); // v sw v se v
-         mzlib::math::cvector2d v6 = v3.move_by({0.0, subnode_width}); // 7    8    9
-         //mzlib::math::cvector2d v7 = v4.move_by({0.0, subnode_width}); 
-         mzlib::math::cvector2d v8 = v5.move_by({0.0, subnode_width}); 
-         mzlib::math::cvector2d v9 = v6.move_by({0.0, subnode_width}); 
+         cvector2d v1 = top_left;
+         cvector2d v2 = v1.move_by({subnode_width, 0.0}); // 1 -> 2 -> 3
+         cvector2d v3 = v2.move_by({subnode_width, 0.0}); // v nw v ne v
+         cvector2d v4 = v1.move_by({0.0, subnode_width}); // 4    5    6
+         cvector2d v5 = v2.move_by({0.0, subnode_width}); // v sw v se v
+         cvector2d v6 = v3.move_by({0.0, subnode_width}); // 7    8    9
+         //cvector2d v7 = v4.move_by({0.0, subnode_width}); 
+         cvector2d v8 = v5.move_by({0.0, subnode_width}); 
+         cvector2d v9 = v6.move_by({0.0, subnode_width}); 
          m_child_nw = std::make_shared<cquadnode<T>>();
          m_child_nw->create(v1, v5, smallest_node_width, this->shared_from_this());
          m_child_ne = std::make_shared<cquadnode<T>>();
@@ -132,7 +132,7 @@ public:
       return mass_centre_it;
    }
    
-   bool move (const T& data, math::cvector2d new_location)
+   bool move (const T& data, cvector2d new_location)
    {
       auto mass_centre_it = find_body(data);
       if (mass_centre_it == m_bodies.end()) return false;
@@ -141,7 +141,7 @@ public:
       if(mass_centre_ptr->location == new_location) return true;
       // so, with corner cases handled, here's the thing:
       
-      math::cvector2d old_location = mass_centre_ptr->location;
+      cvector2d old_location = mass_centre_ptr->location;
 
       bool crosses_node_border = false;
       if(!is_leaf()) {
@@ -189,7 +189,7 @@ public:
       return m_mass_centre;
    }
    
-   bool is_in(math::cvector2d location)
+   bool is_in(cvector2d location)
    {
       if (location[0] >  m_top_left[0] && 
           location[1] >  m_top_left[1] &&   // left and top are exclusive
@@ -201,12 +201,12 @@ public:
       return false;
    }
         
-   mzlib::math::cvector2d get_top_left () const
+   cvector2d get_top_left () const
    {
       return m_top_left;
    }
         
-   mzlib::math::cvector2d get_bottom_right () const
+   cvector2d get_bottom_right () const
    {
       return m_bottom_right;
    }
@@ -341,12 +341,12 @@ private:
    std::vector<cbinded_mass_centre2d<T>*> m_bodies;
    cmass_centre2d m_mass_centre;
         
-   math::cvector2d m_top_left;
-   math::cvector2d m_bottom_right;
+   cvector2d m_top_left;
+   cvector2d m_bottom_right;
    double m_diagonal_length = -1;
 };
 
-} // namespace mzlib
+} // namespace
     
 #endif /* MZLIB_QUADTREE_NODE_H */
 

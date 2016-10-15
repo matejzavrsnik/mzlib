@@ -8,8 +8,10 @@
 #ifndef MZLIB_UNITS_H
 #define MZLIB_UNITS_H
 
-namespace mzlib { 
-namespace units {
+namespace mzlib {
+// purpose of this nested namespace: to enable users to bring the units into the
+// namespace of the code, without bringing the whole mzlib namespace with it.
+namespace units { 
 
 // Conversions to basic SI units
 
@@ -41,7 +43,7 @@ constexpr long double operator"" _julian_year (long double jy)   { return jy*315
 // mass
 constexpr long double operator"" _kg          (long double kg)   { return kg; }
 
-} } // namespace mzlib::units
+} } // namespace
 
 #endif /* MZLIB_UNITS_H */
 

@@ -99,13 +99,13 @@ public:
 
 // convenient types
 
-using cmass_centre2d = cmass_centre<math::cvector2d>;
-using cmass_centre3d = cmass_centre<math::cvector3d>;
-template<class DataT> using cbinded_mass_centre2d = cbinded_mass_centre<DataT, math::cvector2d>;
-template<class DataT> using cbinded_mass_centre3d = cbinded_mass_centre<DataT, math::cvector3d>;
+using cmass_centre2d = cmass_centre<cvector2d>;
+using cmass_centre3d = cmass_centre<cvector3d>;
+template<class DataT> using cbinded_mass_centre2d = cbinded_mass_centre<DataT, cvector2d>;
+template<class DataT> using cbinded_mass_centre3d = cbinded_mass_centre<DataT, cvector3d>;
 
 
-} // namespace mzlib
+} // namespace
     
 #endif	/* MZLIB_MASS_CENTRE_H */
 

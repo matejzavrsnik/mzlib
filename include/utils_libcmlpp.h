@@ -20,7 +20,6 @@
 #include <dirent.h>
 
 namespace mzlib {
-namespace util {
 
 // defined in libxml++.h
 // if project includes libxml++ lib, it will see, compile, and be able to use the following functions
@@ -96,7 +95,7 @@ inline std::string get_content (std::string xpath, xmlpp::Node* from_node)
 }
 #endif
     
-} } // namespace mzlib::util
+} // namespace
 
 #endif /* MZLIB_UTILS_LIBXMLPP_H */
 

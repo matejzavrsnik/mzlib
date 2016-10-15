@@ -39,8 +39,8 @@ public:
    typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
       
    cquadtree (
-      const mzlib::math::cvector2d& top_left, 
-      const mzlib::math::cvector2d& bottom_right, 
+      const cvector2d& top_left, 
+      const cvector2d& bottom_right, 
       const double smallest_node_width ) :
       m_root(std::make_shared<cquadnode<T>>())
    {
@@ -69,7 +69,7 @@ public:
       return true;
    }
    
-   bool add (T data, math::cvector2d location, double mass = 0) 
+   bool add (T data, cvector2d location, double mass = 0) 
    { 
       if (!is_in(location)) {
          //todo: expand tree instead
@@ -82,7 +82,7 @@ public:
       return true;
    }
    
-   bool move (const T& data, math::cvector2d new_location)
+   bool move (const T& data, cvector2d new_location)
    {
       bool moved_into_tree = m_root->move(data,new_location);
       
@@ -145,7 +145,7 @@ public:
       return const_cast<T&>(body.data);
    }
    
-   bool is_in (math::cvector2d location) const 
+   bool is_in (cvector2d location) const 
    { 
       return m_root->is_in(location); 
    }
@@ -192,7 +192,7 @@ public:
    }
 }; 
     
-} // namespace mzlib
+} // namespace
 
 #endif	/* MZLIB_QUADREEE_H */
 

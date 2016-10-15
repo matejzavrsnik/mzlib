@@ -22,17 +22,17 @@ protected:
 
 TEST_F(fixture_unique, unique_demo) 
 {
-   mzlib::util::cunique a;
-   mzlib::util::cunique b;
+   mzlib::cunique a;
+   mzlib::cunique b;
    ASSERT_NE(a.id(), b.id()); 
 }
 
 TEST_F(fixture_unique, unique_on_copy) 
 {
-   mzlib::util::cunique a;
-   mzlib::util::cunique b;
-   mzlib::util::cunique c(a);
-   mzlib::util::cunique d = a;
+   mzlib::cunique a;
+   mzlib::cunique b;
+   mzlib::cunique c(a);
+   mzlib::cunique d = a;
    ASSERT_NE(a.id(), b.id());
    ASSERT_EQ(a.id(), c.id());
    ASSERT_EQ(a.id(), d.id());

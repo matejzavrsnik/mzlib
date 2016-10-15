@@ -13,7 +13,6 @@
 #include <random>
 
 namespace mzlib {
-namespace util {
     
 inline unsigned int get_random_integer ()
 {
@@ -59,7 +58,7 @@ get_random_element (std::map<T,U>& from_map)
    return result;
 }
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif /* MZLIB_UTILS_RANDOM_H */
 

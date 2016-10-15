@@ -12,7 +12,6 @@
 #include "enums.h"
 
 namespace mzlib {
-namespace util {
 
 // basic optional type 
 // doesn't really store references, waiting for C++17 or whenever, but good enough for now
@@ -58,7 +57,7 @@ public:
    
 };
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif	/* MZLIB_OPTIONAL_H */
 

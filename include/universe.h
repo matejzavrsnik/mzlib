@@ -43,8 +43,8 @@ public:
         
    // TODO: A monstrosity!! Space dimensions are undefined. Make quadtree dynamic at some point
    cuniverse (
-      const mzlib::math::cvector2d& top_left, 
-      const mzlib::math::cvector2d& bottom_right, 
+      const cvector2d& top_left, 
+      const cvector2d& bottom_right, 
       const double smallest_node_width) 
       : 
       m_quad_tree (
@@ -56,8 +56,8 @@ public:
 
    cuniverse () : 
       m_quad_tree (
-         mzlib::math::cvector2d({-10e50,-10e50}),
-         mzlib::math::cvector2d({ 10e50, 10e50}),
+         cvector2d({-10e50,-10e50}),
+         cvector2d({ 10e50, 10e50}),
          10e50/2-1)
    {
    }
@@ -166,11 +166,11 @@ public:
       }
    }
         
-   std::tuple<math::cvector2d, math::cvector2d> 
+   std::tuple<cvector2d, cvector2d> 
    calculate_final_velocity_and_position(
-      const math::cvector2d& gravity,
-      const math::cvector2d& velocity,
-      const math::cvector2d& location,
+      const cvector2d& gravity,
+      const cvector2d& velocity,
+      const cvector2d& location,
       const double mass,
       const double time) const
    {
@@ -187,8 +187,8 @@ public:
       final_parameters_equation.solve_for_final_location();
       final_parameters_equation.solve_for_final_velocity();
 
-      math::cvector2d velocity_final = final_parameters_equation.v_final.get();
-      math::cvector2d location_final = final_parameters_equation.r_final.get();
+      cvector2d velocity_final = final_parameters_equation.v_final.get();
+      cvector2d location_final = final_parameters_equation.r_final.get();
       
       // cap it at predefined max velocity
       if (velocity_final.length() > m_properties.m_max_velocity) {
@@ -203,8 +203,8 @@ public:
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
          for (const cbody2d& body : m_quad_tree) {
-            math::cvector2d location_final;
-            math::cvector2d velocity_final;
+            cvector2d location_final;
+            cvector2d velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
                body.data.gravity, body.data.velocity, body.location, body.mass, time_pixel);
@@ -214,7 +214,7 @@ public:
       }
       else if (m_properties.m_implementation == implementation::naive) {
          for (cbody2d& body : m_vector) {
-            math::cvector2d location_final, velocity_final;
+            cvector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
                body.data.gravity, body.data.velocity, body.location, body.mass, time_pixel);
@@ -248,7 +248,7 @@ private:
 
 };
 
-} // namespace mzlib
+} // namespace
 
 #endif /* MZLIB_SPACE_H */
 

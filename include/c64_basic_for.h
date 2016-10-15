@@ -15,7 +15,6 @@
 #include <memory> // std::unique_ptr
 
 namespace mzlib {
-namespace util {
 
 // A builder to be able to write for loops like I did in my old commodore basic.
 // Serves no meaningful purpose but a regression into childhood :)
@@ -25,9 +24,9 @@ class c64_basic_for
    
 private:
    
-   mzlib::util::coptional<T> m_from;
-   mzlib::util::coptional<T> m_to;
-   mzlib::util::coptional<T> m_step;
+   coptional<T> m_from;
+   coptional<T> m_to;
+   coptional<T> m_step;
    
 public:
    
@@ -65,7 +64,7 @@ public:
    }
 };
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif	/* MZLIB_C64_BASIC_FOR_H */
 

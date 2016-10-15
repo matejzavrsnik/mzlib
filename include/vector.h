@@ -15,8 +15,7 @@
 
 #include "dbl.h"
 
-namespace mzlib { 
-namespace math {
+namespace mzlib {
 
 // Fixed size mathematical vector.
 // Motivation to write own class (goals):
@@ -185,7 +184,7 @@ public:
       for (size_t i=0; i<DIM; ++i) {
          //todo: switch to is_integral_v when C++17 is available
          if (std::is_floating_point<TYPE>::value) {
-            if (!util::dbl(m_array[i]).equals(other.m_array[i])) {
+            if (!dbl(m_array[i]).equals(other.m_array[i])) {
                return false;
             }
          }
@@ -323,7 +322,7 @@ using cvector3d = cvector<double, 3>;
 using cpoint2d  = cvector<double, 2>;
 using cpoint3d  = cvector<double, 3>;
     
-} } // namespace mzlib::math
+} // namespace
 
 #endif /* MZLIB_VECTOR_H */
 

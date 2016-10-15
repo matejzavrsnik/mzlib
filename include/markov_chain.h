@@ -28,11 +28,11 @@ private:
    T m_previous_state;
    bool m_previous_state_set = false;     
    T m_next_state;
-   std::map<T, mzlib::util::cprobabilator<T>> m_states;
+   std::map<T, cprobabilator<T>> m_states;
         
    const T get_random_state () 
    {
-      return mzlib::util::get_random_element(m_states)->first;
+      return get_random_element(m_states)->first;
    }
         
 protected:
@@ -52,7 +52,7 @@ protected:
    const T get() 
    {
       T& return_state = m_next_state;
-      mzlib::util::cprobabilator<T>& probabilator = m_states[m_next_state];
+      cprobabilator<T>& probabilator = m_states[m_next_state];
       if (probabilator.count_events() == 0) {
          m_next_state = get_random_state();
       }

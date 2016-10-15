@@ -15,7 +15,6 @@
 #include "utilities.h" // fast_threeway_min
 
 namespace mzlib {
-namespace util {
         
 inline std::vector<std::string> split_string_puctuation (const std::string& str) 
 {
@@ -219,7 +218,7 @@ remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, cons
    return std::move(filtered);
 }
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif /* MZLIB_UTILS_STRING_H */
 

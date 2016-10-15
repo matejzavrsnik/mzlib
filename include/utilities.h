@@ -19,7 +19,6 @@
 #include <cstring>
 
 namespace mzlib {
-namespace util {
         
 template<typename T> std::size_t 
 get_number_of_decimals (T num)
@@ -197,7 +196,7 @@ parse_arguments (int argc, char **argv)
    return arguments;
 }
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif /* MZLIB_UTILITIES_H */
 

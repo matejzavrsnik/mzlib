@@ -29,12 +29,12 @@ protected:
 
 TEST_F(fixture_dbl, compare_equal_doubles_for_equality) 
 {
-   ASSERT_TRUE(mzlib::util::dbl(13.3L).equals(13.3L));
+   ASSERT_TRUE(mzlib::dbl(13.3L).equals(13.3L));
 }
 
 TEST_F(fixture_dbl, compare_different_doubles_for_equality) 
 {
-   ASSERT_FALSE(mzlib::util::dbl(13.3L).equals(13.2L));
+   ASSERT_FALSE(mzlib::dbl(13.3L).equals(13.2L));
 }
 
 TEST_F(fixture_dbl, compare_ranges_of_nearly_equals_doubles_for_equality) {
@@ -70,12 +70,12 @@ TEST_F(fixture_dbl, compare_ranges_of_nearly_equals_doubles_for_equality) {
          const double allowed_difference = allowed_double_delta(centre_value+value, ulp);
          const double difference = std::abs(value-centre_value);
          if(difference <= allowed_difference) {
-            ASSERT_TRUE(mzlib::util::dbl(value).equals(centre_value)) 
+            ASSERT_TRUE(mzlib::dbl(value).equals(centre_value)) 
                << "Comparing " << value << " to " << centre_value << 
                " failed, but they are within " << ulp << " ulp.";
          }
          else {
-            ASSERT_FALSE(mzlib::util::dbl(value).equals(centre_value)) 
+            ASSERT_FALSE(mzlib::dbl(value).equals(centre_value)) 
                << "Comparing " << value << " to " << centre_value << 
                " succeeded, but they are " << ulp << " ulp appart.";
          }
@@ -85,10 +85,10 @@ TEST_F(fixture_dbl, compare_ranges_of_nearly_equals_doubles_for_equality) {
 
 TEST_F(fixture_dbl, compare_equal_doubles_for_equality_within_epsilon) 
 {
-   ASSERT_TRUE(mzlib::util::dbl(13.3).equals(13.2).within_epsilon(0.2));
+   ASSERT_TRUE(mzlib::dbl(13.3).equals(13.2).within_epsilon(0.2));
 }
 
 TEST_F(fixture_dbl, compare_different_doubles_for_equality_within_epsilon) 
 {
-   ASSERT_FALSE(mzlib::util::dbl(13.3).equals(13.2).within_epsilon(0.01));
+   ASSERT_FALSE(mzlib::dbl(13.3).equals(13.2).within_epsilon(0.01));
 }

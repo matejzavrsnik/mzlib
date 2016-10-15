@@ -7,9 +7,9 @@
 
 #include "../include/units_strong.h"
 #include "gtest/gtest.h"
+   
+using namespace mzlib;
 
-using namespace mzlib::units;
-    
 class fixture_units_strong : public ::testing::Test 
 {
 

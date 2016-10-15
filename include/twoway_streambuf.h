@@ -58,7 +58,7 @@ public:
 
 using twoway_streambuf = basic_twoway_streambuf<char, std::char_traits<char>>;
 
-} // namespace mzlib
+} // namespace
 
 #endif	/* MZLIB_TWOWAY_STREAMBUF_H */
 

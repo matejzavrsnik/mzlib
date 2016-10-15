@@ -12,7 +12,6 @@
 #include <ctime>
 
 namespace mzlib {
-namespace util {    
 
 class cstopwatch
 {
@@ -78,7 +77,7 @@ public:
 
 };
 
-} } // namespaces
+} // namespaces
 
 #endif /* MZLIB_STOPWATCH_H */
 

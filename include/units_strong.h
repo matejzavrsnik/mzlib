@@ -10,8 +10,7 @@
 
 #include <cmath> // std::fabs
 
-namespace mzlib { 
-namespace units {
+namespace mzlib {
     
 // The base class. Implements CRTP and provides mathematical operations for all units
 
@@ -295,7 +294,7 @@ inline cltime operator/ (const clength& lhs, const cspeed& rhs)
 #undef QUANTITY_DEFINITION_END
 #undef UNIT_DEFINITION
 
-} } // namespace mzlib::units
+} // namespace
 
 #endif /* MZLIB_UNITS_STRONG_H */
 

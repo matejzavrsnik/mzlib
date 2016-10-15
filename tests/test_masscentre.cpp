@@ -140,6 +140,6 @@ TEST_F(fixture_masscentre, add_to_mass_centre_initialised_with_zero_mass)
    mass_centre.add_to_mass_centre({{10,10},10}); // add some non-zero mass
    
    // mass center should assume new body location and mass, regardless of what the location has been before
-   ASSERT_EQ(mass_centre.location, mzlib::math::cvector2d({10,10}));
+   ASSERT_EQ(mass_centre.location, mzlib::cvector2d({10,10}));
    ASSERT_DOUBLE_EQ(mass_centre.mass, 10);
 }

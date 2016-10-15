@@ -12,7 +12,6 @@
 #include <limits>
 
 namespace mzlib {
-namespace util {
 
 // to compare doubles for equality
 class dbl
@@ -54,7 +53,7 @@ public:
 
 };
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif	/* MZLIB_DBL_H */
 

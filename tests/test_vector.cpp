@@ -18,14 +18,14 @@ protected:
    virtual void SetUp() {}
    virtual void TearDown() {}
 
-   mzlib::math::cvector<double, 3> v123{1.1,2.2,3.3};
-   mzlib::math::cvector<double, 3> v456{4.4,5.5,6.6};
+   mzlib::cvector<double, 3> v123{1.1,2.2,3.3};
+   mzlib::cvector<double, 3> v456{4.4,5.5,6.6};
   
 };
 
 TEST_F(fixture_cvector, construction_default) 
 {
-   mzlib::math::cvector<double, 3> v;
+   mzlib::cvector<double, 3> v;
    ASSERT_DOUBLE_EQ(0, v[0]);
    ASSERT_DOUBLE_EQ(0, v[1]);
    ASSERT_DOUBLE_EQ(0, v[2]);
@@ -33,7 +33,7 @@ TEST_F(fixture_cvector, construction_default)
 
 TEST_F(fixture_cvector, construction_from_std_initializer_list) 
 {
-   mzlib::math::cvector<double, 3> v = {1,2,3};
+   mzlib::cvector<double, 3> v = {1,2,3};
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
    ASSERT_DOUBLE_EQ(3, v[2]);
@@ -41,7 +41,7 @@ TEST_F(fixture_cvector, construction_from_std_initializer_list)
 
 TEST_F(fixture_cvector, construction_from_std_initializer_list_too_small) 
 {
-   mzlib::math::cvector<double, 4> v = {1,2};
+   mzlib::cvector<double, 4> v = {1,2};
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
    ASSERT_DOUBLE_EQ(0, v[2]);
@@ -50,7 +50,7 @@ TEST_F(fixture_cvector, construction_from_std_initializer_list_too_small)
 
 TEST_F(fixture_cvector, construction_from_std_initializer_list_too_big) 
 {
-   mzlib::math::cvector<double, 3> v = {1,2,3,4,5,6};
+   mzlib::cvector<double, 3> v = {1,2,3,4,5,6};
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
    ASSERT_DOUBLE_EQ(3, v[2]);
@@ -59,7 +59,7 @@ TEST_F(fixture_cvector, construction_from_std_initializer_list_too_big)
 TEST_F(fixture_cvector, construction_from_std_vector) 
 {
    std::vector<double> standard_vector = {1,2,3};
-   mzlib::math::cvector<double, 3> v = standard_vector;
+   mzlib::cvector<double, 3> v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
    ASSERT_DOUBLE_EQ(3, v[2]);
@@ -68,7 +68,7 @@ TEST_F(fixture_cvector, construction_from_std_vector)
 TEST_F(fixture_cvector, construction_from_std_vector_too_small) 
 {
    std::vector<double> standard_vector = {1,2};
-   mzlib::math::cvector<double, 4> v = standard_vector;
+   mzlib::cvector<double, 4> v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
    ASSERT_DOUBLE_EQ(0, v[2]);
@@ -78,7 +78,7 @@ TEST_F(fixture_cvector, construction_from_std_vector_too_small)
 TEST_F(fixture_cvector, construction_from_std_vector_too_big) 
 {
    std::vector<double> standard_vector = {1,2,3,4,5,6};
-   mzlib::math::cvector<double, 3> v = standard_vector;
+   mzlib::cvector<double, 3> v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
    ASSERT_DOUBLE_EQ(3, v[2]);
@@ -86,7 +86,7 @@ TEST_F(fixture_cvector, construction_from_std_vector_too_big)
 
 TEST_F(fixture_cvector, assignment_from_std_initializer_list) 
 {
-   mzlib::math::cvector<double, 3> v = {9,9,9};
+   mzlib::cvector<double, 3> v = {9,9,9};
    v = {1,2,3};
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
@@ -95,7 +95,7 @@ TEST_F(fixture_cvector, assignment_from_std_initializer_list)
 
 TEST_F(fixture_cvector, assignment_from_std_initializer_list_too_small) 
 {
-   mzlib::math::cvector<double, 4> v = {9,9,9,9};
+   mzlib::cvector<double, 4> v = {9,9,9,9};
    v = {1,2};
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
@@ -105,7 +105,7 @@ TEST_F(fixture_cvector, assignment_from_std_initializer_list_too_small)
 
 TEST_F(fixture_cvector, assignment_from_std_initializer_list_too_big) 
 {
-   mzlib::math::cvector<double, 3> v = {9,9,9};
+   mzlib::cvector<double, 3> v = {9,9,9};
    v = {1,2,3,4,5,6};
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
@@ -114,7 +114,7 @@ TEST_F(fixture_cvector, assignment_from_std_initializer_list_too_big)
 
 TEST_F(fixture_cvector, assignment_from_std_vector) 
 {
-   mzlib::math::cvector<double, 3> v = {9,9,9};
+   mzlib::cvector<double, 3> v = {9,9,9};
    std::vector<double> standard_vector = {1,2,3};
    v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
@@ -124,7 +124,7 @@ TEST_F(fixture_cvector, assignment_from_std_vector)
 
 TEST_F(fixture_cvector, assignment_from_std_vector_too_small) 
 {
-   mzlib::math::cvector<double, 4> v = {9,9,9,9};
+   mzlib::cvector<double, 4> v = {9,9,9,9};
    std::vector<double> standard_vector = {1,2};
    v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
@@ -135,7 +135,7 @@ TEST_F(fixture_cvector, assignment_from_std_vector_too_small)
 
 TEST_F(fixture_cvector, assignment_from_std_vector_too_big) 
 {
-   mzlib::math::cvector<double, 3> v = {9,9,9};
+   mzlib::cvector<double, 3> v = {9,9,9};
    std::vector<double> standard_vector = {1,2,3,4,5,6};
    v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
@@ -145,7 +145,7 @@ TEST_F(fixture_cvector, assignment_from_std_vector_too_big)
 
 TEST_F(fixture_cvector, move_by) 
 {
-   mzlib::math::cvector<double, 3> v_dest = v123.move_by(v456);
+   mzlib::cvector<double, 3> v_dest = v123.move_by(v456);
    ASSERT_DOUBLE_EQ(5.5, v_dest[0]);
    ASSERT_DOUBLE_EQ(7.7, v_dest[1]);
    ASSERT_DOUBLE_EQ(9.9, v_dest[2]);
@@ -170,7 +170,7 @@ TEST_F(fixture_cvector, length)
 
 TEST_F(fixture_cvector, operator_equals) 
 {
-   mzlib::math::cvector<double, 3> v_equal{1.1,2.2,3.3};
+   mzlib::cvector<double, 3> v_equal{1.1,2.2,3.3};
    ASSERT_TRUE(v123 == v_equal);
 }
 
@@ -297,6 +297,6 @@ TEST_F(fixture_cvector, operator_minus_equals)
 
 TEST_F(fixture_cvector, operator_minus_unary) 
 {
-   mzlib::math::cvector<double, 3> negative_v456{-4.4,-5.5,-6.6};
+   mzlib::cvector<double, 3> negative_v456{-4.4,-5.5,-6.6};
    ASSERT_TRUE(negative_v456 == -v456);
 }

@@ -75,6 +75,6 @@ public:
    }
 };
 
-} // namespace mzlib
+} // namespace
 
 #endif /* MZLIB_QUADTREE_IT_BODIES_H */

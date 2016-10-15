@@ -9,7 +9,6 @@
 #define	MZLIB_UNIQUE_H
 
 namespace mzlib {
-namespace util {
 
 // adds to objects a capability to be easily identifiable across copies of itself
 class cunique
@@ -44,7 +43,7 @@ public:
    }
 };
 
-} } // namespace mzlib::util
+} // namespace
 
 #endif	/* MZLIB_UNIQUE_H */
 

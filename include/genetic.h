@@ -122,8 +122,8 @@ private:
       for(int rate=0; rate<m_mutation_rate; ++rate)
       {
          tgenome_info genome_info = get_zap_info(genome);
-         size_t zap_byte = mzlib::util::get_random_integer_between (0, genome_info.genome_size);
-         size_t zap_bit = mzlib::util::get_random_integer_between (0, 8);
+         size_t zap_byte = get_random_integer_between (0, genome_info.genome_size);
+         size_t zap_bit = get_random_integer_between (0, 8);
          genome_info.genome_pointer[zap_byte] ^= (1 << zap_bit); // engage radiation beam!
          genome.penalty = m_fitness_function (genome.genome); // calculate new penalty
       }
@@ -138,7 +138,7 @@ private:
          });
        
       // keep the first m_survivors_count, copy the best over the rest of the slots
-      mzlib::util::copy_first_n_over_rest(m_genome_pool, m_survivers_count);
+      copy_first_n_over_rest(m_genome_pool, m_survivers_count);
    }
 
    std::vector<tgenome> m_genome_pool;
@@ -214,7 +214,7 @@ private:
    virtual tgenome_info get_zap_info (tgenome& genome) override 
    {
       tgenome_info info;
-      size_t zap_object = mzlib::util::get_random_integer_between (0, m_object_count);
+      size_t zap_object = get_random_integer_between (0, m_object_count);
       info.genome_size = m_object_size;
       info.genome_pointer = reinterpret_cast<char*>(&genome.genome[zap_object]);;
       return info;
@@ -285,7 +285,7 @@ TYPE mendel_smart(cgenetic<TYPE>& genetic)
    return best_genome_overall;
 }
 
-} // namespace mzlib
+} // namespace
 
 #endif	/* MZLIB_GENETIC_H */
 

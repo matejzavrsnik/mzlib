@@ -38,8 +38,8 @@ public:
 
    csupersafe_number (const T number) :
       m_keys{
-         util::get_random_double(),
-         util::get_random_double()},
+         get_random_double(),
+         get_random_double()},
       m_number{number},
       m_controls{
          calculate_control_value(0),
@@ -49,8 +49,8 @@ public:
 
    operator T () const
    {
-      if (util::dbl(calculate_control_value(0)).equals(m_controls[0]) &&
-          util::dbl(calculate_control_value(1)).equals(m_controls[1]))
+      if (dbl(calculate_control_value(0)).equals(m_controls[0]) &&
+          dbl(calculate_control_value(1)).equals(m_controls[1]))
       {
          // passed integrity control!
          return m_number;
@@ -64,7 +64,7 @@ public:
 
 };
 
-} // namespace mzlib
+} // namespace
 
 #endif /* MZLIB_SUPERSAFE_NUMBER_H */
 

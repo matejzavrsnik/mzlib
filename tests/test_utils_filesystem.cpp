@@ -30,7 +30,7 @@ protected:
 
 TEST_F(fixture_utils_filesystem, list_files_defaults) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir);
+   std::vector<std::string> list = mzlib::list_files2(m_test_dir);
    
    auto not_found = list.end();
    ASSERT_EQ(2, list.size());
@@ -41,7 +41,7 @@ TEST_F(fixture_utils_filesystem, list_files_defaults)
 
 TEST_F(fixture_utils_filesystem, list_files_recursive_nohidden) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, mzlib::erecursive::yes, mzlib::einclude_hidden::no);
+   std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::erecursive::yes, mzlib::einclude_hidden::no);
    
    auto not_found = list.end();
    ASSERT_EQ(6, list.size());
@@ -56,7 +56,7 @@ TEST_F(fixture_utils_filesystem, list_files_recursive_nohidden)
 
 TEST_F(fixture_utils_filesystem, list_files_recursive_hidden) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, mzlib::erecursive::yes, mzlib::einclude_hidden::yes);
+   std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::erecursive::yes, mzlib::einclude_hidden::yes);
    
    auto not_found = list.end();
    ASSERT_EQ(8, list.size());
@@ -73,7 +73,7 @@ TEST_F(fixture_utils_filesystem, list_files_recursive_hidden)
 
 TEST_F(fixture_utils_filesystem, list_files_norecursive_hidden) 
 {
-   std::vector<std::string> list = mzlib::util::list_files2(m_test_dir, mzlib::erecursive::no, mzlib::einclude_hidden::yes);
+   std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::erecursive::no, mzlib::einclude_hidden::yes);
    
    auto not_found = list.end();
    ASSERT_EQ(3, list.size());
@@ -85,11 +85,11 @@ TEST_F(fixture_utils_filesystem, list_files_norecursive_hidden)
 
 TEST_F(fixture_utils_filesystem, is_meta_directory)
 {
-   ASSERT_TRUE (mzlib::util::is_meta_directory("."));
-   ASSERT_TRUE (mzlib::util::is_meta_directory(".."));
-   ASSERT_TRUE (mzlib::util::is_meta_directory("avengers/."));
-   ASSERT_TRUE (mzlib::util::is_meta_directory("avengers/.."));
-   ASSERT_FALSE(mzlib::util::is_meta_directory("avengers/ironman"));
+   ASSERT_TRUE (mzlib::is_meta_directory("."));
+   ASSERT_TRUE (mzlib::is_meta_directory(".."));
+   ASSERT_TRUE (mzlib::is_meta_directory("avengers/."));
+   ASSERT_TRUE (mzlib::is_meta_directory("avengers/.."));
+   ASSERT_FALSE(mzlib::is_meta_directory("avengers/ironman"));
 }
 
 TEST_F(fixture_utils_filesystem, write_append_read_file)
@@ -97,13 +97,13 @@ TEST_F(fixture_utils_filesystem, write_append_read_file)
    std::string temp_file = m_test_dir + "/temp_file";
    std::string sample_content = "I must not fear.";
    
-   mzlib::util::save_file (temp_file, sample_content);
-   std::string temp_file_content = mzlib::util::read_file(temp_file);
+   mzlib::save_file (temp_file, sample_content);
+   std::string temp_file_content = mzlib::read_file(temp_file);
    ASSERT_EQ(sample_content, temp_file_content);
    
    std::string additional_content = "Fear is the mind-killer.";
-   mzlib::util::append_file (temp_file, additional_content);
-   temp_file_content = mzlib::util::read_file(temp_file);
+   mzlib::append_file (temp_file, additional_content);
+   temp_file_content = mzlib::read_file(temp_file);
    ASSERT_EQ(sample_content + additional_content, temp_file_content);
    
    std::remove (temp_file.c_str());

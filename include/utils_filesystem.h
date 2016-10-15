@@ -18,7 +18,6 @@
 #include "enums.h"
 
 namespace mzlib {
-namespace util {
     
 // Read file contents and return it in a string
 inline std::string read_file (const std::string& filename) 
@@ -132,7 +131,7 @@ inline std::vector<std::string> boost_list_files (std::string directory, bool in
 }
 #endif
     
-} } // namespace mzlib::util
+} // namespace
 
 #endif /* MZLIB_UTILS_FILESYSTEM_H */
 

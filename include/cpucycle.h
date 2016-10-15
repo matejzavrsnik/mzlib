@@ -12,8 +12,7 @@
 
 #include <stdint.h>
 
-namespace mzlib {
-namespace util {    
+namespace mzlib { 
 
 //  Windows
 #ifdef _WIN32
@@ -36,7 +35,7 @@ uint64_t cycle_count()
 
 #endif
 
-} } // namespaces
+} // namespace
 
 #endif /* MZLIB_CPUCYCLE_H */
 

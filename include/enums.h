@@ -66,7 +66,7 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( eset            );
 
 #undef MZLIB_GENERATE_NEW_BINARY_OPTION
 
-} // namespace mzlib
+} // namespace
 
 #endif	/* MZLIB_ENUMS_H */
 

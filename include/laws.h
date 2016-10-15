@@ -20,10 +20,10 @@ class cnewtons_law_of_gravitation
    
 public:
    
-   util::coptional<cmass_centre<VectorT>> m1; 
-   util::coptional<cmass_centre<VectorT>> m2; 
-   util::coptional<double> G;
-   util::coptional<VectorT> f1;
+   coptional<cmass_centre<VectorT>> m1; 
+   coptional<cmass_centre<VectorT>> m2; 
+   coptional<double> G;
+   coptional<VectorT> f1;
    
    void solve_for_force ()
    {
@@ -52,8 +52,8 @@ public:
    
 };
 
-using cnewtons_law_of_gravitation2d = cnewtons_law_of_gravitation<math::cvector2d>;
-using cnewtons_law_of_gravitation3d = cnewtons_law_of_gravitation<math::cvector3d>;
+using cnewtons_law_of_gravitation2d = cnewtons_law_of_gravitation<cvector2d>;
+using cnewtons_law_of_gravitation3d = cnewtons_law_of_gravitation<cvector3d>;
 
 // Newton's second law of motion
 template<class VectorT>
@@ -62,9 +62,9 @@ class cnewtons_law_of_acceleration
    
 public:
       
-   util::coptional<VectorT> f;   
-   util::coptional<VectorT> a;
-   util::coptional<double>  m;
+   coptional<VectorT> f;   
+   coptional<VectorT> a;
+   coptional<double>  m;
    
    void solve_for_force()
    {
@@ -78,8 +78,8 @@ public:
    
 };
 
-using cnewtons_law_of_acceleration2d = cnewtons_law_of_acceleration<math::cvector2d>;
-using cnewtons_law_of_acceleration3d = cnewtons_law_of_acceleration<math::cvector3d>;
+using cnewtons_law_of_acceleration2d = cnewtons_law_of_acceleration<cvector2d>;
+using cnewtons_law_of_acceleration3d = cnewtons_law_of_acceleration<cvector3d>;
 
 template<class VectorT>
 class cconstant_linear_acceleration_law
@@ -87,12 +87,12 @@ class cconstant_linear_acceleration_law
    
 public:
       
-   util::coptional<VectorT> v_initial;   
-   util::coptional<VectorT> v_final;
-   util::coptional<VectorT> r_initial;   
-   util::coptional<VectorT> r_final;
-   util::coptional<VectorT> a;
-   util::coptional<double>  time;
+   coptional<VectorT> v_initial;   
+   coptional<VectorT> v_final;
+   coptional<VectorT> r_initial;   
+   coptional<VectorT> r_final;
+   coptional<VectorT> a;
+   coptional<double>  time;
    
    void solve_for_final_velocity()
    {
@@ -105,10 +105,10 @@ public:
    }
 };
 
-using cconstant_linear_acceleration_law2d = cconstant_linear_acceleration_law<math::cvector2d>;
-using cconstant_linear_acceleration_law3d = cconstant_linear_acceleration_law<math::cvector3d>;
+using cconstant_linear_acceleration_law2d = cconstant_linear_acceleration_law<cvector2d>;
+using cconstant_linear_acceleration_law3d = cconstant_linear_acceleration_law<cvector3d>;
 
-} // namespace mzlib
+} // namespace
 
 #endif /* MZLIB_LAWS_H */
 

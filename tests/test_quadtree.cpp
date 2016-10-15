@@ -25,9 +25,9 @@ protected:
    virtual void TearDown () {}
 
    double smallest_node_width = 50;
-   mzlib::math::cvector2d m_top_left = {-50,-50};
-   mzlib::math::cvector2d m_bottom_right = {50,50};
-   mzlib::math::cvector2d m_centre = {0,0};
+   mzlib::cvector2d m_top_left = {-50,-50};
+   mzlib::cvector2d m_bottom_right = {50,50};
+   mzlib::cvector2d m_centre = {0,0};
    mzlib::cquadtree<int> m_tree = {m_top_left, m_bottom_right, smallest_node_width};
 
 };
@@ -37,8 +37,8 @@ TEST_F(fixture_cquadtree, tree_is_built_correctly)
    mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25};
 
    ASSERT_TRUE(local_tree.m_root->has_children());
-   ASSERT_EQ(mzlib::math::cvector2d({-50,-50}), local_tree.m_root->m_top_left);
-   ASSERT_EQ(mzlib::math::cvector2d({ 50, 50}), local_tree.m_root->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({ 50, 50}), local_tree.m_root->m_bottom_right);
    
    ASSERT_TRUE(local_tree.m_root->m_child_nw->has_children());
    ASSERT_TRUE(local_tree.m_root->m_child_ne->has_children());
@@ -51,14 +51,14 @@ TEST_F(fixture_cquadtree, tree_is_built_correctly)
    //   |sw |se |
    // -50 _ 0 _ -50
    
-   ASSERT_EQ(mzlib::math::cvector2d({-50,-50}), local_tree.m_root->m_child_nw->m_top_left);
-   ASSERT_EQ(mzlib::math::cvector2d({  0,  0}), local_tree.m_root->m_child_nw->m_bottom_right);
-   ASSERT_EQ(mzlib::math::cvector2d({  0,-50}), local_tree.m_root->m_child_ne->m_top_left);
-   ASSERT_EQ(mzlib::math::cvector2d({ 50,  0}), local_tree.m_root->m_child_ne->m_bottom_right);
-   ASSERT_EQ(mzlib::math::cvector2d({-50,  0}), local_tree.m_root->m_child_sw->m_top_left);
-   ASSERT_EQ(mzlib::math::cvector2d({  0, 50}), local_tree.m_root->m_child_sw->m_bottom_right);
-   ASSERT_EQ(mzlib::math::cvector2d({  0,  0}), local_tree.m_root->m_child_se->m_top_left);
-   ASSERT_EQ(mzlib::math::cvector2d({ 50, 50}), local_tree.m_root->m_child_se->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_child_nw->m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({  0,  0}), local_tree.m_root->m_child_nw->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({  0,-50}), local_tree.m_root->m_child_ne->m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({ 50,  0}), local_tree.m_root->m_child_ne->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({-50,  0}), local_tree.m_root->m_child_sw->m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({  0, 50}), local_tree.m_root->m_child_sw->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({  0,  0}), local_tree.m_root->m_child_se->m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({ 50, 50}), local_tree.m_root->m_child_se->m_bottom_right);
    
    ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_nw->has_children());
    ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_ne->has_children());
@@ -92,9 +92,9 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
    
    double quotient = 1; // quotient 1 should barely cover the node the body is in
    mzlib::cquadtree<int>::it_masscentres mass_centres_it = m_tree.begin_masscentres(4, quotient);
-   ASSERT_EQ(mzlib::math::cvector2d({45,45}), mass_centres_it->location);
+   ASSERT_EQ(mzlib::cvector2d({45,45}), mass_centres_it->location);
    ++mass_centres_it;
-   ASSERT_EQ(mzlib::math::cvector2d({-45.5,-45.5}), mass_centres_it->location);
+   ASSERT_EQ(mzlib::cvector2d({-45.5,-45.5}), mass_centres_it->location);
    ++mass_centres_it;
    ASSERT_EQ(m_tree.end_masscentres(), mass_centres_it);
 }
@@ -269,16 +269,16 @@ TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
    local_tree.add(2, {3,3}, 150);
    
    ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
-   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({4,4}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
    
    local_tree.move(2, {1,1});
    
    // body hasn't moved out of node, mass centres are updated
    ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
-   ASSERT_EQ(mzlib::math::cvector2d({3,3}), local_tree.get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({3,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({3,3}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({3,3}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({3,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({3,3}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, move_crosses_2nd_level_node_borders)
@@ -299,17 +299,17 @@ TEST_F(fixture_cquadtree, move_crosses_2nd_level_node_borders)
    local_tree.add(2, {3,3}, 150);
    
    ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
-   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({4,4}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
    
    local_tree.move(2, {30,1});
    
    // body hasn't moved out of node, mass centres are updated
    ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_ne->find(2));
-   ASSERT_EQ(mzlib::math::cvector2d({17.5,3}), local_tree.get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({17.5,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({30,1}), local_tree.m_root->m_child_se->m_child_ne->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({17.5,3}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({17.5,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({30,1}), local_tree.m_root->m_child_se->m_child_ne->get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes)
@@ -330,18 +330,18 @@ TEST_F(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes)
    local_tree.add(2, {3,3}, 150);
    
    ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
-   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({4,4}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
    
    local_tree.move(2, {1,-5});
    
    // body hasn't moved out of node, mass centres are updated
    ASSERT_NE(nullptr, local_tree.m_root->m_child_ne->m_child_sw->find(2));
-   ASSERT_EQ(mzlib::math::cvector2d({3,0}), local_tree.get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({5,5}), local_tree.m_root->m_child_se->get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({1,-5}), local_tree.m_root->m_child_ne->get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
-   ASSERT_EQ(mzlib::math::cvector2d({1,-5}), local_tree.m_root->m_child_ne->m_child_sw->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({3,0}), local_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({5,5}), local_tree.m_root->m_child_se->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({1,-5}), local_tree.m_root->m_child_ne->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({1,-5}), local_tree.m_root->m_child_ne->m_child_sw->get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, move_nonexistent_data)
@@ -353,7 +353,7 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
    ASSERT_FALSE(success);
    // mass centre stays unchanged
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({24,24}), m_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({24,24}), m_tree.get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, move_beyond_tree_size)
@@ -361,20 +361,20 @@ TEST_F(fixture_cquadtree, move_beyond_tree_size)
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
    // move out of tree
-   bool is_in_tree = m_tree.move(2, m_bottom_right + mzlib::math::cvector2d({0,10}));
+   bool is_in_tree = m_tree.move(2, m_bottom_right + mzlib::cvector2d({0,10}));
    ASSERT_FALSE(is_in_tree); // should signal that it is out of tree
    bool still_finds_the_tree = false;
    for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
    
    // move even further out
-   is_in_tree = m_tree.move(2, m_bottom_right + mzlib::math::cvector2d({0,12}));
+   is_in_tree = m_tree.move(2, m_bottom_right + mzlib::cvector2d({0,12}));
    ASSERT_FALSE(is_in_tree);
    for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
    
    // move back to where it was, in the tree
-   is_in_tree = m_tree.move(2, mzlib::math::cvector2d({0,12}));
+   is_in_tree = m_tree.move(2, mzlib::cvector2d({0,12}));
    ASSERT_TRUE(is_in_tree);
    for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
    ASSERT_TRUE(still_finds_the_tree);
@@ -385,10 +385,10 @@ TEST_F(fixture_cquadtree, change_mass_basic)
    m_tree.add(1, {5,5}, 100);
    m_tree.add(2, {25,25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({15,15}), m_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({15,15}), m_tree.get_mass_centre().location);
    m_tree.change_mass(2, 300);
    ASSERT_EQ(400, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({20,20}), m_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({20,20}), m_tree.get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
@@ -400,7 +400,7 @@ TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
    ASSERT_FALSE(success);
    // mass centre stays unchanged
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({15,15}), m_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({15,15}), m_tree.get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
@@ -408,11 +408,11 @@ TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({0,0}), m_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({0,0}), m_tree.get_mass_centre().location);
    bool success = m_tree.remove(1);
    ASSERT_TRUE(success);
    ASSERT_EQ(100, m_tree.get_mass_centre().mass);
-   ASSERT_EQ(mzlib::math::cvector2d({-25,-25}), m_tree.get_mass_centre().location);
+   ASSERT_EQ(mzlib::cvector2d({-25,-25}), m_tree.get_mass_centre().location);
 }
 
 TEST_F(fixture_cquadtree, iterator_it_postorder)
@@ -451,7 +451,7 @@ TEST_F(fixture_cquadtree, iterator_it_postorder)
    };
     
    auto node = tree3.begin_nodes_postorder();
-   mzlib::math::cvector2d top_left, bottom_right;
+   mzlib::cvector2d top_left, bottom_right;
     
    for (auto exp : expected) {
       top_left = node->get_top_left();
@@ -502,7 +502,7 @@ TEST_F(fixture_cquadtree, iterator_it_breadthfirst)
    };
    
    auto node = tree3.begin_nodes_breadthfirst();
-   mzlib::math::cvector2d top_left, bottom_right;
+   mzlib::cvector2d top_left, bottom_right;
     
    for(auto exp : expected) {
       top_left = node->get_top_left();
