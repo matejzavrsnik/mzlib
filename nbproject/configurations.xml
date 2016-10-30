@@ -2,6 +2,11 @@
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles" displayName="include" projectFiles="true">
+      <logicalFolder name="f1" displayName="laws" projectFiles="true">
+        <itemPath>include/laws/acceleration.h</itemPath>
+        <itemPath>include/laws/constant_linear_acceleration.h</itemPath>
+        <itemPath>include/laws/gravitation.h</itemPath>
+      </logicalFolder>
       <itemPath>include/body.h</itemPath>
       <itemPath>include/c64_basic_for.h</itemPath>
       <itemPath>include/consts.h</itemPath>
@@ -10,7 +15,6 @@
       <itemPath>include/enums.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
-      <itemPath>include/laws.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
       <itemPath>include/mass_centre.h</itemPath>
       <itemPath>include/optional.h</itemPath>
@@ -117,7 +121,14 @@
       </item>
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/laws.h" ex="false" tool="3" flavor2="0">
+      <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/constant_linear_acceleration.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/laws/gravitation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -264,7 +275,14 @@
       </item>
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/laws.h" ex="false" tool="3" flavor2="0">
+      <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/constant_linear_acceleration.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/laws/gravitation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>

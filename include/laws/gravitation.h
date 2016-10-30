@@ -5,11 +5,11 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_LAWS_H
-#define	MZLIB_LAWS_H
+#ifndef MZLIB_LAWS_GRAVITATION_H
+#define	MZLIB_LAWS_GRAVITATION_H
 
-#include "mass_centre.h"
-#include "optional.h"
+#include "../mass_centre.h"
+#include "../optional.h"
 
 namespace mzlib {
 namespace law {
@@ -54,59 +54,6 @@ public:
 
 using cgravitation2d = cgravitation<cvector2d>;
 using cgravitation3d = cgravitation<cvector3d>;
-
-// Newton's second law of motion
-template<class VectorT>
-class cacceleration
-{
-   
-public:
-      
-   coptional<VectorT> f;   
-   coptional<VectorT> a;
-   coptional<double>  m;
-   
-   void solve_for_force()
-   {
-      f = m() * a();
-   }
-   
-   void solve_for_acceleration()
-   {
-      a = f.get() / m.get();
-   }
-   
-};
-
-using cacceleration2d = cacceleration<cvector2d>;
-using cacceleration3d = cacceleration<cvector3d>;
-
-template<class VectorT>
-class cconstant_linear_acceleration
-{
-   
-public:
-      
-   coptional<VectorT> v_initial;   
-   coptional<VectorT> v_final;
-   coptional<VectorT> r_initial;   
-   coptional<VectorT> r_final;
-   coptional<VectorT> a;
-   coptional<double>  time;
-   
-   void solve_for_final_velocity()
-   {
-      v_final = v_initial.get() + a.get() * time.get();
-   }
-   
-   void solve_for_final_location()
-   {
-      r_final = r_initial.get() + v_initial.get() * time.get() + 0.5 * a.get() * time.get() * time.get();       
-   }
-};
-
-using cconstant_linear_acceleration2d = cconstant_linear_acceleration<cvector2d>;
-using cconstant_linear_acceleration3d = cconstant_linear_acceleration<cvector3d>;
 
 } } // namespace
 
