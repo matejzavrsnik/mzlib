@@ -130,7 +130,7 @@ public:
                m_quad_tree.begin_masscentres(this_body.data, m_properties.m_barnes_hut_quotient);
             for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
                auto another_mass_centre = *mass_centres_it;
-               cnewtons_law_of_gravitation2d law;
+               law::cgravitation2d law;
                law.m1 = this_body;
                law.m2 = another_mass_centre;
                law.G = m_properties.m_gravitational_constant;
@@ -149,7 +149,7 @@ public:
             this_body.data.gravity = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
-                  cnewtons_law_of_gravitation2d law;
+                  law::cgravitation2d law;
                   law.m1 = this_body;
                   law.m2 = that_body;
                   law.G = m_properties.m_gravitational_constant;
@@ -174,12 +174,12 @@ public:
       const double mass,
       const double time) const
    {
-      cnewtons_law_of_acceleration2d acceleration_equation;
+      law::cacceleration2d acceleration_equation;
       acceleration_equation.f = gravity;
       acceleration_equation.m = mass;
       acceleration_equation.solve_for_acceleration();
 
-      cconstant_linear_acceleration_law2d final_parameters_equation;
+      law::cconstant_linear_acceleration2d final_parameters_equation;
       final_parameters_equation.a = acceleration_equation.a.get();
       final_parameters_equation.v_initial = velocity;
       final_parameters_equation.r_initial = location;

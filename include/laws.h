@@ -11,11 +11,11 @@
 #include "mass_centre.h"
 #include "optional.h"
 
-namespace mzlib
-{
-
+namespace mzlib {
+namespace law {
+   
 template<class VectorT>
-class cnewtons_law_of_gravitation
+class cgravitation
 {
    
 public:
@@ -52,12 +52,12 @@ public:
    
 };
 
-using cnewtons_law_of_gravitation2d = cnewtons_law_of_gravitation<cvector2d>;
-using cnewtons_law_of_gravitation3d = cnewtons_law_of_gravitation<cvector3d>;
+using cgravitation2d = cgravitation<cvector2d>;
+using cgravitation3d = cgravitation<cvector3d>;
 
 // Newton's second law of motion
 template<class VectorT>
-class cnewtons_law_of_acceleration
+class cacceleration
 {
    
 public:
@@ -78,11 +78,11 @@ public:
    
 };
 
-using cnewtons_law_of_acceleration2d = cnewtons_law_of_acceleration<cvector2d>;
-using cnewtons_law_of_acceleration3d = cnewtons_law_of_acceleration<cvector3d>;
+using cacceleration2d = cacceleration<cvector2d>;
+using cacceleration3d = cacceleration<cvector3d>;
 
 template<class VectorT>
-class cconstant_linear_acceleration_law
+class cconstant_linear_acceleration
 {
    
 public:
@@ -105,10 +105,10 @@ public:
    }
 };
 
-using cconstant_linear_acceleration_law2d = cconstant_linear_acceleration_law<cvector2d>;
-using cconstant_linear_acceleration_law3d = cconstant_linear_acceleration_law<cvector3d>;
+using cconstant_linear_acceleration2d = cconstant_linear_acceleration<cvector2d>;
+using cconstant_linear_acceleration3d = cconstant_linear_acceleration<cvector3d>;
 
-} // namespace
+} } // namespace
 
 #endif /* MZLIB_LAWS_H */
 
