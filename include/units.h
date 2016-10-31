@@ -27,8 +27,12 @@ namespace units {
 // with 5000.0_km instead of 5000_km and force the compiler to parse the token as floating-point.
     
 // length
+constexpr long double operator"" _mm          (long double mm)   { return mm/1000; }
+constexpr long double operator"" _cm          (long double cm)   { return cm/100; }
+constexpr long double operator"" _dm          (long double dm)   { return dm/10; }   
 constexpr long double operator"" _m           (long double m)    { return m; } // mostly useful for readability
 constexpr long double operator"" _km          (long double km)   { return km*1000; }
+constexpr long double operator"" _light_year  (long double ly)   { return ly*9.4607e15; }
 
 // speed
 constexpr long double operator"" _km_per_s    (long double kmps) { return kmps*1000; }
@@ -38,6 +42,7 @@ constexpr long double operator"" _m_per_s     (long double mps)  { return mps; }
 constexpr long double operator"" _m_per_s2    (long double mps2) { return mps2; }
 
 // force
+constexpr long double operator"" _mN          (long double mN)   { return mN/1000; }
 constexpr long double operator"" _N           (long double N)    { return N; }
 
 // time
@@ -47,7 +52,9 @@ constexpr long double operator"" _day         (long double day)  { return day*86
 constexpr long double operator"" _julian_year (long double jy)   { return jy*31558152; }
 
 // mass
+constexpr long double operator"" _g           (long double g)    { return g/1000; }
 constexpr long double operator"" _kg          (long double kg)   { return kg; }
+constexpr long double operator"" _tonne       (long double ton)  { return ton*1000; }
 
 } } // namespace
 
