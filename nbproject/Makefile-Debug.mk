@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests/test_dbl.o \
 	${OBJECTDIR}/tests/test_genetic.o \
+	${OBJECTDIR}/tests/test_laws.o \
 	${OBJECTDIR}/tests/test_markov_chain.o \
 	${OBJECTDIR}/tests/test_masscentre.o \
 	${OBJECTDIR}/tests/test_probabilator.o \
@@ -94,6 +95,11 @@ ${OBJECTDIR}/tests/test_genetic.o: tests/test_genetic.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic.o tests/test_genetic.cpp
+
+${OBJECTDIR}/tests/test_laws.o: tests/test_laws.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_laws.o tests/test_laws.cpp
 
 ${OBJECTDIR}/tests/test_markov_chain.o: tests/test_markov_chain.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests

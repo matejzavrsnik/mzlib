@@ -34,6 +34,12 @@ constexpr long double operator"" _km          (long double km)   { return km*100
 constexpr long double operator"" _km_per_s    (long double kmps) { return kmps*1000; }
 constexpr long double operator"" _m_per_s     (long double mps)  { return mps; }
 
+// acceleration
+constexpr long double operator"" _m_per_s2    (long double mps2) { return mps2; }
+
+// force
+constexpr long double operator"" _N           (long double N)    { return N; }
+
 // time
 constexpr long double operator"" _s           (long double s)    { return s; }
 constexpr long double operator"" _h           (long double h)    { return h*3600; }

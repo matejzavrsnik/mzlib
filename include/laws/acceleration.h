@@ -9,6 +9,7 @@
 #define	MZLIB_LAWS_ACCELERATION_H
 
 #include "../optional.h"
+#include "../vector.h"
 
 namespace mzlib {
 namespace law {
@@ -26,12 +27,22 @@ public:
    
    void solve_for_force()
    {
-      f = m() * a();
+      f = m.get() * a.get();
    }
    
    void solve_for_acceleration()
    {
       a = f.get() / m.get();
+   }
+
+   void solve_for_mass()
+   {
+      // acceleration and force need to be colinear to use this law
+      if (f.get().normalise() != a.get().normalise() ) {
+         throw exception::invalid_values();
+      }
+      
+      m = f.get().length() / a.get().length();
    }
    
 };

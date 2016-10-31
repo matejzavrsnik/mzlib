@@ -196,6 +196,11 @@ public:
    }
 #pragma GCC diagnostic pop
    
+   bool operator!= (const cvector<TYPE,DIM>& other) const
+   {
+      return !operator==(other);
+   }
+   
    cvector<TYPE,DIM> operator+ (const cvector<TYPE,DIM>& other) const 
    {  
       cvector<TYPE, DIM> result(*this);
