@@ -134,8 +134,8 @@ public:
             for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
                auto another_mass_centre = *mass_centres_it;
                law::cgravitation2d law;
-               law.m1 = this_body;
-               law.m2 = another_mass_centre;
+               law.m_1 = this_body;
+               law.m_2 = another_mass_centre;
                law.G = m_properties.m_gravitational_constant;
                if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
                   law.solve_for_force();
@@ -143,7 +143,7 @@ public:
                else {
                   law.solve_for_fun_force();
                }
-               m_quad_tree.access_data(this_body).gravity += law.f1.get();
+               m_quad_tree.access_data(this_body).gravity += law.f_1.get();
             }
          }
       }
@@ -153,8 +153,8 @@ public:
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
                   law::cgravitation2d law;
-                  law.m1 = this_body;
-                  law.m2 = that_body;
+                  law.m_1 = this_body;
+                  law.m_2 = that_body;
                   law.G = m_properties.m_gravitational_constant;
                   if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
                      law.solve_for_force();
@@ -162,7 +162,7 @@ public:
                   else {
                      law.solve_for_fun_force();
                   }
-                  this_body.data.gravity += law.f1.get();
+                  this_body.data.gravity += law.f_1.get();
                }
             }
          }         
@@ -184,14 +184,14 @@ public:
 
       law::cconstant_linear_acceleration2d final_parameters_equation;
       final_parameters_equation.a = acceleration_equation.a.get();
-      final_parameters_equation.v_initial = velocity;
-      final_parameters_equation.r_initial = location;
-      final_parameters_equation.time = time;
+      final_parameters_equation.v_0 = velocity;
+      final_parameters_equation.r_0 = location;
+      final_parameters_equation.t = time;
       final_parameters_equation.solve_for_final_location();
       final_parameters_equation.solve_for_final_velocity();
 
-      cvector2d velocity_final = final_parameters_equation.v_final.get();
-      cvector2d location_final = final_parameters_equation.r_final.get();
+      cvector2d velocity_final = final_parameters_equation.v_f.get();
+      cvector2d location_final = final_parameters_equation.r_f.get();
       
       // cap it at predefined max velocity
       if (velocity_final.length() > m_properties.m_max_velocity) {

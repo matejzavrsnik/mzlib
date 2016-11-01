@@ -20,46 +20,46 @@ class cconstant_linear_acceleration
    
 public:
       
-   coptional<VectorT> v_initial;   
-   coptional<VectorT> v_final;
-   coptional<VectorT> r_initial;   
-   coptional<VectorT> r_final;
+   coptional<VectorT> v_0;   
+   coptional<VectorT> v_f;
+   coptional<VectorT> r_0;   
+   coptional<VectorT> r_f;
    coptional<VectorT> a;
-   coptional<double>  time;
+   coptional<double>  t;
    
    void solve_for_final_velocity()
    {
-      v_final = v_initial.get() + a.get() * time.get();
+      v_f = v_0.get() + a.get() * t.get();
    }
    
    void solve_for_initial_velocity()
    {
-      if ( v_final.is_set() ) {
-         v_initial = v_final.get() - a.get() * time.get();
+      if ( v_f.is_set() ) {
+         v_0 = v_f.get() - a.get() * t.get();
       }
-      else if ( r_final.is_set() ) {
-         v_initial = ( r_final.get() - r_initial.get() ) / time.get() - 0.5 * a.get() * time.get();
+      else if ( r_f.is_set() ) {
+         v_0 = ( r_f.get() - r_0.get() ) / t.get() - 0.5 * a.get() * t.get();
       }
    }
 
    void solve_for_acceleration()
    {
-      if ( v_final.is_set() ) {
-         a = ( v_final.get() - v_initial.get() ) / time.get();
+      if ( v_f.is_set() ) {
+         a = ( v_f.get() - v_0.get() ) / t.get();
       }
-      else if ( r_final.is_set() ) {
-         a = ( 2 / ( time.get() * time.get() ) ) * ( r_final.get() - r_initial.get() - v_initial.get() * time.get() );
+      else if ( r_f.is_set() ) {
+         a = ( 2 / ( t.get() * t.get() ) ) * ( r_f.get() - r_0.get() - v_0.get() * t.get() );
       }
    }
 
    void solve_for_time()
    {
-      time = ( v_final.get().length() - v_initial.get().length() ) / a.get().length();
+      t = ( v_f.get().length() - v_0.get().length() ) / a.get().length();
    }
    
    void solve_for_final_location()
    {
-      r_final = r_initial.get() + v_initial.get() * time.get() + 0.5 * a.get() * time.get() * time.get();       
+      r_f = r_0.get() + v_0.get() * t.get() + 0.5 * a.get() * t.get() * t.get();       
    }
 };
 
