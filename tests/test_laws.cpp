@@ -124,7 +124,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_velocity)
    ASSERT_TRUE(direction == unit_vector2d);
 }
 
-TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity)
+TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_given_final_velocity)
 {
    mzlib::law::cconstant_linear_acceleration2d acc;
    acc.v_final = unit_vector2d * 33.49_m_per_s;
@@ -139,7 +139,23 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity)
    ASSERT_TRUE(direction == unit_vector2d);
 }
 
-TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration)
+TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_given_location)
+{
+   mzlib::law::cconstant_linear_acceleration2d acc;
+   acc.r_final = unit_vector2d * 9.13_m;
+   acc.r_initial = mzlib::cvector2d({1,1});
+   acc.a = -unit_vector2d * 0.21_m_per_s2;
+   acc.time = 3.90_s;
+   acc.solve_for_initial_velocity();
+   
+   auto direction = acc.v_initial.get().normalise();
+   auto size = acc.v_initial.get().length();
+   
+   ASSERT_TRUE(mzlib::dbl(size).equals(2.3879067788786936L));
+   ASSERT_TRUE(direction == unit_vector2d);
+}
+
+TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_velocities)
 {
    mzlib::law::cconstant_linear_acceleration2d acc;
    acc.v_initial = unit_vector2d * 26.71_m_per_s;
@@ -154,7 +170,23 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration)
    ASSERT_TRUE(direction == unit_vector2d);
 }
 
-TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_time)
+TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_location)
+{
+   mzlib::law::cconstant_linear_acceleration2d acc;
+   acc.v_initial = -unit_vector2d * 3.57_m_per_s;
+   acc.r_initial = mzlib::cvector2d({1,1});
+   acc.r_final = unit_vector2d * 6.02_m;
+   acc.time = 9.13_s;
+   acc.solve_for_acceleration();
+   
+   auto direction = acc.a.get().normalise();
+   auto size = acc.a.get().length();
+   
+   ASSERT_TRUE(mzlib::dbl(size).equals(0.89254486281584111L));
+   ASSERT_TRUE(direction == unit_vector2d);
+}
+
+TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_time_given_velocities)
 {
    mzlib::law::cconstant_linear_acceleration2d acc;
    acc.a = unit_vector2d * 8.17_m_per_s2;
@@ -167,13 +199,16 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_time)
    ASSERT_TRUE(mzlib::dbl(size).equals(2.4345165238678086L));
 }
 
-TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_time_preconditions_not_met)
+TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_location)
 {
    mzlib::law::cconstant_linear_acceleration2d acc;
-   acc.a = -unit_vector2d * 8.17_m_per_s2; // not colinear
-   acc.v_initial = unit_vector2d * 24.11_m_per_s;
-   acc.v_final = unit_vector2d * 44.00_m_per_s;
-
-   // velocities and accelerations are not colinear; this law can't be used
-   ASSERT_THROW(acc.solve_for_time(), mzlib::exception::invalid_values);
+   acc.v_initial = unit_vector2d * 3.48_m_per_s;
+   acc.a = unit_vector2d * 1.51_m_per_s2;
+   acc.time = 2.27_s;
+   acc.r_initial = mzlib::cvector2d{1.1,2.2};
+   acc.solve_for_final_location();
+   
+   auto direction = acc.r_final.get();
+   
+   ASSERT_TRUE(direction == mzlib::cvector2d({9.4368168809072515L,10.536816880907253L}));
 }

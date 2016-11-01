@@ -34,22 +34,26 @@ public:
    
    void solve_for_initial_velocity()
    {
-      v_initial = v_final.get() - a.get() * time.get();
+      if ( v_final.is_set() ) {
+         v_initial = v_final.get() - a.get() * time.get();
+      }
+      else if ( r_final.is_set() ) {
+         v_initial = ( r_final.get() - r_initial.get() ) / time.get() - 0.5 * a.get() * time.get();
+      }
    }
 
    void solve_for_acceleration()
    {
-      a = ( v_final.get() - v_initial.get() ) / time.get();
+      if ( v_final.is_set() ) {
+         a = ( v_final.get() - v_initial.get() ) / time.get();
+      }
+      else if ( r_final.is_set() ) {
+         a = ( 2 / ( time.get() * time.get() ) ) * ( r_final.get() - r_initial.get() - v_initial.get() * time.get() );
+      }
    }
 
    void solve_for_time()
    {
-      // acceleration and velocities need to be colinear to use this law
-      if (v_initial.get().normalise() != a.get().normalise() ||
-          v_final.get().normalise()   != a.get().normalise()) {
-         throw exception::invalid_values();
-      }
-      
       time = ( v_final.get().length() - v_initial.get().length() ) / a.get().length();
    }
    
