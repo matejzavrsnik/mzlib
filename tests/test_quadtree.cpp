@@ -610,7 +610,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct)
    //     | nw  | ne  |  
    //     |     |     |
    //  25 +-----+-----+ 
-   //     |     |     |   -> move crosses lower node borders, but not higher
+   //     |     |     | 
    //     | sw  | se  |
    //     |     |     |
    //  75 +-----+-----+ 
@@ -634,4 +634,46 @@ TEST_F(fixture_cquadtree, dynamic_tree_after_add_body_in_correct_node)
    ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());
+}
+
+TEST_F(fixture_cquadtree, dynamic_tree_single_level_adds_all_in_correct_node)
+{
+   mzlib::cquadtree<int> tree(50);
+
+   // newly added mass centre is set into the centre of newly created root node
+   //
+   //    -25    25    75
+   // -25 +-----+-----+ 
+   //     |     |     |  
+   //     | nw  | ne  |  
+   //     |     |     |
+   //  25 +-----+-----+ 
+   //     |     |     |  
+   //     | sw  | se  |
+   //     |     |     |
+   //  75 +-----+-----+ 
+
+   tree.add({0, { 25, 25}});   
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());
+   
+   tree.add({0, { 30, -20}});   
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());
+
+   tree.add({0, { -20, 30}});   
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());   
+
+   tree.add({0, { 30, 30}});   
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_sw->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_se->m_bodies.size());
 }
