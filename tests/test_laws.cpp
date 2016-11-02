@@ -9,6 +9,7 @@
 #include "../include/laws/constant_linear_acceleration.h"
 #include "../include/laws/gravitation.h"
 #include "../include/units.h"
+#include "../include/consts.h"
 
 #include "gtest/gtest.h"
 
@@ -211,4 +212,22 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_location)
    auto direction = acc.r_f.get();
    
    ASSERT_TRUE(direction == mzlib::cvector2d({9.4368168809072515L,10.536816880907253L}));
+}
+
+TEST_F(fixture_laws, cgravitation_solve_for_force)
+{
+   mzlib::law::cgravitation2d gra;
+   gra.m_1 = mzlib::cmass_centre2d{
+      unit_vector2d * 0, 
+      mzlib::consts::earth_mass };
+   gra.m_2 = mzlib::cmass_centre2d{
+      unit_vector2d * mzlib::consts::earth_distance_moon_average, 
+      mzlib::consts::moon_mass };
+   gra.solve_for_force();
+   
+   auto direction = gra.f_1.get().normalise();
+   auto size = gra.f_1.get().length();
+   
+   ASSERT_TRUE(mzlib::dbl(size).equals(1.9820850603183325e20_N));
+   ASSERT_TRUE(direction == unit_vector2d);
 }

@@ -10,6 +10,7 @@
 
 #include "../mass_centre.h"
 #include "../optional.h"
+#include "../consts.h"
 
 namespace mzlib {
 namespace law {
@@ -22,7 +23,7 @@ public:
    
    coptional<cmass_centre<VectorT>> m_1; 
    coptional<cmass_centre<VectorT>> m_2; 
-   coptional<double> G;
+   coptional<double> G = coptional<double>(mzlib::consts::gravitational_constant);
    coptional<VectorT> f_1;
    
    void solve_for_force ()
