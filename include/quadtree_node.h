@@ -327,11 +327,11 @@ public:
         
 private:
 
-   std::shared_ptr<cquadnode<T>> m_child_nw;
-   std::shared_ptr<cquadnode<T>> m_child_ne;
-   std::shared_ptr<cquadnode<T>> m_child_sw;
-   std::shared_ptr<cquadnode<T>> m_child_se;
-   std::shared_ptr<cquadnode<T>> m_parent;
+   std::shared_ptr<cquadnode<T>> m_child_nw = nullptr;
+   std::shared_ptr<cquadnode<T>> m_child_ne = nullptr;
+   std::shared_ptr<cquadnode<T>> m_child_sw = nullptr;
+   std::shared_ptr<cquadnode<T>> m_child_se = nullptr;
+   std::shared_ptr<cquadnode<T>> m_parent = nullptr;
         
    // All bodies that are in this node, and in all it's subnodes, are stored in
    // this vector of shared pointers. This is to enable quick traversal of all

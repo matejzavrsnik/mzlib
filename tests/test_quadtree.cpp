@@ -573,3 +573,65 @@ TEST_F(fixture_cquadtree, iterator_many_bodies_each_node)
    ASSERT_EQ(number_of_bodies_inserted, bodies_seen);
 }
 
+TEST_F(fixture_cquadtree, dynamic_tree_at_beginning_nodes_null)
+{
+   mzlib::cquadtree<int> tree(50);
+   
+   ASSERT_EQ(nullptr, tree.m_root->m_parent);
+   ASSERT_EQ(nullptr, tree.m_root->m_child_nw);
+   ASSERT_EQ(nullptr, tree.m_root->m_child_ne);
+   ASSERT_EQ(nullptr, tree.m_root->m_child_sw);
+   ASSERT_EQ(nullptr, tree.m_root->m_child_se);
+}
+
+TEST_F(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct)
+{
+   mzlib::cquadtree<int> tree(50);
+   tree.add({0, { 25, 25}});
+   
+   // child nodes are created at this point
+   ASSERT_EQ(nullptr, tree.m_root->m_parent);
+   ASSERT_NE(nullptr, tree.m_root->m_child_nw);
+   ASSERT_NE(nullptr, tree.m_root->m_child_ne);
+   ASSERT_NE(nullptr, tree.m_root->m_child_sw);
+   ASSERT_NE(nullptr, tree.m_root->m_child_se);
+   
+   // they have no child nodes of their own, becasue they are the smalles possible
+   ASSERT_FALSE(tree.m_root->m_child_nw->has_children());
+   ASSERT_FALSE(tree.m_root->m_child_ne->has_children());
+   ASSERT_FALSE(tree.m_root->m_child_sw->has_children());
+   ASSERT_FALSE(tree.m_root->m_child_se->has_children());
+
+   // newly added mass centre is set into the centre of newly created root node
+   //
+   //    -25    25    75
+   // -25 +-----+-----+ 
+   //     |     |     |  
+   //     | nw  | ne  |  
+   //     |     |     |
+   //  25 +-----+-----+ 
+   //     |     |     |   -> move crosses lower node borders, but not higher
+   //     | sw  | se  |
+   //     |     |     |
+   //  75 +-----+-----+ 
+   
+   ASSERT_TRUE(tree.m_root->m_child_nw->m_top_left     == mzlib::cvector2d({-25,-25}));
+   ASSERT_TRUE(tree.m_root->m_child_nw->m_bottom_right == mzlib::cvector2d({ 25, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_ne->m_top_left     == mzlib::cvector2d({ 25,-25}));
+   ASSERT_TRUE(tree.m_root->m_child_ne->m_bottom_right == mzlib::cvector2d({ 75, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_sw->m_top_left     == mzlib::cvector2d({-25, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_sw->m_bottom_right == mzlib::cvector2d({ 25, 75}));
+   ASSERT_TRUE(tree.m_root->m_child_se->m_top_left     == mzlib::cvector2d({ 25, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_se->m_bottom_right == mzlib::cvector2d({ 75, 75}));   
+}
+
+TEST_F(fixture_cquadtree, dynamic_tree_after_add_body_in_correct_node)
+{
+   mzlib::cquadtree<int> tree(50);
+   tree.add({0, { 25, 25}});
+
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());
+}
