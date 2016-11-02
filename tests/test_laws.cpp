@@ -100,16 +100,6 @@ TEST_F(fixture_laws, acceleration2d_solve_for_mass_missing_argument)
    ASSERT_THROW(acc.solve_for_mass(), mzlib::exception::not_set);
 }
 
-TEST_F(fixture_laws, acceleration2d_solve_for_mass_preconditions_not_met) 
-{
-   mzlib::law::cacceleration2d acc;
-   acc.f = -unit_vector2d * 16.66_N; // not colinear
-   acc.a = unit_vector2d * 18.34_m_per_s2;
-   
-   // force and accelerations are not colinear; this law can't be used
-   ASSERT_THROW(acc.solve_for_mass(), mzlib::exception::invalid_values);
-}
-
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_velocity)
 {
    mzlib::law::cconstant_linear_acceleration2d acc;

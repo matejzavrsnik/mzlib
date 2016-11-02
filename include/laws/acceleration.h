@@ -37,11 +37,6 @@ public:
 
    void solve_for_mass()
    {
-      // acceleration and force need to be colinear to use this law
-      if (f.get().normalise() != a.get().normalise() ) {
-         throw exception::invalid_values();
-      }
-      
       m = f.get().length() / a.get().length();
    }
    
