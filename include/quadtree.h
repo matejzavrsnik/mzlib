@@ -18,7 +18,7 @@
 #include "utils_missing_std.h"
 
 namespace mzlib {
-
+   
 template<class T>
 class cquadtree
 {
@@ -73,10 +73,23 @@ public:
       m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
    }
    
+   
    bool add (cbinded_mass_centre2d<T> mass_centre) 
    {
       if (!is_in(mass_centre.location)) {
-         create_root_from_location (mass_centre.location);
+         if (!m_root->has_children()) {
+            // create
+            create_root_from_location (mass_centre.location);
+         }
+         else {
+            // expand
+            cvector2d top_left, bottom_right;
+            edirection direction = m_root->get_node_rectangle().direction_of_point(mass_centre.location);
+            // todo: unfinished: calculate new top left and bottom right
+            std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
+            new_root->attach_child_node(direction, m_root);
+            new_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
+         }
       }
       std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
          std::make_unique<cbinded_mass_centre2d<T>>(mass_centre);

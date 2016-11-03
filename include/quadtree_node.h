@@ -13,6 +13,7 @@
 #include "vector.h"
 #include "mass_centre.h"
 #include "utils_missing_std.h"
+#include "body.h"
 
 namespace mzlib {
 
@@ -54,14 +55,13 @@ public:
       std::shared_ptr<cquadnode> parent = nullptr) 
    {
       m_parent = parent;
-      m_top_left = top_left;
-      m_bottom_right = bottom_right;
-      double node_width = m_bottom_right[0] - top_left[0];
-      if (node_width > smallest_node_width) {
+      m_rectangle.set_top_left(top_left);
+      m_rectangle.set_bottom_right(bottom_right);
+      if (m_rectangle.get_width() > smallest_node_width) {
          // For breaking a square node into four adjacent              1-2-3 
          // square subnodes by defining them with top-left and    ->   4-5-6
          // bottom-right vectors, we need 9 separate vectors           7-8-9
-         double subnode_width = node_width / 2; // each of four subnodes is half as wide
+         double subnode_width = m_rectangle.get_width() / 2; // each of four subnodes is half as wide
          cvector2d v1 = top_left;
          cvector2d v2 = v1.move_by({subnode_width, 0.0}); // 1 -> 2 -> 3
          cvector2d v3 = v2.move_by({subnode_width, 0.0}); // v nw v ne v
@@ -70,18 +70,38 @@ public:
          cvector2d v6 = v3.move_by({0.0, subnode_width}); // 7    8    9
          //cvector2d v7 = v4.move_by({0.0, subnode_width}); 
          cvector2d v8 = v5.move_by({0.0, subnode_width}); 
-         cvector2d v9 = v6.move_by({0.0, subnode_width}); 
-         m_child_nw = std::make_shared<cquadnode<T>>();
-         m_child_nw->create(v1, v5, smallest_node_width, this->shared_from_this());
-         m_child_ne = std::make_shared<cquadnode<T>>();
-         m_child_ne->create(v2, v6, smallest_node_width, this->shared_from_this());
-         m_child_sw = std::make_shared<cquadnode<T>>();
-         m_child_sw->create(v4, v8, smallest_node_width, this->shared_from_this());
-         m_child_se = std::make_shared<cquadnode<T>>();
-         m_child_se->create(v5, v9, smallest_node_width, this->shared_from_this());
+         cvector2d v9 = v6.move_by({0.0, subnode_width});
+         if (m_child_nw == nullptr) {
+            m_child_nw = std::make_shared<cquadnode<T>>();
+            m_child_nw->create(v1, v5, smallest_node_width, this->shared_from_this());
+         }
+         if (m_child_ne == nullptr) {
+            m_child_ne = std::make_shared<cquadnode<T>>();
+            m_child_ne->create(v2, v6, smallest_node_width, this->shared_from_this());
+         }
+         if (m_child_sw == nullptr) {
+            m_child_sw = std::make_shared<cquadnode<T>>();
+            m_child_sw->create(v4, v8, smallest_node_width, this->shared_from_this());
+         }
+         if (m_child_se == nullptr) {
+            m_child_se = std::make_shared<cquadnode<T>>();
+            m_child_se->create(v5, v9, smallest_node_width, this->shared_from_this());
+         }
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
          m_mass_centre.location = v5; 
       }
+   }
+   
+   // todo: make quadtree friend and only allow quadtree to mess with this function
+   void attach_child_node (edirection which_node, std::shared_ptr<cquadnode<T>> node)
+   {
+      switch(which_node) {
+         case edirection::nw: m_child_nw = node; break;
+         case edirection::ne: m_child_ne = node; break;
+         case edirection::sw: m_child_sw = node; break;
+         case edirection::se: m_child_se = node; break;
+      };
+      node->m_parent = this->shared_from_this(); 
    }
 
    void add (cbinded_mass_centre2d<T>* mass_centre) 
@@ -191,34 +211,9 @@ public:
    
    bool is_in(cvector2d location)
    {
-      if (location[0] >  m_top_left[0] && 
-          location[1] >  m_top_left[1] &&   // left and top are exclusive
-          location[0] <= m_bottom_right[0] && 
-          location[1] <= m_bottom_right[1]) // right and bottom are inclusive 
-      { 
-         return true;
-      }
-      return false;
+      return m_rectangle.is_in (location);
    }
         
-   cvector2d get_top_left () const
-   {
-      return m_top_left;
-   }
-        
-   cvector2d get_bottom_right () const
-   {
-      return m_bottom_right;
-   }
-   
-   double get_diagonal_length() const
-   {
-      if(m_diagonal_length != -1) return m_diagonal_length;
-      
-      const_cast<double&>(m_diagonal_length) = m_top_left.distance_to(m_bottom_right);
-      return m_diagonal_length;
-   }
-
    bool is_leaf () const 
    {
       return m_child_nw == nullptr;
@@ -324,6 +319,11 @@ public:
       }
       return nullptr; // not found
    }
+   
+   const crectangle<cvector2d>& get_node_rectangle () const
+   {
+      return m_rectangle;
+   }
         
 private:
 
@@ -341,9 +341,10 @@ private:
    std::vector<cbinded_mass_centre2d<T>*> m_bodies;
    cmass_centre2d m_mass_centre;
         
-   cvector2d m_top_left;
-   cvector2d m_bottom_right;
-   double m_diagonal_length = -1;
+   crectangle<cvector2d> m_rectangle;
+   //cvector2d m_top_left;
+   //cvector2d m_bottom_right;
+   //double m_diagonal_length = -1;
 };
 
 } // namespace

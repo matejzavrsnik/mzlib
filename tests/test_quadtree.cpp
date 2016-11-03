@@ -37,8 +37,8 @@ TEST_F(fixture_cquadtree, tree_is_built_correctly)
    mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25};
 
    ASSERT_TRUE(local_tree.m_root->has_children());
-   ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_top_left);
-   ASSERT_EQ(mzlib::cvector2d({ 50, 50}), local_tree.m_root->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_rectangle.m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({ 50, 50}), local_tree.m_root->m_rectangle.m_bottom_right);
    
    ASSERT_TRUE(local_tree.m_root->m_child_nw->has_children());
    ASSERT_TRUE(local_tree.m_root->m_child_ne->has_children());
@@ -51,14 +51,14 @@ TEST_F(fixture_cquadtree, tree_is_built_correctly)
    //   |sw |se |
    // -50 _ 0 _ -50
    
-   ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_child_nw->m_top_left);
-   ASSERT_EQ(mzlib::cvector2d({  0,  0}), local_tree.m_root->m_child_nw->m_bottom_right);
-   ASSERT_EQ(mzlib::cvector2d({  0,-50}), local_tree.m_root->m_child_ne->m_top_left);
-   ASSERT_EQ(mzlib::cvector2d({ 50,  0}), local_tree.m_root->m_child_ne->m_bottom_right);
-   ASSERT_EQ(mzlib::cvector2d({-50,  0}), local_tree.m_root->m_child_sw->m_top_left);
-   ASSERT_EQ(mzlib::cvector2d({  0, 50}), local_tree.m_root->m_child_sw->m_bottom_right);
-   ASSERT_EQ(mzlib::cvector2d({  0,  0}), local_tree.m_root->m_child_se->m_top_left);
-   ASSERT_EQ(mzlib::cvector2d({ 50, 50}), local_tree.m_root->m_child_se->m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_child_nw->m_rectangle.m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({  0,  0}), local_tree.m_root->m_child_nw->m_rectangle.m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({  0,-50}), local_tree.m_root->m_child_ne->m_rectangle.m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({ 50,  0}), local_tree.m_root->m_child_ne->m_rectangle.m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({-50,  0}), local_tree.m_root->m_child_sw->m_rectangle.m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({  0, 50}), local_tree.m_root->m_child_sw->m_rectangle.m_bottom_right);
+   ASSERT_EQ(mzlib::cvector2d({  0,  0}), local_tree.m_root->m_child_se->m_rectangle.m_top_left);
+   ASSERT_EQ(mzlib::cvector2d({ 50, 50}), local_tree.m_root->m_child_se->m_rectangle.m_bottom_right);
    
    ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_nw->has_children());
    ASSERT_FALSE(local_tree.m_root->m_child_nw->m_child_ne->has_children());
@@ -454,8 +454,8 @@ TEST_F(fixture_cquadtree, iterator_it_postorder)
    mzlib::cvector2d top_left, bottom_right;
     
    for (auto exp : expected) {
-      top_left = node->get_top_left();
-      bottom_right = node->get_bottom_right();
+      top_left = node->m_rectangle.get_top_left();
+      bottom_right = node->m_rectangle.get_bottom_right();
       ASSERT_EQ(exp.top_left_0, top_left[0]);
       ASSERT_EQ(exp.top_left_1, top_left[1]);
       ASSERT_EQ(exp.bottom_right_0, bottom_right[0]);
@@ -505,8 +505,8 @@ TEST_F(fixture_cquadtree, iterator_it_breadthfirst)
    mzlib::cvector2d top_left, bottom_right;
     
    for(auto exp : expected) {
-      top_left = node->get_top_left();
-      bottom_right = node->get_bottom_right();
+      top_left = node->m_rectangle.get_top_left();
+      bottom_right = node->m_rectangle.get_bottom_right();
       ASSERT_EQ(exp.top_left_0, top_left[0]);
       ASSERT_EQ(exp.top_left_1, top_left[1]);
       ASSERT_EQ(exp.bottom_right_0, bottom_right[0]);
@@ -615,14 +615,14 @@ TEST_F(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct)
    //     |     |     |
    //  75 +-----+-----+ 
    
-   ASSERT_TRUE(tree.m_root->m_child_nw->m_top_left     == mzlib::cvector2d({-25,-25}));
-   ASSERT_TRUE(tree.m_root->m_child_nw->m_bottom_right == mzlib::cvector2d({ 25, 25}));
-   ASSERT_TRUE(tree.m_root->m_child_ne->m_top_left     == mzlib::cvector2d({ 25,-25}));
-   ASSERT_TRUE(tree.m_root->m_child_ne->m_bottom_right == mzlib::cvector2d({ 75, 25}));
-   ASSERT_TRUE(tree.m_root->m_child_sw->m_top_left     == mzlib::cvector2d({-25, 25}));
-   ASSERT_TRUE(tree.m_root->m_child_sw->m_bottom_right == mzlib::cvector2d({ 25, 75}));
-   ASSERT_TRUE(tree.m_root->m_child_se->m_top_left     == mzlib::cvector2d({ 25, 25}));
-   ASSERT_TRUE(tree.m_root->m_child_se->m_bottom_right == mzlib::cvector2d({ 75, 75}));   
+   ASSERT_TRUE(tree.m_root->m_child_nw->m_rectangle.m_top_left     == mzlib::cvector2d({-25,-25}));
+   ASSERT_TRUE(tree.m_root->m_child_nw->m_rectangle.m_bottom_right == mzlib::cvector2d({ 25, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_ne->m_rectangle.m_top_left     == mzlib::cvector2d({ 25,-25}));
+   ASSERT_TRUE(tree.m_root->m_child_ne->m_rectangle.m_bottom_right == mzlib::cvector2d({ 75, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_sw->m_rectangle.m_top_left     == mzlib::cvector2d({-25, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_sw->m_rectangle.m_bottom_right == mzlib::cvector2d({ 25, 75}));
+   ASSERT_TRUE(tree.m_root->m_child_se->m_rectangle.m_top_left     == mzlib::cvector2d({ 25, 25}));
+   ASSERT_TRUE(tree.m_root->m_child_se->m_rectangle.m_bottom_right == mzlib::cvector2d({ 75, 75}));   
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_after_add_body_in_correct_node)
@@ -676,4 +676,27 @@ TEST_F(fixture_cquadtree, dynamic_tree_single_level_adds_all_in_correct_node)
    ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_sw->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_se->m_bodies.size());
+}
+
+TEST_F(fixture_cquadtree, dynamic_tree_second_level_add_to_up_left)
+{
+   mzlib::cquadtree<int> tree(50);
+
+   tree.add({0, { 25, 25}});
+   
+   //   X
+   //       -25    25    75
+   //    -25 +-----+-----+ 
+   //        |     |     |  
+   //        | nw  | ne  |  
+   //        |     |     |
+   //     25 +-----+-----+ 
+   //        |     |     |  
+   //        | sw  | se  |
+   //        |     |     |
+   //     75 +-----+-----+ 
+ 
+   tree.add({1, {-30, -30}});
+   
+   ASSERT_TRUE(true);
 }
