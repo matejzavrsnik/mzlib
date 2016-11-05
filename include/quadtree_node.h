@@ -14,6 +14,7 @@
 #include "mass_centre.h"
 #include "utils_missing_std.h"
 #include "body.h"
+#include "rectangle.h"
 
 namespace mzlib {
 

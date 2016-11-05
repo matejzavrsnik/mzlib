@@ -151,6 +151,8 @@
       </item>
       <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/rectangle.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
@@ -306,6 +308,8 @@
       <item path="include/quadtree_it_postorder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>

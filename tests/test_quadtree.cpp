@@ -153,15 +153,16 @@ TEST_F(fixture_cquadtree, add)
       double y;
       bool should_be_in;
    } coordinates_of_interest[] = {
+      // todo: all false here can effectively be "does it expand properly" tests; convert
       // on the border
-      {-50,-50, false}, // upper-left corner
-      {-50,  0, false}, // centre-left edge
-      {-50, 50, false}, // bottom-left corner
+      //{-50,-50, false}, // upper-left corner
+      //{-50,  0, false}, // centre-left edge
+      //{-50, 50, false}, // bottom-left corner
       {  0, 50, true }, // bottom-centre edge
       {50,  50, true }, // bottom-right corner
       {50,   0, true }, // centre-right edge
-      {50, -50, false}, // top-right corner
-      { 0, -50, false}, // top-right corner
+      //{50, -50, false}, // top-right corner
+      //{ 0, -50, false}, // top-right corner
       { 0,   0, true }, // center
       // just about in
       {-49.99999999, -49.99999999, true}, // upper-left corner
@@ -174,20 +175,20 @@ TEST_F(fixture_cquadtree, add)
       {  0,          -49.99999999, true}, // top-right corner
       {  0,            0         , true}, // center
       // some additional edge cases
-      {-49,-50, false}, // should just miss upper edge of upper left node
-      { 49,-50, false}, // should just miss upper edge of upper right node
-      {-50,-49, false}, // should just miss left edge of upper left node
-      {-50, 49, false}, // should just miss left edge of bottom left node
+      //{-49,-50, false}, // should just miss upper edge of upper left node
+      //{ 49,-50, false}, // should just miss upper edge of upper right node
+      //{-50,-49, false}, // should just miss left edge of upper left node
+      //{-50, 49, false}, // should just miss left edge of bottom left node
       {-40,-40, true }, // should fit fine
       // way off
-      {-500, -500, false}, // upper-left direction
-      {-500,  0  , false}, // centre-left direction
-      {-500,  500, false}, // bottom-left direction
-      {   0,  500, false}, // bottom-centre direction
-      { 500,  500, false}, // bottom-right direction
-      { 500,  0  , false}, // centre-right direction
-      { 500, -500, false}, // top-right direction
-      {   0, -500, false}  // top-right direction
+      //{-500, -500, false}, // upper-left direction
+      //{-500,  0  , false}, // centre-left direction
+      //{-500,  500, false}, // bottom-left direction
+      //{   0,  500, false}, // bottom-centre direction
+      //{ 500,  500, false}, // bottom-right direction
+      //{ 500,  0  , false}, // centre-right direction
+      //{ 500, -500, false}, // top-right direction
+      //{   0, -500, false}  // top-right direction
    };
    for (auto coor : coordinates_of_interest)
    {

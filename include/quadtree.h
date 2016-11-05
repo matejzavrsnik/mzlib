@@ -16,6 +16,7 @@
 #include "vector.h"
 #include "body.h"
 #include "utils_missing_std.h"
+#include "rectangle.h"
 
 namespace mzlib {
    
@@ -73,7 +74,6 @@ public:
       m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
    }
    
-   
    bool add (cbinded_mass_centre2d<T> mass_centre) 
    {
       if (!is_in(mass_centre.location)) {
@@ -83,12 +83,15 @@ public:
          }
          else {
             // expand
-            cvector2d top_left, bottom_right;
             edirection direction = m_root->get_node_rectangle().direction_of_point(mass_centre.location);
-            // todo: unfinished: calculate new top left and bottom right
+            const crectangle2d enlarged_rectangle = m_root->get_node_rectangle().enlarge_rectangle (direction, 2);
             std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
             new_root->attach_child_node(direction, m_root);
-            new_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
+            new_root->create(
+               enlarged_rectangle.get_top_left(), 
+               enlarged_rectangle.get_bottom_right(), 
+               m_smallest_node_width, 
+               nullptr);
          }
       }
       std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
