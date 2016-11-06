@@ -9,24 +9,10 @@
 #define	MZLIB_RECTANGLE_H
 
 #include "vector.h"
-#include <iostream> // operator<<
+#include "direction.h"
 
 namespace mzlib {
    
-
-// todo: find better place
-enum class edirection { ne, nw, se, sw };
-
-inline edirection the_opposite_direction (edirection direction)
-{
-   switch(direction) {
-      case edirection::ne: return edirection::sw;
-      case edirection::nw: return edirection::se;
-      case edirection::se: return edirection::nw;
-      case edirection::sw: return edirection::ne;
-   }
-}
-
    // remove to own file and extract laws out of it
 template <class VectorT>
 class crectangle
@@ -171,18 +157,6 @@ using crectangle2d = crectangle<cvector2d>;
 using crectangle3d = crectangle<cvector3d>;
 
 } // namespace
-
-inline std::ostream& operator<< (std::ostream& os, const mzlib::edirection& direction)
-{
-   switch(direction) {
-      case mzlib::edirection::ne: os << "ne"; break;
-      case mzlib::edirection::nw: os << "nw"; break;
-      case mzlib::edirection::se: os << "se"; break;
-      case mzlib::edirection::sw: os << "sw"; break;
-      default: os << "unknown"; break;
-   };
-   return os;
-}
 
 #endif	/* MZLIB_RECTANGLE_H */
 

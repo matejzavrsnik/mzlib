@@ -12,6 +12,7 @@
       <itemPath>include/consts.h</itemPath>
       <itemPath>include/cpucycle.h</itemPath>
       <itemPath>include/dbl.h</itemPath>
+      <itemPath>include/direction.h</itemPath>
       <itemPath>include/enums.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
@@ -117,6 +118,8 @@
       <item path="include/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/direction.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/enums.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -277,6 +280,8 @@
       <item path="include/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/direction.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/enums.h" ex="false" tool="3" flavor2="0">
       </item>
