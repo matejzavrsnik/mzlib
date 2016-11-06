@@ -17,6 +17,8 @@
 #include "body.h"
 #include "utils_missing_std.h"
 #include "rectangle.h"
+#include "optional.h"
+#include "enums.h"
 
 namespace mzlib {
    
@@ -41,17 +43,27 @@ private:
    
    void expand_tree_towards_location(const cvector2d& location)
    {
-      edirection expansion_direction = m_root->get_node_rectangle().direction_of_point(location);
-      const crectangle2d enlarged_rectangle = m_root->get_node_rectangle().enlarge_rectangle (expansion_direction, 2);
+      // get coordinates for new root
+      const auto& old_root_rect = m_root->get_node_rectangle();
+      edirection expansion_direction = old_root_rect.direction_of_point (location);
+      const auto enlarged_rectangle = old_root_rect.enlarge_rectangle (expansion_direction, 2);
+      
+      // create and groom new root
       std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
-      new_root->attach_child_node(
-         the_opposite_direction(expansion_direction), 
-         m_root);
       new_root->create(
          enlarged_rectangle.get_top_left(), 
          enlarged_rectangle.get_bottom_right(), 
          m_smallest_node_width, 
          nullptr);
+      new_root->m_bodies.insert(
+         new_root->m_bodies.begin(),
+         m_root->m_bodies.begin(),
+         m_root->m_bodies.end());
+
+      // finally, substitute old root with new
+      new_root->attach_child_node(
+         the_opposite_direction(expansion_direction), 
+         m_root);
       m_root = new_root;
    }
       
@@ -65,6 +77,18 @@ private:
             expand_tree_towards_location (location);
          }
       }
+   }
+   
+   coptional<int> find_index (const T& data)
+   {
+      coptional<int> index;
+      for (int i=0; i<m_all_bodies.size(); ++i) {
+         if (m_all_bodies[i]->data == data) {
+            index = i;
+            break;
+         }
+      }
+      return index;
    }
     
 public:
@@ -119,31 +143,15 @@ public:
       add (std::move(mc_ptr));
    }
    
-   bool move (const T& data, cvector2d new_location)
+   ebody_exists move (const T& data, cvector2d new_location)
    {
-      bool moved_into_tree = m_root->move(data,new_location);
+      auto index = find_index (data);
+      if (!index.is_set()) return ebody_exists::no;
       
-      // if moving within the tree didn't succeed, but has been added to the tree,
-      // change properties on the body anyway and if new location is in the tree,
-      // re-insert it again
-      if(!moved_into_tree) { 
-         for(int i=0; i!=m_all_bodies.size(); ++i) {
-            if( m_all_bodies[i]->data == data) {
-               if(m_root->is_in(new_location)) {
-                  auto mass_centre_it = (m_all_bodies.begin() + i);
-                  cbinded_mass_centre2d<T>* mass_centre_ptr = (*mass_centre_it).get();
-                  m_root->add(mass_centre_ptr); // add back
-                  moved_into_tree = true;
-               }
-               else {
-                  m_all_bodies[i]->location = new_location;
-                  moved_into_tree = false;
-               }
-               break;
-            }
-         }
-      }
-      return moved_into_tree;
+      adjust_dynamic_tree (new_location);
+      m_root->move (data,new_location);
+      m_all_bodies[index.get()]->location = new_location;
+      return ebody_exists::yes;
    }
    
    bool change_mass (const T& data, double new_mass)
@@ -168,10 +176,16 @@ public:
    {
       return m_root->get_mass_centre();
    }
-
+   
    const cbinded_mass_centre2d<T>* find (const T& data)
    {
-      return m_root->find(data);
+      auto index = find_index (data);
+      if (index.is_set()) {
+         return m_all_bodies[index.get()].get();
+      }
+      else {
+         return nullptr;
+      }
    }
    
    T& access_data(const cbody2d& body)

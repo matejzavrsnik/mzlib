@@ -15,6 +15,7 @@
 #include "utils_missing_std.h"
 #include "body.h"
 #include "rectangle.h"
+#include "enums.h"
 
 namespace mzlib {
 
@@ -60,6 +61,7 @@ public:
       m_parent = parent;
       m_rectangle.set_top_left(top_left);
       m_rectangle.set_bottom_right(bottom_right);
+      m_diagonal_length = m_rectangle.get_diagonal_length();
       if (m_rectangle.get_width() > smallest_node_width) {
          // For breaking a square node into four adjacent              1-2-3 
          // square subnodes by defining them with top-left and    ->   4-5-6
@@ -143,13 +145,13 @@ public:
       return mass_centre_it;
    }
    
-   bool move (const T& data, cvector2d new_location)
+   ebody_exists move (const T& data, cvector2d new_location)
    {
       auto mass_centre_it = find_body(data);
-      if (mass_centre_it == m_bodies.end()) return false;
+      if (mass_centre_it == m_bodies.end()) return ebody_exists::no;
       auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return false;
-      if(mass_centre_ptr->location == new_location) return true;
+      if(mass_centre_ptr == nullptr) return ebody_exists::no;
+      if(mass_centre_ptr->location == new_location) return ebody_exists::yes;
       // so, with corner cases handled, here's the thing:
       
       cvector2d old_location = mass_centre_ptr->location;
@@ -178,7 +180,7 @@ public:
          m_mass_centre.add_to_mass_centre(*mass_centre_ptr); 
       }
       
-      return is_in(new_location);
+      return ebody_exists::yes;
    }
    
    bool change_mass (const T& data, double new_mass)
@@ -344,9 +346,7 @@ private:
    cmass_centre2d m_mass_centre;
         
    crectangle<cvector2d> m_rectangle;
-   //cvector2d m_top_left;
-   //cvector2d m_bottom_right;
-   //double m_diagonal_length = -1;
+   double m_diagonal_length = -1;
 };
 
 } // namespace

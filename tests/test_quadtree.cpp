@@ -357,8 +357,8 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
    // hopefully doesn't crash
-   bool success = m_tree.move(3, {21,21});
-   ASSERT_FALSE(success);
+   mzlib::ebody_exists exists = m_tree.move(3, {21,21});
+   ASSERT_EQ(mzlib::ebody_exists::no, exists);
    // mass centre stays unchanged
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({24,24}), m_tree.get_mass_centre().location);
@@ -368,24 +368,14 @@ TEST_F(fixture_cquadtree, move_beyond_tree_size)
 {
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
+   
    // move out of tree
-   bool is_in_tree = m_tree.move(2, m_bottom_right + mzlib::cvector2d({0,10}));
-   ASSERT_FALSE(is_in_tree); // should signal that it is out of tree
-   bool still_finds_the_tree = false;
-   for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
-   ASSERT_TRUE(still_finds_the_tree);
+   m_tree.move(2, m_tree.m_root->m_rectangle.get_bottom_right() + mzlib::cvector2d({0,10}));
+   ASSERT_NE(nullptr, m_tree.find(2));
    
-   // move even further out
-   is_in_tree = m_tree.move(2, m_bottom_right + mzlib::cvector2d({0,12}));
-   ASSERT_FALSE(is_in_tree);
-   for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
-   ASSERT_TRUE(still_finds_the_tree);
-   
-   // move back to where it was, in the tree
-   is_in_tree = m_tree.move(2, mzlib::cvector2d({0,12}));
-   ASSERT_TRUE(is_in_tree);
-   for(auto body : m_tree) { if (body.data == 2) { still_finds_the_tree = true; } }
-   ASSERT_TRUE(still_finds_the_tree);
+   // move back to where it was
+   m_tree.move(2, mzlib::cvector2d({0,12}));
+   ASSERT_NE(nullptr, m_tree.find(2));
 }
 
 TEST_F(fixture_cquadtree, change_mass_basic)
@@ -686,7 +676,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_single_level_adds_all_in_correct_node)
    ASSERT_EQ(1, tree.m_root->m_child_se->m_bodies.size());
 }
 
-TEST_F(fixture_cquadtree, dynamic_tree_second_level_add_to_up_left)
+TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
 {
    const int body_one = 1;
    const int body_two = 2;
@@ -707,6 +697,64 @@ TEST_F(fixture_cquadtree, dynamic_tree_second_level_add_to_up_left)
    //     75 +-----+-----+ 
  
    tree.add({body_two, {-30, -30}});
+   
+   // check the coordinates of root node match
+   ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75,  75}), tree.m_root->m_rectangle.get_bottom_right());
+   
+   // check the bodies copied from former root to new one
+   ASSERT_NE(tree.m_root->m_bodies.end(), tree.m_root->find_body(body_one));
+   ASSERT_NE(tree.m_root->m_bodies.end(), tree.m_root->find_body(body_two));
+   
+   // and coordinates of 1st level children
+   ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_child_nw->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({ -25, -25}), tree.m_root->m_child_nw->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({ -25,-125}), tree.m_root->m_child_ne->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75, -25}), tree.m_root->m_child_ne->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({-125, -25}), tree.m_root->m_child_sw->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({ -25,  75}), tree.m_root->m_child_sw->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({ -25, -25}), tree.m_root->m_child_se->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75,  75}), tree.m_root->m_child_se->m_rectangle.get_bottom_right());
+   
+   // and two bodies are in correct nodes in expanded tree
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_child_se->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_ne->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_se->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_se->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
+   
+   // correct bodies are in those two nodes
+   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->data);
+   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->data);
+}
+
+TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
+{
+   const int body_one = 1;
+   const int body_two = 2;
+   mzlib::cquadtree<int> tree(50);
+
+   tree.add({body_one, { 25, 25}});
+   
+   //   X
+   //       -25    25    75
+   //    -25 +-----+-----+ 
+   //        |     |     |  
+   //        | nw  | ne  |  
+   //        |     |     |
+   //     25 +-----+-----+ 
+   //        |     |     |  
+   //        | sw  | se  |
+   //        |     |     |
+   //     75 +-----+-----+ 
+ 
+   tree.add({body_two, {20, 20}}); // no changes to tree structure yet
+   tree.move(body_two, {-30, -30}); // moved out of tree, which should resize
    
    // check the coordinates of root node match
    ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
@@ -760,4 +808,34 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size)
    //     75 +-----+-----+ 
  
    tree.add({body_two, {-30, -30}});
+   
+   // check the coordinates of root node match
+   ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75,  75}), tree.m_root->m_rectangle.get_bottom_right());
+   
+   // and coordinates of 1st level children
+   ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_child_nw->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({ -25, -25}), tree.m_root->m_child_nw->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({ -25,-125}), tree.m_root->m_child_ne->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75, -25}), tree.m_root->m_child_ne->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({-125, -25}), tree.m_root->m_child_sw->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({ -25,  75}), tree.m_root->m_child_sw->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({ -25, -25}), tree.m_root->m_child_se->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75,  75}), tree.m_root->m_child_se->m_rectangle.get_bottom_right());
+   
+   // and two bodies are in correct nodes in expanded tree
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_child_se->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_ne->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_se->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_se->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
+   
+   // correct bodies are in those two nodes
+   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->data);
+   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->data);
 }
