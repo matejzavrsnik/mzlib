@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_masscentre.o \
 	${OBJECTDIR}/tests/test_probabilator.o \
 	${OBJECTDIR}/tests/test_quadtree.o \
+	${OBJECTDIR}/tests/test_rectangle.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
 	${OBJECTDIR}/tests/test_twoway_streambuf.o \
@@ -120,6 +121,11 @@ ${OBJECTDIR}/tests/test_quadtree.o: tests/test_quadtree.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_quadtree.o tests/test_quadtree.cpp
+
+${OBJECTDIR}/tests/test_rectangle.o: tests/test_rectangle.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -w -I/usr/include/gtest -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_rectangle.o tests/test_rectangle.cpp
 
 ${OBJECTDIR}/tests/test_sentence_o_matic.o: tests/test_sentence_o_matic.cpp 
 	${MKDIR} -p ${OBJECTDIR}/tests

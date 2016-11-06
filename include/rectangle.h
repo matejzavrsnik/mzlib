@@ -9,12 +9,13 @@
 #define	MZLIB_RECTANGLE_H
 
 #include "vector.h"
+#include <iostream> // operator<<
 
 namespace mzlib {
    
 
-   // todo: find better place
-   enum class edirection { ne, nw, se, sw };
+// todo: find better place
+enum class edirection { ne, nw, se, sw };
 
    // remove to own file and extract laws out of it
 template <class VectorT>
@@ -23,6 +24,7 @@ class crectangle
    
 private:
 
+   // todo: this is all wrong, fix
    const double m_not_set_mark = -1;
    double m_diagonal_length = m_not_set_mark;
    double m_width = m_not_set_mark;
@@ -98,24 +100,24 @@ public:
       
       return m_height;
    }
-   
+   // todo: calculate centre point as separate function
    edirection direction_of_point (const cvector2d& point) const
    {
       VectorT centre_point = m_top_left + ((m_bottom_right - m_top_left) / 2);
-      if (point[0] <= centre_point[0]) {
-         if (point[1] <= centre_point[1]) {
-            return edirection::se;
+      if (point[0] <= centre_point[0]) {    // if on the edge, west wins
+         if (point[1] < centre_point[1]) {  // if on the edge, south wins
+            return edirection::nw;
          }
          else {
             return edirection::sw;
          }
       }
       else {
-         if (point[1] <= centre_point[1]) {
+         if (point[1] < centre_point[1]) {
             return edirection::ne;
          }
          else {
-            return edirection::nw;
+            return edirection::se;
          }
       }
    }
@@ -126,8 +128,8 @@ public:
       VectorT bottom_right = m_bottom_right;
       double height = get_height ();
       double width = get_width ();
-      double height_delta = height - factor * height;
-      double width_delta = width - factor * width;
+      double height_delta = factor * height - height;
+      double width_delta = factor * width - width;
       // todo: unfinished: calculate new top left and bottom right
       switch(direction) {
          case edirection::ne:
@@ -139,11 +141,11 @@ public:
             top_left[1] -= height_delta;
             break;
          case edirection::se: 
-            top_left[0] -= width_delta;
+            bottom_right[0] += width_delta;
             bottom_right[1] += height_delta;
             break;
          case edirection::sw: 
-            bottom_right[0] += width_delta;
+            top_left[0] -= width_delta;
             bottom_right[1] += height_delta;
             break;
       }
@@ -159,6 +161,18 @@ using crectangle2d = crectangle<cvector2d>;
 using crectangle3d = crectangle<cvector3d>;
 
 } // namespace
+
+inline std::ostream& operator<< (std::ostream& os, const mzlib::edirection& direction)
+{
+   switch(direction) {
+      case mzlib::edirection::ne: os << "ne"; break;
+      case mzlib::edirection::nw: os << "nw"; break;
+      case mzlib::edirection::se: os << "se"; break;
+      case mzlib::edirection::sw: os << "sw"; break;
+      default: os << "unknown"; break;
+   };
+   return os;
+}
 
 #endif	/* MZLIB_RECTANGLE_H */
 

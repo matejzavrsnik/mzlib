@@ -146,6 +146,12 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_body_not_in_tree)
    SUCCEED();
 }
 
+/*
+
+
+todo: This whole thing is now tested as rectangle function; reconsider 
+ 
+
 TEST_F(fixture_cquadtree, add)
 {
    struct t_coordinates {
@@ -198,6 +204,7 @@ TEST_F(fixture_cquadtree, add)
          << "for coordinates: " << coor.x << "," << coor.y;
    }
 }
+*/
 
 TEST_F(fixture_cquadtree, find_body_basic)
 {
