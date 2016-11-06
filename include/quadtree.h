@@ -31,6 +31,13 @@ private:
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
    std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>> m_all_bodies;
+   
+   void create_root_from_location(const cvector2d location)
+   {
+      cvector2d top_left    {location[0]-m_smallest_node_width, location[1]-m_smallest_node_width};
+      cvector2d bottom_right{location[0]+m_smallest_node_width, location[1]+m_smallest_node_width};
+      m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
+   }
     
 public:
        
@@ -65,14 +72,6 @@ public:
    cquadtree& operator= (cquadtree&&) = default;
    
    virtual ~cquadtree () = default;
-    
-   // todo: move to private
-   void create_root_from_location(const cvector2d location)
-   {
-      cvector2d top_left    {location[0]-m_smallest_node_width, location[1]-m_smallest_node_width};
-      cvector2d bottom_right{location[0]+m_smallest_node_width, location[1]+m_smallest_node_width};
-      m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
-   }
    
    bool add (cbinded_mass_centre2d<T> mass_centre) 
    {
