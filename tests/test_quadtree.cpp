@@ -738,3 +738,26 @@ TEST_F(fixture_cquadtree, dynamic_tree_second_level_add_to_up_left)
    ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->data);
    ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->data);
 }
+
+TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size)
+{
+   const int body_one = 1;
+   const int body_two = 2;
+   mzlib::cquadtree<int> tree(50);
+
+   tree.add({body_one, { 25, 25}});
+   
+   //   X
+   //       -25    25    75
+   //    -25 +-----+-----+ 
+   //        |     |     |  
+   //        | nw  | ne  |  
+   //        |     |     |
+   //     25 +-----+-----+ 
+   //        |     |     |  
+   //        | sw  | se  |
+   //        |     |     |
+   //     75 +-----+-----+ 
+ 
+   tree.add({body_two, {-30, -30}});
+}

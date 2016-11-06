@@ -96,7 +96,6 @@ public:
       
       return m_height;
    }
-   // todo: calculate centre point as separate function
    
    VectorT calculate_centre_point () const
    {

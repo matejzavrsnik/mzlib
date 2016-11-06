@@ -32,26 +32,53 @@ private:
    // Every self respecting container should store stuff it promises.
    std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>> m_all_bodies;
    
-   void create_root_from_location(const cvector2d location)
+   void create_root_from_location(const cvector2d& location)
    {
       cvector2d top_left    {location[0]-m_smallest_node_width, location[1]-m_smallest_node_width};
       cvector2d bottom_right{location[0]+m_smallest_node_width, location[1]+m_smallest_node_width};
       m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
    }
+   
+   void expand_tree_towards_location(const cvector2d& location)
+   {
+      edirection expansion_direction = m_root->get_node_rectangle().direction_of_point(location);
+      const crectangle2d enlarged_rectangle = m_root->get_node_rectangle().enlarge_rectangle (expansion_direction, 2);
+      std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
+      new_root->attach_child_node(
+         the_opposite_direction(expansion_direction), 
+         m_root);
+      new_root->create(
+         enlarged_rectangle.get_top_left(), 
+         enlarged_rectangle.get_bottom_right(), 
+         m_smallest_node_width, 
+         nullptr);
+      m_root = new_root;
+   }
+      
+   void adjust_dynamic_tree (const cvector2d& location)
+   {
+      if (!is_in(location)) {
+         if (!m_root->has_children()) {
+            create_root_from_location (location);
+         }
+         else {
+            expand_tree_towards_location (location);
+         }
+      }
+   }
     
 public:
        
    // And the 1st prize for the longest type name goes to:
-   typedef quadtree_it_bodies<T> it_bodies;
+   typedef quadtree_it_bodies<T>             it_bodies;
    typedef quadtree_it_masscentres<T>        it_masscentres;
    typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
    typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
       
-   explicit cquadtree (const double smallest_node_width) :
-      m_smallest_node_width(smallest_node_width),
-      m_root(std::make_shared<cquadnode<T>>())
+   explicit cquadtree (const double smallest_node_width) : 
+         m_smallest_node_width(smallest_node_width),
+         m_root(std::make_shared<cquadnode<T>>())
    {
-      
    }
    
    cquadtree (
@@ -73,46 +100,23 @@ public:
    
    virtual ~cquadtree () = default;
    
-   bool add (cbinded_mass_centre2d<T> mass_centre) 
+   void add (std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre)
    {
-      if (!is_in(mass_centre.location)) {
-         if (!m_root->has_children()) {
-            // create
-            create_root_from_location (mass_centre.location);
-         }
-         else {
-            // expand
-            edirection expansion_direction = m_root->get_node_rectangle().direction_of_point(mass_centre.location);
-            const crectangle2d enlarged_rectangle = m_root->get_node_rectangle().enlarge_rectangle (expansion_direction, 2);
-            std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
-            new_root->attach_child_node(
-               the_opposite_direction(expansion_direction), 
-               m_root);
-            new_root->create(
-               enlarged_rectangle.get_top_left(), 
-               enlarged_rectangle.get_bottom_right(), 
-               m_smallest_node_width, 
-               nullptr);
-            m_root = new_root;
-         }
-      }
-      std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
-         std::make_unique<cbinded_mass_centre2d<T>>(mass_centre);
-      m_root->add(mass_centre_ptr.get());
-      m_all_bodies.push_back(std::move(mass_centre_ptr));
-      return true;
+      adjust_dynamic_tree (mass_centre->location);
+      m_root->add(mass_centre.get());
+      m_all_bodies.push_back(std::move(mass_centre));
    }
    
-   bool add (T data, cvector2d location, double mass = 0) 
+   void add (cbinded_mass_centre2d<T> mass_centre) 
+   {
+      auto mc_ptr = std::make_unique<cbinded_mass_centre2d<T>>(mass_centre);
+      add (std::move(mc_ptr));
+   }
+   
+   void add (T data, cvector2d location, double mass = 0) 
    { 
-      if (!is_in(location)) { 
-         create_root_from_location (location);
-      }
-      std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
-         std::make_unique<cbinded_mass_centre2d<T>>(data, location, mass);
-      m_root->add(mass_centre_ptr.get());
-      m_all_bodies.push_back(std::move(mass_centre_ptr));
-      return true;
+      auto mc_ptr = std::make_unique<cbinded_mass_centre2d<T>>(data, location, mass);
+      add (std::move(mc_ptr));
    }
    
    bool move (const T& data, cvector2d new_location)
