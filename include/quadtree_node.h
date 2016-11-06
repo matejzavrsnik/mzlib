@@ -24,6 +24,7 @@ namespace mzlib {
 //    - Rightmost (W) and downmost (S) coordinates are inclusive.
 //    - Assumed order of iteration where it matters is nw -> ne -> sw -> se
 
+template <class T> class cquadtree;
 template <class T> class quadtree_it_bodies;
 template <class T> class quadtree_it_masscentres;
 template <class T> class quadtree_it_nodes_postorder;
@@ -32,7 +33,8 @@ template <class T> class quadtree_it_nodes_breadthfirst;
 template<class T>
 class cquadnode : public std::enable_shared_from_this<cquadnode<T>>
 {
-        
+   
+   friend class cquadtree<T>;
    friend class quadtree_it_bodies<T>;
    friend class quadtree_it_masscentres<T>;
    friend class quadtree_it_nodes_postorder<T>;
@@ -91,18 +93,6 @@ public:
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
          m_mass_centre.location = v5; 
       }
-   }
-   
-   // todo: make quadtree friend and only allow quadtree to mess with this function
-   void attach_child_node (edirection which_node, std::shared_ptr<cquadnode<T>> node)
-   {
-      switch(which_node) {
-         case edirection::nw: m_child_nw = node; break;
-         case edirection::ne: m_child_ne = node; break;
-         case edirection::sw: m_child_sw = node; break;
-         case edirection::se: m_child_se = node; break;
-      };
-      node->m_parent = this->shared_from_this(); 
    }
 
    void add (cbinded_mass_centre2d<T>* mass_centre) 
@@ -328,6 +318,17 @@ public:
         
 private:
 
+   void attach_child_node (edirection which_node, std::shared_ptr<cquadnode<T>> node)
+   {
+      switch(which_node) {
+         case edirection::nw: m_child_nw = node; break;
+         case edirection::ne: m_child_ne = node; break;
+         case edirection::sw: m_child_sw = node; break;
+         case edirection::se: m_child_se = node; break;
+      };
+      node->m_parent = this->shared_from_this(); 
+   }
+   
    std::shared_ptr<cquadnode<T>> m_child_nw = nullptr;
    std::shared_ptr<cquadnode<T>> m_child_ne = nullptr;
    std::shared_ptr<cquadnode<T>> m_child_sw = nullptr;
