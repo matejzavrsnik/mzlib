@@ -97,9 +97,16 @@ public:
       return m_height;
    }
    // todo: calculate centre point as separate function
-   edirection direction_of_point (const cvector2d& point) const
+   
+   VectorT calculate_centre_point () const
    {
       VectorT centre_point = m_top_left + ((m_bottom_right - m_top_left) / 2);
+      return centre_point;
+   }
+   
+   edirection direction_of_point (const cvector2d& point) const
+   {
+      VectorT centre_point = calculate_centre_point ();
       if (point[0] <= centre_point[0]) {    // if on the edge, west wins
          if (point[1] < centre_point[1]) {  // if on the edge, south wins
             return edirection::nw;
@@ -126,7 +133,6 @@ public:
       double width = get_width ();
       double height_delta = factor * height - height;
       double width_delta = factor * width - width;
-      // todo: unfinished: calculate new top left and bottom right
       switch(direction) {
          case edirection::ne:
             top_left[1] -= height_delta;

@@ -111,6 +111,13 @@ TEST_F(fixture_rectangle, get_heigth)
    ASSERT_TRUE(mzlib::dbl(height).equals(30L));
 }
 
+
+TEST_F(fixture_rectangle, calculate_centre_point) 
+{
+   mzlib::cvector2d centre_point = m_rectangle.calculate_centre_point();
+   ASSERT_EQ(mzlib::cvector2d({30,45}), centre_point);
+}
+
 TEST_F(fixture_rectangle, direction_of_point) 
 {
    mzlib::crectangle2d rect;
