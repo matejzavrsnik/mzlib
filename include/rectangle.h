@@ -17,6 +17,16 @@ namespace mzlib {
 // todo: find better place
 enum class edirection { ne, nw, se, sw };
 
+inline edirection the_opposite_direction (edirection direction)
+{
+   switch(direction) {
+      case edirection::ne: return edirection::sw;
+      case edirection::nw: return edirection::se;
+      case edirection::se: return edirection::nw;
+      case edirection::sw: return edirection::ne;
+   }
+}
+
    // remove to own file and extract laws out of it
 template <class VectorT>
 class crectangle

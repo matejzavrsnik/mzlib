@@ -688,9 +688,11 @@ TEST_F(fixture_cquadtree, dynamic_tree_single_level_adds_all_in_correct_node)
 
 TEST_F(fixture_cquadtree, dynamic_tree_second_level_add_to_up_left)
 {
+   const int body_one = 1;
+   const int body_two = 2;
    mzlib::cquadtree<int> tree(50);
 
-   tree.add({0, { 25, 25}});
+   tree.add({body_one, { 25, 25}});
    
    //   X
    //       -25    25    75
@@ -704,7 +706,35 @@ TEST_F(fixture_cquadtree, dynamic_tree_second_level_add_to_up_left)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   tree.add({1, {-30, -30}});
+   tree.add({body_two, {-30, -30}});
    
-   ASSERT_TRUE(true);
+   // check the coordinates of root node match
+   ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75,  75}), tree.m_root->m_rectangle.get_bottom_right());
+   
+   // and coordinates of 1st level children
+   ASSERT_EQ(mzlib::cvector2d({-125,-125}), tree.m_root->m_child_nw->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({ -25, -25}), tree.m_root->m_child_nw->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({ -25,-125}), tree.m_root->m_child_ne->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75, -25}), tree.m_root->m_child_ne->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({-125, -25}), tree.m_root->m_child_sw->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({ -25,  75}), tree.m_root->m_child_sw->m_rectangle.get_bottom_right());
+   ASSERT_EQ(mzlib::cvector2d({ -25, -25}), tree.m_root->m_child_se->m_rectangle.get_top_left());
+   ASSERT_EQ(mzlib::cvector2d({  75,  75}), tree.m_root->m_child_se->m_rectangle.get_bottom_right());
+   
+   // and two bodies are in correct nodes in expanded tree
+   ASSERT_EQ(1, tree.m_root->m_child_nw->m_child_se->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_nw->m_child_ne->m_bodies.size());
+   ASSERT_EQ(1, tree.m_root->m_child_se->m_child_nw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_se->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_se->m_child_sw->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
+   ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
+   
+   // correct bodies are in those two nodes
+   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->data);
+   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->data);
 }

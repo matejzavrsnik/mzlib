@@ -83,15 +83,18 @@ public:
          }
          else {
             // expand
-            edirection direction = m_root->get_node_rectangle().direction_of_point(mass_centre.location);
-            const crectangle2d enlarged_rectangle = m_root->get_node_rectangle().enlarge_rectangle (direction, 2);
+            edirection expansion_direction = m_root->get_node_rectangle().direction_of_point(mass_centre.location);
+            const crectangle2d enlarged_rectangle = m_root->get_node_rectangle().enlarge_rectangle (expansion_direction, 2);
             std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
-            new_root->attach_child_node(direction, m_root);
+            new_root->attach_child_node(
+               the_opposite_direction(expansion_direction), 
+               m_root);
             new_root->create(
                enlarged_rectangle.get_top_left(), 
                enlarged_rectangle.get_bottom_right(), 
                m_smallest_node_width, 
                nullptr);
+            m_root = new_root;
          }
       }
       std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre_ptr = 
