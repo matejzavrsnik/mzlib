@@ -48,12 +48,14 @@ public:
    cuniverse (
       const cvector2d& top_left, 
       const cvector2d& bottom_right, 
-      const double smallest_node_width) 
+      const double min_node_size,
+      const double max_tree_size) 
       : 
       m_quad_tree (
          top_left,
          bottom_right,
-         smallest_node_width)
+         min_node_size,
+         max_tree_size)
    {
    }
 
@@ -61,6 +63,7 @@ public:
       m_quad_tree (
          cvector2d({-10e50,-10e50}),
          cvector2d({ 10e50, 10e50}),
+         10e50/2-1,
          10e50/2-1)
    {
    }

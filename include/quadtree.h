@@ -29,16 +29,18 @@ class cquadtree
 private:
     
    std::shared_ptr<cquadnode<T>> m_root = nullptr;
-   const double m_smallest_node_width;
+   const double m_min_node_size;
+   const double m_max_tree_size;
+   
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
    std::vector<std::unique_ptr<cbinded_mass_centre2d<T>>> m_all_bodies;
    
    void create_root_from_location(const cvector2d& location)
    {
-      cvector2d top_left    {location[0]-m_smallest_node_width, location[1]-m_smallest_node_width};
-      cvector2d bottom_right{location[0]+m_smallest_node_width, location[1]+m_smallest_node_width};
-      m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
+      cvector2d top_left    {location[0]-m_min_node_size, location[1]-m_min_node_size};
+      cvector2d bottom_right{location[0]+m_min_node_size, location[1]+m_min_node_size};
+      m_root->create(top_left, bottom_right, m_min_node_size, nullptr);
    }
    
    void expand_tree_towards_location(const cvector2d& location)
@@ -48,13 +50,18 @@ private:
       edirection expansion_direction = old_root_rect.direction_of_point (location);
       const auto enlarged_rectangle = old_root_rect.enlarge_rectangle (expansion_direction, 2);
       
+      if (enlarged_rectangle.get_width()  >= m_max_tree_size ||
+          enlarged_rectangle.get_height() >= m_max_tree_size) {
+         return; // don/t enlarge if it would make tree larger than max size
+      }
+      
       // create and groom new root
       std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
       new_root->create(
          enlarged_rectangle.get_top_left(), 
          enlarged_rectangle.get_bottom_right(), 
-         m_smallest_node_width, 
-         nullptr);
+         m_min_node_size, 
+         nullptr); // todo: not clear
       new_root->m_bodies.insert(
          new_root->m_bodies.begin(),
          m_root->m_bodies.begin(),
@@ -99,19 +106,25 @@ public:
    typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
    typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
       
-   explicit cquadtree (const double smallest_node_width) : 
-         m_smallest_node_width(smallest_node_width),
-         m_root(std::make_shared<cquadnode<T>>())
+   explicit cquadtree (
+      const double min_node_size,
+      const double max_tree_size) : 
+         m_min_node_size (min_node_size),
+         m_max_tree_size (max_tree_size),
+         m_root (std::make_shared<cquadnode<T>>())
    {
    }
    
    cquadtree (
       const cvector2d& top_left, 
       const cvector2d& bottom_right, 
-      const double smallest_node_width ) :
-      cquadtree (smallest_node_width)
+      const double min_node_size,
+      const double max_tree_size) :
+         cquadtree (
+            min_node_size,
+            max_tree_size)
    {
-      m_root->create(top_left, bottom_right, m_smallest_node_width, nullptr);
+      m_root->create(top_left, bottom_right, m_min_node_size, nullptr);
    }
         
    // can't allow copying due to std::unique_ptrs that are used
@@ -127,6 +140,16 @@ public:
    void add (std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre)
    {
       adjust_dynamic_tree (mass_centre->location);
+      
+      // Can still be out of the tree even after it has been resized, because it
+      // might not have been: there is a defined limitation to the maximum tree
+      // that will be respected by above function.
+      
+      // The fact that there is no check whether the location of body is in the tree
+      // or not is because the quadtree_node::add function is resilient enough to
+      // check this anyway, so there is not need to check twice. Especially so,
+      // because nothing in particular needs to be done if it is not.
+      
       m_root->add(mass_centre.get());
       m_all_bodies.push_back(std::move(mass_centre));
    }

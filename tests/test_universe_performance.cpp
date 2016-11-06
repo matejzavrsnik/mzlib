@@ -66,7 +66,8 @@ protected:
       mzlib::cuniverse local_universe(
          mzlib::cvector2d{0,0}, 
          mzlib::cvector2d{5000,5000}, 
-         50);
+         50,
+         5000);
       mzlib::cuniverse::tproperties properties;
       properties.m_barnes_hut_quotient = barnes_hut_quotient;
       properties.m_implementation = implementation;

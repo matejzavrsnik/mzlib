@@ -99,6 +99,9 @@ public:
 
    void add (cbinded_mass_centre2d<T>* mass_centre) 
    {
+      // It is important that the is_in check is here, because it is not in
+      // the quadtree class when it calls this function. Something needs to
+      // check it, and it is redundant to check twice, so here it is.
       if (is_in(mass_centre->location)) {
          // insert
          m_bodies.push_back(mass_centre);
