@@ -17,11 +17,13 @@ protected:
    fixture_rectangle () {}
    virtual ~fixture_rectangle () {}
    
-   virtual void SetUp() 
-   {
-      m_rectangle.set_top_left    ({20,30});
-      m_rectangle.set_bottom_right({40,60});
+   virtual void SetUp() {}
+   virtual void TearDown() {}
+   
+   const mzlib::crectangle2d m_rectangle = mzlib::crectangle2d({20,30}, {40,60}); 
 
+      // regular everyday normal rectangle
+      //
       //        20  40
       //    + + + + + +
       //    +   
@@ -31,18 +33,11 @@ protected:
       //    +   .   .
       // 60 +   . . o
       //    +
-   }
-   
-   virtual void TearDown() {}
-   
-   mzlib::crectangle2d m_rectangle; // regular everyday normal rectangle
 };
 
 TEST_F(fixture_rectangle, is_in) 
 {
-   mzlib::crectangle2d rect;
-   rect.set_top_left({-50,-50});
-   rect.set_bottom_right({50,50});
+   mzlib::crectangle2d rect({-50,-50}, {50,50});
    
    struct t_coordinates {
       double x;
@@ -120,9 +115,7 @@ TEST_F(fixture_rectangle, calculate_centre_point)
 
 TEST_F(fixture_rectangle, direction_of_point) 
 {
-   mzlib::crectangle2d rect;
-   rect.set_top_left({-50,-50});
-   rect.set_bottom_right({50,50});
+   mzlib::crectangle2d rect({-50,-50}, {50,50});
    
    struct t_coordinates {
       double x;

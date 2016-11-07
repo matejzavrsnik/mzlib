@@ -35,7 +35,20 @@ private:
    
 public:
 
-   // todo: this rect could do with a constructor
+   crectangle (
+      const VectorT& top_left, 
+      const VectorT& bottom_right) :
+         m_top_left (top_left),
+         m_bottom_right (bottom_right)
+   { 
+   }
+
+   crectangle () = default;
+   crectangle& operator= (const crectangle<VectorT>&) = default;
+   crectangle (const crectangle<VectorT>&) = default; 
+   crectangle (crectangle<VectorT> && ) = default;
+   crectangle& operator= (crectangle<VectorT>&&) = default;
+   ~crectangle () = default;
    
    void set_top_left(const VectorT& top_left)
    {
@@ -156,9 +169,7 @@ public:
             throw exception::not_implemented();
             break;
       }
-      crectangle<VectorT> rectangle;
-      rectangle.m_top_left = top_left;
-      rectangle.m_bottom_right = bottom_right;
+      crectangle<VectorT> rectangle(top_left, bottom_right);
       return rectangle;
    }
    
