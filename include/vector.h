@@ -12,6 +12,7 @@
 #include <cmath> // std::pow, std::sqrt
 #include <initializer_list>
 #include <array>
+#include <ostream>
 
 #include "dbl.h"
 
@@ -318,6 +319,18 @@ template<typename TYPE, size_t DIM> cvector<TYPE,DIM> operator* (const TYPE& sca
 template<typename TYPE, size_t DIM> cvector<TYPE,DIM> operator/ (const TYPE& scalar, const cvector<TYPE,DIM>& vector)
 {
    return vector / scalar; // turning the operands around is enough, operation is commutative
+}
+
+template<class TYPE, size_t DIM>
+inline std::ostream& operator<< (std::ostream& os, const cvector<TYPE,DIM>& vector)
+{
+   os << "[";
+   for (int i=0; i<vector.size(); ++i) {
+      if (i!=0) os << ",";
+      os << vector[i];
+   }
+   os << "]";
+   return os;
 }
 
 // Convenient types
