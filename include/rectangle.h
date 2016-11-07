@@ -10,6 +10,7 @@
 
 #include "vector.h"
 #include "direction.h"
+#include "exceptions.h"
 
 namespace mzlib {
    
@@ -34,6 +35,8 @@ private:
    
 public:
 
+   // todo: this rect could do with a constructor
+   
    void set_top_left(const VectorT& top_left)
    {
       m_top_left = top_left;
@@ -124,14 +127,14 @@ public:
       }
    }
    
-   crectangle enlarge_rectangle (edirection direction, double factor) const
+   crectangle<VectorT> enlarge_rectangle (edirection direction, double factor) const
    {
       VectorT top_left = m_top_left;
       VectorT bottom_right = m_bottom_right;
-      double height = get_height ();
-      double width = get_width ();
-      double height_delta = factor * height - height;
-      double width_delta = factor * width - width;
+      const double& height = get_height ();
+      const double& width = get_width ();
+      const double height_delta = factor * height - height;
+      const double width_delta = factor * width - width;
       switch(direction) {
          case edirection::ne:
             top_left[1] -= height_delta;
@@ -149,8 +152,69 @@ public:
             top_left[0] -= width_delta;
             bottom_right[1] += height_delta;
             break;
+         default:
+            throw exception::not_implemented();
+            break;
       }
-      crectangle rectangle;
+      crectangle<VectorT> rectangle;
+      rectangle.m_top_left = top_left;
+      rectangle.m_bottom_right = bottom_right;
+      return rectangle;
+   }
+   
+   crectangle<VectorT> flip (edirection direction) const
+   {
+      VectorT top_left = m_top_left;
+      VectorT bottom_right = m_bottom_right;
+      const double& height = get_height ();
+      const double& width = get_width ();
+      switch (direction) 
+      {
+         case edirection::n:
+            top_left    [1] -= height;
+            bottom_right[1] -= height;
+            break;
+         case edirection::s:
+            top_left    [1] += height;
+            bottom_right[1] += height;
+            break;
+         case edirection::w: 
+            top_left    [0] -= width;
+            bottom_right[0] -= width;
+            break;
+         case edirection::e:
+            top_left    [0] += width;
+            bottom_right[0] += width;
+            break;
+         case edirection::ne:
+            top_left    [0] += width;
+            top_left    [1] -= height;
+            bottom_right[0] += width;
+            bottom_right[1] -= height;
+            break;
+         case edirection::nw:
+            top_left    [0] -= width;
+            top_left    [1] -= height;
+            bottom_right[0] -= width;
+            bottom_right[1] -= height;
+            break;
+         case edirection::se: 
+            top_left    [0] += width;
+            top_left    [1] += height;
+            bottom_right[0] += width;
+            bottom_right[1] += height;
+            break;
+         case edirection::sw:
+            top_left    [0] -= width;
+            top_left    [1] += height;
+            bottom_right[0] -= width;
+            bottom_right[1] += height;
+            break;
+         default:
+            throw exception::not_implemented();
+            break;
+      }
+      crectangle<VectorT> rectangle;
       rectangle.m_top_left = top_left;
       rectangle.m_bottom_right = bottom_right;
       return rectangle;

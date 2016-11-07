@@ -13,15 +13,22 @@
 
 namespace mzlib {
    
-enum class edirection { ne, nw, se, sw };
+enum class edirection { n, ne, e, se, s, sw, w, nw };
 
 inline edirection the_opposite_direction (edirection direction)
 {
    switch(direction) {
       case edirection::ne: return edirection::sw;
+      case edirection::sw: return edirection::ne;
+      
       case edirection::nw: return edirection::se;
       case edirection::se: return edirection::nw;
-      case edirection::sw: return edirection::ne;
+
+      case edirection::n: return edirection::s;
+      case edirection::s: return edirection::n;
+
+      case edirection::e: return edirection::w;
+      case edirection::w: return edirection::e;
    }
 }
 
@@ -35,6 +42,11 @@ inline std::ostream& operator<< (std::ostream& os, const mzlib::edirection& dire
       case mzlib::edirection::nw: os << "nw"; break;
       case mzlib::edirection::se: os << "se"; break;
       case mzlib::edirection::sw: os << "sw"; break;
+      case mzlib::edirection::n:  os <<  "n"; break;
+      case mzlib::edirection::s:  os <<  "s"; break;
+      case mzlib::edirection::w:  os <<  "w"; break;
+      case mzlib::edirection::e:  os <<  "e"; break;
+      
       default: os << "unknown"; break;
    };
    return os;

@@ -175,8 +175,6 @@ TEST_F(fixture_rectangle, direction_of_point)
 
 TEST_F(fixture_rectangle, enlarge_rectangle) 
 {
-
-   
    struct t_parameters {
       mzlib::edirection direction;
       double factor;
@@ -197,5 +195,40 @@ TEST_F(fixture_rectangle, enlarge_rectangle)
       ASSERT_EQ(parameter.expected_bottom_right, new_rect.get_bottom_right())
          << "unexpected value for bottom right for expansion in direction: " 
          << parameter.direction << " with factor " << parameter.factor;
+   }
+}
+
+TEST_F(fixture_rectangle, flip) 
+{
+      //        20  40
+      //    + + + + + +
+      //    +   
+      //    +
+      // 30 +   o . .
+      //    +   .   .
+      //    +   .   .
+      // 60 +   . . o
+      //    +
+    struct t_parameters {
+      mzlib::edirection direction;
+      mzlib::cvector2d expected_top_left;
+      mzlib::cvector2d expected_bottom_right;
+   } test_parameters[] = {
+      {mzlib::edirection::n,  {20, 0}, {40,30}},
+      {mzlib::edirection::ne, {40, 0}, {60,30}},
+      {mzlib::edirection::e,  {40,30}, {60,60}},
+      {mzlib::edirection::se, {40,60}, {60,90}},
+      {mzlib::edirection::s,  {20,60}, {40,90}},
+      {mzlib::edirection::sw, { 0,60}, {20,90}},
+      {mzlib::edirection::w,  { 0,30}, {20,60}},
+      {mzlib::edirection::nw, { 0, 0}, {20,30}}
+   };
+   
+   for (auto parameter : test_parameters) {
+      auto result = m_rectangle.flip (parameter.direction);
+      auto top_left = result.get_top_left();
+      auto bottom_right = result.get_bottom_right();
+      ASSERT_EQ(parameter.expected_top_left,     top_left)     << parameter.direction;
+      ASSERT_EQ(parameter.expected_bottom_right, bottom_right) << parameter.direction;
    }
 }
