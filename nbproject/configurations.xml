@@ -22,9 +22,7 @@
       <itemPath>include/probabilator.h</itemPath>
       <itemPath>include/quadtree.h</itemPath>
       <itemPath>include/quadtree_it_bodies.h</itemPath>
-      <itemPath>include/quadtree_it_breadthfirst.h</itemPath>
       <itemPath>include/quadtree_it_masscentres.h</itemPath>
-      <itemPath>include/quadtree_it_postorder.h</itemPath>
       <itemPath>include/quadtree_node.h</itemPath>
       <itemPath>include/rectangle.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
@@ -148,11 +146,7 @@
       </item>
       <item path="include/quadtree_it_bodies.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/quadtree_it_breadthfirst.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/quadtree_it_masscentres.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_it_postorder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -310,11 +304,7 @@
       </item>
       <item path="include/quadtree_it_bodies.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/quadtree_it_breadthfirst.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/quadtree_it_masscentres.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_it_postorder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>

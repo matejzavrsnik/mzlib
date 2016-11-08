@@ -11,8 +11,6 @@
 #include "quadtree_node.h"
 #include "quadtree_it_bodies.h"
 #include "quadtree_it_masscentres.h"
-#include "quadtree_it_postorder.h"
-#include "quadtree_it_breadthfirst.h"
 #include "vector.h"
 #include "body.h"
 #include "utils_missing_std.h"
@@ -102,8 +100,6 @@ public:
    // And the 1st prize for the longest type name goes to:
    typedef quadtree_it_bodies<T>             it_bodies;
    typedef quadtree_it_masscentres<T>        it_masscentres;
-   typedef quadtree_it_nodes_postorder<T>    it_nodes_postorder;
-   typedef quadtree_it_nodes_breadthfirst<T> it_nodes_breadthfirst;
       
    explicit cquadtree (
       const double min_node_size,
@@ -243,25 +239,6 @@ public:
       return end; // to avoid creating new ends every time; I know they are all the same
    }
    
-   it_nodes_postorder begin_nodes_postorder ()
-   { 
-      return it_nodes_postorder(m_root.get()); 
-   }
-
-   it_nodes_postorder end_nodes_postorder ()
-   {
-      return it_nodes_postorder(nullptr); 
-   }
-        
-   it_nodes_breadthfirst begin_nodes_breadthfirst ()
-   { 
-      return it_nodes_breadthfirst(m_root.get()); 
-   }
-   
-   it_nodes_breadthfirst end_nodes_breadthfirst ()
-   { 
-      return it_nodes_breadthfirst(nullptr); 
-   }
 }; 
     
 } // namespace

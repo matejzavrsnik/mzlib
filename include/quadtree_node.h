@@ -28,8 +28,6 @@ namespace mzlib {
 template <class T> class cquadtree;
 template <class T> class quadtree_it_bodies;
 template <class T> class quadtree_it_masscentres;
-template <class T> class quadtree_it_nodes_postorder;
-template <class T> class quadtree_it_nodes_breadthfirst;
     
 template<class T>
 class cquadnode : public std::enable_shared_from_this<cquadnode<T>>
@@ -38,8 +36,6 @@ class cquadnode : public std::enable_shared_from_this<cquadnode<T>>
    friend class cquadtree<T>;
    friend class quadtree_it_bodies<T>;
    friend class quadtree_it_masscentres<T>;
-   friend class quadtree_it_nodes_postorder<T>;
-   friend class quadtree_it_nodes_breadthfirst<T>;
         
 public:
 
