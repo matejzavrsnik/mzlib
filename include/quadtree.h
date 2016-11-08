@@ -181,17 +181,17 @@ public:
       return m_root->change_mass(data,new_mass);
    }
    
-   bool remove (const T& data)
+   eremoved remove (const T& data)
    {
-      if(m_root->remove(data)) {
+      if(m_root->remove(data) == eremoved::yes) {
          for(int i=0; i!=m_all_bodies.size(); ++i) {
             if( m_all_bodies[i]->data == data) {
                m_all_bodies.erase(m_all_bodies.begin() + i);
-               return true;
+               return eremoved::yes;
             }
          }
       }
-      return false;
+      return eremoved::no;
    }
    
    const cmass_centre2d& get_mass_centre () const

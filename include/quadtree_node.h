@@ -107,13 +107,13 @@ public:
       }
    }
    
-   bool remove (const T& data) 
+   eremoved remove (const T& data) 
    {
       // downside of the approach where every node contains all bodies under it: 
       // every subnode needs to find mass centre in it's own collection
       auto mass_centre_it = find_body(data);
       // if no such mass centre here, go away
-      if (mass_centre_it == m_bodies.end()) return false; 
+      if (mass_centre_it == m_bodies.end()) return eremoved::no; 
       // if found, convert to mass centre ptr
       cbinded_mass_centre2d<T>* mass_centre_ptr = *mass_centre_it;
       // start removing
@@ -121,13 +121,13 @@ public:
       m_bodies.erase(mass_centre_it);
       m_mass_centre.remove_from_mass_centre(*mass_centre_ptr);
       // if leaf, this operation is done
-      if (is_leaf()) return true;
+      if (is_leaf()) return eremoved::yes;
       // if not leaf, delete in children too
       if      (m_child_nw->is_in(mass_centre_ptr->location)) return m_child_nw->remove(data);
       else if (m_child_ne->is_in(mass_centre_ptr->location)) return m_child_ne->remove(data);
       else if (m_child_sw->is_in(mass_centre_ptr->location)) return m_child_sw->remove(data);
       else if (m_child_se->is_in(mass_centre_ptr->location)) return m_child_se->remove(data);
-      return false;
+      return eremoved::no;
    }
    
    typename std::vector<cbinded_mass_centre2d<T>*>::iterator find_body(const T& data)
@@ -162,11 +162,12 @@ public:
          }
       }
       
-      if(crosses_node_border) {
+      if (crosses_node_border) {
          // in this case remove the body and insert it again in new position
-         remove(data);
-         mass_centre_ptr->location = new_location;
-         add(mass_centre_ptr);         
+         if (remove(data) == eremoved::yes) {
+            mass_centre_ptr->location = new_location;
+            add(mass_centre_ptr);         
+         }
       }
       else {
          // in this case just update mass centres

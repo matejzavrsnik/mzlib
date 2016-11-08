@@ -249,22 +249,19 @@ TEST_F(fixture_cquadtree, find_body_not_found)
 
 TEST_F(fixture_cquadtree, remove_body_when_tree_empty)
 {
-   bool success = m_tree.remove(2);
-   ASSERT_FALSE(success);
+   ASSERT_EQ(mzlib::eremoved::no, m_tree.remove(2));
 }
 
 TEST_F(fixture_cquadtree, remove_body_last_body)
 {
    m_tree.add(1, {25,25}, 100);
-   bool success = m_tree.remove(1);
-   ASSERT_TRUE(success);
+   ASSERT_EQ(mzlib::eremoved::yes, m_tree.remove(1));
 }
 
 TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
 {
    m_tree.add(1, {25,25}, 100);
-   bool success = m_tree.remove(2);
-   ASSERT_FALSE(success);
+   ASSERT_EQ(mzlib::eremoved::no, m_tree.remove(2));
 }
 
 TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
@@ -415,8 +412,8 @@ TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
    m_tree.add(2, {-25,-25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({0,0}), m_tree.get_mass_centre().location);
-   bool success = m_tree.remove(1);
-   ASSERT_TRUE(success);
+   auto removed = m_tree.remove(1);
+   ASSERT_EQ(mzlib::eremoved::yes, removed);
    ASSERT_EQ(100, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({-25,-25}), m_tree.get_mass_centre().location);
 }
