@@ -14,6 +14,7 @@
 
 #include "probabilator.h"
 #include "utils_random.h"
+#include "optional.h"
 
 namespace mzlib
 {
@@ -25,8 +26,7 @@ class cmarkov_chain
     
 private:
         
-   T m_previous_state;
-   bool m_previous_state_set = false;     
+   coptional<T> m_previous_state;
    T m_next_state;
    std::map<T, cprobabilator<T>> m_states;
         
@@ -39,13 +39,12 @@ protected:
         
    void read (T state) 
    {
-      if(m_previous_state_set) {
-         m_states[m_previous_state].add_event(state);
+      if(m_previous_state.is_set()) {
+         m_states[m_previous_state.get()].add_event(state);
          m_previous_state = state;
       }
       else {
          m_previous_state = state;
-         m_previous_state_set = true;
       }
    }
         
