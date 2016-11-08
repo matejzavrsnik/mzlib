@@ -58,13 +58,9 @@ public:
    }
 
    cuniverse () : 
-      m_quad_tree (
-         {
-            cvector2d({-10e50,-10e50}),
-            cvector2d({ 10e50, 10e50})
-         },
-         10e50/2-1,
-         10e50/2-1)
+      m_quad_tree ( // not a very efficient default, but it needs to cover the whole space
+         10e50/8,
+         10e50)
    {
    }
 
