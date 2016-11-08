@@ -10,6 +10,8 @@
 
 #include <vector>
 #include <map>
+#include <algorithm>
+
 #include "vector.h"
 #include "body.h"
 #include "consts.h"
@@ -74,7 +76,7 @@ public:
    
    ~cuniverse () = default;
         
-   void add_body (cbody2d& body) 
+   void add (cbody2d& body) 
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
          m_quad_tree.add(body);
@@ -82,6 +84,31 @@ public:
       else if (m_properties.m_implementation == implementation::naive) {
          m_vector.push_back(body);
       }
+   }
+   
+   void remove (const cbody2d& body)
+   {
+      if (m_properties.m_implementation == implementation::barnes_hut) {
+         m_quad_tree.remove(body.data);
+      }
+      else if (m_properties.m_implementation == implementation::naive) {
+         std::remove_if(m_vector.begin(), m_vector.end(),
+            [&body](const cbody2d& element) {
+               return element.data == body.data;
+            });         
+      }
+      
+   }
+   
+   void move (cbody2d& body, cvector2d new_location)
+   {
+      if (m_properties.m_implementation == implementation::barnes_hut) {
+         m_quad_tree.move(body.data, new_location);
+      }
+      else if (m_properties.m_implementation == implementation::naive) {
+         body.location = new_location;
+      }
+      
    }
    
    cbody2d const * find_body (const cbody2d& body) const
@@ -102,17 +129,7 @@ public:
       }
       return nullptr;
    }
-        
-   cquadtree<cbody_properties2d>& get_tree ()
-   {
-      return m_quad_tree;
-   }
-   
-   std::vector<cbody2d>& get_vector ()
-   {
-      return m_vector;
-   }
-        
+
    tproperties get_properties () 
    {
       return m_properties;

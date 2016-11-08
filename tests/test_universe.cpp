@@ -34,8 +34,8 @@ TEST_F(fixture_universe, sun_force_on_earth)
    earth.location = {0,mzlib::consts::earth_distance_sun_average};
    earth.mass = mzlib::consts::earth_mass;
     
-   universe.add_body(sun);
-	universe.add_body(earth);
+   universe.add(sun);
+	universe.add(earth);
    universe.calculate_forces();
     
    mzlib::cvector2d f_sun = universe.find_body(sun)->data.gravity;
@@ -62,8 +62,8 @@ TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_tha
    earth.mass = mzlib::consts::earth_mass;
    earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
     
-   universe.add_body(sun);
-	universe.add_body(earth);
+   universe.add(sun);
+	universe.add(earth);
    universe.forward_time(30.0_day, 1.0_day);
    
    mzlib::cvector2d earth_location_quarter_later = universe.find_body(earth)->location;
@@ -87,8 +87,8 @@ TEST_F(fixture_universe, sun_earth_month_travel_naive)
    earth.mass = mzlib::consts::earth_mass;
    earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
     
-   universe.add_body(sun);
-	universe.add_body(earth);
+   universe.add(sun);
+	universe.add(earth);
    universe.forward_time(30.0_day, 1.0_day);
    
    mzlib::cvector2d earth_location_quarter_later = universe.find_body(earth)->location;
@@ -107,8 +107,8 @@ TEST_F(fixture_universe, long_earth_around_the_sun)
    earth.mass = mzlib::consts::earth_mass;
    earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
     
-   universe.add_body(sun);
-	universe.add_body(earth);
+   universe.add(sun);
+	universe.add(earth);
    universe.forward_time(0.25_julian_year, 10.0_s);     
    
    mzlib::cvector2d earth_location_quarter_later = universe.find_body(earth)->location;
@@ -139,8 +139,8 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    earth.mass = mzlib::consts::earth_mass; 
    earth.location = earth_location_start;
    earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
-   universe.add_body(sun);
-	universe.add_body(earth); 
+   universe.add(sun);
+	universe.add(earth); 
    
    // simulation
    universe.forward_time(1.0_h, 1.0_h);
@@ -150,20 +150,20 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    mzlib::cvector2d earth_location_without_move = universe.find_body(earth)->location;
    
    // reset to start state
-   universe.get_tree().remove(earth.data);
-   universe.get_tree().remove(sun.data);
+   universe.remove(earth);
+   universe.remove(sun);
    sun.mass = mzlib::consts::sun_mass;
    sun.location = sun_location_start;
    earth.mass = mzlib::consts::earth_mass; 
    earth.location = earth_location_start;
    earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
-   universe.add_body(sun);
-	universe.add_body(earth);
+   universe.add(sun);
+	universe.add(earth);
 
    // simulate a day, but move earth by a couple kilometers in the middle of day   
    universe.forward_time(1.0_h, 1.0_h);
    mzlib::cvector2d move_to = universe.find_body(earth)->location + earth_move_distance;
-   universe.get_tree().move(earth.data, move_to);
+   universe.move(earth, move_to);
    universe.forward_time(1.0_s, 1.0_s);
    
    // measure location

@@ -73,7 +73,7 @@ protected:
       local_universe.set_properties(properties);
 
       for(auto& body : bodies) {
-         local_universe.add_body(body);
+         local_universe.add(body);
       }
       
       return std::move(local_universe);
