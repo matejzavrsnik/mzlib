@@ -61,37 +61,31 @@ public:
       m_rectangle = rectangle;
       m_diagonal_length = m_rectangle.get_diagonal_length();
       if (m_rectangle.get_width() > smallest_node_width) {
-         // For breaking a square node into four adjacent              1-2-3 
-         // square subnodes by defining them with top-left and    ->   4-5-6
-         // bottom-right vectors, we need 9 separate vectors           7-8-9
-         double subnode_width = m_rectangle.get_width() / 2; // each of four subnodes is half as wide
-         cvector2d v1 = m_rectangle.get_top_left();
-         cvector2d v2 = v1.move_by({subnode_width, 0.0}); // 1 -> 2 -> 3
-         cvector2d v3 = v2.move_by({subnode_width, 0.0}); // v nw v ne v
-         cvector2d v4 = v1.move_by({0.0, subnode_width}); // 4    5    6
-         cvector2d v5 = v2.move_by({0.0, subnode_width}); // v sw v se v
-         cvector2d v6 = v3.move_by({0.0, subnode_width}); // 7    8    9
-         //cvector2d v7 = v4.move_by({0.0, subnode_width}); 
-         cvector2d v8 = v5.move_by({0.0, subnode_width}); 
-         cvector2d v9 = v6.move_by({0.0, subnode_width});
+         const cvector2d centre_point = m_rectangle.calculate_centre_point();
+         
+         // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
+         m_mass_centre.location = centre_point;
+         
+         const crectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
          if (m_child_nw == nullptr) {
             m_child_nw = std::make_shared<cquadnode<T>>();
-            m_child_nw->create({v1, v5}, smallest_node_width, this->shared_from_this());
+            m_child_nw->create(nw_rect, smallest_node_width, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
             m_child_ne = std::make_shared<cquadnode<T>>();
-            m_child_ne->create({v2, v6}, smallest_node_width, this->shared_from_this());
+            const crectangle2d ne_rect = nw_rect.flip(edirection::e);
+            m_child_ne->create(ne_rect, smallest_node_width, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
             m_child_sw = std::make_shared<cquadnode<T>>();
-            m_child_sw->create({v4, v8}, smallest_node_width, this->shared_from_this());
+            const crectangle2d sw_rect = nw_rect.flip(edirection::s);
+            m_child_sw->create(sw_rect, smallest_node_width, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
             m_child_se = std::make_shared<cquadnode<T>>();
-            m_child_se->create({v5, v9}, smallest_node_width, this->shared_from_this());
+            const crectangle2d se_rect = nw_rect.flip(edirection::se);
+            m_child_se->create(se_rect, smallest_node_width, this->shared_from_this());
          }
-         // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
-         m_mass_centre.location = v5; 
       }
    }
 

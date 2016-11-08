@@ -14,7 +14,7 @@
 
 namespace mzlib {
    
-   // remove to own file and extract laws out of it
+// separate laws over rectangle and the essence of rectangle
 template <class VectorT>
 class crectangle
 {
