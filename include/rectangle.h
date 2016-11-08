@@ -22,7 +22,7 @@ class crectangle
 private:
 
    // todo: this is all wrong, fix
-   const double m_not_set_mark = -1;
+   double m_not_set_mark = -1;
    double m_diagonal_length = m_not_set_mark;
    double m_width = m_not_set_mark;
    double m_height = m_not_set_mark;

@@ -53,21 +53,19 @@ public:
    // Creation needs to be done outside the constructor, because to be able to call shared_from_this(),
    // an object needs an owning shared_ptr, otherwise there is risk of two shared_ptrs owning same object.
    void create (
-      const cvector2d& top_left, 
-      const cvector2d& bottom_right, 
+      const crectangle2d& rectangle, 
       const double smallest_node_width, 
       std::shared_ptr<cquadnode> parent = nullptr) 
    {
       m_parent = parent;
-      m_rectangle.set_top_left(top_left);
-      m_rectangle.set_bottom_right(bottom_right);
+      m_rectangle = rectangle;
       m_diagonal_length = m_rectangle.get_diagonal_length();
       if (m_rectangle.get_width() > smallest_node_width) {
          // For breaking a square node into four adjacent              1-2-3 
          // square subnodes by defining them with top-left and    ->   4-5-6
          // bottom-right vectors, we need 9 separate vectors           7-8-9
          double subnode_width = m_rectangle.get_width() / 2; // each of four subnodes is half as wide
-         cvector2d v1 = top_left;
+         cvector2d v1 = m_rectangle.get_top_left();
          cvector2d v2 = v1.move_by({subnode_width, 0.0}); // 1 -> 2 -> 3
          cvector2d v3 = v2.move_by({subnode_width, 0.0}); // v nw v ne v
          cvector2d v4 = v1.move_by({0.0, subnode_width}); // 4    5    6
@@ -78,19 +76,19 @@ public:
          cvector2d v9 = v6.move_by({0.0, subnode_width});
          if (m_child_nw == nullptr) {
             m_child_nw = std::make_shared<cquadnode<T>>();
-            m_child_nw->create(v1, v5, smallest_node_width, this->shared_from_this());
+            m_child_nw->create({v1, v5}, smallest_node_width, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
             m_child_ne = std::make_shared<cquadnode<T>>();
-            m_child_ne->create(v2, v6, smallest_node_width, this->shared_from_this());
+            m_child_ne->create({v2, v6}, smallest_node_width, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
             m_child_sw = std::make_shared<cquadnode<T>>();
-            m_child_sw->create(v4, v8, smallest_node_width, this->shared_from_this());
+            m_child_sw->create({v4, v8}, smallest_node_width, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
             m_child_se = std::make_shared<cquadnode<T>>();
-            m_child_se->create(v5, v9, smallest_node_width, this->shared_from_this());
+            m_child_se->create({v5, v9}, smallest_node_width, this->shared_from_this());
          }
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
          m_mass_centre.location = v5; 
@@ -348,7 +346,7 @@ private:
    std::vector<cbinded_mass_centre2d<T>*> m_bodies;
    cmass_centre2d m_mass_centre;
         
-   crectangle<cvector2d> m_rectangle;
+   crectangle2d m_rectangle;
    double m_diagonal_length = -1;
 };
 

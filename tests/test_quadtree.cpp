@@ -26,12 +26,9 @@ protected:
 
    double m_min_node_size = 50;
    double m_max_tree_size = 1000;
-   mzlib::cvector2d m_top_left = {-50,-50};
-   mzlib::cvector2d m_bottom_right = {50,50};
    mzlib::cvector2d m_centre = {0,0};
    mzlib::cquadtree<int> m_tree = {
-      m_top_left, 
-      m_bottom_right, 
+      {{-50,-50}, {50,50}},
       m_min_node_size, 
       m_max_tree_size};
 
@@ -39,7 +36,7 @@ protected:
 
 TEST_F(fixture_cquadtree, tree_is_built_correctly)
 {
-   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25, 1000};
+   mzlib::cquadtree<int> local_tree = {{{-50,-50}, {50,50}}, 25, 1000};
 
    ASSERT_TRUE(local_tree.m_root->has_children());
    ASSERT_EQ(mzlib::cvector2d({-50,-50}), local_tree.m_root->m_rectangle.m_top_left);
@@ -109,8 +106,10 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_zero_quotient)
    const int node_width = 20;
    const int quadrant_width = 100;
    mzlib::cquadtree<int> local_tree = {
-      {-quadrant_width,-quadrant_width}, 
-      {quadrant_width, quadrant_width}, 
+      {
+         {-quadrant_width,-quadrant_width}, 
+         {quadrant_width, quadrant_width}
+      }, 
       node_width,
       m_max_tree_size};
    
@@ -226,7 +225,10 @@ TEST_F(fixture_cquadtree, find_body_basic)
 
 TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
 {
-   mzlib::cquadtree<std::string> local_tree = {m_top_left, m_bottom_right, m_min_node_size, m_max_tree_size};
+   mzlib::cquadtree<std::string> local_tree = {
+      m_tree.m_root->m_rectangle, 
+      m_min_node_size, 
+      m_max_tree_size};
    local_tree.add("one", { 25, 25}, 100);
    local_tree.add("two", {-25,-25}, 100);
    const mzlib::cbinded_mass_centre2d<std::string>* one = local_tree.find("one");
@@ -278,7 +280,7 @@ TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
    //     |  |  |  |  |
    //  50 +--+--+--+--+ 
    
-   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25, m_max_tree_size};
+   mzlib::cquadtree<int> local_tree = {m_tree.m_root->m_rectangle, 25, m_max_tree_size};
    local_tree.add(1, {5,5}, 150);
    local_tree.add(2, {3,3}, 150);
    
@@ -308,7 +310,7 @@ TEST_F(fixture_cquadtree, move_crosses_2nd_level_node_borders)
    //     |  |  |  |  |
    //  50 +--+--+--+--+ 
    
-   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25, m_max_tree_size};
+   mzlib::cquadtree<int> local_tree = {m_tree.m_root->m_rectangle, 25, m_max_tree_size};
    local_tree.add(1, {5,5}, 150);
    local_tree.add(2, {3,3}, 150);
    
@@ -339,7 +341,7 @@ TEST_F(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes)
    //     |  |  |  |  |
    //  50 +--+--+--+--+ 
    
-   mzlib::cquadtree<int> local_tree = {{-50,-50}, {50,50}, 25, m_max_tree_size};
+   mzlib::cquadtree<int> local_tree = {m_tree.m_root->m_rectangle, 25, m_max_tree_size};
    local_tree.add(1, {5,5}, 150);
    local_tree.add(2, {3,3}, 150);
    
@@ -422,7 +424,7 @@ TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
 TEST_F(fixture_cquadtree, iterator_it_postorder)
 {
    double node_width = 25;
-   mzlib::cquadtree<int> tree3 = {m_top_left, m_bottom_right, node_width, m_max_tree_size};
+   mzlib::cquadtree<int> tree3 = {m_tree.m_root->m_rectangle, node_width, m_max_tree_size};
    
    struct t_expected {
       double top_left_0;
@@ -473,7 +475,7 @@ TEST_F(fixture_cquadtree, iterator_it_postorder)
 TEST_F(fixture_cquadtree, iterator_it_breadthfirst)
 {
    double node_width = 25;
-   mzlib::cquadtree<int> tree3 = {m_top_left, m_bottom_right, node_width, m_max_tree_size};
+   mzlib::cquadtree<int> tree3 = {m_tree.m_root->m_rectangle, node_width, m_max_tree_size};
    
    struct t_expected {
       double top_left_0;
@@ -551,7 +553,7 @@ TEST_F(fixture_cquadtree, iterator_one_node_many_bodies_other_nodes_none)
    const int number_of_bodies_inserted = 10;
    for (double i=1; i<=number_of_bodies_inserted; i++)
    {
-      m_tree.add(i, m_top_left.move_by({i,i}));
+      m_tree.add(i, m_tree.m_root->m_rectangle.get_top_left().move_by({i,i}));
    }
    // Are all of them iterated over
    int bodies_seen = 0;
@@ -567,7 +569,7 @@ TEST_F(fixture_cquadtree, iterator_many_bodies_each_node)
    {
       for(double j=1; j<2*m_min_node_size; j++)
       {
-         m_tree.add(0, m_top_left.move_by({i, j}));
+         m_tree.add(0, m_tree.m_root->m_rectangle.get_top_left().move_by({i, j}));
          ++number_of_bodies_inserted;
       }
    }

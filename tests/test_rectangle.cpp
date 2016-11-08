@@ -22,17 +22,17 @@ protected:
    
    const mzlib::crectangle2d m_rectangle = mzlib::crectangle2d({20,30}, {40,60}); 
 
-      // regular everyday normal rectangle
-      //
-      //        20  40
-      //    + + + + + +
-      //    +   
-      //    +
-      // 30 +   o . .
-      //    +   .   .
-      //    +   .   .
-      // 60 +   . . o
-      //    +
+   // regular everyday normal rectangle
+   //
+   //        20  40
+   //    + + + + + +
+   //    +   
+   //    +
+   // 30 +   o . .
+   //    +   .   .
+   //    +   .   .
+   // 60 +   . . o
+   //    +
 };
 
 TEST_F(fixture_rectangle, is_in) 

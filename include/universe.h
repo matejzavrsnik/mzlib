@@ -46,14 +46,12 @@ public:
         
    // TODO: A monstrosity!! Space dimensions are undefined. Make quadtree dynamic at some point
    cuniverse (
-      const cvector2d& top_left, 
-      const cvector2d& bottom_right, 
+      const crectangle2d& rectangle, 
       const double min_node_size,
       const double max_tree_size) 
       : 
       m_quad_tree (
-         top_left,
-         bottom_right,
+         rectangle,
          min_node_size,
          max_tree_size)
    {
@@ -61,8 +59,10 @@ public:
 
    cuniverse () : 
       m_quad_tree (
-         cvector2d({-10e50,-10e50}),
-         cvector2d({ 10e50, 10e50}),
+         {
+            cvector2d({-10e50,-10e50}),
+            cvector2d({ 10e50, 10e50})
+         },
          10e50/2-1,
          10e50/2-1)
    {
