@@ -362,8 +362,8 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
    // hopefully doesn't crash
-   mzlib::ebody_exists exists = m_tree.move(3, {21,21});
-   ASSERT_EQ(mzlib::ebody_exists::no, exists);
+   mzlib::eexists exists = m_tree.move(3, {21,21});
+   ASSERT_EQ(mzlib::eexists::no, exists);
    // mass centre stays unchanged
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({24,24}), m_tree.get_mass_centre().location);
@@ -389,7 +389,8 @@ TEST_F(fixture_cquadtree, change_mass_basic)
    m_tree.add(2, {25,25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({15,15}), m_tree.get_mass_centre().location);
-   m_tree.change_mass(2, 300);
+   auto changed = m_tree.change_mass(2, 300);
+   ASSERT_EQ(mzlib::echanged::yes, changed);
    ASSERT_EQ(400, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({20,20}), m_tree.get_mass_centre().location);
 }
@@ -399,8 +400,8 @@ TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
    m_tree.add(1, {5,5}, 100);
    m_tree.add(2, {25,25}, 100);
    // hopefully doesn't crash
-   bool success = m_tree.change_mass(3, 150);
-   ASSERT_FALSE(success);
+   auto changed = m_tree.change_mass(3, 150);
+   ASSERT_EQ(mzlib::echanged::no, changed);
    // mass centre stays unchanged
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({15,15}), m_tree.get_mass_centre().location);

@@ -165,18 +165,18 @@ public:
       add (std::move(mc_ptr));
    }
    
-   ebody_exists move (const T& data, cvector2d new_location)
+   eexists move (const T& data, cvector2d new_location)
    {
       auto index = find_index (data);
-      if (!index.is_set()) return ebody_exists::no;
+      if (!index.is_set()) return eexists::no;
       
       adjust_dynamic_tree (new_location);
       m_root->move (data,new_location);
       m_all_bodies[index.get()]->location = new_location;
-      return ebody_exists::yes;
+      return eexists::yes;
    }
    
-   bool change_mass (const T& data, double new_mass)
+   echanged change_mass (const T& data, double new_mass)
    {
       return m_root->change_mass(data,new_mass);
    }

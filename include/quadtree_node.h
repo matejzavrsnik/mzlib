@@ -140,13 +140,13 @@ public:
       return mass_centre_it;
    }
    
-   ebody_exists move (const T& data, cvector2d new_location)
+   eexists move (const T& data, cvector2d new_location)
    {
       auto mass_centre_it = find_body(data);
-      if (mass_centre_it == m_bodies.end()) return ebody_exists::no;
+      if (mass_centre_it == m_bodies.end()) return eexists::no;
       auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return ebody_exists::no;
-      if(mass_centre_ptr->location == new_location) return ebody_exists::yes;
+      if(mass_centre_ptr == nullptr) return eexists::no;
+      if(mass_centre_ptr->location == new_location) return eexists::yes;
       // so, with corner cases handled, here's the thing:
       
       cvector2d old_location = mass_centre_ptr->location;
@@ -176,21 +176,21 @@ public:
          m_mass_centre.add_to_mass_centre(*mass_centre_ptr); 
       }
       
-      return ebody_exists::yes;
+      return eexists::yes;
    }
    
-   bool change_mass (const T& data, double new_mass)
+   echanged change_mass (const T& data, double new_mass)
    {
       auto mass_centre_it = find_body(data);
-      if (mass_centre_it == m_bodies.end()) return false;
+      if (mass_centre_it == m_bodies.end()) return echanged::no;
       auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return false;
-      if(mass_centre_ptr->mass == new_mass) return true;
+      if(mass_centre_ptr == nullptr) return echanged::no;
+      if(mass_centre_ptr->mass == new_mass) return echanged::yes;
       // so, with corner cases handled, here's the thing:
       remove(data);
       mass_centre_ptr->mass = new_mass;
       add(mass_centre_ptr);
-      return true;
+      return echanged::yes;
    }
    
    const cmass_centre2d& get_mass_centre () const
