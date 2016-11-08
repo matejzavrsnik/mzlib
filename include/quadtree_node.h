@@ -55,10 +55,12 @@ public:
    void create (
       const crectangle2d& rectangle, 
       const double smallest_node_width, 
-      std::shared_ptr<cquadnode> parent = nullptr) 
+      const edirection which_quadrant = edirection::centre, // root by default: no direction
+      std::shared_ptr<cquadnode> parent = nullptr)          // root by default: no parent
    {
       m_parent = parent;
       m_rectangle = rectangle;
+      m_which_quadrant = which_quadrant;
       m_diagonal_length = m_rectangle.get_diagonal_length();
       if (m_rectangle.get_width() > smallest_node_width) {
          const cvector2d centre_point = m_rectangle.calculate_centre_point();
@@ -69,22 +71,22 @@ public:
          const crectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
          if (m_child_nw == nullptr) {
             m_child_nw = std::make_shared<cquadnode<T>>();
-            m_child_nw->create(nw_rect, smallest_node_width, this->shared_from_this());
+            m_child_nw->create(nw_rect, smallest_node_width, edirection::nw, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
             m_child_ne = std::make_shared<cquadnode<T>>();
             const crectangle2d ne_rect = nw_rect.flip(edirection::e);
-            m_child_ne->create(ne_rect, smallest_node_width, this->shared_from_this());
+            m_child_ne->create(ne_rect, smallest_node_width, edirection::ne, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
             m_child_sw = std::make_shared<cquadnode<T>>();
             const crectangle2d sw_rect = nw_rect.flip(edirection::s);
-            m_child_sw->create(sw_rect, smallest_node_width, this->shared_from_this());
+            m_child_sw->create(sw_rect, smallest_node_width, edirection::sw, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
             m_child_se = std::make_shared<cquadnode<T>>();
             const crectangle2d se_rect = nw_rect.flip(edirection::se);
-            m_child_se->create(se_rect, smallest_node_width, this->shared_from_this());
+            m_child_se->create(se_rect, smallest_node_width, edirection::se, this->shared_from_this());
          }
       }
    }
@@ -232,46 +234,22 @@ public:
         
    bool is_nw_child () const 
    {
-      if (m_parent != nullptr &&
-          m_parent->m_child_nw != nullptr &&
-          this == m_parent->m_child_nw.get() ) 
-      {
-         return true;
-      }
-      return false;
+      return m_which_quadrant == edirection::nw;
    }
 
    bool is_ne_child () const 
    {
-      if (m_parent != nullptr &&
-          m_parent->m_child_ne != nullptr &&
-          this == m_parent->m_child_ne.get() ) 
-      {
-         return true;
-      }
-      return false;
+      return m_which_quadrant == edirection::ne;
    }
 
    bool is_sw_child () const 
    {
-      if (m_parent != nullptr &&
-         m_parent->m_child_sw != nullptr &&
-         this == m_parent->m_child_sw.get() ) 
-      {
-         return true;
-      }
-      return false;
+      return m_which_quadrant == edirection::sw;
    }
 
    bool is_se_child () const 
    {
-      if (m_parent != nullptr &&
-          m_parent->m_child_se != nullptr &&
-          this == m_parent->m_child_se.get() ) 
-      {
-         return true;
-      }
-      return false;
+      return m_which_quadrant == edirection::se;
    }
         
    cquadnode<T>* get_next_sibling () const 
@@ -343,6 +321,7 @@ private:
         
    crectangle2d m_rectangle;
    double m_diagonal_length = -1;
+   edirection m_which_quadrant;
 };
 
 } // namespace

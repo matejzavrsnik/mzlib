@@ -41,7 +41,7 @@ private:
       // todo: implement with operations over rectangles
       cvector2d top_left    {location[0]-m_min_node_size, location[1]-m_min_node_size};
       cvector2d bottom_right{location[0]+m_min_node_size, location[1]+m_min_node_size};
-      m_root->create({top_left, bottom_right}, m_min_node_size, nullptr);
+      m_root->create({top_left, bottom_right}, m_min_node_size);
    }
    
    void expand_tree_towards_location(const cvector2d& location)
@@ -60,8 +60,7 @@ private:
       std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
       new_root->create(
          enlarged_rectangle,
-         m_min_node_size, 
-         nullptr); // todo: not clear
+         m_min_node_size);
       new_root->m_bodies.insert(
          new_root->m_bodies.begin(),
          m_root->m_bodies.begin(),
@@ -123,7 +122,7 @@ public:
             min_node_size,
             max_tree_size)
    {
-      m_root->create(rectangle, m_min_node_size, nullptr);
+      m_root->create(rectangle, m_min_node_size);
    }
         
    // can't allow copying due to std::unique_ptrs that are used

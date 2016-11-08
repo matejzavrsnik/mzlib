@@ -13,7 +13,7 @@
 
 namespace mzlib {
    
-enum class edirection { n, ne, e, se, s, sw, w, nw };
+enum class edirection { n, ne, e, se, s, sw, w, nw, centre };
 
 inline edirection the_opposite_direction (edirection direction)
 {
@@ -29,6 +29,8 @@ inline edirection the_opposite_direction (edirection direction)
 
       case edirection::e: return edirection::w;
       case edirection::w: return edirection::e;
+      
+      case edirection::centre: return edirection::centre;
    }
 }
 
@@ -46,6 +48,7 @@ inline std::ostream& operator<< (std::ostream& os, const mzlib::edirection& dire
       case mzlib::edirection::s:  os <<  "s"; break;
       case mzlib::edirection::w:  os <<  "w"; break;
       case mzlib::edirection::e:  os <<  "e"; break;
+      case mzlib::edirection::centre: os << "centre"; break;
       
       default: os << "unknown"; break;
    };
