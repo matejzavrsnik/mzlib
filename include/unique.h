@@ -41,6 +41,20 @@ public:
    {
       return m_id;
    }
+   
+   bool operator== (const cunique& other) const
+   {
+      if (&other == this) {
+         return true;
+      }
+      return (this->id() == other.id());
+   }
+   
+   bool operator!= (const cunique& other) const
+   {
+      return !(*this == other);
+   }
+   
 };
 
 } // namespace
