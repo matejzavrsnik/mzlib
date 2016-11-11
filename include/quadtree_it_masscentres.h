@@ -60,7 +60,7 @@ private:
       const cquadnode<T>* node = m_nodes_queue.back();
       m_nodes_queue.pop_back(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
-      double node_distance = m_body->location.distance_to(node->get_mass_centre().location);
+      double node_distance = m_body->mass_centre.location.distance_to(node->get_mass_centre().location);
       double node_quotient = node->m_diagonal_length / node_distance;
       // Now depending how far it is, we need to consider either just mass centre of the node, or individual bodies
       if (node_quotient < m_quotient) {
@@ -84,7 +84,7 @@ private:
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
             for(auto body : node->m_bodies) {
                if (body->data == m_body->data) continue; // Skip original body
-               m_mass_centres_queue.push_back(*body);
+               m_mass_centres_queue.push_back(body->mass_centre);
             }
          }
       }

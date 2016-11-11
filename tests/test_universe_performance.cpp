@@ -44,8 +44,8 @@ protected:
       // Too much would just scatter bodies out of reach of quadtree.
       for(unsigned int i=0; i<num_of_bodies; ++i) {
          mzlib::cbody2d object;
-         object.mass = 1000000000000;
-         object.location = mzlib::cvector2d {
+         object.mass_centre.mass = 1000000000000;
+         object.mass_centre.location = mzlib::cvector2d {
             (double)mzlib::get_random_integer_between(0,5000),
             (double)mzlib::get_random_integer_between(0,5000)
          };

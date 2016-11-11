@@ -72,12 +72,13 @@ public:
 // need to rely on IDE to do this for you, but IDEs can sometimes be funny.
 // Long story short, this class is to attach any data of generic type T to a mass centre.
 template <class DataT, class VectorT>
-class cbinded_mass_centre : public cmass_centre<VectorT>
+class cbinded_mass_centre
 {
 
 public:
    
    DataT data; //todo: any better names out there?
+   cmass_centre<VectorT> mass_centre;
    
    cbinded_mass_centre()
    {
@@ -85,7 +86,7 @@ public:
    
    cbinded_mass_centre(const DataT& binded_data, VectorT location_ = {0}, double mass_ = 0) :
       data(binded_data),   
-      cmass_centre<VectorT>(location_, mass_)
+      mass_centre(location_, mass_)
    {
    }
    

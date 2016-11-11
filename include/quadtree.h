@@ -133,7 +133,7 @@ public:
    
    void add (std::unique_ptr<cbinded_mass_centre2d<T>> mass_centre)
    {
-      adjust_dynamic_tree (mass_centre->location);
+      adjust_dynamic_tree (mass_centre->mass_centre.location);
       
       // Can still be out of the tree even after it has been resized, because it
       // might not have been: there is a defined limitation to the maximum tree
@@ -167,7 +167,7 @@ public:
       
       adjust_dynamic_tree (new_location);
       m_root->move (data,new_location);
-      m_all_bodies[index.get()]->location = new_location;
+      m_all_bodies[index.get()]->mass_centre.location = new_location;
       return eexists::yes;
    }
    

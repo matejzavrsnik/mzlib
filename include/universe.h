@@ -98,7 +98,7 @@ public:
                previous_body = &body;
             }
             law::cgravitation2d law;
-            law.m_1 = body;
+            law.m_1 = body.mass_centre;
             law.m_2 = mass_centre;
             law.G = m_properties.m_gravitational_constant;
             if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
@@ -153,7 +153,7 @@ public:
             cvector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
-               body.data.gravity, body.data.velocity, body.location, body.mass, time_pixel);
+               body.data.gravity, body.data.velocity, body.mass_centre.location, body.mass_centre.mass, time_pixel);
             move_body (body, location_final);
             body.data.velocity = velocity_final;            
          }
@@ -210,7 +210,7 @@ public:
          m_quad_tree.move(body.data, new_location);
       }
       else if (m_properties.m_implementation == implementation::naive) {
-         body.location = new_location;
+         body.mass_centre.location = new_location;
       }
       
    }
@@ -252,7 +252,7 @@ public:
             //this_body.data.gravity = {0.0,0.0};
             for (cbody2d& that_body : m_vector) {
                if (this_body.data != that_body.data) { // body can't exert a force on itself,
-                  calculate_forces_operation(this_body, that_body);
+                  calculate_forces_operation(this_body, that_body.mass_centre);
                }
             }
          }         
@@ -266,7 +266,7 @@ public:
          m_quad_tree.move(body.data, new_location);
       }
       else if (m_properties.m_implementation == implementation::naive) {
-         body.location = new_location;
+         body.mass_centre.location = new_location;
       }
    }
    

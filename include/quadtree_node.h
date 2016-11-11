@@ -92,16 +92,16 @@ public:
       // It is important that the is_in check is here, because it is not in
       // the quadtree class when it calls this function. Something needs to
       // check it, and it is redundant to check twice, so here it is.
-      if (is_in(mass_centre->location)) {
+      if (is_in(mass_centre->mass_centre.location)) {
          // insert
          m_bodies.push_back(mass_centre);
-         m_mass_centre.add_to_mass_centre(*mass_centre);
+         m_mass_centre.add_to_mass_centre(mass_centre->mass_centre);
          if (is_leaf()) return; // nothing more to do
          // if has children, insert there as well
-         if      (m_child_nw->is_in(mass_centre->location)) m_child_nw->add(mass_centre);
-         else if (m_child_ne->is_in(mass_centre->location)) m_child_ne->add(mass_centre);
-         else if (m_child_sw->is_in(mass_centre->location)) m_child_sw->add(mass_centre);
-         else if (m_child_se->is_in(mass_centre->location)) m_child_se->add(mass_centre);
+         if      (m_child_nw->is_in(mass_centre->mass_centre.location)) m_child_nw->add(mass_centre);
+         else if (m_child_ne->is_in(mass_centre->mass_centre.location)) m_child_ne->add(mass_centre);
+         else if (m_child_sw->is_in(mass_centre->mass_centre.location)) m_child_sw->add(mass_centre);
+         else if (m_child_se->is_in(mass_centre->mass_centre.location)) m_child_se->add(mass_centre);
       }
    }
    
@@ -117,14 +117,14 @@ public:
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
-      m_mass_centre.remove_from_mass_centre(*mass_centre_ptr);
+      m_mass_centre.remove_from_mass_centre(mass_centre_ptr->mass_centre);
       // if leaf, this operation is done
       if (is_leaf()) return eremoved::yes;
       // if not leaf, delete in children too
-      if      (m_child_nw->is_in(mass_centre_ptr->location)) return m_child_nw->remove(data);
-      else if (m_child_ne->is_in(mass_centre_ptr->location)) return m_child_ne->remove(data);
-      else if (m_child_sw->is_in(mass_centre_ptr->location)) return m_child_sw->remove(data);
-      else if (m_child_se->is_in(mass_centre_ptr->location)) return m_child_se->remove(data);
+      if      (m_child_nw->is_in(mass_centre_ptr->mass_centre.location)) return m_child_nw->remove(data);
+      else if (m_child_ne->is_in(mass_centre_ptr->mass_centre.location)) return m_child_ne->remove(data);
+      else if (m_child_sw->is_in(mass_centre_ptr->mass_centre.location)) return m_child_sw->remove(data);
+      else if (m_child_se->is_in(mass_centre_ptr->mass_centre.location)) return m_child_se->remove(data);
       return eremoved::no;
    }
    
@@ -144,17 +144,17 @@ public:
       if (mass_centre_it == m_bodies.end()) return eexists::no;
       auto mass_centre_ptr = *mass_centre_it;
       if(mass_centre_ptr == nullptr) return eexists::no;
-      if(mass_centre_ptr->location == new_location) return eexists::yes;
+      if(mass_centre_ptr->mass_centre.location == new_location) return eexists::yes;
       // so, with corner cases handled, here's the thing:
       
-      cvector2d old_location = mass_centre_ptr->location;
+      cvector2d old_location = mass_centre_ptr->mass_centre.location;
 
       bool crosses_node_border = false;
       if(!is_leaf()) {
-         if     (m_child_nw->is_in(mass_centre_ptr->location) && m_child_nw->is_in(new_location)) m_child_nw->move(data, new_location);
-         else if(m_child_ne->is_in(mass_centre_ptr->location) && m_child_ne->is_in(new_location)) m_child_ne->move(data, new_location);
-         else if(m_child_sw->is_in(mass_centre_ptr->location) && m_child_sw->is_in(new_location)) m_child_sw->move(data, new_location);
-         else if(m_child_se->is_in(mass_centre_ptr->location) && m_child_se->is_in(new_location)) m_child_se->move(data, new_location);
+         if     (m_child_nw->is_in(mass_centre_ptr->mass_centre.location) && m_child_nw->is_in(new_location)) m_child_nw->move(data, new_location);
+         else if(m_child_ne->is_in(mass_centre_ptr->mass_centre.location) && m_child_ne->is_in(new_location)) m_child_ne->move(data, new_location);
+         else if(m_child_sw->is_in(mass_centre_ptr->mass_centre.location) && m_child_sw->is_in(new_location)) m_child_sw->move(data, new_location);
+         else if(m_child_se->is_in(mass_centre_ptr->mass_centre.location) && m_child_se->is_in(new_location)) m_child_se->move(data, new_location);
          else {
             crosses_node_border = true;
          }
@@ -163,15 +163,15 @@ public:
       if (crosses_node_border) {
          // in this case remove the body and insert it again in new position
          if (remove(data) == eremoved::yes) {
-            mass_centre_ptr->location = new_location;
+            mass_centre_ptr->mass_centre.location = new_location;
             add(mass_centre_ptr);         
          }
       }
       else {
          // in this case just update mass centres
-         m_mass_centre.remove_from_mass_centre({old_location, mass_centre_ptr->mass});
-         mass_centre_ptr->location = new_location;
-         m_mass_centre.add_to_mass_centre(*mass_centre_ptr); 
+         m_mass_centre.remove_from_mass_centre({old_location, mass_centre_ptr->mass_centre.mass});
+         mass_centre_ptr->mass_centre.location = new_location;
+         m_mass_centre.add_to_mass_centre(mass_centre_ptr->mass_centre); 
       }
       
       return eexists::yes;
@@ -183,10 +183,10 @@ public:
       if (mass_centre_it == m_bodies.end()) return echanged::no;
       auto mass_centre_ptr = *mass_centre_it;
       if(mass_centre_ptr == nullptr) return echanged::no;
-      if(mass_centre_ptr->mass == new_mass) return echanged::yes;
+      if(mass_centre_ptr->mass_centre.mass == new_mass) return echanged::yes;
       // so, with corner cases handled, here's the thing:
       remove(data);
-      mass_centre_ptr->mass = new_mass;
+      mass_centre_ptr->mass_centre.mass = new_mass;
       add(mass_centre_ptr);
       return echanged::yes;
    }
