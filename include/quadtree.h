@@ -220,12 +220,12 @@ public:
 
    it_bodies begin () const
    { 
-      return it_bodies(m_all_bodies.cbegin()); 
+      return it_bodies(m_all_bodies.begin()); 
    }
    
    it_bodies end () const
    { 
-      return it_bodies(m_all_bodies.cend()); 
+      return it_bodies(m_all_bodies.end()); 
    }
         
    it_masscentres begin_masscentres (const T& data, double quotient)

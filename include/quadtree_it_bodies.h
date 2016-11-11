@@ -56,7 +56,7 @@ public:
       return (*m_body_it).get();
    }
 
-   const cbinded_mass_centre2d<T>& operator* () const
+   cbinded_mass_centre2d<T>& operator* () const
    { 
       return *(*m_body_it); 
    }
