@@ -25,10 +25,39 @@ public:
 
 };
 
+template <class DataT, class VectorT>
+class cbasic_body
+{
+
+public:
+   
+   DataT data; //todo: any better names out there?
+   cmass_centre<VectorT> mass_centre;
+   
+   cbasic_body()
+   {
+   }
+   
+   cbasic_body(const DataT& binded_data, VectorT location_ = {0}, double mass_ = 0) :
+      data(binded_data),   
+      mass_centre(location_, mass_)
+   {
+   }
+   
+   cbasic_body (const cbasic_body<DataT,VectorT>&) = default;
+   cbasic_body (cbasic_body<DataT,VectorT> && ) = default;
+   cbasic_body<DataT,VectorT>& operator= (const cbasic_body<DataT,VectorT>&) = default;
+   cbasic_body<DataT,VectorT>& operator= (cbasic_body<DataT,VectorT>&&) = default;
+   ~cbasic_body () = default;
+   
+};
+
 using cbody_properties2d = cbody_properties<cvector2d>;
 using cbody_properties3d = cbody_properties<cvector3d>;
-using cbody2d = cbinded_mass_centre2d<cbody_properties2d>;
-using cbody3d = cbinded_mass_centre3d<cbody_properties3d>;
+template<class DataT> using cbasic_body2d = cbasic_body<DataT, cvector2d>;
+template<class DataT> using cbasic_body3d = cbasic_body<DataT, cvector3d>;
+using cbody2d = cbasic_body2d<cbody_properties2d>;
+using cbody3d = cbasic_body3d<cbody_properties3d>;
 
 } // namespace
 

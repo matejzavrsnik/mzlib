@@ -160,7 +160,7 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    universe.add(sun);
 	universe.add(earth);
 
-   // simulate a day, but move earth by a couple kilometers in the middle of day   
+   // simulate a day, but move earth by a couple of kilometers in the middle of day   
    universe.forward_time(1.0_h, 1.0_h);
    mzlib::cvector2d move_to = universe.find_body(earth)->mass_centre.location + earth_move_distance;
    universe.move(earth, move_to);
