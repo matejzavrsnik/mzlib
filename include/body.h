@@ -15,22 +15,13 @@
 namespace mzlib {
    
 template <class VectorT>
-class cbody_forces
+class cbody_properties : public cunique 
 {
-   
+
 public:
-        
+   
    VectorT gravity;
    VectorT velocity;
-
-};
-
-template <class VectorT>
-class cbody_properties : public cbody_forces<VectorT>, public cunique 
-{
-
-public:
-   
 
 };
 
