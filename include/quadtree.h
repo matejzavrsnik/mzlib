@@ -32,7 +32,7 @@ private:
    
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
-   std::vector<std::unique_ptr<cbasic_body2d<T>>> m_all_bodies;
+   std::vector<std::unique_ptr<cbody_frame2d<T>>> m_all_bodies;
    
    void create_root_from_location(const cvector2d& location)
    {
@@ -131,7 +131,7 @@ public:
    
    virtual ~cquadtree () = default;
    
-   void add (std::unique_ptr<cbasic_body2d<T>> mass_centre)
+   void add (std::unique_ptr<cbody_frame2d<T>> mass_centre)
    {
       adjust_dynamic_tree (mass_centre->mass_centre.location);
       
@@ -148,15 +148,15 @@ public:
       m_all_bodies.push_back(std::move(mass_centre));
    }
    
-   void add (cbasic_body2d<T> mass_centre) 
+   void add (cbody_frame2d<T> mass_centre) 
    {
-      auto mc_ptr = std::make_unique<cbasic_body2d<T>>(mass_centre);
+      auto mc_ptr = std::make_unique<cbody_frame2d<T>>(mass_centre);
       add (std::move(mc_ptr));
    }
    
    void add (T data, cvector2d location, double mass = 0) 
    { 
-      auto mc_ptr = std::make_unique<cbasic_body2d<T>>(data, location, mass);
+      auto mc_ptr = std::make_unique<cbody_frame2d<T>>(data, location, mass);
       add (std::move(mc_ptr));
    }
    
@@ -194,7 +194,7 @@ public:
       return m_root->get_mass_centre();
    }
    
-   const cbasic_body2d<T>* find (const T& data)
+   const cbody_frame2d<T>* find (const T& data)
    {
       auto index = find_index (data);
       if (index.is_set()) {

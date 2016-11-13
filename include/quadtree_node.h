@@ -87,7 +87,7 @@ public:
       }
    }
 
-   void add (cbasic_body2d<T>* mass_centre) 
+   void add (cbody_frame2d<T>* mass_centre) 
    {
       // It is important that the is_in check is here, because it is not in
       // the quadtree class when it calls this function. Something needs to
@@ -113,7 +113,7 @@ public:
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return eremoved::no; 
       // if found, convert to mass centre ptr
-      cbasic_body2d<T>* mass_centre_ptr = *mass_centre_it;
+      cbody_frame2d<T>* mass_centre_ptr = *mass_centre_it;
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
@@ -128,11 +128,11 @@ public:
       return eremoved::no;
    }
    
-   typename std::vector<cbasic_body2d<T>*>::iterator find_body(const T& data)
+   typename std::vector<cbody_frame2d<T>*>::iterator find_body(const T& data)
    {
-      typename std::vector<cbasic_body2d<T>*>::iterator mass_centre_it = 
+      typename std::vector<cbody_frame2d<T>*>::iterator mass_centre_it = 
          std::find_if (m_bodies.begin(), m_bodies.end(), 
-            [&](cbasic_body2d<T>* mass_centre) { 
+            [&](cbody_frame2d<T>* mass_centre) { 
                return mass_centre->data == data; 
          });
       return mass_centre_it;
@@ -273,7 +273,7 @@ public:
       return candidate;
    }
    
-   const cbasic_body2d<T>* find (const T& data) const
+   const cbody_frame2d<T>* find (const T& data) const
    {
       for (auto body : m_bodies) {
          if (body->data == data) {
@@ -312,7 +312,7 @@ private:
    // bodies stored here, and with that an effective search solution too. If it
    // wasn't for the fact that what is stored in here are pointers, which will be
    // causing cache misses all the time, it should look like using std::vector.
-   std::vector<cbasic_body2d<T>*> m_bodies;
+   std::vector<cbody_frame2d<T>*> m_bodies;
    cmass_centre2d m_mass_centre;
         
    crectangle2d m_rectangle;

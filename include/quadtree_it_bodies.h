@@ -20,12 +20,12 @@ namespace mzlib {
 // unique_ptr structure that is actually stored in vector
 template<class T>
 class quadtree_it_bodies : 
-   public std::iterator<std::forward_iterator_tag, cbasic_body2d<T>>
+   public std::iterator<std::forward_iterator_tag, cbody_frame2d<T>>
 {
 
 private:
 
-   using iterator_type = typename std::vector<std::unique_ptr<cbasic_body2d<T>>>::const_iterator;
+   using iterator_type = typename std::vector<std::unique_ptr<cbody_frame2d<T>>>::const_iterator;
    iterator_type m_body_it;
 
 public:
@@ -51,12 +51,12 @@ public:
    }
 
    //todo: needs to be const
-   cbasic_body2d<T> const * operator-> () const
+   cbody_frame2d<T> const * operator-> () const
    { 
       return (*m_body_it).get();
    }
 
-   cbasic_body2d<T>& operator* () const
+   cbody_frame2d<T>& operator* () const
    { 
       return *(*m_body_it); 
    }
