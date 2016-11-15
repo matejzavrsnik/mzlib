@@ -5,24 +5,23 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_SPACE_H
-#define MZLIB_SPACE_H
+#ifndef MZLIB_UNIVERSE_H
+#define MZLIB_UNIVERSE_H
 
 #include <vector>
 #include <map>
 #include <algorithm>
 
-#include "vector.h"
 #include "body.h"
 #include "consts.h"
-#include "quadtree.h"
+#include "universe_containers.h"
 
 #include "laws/constant_linear_acceleration.h"
 #include "laws/acceleration.h"
 #include "laws/gravitation.h"
 
 namespace mzlib {
-
+   
 class cuniverse
 {
         
@@ -44,26 +43,25 @@ public:
       law_of_gravitation m_law_of_gravitation = law_of_gravitation::realistic;
       double m_barnes_hut_quotient = 1.5;
       implementation m_implementation = implementation::barnes_hut;
+      coptional<crectangle2d> m_rectangle;
+      double m_min_node_size = 10e50/8; // not a very efficient default, but it needs to cover the whole space
+      double m_max_tree_size = 10e50;
    };
         
-   // TODO: A monstrosity!! Space dimensions are undefined. Make quadtree dynamic at some point
-   cuniverse (
-      const crectangle2d& rectangle, 
+   cuniverse ( // todo: part of properties, isn't it?
+      const crectangle2d rectangle,
       const double min_node_size,
       const double max_tree_size) 
-      : 
-      m_quad_tree (
-         rectangle,
-         min_node_size,
-         max_tree_size)
    {
+      m_properties.m_rectangle = rectangle;
+      m_properties.m_min_node_size = min_node_size;
+      m_properties.m_max_tree_size;
+      apply_properties ();
    }
 
-   cuniverse () : 
-      m_quad_tree ( // not a very efficient default, but it needs to cover the whole space
-         10e50/8,
-         10e50)
+   cuniverse ()
    {
+      apply_properties(); // leave defaults
    }
 
    // can't allow copying because container uses std::unique_ptr
@@ -84,12 +82,56 @@ public:
    void set_properties (tproperties properties) 
    {
       m_properties = properties;
+      apply_properties ();
    }
 
+   void apply_properties () 
+   {
+      if (m_properties.m_implementation == implementation::barnes_hut) {
+         if (m_properties.m_rectangle.is_set()) {
+            m_container = std::make_unique<cuniverse_container_quadtree>(
+               m_properties.m_rectangle.get(),
+               m_properties.m_min_node_size,
+               m_properties.m_max_tree_size,
+               m_properties.m_barnes_hut_quotient);            
+         }
+         else {
+            m_container = std::make_unique<cuniverse_container_quadtree>(
+               m_properties.m_min_node_size,
+               m_properties.m_max_tree_size,
+               m_properties.m_barnes_hut_quotient);            
+         }
+      }
+      else if (m_properties.m_implementation == implementation::naive) {
+         m_container = std::make_unique<cuniverse_container_vector>();
+      }
+   }
+   
+   void add (cbody2d& body) 
+   {
+      m_container->add(body);
+   }
+   
+   void remove (const cbody2d& body)
+   {
+      m_container->remove(body);        
+   }
+   
+   cbody2d const* find (const cbody2d& body) const
+   {
+      return m_container->find(body);
+   }
+   
+   void move (cbody2d& body, cvector2d new_location)
+   {
+      m_container->move(body, new_location);
+   }
+   
+   // todo: private
    cvector2d calculate_forces () 
    {
       cbody2d* previous_body = nullptr;
-      for_every_mass_centre_combination(
+      m_container->for_every_mass_centre_combination(
          [this, &previous_body] (cbody2d& body, cmass_centre2d& mass_centre) 
          {
             if (previous_body != &body)
@@ -147,14 +189,14 @@ public:
 
    void calculate_positions (double time_pixel) 
    {
-      for_every_body(
+      m_container->for_every_body(
          [this, &time_pixel](cbody2d& body)
          {
             cvector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
                body.data.gravity, body.data.velocity, body.mass_centre.location, body.mass_centre.mass, time_pixel);
-            move_body (body, location_final);
+            m_container->move (body, location_final);
             body.data.velocity = velocity_final;            
          }
       );
@@ -175,125 +217,14 @@ public:
       }
    }
 
-
-
-/////////////////////////////// SPLIT HERE   
-   
-   
-   void add (cbody2d& body) 
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         m_quad_tree.add(body);
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         m_vector.push_back(body);
-      }
-   }
-   
-   void remove (const cbody2d& body)
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         m_quad_tree.remove(body.data);
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         std::remove_if(m_vector.begin(), m_vector.end(),
-            [&body](const cbody2d& element) {
-               return element.data == body.data;
-            });         
-      }
-      
-   }
-   
-   void move (cbody2d& body, cvector2d new_location)
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         m_quad_tree.move(body.data, new_location);
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         body.mass_centre.location = new_location;
-      }
-      
-   }
-   
-   cbody2d const * find_body (const cbody2d& body) const
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         for (const cbody2d& found : m_quad_tree) {
-            if (found.data == body.data) {
-               return &found;
-            }
-         }
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         for (const cbody2d& found : m_vector) {
-            if (found.data == body.data) {
-               return &found;
-            }
-         }         
-      }
-      return nullptr;
-   }
-
-        
-   void for_every_mass_centre_combination (std::function<void(cbody2d&,cmass_centre2d&)> calculate_forces_operation)
-   {
-      if(m_properties.m_implementation == implementation::barnes_hut) {
-         for (cbody2d& this_body : m_quad_tree) {
-            //this_body.data.gravity = {0.0,0.0};
-            cquadtree<cbody_properties2d>::it_masscentres mass_centres_it = 
-               m_quad_tree.begin_masscentres(this_body.data, m_properties.m_barnes_hut_quotient);
-            for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
-               calculate_forces_operation(this_body, *mass_centres_it);
-            }
-         }
-      }
-      else if(m_properties.m_implementation == implementation::naive) {        
-         for (cbody2d& this_body : m_vector) {
-            //this_body.data.gravity = {0.0,0.0};
-            for (cbody2d& that_body : m_vector) {
-               if (this_body.data != that_body.data) { // body can't exert a force on itself,
-                  calculate_forces_operation(this_body, that_body.mass_centre);
-               }
-            }
-         }         
-      }
-   }
-   
-   
-   void move_body (cbody2d& body, cvector2d new_location) 
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         m_quad_tree.move(body.data, new_location);
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         body.mass_centre.location = new_location;
-      }
-   }
-   
-   void for_every_body (std::function<void(cbody2d&)> body_properties_operation)
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         for (cbody2d& body : m_quad_tree) {
-            body_properties_operation (body);
-         }
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         for (cbody2d& body : m_vector) {
-            body_properties_operation (body);
-         }         
-      }
-   }
-   
-        
 private:
 
-   cquadtree<cbody_properties2d> m_quad_tree; // if quadtree implementation chosen
-   std::vector<cbody2d> m_vector; // if naive implementation chosen
+   std::unique_ptr<iuniverse_container> m_container;
    tproperties m_properties;
 
 };
 
 } // namespace
 
-#endif /* MZLIB_SPACE_H */
+#endif /* MZLIB_UNIVERSE_H */
 

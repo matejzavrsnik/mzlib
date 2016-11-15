@@ -33,6 +33,7 @@
       <itemPath>include/units.h</itemPath>
       <itemPath>include/units_strong.h</itemPath>
       <itemPath>include/universe.h</itemPath>
+      <itemPath>include/universe_containers.h</itemPath>
       <itemPath>include/utilities.h</itemPath>
       <itemPath>include/utils_filesystem.h</itemPath>
       <itemPath>include/utils_libcmlpp.h</itemPath>
@@ -167,6 +168,8 @@
       <item path="include/units_strong.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/universe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/universe_containers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -325,6 +328,8 @@
       <item path="include/units_strong.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/universe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/universe_containers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
