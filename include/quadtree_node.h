@@ -16,6 +16,7 @@
 #include "body.h"
 #include "rectangle.h"
 #include "enums.h"
+#include "exceptions.h"
 
 namespace mzlib {
 
@@ -297,6 +298,7 @@ private:
          case edirection::ne: m_child_ne = node; break;
          case edirection::sw: m_child_sw = node; break;
          case edirection::se: m_child_se = node; break;
+         default: throw exception::meaningless(); break;
       };
       node->m_parent = this->shared_from_this(); 
    }

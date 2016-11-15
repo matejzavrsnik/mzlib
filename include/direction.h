@@ -9,6 +9,7 @@
 #define	MZLIB_DIRECTION_H
 
 #include "vector.h"
+#include "exceptions.h"
 #include <iostream> // operator<<
 
 namespace mzlib {
@@ -32,6 +33,7 @@ inline edirection the_opposite_direction (edirection direction)
       
       case edirection::centre: return edirection::centre;
    }
+   throw exception::meaningless();
 }
 
 

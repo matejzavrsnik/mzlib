@@ -114,8 +114,8 @@ public:
       const double quotient) 
          : 
       m_quad_tree ( // not a very efficient default, but it needs to cover the whole space
-         10e50/8,
-         10e50),
+         min_node_size,
+         max_tree_size),
       m_quotient (quotient)
    {
    }

@@ -60,13 +60,13 @@ public: \
    using cbinary_option::cbinary_option; \
 };
 
-MZLIB_GENERATE_NEW_BINARY_OPTION( erecursive      );
-MZLIB_GENERATE_NEW_BINARY_OPTION( einclude_hidden );
-MZLIB_GENERATE_NEW_BINARY_OPTION( eset            );
-MZLIB_GENERATE_NEW_BINARY_OPTION( eexists         );
-MZLIB_GENERATE_NEW_BINARY_OPTION( eremoved        );
-MZLIB_GENERATE_NEW_BINARY_OPTION( eexpanded       );
-MZLIB_GENERATE_NEW_BINARY_OPTION( echanged        );
+MZLIB_GENERATE_NEW_BINARY_OPTION( erecursive      )
+MZLIB_GENERATE_NEW_BINARY_OPTION( einclude_hidden )
+MZLIB_GENERATE_NEW_BINARY_OPTION( eset            )
+MZLIB_GENERATE_NEW_BINARY_OPTION( eexists         )
+MZLIB_GENERATE_NEW_BINARY_OPTION( eremoved        )
+MZLIB_GENERATE_NEW_BINARY_OPTION( eexpanded       )
+MZLIB_GENERATE_NEW_BINARY_OPTION( echanged        )
 
 #undef MZLIB_GENERATE_NEW_BINARY_OPTION
 

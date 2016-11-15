@@ -17,11 +17,12 @@ namespace mzlib {
 // "exception" to every class name, but that is better done using nested namespace.
 namespace exception {
    
-class is_empty : public std::exception {};
-class not_set : public std::exception {};
-class invalid_values : public std::exception {};
+class is_empty        : public std::exception {};
+class not_set         : public std::exception {};
+class invalid_values  : public std::exception {};
 class not_implemented : public std::exception {}; // java influence on me, I guess
-      
+class meaningless     : public std::exception {};
+
 } } // namespace
 
 #endif /* MZLIB_EXCEPTIONS_H */

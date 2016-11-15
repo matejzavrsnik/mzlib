@@ -74,7 +74,7 @@ TEST_F(fixture_genetic, works_on_vector)
       [](const std::vector<int>& candidate) {
          // test criteria: each next number is 2x its index
          double sum_difference = 0;
-         for (int i = 0; i<candidate.size(); ++i) {
+         for (size_t i = 0; i<candidate.size(); ++i) {
             sum_difference = std::fabs(candidate[i] - 2*i);
          }
          return sum_difference;
@@ -108,13 +108,13 @@ TEST_F(fixture_genetic, DISABLED_mendel_smart_demo)
       [](const std::vector<int>& candidate) {
          // test criteria: each next number is 2x the previous
          double sum_difference = 0;
-         for (int i = 0; i<candidate.size()-1; ++i) {
+         for (size_t i = 0; i<candidate.size()-1; ++i) {
             // discourage trivial and incorrect solutions
             // fun fact: in int world, 2 * -2147483648 == 0 !!
             if (candidate[i] <= 0 || candidate[i] == -2147483648) {
                return std::numeric_limits<double>::max();
             }
-            for (int j = i+1; j<candidate.size(); ++j) {
+            for (size_t j = i+1; j<candidate.size(); ++j) {
                int factor = std::pow(2, j-i);
                sum_difference += std::fabs(candidate[j] - (factor * candidate[i]));
             }
@@ -128,5 +128,5 @@ TEST_F(fixture_genetic, DISABLED_mendel_smart_demo)
    std::vector<int> numbers_after = mzlib::mendel_smart(genetic);
    double penalty_after = fitness_function(numbers_after);
    
-   ASSERT_TRUE(true);
+   ASSERT_LT(penalty_before, penalty_after); // warning: probabilistic assert
 }

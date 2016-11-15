@@ -26,9 +26,9 @@ class cquadtree
     
 private:
     
-   std::shared_ptr<cquadnode<T>> m_root = nullptr;
    const double m_min_node_size;
    const double m_max_tree_size;
+   std::shared_ptr<cquadnode<T>> m_root = nullptr;
    
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.

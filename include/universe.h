@@ -48,17 +48,17 @@ public:
       double m_max_tree_size = 10e50;
    };
         
-   cuniverse ( // todo: part of properties, isn't it?
+   cuniverse ( 
       const crectangle2d rectangle,
       const double min_node_size,
       const double max_tree_size) 
    {
       m_properties.m_rectangle = rectangle;
       m_properties.m_min_node_size = min_node_size;
-      m_properties.m_max_tree_size;
+      m_properties.m_max_tree_size = max_tree_size;
       apply_properties ();
    }
-
+   
    cuniverse ()
    {
       apply_properties(); // leave defaults
@@ -84,28 +84,6 @@ public:
       m_properties = properties;
       apply_properties ();
    }
-
-   void apply_properties () 
-   {
-      if (m_properties.m_implementation == implementation::barnes_hut) {
-         if (m_properties.m_rectangle.is_set()) {
-            m_container = std::make_unique<cuniverse_container_quadtree>(
-               m_properties.m_rectangle.get(),
-               m_properties.m_min_node_size,
-               m_properties.m_max_tree_size,
-               m_properties.m_barnes_hut_quotient);            
-         }
-         else {
-            m_container = std::make_unique<cuniverse_container_quadtree>(
-               m_properties.m_min_node_size,
-               m_properties.m_max_tree_size,
-               m_properties.m_barnes_hut_quotient);            
-         }
-      }
-      else if (m_properties.m_implementation == implementation::naive) {
-         m_container = std::make_unique<cuniverse_container_vector>();
-      }
-   }
    
    void add (cbody2d& body) 
    {
@@ -126,9 +104,28 @@ public:
    {
       m_container->move(body, new_location);
    }
+        
+   void forward_time (double seconds, double time_pixel) 
+   {
+      // Time pixel idea stems from the fact that calculations are done in discreet time intervals.
+      // If it is about some linear motion it doesn't matter, but if you are trying to calculate other
+      // motions, particularly if over larger span of time, you might get dramatically different results
+      // if you don't break the time in smaller chunks, time pixels. This way you can forward_time for
+      // instance to one year in the future, but retain positions and forces recalculations on every 0.1 
+      // seconds to minimise the error. Of course, you could as well call a function in a loop for a couple 
+      // of times, but isn't it nicer to simply operate with points in time and not think about the rest?
+      for (double time=0; time<seconds; time += time_pixel) {
+         calculate_positions(time_pixel);
+         calculate_forces();
+      }
+   }
+
+   void for_every_body (std::function<void(cbody2d&)> execute)
+   {
+      m_container->for_every_body(execute);
+   }
    
-   // todo: private
-   cvector2d calculate_forces () 
+   void calculate_forces () 
    {
       cbody2d* previous_body = nullptr;
       m_container->for_every_mass_centre_combination(
@@ -153,6 +150,8 @@ public:
          }
       );
    }
+   
+private:
         
    std::tuple<cvector2d, cvector2d> 
    calculate_final_velocity_and_position(
@@ -201,24 +200,29 @@ public:
          }
       );
    }
-        
-   void forward_time (double seconds, double time_pixel) 
+   
+   void apply_properties () 
    {
-      // Time pixel idea stems from the fact that calculations are done in discreet time intervals.
-      // If it is about some linear motion it doesn't matter, but if you are trying to calculate other
-      // motions, particularly if over larger span of time, you might get dramatically different results
-      // if you don't break the time in smaller chunks, time pixels. This way you can forward_time for
-      // instance to one year in the future, but retain positions and forces recalculations on every 0.1 
-      // seconds to minimise the error. Of course, you could as well call a function in a loop for a couple 
-      // of times, but isn't it nicer to simply operate with points in time and not think about the rest?
-      for (double time=0; time<seconds; time += time_pixel) {
-         calculate_positions(time_pixel);
-         calculate_forces();
+      if (m_properties.m_implementation == implementation::barnes_hut) {
+         if (m_properties.m_rectangle.is_set()) {
+            m_container = std::make_unique<cuniverse_container_quadtree>(
+               m_properties.m_rectangle.get(),
+               m_properties.m_min_node_size,
+               m_properties.m_max_tree_size,
+               m_properties.m_barnes_hut_quotient);            
+         }
+         else {
+            m_container = std::make_unique<cuniverse_container_quadtree>(
+               m_properties.m_min_node_size,
+               m_properties.m_max_tree_size,
+               m_properties.m_barnes_hut_quotient);            
+         }
+      }
+      else if (m_properties.m_implementation == implementation::naive) {
+         m_container = std::make_unique<cuniverse_container_vector>();
       }
    }
-
-private:
-
+   
    std::unique_ptr<iuniverse_container> m_container;
    tproperties m_properties;
 
