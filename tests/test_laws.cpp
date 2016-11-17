@@ -211,7 +211,7 @@ TEST_F(fixture_laws, cgravitation_solve_for_force)
       unit_vector2d * 0, 
       mzlib::consts::earth_mass };
    gra.m_2 = mzlib::cmass_centre2d{
-      unit_vector2d * mzlib::consts::earth_distance_moon_average, 
+      unit_vector2d * mzlib::consts::moon_distance_earth, 
       mzlib::consts::moon_mass };
    gra.solve_for_force();
    

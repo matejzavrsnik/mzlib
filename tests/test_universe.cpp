@@ -31,7 +31,7 @@ TEST_F(fixture_universe, sun_force_on_earth)
    sun.mass_centre.mass = mzlib::consts::sun_mass;
     
    mzlib::cbody2d earth;
-   earth.mass_centre.location = {0,mzlib::consts::earth_distance_sun_average};
+   earth.mass_centre.location = {0,mzlib::consts::earth_distance_sun};
    earth.mass_centre.mass = mzlib::consts::earth_mass;
     
    universe.add(sun);
@@ -42,7 +42,7 @@ TEST_F(fixture_universe, sun_force_on_earth)
    mzlib::cvector2d f_earth = universe.find(earth)->data.gravity;
     
    ASSERT_EQ(f_earth, -f_sun);
-   ASSERT_NEAR(f_earth.length(), 3.53e+22, 0.01e+22);
+   ASSERT_NEAR(f_earth.length(), 3.541e+22, 0.001e+22);
 }
 
 TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_than_0)
@@ -60,7 +60,7 @@ TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_tha
    mzlib::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
    earth.mass_centre.location = earth_location_start;
    earth.mass_centre.mass = mzlib::consts::earth_mass;
-   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
     
    universe.add(sun);
 	universe.add(earth);
@@ -85,7 +85,7 @@ TEST_F(fixture_universe, sun_earth_month_travel_naive)
    mzlib::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
    earth.mass_centre.location = earth_location_start;
    earth.mass_centre.mass = mzlib::consts::earth_mass;
-   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
     
    universe.add(sun);
 	universe.add(earth);
@@ -105,7 +105,7 @@ TEST_F(fixture_universe, long_earth_around_the_sun)
    mzlib::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
    earth.mass_centre.location = earth_location_start;
    earth.mass_centre.mass = mzlib::consts::earth_mass;
-   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
     
    universe.add(sun);
 	universe.add(earth);
@@ -138,7 +138,7 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    sun.mass_centre.location = sun_location_start;
    earth.mass_centre.mass = mzlib::consts::earth_mass; 
    earth.mass_centre.location = earth_location_start;
-   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
    universe.add(sun);
 	universe.add(earth); 
    
@@ -156,7 +156,7 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    sun.mass_centre.location = sun_location_start;
    earth.mass_centre.mass = mzlib::consts::earth_mass; 
    earth.mass_centre.location = earth_location_start;
-   earth.data.velocity = {mzlib::consts::earth_speed_aphelion,0};
+   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
    universe.add(sun);
 	universe.add(earth);
 
