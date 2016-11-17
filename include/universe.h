@@ -15,6 +15,7 @@
 #include "body.h"
 #include "consts.h"
 #include "universe_containers.h"
+#include "rectangle.h"
 
 #include "laws/constant_linear_acceleration.h"
 #include "laws/acceleration.h"

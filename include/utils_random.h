@@ -42,13 +42,13 @@ inline double get_random_double ()
    double final_rand = get_random_integer() + decimals;
    return final_rand;
 }
-    
-inline unsigned int get_random_integer_between (unsigned from, unsigned to)
+ 
+inline unsigned get_random_integer_between (unsigned from, unsigned to)
 {
-   double random_number = get_random_double_between_0_1();
-   return (random_number * (to - from) + from);
+   const double random_number = get_random_double_between_0_1();
+   return static_cast<unsigned>(random_number * static_cast<double>(to - from) + static_cast<double>(from));
 }
-    
+
 template<class T, class U> typename std::map<T,U>::iterator 
 get_random_element (std::map<T,U>& from_map) 
 {
