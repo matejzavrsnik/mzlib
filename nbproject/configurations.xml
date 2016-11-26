@@ -92,8 +92,8 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
-          <commandlineTool>g++</commandlineTool>
+          <standard>11</standard>
+          <commandlineTool>g++-6</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
@@ -246,8 +246,8 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
-          <standard>8</standard>
-          <commandlineTool>g++</commandlineTool>
+          <standard>11</standard>
+          <commandlineTool>g++-6</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>

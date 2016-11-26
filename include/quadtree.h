@@ -86,7 +86,7 @@ private:
    coptional<int> find_index (const T& data)
    {
       coptional<int> index;
-      for (int i=0; i<m_all_bodies.size(); ++i) {
+      for (size_t i=0; i<m_all_bodies.size(); ++i) {
          if (m_all_bodies[i]->data == data) {
             index = i;
             break;
@@ -179,7 +179,7 @@ public:
    eremoved remove (const T& data)
    {
       if(m_root->remove(data) == eremoved::yes) {
-         for(int i=0; i!=m_all_bodies.size(); ++i) {
+         for(size_t i=0; i!=m_all_bodies.size(); ++i) {
             if( m_all_bodies[i]->data == data) {
                m_all_bodies.erase(m_all_bodies.begin() + i);
                return eremoved::yes;

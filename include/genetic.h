@@ -119,7 +119,7 @@ private:
    
    void mutate_genome (tgenome& genome)
    {
-      for(int rate=0; rate<m_mutation_rate; ++rate)
+      for(unsigned rate=0; rate<m_mutation_rate; ++rate)
       {
          tgenome_info genome_info = get_zap_info(genome);
          size_t zap_byte = get_random_integer_between (0, genome_info.genome_size);

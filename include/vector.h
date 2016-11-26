@@ -325,7 +325,7 @@ template<class TYPE, size_t DIM>
 inline std::ostream& operator<< (std::ostream& os, const cvector<TYPE,DIM>& vector)
 {
    os << "[";
-   for (int i=0; i<vector.size(); ++i) {
+   for (size_t i=0; i<vector.size(); ++i) {
       if (i!=0) os << ",";
       os << vector[i];
    }
