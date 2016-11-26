@@ -7,8 +7,11 @@
 
 #define private public
 #define protected public
-
 #include "../include/quadtree.h"
+#undef private
+#undef protected
+
+
 #include "gtest/gtest.h"
 
 #include <functional>

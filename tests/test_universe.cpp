@@ -7,8 +7,10 @@
 
 #define private public
 #define protected public
-
 #include "../include/universe.h"
+#undef private
+#undef protected
+
 #include "../include/units.h"
 #include "gtest/gtest.h"
 
