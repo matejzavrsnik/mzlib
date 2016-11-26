@@ -41,7 +41,6 @@ TEST_F(fixture_universe, sun_force_on_earth)
     
    universe.add(sun);
 	universe.add(earth);
-   universe.calculate_forces();
     
    mzlib::cvector2d f_sun = universe.find(sun)->data.gravity;
    mzlib::cvector2d f_earth = universe.find(earth)->data.gravity;
@@ -72,8 +71,8 @@ TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_tha
    universe.forward_time(30.0_day, 1.0_day);
    
    mzlib::cvector2d earth_location_quarter_later = universe.find(earth)->mass_centre.location;
-   ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.1e10_m);
-   ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.1e10_m);
+   ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.2e10_m);
+   ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.2e10_m);
 }
 
 TEST_F(fixture_universe, sun_earth_month_travel_naive)
@@ -97,8 +96,8 @@ TEST_F(fixture_universe, sun_earth_month_travel_naive)
    universe.forward_time(30.0_day, 1.0_day);
    
    mzlib::cvector2d earth_location_quarter_later = universe.find(earth)->mass_centre.location;
-   ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.1e10_m);
-   ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.1e10_m);
+   ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.2e10_m);
+   ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.2e10_m);
 }
 
 TEST_F(fixture_universe, long_earth_around_the_sun)

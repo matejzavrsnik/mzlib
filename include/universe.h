@@ -89,11 +89,15 @@ public:
    void add (cbody2d& body) 
    {
       m_container->add(body);
+      // Forces should show up immediately after adding
+      calculate_forces();
    }
    
    void remove (const cbody2d& body)
    {
-      m_container->remove(body);        
+      m_container->remove(body);
+      // Forces should show up immediately after removing
+      calculate_forces();
    }
    
    cbody2d const* find (const cbody2d& body) const
@@ -124,33 +128,6 @@ public:
    void for_every_body (std::function<void(cbody2d&)> execute)
    {
       m_container->for_every_body(execute);
-   }
-   
-   // todo: to private
-   void calculate_forces () 
-   {
-      cbody2d* previous_body = nullptr;
-      m_container->for_every_mass_centre_combination(
-         [this, &previous_body] (cbody2d& body, cmass_centre2d& mass_centre) 
-         {
-            if (previous_body != &body)
-            {
-               body.data.gravity = {0.0,0.0};
-               previous_body = &body;
-            }
-            law::cgravitation2d law;
-            law.m_1 = body.mass_centre;
-            law.m_2 = mass_centre;
-            law.G = m_properties.m_gravitational_constant;
-            if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
-               law.solve_for_force();
-            }
-            else {
-               law.solve_for_fun_force();
-            }
-            body.data.gravity += law.f_1.get();
-         }
-      );
    }
    
 private:
@@ -188,6 +165,32 @@ private:
       return std::make_tuple(location_final, velocity_final);
    }
 
+   void calculate_forces () 
+   {
+      cbody2d* previous_body = nullptr;
+      m_container->for_every_mass_centre_combination(
+         [this, &previous_body] (cbody2d& body, cmass_centre2d& mass_centre) 
+         {
+            if (previous_body != &body)
+            {
+               body.data.gravity = {0.0,0.0};
+               previous_body = &body;
+            }
+            law::cgravitation2d law;
+            law.m_1 = body.mass_centre;
+            law.m_2 = mass_centre;
+            law.G = m_properties.m_gravitational_constant;
+            if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
+               law.solve_for_force();
+            }
+            else {
+               law.solve_for_fun_force();
+            }
+            body.data.gravity += law.f_1.get();
+         }
+      );
+   }
+   
    void calculate_positions (double time_pixel) 
    {
       m_container->for_every_body(
