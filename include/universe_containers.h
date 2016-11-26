@@ -61,7 +61,12 @@ public:
    
    void move (cbody2d& body, cvector2d new_location)
    {
-      body.mass_centre.location = new_location;
+      for (cbody2d& found : m_vector) {
+         if (found.data == body.data) {
+            found.mass_centre.location = new_location;
+            break;
+         }
+      }
    }
    
    void for_every_mass_centre_combination (std::function<void(cbody2d&,cmass_centre2d&)> calculate_forces_operation)

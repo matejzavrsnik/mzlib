@@ -5,6 +5,9 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
+#define private public
+#define protected public
+
 #include "../include/universe.h"
 #include "../include/units.h"
 #include "gtest/gtest.h"
@@ -124,52 +127,144 @@ TEST_F(fixture_universe, long_earth_around_the_sun)
    ASSERT_NEAR(earth_location_year_later[1], mzlib::consts::earth_distance_sun_aphelion, 2000000.0_km); // 8 days off
 }
       
-TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
+TEST_F(fixture_universe, moving_object)
 {
-   mzlib::cbody2d sun;
-   mzlib::cbody2d earth;
-
-   mzlib::cvector2d earth_location_start = {0,mzlib::consts::earth_distance_sun_aphelion};
-   mzlib::cvector2d sun_location_start = {0,0};
-   mzlib::cvector2d earth_move_distance = {10.0_km, 10.0_km};
-
-   // setup start state   
-   sun.mass_centre.mass = mzlib::consts::sun_mass;
-   sun.mass_centre.location = sun_location_start;
-   earth.mass_centre.mass = mzlib::consts::earth_mass; 
-   earth.mass_centre.location = earth_location_start;
-   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
-   universe.add(sun);
-	universe.add(earth); 
+   mzlib::cbody2d body;
    
-   // simulation
-   universe.forward_time(1.0_h, 1.0_h);
-   universe.forward_time(1.0_s, 1.0_s);
+   body.mass_centre.location = {1.0_m, 2.0_m};
+   mzlib::cvector2d move_to = {3.0_m, 4.0_m};
+
+   universe.add(body); 
+   universe.move(body, move_to);
    
    // measure location
-   mzlib::cvector2d earth_location_without_move = universe.find(earth)->mass_centre.location;
-   
-   // reset to start state
-   universe.remove(earth);
-   universe.remove(sun);
-   sun.mass_centre.mass = mzlib::consts::sun_mass;
-   sun.mass_centre.location = sun_location_start;
-   earth.mass_centre.mass = mzlib::consts::earth_mass; 
-   earth.mass_centre.location = earth_location_start;
-   earth.data.velocity = {mzlib::consts::earth_velocity_aphelion,0};
-   universe.add(sun);
-	universe.add(earth);
-
-   // simulate a day, but move earth by a couple of kilometers in the middle of day   
-   universe.forward_time(1.0_h, 1.0_h);
-   mzlib::cvector2d move_to = universe.find(earth)->mass_centre.location + earth_move_distance;
-   universe.move(earth, move_to);
-   universe.forward_time(1.0_s, 1.0_s);
-   
-   // measure location
-   mzlib::cvector2d earth_location_with_move = universe.find(earth)->mass_centre.location;
+   mzlib::cvector2d location_after_move = universe.find(body)->mass_centre.location;
    
    // did move work correctly?
-   ASSERT_NEAR(earth_location_without_move[0], earth_location_with_move[0], 10.0_km);
-   ASSERT_NEAR(earth_location_without_move[1], earth_location_with_move[1], 10.0_km);
+   ASSERT_NEAR(location_after_move[0], move_to[0], 1.0_mm);
+   ASSERT_NEAR(location_after_move[1], move_to[1], 1.0_mm);
+}
+
+TEST_F(fixture_universe, moving_object_naive)
+{
+   mzlib::cuniverse::tproperties properties;
+   properties.m_implementation = mzlib::cuniverse::implementation::naive;
+   universe.set_properties(properties);
+   
+   mzlib::cbody2d body;
+   
+   body.mass_centre.location = {1.0_m, 2.0_m};
+   mzlib::cvector2d move_to = {3.0_m, 4.0_m};
+
+   universe.add(body); 
+   universe.move(body, move_to);
+   
+   // measure location
+   mzlib::cvector2d location_after_move = universe.find(body)->mass_centre.location;
+   
+   // did move work correctly?
+   ASSERT_NEAR(location_after_move[0], move_to[0], 1.0_mm);
+   ASSERT_NEAR(location_after_move[1], move_to[1], 1.0_mm);
+}
+
+TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
+{
+   mzlib::cbody2d body1;
+   mzlib::cbody2d body2;
+
+   mzlib::cvector2d body1_location_start = { 0.0_m, 10.0_m};
+   mzlib::cvector2d body1_move_vector =    { 0.0_m, 10.0_m};
+   mzlib::cvector2d body2_location_start = { 0.0_m,  0.0_m};
+   mzlib::cvector2d body1_velocity = { 0.0_m_per_s, 10.0_m_per_s};
+   
+   // setup start state   
+   body1.mass_centre.mass = 10.0_kg;
+   body1.mass_centre.location = body1_location_start;
+   body2.mass_centre.mass = 10.0_kg; 
+   body2.mass_centre.location = body2_location_start;
+   body1.data.velocity = body1_velocity;
+   universe.add(body1);
+	universe.add(body2); 
+   
+   // simulation
+   universe.forward_time(1.0_s, 1.0_s);
+   universe.forward_time(1.0_s, 1.0_s);
+   
+   // measure location
+   mzlib::cvector2d body1_location_without_move = universe.find(body1)->mass_centre.location;
+   
+   // reset to start state
+   universe.remove(body1);
+   universe.remove(body2);
+   body1.mass_centre.location = body1_location_start;
+   body2.mass_centre.location = body2_location_start;
+   body2.data.velocity = body1_velocity;
+   universe.add(body1);
+	universe.add(body2);
+
+   // simulation   
+   universe.forward_time(1.0_s, 1.0_s);
+   mzlib::cvector2d move_to = universe.find(body1)->mass_centre.location + body1_move_vector;
+   universe.move(body1, move_to);
+   universe.forward_time(1.0_s, 1.0_s);
+   
+   // measure location
+   mzlib::cvector2d body1_location_with_move = universe.find(body1)->mass_centre.location;
+   
+   // did move work correctly?
+   auto distance = body1_location_without_move - body1_location_with_move;
+   ASSERT_NEAR(distance.length(), body1_move_vector.length(), 10.0_m);
+}
+   
+TEST_F(fixture_universe, moving_object_while_gravity_simulation_running_naive)
+{
+   mzlib::cuniverse::tproperties properties;
+   properties.m_implementation = mzlib::cuniverse::implementation::naive;
+   universe.set_properties(properties);
+
+   mzlib::cbody2d body1;
+   mzlib::cbody2d body2;
+
+   mzlib::cvector2d body1_location_start = { 0.0_m, 10.0_m};
+   mzlib::cvector2d body1_move_vector =    { 0.0_m, 10.0_m};
+   mzlib::cvector2d body2_location_start = { 0.0_m,  0.0_m};
+   mzlib::cvector2d body1_velocity = { 0.0_m_per_s, 10.0_m_per_s};
+   
+   // setup start state   
+   body1.mass_centre.mass = 10.0_kg;
+   body1.mass_centre.location = body1_location_start;
+   body2.mass_centre.mass = 10.0_kg; 
+   body2.mass_centre.location = body2_location_start;
+   body1.data.velocity = body1_velocity;
+   universe.add(body1);
+	universe.add(body2); 
+   
+   // simulation
+   universe.forward_time(1.0_s, 1.0_s);
+   universe.forward_time(1.0_s, 1.0_s);
+   
+   // measure location
+   mzlib::cvector2d body1_location_without_move = universe.find(body1)->mass_centre.location;
+   
+   // reset to start state
+   universe.remove(body1);
+   universe.remove(body2);
+   body1.mass_centre.location = body1_location_start;
+   body2.mass_centre.location = body2_location_start;
+   body2.data.velocity = body1_velocity;
+   universe.add(body1);
+	universe.add(body2);
+
+   // simulation   
+   universe.forward_time(1.0_s, 1.0_s);
+   mzlib::cvector2d move_to = universe.find(body1)->mass_centre.location + body1_move_vector;
+   universe.move(body1, move_to);
+   universe.forward_time(1.0_s, 1.0_s);
+   
+   // measure location
+   mzlib::cvector2d body1_location_with_move = universe.find(body1)->mass_centre.location;
+   
+   // did move work correctly?
+   auto distance = body1_location_without_move - body1_location_with_move;
+   ASSERT_NEAR(distance.length(), body1_move_vector.length(), 10.0_m);
 }

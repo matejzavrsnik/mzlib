@@ -43,6 +43,7 @@ public:
    void solve_for_fun_force ()
    {
       VectorT m1_force = {0};
+      // todo: what when the distance is zero?
       double sqare_distance = m_1.get().location.square_distance_to(m_2.get().location); 
       m1_force = -m_1.get().location.direction_to(m_2.get().location).normalise(); 
       m1_force *= m_1.get().mass * m_2.get().mass; // masses

@@ -27,6 +27,8 @@ namespace units {
 // with 5000.0_km instead of 5000_km and force the compiler to parse the token as floating-point.
     
 // length
+constexpr long double operator"" _nm          (long double nm)   { return nm/1000000000; }
+constexpr long double operator"" _um          (long double um)   { return um/1000000; }   
 constexpr long double operator"" _mm          (long double mm)   { return mm/1000; }
 constexpr long double operator"" _cm          (long double cm)   { return cm/100; }
 constexpr long double operator"" _dm          (long double dm)   { return dm/10; }   
@@ -52,6 +54,8 @@ constexpr long double operator"" _day         (long double day)  { return day*86
 constexpr long double operator"" _julian_year (long double jy)   { return jy*31558152; }
 
 // mass
+constexpr long double operator"" _ug           (long double ug)  { return ug/1000000000; }
+constexpr long double operator"" _mg          (long double mg)   { return mg/1000000; }
 constexpr long double operator"" _g           (long double g)    { return g/1000; }
 constexpr long double operator"" _kg          (long double kg)   { return kg; }
 constexpr long double operator"" _tonne       (long double ton)  { return ton*1000; }

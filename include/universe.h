@@ -126,6 +126,7 @@ public:
       m_container->for_every_body(execute);
    }
    
+   // todo: to private
    void calculate_forces () 
    {
       cbody2d* previous_body = nullptr;
