@@ -30,7 +30,16 @@ protected:
   
 };
 
-TEST_F(fixture_universe, sun_force_on_earth)
+TEST_F(fixture_universe, after_adding_body_is_found)
+{
+   mzlib::cbody2d body;
+   universe.add(body);
+   auto found_body = universe.find(body);
+   ASSERT_NE(nullptr, found_body);
+   ASSERT_EQ(found_body->data, body.data);
+}
+
+TEST_F(fixture_universe, after_adding_bodies_feel_force)
 {
    mzlib::cbody2d sun;
    sun.mass_centre.mass = mzlib::consts::sun_mass;
