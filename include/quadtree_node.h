@@ -199,7 +199,7 @@ public:
    
    bool is_in(cvector2d location)
    {
-      return m_rectangle.is_in (location);
+      return m_rectangle.is_defined() && m_rectangle.is_in (location);
    }
         
    bool is_leaf () const 

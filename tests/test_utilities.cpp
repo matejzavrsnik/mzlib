@@ -219,6 +219,8 @@ TEST_F(fixture_utilities, coptional_basic)
    ASSERT_NO_THROW(optional.get());
    ASSERT_EQ(5, optional.get());
    ASSERT_TRUE(optional.is_set()); 
+   optional.unset();
+   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
 }
 
 TEST_F(fixture_utilities, c64_basic_for_basic) 

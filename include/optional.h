@@ -37,9 +37,16 @@ public:
       m_set = eset::yes; 
    }
    
-   bool is_set()
+   bool is_set() const
    {
       return m_set == eset::yes;
+   }
+
+   // I was thinking of the name "reset", but that would clash with boost and std
+   // constructs where "reset" also sets the object to a new value; this doesn't.
+   void unset()
+   {
+      m_set = eset::no;
    }
    
    // This function is needed because otherwise every operator would need to have 
@@ -49,7 +56,7 @@ public:
    // That makes sense, because how else should compiler know what to convert 
    // coptional to in case when, for instance, writing f = m * a, where m is 
    // coptional and appropriate operator* doesn't exist.
-   const T& get ()
+   const T& get () const
    {
       if(m_set == eset::no) throw exception::not_set();
       return m_value; 

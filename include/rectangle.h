@@ -11,27 +11,24 @@
 #include "vector.h"
 #include "direction.h"
 #include "exceptions.h"
+#include "optional.h"
 
 namespace mzlib {
    
-// separate laws over rectangle and the essence of rectangle
 template <class VectorT>
 class crectangle
 {
    
 private:
 
-   // todo: this is all wrong, fix
-   double m_not_set_mark = -1;
-   double m_diagonal_length = m_not_set_mark;
-   double m_width = m_not_set_mark;
-   double m_height = m_not_set_mark;
-   VectorT m_top_right;
-   VectorT m_bottom_left;
+   coptional<double>  m_diagonal_length;
+   coptional<double>  m_width;
+   coptional<double>  m_height;
+   coptional<VectorT> m_top_right;
+   coptional<VectorT> m_bottom_left;
    
-   
-   VectorT m_top_left;
-   VectorT m_bottom_right;
+   coptional<VectorT> m_top_left;
+   coptional<VectorT> m_bottom_right;
    
 public:
 
@@ -50,34 +47,39 @@ public:
    crectangle& operator= (crectangle<VectorT>&&) = default;
    ~crectangle () = default;
    
+   bool is_defined() const
+   {
+      return m_top_left.is_set() && m_bottom_right.is_set();
+   }
+   
    void set_top_left(const VectorT& top_left)
    {
       m_top_left = top_left;
-      m_diagonal_length = m_not_set_mark;
+      m_diagonal_length.unset();
    }
 
    const VectorT& get_top_left() const
    {
-      return m_top_left;
+      return m_top_left.get();
    }
    
    void set_bottom_right(const VectorT& bottom_right)
    {
       m_bottom_right = bottom_right;
-      m_diagonal_length = m_not_set_mark;
+      m_diagonal_length.unset();
    }
 
    const VectorT& get_bottom_right() const
    {
-      return m_bottom_right;
+      return m_bottom_right.get();
    }
 
    bool is_in (const cvector2d& location) const
    {
-      if (location[0] >  m_top_left[0] && 
-          location[1] >  m_top_left[1] &&   // left and top are exclusive
-          location[0] <= m_bottom_right[0] && 
-          location[1] <= m_bottom_right[1]) // right and bottom are inclusive 
+      if (location[0] >  m_top_left.get()[0] && 
+          location[1] >  m_top_left.get()[1] &&   // left and top are exclusive
+          location[0] <= m_bottom_right.get()[0] && 
+          location[1] <= m_bottom_right.get()[1]) // right and bottom are inclusive 
       { 
          return true;
       }
@@ -86,36 +88,36 @@ public:
    
    const double& get_diagonal_length() const
    {
-      if(m_diagonal_length == m_not_set_mark) {
-         const_cast<double&>(m_diagonal_length) = m_top_left.distance_to(m_bottom_right);
+      if(m_diagonal_length.is_set()) {
+         return m_diagonal_length.get();
       }
-      
-      return m_diagonal_length;
+      const_cast<coptional<double>&>(m_diagonal_length) = m_top_left.get().distance_to(m_bottom_right.get());
+      return m_diagonal_length.get();      
    }
    
    const double& get_width () const
    {
-      if (m_width == m_not_set_mark) {
-         // todo: correct only in 2d and if straight but is easy to improve
-         const_cast<double&>(m_width) = m_bottom_right[0] - m_top_left[0];
+      if (m_width.is_set()) {
+         return m_width.get();
       }
-      
-      return m_width;
+      // todo: correct only in 2d and if straight but is easy to improve
+      const_cast<coptional<double>&>(m_width) = m_bottom_right.get()[0] - m_top_left.get()[0];
+      return m_width.get();
    }
    
    const double& get_height () const
    {
-      if (m_height == m_not_set_mark) {
-         // todo: correct only in 2d and if straight but is easy to improve
-         const_cast<double&>(m_height) = m_bottom_right[1] - m_top_left[1];
+      if (m_height.is_set()) {
+         return m_height.get();
       }
-      
-      return m_height;
+      // todo: correct only in 2d and if straight but is easy to improve
+      const_cast<coptional<double>&>(m_height) = m_bottom_right.get()[1] - m_top_left.get()[1];
+      return m_height.get();
    }
    
    VectorT calculate_centre_point () const
    {
-      VectorT centre_point = m_top_left + ((m_bottom_right - m_top_left) / 2);
+      VectorT centre_point = m_top_left.get() + ((m_bottom_right.get() - m_top_left.get()) / 2);
       return centre_point;
    }
    
@@ -142,8 +144,8 @@ public:
    
    crectangle<VectorT> enlarge_rectangle (edirection direction, double factor) const
    {
-      VectorT top_left = m_top_left;
-      VectorT bottom_right = m_bottom_right;
+      VectorT top_left = m_top_left.get();
+      VectorT bottom_right = m_bottom_right.get();
       const double& height = get_height ();
       const double& width = get_width ();
       const double height_delta = factor * height - height;
@@ -175,8 +177,8 @@ public:
    
    crectangle<VectorT> flip (edirection direction) const
    {
-      VectorT top_left = m_top_left;
-      VectorT bottom_right = m_bottom_right;
+      VectorT top_left = m_top_left.get();
+      VectorT bottom_right = m_bottom_right.get();
       const double& height = get_height ();
       const double& width = get_width ();
       switch (direction) 
