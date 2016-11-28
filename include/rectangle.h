@@ -86,15 +86,6 @@ public:
       return false;
    }
    
-   const double& get_diagonal_length() const
-   {
-      if(m_diagonal_length.is_set()) {
-         return m_diagonal_length.get();
-      }
-      const_cast<coptional<double>&>(m_diagonal_length) = m_top_left.get().distance_to(m_bottom_right.get());
-      return m_diagonal_length.get();      
-   }
-   
    const double& get_width () const
    {
       if (m_width.is_set()) {

@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/rectangle.h"
+#include "../include/laws/rectangles.h"
 #include "gtest/gtest.h"
 #include "../include/dbl.h"
 
@@ -90,7 +90,10 @@ TEST_F(fixture_rectangle, is_in)
 
 TEST_F(fixture_rectangle, get_diagonal_length) 
 {
-   double length = m_rectangle.get_diagonal_length();
+   mzlib::law::crectangles2d rect_law;
+   rect_law.consider(m_rectangle);
+   rect_law.solve_for_diagonal_length();
+   double length = rect_law.m_diagonal_length.get();
    ASSERT_TRUE(mzlib::dbl(length).equals(36.055512754639892L));
 }
 

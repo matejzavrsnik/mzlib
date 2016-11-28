@@ -15,6 +15,7 @@
 #include "utils_missing_std.h"
 #include "body.h"
 #include "rectangle.h"
+#include "laws/rectangles.h"
 #include "enums.h"
 #include "exceptions.h"
 
@@ -58,7 +59,11 @@ public:
       m_parent = parent;
       m_rectangle = rectangle;
       m_which_quadrant = which_quadrant;
-      m_diagonal_length = m_rectangle.get_diagonal_length();
+      if (!m_diagonal_length.is_set()) {
+         law::crectangles2d rect_law;
+         rect_law.consider(m_rectangle);
+         m_diagonal_length = rect_law.solve_for_diagonal_length();
+      }
       if (m_rectangle.get_width() > smallest_node_width) {
          const cvector2d centre_point = m_rectangle.calculate_centre_point();
          
@@ -318,7 +323,7 @@ private:
    cmass_centre2d m_mass_centre;
         
    crectangle2d m_rectangle;
-   double m_diagonal_length = -1;
+   coptional<double> m_diagonal_length;
    edirection m_which_quadrant;
 };
 
