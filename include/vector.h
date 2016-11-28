@@ -36,10 +36,15 @@ private:
    std::array<TYPE, DIM> m_array;
     
 public:
+   
+   constexpr static size_t dimensions()
+   {
+      return DIM;
+   }
     
    // This weird constructor uses variadic templates to try to squeeze anything into a vector
    template <typename... T> constexpr explicit cvector (T... val) : 
-      m_array{val...} 
+      m_array{val...}
    {
    }
     

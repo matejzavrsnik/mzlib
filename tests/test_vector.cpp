@@ -300,3 +300,11 @@ TEST_F(fixture_cvector, operator_minus_unary)
    mzlib::cvector<double, 3> negative_v456{-4.4,-5.5,-6.6};
    ASSERT_TRUE(negative_v456 == -v456);
 }
+
+TEST_F(fixture_cvector, dimensions)
+{
+   ASSERT_EQ(2, (mzlib::cvector<double, 2>::dimensions()));
+   ASSERT_EQ(3, (mzlib::cvector<double, 3>::dimensions()));
+   ASSERT_EQ(4, (mzlib::cvector<double, 4>::dimensions()));
+}
+
