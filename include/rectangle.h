@@ -55,7 +55,6 @@ public:
    void set_top_left(const VectorT& top_left)
    {
       m_top_left = top_left;
-      m_diagonal_length.unset();
    }
 
    const VectorT& get_top_left() const
@@ -66,7 +65,6 @@ public:
    void set_bottom_right(const VectorT& bottom_right)
    {
       m_bottom_right = bottom_right;
-      m_diagonal_length.unset();
    }
 
    const VectorT& get_bottom_right() const

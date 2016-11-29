@@ -92,15 +92,21 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <commandlineTool>gcc</commandlineTool>
+        </cTool>
         <ccTool>
           <standard>11</standard>
-          <commandlineTool>g++-6</commandlineTool>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
           <commandLine>-Wall -Wextra -Wpedantic</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
+        <asmTool>
+          <warningLevel>2</warningLevel>
+        </asmTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
@@ -250,7 +256,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>11</standard>
-          <commandlineTool>g++-6</commandlineTool>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
@@ -262,6 +268,7 @@
         </fortranCompilerTool>
         <asmTool>
           <developmentMode>5</developmentMode>
+          <warningLevel>2</warningLevel>
         </asmTool>
         <linkerTool>
           <linkerLibItems>
