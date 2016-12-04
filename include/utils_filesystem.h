@@ -28,6 +28,28 @@ inline std::string read_file (const std::string& filename)
    return buffer.str();
 }
 
+inline std::string read_file (
+   const std::string&   filename, 
+   const std::streampos read_from, 
+   const std::streampos read_to)
+{
+   if (read_to <= read_from) return std::string();
+   std::ifstream filestream(filename);
+   filestream.seekg (read_from);
+   const unsigned int chars_to_read = read_to - read_from;
+   std::vector<char> vec_content(chars_to_read);
+   filestream.read(&vec_content[0], chars_to_read);
+   std::string str_content(vec_content.begin(), vec_content.end());
+   return str_content;
+}
+
+inline std::ifstream::pos_type find_eof_position(const std::string filename)
+{
+   std::ifstream filestream(filename);
+   filestream.seekg (0, filestream.end);
+   return filestream.tellg();
+}
+
 // Save string contents into a file
 inline void save_file (const std::string& filename, const std::string& content)
 {
@@ -68,7 +90,7 @@ inline std::vector<std::string> list_files (std::string directory, bool include_
 } // namespace old
 
 // is one of those . or .. "meta-directories"?
-bool is_meta_directory(const char* directory_name)
+inline bool is_meta_directory(const char* directory_name)
 {
    // to exercise my C muscles a bit
    int len_of_string = (int)strlen (directory_name);

@@ -11,6 +11,9 @@
 #include <algorithm>    
 #include <cstdio>
 
+
+
+
 class fixture_utils_filesystem : public ::testing::Test 
 {
 
@@ -106,5 +109,29 @@ TEST_F(fixture_utils_filesystem, write_append_read_file)
    temp_file_content = mzlib::read_file(temp_file);
    ASSERT_EQ(sample_content + additional_content, temp_file_content);
    
+   std::remove (temp_file.c_str());
+}
+
+TEST_F(fixture_utils_filesystem, read_file_from_to)
+{
+   std::string temp_file = m_test_dir + "/temp_file";
+   std::string sample_content = "I must not fear.";
+   
+   mzlib::save_file (temp_file, sample_content);
+   std::string temp_file_content = mzlib::read_file(temp_file, std::streampos(11), std::streampos(15));
+   ASSERT_EQ("fear", temp_file_content);
+ 
+   std::remove (temp_file.c_str());
+}
+
+TEST_F(fixture_utils_filesystem, find_eof_position)
+{
+   std::string temp_file = m_test_dir + "/temp_file";
+   std::string sample_content = "I must not fear.";
+   
+   mzlib::save_file (temp_file, sample_content);
+   std::streampos eof = mzlib::find_eof_position(temp_file);
+   ASSERT_EQ(16, eof);
+ 
    std::remove (temp_file.c_str());
 }
