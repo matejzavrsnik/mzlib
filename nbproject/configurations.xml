@@ -26,6 +26,7 @@
       <itemPath>include/quadtree_it_masscentres.h</itemPath>
       <itemPath>include/quadtree_node.h</itemPath>
       <itemPath>include/rectangle.h</itemPath>
+      <itemPath>include/relentless_file_reader.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/stopwatch.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
@@ -58,6 +59,7 @@
       <itemPath>tests/test_probabilator.cpp</itemPath>
       <itemPath>tests/test_quadtree.cpp</itemPath>
       <itemPath>tests/test_rectangle.cpp</itemPath>
+      <itemPath>tests/test_relentless_file_reader.cpp</itemPath>
       <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
       <itemPath>tests/test_twoway_streambuf.cpp</itemPath>
@@ -162,6 +164,8 @@
       </item>
       <item path="include/rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
@@ -213,6 +217,11 @@
       <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_rectangle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_relentless_file_reader.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -325,6 +334,8 @@
       </item>
       <item path="include/rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
@@ -376,6 +387,11 @@
       <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_rectangle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_relentless_file_reader.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
