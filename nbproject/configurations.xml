@@ -8,6 +8,14 @@
         <itemPath>include/laws/gravitation.h</itemPath>
         <itemPath>include/laws/rectangles.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2" displayName="utils" projectFiles="true">
+        <itemPath>include/utils/filesystem.h</itemPath>
+        <itemPath>include/utils/general.h</itemPath>
+        <itemPath>include/utils/libcmlpp.h</itemPath>
+        <itemPath>include/utils/missing_std.h</itemPath>
+        <itemPath>include/utils/random.h</itemPath>
+        <itemPath>include/utils/string.h</itemPath>
+      </logicalFolder>
       <itemPath>include/binary_options.h</itemPath>
       <itemPath>include/body.h</itemPath>
       <itemPath>include/c64_basic_for.h</itemPath>
@@ -36,12 +44,6 @@
       <itemPath>include/units_strong.h</itemPath>
       <itemPath>include/universe.h</itemPath>
       <itemPath>include/universe_containers.h</itemPath>
-      <itemPath>include/utilities.h</itemPath>
-      <itemPath>include/utils_filesystem.h</itemPath>
-      <itemPath>include/utils_libcmlpp.h</itemPath>
-      <itemPath>include/utils_missing_std.h</itemPath>
-      <itemPath>include/utils_random.h</itemPath>
-      <itemPath>include/utils_string.h</itemPath>
       <itemPath>include/vector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -85,6 +87,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>include/utils</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -184,17 +189,17 @@
       </item>
       <item path="include/universe_containers.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_filesystem.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/general.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_libcmlpp.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/libcmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_missing_std.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_random.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/random.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_string.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -354,17 +359,17 @@
       </item>
       <item path="include/universe_containers.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_filesystem.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/general.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_libcmlpp.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/libcmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_missing_std.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_random.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/random.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils_string.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utils/string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/vector.h" ex="false" tool="3" flavor2="0">
       </item>

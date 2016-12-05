@@ -8,7 +8,7 @@
 #ifndef MZLIB_RELENTLESS_FILE_READER_H
 #define MZLIB_RELENTLESS_FILE_READER_H
 
-#include "utils_filesystem.h"
+#include "utils/filesystem.h"
 
 #include <string>
 #include <functional>

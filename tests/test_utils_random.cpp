@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/utils_random.h"
+#include "../include/utils/random.h"
 #include "gtest/gtest.h"
     
 class fixture_utils_random : public ::testing::Test 

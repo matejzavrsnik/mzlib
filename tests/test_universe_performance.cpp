@@ -11,7 +11,7 @@
 
 #include "../include/universe.h"
 #include "../include/units.h"
-#include "../include/utils_random.h"
+#include "../include/utils/random.h"
 #include "../include/stopwatch.h"
 #include "../include/c64_basic_for.h"
 

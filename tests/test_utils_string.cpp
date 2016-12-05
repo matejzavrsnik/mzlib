@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/utils_string.h"
+#include "../include/utils/string.h"
 #include "gtest/gtest.h"
     
 class fixture_utils_string : public ::testing::Test 

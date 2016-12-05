@@ -8,8 +8,8 @@
 #include "../include/genetic.h"
 #include "gtest/gtest.h"
 
-#include "../include/utils_random.h"
-#include "../include/utilities.h"
+#include "../include/utils/random.h"
+#include "../include/utils/general.h"
 #include <cmath>
 #include <limits>
 

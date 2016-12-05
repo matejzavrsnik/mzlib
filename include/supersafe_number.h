@@ -11,7 +11,7 @@
 #include <vector>
 #include <exception>
 
-#include "utils_random.h"
+#include "utils/random.h"
 #include "dbl.h"
 
 namespace mzlib {

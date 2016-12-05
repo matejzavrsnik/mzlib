@@ -12,7 +12,7 @@
 #include <vector>
 #include <algorithm> // std::generate
 
-#include "utilities.h" // fast_threeway_min
+#include "general.h" // fast_threeway_min
 
 namespace mzlib {
         

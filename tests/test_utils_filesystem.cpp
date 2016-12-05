@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/utils_filesystem.h"
+#include "../include/utils/filesystem.h"
 #include "gtest/gtest.h"
 #include "../options.h"
 #include <algorithm>    

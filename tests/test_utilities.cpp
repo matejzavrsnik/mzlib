@@ -7,7 +7,7 @@
 
 #include <map>
 
-#include "../include/utilities.h"
+#include "../include/utils/general.h"
 #include "../include/c64_basic_for.h"
 
 #include "gtest/gtest.h"
