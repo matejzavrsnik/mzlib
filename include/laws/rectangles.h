@@ -56,8 +56,8 @@ public:
    }
 };
    
-using crectangles2d = rectangles<vector2d>;
-using crectangleS3d = rectangles<vector3d>;
+using rectangles2d = rectangles<vector2d>;
+using rectangleS3d = rectangles<vector3d>;
 
 } } // namespace
 

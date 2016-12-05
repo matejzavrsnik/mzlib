@@ -44,13 +44,13 @@ public:
       law_of_gravitation m_law_of_gravitation = law_of_gravitation::realistic;
       double m_barnes_hut_quotient = 1.5;
       implementation m_implementation = implementation::barnes_hut;
-      optional<crectangle2d> m_rectangle;
+      optional<rectangle2d> m_rectangle;
       double m_min_node_size = 10e50/8; // not a very efficient default, but it needs to cover the whole space
       double m_max_tree_size = 10e50;
    };
         
    universe ( 
-      const crectangle2d rectangle,
+      const rectangle2d rectangle,
       const double min_node_size,
       const double max_tree_size) 
    {
@@ -140,12 +140,12 @@ private:
       const double mass,
       const double time) const
    {
-      law::cacceleration2d acceleration_equation;
+      law::acceleration2d acceleration_equation;
       acceleration_equation.f = gravity;
       acceleration_equation.m = mass;
       acceleration_equation.solve_for_acceleration();
 
-      law::cconstant_linear_acceleration2d final_parameters_equation;
+      law::constant_linear_acceleration2d final_parameters_equation;
       final_parameters_equation.a = acceleration_equation.a.get();
       final_parameters_equation.v_0 = velocity;
       final_parameters_equation.r_0 = location;
@@ -169,14 +169,14 @@ private:
    {
       body2d* previous_body = nullptr;
       m_container->for_every_mass_centre_combination(
-         [this, &previous_body] (body2d& body, cmass_centre2d& mass_c) 
+         [this, &previous_body] (body2d& body, mass_centre2d& mass_c) 
          {
             if (previous_body != &body)
             {
                body.data.gravity = {0.0,0.0};
                previous_body = &body;
             }
-            law::cgravitation2d law;
+            law::gravitation2d law;
             law.m_1 = body.mass_c;
             law.m_2 = mass_c;
             law.G = m_properties.m_gravitational_constant;

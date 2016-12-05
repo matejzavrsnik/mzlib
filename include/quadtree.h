@@ -111,7 +111,7 @@ public:
    }
    
    quadtree (
-      const crectangle2d& rectangle, 
+      const rectangle2d& rectangle, 
       const double min_node_size,
       const double max_tree_size) :
          quadtree (
@@ -189,7 +189,7 @@ public:
       return option::removed::no;
    }
    
-   const cmass_centre2d& get_mass_centre () const
+   const mass_centre2d& get_mass_centre () const
    {
       return m_root->get_mass_centre();
    }

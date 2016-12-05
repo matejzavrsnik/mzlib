@@ -26,7 +26,7 @@ public:
    virtual void remove (const body2d&) = 0;
    virtual body2d const* find (const body2d&) const = 0;
    virtual void move (body2d&, vector2d) = 0;
-   virtual void for_every_mass_centre_combination (std::function<void(body2d&,cmass_centre2d&)>) = 0;
+   virtual void for_every_mass_centre_combination (std::function<void(body2d&,mass_centre2d&)>) = 0;
    virtual void for_every_body (std::function<void(body2d&)>) = 0;
 
 };
@@ -69,7 +69,7 @@ public:
       }
    }
    
-   void for_every_mass_centre_combination (std::function<void(body2d&,cmass_centre2d&)> calculate_forces_operation)
+   void for_every_mass_centre_combination (std::function<void(body2d&,mass_centre2d&)> calculate_forces_operation)
    {
       for (body2d& this_body : m_vector) {
          for (body2d& that_body : m_vector) {
@@ -100,7 +100,7 @@ class universe_container_quadtree : public iuniverse_container
 public:
    
    universe_container_quadtree (
-      const crectangle2d& rectangle, 
+      const rectangle2d& rectangle, 
       const double min_node_size,
       const double max_tree_size,
       const double quotient) 
@@ -157,7 +157,7 @@ public:
       m_quad_tree.move(body.data, new_location);
    }
         
-   void for_every_mass_centre_combination (std::function<void(body2d&,cmass_centre2d&)> calculate_forces_operation)
+   void for_every_mass_centre_combination (std::function<void(body2d&,mass_centre2d&)> calculate_forces_operation)
    {
       for (body2d& this_body : m_quad_tree) {
          quadtree<body_properties2d>::it_masscentres mass_centres_it = 

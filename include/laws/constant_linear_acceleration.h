@@ -63,8 +63,8 @@ public:
    }
 };
 
-using cconstant_linear_acceleration2d = constant_linear_acceleration<vector2d>;
-using cconstant_linear_acceleration3d = constant_linear_acceleration<vector3d>;
+using constant_linear_acceleration2d = constant_linear_acceleration<vector2d>;
+using constant_linear_acceleration3d = constant_linear_acceleration<vector3d>;
 
 } } // namespace
 

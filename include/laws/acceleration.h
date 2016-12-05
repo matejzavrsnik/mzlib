@@ -42,8 +42,8 @@ public:
    
 };
 
-using cacceleration2d = acceleration<vector2d>;
-using cacceleration3d = acceleration<vector3d>;
+using acceleration2d = acceleration<vector2d>;
+using acceleration3d = acceleration<vector3d>;
 
 } } // namespace
 

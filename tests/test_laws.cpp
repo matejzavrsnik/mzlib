@@ -35,7 +35,7 @@ protected:
 
 TEST_F(fixture_laws, acceleration2d_solve_for_force) 
 {
-   mzlib::law::cacceleration2d acc;
+   mzlib::law::acceleration2d acc;
    acc.m = 14.17_kg;
    acc.a = unit_vector2d * 14.14_m_per_s2;
    acc.solve_for_force();
@@ -49,7 +49,7 @@ TEST_F(fixture_laws, acceleration2d_solve_for_force)
 
 TEST_F(fixture_laws, acceleration2d_solve_for_force_missing_argument) 
 {
-   mzlib::law::cacceleration2d acc;
+   mzlib::law::acceleration2d acc;
    //acc.m = 14.17_kg;
    acc.a = unit_vector2d * 14.14_m_per_s2;
 
@@ -58,7 +58,7 @@ TEST_F(fixture_laws, acceleration2d_solve_for_force_missing_argument)
 
 TEST_F(fixture_laws, acceleration2d_solve_for_acceleration) 
 {
-   mzlib::law::cacceleration2d acc;
+   mzlib::law::acceleration2d acc;
    acc.m = 17.23_kg;
    acc.f = unit_vector2d * 10.52_N;
    acc.solve_for_acceleration();
@@ -72,7 +72,7 @@ TEST_F(fixture_laws, acceleration2d_solve_for_acceleration)
 
 TEST_F(fixture_laws, acceleration2d_solve_for_acceleration_missing_argument) 
 {
-   mzlib::law::cacceleration2d acc;
+   mzlib::law::acceleration2d acc;
    acc.m = 17.23_kg;
    //acc.f = unit_vector2d * 10.52_N;
    
@@ -81,7 +81,7 @@ TEST_F(fixture_laws, acceleration2d_solve_for_acceleration_missing_argument)
 
 TEST_F(fixture_laws, acceleration2d_solve_for_mass) 
 {
-   mzlib::law::cacceleration2d acc;
+   mzlib::law::acceleration2d acc;
    acc.f = unit_vector2d * 16.66_N;
    acc.a = unit_vector2d * 18.34_m_per_s2;
    acc.solve_for_mass();
@@ -93,7 +93,7 @@ TEST_F(fixture_laws, acceleration2d_solve_for_mass)
 
 TEST_F(fixture_laws, acceleration2d_solve_for_mass_missing_argument) 
 {
-   mzlib::law::cacceleration2d acc;
+   mzlib::law::acceleration2d acc;
    //acc.f = unit_vector2d * 16.66_N;
    acc.a = unit_vector2d * 18.34_m_per_s2;
    
@@ -102,7 +102,7 @@ TEST_F(fixture_laws, acceleration2d_solve_for_mass_missing_argument)
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_velocity)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.v_0 = unit_vector2d * 7.53_m_per_s;
    acc.a = unit_vector2d * 1.02_m_per_s2;
    acc.t = 9.83_s;
@@ -117,7 +117,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_velocity)
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_given_final_velocity)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.v_f = unit_vector2d * 33.49_m_per_s;
    acc.a = unit_vector2d * 3.22_m_per_s2;
    acc.t = 2.57_s;
@@ -132,7 +132,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_gi
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_given_location)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.r_f = unit_vector2d * 9.13_m;
    acc.r_0 = mzlib::vector2d({1,1});
    acc.a = -unit_vector2d * 0.21_m_per_s2;
@@ -148,7 +148,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_gi
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_velocities)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.v_0 = unit_vector2d * 26.71_m_per_s;
    acc.v_f = unit_vector2d * 48.95_m_per_s;
    acc.t = 8.66_s;
@@ -163,7 +163,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_location)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.v_0 = -unit_vector2d * 3.57_m_per_s;
    acc.r_0 = mzlib::vector2d({1,1});
    acc.r_f = unit_vector2d * 6.02_m;
@@ -179,7 +179,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_time_given_velocities)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.a = unit_vector2d * 8.17_m_per_s2;
    acc.v_0 = unit_vector2d * 24.11_m_per_s;
    acc.v_f = unit_vector2d * 44.00_m_per_s;
@@ -192,7 +192,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_time_given_velociti
 
 TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_location)
 {
-   mzlib::law::cconstant_linear_acceleration2d acc;
+   mzlib::law::constant_linear_acceleration2d acc;
    acc.v_0 = unit_vector2d * 3.48_m_per_s;
    acc.a = unit_vector2d * 1.51_m_per_s2;
    acc.t = 2.27_s;
@@ -206,11 +206,11 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_location)
 
 TEST_F(fixture_laws, cgravitation_solve_for_force)
 {
-   mzlib::law::cgravitation2d gra;
-   gra.m_1 = mzlib::cmass_centre2d{
+   mzlib::law::gravitation2d gra;
+   gra.m_1 = mzlib::mass_centre2d{
       unit_vector2d * 0, 
       mzlib::consts::earth_mass };
-   gra.m_2 = mzlib::cmass_centre2d{
+   gra.m_2 = mzlib::mass_centre2d{
       unit_vector2d * mzlib::consts::moon_distance_earth, 
       mzlib::consts::moon_mass };
    gra.solve_for_force();

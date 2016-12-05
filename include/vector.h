@@ -342,8 +342,8 @@ inline std::ostream& operator<< (std::ostream& os, const vector<TYPE,DIM>& vecto
 
 using vector2d = vector<double, 2>;
 using vector3d = vector<double, 3>;
-using cpoint2d  = vector<double, 2>;
-using cpoint3d  = vector<double, 3>;
+using point2d  = vector<double, 2>;
+using point3d  = vector<double, 3>;
     
 } // namespace
 

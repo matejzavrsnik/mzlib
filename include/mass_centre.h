@@ -64,8 +64,8 @@ public:
 
 // convenient types
 
-using cmass_centre2d = mass_centre<vector2d>;
-using cmass_centre3d = mass_centre<vector3d>;
+using mass_centre2d = mass_centre<vector2d>;
+using mass_centre3d = mass_centre<vector3d>;
 
 
 } // namespace

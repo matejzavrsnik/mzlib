@@ -51,7 +51,7 @@ public:
    // Creation needs to be done outside the constructor, because to be able to call shared_from_this(),
    // an object needs an owning shared_ptr, otherwise there is risk of two shared_ptrs owning same object.
    void create (
-      const crectangle2d& rectangle, 
+      const rectangle2d& rectangle, 
       const double smallest_node_width, 
       const direction which_quadrant = direction::centre, // root by default: no direction
       std::shared_ptr<quadnode> parent = nullptr)          // root by default: no parent
@@ -60,7 +60,7 @@ public:
       m_rectangle = rectangle;
       m_which_quadrant = which_quadrant;
       if (!m_diagonal_length.is_set()) {
-         law::crectangles2d rect_law;
+         law::rectangles2d rect_law;
          rect_law.consider(m_rectangle);
          m_diagonal_length = rect_law.solve_for_diagonal_length();
       }
@@ -70,24 +70,24 @@ public:
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
          m_mass_centre.location = centre_point;
          
-         const crectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
+         const rectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
          if (m_child_nw == nullptr) {
             m_child_nw = std::make_shared<quadnode<T>>();
             m_child_nw->create(nw_rect, smallest_node_width, direction::nw, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
             m_child_ne = std::make_shared<quadnode<T>>();
-            const crectangle2d ne_rect = nw_rect.flip(direction::e);
+            const rectangle2d ne_rect = nw_rect.flip(direction::e);
             m_child_ne->create(ne_rect, smallest_node_width, direction::ne, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
             m_child_sw = std::make_shared<quadnode<T>>();
-            const crectangle2d sw_rect = nw_rect.flip(direction::s);
+            const rectangle2d sw_rect = nw_rect.flip(direction::s);
             m_child_sw->create(sw_rect, smallest_node_width, direction::sw, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
             m_child_se = std::make_shared<quadnode<T>>();
-            const crectangle2d se_rect = nw_rect.flip(direction::se);
+            const rectangle2d se_rect = nw_rect.flip(direction::se);
             m_child_se->create(se_rect, smallest_node_width, direction::se, this->shared_from_this());
          }
       }
@@ -197,7 +197,7 @@ public:
       return option::changed::yes;
    }
    
-   const cmass_centre2d& get_mass_centre () const
+   const mass_centre2d& get_mass_centre () const
    {
       return m_mass_centre;
    }
@@ -320,9 +320,9 @@ private:
    // wasn't for the fact that what is stored in here are pointers, which will be
    // causing cache misses all the time, it should look like using std::vector.
    std::vector<body_frame2d<T>*> m_bodies;
-   cmass_centre2d m_mass_centre;
+   mass_centre2d m_mass_centre;
         
-   crectangle2d m_rectangle;
+   rectangle2d m_rectangle;
    optional<double> m_diagonal_length;
    direction m_which_quadrant;
 };

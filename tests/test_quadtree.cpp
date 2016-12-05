@@ -140,7 +140,7 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_zero_quotient)
    double quotient = 0;
    // first, a neighbouring body
    mzlib::quadtree<int>::it_masscentres mass_centres_it = local_tree.begin_masscentres(1, quotient);
-   std::vector<mzlib::cmass_centre2d> returned_mass_centres;
+   std::vector<mzlib::mass_centre2d> returned_mass_centres;
    for(; mass_centres_it != local_tree.end_masscentres(); ++mass_centres_it) {
       returned_mass_centres.push_back(*mass_centres_it);
    }

@@ -224,8 +224,8 @@ public:
    
 };
 
-using crectangle2d = rectangle<vector2d>;
-using crectangle3d = rectangle<vector3d>;
+using rectangle2d = rectangle<vector2d>;
+using rectangle3d = rectangle<vector3d>;
 
 } // namespace
 

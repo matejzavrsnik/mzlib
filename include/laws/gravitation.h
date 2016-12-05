@@ -54,8 +54,8 @@ public:
    
 };
 
-using cgravitation2d = gravitation<vector2d>;
-using cgravitation3d = gravitation<vector3d>;
+using gravitation2d = gravitation<vector2d>;
+using gravitation3d = gravitation<vector3d>;
 
 } } // namespace
 
