@@ -15,21 +15,21 @@ namespace mzlib {
 namespace law {
    
 template <class VectorT>
-class crectangles
+class rectangles
 {
 
 public:
       
-   coptional<VectorT> m_top_right;
-   coptional<VectorT> m_bottom_left;   
-   coptional<VectorT> m_top_left;
-   coptional<VectorT> m_bottom_right;
+   optional<VectorT> m_top_right;
+   optional<VectorT> m_bottom_left;   
+   optional<VectorT> m_top_left;
+   optional<VectorT> m_bottom_right;
 
-   coptional<double>  m_diagonal_length;
-   coptional<double>  m_width;
-   coptional<double>  m_height;
+   optional<double>  m_diagonal_length;
+   optional<double>  m_width;
+   optional<double>  m_height;
 
-   void consider(const crectangle<VectorT>& rectangle)
+   void consider(const rectangle<VectorT>& rectangle)
    {
       // I am counting on compiler support here. All conditions in this branch are
       // well known in compile time and it is well known that they can't change while
@@ -56,8 +56,8 @@ public:
    }
 };
    
-using crectangles2d = crectangles<cvector2d>;
-using crectangleS3d = crectangles<cvector3d>;
+using crectangles2d = rectangles<vector2d>;
+using crectangleS3d = rectangles<vector3d>;
 
 } } // namespace
 

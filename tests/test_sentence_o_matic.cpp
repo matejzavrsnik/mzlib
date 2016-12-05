@@ -38,7 +38,7 @@ protected:
 
 TEST_F(fixture_sentence_o_matic, demo_test) 
 {
-   mzlib::csentence_o_matic sentence_o_matic;
+   mzlib::sentence_o_matic sentence_o_matic;
    std::stringstream ss(m_hesse_quotes);
    std::string word;
    do {

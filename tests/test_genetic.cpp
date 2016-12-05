@@ -38,7 +38,7 @@ TEST_F(fixture_genetic, works_on_objects)
          return std::fabs(candidate);
       };
       
-   mzlib::cgenetic_object<int> genetic(a_number, fitness_function);
+   mzlib::genetic_object<int> genetic(a_number, fitness_function);
 
    // explanation of a test:
    // if one bit will be changed on every generation, and with 100 population and
@@ -80,7 +80,7 @@ TEST_F(fixture_genetic, works_on_vector)
          return sum_difference;
       };
       
-   mzlib::cgenetic_container<std::vector<int>> genetic (numbers, fitness_function);
+   mzlib::genetic_container<std::vector<int>> genetic (numbers, fitness_function);
    
    double penalty_before = fitness_function(numbers);
    genetic.play_generations(1000);
@@ -122,7 +122,7 @@ TEST_F(fixture_genetic, DISABLED_mendel_smart_demo)
          return sum_difference;
       };
       
-   mzlib::cgenetic_container<std::vector<int>> genetic (numbers, fitness_function);
+   mzlib::genetic_container<std::vector<int>> genetic (numbers, fitness_function);
    
    double penalty_before = fitness_function(numbers);
    std::vector<int> numbers_after = mzlib::mendel_smart(genetic);

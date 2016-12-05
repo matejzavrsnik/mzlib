@@ -16,23 +16,23 @@
 namespace mzlib {
    
 template <class VectorT>
-class crectangle
+class rectangle
 {
    
 private:
 
-   coptional<double>  m_diagonal_length;
-   coptional<double>  m_width;
-   coptional<double>  m_height;
-   coptional<VectorT> m_top_right;
-   coptional<VectorT> m_bottom_left;
+   optional<double>  m_diagonal_length;
+   optional<double>  m_width;
+   optional<double>  m_height;
+   optional<VectorT> m_top_right;
+   optional<VectorT> m_bottom_left;
    
-   coptional<VectorT> m_top_left;
-   coptional<VectorT> m_bottom_right;
+   optional<VectorT> m_top_left;
+   optional<VectorT> m_bottom_right;
    
 public:
 
-   crectangle (
+   rectangle (
       const VectorT& top_left, 
       const VectorT& bottom_right) :
          m_top_left (top_left),
@@ -40,12 +40,12 @@ public:
    { 
    }
 
-   crectangle () = default;
-   crectangle& operator= (const crectangle<VectorT>&) = default;
-   crectangle (const crectangle<VectorT>&) = default; 
-   crectangle (crectangle<VectorT> && ) = default;
-   crectangle& operator= (crectangle<VectorT>&&) = default;
-   ~crectangle () = default;
+   rectangle () = default;
+   rectangle& operator= (const rectangle<VectorT>&) = default;
+   rectangle (const rectangle<VectorT>&) = default; 
+   rectangle (rectangle<VectorT> && ) = default;
+   rectangle& operator= (rectangle<VectorT>&&) = default;
+   ~rectangle () = default;
    
    bool is_defined() const
    {
@@ -72,7 +72,7 @@ public:
       return m_bottom_right.get();
    }
 
-   bool is_in (const cvector2d& location) const
+   bool is_in (const vector2d& location) const
    {
       if (location[0] >  m_top_left.get()[0] && 
           location[1] >  m_top_left.get()[1] &&   // left and top are exclusive
@@ -90,7 +90,7 @@ public:
          return m_width.get();
       }
       // todo: correct only in 2d and if straight but is easy to improve
-      const_cast<coptional<double>&>(m_width) = m_bottom_right.get()[0] - m_top_left.get()[0];
+      const_cast<optional<double>&>(m_width) = m_bottom_right.get()[0] - m_top_left.get()[0];
       return m_width.get();
    }
    
@@ -100,7 +100,7 @@ public:
          return m_height.get();
       }
       // todo: correct only in 2d and if straight but is easy to improve
-      const_cast<coptional<double>&>(m_height) = m_bottom_right.get()[1] - m_top_left.get()[1];
+      const_cast<optional<double>&>(m_height) = m_bottom_right.get()[1] - m_top_left.get()[1];
       return m_height.get();
    }
    
@@ -110,28 +110,28 @@ public:
       return centre_point;
    }
    
-   edirection direction_of_point (const cvector2d& point) const
+   direction direction_of_point (const vector2d& point) const
    {
       VectorT centre_point = calculate_centre_point ();
       if (point[0] <= centre_point[0]) {    // if on the edge, west wins
          if (point[1] < centre_point[1]) {  // if on the edge, south wins
-            return edirection::nw;
+            return direction::nw;
          }
          else {
-            return edirection::sw;
+            return direction::sw;
          }
       }
       else {
          if (point[1] < centre_point[1]) {
-            return edirection::ne;
+            return direction::ne;
          }
          else {
-            return edirection::se;
+            return direction::se;
          }
       }
    }
    
-   crectangle<VectorT> enlarge_rectangle (edirection direction, double factor) const
+   rectangle<VectorT> enlarge_rectangle (direction direction, double factor) const
    {
       VectorT top_left = m_top_left.get();
       VectorT bottom_right = m_bottom_right.get();
@@ -140,19 +140,19 @@ public:
       const double height_delta = factor * height - height;
       const double width_delta = factor * width - width;
       switch(direction) {
-         case edirection::ne:
+         case direction::ne:
             top_left[1] -= height_delta;
             bottom_right[0] += width_delta;
             break;
-         case edirection::nw:
+         case direction::nw:
             top_left[0] -= width_delta;
             top_left[1] -= height_delta;
             break;
-         case edirection::se: 
+         case direction::se: 
             bottom_right[0] += width_delta;
             bottom_right[1] += height_delta;
             break;
-         case edirection::sw: 
+         case direction::sw: 
             top_left[0] -= width_delta;
             bottom_right[1] += height_delta;
             break;
@@ -160,11 +160,11 @@ public:
             throw exception::not_implemented();
             break;
       }
-      crectangle<VectorT> rectangle(top_left, bottom_right);
+      rectangle<VectorT> rectangle(top_left, bottom_right);
       return rectangle;
    }
    
-   crectangle<VectorT> flip (edirection direction) const
+   rectangle<VectorT> flip (direction direction) const
    {
       VectorT top_left = m_top_left.get();
       VectorT bottom_right = m_bottom_right.get();
@@ -172,41 +172,41 @@ public:
       const double& width = get_width ();
       switch (direction) 
       {
-         case edirection::n:
+         case direction::n:
             top_left    [1] -= height;
             bottom_right[1] -= height;
             break;
-         case edirection::s:
+         case direction::s:
             top_left    [1] += height;
             bottom_right[1] += height;
             break;
-         case edirection::w: 
+         case direction::w: 
             top_left    [0] -= width;
             bottom_right[0] -= width;
             break;
-         case edirection::e:
+         case direction::e:
             top_left    [0] += width;
             bottom_right[0] += width;
             break;
-         case edirection::ne:
+         case direction::ne:
             top_left    [0] += width;
             top_left    [1] -= height;
             bottom_right[0] += width;
             bottom_right[1] -= height;
             break;
-         case edirection::nw:
+         case direction::nw:
             top_left    [0] -= width;
             top_left    [1] -= height;
             bottom_right[0] -= width;
             bottom_right[1] -= height;
             break;
-         case edirection::se: 
+         case direction::se: 
             top_left    [0] += width;
             top_left    [1] += height;
             bottom_right[0] += width;
             bottom_right[1] += height;
             break;
-         case edirection::sw:
+         case direction::sw:
             top_left    [0] -= width;
             top_left    [1] += height;
             bottom_right[0] -= width;
@@ -216,7 +216,7 @@ public:
             throw exception::not_implemented();
             break;
       }
-      crectangle<VectorT> rectangle;
+      rectangle<VectorT> rectangle;
       rectangle.m_top_left = top_left;
       rectangle.m_bottom_right = bottom_right;
       return rectangle;
@@ -224,8 +224,8 @@ public:
    
 };
 
-using crectangle2d = crectangle<cvector2d>;
-using crectangle3d = crectangle<cvector3d>;
+using crectangle2d = rectangle<vector2d>;
+using crectangle3d = rectangle<vector3d>;
 
 } // namespace
 

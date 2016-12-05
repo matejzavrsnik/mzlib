@@ -16,14 +16,14 @@ namespace law {
    
 // Newton's second law of motion
 template<class VectorT>
-class cacceleration
+class acceleration
 {
    
 public:
       
-   coptional<VectorT> f;   
-   coptional<VectorT> a;
-   coptional<double>  m;
+   optional<VectorT> f;   
+   optional<VectorT> a;
+   optional<double>  m;
    
    void solve_for_force()
    {
@@ -42,8 +42,8 @@ public:
    
 };
 
-using cacceleration2d = cacceleration<cvector2d>;
-using cacceleration3d = cacceleration<cvector3d>;
+using cacceleration2d = acceleration<vector2d>;
+using cacceleration3d = acceleration<vector3d>;
 
 } } // namespace
 

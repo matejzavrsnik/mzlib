@@ -14,24 +14,24 @@
 
 namespace mzlib {
    
-enum class edirection { n, ne, e, se, s, sw, w, nw, centre };
+enum class direction { n, ne, e, se, s, sw, w, nw, centre };
 
-inline edirection the_opposite_direction (edirection direction)
+inline direction the_opposite_direction (direction direction)
 {
    switch(direction) {
-      case edirection::ne: return edirection::sw;
-      case edirection::sw: return edirection::ne;
+      case direction::ne: return direction::sw;
+      case direction::sw: return direction::ne;
       
-      case edirection::nw: return edirection::se;
-      case edirection::se: return edirection::nw;
+      case direction::nw: return direction::se;
+      case direction::se: return direction::nw;
 
-      case edirection::n: return edirection::s;
-      case edirection::s: return edirection::n;
+      case direction::n: return direction::s;
+      case direction::s: return direction::n;
 
-      case edirection::e: return edirection::w;
-      case edirection::w: return edirection::e;
+      case direction::e: return direction::w;
+      case direction::w: return direction::e;
       
-      case edirection::centre: return edirection::centre;
+      case direction::centre: return direction::centre;
    }
    throw exception::meaningless();
 }
@@ -39,18 +39,18 @@ inline edirection the_opposite_direction (edirection direction)
 
 } // namespace
 
-inline std::ostream& operator<< (std::ostream& os, const mzlib::edirection& direction)
+inline std::ostream& operator<< (std::ostream& os, const mzlib::direction& direction)
 {
    switch(direction) {
-      case mzlib::edirection::ne: os << "ne"; break;
-      case mzlib::edirection::nw: os << "nw"; break;
-      case mzlib::edirection::se: os << "se"; break;
-      case mzlib::edirection::sw: os << "sw"; break;
-      case mzlib::edirection::n:  os <<  "n"; break;
-      case mzlib::edirection::s:  os <<  "s"; break;
-      case mzlib::edirection::w:  os <<  "w"; break;
-      case mzlib::edirection::e:  os <<  "e"; break;
-      case mzlib::edirection::centre: os << "centre"; break;
+      case mzlib::direction::ne: os << "ne"; break;
+      case mzlib::direction::nw: os << "nw"; break;
+      case mzlib::direction::se: os << "se"; break;
+      case mzlib::direction::sw: os << "sw"; break;
+      case mzlib::direction::n:  os <<  "n"; break;
+      case mzlib::direction::s:  os <<  "s"; break;
+      case mzlib::direction::w:  os <<  "w"; break;
+      case mzlib::direction::e:  os <<  "e"; break;
+      case mzlib::direction::centre: os << "centre"; break;
       
       default: os << "unknown"; break;
    };

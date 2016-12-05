@@ -11,11 +11,11 @@
 #include <cmath> // std::fabs
 
 namespace mzlib {
-    
+   
 // The base class. Implements CRTP and provides mathematical operations for all units
 
 template<class unit>
-class cquantity 
+class quantity 
 {
 
 public:
@@ -26,7 +26,7 @@ public:
 protected:
 
    type value;
-   explicit constexpr cquantity (type v) : 
+   explicit constexpr quantity (type v) : 
       value(v) 
    {
    }
@@ -35,7 +35,7 @@ public:
         
    // Must not be virtual to be trivial. Must be trivial to make class a literal type. 
    // Class must be literal to be used as constexpr object.
-   ~cquantity () = default;
+   ~quantity () = default;
 
    // Comparison done with builder pattern. Demanding quantity from epsilon makes physical sense.
    unit equals (const unit& other  ) const 
@@ -151,16 +151,16 @@ public:
 
 
 #define QUANTITY_DEFINITION_START(q_class, q_basic) \
-class q_class : public cquantity< q_class > { \
-   friend class cquantity< q_class >; \
+class q_class : public quantity< q_class > { \
+   friend class quantity< q_class >; \
    friend constexpr q_class operator"" _##q_basic##_ (long double); \
    friend constexpr q_class operator"" _##q_basic##_ (unsigned long long int);
 
 #define QUANTITY_DEFINITION_END(q_class, q_basic) \
 protected: \
-   explicit constexpr q_class (type v) : cquantity< q_class >(v) {} \
+   explicit constexpr q_class (type v) : quantity< q_class >(v) {} \
 public: \
-   constexpr q_class () : cquantity< q_class >(0) {} \
+   constexpr q_class () : quantity< q_class >(0) {} \
 }; \
 \
 constexpr q_class operator"" _##q_basic##_ (long double v) { return q_class (v); } \
@@ -178,77 +178,77 @@ constexpr q_class operator"" _##q_short##_ (unsigned long long int v) \
 
 // Necessary forward declarations; because units are dependent on each other.
 // Example: length * length = area, area / length = length. Which one to define first?
-class carea; class cspeed; class cltime; class clength;    
+class area; class speed; class cltime; class length;    
     
 // Length
-QUANTITY_DEFINITION_START(clength, m)
-   friend carea operator* (const clength& lhs, const clength& rhs);
-   friend clength operator/ (const carea& lhs, const clength& rhs);
-   friend cspeed operator/ (const clength& lhs, const cltime& rhs);
-   friend cltime operator/ (const clength& lhs, const cspeed& rhs);
-QUANTITY_DEFINITION_END(clength, m)
+QUANTITY_DEFINITION_START(length, m)
+   friend area operator* (const length& lhs, const length& rhs);
+   friend length operator/ (const area& lhs, const length& rhs);
+   friend speed operator/ (const length& lhs, const cltime& rhs);
+   friend cltime operator/ (const length& lhs, const speed& rhs);
+QUANTITY_DEFINITION_END(length, m)
 // SI units
-UNIT_DEFINITION(clength, nm,  1e-9, m)
-UNIT_DEFINITION(clength, um,  1e-6, m)
-UNIT_DEFINITION(clength, mm,  1e-3, m)
-UNIT_DEFINITION(clength, cm,  1e-2, m)
-UNIT_DEFINITION(clength, dm,  1e-1, m)
-UNIT_DEFINITION(clength, dam, 1e1,  m)
-UNIT_DEFINITION(clength, hm,  1e2,  m)
-UNIT_DEFINITION(clength, km,  1e3,  m)
-UNIT_DEFINITION(clength, Mm,  1e6,  m)
-UNIT_DEFINITION(clength, Gm,  1e9,  m)
-UNIT_DEFINITION(clength, Tm,  1e12, m)
+UNIT_DEFINITION(length, nm,  1e-9, m)
+UNIT_DEFINITION(length, um,  1e-6, m)
+UNIT_DEFINITION(length, mm,  1e-3, m)
+UNIT_DEFINITION(length, cm,  1e-2, m)
+UNIT_DEFINITION(length, dm,  1e-1, m)
+UNIT_DEFINITION(length, dam, 1e1,  m)
+UNIT_DEFINITION(length, hm,  1e2,  m)
+UNIT_DEFINITION(length, km,  1e3,  m)
+UNIT_DEFINITION(length, Mm,  1e6,  m)
+UNIT_DEFINITION(length, Gm,  1e9,  m)
+UNIT_DEFINITION(length, Tm,  1e12, m)
 // non-SI units
-UNIT_DEFINITION(clength, inch, 0.0254, m)
-UNIT_DEFINITION(clength, foot, 0.3048, m)
-UNIT_DEFINITION(clength, feet, 0.3048, m)
-UNIT_DEFINITION(clength, yard, 0.9144, m)
-UNIT_DEFINITION(clength, mile, 1609.344, m)
-UNIT_DEFINITION(clength, nautical_mile, 1853.184, m)
-UNIT_DEFINITION(clength, ly,  9.4605284e15, m) // light year
-UNIT_DEFINITION(clength, au,  1.49597871e11, m) // astronomical unit
+UNIT_DEFINITION(length, inch, 0.0254, m)
+UNIT_DEFINITION(length, foot, 0.3048, m)
+UNIT_DEFINITION(length, feet, 0.3048, m)
+UNIT_DEFINITION(length, yard, 0.9144, m)
+UNIT_DEFINITION(length, mile, 1609.344, m)
+UNIT_DEFINITION(length, nautical_mile, 1853.184, m)
+UNIT_DEFINITION(length, ly,  9.4605284e15, m) // light year
+UNIT_DEFINITION(length, au,  1.49597871e11, m) // astronomical unit
         
 // Area 
-QUANTITY_DEFINITION_START(carea, m2)
-   friend clength operator/ (const carea& lhs, const clength& rhs);
-QUANTITY_DEFINITION_END(carea, m2)
+QUANTITY_DEFINITION_START(area, m2)
+   friend length operator/ (const area& lhs, const length& rhs);
+QUANTITY_DEFINITION_END(area, m2)
 // SI units
-UNIT_DEFINITION(carea, mm2, 1e-6, m2)
-UNIT_DEFINITION(carea, cm2, 1e-4, m2)
-UNIT_DEFINITION(carea, dm2, 1e-2, m2)
-UNIT_DEFINITION(carea, km2, 1e6,  m2)
+UNIT_DEFINITION(area, mm2, 1e-6, m2)
+UNIT_DEFINITION(area, cm2, 1e-4, m2)
+UNIT_DEFINITION(area, dm2, 1e-2, m2)
+UNIT_DEFINITION(area, km2, 1e6,  m2)
 // non-SI units
-UNIT_DEFINITION(carea, are, 1e2,  m2)
-UNIT_DEFINITION(carea, ha,  1e4,  m2)
-UNIT_DEFINITION(carea, acre, 4046.86, m2)
+UNIT_DEFINITION(area, are, 1e2,  m2)
+UNIT_DEFINITION(area, ha,  1e4,  m2)
+UNIT_DEFINITION(area, acre, 4046.86, m2)
     
 // Speed 
-QUANTITY_DEFINITION_START(cspeed, m_per_s)
-   friend clength operator* (const cspeed& lhs, const cltime& rhs);
-   friend cltime operator/ (const clength& lhs, const cspeed& rhs);
-QUANTITY_DEFINITION_END(cspeed, m_per_s)
+QUANTITY_DEFINITION_START(speed, m_per_s)
+   friend length operator* (const speed& lhs, const cltime& rhs);
+   friend cltime operator/ (const length& lhs, const speed& rhs);
+QUANTITY_DEFINITION_END(speed, m_per_s)
 // SI units
-UNIT_DEFINITION(cspeed, km_per_s, 1e-3, m_per_s)
-UNIT_DEFINITION(cspeed, km_per_h, 0.2777, m_per_s)
+UNIT_DEFINITION(speed, km_per_s, 1e-3, m_per_s)
+UNIT_DEFINITION(speed, km_per_h, 0.2777, m_per_s)
   
 // Mass
-QUANTITY_DEFINITION_START(cmass, kg)
-QUANTITY_DEFINITION_END(cmass, kg)
+QUANTITY_DEFINITION_START(mass, kg)
+QUANTITY_DEFINITION_END(mass, kg)
 // SI units
-UNIT_DEFINITION(cmass, ug,  1e-9, kg)
-UNIT_DEFINITION(cmass, mg,  1e-6, kg)    
-UNIT_DEFINITION(cmass, g,   1e-3, kg)
-UNIT_DEFINITION(cmass, ton, 1e3,  kg)
+UNIT_DEFINITION(mass, ug,  1e-9, kg)
+UNIT_DEFINITION(mass, mg,  1e-6, kg)    
+UNIT_DEFINITION(mass, g,   1e-3, kg)
+UNIT_DEFINITION(mass, ton, 1e3,  kg)
 // non-SI units
-UNIT_DEFINITION(cmass, stone, 6.35029, kg)
-UNIT_DEFINITION(cmass, pound, 0.453592, kg)
-UNIT_DEFINITION(cmass, ounce, 0.0283495, kg) 
+UNIT_DEFINITION(mass, stone, 6.35029, kg)
+UNIT_DEFINITION(mass, pound, 0.453592, kg)
+UNIT_DEFINITION(mass, ounce, 0.0283495, kg) 
    
 // Time
 QUANTITY_DEFINITION_START(cltime, s)
-   friend cspeed operator/ (const clength& lhs, const cltime& rhs);
-   friend clength operator* (const cspeed& lhs, const cltime& rhs);
+   friend speed operator/ (const length& lhs, const cltime& rhs);
+   friend length operator* (const speed& lhs, const cltime& rhs);
 QUANTITY_DEFINITION_END(cltime, s)
 // SI units
 UNIT_DEFINITION(cltime, ns,  1e-9, s)
@@ -265,27 +265,27 @@ UNIT_DEFINITION(cltime, century, 3.156e+9, s)
     
 // Operations that change quantity (Can there be others except multiplication and division?)
   
-inline carea operator* (const clength& lhs, const clength& rhs) 
+inline area operator* (const length& lhs, const length& rhs) 
 {
    return operator "" _m2_(lhs.value * rhs.value);
 }
 
-inline cspeed operator/ (const clength& lhs, const cltime&  rhs) 
+inline speed operator/ (const length& lhs, const cltime&  rhs) 
 {
    return operator "" _m_per_s_(lhs.value / rhs.value);
 }
 
-inline clength operator/ (const carea& lhs, const clength& rhs)
+inline length operator/ (const area& lhs, const length& rhs)
 {
    return operator "" _m_(lhs.value / rhs.value);
 }
 
-inline clength operator* (const cspeed& lhs, const cltime& rhs)
+inline length operator* (const speed& lhs, const cltime& rhs)
 {
    return operator "" _m_(lhs.value * rhs.value);
 }
 
-inline cltime operator/ (const clength& lhs, const cspeed& rhs)
+inline cltime operator/ (const length& lhs, const speed& rhs)
 {
    return operator "" _s_(lhs.value / rhs.value);
 }

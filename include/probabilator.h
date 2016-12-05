@@ -15,7 +15,7 @@
 namespace mzlib {
    
 template<class T>
-class cprobabilator
+class probabilator
 {
         
 private:

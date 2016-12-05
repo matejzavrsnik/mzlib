@@ -13,7 +13,7 @@
 
 namespace mzlib {
 
-class cstopwatch
+class stopwatch
 {
    
    struct tmoment

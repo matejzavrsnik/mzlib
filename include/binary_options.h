@@ -15,20 +15,20 @@
 namespace mzlib {
 namespace option {
    
-class cbinary_option
+class binary_option
 {
    
 public:
    
    enum /*not class*/ named_options { no, yes } m_named_value = no;
 
-   cbinary_option () : 
+   binary_option () : 
       m_named_value(no)
    {
    }
    
    // create from option
-   cbinary_option (named_options named_value) : 
+   binary_option (named_options named_value) : 
       m_named_value(named_value)
    {
    }
@@ -40,7 +40,7 @@ public:
    }
 
    // convert from bool
-   cbinary_option (bool boolean_value) :
+   binary_option (bool boolean_value) :
       m_named_value(boolean_value ? yes : no)
    {
    }
@@ -55,10 +55,10 @@ public:
 
 // a generator to create real ones
 #define MZLIB_GENERATE_NEW_BINARY_OPTION(name) \
-class name : public cbinary_option \
+class name : public binary_option \
 { \
 public: \
-   using cbinary_option::cbinary_option; \
+   using binary_option::binary_option; \
 };
 
 MZLIB_GENERATE_NEW_BINARY_OPTION( recursive      )

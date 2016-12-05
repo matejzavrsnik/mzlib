@@ -36,20 +36,20 @@ protected:
    virtual void SetUp()  {}
    virtual void TearDown() {}
 
-   std::vector<mzlib::cbody2d> generate_bodies (unsigned int num_of_bodies)
+   std::vector<mzlib::body2d> generate_bodies (unsigned int num_of_bodies)
    {
-      std::vector<mzlib::cbody2d> bodies;
+      std::vector<mzlib::body2d> bodies;
       // Numbers here selected so that there is the right amount of movement.
       // Too little would not test the universe in dynamic situations.
       // Too much would just scatter bodies out of reach of quadtree.
       for(unsigned int i=0; i<num_of_bodies; ++i) {
-         mzlib::cbody2d object;
-         object.mass_centre.mass = 1000000000000;
-         object.mass_centre.location = mzlib::cvector2d {
+         mzlib::body2d object;
+         object.mass_c.mass = 1000000000000;
+         object.mass_c.location = mzlib::vector2d {
             (double)mzlib::get_random_integer_between(0,5000),
             (double)mzlib::get_random_integer_between(0,5000)
          };
-         object.data.velocity = mzlib::cvector2d {
+         object.data.velocity = mzlib::vector2d {
             (double)mzlib::get_random_integer_between(0,6)-3,
             (double)mzlib::get_random_integer_between(0,6)-3
          };
@@ -58,16 +58,16 @@ protected:
       return bodies;
    }
    
-   mzlib::cuniverse prepare_the_universe(
-      std::vector<mzlib::cbody2d> bodies, 
-      mzlib::cuniverse::implementation implementation,
+   mzlib::universe prepare_the_universe(
+      std::vector<mzlib::body2d> bodies, 
+      mzlib::universe::implementation implementation,
       double barnes_hut_quotient = 0)
    {
-      mzlib::cuniverse local_universe(
+      mzlib::universe local_universe(
          {{0,0}, {5000,5000}}, 
          50,
          5000);
-      mzlib::cuniverse::tproperties properties;
+      mzlib::universe::tproperties properties;
       properties.m_barnes_hut_quotient = barnes_hut_quotient;
       properties.m_implementation = implementation;
       local_universe.set_properties(properties);
@@ -79,16 +79,16 @@ protected:
       return std::move(local_universe);
    }
    
-   double run_simulation(mzlib::cuniverse local_universe)
+   double run_simulation(mzlib::universe local_universe)
    {
-      mzlib::cstopwatch stopwatch;
+      mzlib::stopwatch stopwatch;
       auto start = stopwatch.start();
       local_universe.forward_time(1,1);
       auto end = stopwatch.stop();
       return stopwatch.get_wall_clock(start, end);
    }
    
-   double run_simulation_async(mzlib::cuniverse& universe, std::chrono::milliseconds timeout)
+   double run_simulation_async(mzlib::universe& universe, std::chrono::milliseconds timeout)
    {
       auto fut = std::async(std::launch::async,&fixture_universe_performance::run_simulation, this, std::move(universe));
       auto duration = timeout.count();
@@ -118,27 +118,27 @@ TEST_F(fixture_universe_performance, DISABLED_perform)
       std::chrono::milliseconds timeout (50000);
 
       // naive
-      auto universe_vector = prepare_the_universe(bodies_vector, mzlib::cuniverse::implementation::naive);
+      auto universe_vector = prepare_the_universe(bodies_vector, mzlib::universe::implementation::naive);
       auto duration_naive = run_simulation_async(universe_vector, timeout);
       
       // barnes-hut, theta=0      
-      auto universe_barnes_0 = prepare_the_universe(bodies_barnes0, mzlib::cuniverse::implementation::barnes_hut, 0);
+      auto universe_barnes_0 = prepare_the_universe(bodies_barnes0, mzlib::universe::implementation::barnes_hut, 0);
       double duration_barnes_0 = run_simulation_async(universe_barnes_0, timeout);
       
       // barnes-hut, theta=0.25
-      auto universe_barnes_1 = prepare_the_universe(bodies_barnes1, mzlib::cuniverse::implementation::barnes_hut, 0.25);
+      auto universe_barnes_1 = prepare_the_universe(bodies_barnes1, mzlib::universe::implementation::barnes_hut, 0.25);
       auto duration_barnes_1 = run_simulation_async(universe_barnes_1, timeout);
       
       // barnes-hut, theta=0.5
-      auto universe_barnes_2 = prepare_the_universe(bodies_barnes2, mzlib::cuniverse::implementation::barnes_hut, 0.5);
+      auto universe_barnes_2 = prepare_the_universe(bodies_barnes2, mzlib::universe::implementation::barnes_hut, 0.5);
       auto duration_barnes_2 = run_simulation_async(universe_barnes_2, timeout);
       
       // barnes-hut, theta=0.75
-      auto universe_barnes_3 = prepare_the_universe(bodies_barnes3, mzlib::cuniverse::implementation::barnes_hut, 0.75);
+      auto universe_barnes_3 = prepare_the_universe(bodies_barnes3, mzlib::universe::implementation::barnes_hut, 0.75);
       auto duration_barnes_3 = run_simulation_async(universe_barnes_3, timeout);
 
       // barnes-hut, theta=1
-      auto universe_barnes_4 = prepare_the_universe(bodies_barnes4, mzlib::cuniverse::implementation::barnes_hut, 1.0);
+      auto universe_barnes_4 = prepare_the_universe(bodies_barnes4, mzlib::universe::implementation::barnes_hut, 1.0);
       auto duration_barnes_4 = run_simulation_async(universe_barnes_4, timeout);
       
       // neatly aligned output

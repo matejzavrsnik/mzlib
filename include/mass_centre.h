@@ -14,7 +14,7 @@
 namespace mzlib {
 
 template <class VectorT>
-class cmass_centre
+class mass_centre
 {
 
 public:
@@ -22,25 +22,25 @@ public:
    VectorT location;
    double mass;
 
-   cmass_centre() :
+   mass_centre() :
       location({0}),
       mass(0)
    {
    }
    
-   cmass_centre(VectorT l, double m) :
+   mass_centre(VectorT l, double m) :
       location(l),
       mass(m)
    {
    }
    
-   cmass_centre (const cmass_centre<VectorT>&) = default;
-   cmass_centre (cmass_centre<VectorT>&&) = default;
-   cmass_centre<VectorT>& operator= (const cmass_centre<VectorT>&) = default;
-   cmass_centre<VectorT>& operator= (cmass_centre<VectorT>&&) = default;
-   ~cmass_centre () = default;
+   mass_centre (const mass_centre<VectorT>&) = default;
+   mass_centre (mass_centre<VectorT>&&) = default;
+   mass_centre<VectorT>& operator= (const mass_centre<VectorT>&) = default;
+   mass_centre<VectorT>& operator= (mass_centre<VectorT>&&) = default;
+   ~mass_centre () = default;
    
-   void add_to_mass_centre (const cmass_centre<VectorT>& mc) 
+   void add_to_mass_centre (const mass_centre<VectorT>& mc) 
    {
       VectorT new_location;
       double new_mass = mass + mc.mass;
@@ -49,7 +49,7 @@ public:
       mass = new_mass;
    }
         
-   void remove_from_mass_centre(const cmass_centre<VectorT>& mc) 
+   void remove_from_mass_centre(const mass_centre<VectorT>& mc) 
    {
       VectorT new_location;
       double new_mass = mass - mc.mass;
@@ -64,8 +64,8 @@ public:
 
 // convenient types
 
-using cmass_centre2d = cmass_centre<cvector2d>;
-using cmass_centre3d = cmass_centre<cvector3d>;
+using cmass_centre2d = mass_centre<vector2d>;
+using cmass_centre3d = mass_centre<vector3d>;
 
 
 } // namespace

@@ -112,8 +112,8 @@ TEST_F(fixture_rectangle, get_heigth)
 
 TEST_F(fixture_rectangle, calculate_centre_point) 
 {
-   mzlib::cvector2d centre_point = m_rectangle.calculate_centre_point();
-   ASSERT_EQ(mzlib::cvector2d({30,45}), centre_point);
+   mzlib::vector2d centre_point = m_rectangle.calculate_centre_point();
+   ASSERT_EQ(mzlib::vector2d({30,45}), centre_point);
 }
 
 TEST_F(fixture_rectangle, direction_of_point) 
@@ -123,43 +123,43 @@ TEST_F(fixture_rectangle, direction_of_point)
    struct t_coordinates {
       double x;
       double y;
-      mzlib::edirection direction;
+      mzlib::direction direction;
    } coordinates_of_interest[] = {
       // on the border
-      {-50,-50, mzlib::edirection::nw}, // upper-left corner
-      {-50,  0, mzlib::edirection::sw}, // centre-left edge
-      {-50, 50, mzlib::edirection::sw}, // bottom-left corner
-      {  0, 50, mzlib::edirection::sw}, // bottom-centre edge
-      {50,  50, mzlib::edirection::se}, // bottom-right corner
-      {50,   0, mzlib::edirection::se}, // centre-right edge
-      {50, -50, mzlib::edirection::ne}, // top-right corner
-      { 0, -50, mzlib::edirection::nw}, // centre-top edge
-      { 0,   0, mzlib::edirection::sw}, // centre
+      {-50,-50, mzlib::direction::nw}, // upper-left corner
+      {-50,  0, mzlib::direction::sw}, // centre-left edge
+      {-50, 50, mzlib::direction::sw}, // bottom-left corner
+      {  0, 50, mzlib::direction::sw}, // bottom-centre edge
+      {50,  50, mzlib::direction::se}, // bottom-right corner
+      {50,   0, mzlib::direction::se}, // centre-right edge
+      {50, -50, mzlib::direction::ne}, // top-right corner
+      { 0, -50, mzlib::direction::nw}, // centre-top edge
+      { 0,   0, mzlib::direction::sw}, // centre
       // just about in
-      {-49.99999999, -49.99999999, mzlib::edirection::nw}, // upper-left corner
-      {-49.99999999,   0         , mzlib::edirection::sw}, // centre-left edge
-      {-49.99999999,  49.99999999, mzlib::edirection::sw}, // bottom-left corner
-      {  0,           49.99999999, mzlib::edirection::sw}, // bottom-centre edge
-      { 49.99999999,  49.99999999, mzlib::edirection::se}, // bottom-right corner
-      { 49.99999999,   0         , mzlib::edirection::se}, // centre-right edge
-      { 49.99999999, -49.99999999, mzlib::edirection::ne}, // top-right corner
-      {  0,          -49.99999999, mzlib::edirection::nw}, // centre-top edge
-      {  0,            0         , mzlib::edirection::sw}, // center
+      {-49.99999999, -49.99999999, mzlib::direction::nw}, // upper-left corner
+      {-49.99999999,   0         , mzlib::direction::sw}, // centre-left edge
+      {-49.99999999,  49.99999999, mzlib::direction::sw}, // bottom-left corner
+      {  0,           49.99999999, mzlib::direction::sw}, // bottom-centre edge
+      { 49.99999999,  49.99999999, mzlib::direction::se}, // bottom-right corner
+      { 49.99999999,   0         , mzlib::direction::se}, // centre-right edge
+      { 49.99999999, -49.99999999, mzlib::direction::ne}, // top-right corner
+      {  0,          -49.99999999, mzlib::direction::nw}, // centre-top edge
+      {  0,            0         , mzlib::direction::sw}, // center
       // some additional edge cases
-      {-49,-50, mzlib::edirection::nw}, // should just miss upper edge of upper left node
-      { 49,-50, mzlib::edirection::ne}, // should just miss upper edge of upper right node
-      {-50,-49, mzlib::edirection::nw}, // should just miss left edge of upper left node
-      {-50, 49, mzlib::edirection::sw}, // should just miss left edge of bottom left node
-      {-40,-40, mzlib::edirection::nw}, // should fit fine
+      {-49,-50, mzlib::direction::nw}, // should just miss upper edge of upper left node
+      { 49,-50, mzlib::direction::ne}, // should just miss upper edge of upper right node
+      {-50,-49, mzlib::direction::nw}, // should just miss left edge of upper left node
+      {-50, 49, mzlib::direction::sw}, // should just miss left edge of bottom left node
+      {-40,-40, mzlib::direction::nw}, // should fit fine
       // way off
-      {-500, -500, mzlib::edirection::nw}, // upper-left direction
-      {-500,  0  , mzlib::edirection::sw}, // centre-left direction
-      {-500,  500, mzlib::edirection::sw}, // bottom-left direction
-      {   0,  500, mzlib::edirection::sw}, // bottom-centre direction
-      { 500,  500, mzlib::edirection::se}, // bottom-right direction
-      { 500,  0  , mzlib::edirection::se}, // centre-right direction
-      { 500, -500, mzlib::edirection::ne}, // top-right direction
-      {   0, -500, mzlib::edirection::nw}  // centre-top direction 
+      {-500, -500, mzlib::direction::nw}, // upper-left direction
+      {-500,  0  , mzlib::direction::sw}, // centre-left direction
+      {-500,  500, mzlib::direction::sw}, // bottom-left direction
+      {   0,  500, mzlib::direction::sw}, // bottom-centre direction
+      { 500,  500, mzlib::direction::se}, // bottom-right direction
+      { 500,  0  , mzlib::direction::se}, // centre-right direction
+      { 500, -500, mzlib::direction::ne}, // top-right direction
+      {   0, -500, mzlib::direction::nw}  // centre-top direction 
    };
    
    for (auto coor : coordinates_of_interest)
@@ -172,15 +172,15 @@ TEST_F(fixture_rectangle, direction_of_point)
 TEST_F(fixture_rectangle, enlarge_rectangle) 
 {
    struct t_parameters {
-      mzlib::edirection direction;
+      mzlib::direction direction;
       double factor;
-      mzlib::cvector2d expected_top_left;
-      mzlib::cvector2d expected_bottom_right;
+      mzlib::vector2d expected_top_left;
+      mzlib::vector2d expected_bottom_right;
    } test_parameters[] = {
-      {mzlib::edirection::nw, 2, {0 ,0 }, {40,60}},
-      {mzlib::edirection::ne, 2, {20,0 }, {60,60}},
-      {mzlib::edirection::sw, 2, {0, 30}, {40,90}},
-      {mzlib::edirection::se, 2, {20,30}, {60,90}}
+      {mzlib::direction::nw, 2, {0 ,0 }, {40,60}},
+      {mzlib::direction::ne, 2, {20,0 }, {60,60}},
+      {mzlib::direction::sw, 2, {0, 30}, {40,90}},
+      {mzlib::direction::se, 2, {20,30}, {60,90}}
    };
    
    for (auto parameter : test_parameters) {
@@ -206,18 +206,18 @@ TEST_F(fixture_rectangle, flip)
       // 60 +   . . o
       //    +
     struct t_parameters {
-      mzlib::edirection direction;
-      mzlib::cvector2d expected_top_left;
-      mzlib::cvector2d expected_bottom_right;
+      mzlib::direction direction;
+      mzlib::vector2d expected_top_left;
+      mzlib::vector2d expected_bottom_right;
    } test_parameters[] = {
-      {mzlib::edirection::n,  {20, 0}, {40,30}},
-      {mzlib::edirection::ne, {40, 0}, {60,30}},
-      {mzlib::edirection::e,  {40,30}, {60,60}},
-      {mzlib::edirection::se, {40,60}, {60,90}},
-      {mzlib::edirection::s,  {20,60}, {40,90}},
-      {mzlib::edirection::sw, { 0,60}, {20,90}},
-      {mzlib::edirection::w,  { 0,30}, {20,60}},
-      {mzlib::edirection::nw, { 0, 0}, {20,30}}
+      {mzlib::direction::n,  {20, 0}, {40,30}},
+      {mzlib::direction::ne, {40, 0}, {60,30}},
+      {mzlib::direction::e,  {40,30}, {60,60}},
+      {mzlib::direction::se, {40,60}, {60,90}},
+      {mzlib::direction::s,  {20,60}, {40,90}},
+      {mzlib::direction::sw, { 0,60}, {20,90}},
+      {mzlib::direction::w,  { 0,30}, {20,60}},
+      {mzlib::direction::nw, { 0, 0}, {20,30}}
    };
    
    for (auto parameter : test_parameters) {

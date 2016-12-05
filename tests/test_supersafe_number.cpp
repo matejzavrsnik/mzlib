@@ -25,8 +25,8 @@ protected:
    virtual void SetUp() {}
    virtual void TearDown() {}
   
-   typedef mzlib::csupersafe_number<int>    s_int;    // supersafe int
-   typedef mzlib::csupersafe_number<double> s_double; // supersafe double
+   typedef mzlib::supersafe_number<int>    s_int;    // supersafe int
+   typedef mzlib::supersafe_number<double> s_double; // supersafe double
 
 };
 

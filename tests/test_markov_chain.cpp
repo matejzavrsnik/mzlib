@@ -22,7 +22,7 @@ protected:
 
 TEST_F(fixture_markov_chain, basic_test) 
 {
-   mzlib::cmarkov_chain<int> markov_chain;
+   mzlib::markov_chain<int> markov_chain;
    // 1 -> 2 -> 1
    //   -> 3 -> 2
    for (int number : {1,2,1,3,2})

@@ -15,7 +15,7 @@
 namespace mzlib {
 
 // specialisation of generic markov chain generator that generates sentences
-class csentence_o_matic : public cmarkov_chain<std::string>
+class sentence_o_matic : public markov_chain<std::string>
 {
         
 public:

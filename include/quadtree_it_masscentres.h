@@ -19,16 +19,16 @@ namespace mzlib {
 // Const iterator through all mass centres
 template<class T>
 class quadtree_it_masscentres : 
-   public std::iterator<std::forward_iterator_tag, cbody_frame2d<T>>
+   public std::iterator<std::forward_iterator_tag, body_frame2d<T>>
 {
 
 private:
 
    std::vector<cmass_centre2d> m_mass_centres_queue;
 
-   const cbody_frame2d<T>* m_body;
+   const body_frame2d<T>* m_body;
    
-   std::vector<const cquadnode<T>*> m_nodes_queue;
+   std::vector<const quadnode<T>*> m_nodes_queue;
    double m_quotient;
    cmass_centre2d m_next_mass_centre;
    bool m_done = false;
@@ -57,10 +57,10 @@ private:
          return; 
       }
       // By this point, queue of mass centres is depleted, but there are still nodes in need to be processed
-      const cquadnode<T>* node = m_nodes_queue.back();
+      const quadnode<T>* node = m_nodes_queue.back();
       m_nodes_queue.pop_back(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
-      double node_distance = m_body->mass_centre.location.distance_to(node->get_mass_centre().location);
+      double node_distance = m_body->mass_c.location.distance_to(node->get_mass_centre().location);
       double node_quotient = node->m_diagonal_length.get() / node_distance;
       // Now depending how far it is, we need to consider either just mass centre of the node, or individual bodies
       if (node_quotient < m_quotient) {
@@ -84,7 +84,7 @@ private:
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
             for(auto body : node->m_bodies) {
                if (body->data == m_body->data) continue; // Skip original body
-               m_mass_centres_queue.push_back(body->mass_centre);
+               m_mass_centres_queue.push_back(body->mass_c);
             }
          }
       }
@@ -95,9 +95,9 @@ private:
    
 public:
 
-   explicit quadtree_it_masscentres (const cquadnode<T>* const node, const T& data, double quotient)
+   explicit quadtree_it_masscentres (const quadnode<T>* const node, const T& data, double quotient)
    { 
-      const cbody_frame2d<T>* found_body = node->find(data);
+      const body_frame2d<T>* found_body = node->find(data);
       if (found_body == nullptr) 
       {
          set_done();

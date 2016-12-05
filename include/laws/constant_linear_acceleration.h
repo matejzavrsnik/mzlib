@@ -15,17 +15,17 @@ namespace mzlib {
 namespace law {
 
 template<class VectorT>
-class cconstant_linear_acceleration
+class constant_linear_acceleration
 {
    
 public:
       
-   coptional<VectorT> v_0;   
-   coptional<VectorT> v_f;
-   coptional<VectorT> r_0;   
-   coptional<VectorT> r_f;
-   coptional<VectorT> a;
-   coptional<double>  t;
+   optional<VectorT> v_0;   
+   optional<VectorT> v_f;
+   optional<VectorT> r_0;   
+   optional<VectorT> r_f;
+   optional<VectorT> a;
+   optional<double>  t;
    
    void solve_for_final_velocity()
    {
@@ -63,8 +63,8 @@ public:
    }
 };
 
-using cconstant_linear_acceleration2d = cconstant_linear_acceleration<cvector2d>;
-using cconstant_linear_acceleration3d = cconstant_linear_acceleration<cvector3d>;
+using cconstant_linear_acceleration2d = constant_linear_acceleration<vector2d>;
+using cconstant_linear_acceleration3d = constant_linear_acceleration<vector3d>;
 
 } } // namespace
 

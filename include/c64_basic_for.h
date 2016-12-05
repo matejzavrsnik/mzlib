@@ -24,9 +24,9 @@ class c64_basic_for
    
 private:
    
-   coptional<T> m_from;
-   coptional<T> m_to;
-   coptional<T> m_step;
+   optional<T> m_from;
+   optional<T> m_to;
+   optional<T> m_step;
    
 public:
    

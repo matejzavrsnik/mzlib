@@ -30,7 +30,7 @@ protected:
    virtual void SetUp() {}
    virtual void TearDown() {}
    
-   mzlib::cvector2d unit_vector2d = mzlib::cvector2d{1,1}.normalise();
+   mzlib::vector2d unit_vector2d = mzlib::vector2d{1,1}.normalise();
 };
 
 TEST_F(fixture_laws, acceleration2d_solve_for_force) 
@@ -134,7 +134,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_initial_velocity_gi
 {
    mzlib::law::cconstant_linear_acceleration2d acc;
    acc.r_f = unit_vector2d * 9.13_m;
-   acc.r_0 = mzlib::cvector2d({1,1});
+   acc.r_0 = mzlib::vector2d({1,1});
    acc.a = -unit_vector2d * 0.21_m_per_s2;
    acc.t = 3.90_s;
    acc.solve_for_initial_velocity();
@@ -165,7 +165,7 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_acceleration_given_
 {
    mzlib::law::cconstant_linear_acceleration2d acc;
    acc.v_0 = -unit_vector2d * 3.57_m_per_s;
-   acc.r_0 = mzlib::cvector2d({1,1});
+   acc.r_0 = mzlib::vector2d({1,1});
    acc.r_f = unit_vector2d * 6.02_m;
    acc.t = 9.13_s;
    acc.solve_for_acceleration();
@@ -196,12 +196,12 @@ TEST_F(fixture_laws, cconstant_linear_acceleration_solve_for_final_location)
    acc.v_0 = unit_vector2d * 3.48_m_per_s;
    acc.a = unit_vector2d * 1.51_m_per_s2;
    acc.t = 2.27_s;
-   acc.r_0 = mzlib::cvector2d{1.1,2.2};
+   acc.r_0 = mzlib::vector2d{1.1,2.2};
    acc.solve_for_final_location();
    
    auto direction = acc.r_f.get();
    
-   ASSERT_TRUE(direction == mzlib::cvector2d({9.4368168809072515L,10.536816880907253L}));
+   ASSERT_TRUE(direction == mzlib::vector2d({9.4368168809072515L,10.536816880907253L}));
 }
 
 TEST_F(fixture_laws, cgravitation_solve_for_force)

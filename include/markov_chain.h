@@ -21,14 +21,14 @@ namespace mzlib
 
 // generic markov chain generator
 template<class T> 
-class cmarkov_chain
+class markov_chain
 {
     
 private:
         
-   coptional<T> m_previous_state;
+   optional<T> m_previous_state;
    T m_next_state;
-   std::map<T, cprobabilator<T>> m_states;
+   std::map<T, probabilator<T>> m_states;
         
    const T get_random_state () 
    {
@@ -51,7 +51,7 @@ protected:
    const T get() 
    {
       T& return_state = m_next_state;
-      cprobabilator<T>& probabilator = m_states[m_next_state];
+      probabilator<T>& probabilator = m_states[m_next_state];
       if (probabilator.count_events() == 0) {
          m_next_state = get_random_state();
       }

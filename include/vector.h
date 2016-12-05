@@ -28,7 +28,7 @@ namespace mzlib {
 // not building another framework. If laws are function templates, that is perfect.
    
 template<class TYPE, size_t DIM>
-class cvector 
+class vector 
 {
 
 private:
@@ -43,23 +43,23 @@ public:
    }
     
    // This weird constructor uses variadic templates to try to squeeze anything into a vector
-   template <typename... T> constexpr explicit cvector (T... val) : 
+   template <typename... T> constexpr explicit vector (T... val) : 
       m_array{val...}
    {
    }
     
-   constexpr cvector () : 
+   constexpr vector () : 
       m_array{0} // the rest will be zero too
    {
    };
 
-   cvector (const cvector<TYPE,DIM>&) = default;
-   cvector (cvector<TYPE,DIM> &&) = default;
-   cvector& operator= (const cvector<TYPE,DIM>&) = default;
-   cvector& operator= (cvector<TYPE,DIM>&&) = default;
-   ~cvector () = default;
+   vector (const vector<TYPE,DIM>&) = default;
+   vector (vector<TYPE,DIM> &&) = default;
+   vector& operator= (const vector<TYPE,DIM>&) = default;
+   vector& operator= (vector<TYPE,DIM>&&) = default;
+   ~vector () = default;
     
-   cvector (const std::initializer_list<TYPE>& list) : 
+   vector (const std::initializer_list<TYPE>& list) : 
       m_array{0}
    {
       size_t min_dim = std::min(DIM, list.size());
@@ -70,7 +70,7 @@ public:
    }
     
    // implicit conversion from std::vector
-   cvector (const std::vector<TYPE>& vec) : 
+   vector (const std::vector<TYPE>& vec) : 
       m_array{0}
    {
       size_t min_dim = std::min(DIM, vec.size());
@@ -79,7 +79,7 @@ public:
       }
    }
     
-   cvector<TYPE,DIM>& operator= (const std::vector<TYPE>& vec) 
+   vector<TYPE,DIM>& operator= (const std::vector<TYPE>& vec) 
    {    
       size_t min_dim = std::min(DIM, vec.size());
       for (size_t i = 0; i<min_dim; ++i) {
@@ -88,7 +88,7 @@ public:
       return *this;
    }
     
-   cvector<TYPE,DIM>& operator= (const std::initializer_list<TYPE>& list) 
+   vector<TYPE,DIM>& operator= (const std::initializer_list<TYPE>& list) 
    { 
       size_t min_dim = std::min(DIM, list.size());
       size_t i = 0;
@@ -113,34 +113,34 @@ public:
       return DIM;
    }
     
-   static cvector<TYPE,DIM> all_ones () 
+   static vector<TYPE,DIM> all_ones () 
    {
-      cvector<TYPE,DIM> ones;
+      vector<TYPE,DIM> ones;
       for (size_t i = 0; i<DIM; ++i) {
          ones[i] = 1;
       }
       return ones;
    }
 
-   static cvector<TYPE,DIM> all_zeros () 
+   static vector<TYPE,DIM> all_zeros () 
    {
-      cvector<TYPE,DIM> ones;
+      vector<TYPE,DIM> ones;
       for (size_t i = 0; i<DIM; ++i) {
          ones[i] = 0;
       }
       return ones;
    }
     
-   cvector<TYPE, DIM> move_by (const cvector<TYPE,DIM>& other) const
+   vector<TYPE, DIM> move_by (const vector<TYPE,DIM>& other) const
    {
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result[i] += other[i];
       }
       return result;
    }
     
-   TYPE square_distance_to(const cvector<TYPE,DIM>& other) const 
+   TYPE square_distance_to(const vector<TYPE,DIM>& other) const 
    {
       TYPE sqrdist = 0;
       for (size_t i = 0; i<DIM; ++i) {
@@ -149,13 +149,13 @@ public:
       return sqrdist;
    }
 
-   TYPE distance_to (const cvector<TYPE,DIM>& other) const 
+   TYPE distance_to (const vector<TYPE,DIM>& other) const 
    {
       TYPE dist = std::sqrt(square_distance_to(other));
       return dist;
    }
     
-   cvector<TYPE,DIM> direction_to (const cvector<TYPE,DIM>& other) const 
+   vector<TYPE,DIM> direction_to (const vector<TYPE,DIM>& other) const 
    {
       return *this - other;
    }
@@ -170,9 +170,9 @@ public:
       return len;
    }
     
-   cvector<TYPE, DIM> normalise () const
+   vector<TYPE, DIM> normalise () const
    {
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       TYPE l = length();
       for (size_t i=0; i<DIM; ++i) {
          result[i] /= l;
@@ -185,7 +185,7 @@ public:
    //todo: remove the diagnostic suppression after it's been fixed. Or after I am proved wrong.
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wfloat-equal"
-   bool operator== (const cvector<TYPE,DIM>& other) const
+   bool operator== (const vector<TYPE,DIM>& other) const
    {
       for (size_t i=0; i<DIM; ++i) {
          //todo: switch to is_integral_v when C++17 is available
@@ -202,76 +202,76 @@ public:
    }
 #pragma GCC diagnostic pop
    
-   bool operator!= (const cvector<TYPE,DIM>& other) const
+   bool operator!= (const vector<TYPE,DIM>& other) const
    {
       return !operator==(other);
    }
    
-   cvector<TYPE,DIM> operator+ (const cvector<TYPE,DIM>& other) const 
+   vector<TYPE,DIM> operator+ (const vector<TYPE,DIM>& other) const 
    {  
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result[i] += other[i];
       }
       return result; 
    }
     
-   cvector<TYPE,DIM> operator+= (const cvector<TYPE,DIM>& other) 
+   vector<TYPE,DIM> operator+= (const vector<TYPE,DIM>& other) 
    {
       *this = *this + other;
       return *this;
    }
 
-   cvector<TYPE,DIM> operator- (const cvector<TYPE,DIM>& other) const 
+   vector<TYPE,DIM> operator- (const vector<TYPE,DIM>& other) const 
    {
       // will compiler unwind this loop? test someday. It has every info available.
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result.m_array[i] -= other[i];
       }
       return result;
    }
     
-   cvector<TYPE, DIM> operator- () const
+   vector<TYPE, DIM> operator- () const
    {
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result[i] *= -1;
       }
       return result;
    }
     
-   cvector<TYPE,DIM> operator-= (const cvector<TYPE,DIM>& other) 
+   vector<TYPE,DIM> operator-= (const vector<TYPE,DIM>& other) 
    {
       *this = *this - other;
       return *this;
    }
     
-   cvector<TYPE,DIM> operator* (const cvector<TYPE,DIM>& other) const 
+   vector<TYPE,DIM> operator* (const vector<TYPE,DIM>& other) const 
    {  
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result[i] *= other[i];
       }
       return result; 
    }
     
-   cvector<TYPE,DIM> operator* (const TYPE& other) const 
+   vector<TYPE,DIM> operator* (const TYPE& other) const 
    {  
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result[i] *= other;
       }
       return result; 
    }
     
-   cvector<TYPE,DIM> operator*= (const cvector<TYPE,DIM>& other) 
+   vector<TYPE,DIM> operator*= (const vector<TYPE,DIM>& other) 
    {
       *this = *this * other;
       return *this;
    }
 
-   cvector<TYPE,DIM> operator*= (const TYPE& other) 
+   vector<TYPE,DIM> operator*= (const TYPE& other) 
    {
       for (size_t i = 0; i<DIM; ++i) {
          m_array[i] *= other;
@@ -279,18 +279,18 @@ public:
       return *this;
    }
     
-   cvector<TYPE,DIM> operator/ (const cvector<TYPE,DIM>& other) const 
+   vector<TYPE,DIM> operator/ (const vector<TYPE,DIM>& other) const 
    {  
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) {
          result[i] /= other[i];
       }
       return result; 
    }
     
-   cvector<TYPE,DIM> operator/ (const TYPE& other) const 
+   vector<TYPE,DIM> operator/ (const TYPE& other) const 
    {  
-      cvector<TYPE, DIM> result(*this);
+      vector<TYPE, DIM> result(*this);
       for (size_t i = 0; i<DIM; ++i) 
       {
          result[i] /= other;
@@ -298,13 +298,13 @@ public:
       return result; 
    }
     
-   cvector<TYPE,DIM> operator/= (const cvector<TYPE,DIM>& other) 
+   vector<TYPE,DIM> operator/= (const vector<TYPE,DIM>& other) 
    {
       *this = *this / other;
       return *this;
    }
     
-   cvector<TYPE,DIM> operator/= (const TYPE& other) 
+   vector<TYPE,DIM> operator/= (const TYPE& other) 
    {
       for (size_t i = 0; i<DIM; ++i) {
          m_array[i] /= other;
@@ -316,18 +316,18 @@ public:
 
 // And now, useful operators that can't be member functions
 
-template<typename TYPE, size_t DIM> cvector<TYPE,DIM> operator* (const TYPE& scalar, const cvector<TYPE,DIM>& vector)
+template<typename TYPE, size_t DIM> vector<TYPE,DIM> operator* (const TYPE& scalar, const vector<TYPE,DIM>& vector)
 {
    return vector * scalar; // turning the operands around is enough, operation is commutative
 }
 
-template<typename TYPE, size_t DIM> cvector<TYPE,DIM> operator/ (const TYPE& scalar, const cvector<TYPE,DIM>& vector)
+template<typename TYPE, size_t DIM> vector<TYPE,DIM> operator/ (const TYPE& scalar, const vector<TYPE,DIM>& vector)
 {
    return vector / scalar; // turning the operands around is enough, operation is commutative
 }
 
 template<class TYPE, size_t DIM>
-inline std::ostream& operator<< (std::ostream& os, const cvector<TYPE,DIM>& vector)
+inline std::ostream& operator<< (std::ostream& os, const vector<TYPE,DIM>& vector)
 {
    os << "[";
    for (size_t i=0; i<vector.size(); ++i) {
@@ -340,10 +340,10 @@ inline std::ostream& operator<< (std::ostream& os, const cvector<TYPE,DIM>& vect
 
 // Convenient types
 
-using cvector2d = cvector<double, 2>;
-using cvector3d = cvector<double, 3>;
-using cpoint2d  = cvector<double, 2>;
-using cpoint3d  = cvector<double, 3>;
+using vector2d = vector<double, 2>;
+using vector3d = vector<double, 3>;
+using cpoint2d  = vector<double, 2>;
+using cpoint3d  = vector<double, 3>;
     
 } // namespace
 

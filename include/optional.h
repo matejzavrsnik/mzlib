@@ -16,7 +16,7 @@ namespace mzlib {
 // basic optional type 
 // doesn't really store references, waiting for C++17 or whenever, but good enough for now
 template<class T>
-class coptional
+class optional
 {
    
 private:
@@ -26,12 +26,12 @@ private:
    
 public:
    
-   coptional ()
+   optional ()
    {
       m_set = option::set::no;
    }
    
-   coptional (const T& value)
+   optional (const T& value)
    {
       m_value = value;
       m_set = option::set::yes; 

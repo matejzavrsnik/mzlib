@@ -16,7 +16,7 @@ namespace mzlib {
    
 // Physical properties of a body, that will be used in physical simulations.
 template <class VectorT>
-class cbody_properties : public cunique 
+class body_properties : public unique 
 {
 
 public:
@@ -37,38 +37,38 @@ public:
 // user to store a number with given "mass" on the specified coordinates in space
 // and see quadtree as something other than strictly "physical bodies in space".
 template <class DataT, class VectorT>
-class cbody_frame
+class body_frame
 {
 
 public:
    
    DataT data; //todo: any better names out there?
-   cmass_centre<VectorT> mass_centre;
+   mass_centre<VectorT> mass_c;
    
-   cbody_frame()
+   body_frame()
    {
    }
    
-   cbody_frame(const DataT& binded_data, VectorT location_ = {0}, double mass_ = 0) :
+   body_frame(const DataT& binded_data, VectorT location_ = {0}, double mass_ = 0) :
       data(binded_data),   
-      mass_centre(location_, mass_)
+      mass_c(location_, mass_)
    {
    }
    
-   cbody_frame (const cbody_frame<DataT,VectorT>&) = default;
-   cbody_frame (cbody_frame<DataT,VectorT> && ) = default;
-   cbody_frame<DataT,VectorT>& operator= (const cbody_frame<DataT,VectorT>&) = default;
-   cbody_frame<DataT,VectorT>& operator= (cbody_frame<DataT,VectorT>&&) = default;
-   ~cbody_frame () = default;
+   body_frame (const body_frame<DataT,VectorT>&) = default;
+   body_frame (body_frame<DataT,VectorT> && ) = default;
+   body_frame<DataT,VectorT>& operator= (const body_frame<DataT,VectorT>&) = default;
+   body_frame<DataT,VectorT>& operator= (body_frame<DataT,VectorT>&&) = default;
+   ~body_frame () = default;
    
 };
 
-using cbody_properties2d = cbody_properties<cvector2d>;
-using cbody_properties3d = cbody_properties<cvector3d>;
-template<class DataT> using cbody_frame2d = cbody_frame<DataT, cvector2d>;
-template<class DataT> using cbody_frame3d = cbody_frame<DataT, cvector3d>;
-using cbody2d = cbody_frame2d<cbody_properties2d>;
-using cbody3d = cbody_frame3d<cbody_properties3d>;
+using body_properties2d = body_properties<vector2d>;
+using body_properties3d = body_properties<vector3d>;
+template<class DataT> using body_frame2d = body_frame<DataT, vector2d>;
+template<class DataT> using body_frame3d = body_frame<DataT, vector3d>;
+using body2d = body_frame2d<body_properties2d>;
+using body3d = body_frame3d<body_properties3d>;
 
 } // namespace
 

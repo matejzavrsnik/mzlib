@@ -16,15 +16,15 @@ namespace mzlib {
 namespace law {
    
 template<class VectorT>
-class cgravitation
+class gravitation
 {
    
 public:
    
-   coptional<cmass_centre<VectorT>> m_1; 
-   coptional<cmass_centre<VectorT>> m_2; 
-   coptional<double> G = coptional<double>(mzlib::consts::gravitational_constant);
-   coptional<VectorT> f_1;
+   optional<mass_centre<VectorT>> m_1; 
+   optional<mass_centre<VectorT>> m_2; 
+   optional<double> G = optional<double>(mzlib::consts::gravitational_constant);
+   optional<VectorT> f_1;
    
    void solve_for_force ()
    {
@@ -54,8 +54,8 @@ public:
    
 };
 
-using cgravitation2d = cgravitation<cvector2d>;
-using cgravitation3d = cgravitation<cvector3d>;
+using cgravitation2d = gravitation<vector2d>;
+using cgravitation3d = gravitation<vector3d>;
 
 } } // namespace
 

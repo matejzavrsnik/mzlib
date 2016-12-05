@@ -21,32 +21,32 @@
 namespace mzlib {
    
 template<class T>
-class cquadtree
+class quadtree
 {
     
 private:
     
    const double m_min_node_size;
    const double m_max_tree_size;
-   std::shared_ptr<cquadnode<T>> m_root = nullptr;
+   std::shared_ptr<quadnode<T>> m_root = nullptr;
    
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
-   std::vector<std::unique_ptr<cbody_frame2d<T>>> m_all_bodies;
+   std::vector<std::unique_ptr<body_frame2d<T>>> m_all_bodies;
    
-   void create_root_from_location(const cvector2d& location)
+   void create_root_from_location(const vector2d& location)
    {
       // todo: implement with operations over rectangles
-      cvector2d top_left    {location[0]-m_min_node_size, location[1]-m_min_node_size};
-      cvector2d bottom_right{location[0]+m_min_node_size, location[1]+m_min_node_size};
+      vector2d top_left    {location[0]-m_min_node_size, location[1]-m_min_node_size};
+      vector2d bottom_right{location[0]+m_min_node_size, location[1]+m_min_node_size};
       m_root->create({top_left, bottom_right}, m_min_node_size);
    }
    
-   void expand_tree_towards_location(const cvector2d& location)
+   void expand_tree_towards_location(const vector2d& location)
    {
       // get coordinates for new root
       const auto& old_root_rect = m_root->get_node_rectangle();
-      edirection expansion_direction = old_root_rect.direction_of_point (location);
+      direction expansion_direction = old_root_rect.direction_of_point (location);
       const auto enlarged_rectangle = old_root_rect.enlarge_rectangle (expansion_direction, 2);
       
       if (enlarged_rectangle.get_width()  >= m_max_tree_size ||
@@ -55,7 +55,7 @@ private:
       }
       
       // create and groom new root
-      std::shared_ptr<cquadnode<T>> new_root = std::make_shared<cquadnode<T>>();
+      std::shared_ptr<quadnode<T>> new_root = std::make_shared<quadnode<T>>();
       new_root->create(
          enlarged_rectangle,
          m_min_node_size);
@@ -71,7 +71,7 @@ private:
       m_root = new_root;
    }
       
-   void adjust_dynamic_tree (const cvector2d& location)
+   void adjust_dynamic_tree (const vector2d& location)
    {
       if (!is_in(location)) {
          if (!m_root->has_children()) {
@@ -83,9 +83,9 @@ private:
       }
    }
    
-   coptional<int> find_index (const T& data)
+   optional<int> find_index (const T& data)
    {
-      coptional<int> index;
+      optional<int> index;
       for (size_t i=0; i<m_all_bodies.size(); ++i) {
          if (m_all_bodies[i]->data == data) {
             index = i;
@@ -101,20 +101,20 @@ public:
    typedef quadtree_it_bodies<T>             it_bodies;
    typedef quadtree_it_masscentres<T>        it_masscentres;
       
-   explicit cquadtree (
+   explicit quadtree (
       const double min_node_size,
       const double max_tree_size) : 
          m_min_node_size (min_node_size),
          m_max_tree_size (max_tree_size),
-         m_root (std::make_shared<cquadnode<T>>())
+         m_root (std::make_shared<quadnode<T>>())
    {
    }
    
-   cquadtree (
+   quadtree (
       const crectangle2d& rectangle, 
       const double min_node_size,
       const double max_tree_size) :
-         cquadtree (
+         quadtree (
             min_node_size,
             max_tree_size)
    {
@@ -122,18 +122,18 @@ public:
    }
         
    // can't allow copying due to std::unique_ptrs that are used
-   cquadtree (const cquadtree&) = delete;
-   cquadtree& operator= (const cquadtree&) = delete;
+   quadtree (const quadtree&) = delete;
+   quadtree& operator= (const quadtree&) = delete;
    
    // allow moving
-   cquadtree (cquadtree && ) = default;
-   cquadtree& operator= (cquadtree&&) = default;
+   quadtree (quadtree && ) = default;
+   quadtree& operator= (quadtree&&) = default;
    
-   virtual ~cquadtree () = default;
+   virtual ~quadtree () = default;
    
-   void add (std::unique_ptr<cbody_frame2d<T>> mass_centre)
+   void add (std::unique_ptr<body_frame2d<T>> mass_centre)
    {
-      adjust_dynamic_tree (mass_centre->mass_centre.location);
+      adjust_dynamic_tree (mass_centre->mass_c.location);
       
       // Can still be out of the tree even after it has been resized, because it
       // might not have been: there is a defined limitation to the maximum tree
@@ -148,26 +148,26 @@ public:
       m_all_bodies.push_back(std::move(mass_centre));
    }
    
-   void add (cbody_frame2d<T> mass_centre) 
+   void add (body_frame2d<T> mass_centre) 
    {
-      auto mc_ptr = std::make_unique<cbody_frame2d<T>>(mass_centre);
+      auto mc_ptr = std::make_unique<body_frame2d<T>>(mass_centre);
       add (std::move(mc_ptr));
    }
    
-   void add (T data, cvector2d location, double mass = 0) 
+   void add (T data, vector2d location, double mass = 0) 
    { 
-      auto mc_ptr = std::make_unique<cbody_frame2d<T>>(data, location, mass);
+      auto mc_ptr = std::make_unique<body_frame2d<T>>(data, location, mass);
       add (std::move(mc_ptr));
    }
    
-   option::exists move (const T& data, cvector2d new_location)
+   option::exists move (const T& data, vector2d new_location)
    {
       auto index = find_index (data);
       if (!index.is_set()) return option::exists::no;
       
       adjust_dynamic_tree (new_location);
       m_root->move (data,new_location);
-      m_all_bodies[index.get()]->mass_centre.location = new_location;
+      m_all_bodies[index.get()]->mass_c.location = new_location;
       return option::exists::yes;
    }
    
@@ -194,7 +194,7 @@ public:
       return m_root->get_mass_centre();
    }
    
-   const cbody_frame2d<T>* find (const T& data)
+   const body_frame2d<T>* find (const T& data)
    {
       auto index = find_index (data);
       if (index.is_set()) {
@@ -205,7 +205,7 @@ public:
       }
    }
    
-   T& access_data(const cbody2d& body)
+   T& access_data(const body2d& body)
    {
       // I know it looks stupid, but why searching for the body again?
       // If someone deliberately wants to game the system, they can just 
@@ -213,7 +213,7 @@ public:
       return const_cast<T&>(body.data);
    }
    
-   bool is_in (cvector2d location) const 
+   bool is_in (vector2d location) const 
    { 
       return m_root->is_in(location); 
    }

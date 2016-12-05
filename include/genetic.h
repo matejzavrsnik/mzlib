@@ -19,14 +19,14 @@
 namespace mzlib {
    
 template<class TYPE>
-class cgenetic
+class genetic
 {
    
 public:
    
    using ifitness_function = std::function<double(const TYPE& candidate)>;
    
-   virtual ~cgenetic () {};
+   virtual ~genetic () {};
    
    void play_generations (int count)
    {
@@ -83,7 +83,7 @@ public:
    
 protected:
 
-   cgenetic (const TYPE& seed, ifitness_function fitness_function)
+   genetic (const TYPE& seed, ifitness_function fitness_function)
    {
       m_fitness_function = fitness_function;
       m_genome_pool.push_back({seed, m_fitness_function(seed)});
@@ -150,21 +150,21 @@ private:
   
 // This one works on single object, like a number, or struct, or whatever.
 template<class TYPE>
-class cgenetic_object : public cgenetic<TYPE>
+class genetic_object : public genetic<TYPE>
 {
    
-   using typename cgenetic<TYPE>::ifitness_function;
-   using typename cgenetic<TYPE>::tgenome;
-   using typename cgenetic<TYPE>::tgenome_info; 
+   using typename genetic<TYPE>::ifitness_function;
+   using typename genetic<TYPE>::tgenome;
+   using typename genetic<TYPE>::tgenome_info; 
    
 public:
    
-   cgenetic_object (const TYPE& seed, ifitness_function fitness_function) :
-      cgenetic<TYPE> (seed, fitness_function)
+   genetic_object (const TYPE& seed, ifitness_function fitness_function) :
+      genetic<TYPE> (seed, fitness_function)
    {
    };
    
-   ~cgenetic_object () {};
+   ~genetic_object () {};
    
    virtual size_t get_problem_space () override 
    {
@@ -186,23 +186,23 @@ private:
 // This one works on containers. It will randomly select an object from it and 
 // change genome on objects that can be accessed using operator[]
 template<class TYPE>
-class cgenetic_container : public cgenetic<TYPE>
+class genetic_container : public genetic<TYPE>
 {
    
-   using typename cgenetic<TYPE>::ifitness_function;
-   using typename cgenetic<TYPE>::tgenome;
-   using typename cgenetic<TYPE>::tgenome_info;
+   using typename genetic<TYPE>::ifitness_function;
+   using typename genetic<TYPE>::tgenome;
+   using typename genetic<TYPE>::tgenome_info;
    
 public:
    
-   cgenetic_container (const TYPE& seed, ifitness_function fitness_function) :
-      cgenetic<TYPE> (seed, fitness_function)
+   genetic_container (const TYPE& seed, ifitness_function fitness_function) :
+      genetic<TYPE> (seed, fitness_function)
    {
       m_object_size = sizeof(typename TYPE::value_type);
       m_object_count = seed.size();
    };
    
-   virtual ~cgenetic_container () {};
+   virtual ~genetic_container () {};
    
    virtual size_t get_problem_space () override 
    {
@@ -226,7 +226,7 @@ private:
 };
    
 template <class TYPE>
-TYPE mendel_until_perfect(cgenetic<TYPE>& genetic, double perfect_penalty)
+TYPE mendel_until_perfect(genetic<TYPE>& genetic, double perfect_penalty)
 {
    while (genetic.get_lowest_penalty() != perfect_penalty) {
       genetic.play_generations(1);
@@ -235,7 +235,7 @@ TYPE mendel_until_perfect(cgenetic<TYPE>& genetic, double perfect_penalty)
 }
 
 template <class TYPE>
-TYPE mendel_smart(cgenetic<TYPE>& genetic)
+TYPE mendel_smart(genetic<TYPE>& genetic)
 {
    TYPE best_genome_overall = genetic.get_best_genome();
    double lowest_penalty_overall = genetic.get_lowest_penalty();

@@ -23,7 +23,7 @@
 
 namespace mzlib {
    
-class cuniverse
+class universe
 {
         
 public:
@@ -44,12 +44,12 @@ public:
       law_of_gravitation m_law_of_gravitation = law_of_gravitation::realistic;
       double m_barnes_hut_quotient = 1.5;
       implementation m_implementation = implementation::barnes_hut;
-      coptional<crectangle2d> m_rectangle;
+      optional<crectangle2d> m_rectangle;
       double m_min_node_size = 10e50/8; // not a very efficient default, but it needs to cover the whole space
       double m_max_tree_size = 10e50;
    };
         
-   cuniverse ( 
+   universe ( 
       const crectangle2d rectangle,
       const double min_node_size,
       const double max_tree_size) 
@@ -60,20 +60,20 @@ public:
       apply_properties ();
    }
    
-   cuniverse ()
+   universe ()
    {
       apply_properties(); // leave defaults
    }
 
    // can't allow copying because container uses std::unique_ptr
-   cuniverse& operator= (const cuniverse&) = delete;
-   cuniverse (const cuniverse&) = delete; 
+   universe& operator= (const universe&) = delete;
+   universe (const universe&) = delete; 
    
    // allow move
-   cuniverse (cuniverse && ) = default;
-   cuniverse& operator= (cuniverse&&) = default;
+   universe (universe && ) = default;
+   universe& operator= (universe&&) = default;
    
-   ~cuniverse () = default;
+   ~universe () = default;
 
    tproperties get_properties () 
    {
@@ -86,26 +86,26 @@ public:
       apply_properties ();
    }
    
-   void add (cbody2d& body) 
+   void add (body2d& body) 
    {
       m_container->add(body);
       // Forces should show up immediately after adding
       calculate_forces();
    }
    
-   void remove (const cbody2d& body)
+   void remove (const body2d& body)
    {
       m_container->remove(body);
       // Forces should show up immediately after removing
       calculate_forces();
    }
    
-   cbody2d const* find (const cbody2d& body) const
+   body2d const* find (const body2d& body) const
    {
       return m_container->find(body);
    }
    
-   void move (cbody2d& body, cvector2d new_location)
+   void move (body2d& body, vector2d new_location)
    {
       m_container->move(body, new_location);
    }
@@ -125,18 +125,18 @@ public:
       }
    }
 
-   void for_every_body (std::function<void(cbody2d&)> execute)
+   void for_every_body (std::function<void(body2d&)> execute)
    {
       m_container->for_every_body(execute);
    }
    
 private:
         
-   std::tuple<cvector2d, cvector2d> 
+   std::tuple<vector2d, vector2d> 
    calculate_final_velocity_and_position(
-      const cvector2d& gravity,
-      const cvector2d& velocity,
-      const cvector2d& location,
+      const vector2d& gravity,
+      const vector2d& velocity,
+      const vector2d& location,
       const double mass,
       const double time) const
    {
@@ -153,8 +153,8 @@ private:
       final_parameters_equation.solve_for_final_location();
       final_parameters_equation.solve_for_final_velocity();
 
-      cvector2d velocity_final = final_parameters_equation.v_f.get();
-      cvector2d location_final = final_parameters_equation.r_f.get();
+      vector2d velocity_final = final_parameters_equation.v_f.get();
+      vector2d location_final = final_parameters_equation.r_f.get();
       
       // cap it at predefined max velocity
       if (velocity_final.length() > m_properties.m_max_velocity) {
@@ -167,9 +167,9 @@ private:
 
    void calculate_forces () 
    {
-      cbody2d* previous_body = nullptr;
+      body2d* previous_body = nullptr;
       m_container->for_every_mass_centre_combination(
-         [this, &previous_body] (cbody2d& body, cmass_centre2d& mass_centre) 
+         [this, &previous_body] (body2d& body, cmass_centre2d& mass_c) 
          {
             if (previous_body != &body)
             {
@@ -177,8 +177,8 @@ private:
                previous_body = &body;
             }
             law::cgravitation2d law;
-            law.m_1 = body.mass_centre;
-            law.m_2 = mass_centre;
+            law.m_1 = body.mass_c;
+            law.m_2 = mass_c;
             law.G = m_properties.m_gravitational_constant;
             if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
                law.solve_for_force();
@@ -194,12 +194,12 @@ private:
    void calculate_positions (double time_pixel) 
    {
       m_container->for_every_body(
-         [this, &time_pixel](cbody2d& body)
+         [this, &time_pixel](body2d& body)
          {
-            cvector2d location_final, velocity_final;
+            vector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
-               body.data.gravity, body.data.velocity, body.mass_centre.location, body.mass_centre.mass, time_pixel);
+               body.data.gravity, body.data.velocity, body.mass_c.location, body.mass_c.mass, time_pixel);
             m_container->move (body, location_final);
             body.data.velocity = velocity_final;            
          }
@@ -210,21 +210,21 @@ private:
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
          if (m_properties.m_rectangle.is_set()) {
-            m_container = std::make_unique<cuniverse_container_quadtree>(
+            m_container = std::make_unique<universe_container_quadtree>(
                m_properties.m_rectangle.get(),
                m_properties.m_min_node_size,
                m_properties.m_max_tree_size,
                m_properties.m_barnes_hut_quotient);            
          }
          else {
-            m_container = std::make_unique<cuniverse_container_quadtree>(
+            m_container = std::make_unique<universe_container_quadtree>(
                m_properties.m_min_node_size,
                m_properties.m_max_tree_size,
                m_properties.m_barnes_hut_quotient);            
          }
       }
       else if (m_properties.m_implementation == implementation::naive) {
-         m_container = std::make_unique<cuniverse_container_vector>();
+         m_container = std::make_unique<universe_container_vector>();
       }
    }
    

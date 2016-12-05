@@ -11,7 +11,7 @@
 namespace mzlib {
 
 // adds to objects a capability to be easily identifiable across copies of itself
-class cunique
+class unique
 {
    
 private:
@@ -26,23 +26,23 @@ private:
    
 public:
    
-   cunique()
+   unique()
    {
       m_id = get_unique_int();
    }
    
-   cunique(const cunique&) = default;
-   cunique(cunique && ) = default;
-   cunique& operator=(const cunique&) = default;
-   cunique& operator=(cunique&&) = default;
-   ~cunique() = default;   
+   unique(const unique&) = default;
+   unique(unique && ) = default;
+   unique& operator=(const unique&) = default;
+   unique& operator=(unique&&) = default;
+   ~unique() = default;   
    
    int id() const
    {
       return m_id;
    }
    
-   bool operator== (const cunique& other) const
+   bool operator== (const unique& other) const
    {
       if (&other == this) {
          return true;
@@ -50,7 +50,7 @@ public:
       return (this->id() == other.id());
    }
    
-   bool operator!= (const cunique& other) const
+   bool operator!= (const unique& other) const
    {
       return !(*this == other);
    }

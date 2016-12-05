@@ -19,7 +19,7 @@ namespace mzlib {
 class compromised_number : public std::exception {};
 
 template <typename T>
-class csupersafe_number
+class supersafe_number
 {
 
 private:
@@ -36,7 +36,7 @@ private:
 
 public:
 
-   csupersafe_number (const T number) :
+   supersafe_number (const T number) :
       m_keys{
          get_random_double(),
          get_random_double()},
