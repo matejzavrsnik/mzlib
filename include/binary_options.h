@@ -5,14 +5,15 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_ENUMS_H
-#define	MZLIB_ENUMS_H
+#ifndef MZLIB_BINARY_OPTIONS_H
+#define	MZLIB_BINARY_OPTIONS_H
 
 // More readable substitutes for simple booleans for specific meanings.
 // Let's see if I am correct in that I'll need more of them in the future and that
 // they'll make reading my programs a joyful experience.
 
 namespace mzlib {
+namespace option {
    
 class cbinary_option
 {
@@ -60,18 +61,18 @@ public: \
    using cbinary_option::cbinary_option; \
 };
 
-MZLIB_GENERATE_NEW_BINARY_OPTION( erecursive      )
-MZLIB_GENERATE_NEW_BINARY_OPTION( einclude_hidden )
-MZLIB_GENERATE_NEW_BINARY_OPTION( eset            )
-MZLIB_GENERATE_NEW_BINARY_OPTION( eexists         )
-MZLIB_GENERATE_NEW_BINARY_OPTION( eremoved        )
-MZLIB_GENERATE_NEW_BINARY_OPTION( eexpanded       )
-MZLIB_GENERATE_NEW_BINARY_OPTION( echanged        )
-MZLIB_GENERATE_NEW_BINARY_OPTION( estop           )
+MZLIB_GENERATE_NEW_BINARY_OPTION( recursive      )
+MZLIB_GENERATE_NEW_BINARY_OPTION( include_hidden )
+MZLIB_GENERATE_NEW_BINARY_OPTION( set            )
+MZLIB_GENERATE_NEW_BINARY_OPTION( exists         )
+MZLIB_GENERATE_NEW_BINARY_OPTION( removed        )
+MZLIB_GENERATE_NEW_BINARY_OPTION( expanded       )
+MZLIB_GENERATE_NEW_BINARY_OPTION( changed        )
+MZLIB_GENERATE_NEW_BINARY_OPTION( stop           )
 
 #undef MZLIB_GENERATE_NEW_BINARY_OPTION
 
-} // namespace
+}} // namespace
 
-#endif	/* MZLIB_ENUMS_H */
+#endif	/* MZLIB_BINARY_OPTIONS_H */
 

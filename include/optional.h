@@ -9,7 +9,7 @@
 #define	MZLIB_OPTIONAL_H
 
 #include "exceptions.h"
-#include "enums.h"
+#include "binary_options.h"
 
 namespace mzlib {
 
@@ -22,31 +22,31 @@ class coptional
 private:
    
    T m_value;
-   eset m_set;
+   option::set m_set;
    
 public:
    
    coptional ()
    {
-      m_set = eset::no;
+      m_set = option::set::no;
    }
    
    coptional (const T& value)
    {
       m_value = value;
-      m_set = eset::yes; 
+      m_set = option::set::yes; 
    }
    
    bool is_set() const
    {
-      return m_set == eset::yes;
+      return m_set == option::set::yes;
    }
 
    // I was thinking of the name "reset", but that would clash with boost and std
    // constructs where "reset" also sets the object to a new value; this doesn't.
    void unset()
    {
-      m_set = eset::no;
+      m_set = option::set::no;
    }
    
    // This function is needed because otherwise every operator would need to have 
@@ -58,7 +58,7 @@ public:
    // coptional and appropriate operator* doesn't exist.
    const T& get () const
    {
-      if(m_set == eset::no) throw exception::not_set();
+      if(m_set == option::set::no) throw exception::not_set();
       return m_value; 
    }
    

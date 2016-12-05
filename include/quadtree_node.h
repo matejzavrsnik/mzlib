@@ -16,7 +16,7 @@
 #include "body.h"
 #include "rectangle.h"
 #include "laws/rectangles.h"
-#include "enums.h"
+#include "binary_options.h"
 #include "exceptions.h"
 
 namespace mzlib {
@@ -111,13 +111,13 @@ public:
       }
    }
    
-   eremoved remove (const T& data) 
+   option::removed remove (const T& data) 
    {
       // downside of the approach where every node contains all bodies under it: 
       // every subnode needs to find mass centre in it's own collection
       auto mass_centre_it = find_body(data);
       // if no such mass centre here, go away
-      if (mass_centre_it == m_bodies.end()) return eremoved::no; 
+      if (mass_centre_it == m_bodies.end()) return option::removed::no; 
       // if found, convert to mass centre ptr
       cbody_frame2d<T>* mass_centre_ptr = *mass_centre_it;
       // start removing
@@ -125,13 +125,13 @@ public:
       m_bodies.erase(mass_centre_it);
       m_mass_centre.remove_from_mass_centre(mass_centre_ptr->mass_centre);
       // if leaf, this operation is done
-      if (is_leaf()) return eremoved::yes;
+      if (is_leaf()) return option::removed::yes;
       // if not leaf, delete in children too
       if      (m_child_nw->is_in(mass_centre_ptr->mass_centre.location)) return m_child_nw->remove(data);
       else if (m_child_ne->is_in(mass_centre_ptr->mass_centre.location)) return m_child_ne->remove(data);
       else if (m_child_sw->is_in(mass_centre_ptr->mass_centre.location)) return m_child_sw->remove(data);
       else if (m_child_se->is_in(mass_centre_ptr->mass_centre.location)) return m_child_se->remove(data);
-      return eremoved::no;
+      return option::removed::no;
    }
    
    typename std::vector<cbody_frame2d<T>*>::iterator find_body(const T& data)
@@ -144,13 +144,13 @@ public:
       return mass_centre_it;
    }
    
-   eexists move (const T& data, cvector2d new_location)
+   option::exists move (const T& data, cvector2d new_location)
    {
       auto mass_centre_it = find_body(data);
-      if (mass_centre_it == m_bodies.end()) return eexists::no;
+      if (mass_centre_it == m_bodies.end()) return option::exists::no;
       auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return eexists::no;
-      if(mass_centre_ptr->mass_centre.location == new_location) return eexists::yes;
+      if(mass_centre_ptr == nullptr) return option::exists::no;
+      if(mass_centre_ptr->mass_centre.location == new_location) return option::exists::yes;
       // so, with corner cases handled, here's the thing:
       
       cvector2d old_location = mass_centre_ptr->mass_centre.location;
@@ -168,7 +168,7 @@ public:
       
       if (crosses_node_border) {
          // in this case remove the body and insert it again in new position
-         if (remove(data) == eremoved::yes) {
+         if (remove(data) == option::removed::yes) {
             mass_centre_ptr->mass_centre.location = new_location;
             add(mass_centre_ptr);         
          }
@@ -180,21 +180,21 @@ public:
          m_mass_centre.add_to_mass_centre(mass_centre_ptr->mass_centre); 
       }
       
-      return eexists::yes;
+      return option::exists::yes;
    }
    
-   echanged change_mass (const T& data, double new_mass)
+   option::changed change_mass (const T& data, double new_mass)
    {
       auto mass_centre_it = find_body(data);
-      if (mass_centre_it == m_bodies.end()) return echanged::no;
+      if (mass_centre_it == m_bodies.end()) return option::changed::no;
       auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return echanged::no;
-      if(mass_centre_ptr->mass_centre.mass == new_mass) return echanged::yes;
+      if(mass_centre_ptr == nullptr) return option::changed::no;
+      if(mass_centre_ptr->mass_centre.mass == new_mass) return option::changed::yes;
       // so, with corner cases handled, here's the thing:
       remove(data);
       mass_centre_ptr->mass_centre.mass = new_mass;
       add(mass_centre_ptr);
-      return echanged::yes;
+      return option::changed::yes;
    }
    
    const cmass_centre2d& get_mass_centre () const

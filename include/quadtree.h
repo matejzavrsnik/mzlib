@@ -16,7 +16,7 @@
 #include "utils_missing_std.h"
 #include "rectangle.h"
 #include "optional.h"
-#include "enums.h"
+#include "binary_options.h"
 
 namespace mzlib {
    
@@ -160,33 +160,33 @@ public:
       add (std::move(mc_ptr));
    }
    
-   eexists move (const T& data, cvector2d new_location)
+   option::exists move (const T& data, cvector2d new_location)
    {
       auto index = find_index (data);
-      if (!index.is_set()) return eexists::no;
+      if (!index.is_set()) return option::exists::no;
       
       adjust_dynamic_tree (new_location);
       m_root->move (data,new_location);
       m_all_bodies[index.get()]->mass_centre.location = new_location;
-      return eexists::yes;
+      return option::exists::yes;
    }
    
-   echanged change_mass (const T& data, double new_mass)
+   option::changed change_mass (const T& data, double new_mass)
    {
       return m_root->change_mass(data,new_mass);
    }
    
-   eremoved remove (const T& data)
+   option::removed remove (const T& data)
    {
-      if(m_root->remove(data) == eremoved::yes) {
+      if(m_root->remove(data) == option::removed::yes) {
          for(size_t i=0; i!=m_all_bodies.size(); ++i) {
             if( m_all_bodies[i]->data == data) {
                m_all_bodies.erase(m_all_bodies.begin() + i);
-               return eremoved::yes;
+               return option::removed::yes;
             }
          }
       }
-      return eremoved::no;
+      return option::removed::no;
    }
    
    const cmass_centre2d& get_mass_centre () const

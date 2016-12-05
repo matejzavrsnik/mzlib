@@ -262,19 +262,19 @@ TEST_F(fixture_cquadtree, find_body_not_found)
 
 TEST_F(fixture_cquadtree, remove_body_when_tree_empty)
 {
-   ASSERT_EQ(mzlib::eremoved::no, m_tree.remove(2));
+   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(2));
 }
 
 TEST_F(fixture_cquadtree, remove_body_last_body)
 {
    m_tree.add(1, {25,25}, 100);
-   ASSERT_EQ(mzlib::eremoved::yes, m_tree.remove(1));
+   ASSERT_EQ(mzlib::option::removed::yes, m_tree.remove(1));
 }
 
 TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
 {
    m_tree.add(1, {25,25}, 100);
-   ASSERT_EQ(mzlib::eremoved::no, m_tree.remove(2));
+   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(2));
 }
 
 TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
@@ -375,8 +375,8 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
    // hopefully doesn't crash
-   mzlib::eexists exists = m_tree.move(3, {21,21});
-   ASSERT_EQ(mzlib::eexists::no, exists);
+   mzlib::option::exists exists = m_tree.move(3, {21,21});
+   ASSERT_EQ(mzlib::option::exists::no, exists);
    // mass centre stays unchanged
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({24,24}), m_tree.get_mass_centre().location);
@@ -403,7 +403,7 @@ TEST_F(fixture_cquadtree, change_mass_basic)
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({15,15}), m_tree.get_mass_centre().location);
    auto changed = m_tree.change_mass(2, 300);
-   ASSERT_EQ(mzlib::echanged::yes, changed);
+   ASSERT_EQ(mzlib::option::changed::yes, changed);
    ASSERT_EQ(400, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({20,20}), m_tree.get_mass_centre().location);
 }
@@ -414,7 +414,7 @@ TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
    m_tree.add(2, {25,25}, 100);
    // hopefully doesn't crash
    auto changed = m_tree.change_mass(3, 150);
-   ASSERT_EQ(mzlib::echanged::no, changed);
+   ASSERT_EQ(mzlib::option::changed::no, changed);
    // mass centre stays unchanged
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({15,15}), m_tree.get_mass_centre().location);
@@ -427,7 +427,7 @@ TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({0,0}), m_tree.get_mass_centre().location);
    auto removed = m_tree.remove(1);
-   ASSERT_EQ(mzlib::eremoved::yes, removed);
+   ASSERT_EQ(mzlib::option::removed::yes, removed);
    ASSERT_EQ(100, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::cvector2d({-25,-25}), m_tree.get_mass_centre().location);
 }

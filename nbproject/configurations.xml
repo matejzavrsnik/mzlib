@@ -8,13 +8,13 @@
         <itemPath>include/laws/gravitation.h</itemPath>
         <itemPath>include/laws/rectangles.h</itemPath>
       </logicalFolder>
+      <itemPath>include/binary_options.h</itemPath>
       <itemPath>include/body.h</itemPath>
       <itemPath>include/c64_basic_for.h</itemPath>
       <itemPath>include/consts.h</itemPath>
       <itemPath>include/cpucycle.h</itemPath>
       <itemPath>include/dbl.h</itemPath>
       <itemPath>include/direction.h</itemPath>
-      <itemPath>include/enums.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
@@ -117,6 +117,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="include/binary_options.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/body.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/c64_basic_for.h" ex="false" tool="3" flavor2="0">
@@ -128,8 +130,6 @@
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/direction.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/enums.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -287,6 +287,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="include/binary_options.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/body.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/c64_basic_for.h" ex="false" tool="3" flavor2="0">
@@ -298,8 +300,6 @@
       <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/direction.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/enums.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
