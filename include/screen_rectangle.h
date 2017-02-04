@@ -16,12 +16,11 @@
 namespace mzlib {
    
 template <class VectorT>
-class rectangle
+class screen_rectangle
 {
    
 private:
 
-   optional<double>  m_diagonal_length;
    optional<double>  m_width;
    optional<double>  m_height;
    optional<VectorT> m_top_right;
@@ -32,7 +31,7 @@ private:
    
 public:
 
-   rectangle (
+   screen_rectangle (
       const VectorT& top_left, 
       const VectorT& bottom_right) :
          m_top_left (top_left),
@@ -40,12 +39,12 @@ public:
    { 
    }
 
-   rectangle () = default;
-   rectangle& operator= (const rectangle<VectorT>&) = default;
-   rectangle (const rectangle<VectorT>&) = default; 
-   rectangle (rectangle<VectorT> && ) = default;
-   rectangle& operator= (rectangle<VectorT>&&) = default;
-   ~rectangle () = default;
+   screen_rectangle () = default;
+   screen_rectangle& operator= (const screen_rectangle<VectorT>&) = default;
+   screen_rectangle (const screen_rectangle<VectorT>&) = default; 
+   screen_rectangle (screen_rectangle<VectorT> && ) = default;
+   screen_rectangle& operator= (screen_rectangle<VectorT>&&) = default;
+   ~screen_rectangle () = default;
    
    bool is_defined() const
    {
@@ -131,7 +130,7 @@ public:
       }
    }
    
-   rectangle<VectorT> enlarge_rectangle (direction direction, double factor) const
+   screen_rectangle<VectorT> enlarge_rectangle (direction direction, double factor) const
    {
       VectorT top_left = m_top_left.get();
       VectorT bottom_right = m_bottom_right.get();
@@ -160,11 +159,11 @@ public:
             throw exception::not_implemented();
             break;
       }
-      rectangle<VectorT> rectangle(top_left, bottom_right);
+      screen_rectangle<VectorT> rectangle(top_left, bottom_right);
       return rectangle;
    }
    
-   rectangle<VectorT> flip (direction direction) const
+   screen_rectangle<VectorT> flip (direction direction) const
    {
       VectorT top_left = m_top_left.get();
       VectorT bottom_right = m_bottom_right.get();
@@ -216,7 +215,7 @@ public:
             throw exception::not_implemented();
             break;
       }
-      rectangle<VectorT> rectangle;
+      screen_rectangle<VectorT> rectangle;
       rectangle.m_top_left = top_left;
       rectangle.m_bottom_right = bottom_right;
       return rectangle;
@@ -224,8 +223,8 @@ public:
    
 };
 
-using rectangle2d = rectangle<vector2d>;
-using rectangle3d = rectangle<vector3d>;
+using screen_rectangle2d = screen_rectangle<vector2d>;
+using screen_rectangle3d = screen_rectangle<vector3d>;
 
 } // namespace
 

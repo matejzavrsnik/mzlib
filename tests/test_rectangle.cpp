@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/laws/rectangles.h"
+#include "../include/laws/screen_rectangles.h"
 #include "gtest/gtest.h"
 #include "../include/dbl.h"
 
@@ -20,7 +20,7 @@ protected:
    virtual void SetUp() {}
    virtual void TearDown() {}
    
-   const mzlib::rectangle2d m_rectangle = mzlib::rectangle2d({20,30}, {40,60}); 
+   const mzlib::screen_rectangle2d m_rectangle = mzlib::screen_rectangle2d({20,30}, {40,60}); 
 
    // regular everyday normal rectangle
    //
@@ -37,7 +37,7 @@ protected:
 
 TEST_F(fixture_rectangle, is_in) 
 {
-   mzlib::rectangle2d rect({-50,-50}, {50,50});
+   mzlib::screen_rectangle2d rect({-50,-50}, {50,50});
    
    struct t_coordinates {
       double x;
@@ -90,7 +90,7 @@ TEST_F(fixture_rectangle, is_in)
 
 TEST_F(fixture_rectangle, get_diagonal_length) 
 {
-   mzlib::law::rectangles2d rect_law;
+   mzlib::law::screen_rectangles2d rect_law;
    rect_law.consider(m_rectangle);
    rect_law.solve_for_diagonal_length();
    double length = rect_law.m_diagonal_length.get();
@@ -118,7 +118,7 @@ TEST_F(fixture_rectangle, calculate_centre_point)
 
 TEST_F(fixture_rectangle, direction_of_point) 
 {
-   mzlib::rectangle2d rect({-50,-50}, {50,50});
+   mzlib::screen_rectangle2d rect({-50,-50}, {50,50});
    
    struct t_coordinates {
       double x;

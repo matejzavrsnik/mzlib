@@ -12,7 +12,7 @@
 #include <vector>
 #include "quadtree.h"
 #include "mass_centre.h"
-#include "rectangle.h"
+#include "screen_rectangle.h"
 
 namespace mzlib {
 

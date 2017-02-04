@@ -15,7 +15,7 @@
 #include "body.h"
 #include "consts.h"
 #include "universe_containers.h"
-#include "rectangle.h"
+#include "screen_rectangle.h"
 
 #include "laws/constant_linear_acceleration.h"
 #include "laws/acceleration.h"
@@ -44,13 +44,13 @@ public:
       law_of_gravitation m_law_of_gravitation = law_of_gravitation::realistic;
       double m_barnes_hut_quotient = 1.5;
       implementation m_implementation = implementation::barnes_hut;
-      optional<rectangle2d> m_rectangle;
+      optional<screen_rectangle2d> m_rectangle;
       double m_min_node_size = 10e50/8; // not a very efficient default, but it needs to cover the whole space
       double m_max_tree_size = 10e50;
    };
         
    universe ( 
-      const rectangle2d rectangle,
+      const screen_rectangle2d rectangle,
       const double min_node_size,
       const double max_tree_size) 
    {

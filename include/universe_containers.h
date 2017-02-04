@@ -100,7 +100,7 @@ class universe_container_quadtree : public iuniverse_container
 public:
    
    universe_container_quadtree (
-      const rectangle2d& rectangle, 
+      const screen_rectangle2d& rectangle, 
       const double min_node_size,
       const double max_tree_size,
       const double quotient) 

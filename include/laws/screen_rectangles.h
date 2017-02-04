@@ -9,13 +9,13 @@
 #define	MZLIB_LAWS_RECTANGLES_H
 
 #include "../optional.h"
-#include "../rectangle.h"
+#include "../screen_rectangle.h"
 
 namespace mzlib {
 namespace law {
    
 template <class VectorT>
-class rectangles
+class screen_rectangles
 {
 
 public:
@@ -29,19 +29,10 @@ public:
    optional<double>  m_width;
    optional<double>  m_height;
 
-   void consider(const rectangle<VectorT>& rectangle)
+   void consider(const screen_rectangle<VectorT>& rectangle)
    {
-      // I am counting on compiler support here. All conditions in this branch are
-      // well known in compile time and it is well known that they can't change while
-      // program will run. I've given it enough information to know that it is safe
-      // to optimise away the branches altogether, so I hope this is what will happen.
-      if (VectorT::dimensions() == 2) {
-         m_top_left = rectangle.get_top_left();
-         m_bottom_right = rectangle.get_bottom_right();
-      }
-      else {
-         throw ::mzlib::exception::not_implemented(); // Yet. Also, todo  
-      }
+      m_top_left = rectangle.get_top_left();
+      m_bottom_right = rectangle.get_bottom_right();
    }
    
    const double& solve_for_diagonal_length()
@@ -56,8 +47,7 @@ public:
    }
 };
    
-using rectangles2d = rectangles<vector2d>;
-using rectangleS3d = rectangles<vector3d>;
+using screen_rectangles2d = screen_rectangles<vector2d>;
 
 } } // namespace
 

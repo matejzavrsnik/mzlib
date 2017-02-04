@@ -14,8 +14,8 @@
 #include "mass_centre.h"
 #include "utils/missing_std.h"
 #include "body.h"
-#include "rectangle.h"
-#include "laws/rectangles.h"
+#include "screen_rectangle.h"
+#include "laws/screen_rectangles.h"
 #include "binary_options.h"
 #include "exceptions.h"
 
@@ -51,7 +51,7 @@ public:
    // Creation needs to be done outside the constructor, because to be able to call shared_from_this(),
    // an object needs an owning shared_ptr, otherwise there is risk of two shared_ptrs owning same object.
    void create (
-      const rectangle2d& rectangle, 
+      const screen_rectangle2d& rectangle, 
       const double smallest_node_width, 
       const direction which_quadrant = direction::centre, // root by default: no direction
       std::shared_ptr<quadnode> parent = nullptr)          // root by default: no parent
@@ -60,7 +60,7 @@ public:
       m_rectangle = rectangle;
       m_which_quadrant = which_quadrant;
       if (!m_diagonal_length.is_set()) {
-         law::rectangles2d rect_law;
+         law::screen_rectangles2d rect_law;
          rect_law.consider(m_rectangle);
          m_diagonal_length = rect_law.solve_for_diagonal_length();
       }
@@ -70,24 +70,24 @@ public:
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
          m_mass_centre.location = centre_point;
          
-         const rectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
+         const screen_rectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
          if (m_child_nw == nullptr) {
             m_child_nw = std::make_shared<quadnode<T>>();
             m_child_nw->create(nw_rect, smallest_node_width, direction::nw, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
             m_child_ne = std::make_shared<quadnode<T>>();
-            const rectangle2d ne_rect = nw_rect.flip(direction::e);
+            const screen_rectangle2d ne_rect = nw_rect.flip(direction::e);
             m_child_ne->create(ne_rect, smallest_node_width, direction::ne, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
             m_child_sw = std::make_shared<quadnode<T>>();
-            const rectangle2d sw_rect = nw_rect.flip(direction::s);
+            const screen_rectangle2d sw_rect = nw_rect.flip(direction::s);
             m_child_sw->create(sw_rect, smallest_node_width, direction::sw, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
             m_child_se = std::make_shared<quadnode<T>>();
-            const rectangle2d se_rect = nw_rect.flip(direction::se);
+            const screen_rectangle2d se_rect = nw_rect.flip(direction::se);
             m_child_se->create(se_rect, smallest_node_width, direction::se, this->shared_from_this());
          }
       }
@@ -289,7 +289,7 @@ public:
       return nullptr; // not found
    }
    
-   const rectangle<vector2d>& get_node_rectangle () const
+   const screen_rectangle<vector2d>& get_node_rectangle () const
    {
       return m_rectangle;
    }
@@ -322,7 +322,7 @@ private:
    std::vector<body_frame2d<T>*> m_bodies;
    mass_centre2d m_mass_centre;
         
-   rectangle2d m_rectangle;
+   screen_rectangle2d m_rectangle;
    optional<double> m_diagonal_length;
    direction m_which_quadrant;
 };

@@ -14,7 +14,7 @@
 #include "vector.h"
 #include "body.h"
 #include "utils/missing_std.h"
-#include "rectangle.h"
+#include "screen_rectangle.h"
 #include "optional.h"
 #include "binary_options.h"
 
@@ -111,7 +111,7 @@ public:
    }
    
    quadtree (
-      const rectangle2d& rectangle, 
+      const screen_rectangle2d& rectangle, 
       const double min_node_size,
       const double max_tree_size) :
          quadtree (
