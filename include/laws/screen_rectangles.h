@@ -151,49 +151,51 @@ public:
    {
       VectorT top_left = m_top_left.get();
       VectorT bottom_right = m_bottom_right.get();
-      const double& height = solve_for_height ();
-      const double& width = solve_for_width ();
+      
+      solve_for_height ();
+      solve_for_width ();
+      
       switch (direction) 
       {
          case direction::n:
-            top_left    [1] -= height;
-            bottom_right[1] -= height;
+            top_left    [1] -= m_height.get();
+            bottom_right[1] -= m_height.get();
             break;
          case direction::s:
-            top_left    [1] += height;
-            bottom_right[1] += height;
+            top_left    [1] += m_height.get();
+            bottom_right[1] += m_height.get();
             break;
          case direction::w: 
-            top_left    [0] -= width;
-            bottom_right[0] -= width;
+            top_left    [0] -= m_width.get();
+            bottom_right[0] -= m_width.get();
             break;
          case direction::e:
-            top_left    [0] += width;
-            bottom_right[0] += width;
+            top_left    [0] += m_width.get();
+            bottom_right[0] += m_width.get();
             break;
          case direction::ne:
-            top_left    [0] += width;
-            top_left    [1] -= height;
-            bottom_right[0] += width;
-            bottom_right[1] -= height;
+            top_left    [0] += m_width.get();
+            top_left    [1] -= m_height.get();
+            bottom_right[0] += m_width.get();
+            bottom_right[1] -= m_height.get();
             break;
          case direction::nw:
-            top_left    [0] -= width;
-            top_left    [1] -= height;
-            bottom_right[0] -= width;
-            bottom_right[1] -= height;
+            top_left    [0] -= m_width.get();
+            top_left    [1] -= m_height.get();
+            bottom_right[0] -= m_width.get();
+            bottom_right[1] -= m_height.get();
             break;
          case direction::se: 
-            top_left    [0] += width;
-            top_left    [1] += height;
-            bottom_right[0] += width;
-            bottom_right[1] += height;
+            top_left    [0] += m_width.get();
+            top_left    [1] += m_height.get();
+            bottom_right[0] += m_width.get();
+            bottom_right[1] += m_height.get();
             break;
          case direction::sw:
-            top_left    [0] -= width;
-            top_left    [1] += height;
-            bottom_right[0] -= width;
-            bottom_right[1] += height;
+            top_left    [0] -= m_width.get();
+            top_left    [1] += m_height.get();
+            bottom_right[0] -= m_width.get();
+            bottom_right[1] += m_height.get();
             break;
          default:
             throw exception::not_implemented();
