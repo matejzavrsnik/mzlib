@@ -38,6 +38,8 @@ protected:
 TEST_F(fixture_rectangle, is_in) 
 {
    mzlib::screen_rectangle2d rect({-50,-50}, {50,50});
+   mzlib::law::screen_rectangles2d law;
+   law.consider(rect);
    
    struct t_coordinates {
       double x;
@@ -83,7 +85,8 @@ TEST_F(fixture_rectangle, is_in)
    
    for (auto coor : coordinates_of_interest)
    {
-      ASSERT_EQ(coor.should_be_in, rect.is_in({coor.x, coor.y})) 
+
+      ASSERT_EQ(coor.should_be_in, law.is_in({coor.x, coor.y})) 
          << "for coordinates: " << coor.x << "," << coor.y;
    }
 }
@@ -99,26 +102,34 @@ TEST_F(fixture_rectangle, get_diagonal_length)
 
 TEST_F(fixture_rectangle, get_width) 
 {
-   double width = m_rectangle.get_width();
+   mzlib::law::screen_rectangles2d law;
+   law.consider(m_rectangle);
+   double width = law.solve_for_width();
    ASSERT_TRUE(mzlib::dbl(width).equals(20L));
 }
 
 TEST_F(fixture_rectangle, get_heigth) 
 {
-   double height = m_rectangle.get_height();
+   mzlib::law::screen_rectangles2d rect_law;
+   rect_law.consider(m_rectangle);
+   double height = rect_law.solve_for_height();
    ASSERT_TRUE(mzlib::dbl(height).equals(30L));
 }
 
 
 TEST_F(fixture_rectangle, calculate_centre_point) 
 {
-   mzlib::vector2d centre_point = m_rectangle.calculate_centre_point();
+   mzlib::law::screen_rectangles2d rect_law;
+   rect_law.consider(m_rectangle);
+   mzlib::vector2d centre_point = rect_law.solve_for_centre_point();
    ASSERT_EQ(mzlib::vector2d({30,45}), centre_point);
 }
 
 TEST_F(fixture_rectangle, direction_of_point) 
 {
    mzlib::screen_rectangle2d rect({-50,-50}, {50,50});
+   mzlib::law::screen_rectangles2d rect_law;
+   rect_law.consider(rect);
    
    struct t_coordinates {
       double x;
@@ -164,7 +175,7 @@ TEST_F(fixture_rectangle, direction_of_point)
    
    for (auto coor : coordinates_of_interest)
    {
-      ASSERT_EQ(coor.direction, rect.direction_of_point({coor.x, coor.y})) 
+      ASSERT_EQ(coor.direction, rect_law.solve_for_direction_of_point({coor.x, coor.y})) 
          << "for coordinates: " << coor.x << "," << coor.y;
    }
 }
@@ -183,8 +194,11 @@ TEST_F(fixture_rectangle, enlarge_rectangle)
       {mzlib::direction::se, 2, {20,30}, {60,90}}
    };
    
+   mzlib::law::screen_rectangles2d law;
+   law.consider(m_rectangle);
+   
    for (auto parameter : test_parameters) {
-      auto new_rect = m_rectangle.enlarge_rectangle(parameter.direction, parameter.factor);
+      auto new_rect = law.enlarge_rectangle(parameter.direction, parameter.factor);
       ASSERT_EQ(parameter.expected_top_left,     new_rect.get_top_left())
          << "unexpected value for top left for expansion in direction: " 
          << parameter.direction << " with factor " << parameter.factor;
@@ -220,8 +234,11 @@ TEST_F(fixture_rectangle, flip)
       {mzlib::direction::nw, { 0, 0}, {20,30}}
    };
    
+   mzlib::law::screen_rectangles2d rect_law;
+   rect_law.consider(m_rectangle);
+   
    for (auto parameter : test_parameters) {
-      auto result = m_rectangle.flip (parameter.direction);
+      auto result = rect_law.flip (parameter.direction);
       auto top_left = result.get_top_left();
       auto bottom_right = result.get_bottom_right();
       ASSERT_EQ(parameter.expected_top_left,     top_left)     << parameter.direction;

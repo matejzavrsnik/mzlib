@@ -46,11 +46,13 @@ private:
    {
       // get coordinates for new root
       const auto& old_root_rect = m_root->get_node_rectangle();
-      direction expansion_direction = old_root_rect.direction_of_point (location);
-      const auto enlarged_rectangle = old_root_rect.enlarge_rectangle (expansion_direction, 2);
+      mzlib::law::screen_rectangles2d law;
+      law.consider(old_root_rect);
+      direction expansion_direction = law.solve_for_direction_of_point(location);
+      const auto enlarged_rectangle = law.enlarge_rectangle (expansion_direction, 2);
       
-      if (enlarged_rectangle.get_width()  >= m_max_tree_size ||
-          enlarged_rectangle.get_height() >= m_max_tree_size) {
+      if (law.solve_for_width()  >= m_max_tree_size ||
+          law.solve_for_height() >= m_max_tree_size) {
          return; // don/t enlarge if it would make tree larger than max size
       }
       

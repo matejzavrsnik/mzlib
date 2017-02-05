@@ -59,35 +59,40 @@ public:
       m_parent = parent;
       m_rectangle = rectangle;
       m_which_quadrant = which_quadrant;
+      
+      law::screen_rectangles2d rect_law;
+      rect_law.consider(m_rectangle);
       if (!m_diagonal_length.is_set()) {
-         law::screen_rectangles2d rect_law;
-         rect_law.consider(m_rectangle);
          m_diagonal_length = rect_law.solve_for_diagonal_length();
       }
-      if (m_rectangle.get_width() > smallest_node_width) {
-         const vector2d centre_point = m_rectangle.calculate_centre_point();
+      if (rect_law.solve_for_width() > smallest_node_width) {
+         const vector2d centre_point = rect_law.solve_for_centre_point();
          
          // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
          m_mass_centre.location = centre_point;
          
          const screen_rectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
+         law::screen_rectangles2d nw_rect_law;
+         nw_rect_law.consider(nw_rect);
+         
          if (m_child_nw == nullptr) {
             m_child_nw = std::make_shared<quadnode<T>>();
             m_child_nw->create(nw_rect, smallest_node_width, direction::nw, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
             m_child_ne = std::make_shared<quadnode<T>>();
-            const screen_rectangle2d ne_rect = nw_rect.flip(direction::e);
+
+            const screen_rectangle2d ne_rect = nw_rect_law.flip(direction::e);
             m_child_ne->create(ne_rect, smallest_node_width, direction::ne, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
             m_child_sw = std::make_shared<quadnode<T>>();
-            const screen_rectangle2d sw_rect = nw_rect.flip(direction::s);
+            const screen_rectangle2d sw_rect = nw_rect_law.flip(direction::s);
             m_child_sw->create(sw_rect, smallest_node_width, direction::sw, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
             m_child_se = std::make_shared<quadnode<T>>();
-            const screen_rectangle2d se_rect = nw_rect.flip(direction::se);
+            const screen_rectangle2d se_rect = nw_rect_law.flip(direction::se);
             m_child_se->create(se_rect, smallest_node_width, direction::se, this->shared_from_this());
          }
       }
@@ -204,7 +209,12 @@ public:
    
    bool is_in(vector2d location)
    {
-      return m_rectangle.is_defined() && m_rectangle.is_in (location);
+      if (!m_rectangle.is_defined()) {
+         return false;
+      }
+      law::screen_rectangles2d law;
+      law.consider(m_rectangle);
+      return law.is_in(location);
    }
         
    bool is_leaf () const 
