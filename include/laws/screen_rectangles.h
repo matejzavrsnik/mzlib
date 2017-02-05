@@ -24,6 +24,7 @@ public:
    optional<VectorT> m_bottom_left;   
    optional<VectorT> m_top_left;
    optional<VectorT> m_bottom_right;
+   optional<VectorT> m_centre_point;
 
    optional<double>  m_diagonal_length;
    optional<double>  m_width;
@@ -35,14 +36,13 @@ public:
       m_bottom_right = rectangle.get_bottom_right();
    }
    
-   const double& solve_for_diagonal_length()
+   const double& solve_for_diagonal_length() const
    {
       if (m_diagonal_length.is_set()) {
          return m_diagonal_length.get();
       }
       
-      // generic solution, valid for all rectangles
-      m_diagonal_length = m_top_left.get().distance_to(m_bottom_right.get());
+      const_cast<optional<double>&>(m_diagonal_length) = m_top_left.get().distance_to(m_bottom_right.get());
       return m_diagonal_length.get();      
    }
    
@@ -81,15 +81,20 @@ public:
    
    VectorT solve_for_centre_point () const
    {
-      VectorT centre_point = m_top_left.get() + ((m_bottom_right.get() - m_top_left.get()) / 2);
-      return centre_point;
+      if (m_centre_point.is_set()) {
+         return m_centre_point.get();
+      }
+
+      const_cast<optional<VectorT>&>(m_centre_point) = m_top_left.get() + ((m_bottom_right.get() - m_top_left.get()) / 2);
+      return m_centre_point.get();
    }
    
    direction solve_for_direction_of_point (const vector2d& point) const
    {
-      VectorT centre_point = solve_for_centre_point ();
-      if (point[0] <= centre_point[0]) {    // if on the edge, west wins
-         if (point[1] < centre_point[1]) {  // if on the edge, south wins
+      solve_for_centre_point ();
+      
+      if (point[0] <= m_centre_point.get()[0]) {    // if on the edge, west wins
+         if (point[1] < m_centre_point.get()[1]) {  // if on the edge, south wins
             return direction::nw;
          }
          else {
@@ -97,7 +102,7 @@ public:
          }
       }
       else {
-         if (point[1] < centre_point[1]) {
+         if (point[1] < m_centre_point.get()[1]) {
             return direction::ne;
          }
          else {
@@ -108,12 +113,15 @@ public:
    
    screen_rectangle<VectorT> enlarge_rectangle (direction direction, double factor) const
    {
+      solve_for_height ();
+      solve_for_width ();
+      
       VectorT top_left = m_top_left.get();
       VectorT bottom_right = m_bottom_right.get();
-      const double& height = solve_for_height ();
-      const double& width = solve_for_width ();
-      const double height_delta = factor * height - height;
-      const double width_delta = factor * width - width;
+
+      const double height_delta = factor * m_height.get() - m_height.get();
+      const double width_delta = factor * m_width.get() - m_width.get();
+      
       switch(direction) {
          case direction::ne:
             top_left[1] -= height_delta;

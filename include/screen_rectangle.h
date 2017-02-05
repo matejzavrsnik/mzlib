@@ -20,11 +20,6 @@ class screen_rectangle
 {
    
 private:
-
-   optional<double>  m_width;
-   optional<double>  m_height;
-   optional<VectorT> m_top_right;
-   optional<VectorT> m_bottom_left;
    
    optional<VectorT> m_top_left;
    optional<VectorT> m_bottom_right;
