@@ -15,6 +15,7 @@
 #include <map>
 
 extern std::map<std::string, std::string> g_arguments;
+const std::string g_test_dir_param = "mzlib_testdir";
 
 #endif	/* OPTIONS_H */
 
