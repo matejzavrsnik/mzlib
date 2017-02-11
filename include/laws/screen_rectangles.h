@@ -13,6 +13,18 @@
 
 namespace mzlib {
 namespace law {
+
+// Why did I think it's worth having screen rectangles operations separate from
+// the class, you say? First is that something like diagonal_length is derived
+// from top_right and bottom_left, and if it was stored next to the two defining
+// points, it would be duplicate information and it would ruin the orthogonality
+// of the class design. First problem with that is that it would need careful 
+// and active maintenance to keep correct or risk bugs, and second problem is 
+// that it consumes additional memory even in cases where the user of the class 
+// doesn't need diagonal_length. And if it was just diagonal_length, then fine,
+// but it isn't. Second, operations that can be implemented as a non-member non-
+// friends, should be. This is slightly ideological point, but it is a good guideline
+// in keeping everything simpler and also enforcing the first point.
    
 template <class VectorT>
 class screen_rectangles
