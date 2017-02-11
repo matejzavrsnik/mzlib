@@ -96,7 +96,7 @@ TEST_F(fixture_law_screen_rectangle, get_diagonal_length)
    mzlib::law::screen_rectangles2d rect_law;
    rect_law.consider(m_rectangle);
    rect_law.solve_for_diagonal_length();
-   double length = rect_law.m_diagonal_length.get();
+   double length = rect_law.diagonal_length.get();
    ASSERT_TRUE(mzlib::dbl(length).equals(36.055512754639892L));
 }
 
