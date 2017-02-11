@@ -83,7 +83,7 @@ private:
          else if (node->m_bodies.size() > 0) {
             // So, by here, the node is not too far, is leaf, has bodies; line them up!
             for(auto body : node->m_bodies) {
-               if (body->data == m_body->data) continue; // Skip original body
+               if (body->tag == m_body->tag) continue; // Skip original body
                m_mass_centres_queue.push_back(body->mass_c);
             }
          }
@@ -95,9 +95,9 @@ private:
    
 public:
 
-   explicit quadtree_it_masscentres (const quadnode<T>* const node, const T& data, double quotient)
+   explicit quadtree_it_masscentres (const quadnode<T>* const node, const int& tag, double quotient)
    { 
-      const body_frame2d<T>* found_body = node->find(data);
+      const body_frame2d<T>* found_body = node->find (tag);
       if (found_body == nullptr) 
       {
          set_done();

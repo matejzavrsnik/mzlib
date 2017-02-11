@@ -85,11 +85,11 @@ private:
       }
    }
    
-   optional<int> find_index (const T& data)
+   optional<int> find_index (const int& tag)
    {
       optional<int> index;
       for (size_t i=0; i<m_all_bodies.size(); ++i) {
-         if (m_all_bodies[i]->data == data) {
+         if (m_all_bodies[i]->tag.id() == tag) {
             index = i;
             break;
          }
@@ -133,8 +133,9 @@ public:
    
    virtual ~quadtree () = default;
    
-   void add (std::unique_ptr<body_frame2d<T>> mass_centre)
+   int add (std::unique_ptr<body_frame2d<T>> mass_centre)
    {
+      int tag = mass_centre->tag.id();
       adjust_dynamic_tree (mass_centre->mass_c.location);
       
       // Can still be out of the tree even after it has been resized, because it
@@ -148,41 +149,44 @@ public:
       
       m_root->add(mass_centre.get());
       m_all_bodies.push_back(std::move(mass_centre));
+      return tag;
    }
    
-   void add (body_frame2d<T> mass_centre) 
+   int add (body_frame2d<T> mass_centre) 
    {
       auto mc_ptr = std::make_unique<body_frame2d<T>>(mass_centre);
-      add (std::move(mc_ptr));
+      int tag = add (std::move(mc_ptr));
+      return tag;
    }
    
-   void add (T data, vector2d location, double mass = 0) 
+   int add (T data, vector2d location, double mass = 0) 
    { 
       auto mc_ptr = std::make_unique<body_frame2d<T>>(data, location, mass);
-      add (std::move(mc_ptr));
+      int tag = add (std::move(mc_ptr));
+      return tag;
    }
    
-   option::exists move (const T& data, vector2d new_location)
+   option::exists move (const int& tag, vector2d new_location)
    {
-      auto index = find_index (data);
+      auto index = find_index (tag);
       if (!index.is_set()) return option::exists::no;
       
       adjust_dynamic_tree (new_location);
-      m_root->move (data,new_location);
+      m_root->move (tag,new_location);
       m_all_bodies[index.get()]->mass_c.location = new_location;
       return option::exists::yes;
    }
    
-   option::changed change_mass (const T& data, double new_mass)
+   option::changed change_mass (const int& tag, double new_mass)
    {
-      return m_root->change_mass(data,new_mass);
+      return m_root->change_mass(tag,new_mass);
    }
    
-   option::removed remove (const T& data)
+   option::removed remove (const int& tag)
    {
-      if(m_root->remove(data) == option::removed::yes) {
+      if(m_root->remove(tag) == option::removed::yes) {
          for(size_t i=0; i!=m_all_bodies.size(); ++i) {
-            if( m_all_bodies[i]->data == data) {
+            if( m_all_bodies[i]->tag.id() == tag) {
                m_all_bodies.erase(m_all_bodies.begin() + i);
                return option::removed::yes;
             }
@@ -196,9 +200,9 @@ public:
       return m_root->get_mass_centre();
    }
    
-   const body_frame2d<T>* find (const T& data)
+   const body_frame2d<T>* find (const int& tag)
    {
-      auto index = find_index (data);
+      auto index = find_index (tag);
       if (index.is_set()) {
          return m_all_bodies[index.get()].get();
       }
@@ -230,9 +234,9 @@ public:
       return it_bodies(m_all_bodies.end()); 
    }
         
-   it_masscentres begin_masscentres (const T& data, double quotient)
+   it_masscentres begin_masscentres (const int& tag, double quotient)
    {
-      return it_masscentres(m_root.get(), data, quotient);
+      return it_masscentres(m_root.get(), tag, quotient);
    }
    
    const it_masscentres end_masscentres () const

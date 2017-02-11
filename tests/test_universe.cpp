@@ -36,7 +36,7 @@ TEST_F(fixture_universe, after_adding_body_is_found)
    universe.add(body);
    auto found_body = universe.find(body);
    ASSERT_NE(nullptr, found_body);
-   ASSERT_EQ(found_body->data, body.data);
+   ASSERT_EQ(found_body->tag, body.tag);
 }
 
 TEST_F(fixture_universe, after_adding_bodies_feel_force)

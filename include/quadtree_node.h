@@ -116,11 +116,11 @@ public:
       }
    }
    
-   option::removed remove (const T& data) 
+   option::removed remove (const int& tag) 
    {
       // downside of the approach where every node contains all bodies under it: 
       // every subnode needs to find mass centre in it's own collection
-      auto mass_centre_it = find_body(data);
+      auto mass_centre_it = find_body(tag);
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return option::removed::no; 
       // if found, convert to mass centre ptr
@@ -132,26 +132,26 @@ public:
       // if leaf, this operation is done
       if (is_leaf()) return option::removed::yes;
       // if not leaf, delete in children too
-      if      (m_child_nw->is_in(mass_centre_ptr->mass_c.location)) return m_child_nw->remove(data);
-      else if (m_child_ne->is_in(mass_centre_ptr->mass_c.location)) return m_child_ne->remove(data);
-      else if (m_child_sw->is_in(mass_centre_ptr->mass_c.location)) return m_child_sw->remove(data);
-      else if (m_child_se->is_in(mass_centre_ptr->mass_c.location)) return m_child_se->remove(data);
+      if      (m_child_nw->is_in(mass_centre_ptr->mass_c.location)) return m_child_nw->remove(tag);
+      else if (m_child_ne->is_in(mass_centre_ptr->mass_c.location)) return m_child_ne->remove(tag);
+      else if (m_child_sw->is_in(mass_centre_ptr->mass_c.location)) return m_child_sw->remove(tag);
+      else if (m_child_se->is_in(mass_centre_ptr->mass_c.location)) return m_child_se->remove(tag);
       return option::removed::no;
    }
    
-   typename std::vector<body_frame2d<T>*>::iterator find_body(const T& data)
+   typename std::vector<body_frame2d<T>*>::iterator find_body(const int& tag)
    {
       typename std::vector<body_frame2d<T>*>::iterator mass_centre_it = 
          std::find_if (m_bodies.begin(), m_bodies.end(), 
             [&](body_frame2d<T>* mass_centre) { 
-               return mass_centre->data == data; 
+               return mass_centre->tag.id() == tag; 
          });
       return mass_centre_it;
    }
    
-   option::exists move (const T& data, vector2d new_location)
+   option::exists move (const int& tag, vector2d new_location)
    {
-      auto mass_centre_it = find_body(data);
+      auto mass_centre_it = find_body(tag);
       if (mass_centre_it == m_bodies.end()) return option::exists::no;
       auto mass_centre_ptr = *mass_centre_it;
       if(mass_centre_ptr == nullptr) return option::exists::no;
@@ -162,10 +162,10 @@ public:
 
       bool crosses_node_border = false;
       if(!is_leaf()) {
-         if     (m_child_nw->is_in(mass_centre_ptr->mass_c.location) && m_child_nw->is_in(new_location)) m_child_nw->move(data, new_location);
-         else if(m_child_ne->is_in(mass_centre_ptr->mass_c.location) && m_child_ne->is_in(new_location)) m_child_ne->move(data, new_location);
-         else if(m_child_sw->is_in(mass_centre_ptr->mass_c.location) && m_child_sw->is_in(new_location)) m_child_sw->move(data, new_location);
-         else if(m_child_se->is_in(mass_centre_ptr->mass_c.location) && m_child_se->is_in(new_location)) m_child_se->move(data, new_location);
+         if     (m_child_nw->is_in(mass_centre_ptr->mass_c.location) && m_child_nw->is_in(new_location)) m_child_nw->move(tag, new_location);
+         else if(m_child_ne->is_in(mass_centre_ptr->mass_c.location) && m_child_ne->is_in(new_location)) m_child_ne->move(tag, new_location);
+         else if(m_child_sw->is_in(mass_centre_ptr->mass_c.location) && m_child_sw->is_in(new_location)) m_child_sw->move(tag, new_location);
+         else if(m_child_se->is_in(mass_centre_ptr->mass_c.location) && m_child_se->is_in(new_location)) m_child_se->move(tag, new_location);
          else {
             crosses_node_border = true;
          }
@@ -173,7 +173,7 @@ public:
       
       if (crosses_node_border) {
          // in this case remove the body and insert it again in new position
-         if (remove(data) == option::removed::yes) {
+         if (remove(tag) == option::removed::yes) {
             mass_centre_ptr->mass_c.location = new_location;
             add(mass_centre_ptr);         
          }
@@ -188,15 +188,15 @@ public:
       return option::exists::yes;
    }
    
-   option::changed change_mass (const T& data, double new_mass)
+   option::changed change_mass (const int& tag, double new_mass)
    {
-      auto mass_centre_it = find_body(data);
+      auto mass_centre_it = find_body (tag);
       if (mass_centre_it == m_bodies.end()) return option::changed::no;
       auto mass_centre_ptr = *mass_centre_it;
       if(mass_centre_ptr == nullptr) return option::changed::no;
       if(mass_centre_ptr->mass_c.mass == new_mass) return option::changed::yes;
       // so, with corner cases handled, here's the thing:
-      remove(data);
+      remove (tag);
       mass_centre_ptr->mass_c.mass = new_mass;
       add(mass_centre_ptr);
       return option::changed::yes;
@@ -289,10 +289,10 @@ public:
       return candidate;
    }
    
-   const body_frame2d<T>* find (const T& data) const
+   const body_frame2d<T>* find (const int& tag) const
    {
       for (auto body : m_bodies) {
-         if (body->data == data) {
+         if (body->tag.id() == tag) {
             return body;
          }
       }

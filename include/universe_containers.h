@@ -45,14 +45,14 @@ public:
    {
       std::remove_if(m_vector.begin(), m_vector.end(),
          [&body](const body2d& element) {
-            return element.data == body.data;
+            return element.tag.id() == body.tag.id();
          });         
    }
       
    body2d const* find (const body2d& body) const
    {
       for (const body2d& found : m_vector) {
-         if (found.data == body.data) {
+         if (found.tag.id() == body.tag.id()) {
             return &found;
          }
       }         
@@ -62,7 +62,7 @@ public:
    void move (body2d& body, vector2d new_location)
    {
       for (body2d& found : m_vector) {
-         if (found.data == body.data) {
+         if (found.tag.id() == body.tag.id()) {
             found.mass_c.location = new_location;
             break;
          }
@@ -73,7 +73,7 @@ public:
    {
       for (body2d& this_body : m_vector) {
          for (body2d& that_body : m_vector) {
-            if (this_body.data != that_body.data) { // body can't exert a force on itself,
+            if (this_body.tag.id() != that_body.tag.id()) { // body can't exert a force on itself,
                calculate_forces_operation(this_body, that_body.mass_c);
             }
          }
@@ -139,13 +139,13 @@ public:
    
    void remove (const body2d& body)
    {
-      m_quad_tree.remove(body.data);
+      m_quad_tree.remove(body.tag.id());
    }
       
    body2d const* find (const body2d& body) const
    {
       for (const body2d& found : m_quad_tree) {
-         if (found.data == body.data) {
+         if (found.tag.id()== body.tag.id()) {
             return &found;
          }
       }
@@ -154,14 +154,14 @@ public:
 
    void move (body2d& body, vector2d new_location)
    {
-      m_quad_tree.move(body.data, new_location);
+      m_quad_tree.move(body.tag.id(), new_location);
    }
         
    void for_every_mass_centre_combination (std::function<void(body2d&,mass_centre2d&)> calculate_forces_operation)
    {
       for (body2d& this_body : m_quad_tree) {
          quadtree<body_properties2d>::it_masscentres mass_centres_it = 
-            m_quad_tree.begin_masscentres(this_body.data, m_quotient);
+            m_quad_tree.begin_masscentres(this_body.tag.id(), m_quotient);
          for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
             calculate_forces_operation(this_body, *mass_centres_it);
          }

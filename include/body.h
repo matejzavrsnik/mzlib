@@ -16,7 +16,7 @@ namespace mzlib {
    
 // Physical properties of a body, that will be used in physical simulations.
 template <class VectorT>
-class body_properties : public unique 
+class body_properties // todo: can be struct. keep it simple
 {
 
 public:
@@ -44,6 +44,7 @@ public:
    
    DataT data; //todo: any better names out there?
    mass_centre<VectorT> mass_c;
+   unique tag;
    
    body_frame()
    {

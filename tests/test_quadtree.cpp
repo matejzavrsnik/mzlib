@@ -40,8 +40,8 @@ protected:
 TEST_F(fixture_cquadtree, tree_is_built_when_rectangle_not_provided)
 {
    mzlib::quadtree<int> local_tree(m_min_node_size, m_max_tree_size);
-   local_tree.add(0, {50,50}, 50);
-   auto found = local_tree.find(0);
+   auto tag = local_tree.add(0, {50,50}, 50);
+   auto found = local_tree.find(tag);
    ASSERT_EQ(0, found->data);
 }
 
@@ -103,10 +103,10 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_basic)
    m_tree.add(2, {-46,-46}, 100);
    // two nodes in bottom right node
    m_tree.add(3, { 45, 45}, 100);
-   m_tree.add(4, { 46, 46}, 100);
+   auto tag_4 = m_tree.add(4, { 46, 46}, 100);
    
    double quotient = 1; // quotient 1 should barely cover the node the body is in
-   mzlib::quadtree<int>::it_masscentres mass_centres_it = m_tree.begin_masscentres(4, quotient);
+   mzlib::quadtree<int>::it_masscentres mass_centres_it = m_tree.begin_masscentres(tag_4, quotient);
    ASSERT_EQ(mzlib::vector2d({45,45}), mass_centres_it->location);
    ++mass_centres_it;
    ASSERT_EQ(mzlib::vector2d({-45.5,-45.5}), mass_centres_it->location);
@@ -127,7 +127,7 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_zero_quotient)
       m_max_tree_size};
    
    // put one body into lower right most node
-   local_tree.add(1, { 91,  91}, 11); 
+   auto tag_1 = local_tree.add(1, { 91,  91}, 11); 
    // put two body into the neighbouring node
    local_tree.add(2, { 72,  72}, 12);
    local_tree.add(3, { 73,  73}, 13);
@@ -139,7 +139,7 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_zero_quotient)
    // sort of covers own quadrant, so from 0,0 to 100,100
    double quotient = 0;
    // first, a neighbouring body
-   mzlib::quadtree<int>::it_masscentres mass_centres_it = local_tree.begin_masscentres(1, quotient);
+   mzlib::quadtree<int>::it_masscentres mass_centres_it = local_tree.begin_masscentres(tag_1, quotient);
    std::vector<mzlib::mass_centre2d> returned_mass_centres;
    for(; mass_centres_it != local_tree.end_masscentres(); ++mass_centres_it) {
       returned_mass_centres.push_back(*mass_centres_it);
@@ -226,10 +226,10 @@ TEST_F(fixture_cquadtree, add)
 
 TEST_F(fixture_cquadtree, find_body_basic)
 {
-   m_tree.add(1, {25,25}, 100);
-   m_tree.add(2, {-25,-25}, 100);
-   const mzlib::body_frame2d<int>* one = m_tree.find(1);
-   const mzlib::body_frame2d<int>* two = m_tree.find(2);
+   auto tag_1 = m_tree.add(1, {25,25}, 100);
+   auto tag_2 = m_tree.add(2, {-25,-25}, 100);
+   const mzlib::body_frame2d<int>* one = m_tree.find(tag_1);
+   const mzlib::body_frame2d<int>* two = m_tree.find(tag_2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ(1, one->data);
@@ -242,10 +242,10 @@ TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
       m_tree.m_root->m_rectangle, 
       m_min_node_size, 
       m_max_tree_size};
-   local_tree.add("one", { 25, 25}, 100);
-   local_tree.add("two", {-25,-25}, 100);
-   const mzlib::body_frame2d<std::string>* one = local_tree.find("one");
-   const mzlib::body_frame2d<std::string>* two = local_tree.find("two");
+   auto tag_one = local_tree.add("one", { 25, 25}, 100);
+   auto tag_two = local_tree.add("two", {-25,-25}, 100);
+   const mzlib::body_frame2d<std::string>* one = local_tree.find(tag_one);
+   const mzlib::body_frame2d<std::string>* two = local_tree.find(tag_two);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ("one", one->data);
@@ -256,7 +256,8 @@ TEST_F(fixture_cquadtree, find_body_not_found)
 {
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
-   const mzlib::body_frame2d<int>* three = m_tree.find(3);
+   auto nonexistent_tag = 123;
+   const mzlib::body_frame2d<int>* three = m_tree.find(nonexistent_tag);
    ASSERT_EQ(nullptr, three);
 }
 
@@ -267,14 +268,15 @@ TEST_F(fixture_cquadtree, remove_body_when_tree_empty)
 
 TEST_F(fixture_cquadtree, remove_body_last_body)
 {
-   m_tree.add(1, {25,25}, 100);
-   ASSERT_EQ(mzlib::option::removed::yes, m_tree.remove(1));
+   auto tag = m_tree.add(1, {25,25}, 100);
+   ASSERT_EQ(mzlib::option::removed::yes, m_tree.remove(tag));
 }
 
 TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
 {
    m_tree.add(1, {25,25}, 100);
-   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(2));
+   int unexistant_tag = 123;
+   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(unexistant_tag));
 }
 
 TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
@@ -292,16 +294,16 @@ TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
    
    mzlib::quadtree<int> local_tree = {m_tree.m_root->m_rectangle, 25, m_max_tree_size};
    local_tree.add(1, {5,5}, 150);
-   local_tree.add(2, {3,3}, 150);
+   auto tag_2 = local_tree.add(2, {3,3}, 150);
    
-   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(tag_2));
    ASSERT_EQ(mzlib::vector2d({4,4}), local_tree.get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
    
-   local_tree.move(2, {1,1});
+   local_tree.move(tag_2, {1,1});
    
    // body hasn't moved out of node, mass centres are updated
-   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(tag_2));
    ASSERT_EQ(mzlib::vector2d({3,3}), local_tree.get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({3,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({3,3}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
@@ -322,16 +324,16 @@ TEST_F(fixture_cquadtree, move_crosses_2nd_level_node_borders)
    
    mzlib::quadtree<int> local_tree = {m_tree.m_root->m_rectangle, 25, m_max_tree_size};
    local_tree.add(1, {5,5}, 150);
-   local_tree.add(2, {3,3}, 150);
+   auto tag_2 = local_tree.add(2, {3,3}, 150);
    
-   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(tag_2));
    ASSERT_EQ(mzlib::vector2d({4,4}), local_tree.get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
    
-   local_tree.move(2, {30,1});
+   local_tree.move(tag_2, {30,1});
    
    // body hasn't moved out of node, mass centres are updated
-   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_ne->find(2));
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_ne->find(tag_2));
    ASSERT_EQ(mzlib::vector2d({17.5,3}), local_tree.get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({17.5,3}), local_tree.m_root->m_child_se->get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({5,5}), local_tree.m_root->m_child_se->m_child_nw->get_mass_centre().location);
@@ -353,16 +355,16 @@ TEST_F(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes)
    
    mzlib::quadtree<int> local_tree = {m_tree.m_root->m_rectangle, 25, m_max_tree_size};
    local_tree.add(1, {5,5}, 150);
-   local_tree.add(2, {3,3}, 150);
+   auto tag_2 = local_tree.add(2, {3,3}, 150);
    
-   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(2));
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_se->m_child_nw->find(tag_2));
    ASSERT_EQ(mzlib::vector2d({4,4}), local_tree.get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({4,4}), local_tree.m_root->m_child_se->get_mass_centre().location);
    
-   local_tree.move(2, {1,-5});
+   local_tree.move(tag_2, {1,-5});
    
    // body hasn't moved out of node, mass centres are updated
-   ASSERT_NE(nullptr, local_tree.m_root->m_child_ne->m_child_sw->find(2));
+   ASSERT_NE(nullptr, local_tree.m_root->m_child_ne->m_child_sw->find(tag_2));
    ASSERT_EQ(mzlib::vector2d({3,0}), local_tree.get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({5,5}), local_tree.m_root->m_child_se->get_mass_centre().location);
    ASSERT_EQ(mzlib::vector2d({1,-5}), local_tree.m_root->m_child_ne->get_mass_centre().location);
@@ -374,8 +376,9 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
 {
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
+   int nonexistant_tag = 123;
    // hopefully doesn't crash
-   mzlib::option::exists exists = m_tree.move(3, {21,21});
+   mzlib::option::exists exists = m_tree.move(nonexistant_tag, {21,21});
    ASSERT_EQ(mzlib::option::exists::no, exists);
    // mass centre stays unchanged
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
@@ -385,24 +388,24 @@ TEST_F(fixture_cquadtree, move_nonexistent_data)
 TEST_F(fixture_cquadtree, move_beyond_tree_size)
 {
    m_tree.add(1, {25,25}, 150);
-   m_tree.add(2, {23,23}, 150);
+   auto tag_2 = m_tree.add(2, {23,23}, 150);
    
    // move out of tree
-   m_tree.move(2, m_tree.m_root->m_rectangle.get_bottom_right() + mzlib::vector2d({0,10}));
-   ASSERT_NE(nullptr, m_tree.find(2));
+   m_tree.move(tag_2, m_tree.m_root->m_rectangle.get_bottom_right() + mzlib::vector2d({0,10}));
+   ASSERT_NE(nullptr, m_tree.find(tag_2));
    
    // move back to where it was
-   m_tree.move(2, mzlib::vector2d({0,12}));
-   ASSERT_NE(nullptr, m_tree.find(2));
+   m_tree.move(tag_2, mzlib::vector2d({0,12}));
+   ASSERT_NE(nullptr, m_tree.find(tag_2));
 }
 
 TEST_F(fixture_cquadtree, change_mass_basic)
 {
    m_tree.add(1, {5,5}, 100);
-   m_tree.add(2, {25,25}, 100);
+   auto tag_2 = m_tree.add(2, {25,25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::vector2d({15,15}), m_tree.get_mass_centre().location);
-   auto changed = m_tree.change_mass(2, 300);
+   auto changed = m_tree.change_mass(tag_2, 300);
    ASSERT_EQ(mzlib::option::changed::yes, changed);
    ASSERT_EQ(400, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::vector2d({20,20}), m_tree.get_mass_centre().location);
@@ -412,8 +415,9 @@ TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
 {
    m_tree.add(1, {5,5}, 100);
    m_tree.add(2, {25,25}, 100);
+   int nonexistent_tag = 123;
    // hopefully doesn't crash
-   auto changed = m_tree.change_mass(3, 150);
+   auto changed = m_tree.change_mass(nonexistent_tag, 150);
    ASSERT_EQ(mzlib::option::changed::no, changed);
    // mass centre stays unchanged
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
@@ -422,11 +426,11 @@ TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
 
 TEST_F(fixture_cquadtree, mass_centre_maintenance_basic)
 {
-   m_tree.add(1, {25,25}, 100);
+   auto tag_1 = m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
    ASSERT_EQ(200, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::vector2d({0,0}), m_tree.get_mass_centre().location);
-   auto removed = m_tree.remove(1);
+   auto removed = m_tree.remove(tag_1);
    ASSERT_EQ(mzlib::option::removed::yes, removed);
    ASSERT_EQ(100, m_tree.get_mass_centre().mass);
    ASSERT_EQ(mzlib::vector2d({-25,-25}), m_tree.get_mass_centre().location);
@@ -599,7 +603,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50,1000);
 
-   tree.add({body_one, { 25, 25}});
+   auto tag_1 = tree.add({body_one, { 25, 25}});
    
    //   X
    //       -25    25    75
@@ -613,15 +617,15 @@ TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   tree.add({body_two, {-30, -30}});
+   auto tag_2 = tree.add({body_two, {-30, -30}});
    
    // check the coordinates of root node match
    ASSERT_EQ(mzlib::vector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
    ASSERT_EQ(mzlib::vector2d({  75,  75}), tree.m_root->m_rectangle.get_bottom_right());
    
    // check the bodies copied from former root to new one
-   ASSERT_NE(tree.m_root->m_bodies.end(), tree.m_root->find_body(body_one));
-   ASSERT_NE(tree.m_root->m_bodies.end(), tree.m_root->find_body(body_two));
+   ASSERT_NE(tree.m_root->m_bodies.end(), tree.m_root->find_body(tag_1));
+   ASSERT_NE(tree.m_root->m_bodies.end(), tree.m_root->find_body(tag_2));
    
    // and coordinates of 1st level children
    ASSERT_EQ(mzlib::vector2d({-125,-125}), tree.m_root->m_child_nw->m_rectangle.get_top_left());
@@ -670,8 +674,8 @@ TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   tree.add({body_two, {20, 20}}); // no changes to tree structure yet
-   tree.move(body_two, {-30, -30}); // moved out of tree, which should resize
+   auto tag_two = tree.add({body_two, {20, 20}}); // no changes to tree structure yet
+   tree.move(tag_two, {-30, -30}); // moved out of tree, which should resize
    
    // check the coordinates of root node match
    ASSERT_EQ(mzlib::vector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
@@ -710,7 +714,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50, 100);
 
-   tree.add({body_one, { 25, 25}});
+   auto tag_one = tree.add({body_one, { 25, 25}});
    
    //   X
    //       -25    25    75
@@ -724,15 +728,15 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   tree.add({body_two, {-30, -30}});
+   auto tag_two = tree.add({body_two, {-30, -30}});
    
    // coordinates of root node remained the same
    ASSERT_EQ(mzlib::vector2d({-25,-25}), tree.m_root->m_rectangle.get_top_left());
    ASSERT_EQ(mzlib::vector2d({ 75, 75}), tree.m_root->m_rectangle.get_bottom_right());
    
    // despite, both bodies are in the tree, just that body_two did not fit in quadtree part of it
-   ASSERT_NE(nullptr, tree.find(body_two));
-   ASSERT_NE(nullptr, tree.find(body_one));
+   ASSERT_NE(nullptr, tree.find(tag_one));
+   ASSERT_NE(nullptr, tree.find(tag_two));
    ASSERT_EQ(1, tree.m_root->m_bodies.size());
    ASSERT_EQ(body_one, tree.m_root->m_bodies[0]->data);
 }
@@ -743,7 +747,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50, 100);
 
-   tree.add({body_one, { 25, 25}});
+   auto tag_one = tree.add({body_one, { 25, 25}});
    
    //   X
    //       -25    25    75
@@ -757,18 +761,18 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   tree.add({body_two, {20, 20}}); // no changes to tree structure yet
+   auto tag_two = tree.add({body_two, {20, 20}}); // no changes to tree structure yet
    
    // moved out of tree, which should resize, but max size setting prevents it
-   tree.move(body_two, {-30, -30});
+   tree.move(tag_two, {-30, -30});
    
    // coordinates of root node remained the same
    ASSERT_EQ(mzlib::vector2d({-25,-25}), tree.m_root->m_rectangle.get_top_left());
    ASSERT_EQ(mzlib::vector2d({ 75, 75}), tree.m_root->m_rectangle.get_bottom_right());
    
    // despite, both bodies are in the tree, just that body_two did not fit in quadtree part of it
-   ASSERT_NE(nullptr, tree.find(body_two));
-   ASSERT_NE(nullptr, tree.find(body_one));
+   ASSERT_NE(nullptr, tree.find(tag_two));
+   ASSERT_NE(nullptr, tree.find(tag_one));
    ASSERT_EQ(1, tree.m_root->m_bodies.size());
    ASSERT_EQ(body_one, tree.m_root->m_bodies[0]->data);
 }
