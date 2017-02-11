@@ -16,7 +16,7 @@ namespace mzlib {
    
 // Physical properties of a body, that will be used in physical simulations.
 template <class VectorT>
-struct body_properties // todo: can be struct. keep it simple
+struct body_properties
 {
    
    VectorT gravity;
@@ -35,39 +35,19 @@ struct body_properties // todo: can be struct. keep it simple
 // user to store a number with given "mass" on the specified coordinates in space
 // and see quadtree as something other than strictly "physical bodies in space".
 template <class PropertiesT, class VectorT>
-class body_frame
+struct body_basis
 {
-
-public:
-   
-   PropertiesT properties; //todo: any better names out there?
+   PropertiesT properties;
    mass_centre<VectorT> centre;
    unique tag;
-   
-   body_frame()
-   {
-   }
-   
-   body_frame(const PropertiesT& properties_, VectorT location_ = {0}, double mass_ = 0) :
-      properties(properties_),   
-      centre(location_, mass_)
-   {
-   }
-   
-   body_frame (const body_frame<PropertiesT,VectorT>&) = default;
-   body_frame (body_frame<PropertiesT,VectorT> && ) = default;
-   body_frame<PropertiesT,VectorT>& operator= (const body_frame<PropertiesT,VectorT>&) = default;
-   body_frame<PropertiesT,VectorT>& operator= (body_frame<PropertiesT,VectorT>&&) = default;
-   ~body_frame () = default;
-   
 };
 
 using body_properties2d = body_properties<vector2d>;
 using body_properties3d = body_properties<vector3d>;
-template<class PropertiesT> using body_frame2d = body_frame<PropertiesT, vector2d>;
-template<class PropertiesT> using body_frame3d = body_frame<PropertiesT, vector3d>;
-using body2d = body_frame2d<body_properties2d>;
-using body3d = body_frame3d<body_properties3d>;
+template<class PropertiesT> using body_basis2d = body_basis<PropertiesT, vector2d>;
+template<class PropertiesT> using body_basis3d = body_basis<PropertiesT, vector3d>;
+using body2d = body_basis2d<body_properties2d>;
+using body3d = body_basis3d<body_properties3d>;
 
 } // namespace
 

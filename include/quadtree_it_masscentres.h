@@ -19,14 +19,14 @@ namespace mzlib {
 // Const iterator through all mass centres
 template<class T>
 class quadtree_it_masscentres : 
-   public std::iterator<std::forward_iterator_tag, body_frame2d<T>>
+   public std::iterator<std::forward_iterator_tag, body_basis2d<T>>
 {
 
 private:
 
    std::vector<mass_centre2d> m_mass_centres_queue;
 
-   const body_frame2d<T>* m_body;
+   const body_basis2d<T>* m_body;
    
    std::vector<const quadnode<T>*> m_nodes_queue;
    double m_quotient;
@@ -97,7 +97,7 @@ public:
 
    explicit quadtree_it_masscentres (const quadnode<T>* const node, const int& tag, double quotient)
    { 
-      const body_frame2d<T>* found_body = node->find (tag);
+      const body_basis2d<T>* found_body = node->find (tag);
       if (found_body == nullptr) 
       {
          set_done();

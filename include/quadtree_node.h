@@ -98,7 +98,7 @@ public:
       }
    }
 
-   void add (body_frame2d<T>* body) 
+   void add (body_basis2d<T>* body) 
    {
       // It is important that the is_in check is here, because it is not in
       // the quadtree class when it calls this function. Something needs to
@@ -124,7 +124,7 @@ public:
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return option::removed::no; 
       // if found, convert to mass centre ptr
-      body_frame2d<T>* mass_centre_ptr = *mass_centre_it;
+      body_basis2d<T>* mass_centre_ptr = *mass_centre_it;
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
@@ -139,11 +139,11 @@ public:
       return option::removed::no;
    }
    
-   typename std::vector<body_frame2d<T>*>::iterator find_body(const int& tag)
+   typename std::vector<body_basis2d<T>*>::iterator find_body(const int& tag)
    {
-      typename std::vector<body_frame2d<T>*>::iterator mass_centre_it = 
+      typename std::vector<body_basis2d<T>*>::iterator mass_centre_it = 
          std::find_if (m_bodies.begin(), m_bodies.end(), 
-            [&](body_frame2d<T>* mass_centre) { 
+            [&](body_basis2d<T>* mass_centre) { 
                return mass_centre->tag.id() == tag; 
          });
       return mass_centre_it;
@@ -289,7 +289,7 @@ public:
       return candidate;
    }
    
-   const body_frame2d<T>* find (const int& tag) const
+   const body_basis2d<T>* find (const int& tag) const
    {
       for (auto body : m_bodies) {
          if (body->tag.id() == tag) {
@@ -329,7 +329,7 @@ private:
    // bodies stored here, and with that an effective search solution too. If it
    // wasn't for the fact that what is stored in here are pointers, which will be
    // causing cache misses all the time, it should look like using std::vector.
-   std::vector<body_frame2d<T>*> m_bodies;
+   std::vector<body_basis2d<T>*> m_bodies;
    mass_centre2d m_mass_centre;
         
    screen_rectangle2d m_rectangle;

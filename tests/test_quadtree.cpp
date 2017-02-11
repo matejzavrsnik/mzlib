@@ -228,8 +228,8 @@ TEST_F(fixture_cquadtree, find_body_basic)
 {
    auto tag_1 = m_tree.add(1, {25,25}, 100);
    auto tag_2 = m_tree.add(2, {-25,-25}, 100);
-   const mzlib::body_frame2d<int>* one = m_tree.find(tag_1);
-   const mzlib::body_frame2d<int>* two = m_tree.find(tag_2);
+   const mzlib::body_basis2d<int>* one = m_tree.find(tag_1);
+   const mzlib::body_basis2d<int>* two = m_tree.find(tag_2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ(1, one->properties);
@@ -244,8 +244,8 @@ TEST_F(fixture_cquadtree, find_body_when_properties_some_other_type)
       m_max_tree_size};
    auto tag_one = local_tree.add("one", { 25, 25}, 100);
    auto tag_two = local_tree.add("two", {-25,-25}, 100);
-   const mzlib::body_frame2d<std::string>* one = local_tree.find(tag_one);
-   const mzlib::body_frame2d<std::string>* two = local_tree.find(tag_two);
+   const mzlib::body_basis2d<std::string>* one = local_tree.find(tag_one);
+   const mzlib::body_basis2d<std::string>* two = local_tree.find(tag_two);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
    ASSERT_EQ("one", one->properties);
@@ -257,7 +257,7 @@ TEST_F(fixture_cquadtree, find_body_not_found)
    m_tree.add(1, {25,25}, 100);
    m_tree.add(2, {-25,-25}, 100);
    auto nonexistent_tag = 123;
-   const mzlib::body_frame2d<int>* three = m_tree.find(nonexistent_tag);
+   const mzlib::body_basis2d<int>* three = m_tree.find(nonexistent_tag);
    ASSERT_EQ(nullptr, three);
 }
 
@@ -451,7 +451,7 @@ TEST_F(fixture_cquadtree, iterator_all_bodies)
    bodies_retrieved[3] = false;
 
    // Check if they can all be retrieved
-   for(mzlib::body_frame2d<int> body : m_tree) {
+   for(mzlib::body_basis2d<int> body : m_tree) {
       bodies_retrieved[body.properties] = true;
    }
    
@@ -506,7 +506,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_at_beginning_nodes_null)
 TEST_F(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct)
 {
    mzlib::quadtree<int> tree(50,1000);
-   tree.add({0, { 25, 25}});
+   tree.add(0, {25, 25});
    
    // child nodes are created at this point
    ASSERT_EQ(nullptr, tree.m_root->m_parent);
@@ -515,7 +515,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct)
    ASSERT_NE(nullptr, tree.m_root->m_child_sw);
    ASSERT_NE(nullptr, tree.m_root->m_child_se);
    
-   // they have no child nodes of their own, becasue they are the smalles possible
+   // they have no child nodes of their own, because they are the smallest possible
    ASSERT_FALSE(tree.m_root->m_child_nw->has_children());
    ASSERT_FALSE(tree.m_root->m_child_ne->has_children());
    ASSERT_FALSE(tree.m_root->m_child_sw->has_children());
@@ -547,7 +547,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct)
 TEST_F(fixture_cquadtree, dynamic_tree_after_add_body_in_correct_node)
 {
    mzlib::quadtree<int> tree(50,1000);
-   tree.add({0, { 25, 25}});
+   tree.add(0, { 25, 25});
 
    ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
@@ -572,25 +572,25 @@ TEST_F(fixture_cquadtree, dynamic_tree_single_level_adds_all_in_correct_node)
    //     |     |     |
    //  75 +-----+-----+ 
 
-   tree.add({0, { 25, 25}});   
+   tree.add(0, { 25, 25});   
    ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_ne->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());
    
-   tree.add({0, { 30, -20}});   
+   tree.add(0, { 30, -20});   
    ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());
 
-   tree.add({0, { -20, 30}});   
+   tree.add(0, { -20, 30});   
    ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_sw->m_bodies.size());
    ASSERT_EQ(0, tree.m_root->m_child_se->m_bodies.size());   
 
-   tree.add({0, { 30, 30}});   
+   tree.add(0, { 30, 30});   
    ASSERT_EQ(1, tree.m_root->m_child_nw->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_ne->m_bodies.size());
    ASSERT_EQ(1, tree.m_root->m_child_sw->m_bodies.size());
@@ -603,7 +603,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50,1000);
 
-   auto tag_1 = tree.add({body_one, { 25, 25}});
+   auto tag_1 = tree.add(body_one, { 25, 25});
    
    //   X
    //       -25    25    75
@@ -617,7 +617,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   auto tag_2 = tree.add({body_two, {-30, -30}});
+   auto tag_2 = tree.add(body_two, {-30, -30});
    
    // check the coordinates of root node match
    ASSERT_EQ(mzlib::vector2d({-125,-125}), tree.m_root->m_rectangle.get_top_left());
@@ -660,7 +660,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50, m_max_tree_size);
 
-   tree.add({body_one, { 25, 25}});
+   tree.add(body_one, { 25, 25});
    
    //   X
    //       -25    25    75
@@ -674,7 +674,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   auto tag_two = tree.add({body_two, {20, 20}}); // no changes to tree structure yet
+   auto tag_two = tree.add(body_two, {20, 20}); // no changes to tree structure yet
    tree.move(tag_two, {-30, -30}); // moved out of tree, which should resize
    
    // check the coordinates of root node match
@@ -714,7 +714,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50, 100);
 
-   auto tag_one = tree.add({body_one, { 25, 25}});
+   auto tag_one = tree.add(body_one, { 25, 25});
    
    //   X
    //       -25    25    75
@@ -728,7 +728,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   auto tag_two = tree.add({body_two, {-30, -30}});
+   auto tag_two = tree.add(body_two, {-30, -30});
    
    // coordinates of root node remained the same
    ASSERT_EQ(mzlib::vector2d({-25,-25}), tree.m_root->m_rectangle.get_top_left());
@@ -747,7 +747,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    const int body_two = 2;
    mzlib::quadtree<int> tree(50, 100);
 
-   auto tag_one = tree.add({body_one, { 25, 25}});
+   auto tag_one = tree.add(body_one, { 25, 25});
    
    //   X
    //       -25    25    75
@@ -761,7 +761,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    //        |     |     |
    //     75 +-----+-----+ 
  
-   auto tag_two = tree.add({body_two, {20, 20}}); // no changes to tree structure yet
+   auto tag_two = tree.add(body_two, {20, 20}); // no changes to tree structure yet
    
    // moved out of tree, which should resize, but max size setting prevents it
    tree.move(tag_two, {-30, -30});

@@ -32,7 +32,7 @@ private:
    
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
-   std::vector<std::unique_ptr<body_frame2d<T>>> m_all_bodies;
+   std::vector<std::unique_ptr<body_basis2d<T>>> m_all_bodies;
    
    void create_root_from_location(const vector2d& location)
    {
@@ -133,7 +133,7 @@ public:
    
    virtual ~quadtree () = default;
    
-   int add (std::unique_ptr<body_frame2d<T>> body)
+   int add (std::unique_ptr<body_basis2d<T>> body)
    {
       int tag = body->tag.id();
       adjust_dynamic_tree (body->centre.location);
@@ -152,16 +152,18 @@ public:
       return tag;
    }
    
-   int add (body_frame2d<T> body) 
+   int add (body_basis2d<T> body) 
    {
-      auto mc_ptr = std::make_unique<body_frame2d<T>>(body);
+      auto mc_ptr = std::make_unique<body_basis2d<T>>(body);
       int tag = add (std::move(mc_ptr));
       return tag;
    }
    
    int add (T properties, vector2d location, double mass = 0) 
    { 
-      auto body_ptr = std::make_unique<body_frame2d<T>>(properties, location, mass);
+      auto body_ptr = std::make_unique<body_basis2d<T>>();
+      body_ptr->centre = {location, mass};
+      body_ptr->properties = properties;
       int tag = add (std::move(body_ptr));
       return tag;
    }
@@ -200,7 +202,7 @@ public:
       return m_root->get_mass_centre();
    }
    
-   const body_frame2d<T>* find (const int& tag)
+   const body_basis2d<T>* find (const int& tag)
    {
       auto index = find_index (tag);
       if (index.is_set()) {
