@@ -98,21 +98,21 @@ public:
       }
    }
 
-   void add (body_frame2d<T>* mass_c) 
+   void add (body_frame2d<T>* body) 
    {
       // It is important that the is_in check is here, because it is not in
       // the quadtree class when it calls this function. Something needs to
       // check it, and it is redundant to check twice, so here it is.
-      if (is_in(mass_c->mass_c.location)) {
+      if (is_in(body->centre.location)) {
          // insert
-         m_bodies.push_back(mass_c);
-         m_mass_centre.add_to_mass_centre(mass_c->mass_c);
+         m_bodies.push_back(body);
+         m_mass_centre.add_to_mass_centre(body->centre);
          if (is_leaf()) return; // nothing more to do
          // if has children, insert there as well
-         if      (m_child_nw->is_in(mass_c->mass_c.location)) m_child_nw->add(mass_c);
-         else if (m_child_ne->is_in(mass_c->mass_c.location)) m_child_ne->add(mass_c);
-         else if (m_child_sw->is_in(mass_c->mass_c.location)) m_child_sw->add(mass_c);
-         else if (m_child_se->is_in(mass_c->mass_c.location)) m_child_se->add(mass_c);
+         if      (m_child_nw->is_in(body->centre.location)) m_child_nw->add(body);
+         else if (m_child_ne->is_in(body->centre.location)) m_child_ne->add(body);
+         else if (m_child_sw->is_in(body->centre.location)) m_child_sw->add(body);
+         else if (m_child_se->is_in(body->centre.location)) m_child_se->add(body);
       }
    }
    
@@ -128,14 +128,14 @@ public:
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
-      m_mass_centre.remove_from_mass_centre(mass_centre_ptr->mass_c);
+      m_mass_centre.remove_from_mass_centre(mass_centre_ptr->centre);
       // if leaf, this operation is done
       if (is_leaf()) return option::removed::yes;
       // if not leaf, delete in children too
-      if      (m_child_nw->is_in(mass_centre_ptr->mass_c.location)) return m_child_nw->remove(tag);
-      else if (m_child_ne->is_in(mass_centre_ptr->mass_c.location)) return m_child_ne->remove(tag);
-      else if (m_child_sw->is_in(mass_centre_ptr->mass_c.location)) return m_child_sw->remove(tag);
-      else if (m_child_se->is_in(mass_centre_ptr->mass_c.location)) return m_child_se->remove(tag);
+      if      (m_child_nw->is_in(mass_centre_ptr->centre.location)) return m_child_nw->remove(tag);
+      else if (m_child_ne->is_in(mass_centre_ptr->centre.location)) return m_child_ne->remove(tag);
+      else if (m_child_sw->is_in(mass_centre_ptr->centre.location)) return m_child_sw->remove(tag);
+      else if (m_child_se->is_in(mass_centre_ptr->centre.location)) return m_child_se->remove(tag);
       return option::removed::no;
    }
    
@@ -151,21 +151,21 @@ public:
    
    option::exists move (const int& tag, vector2d new_location)
    {
-      auto mass_centre_it = find_body(tag);
-      if (mass_centre_it == m_bodies.end()) return option::exists::no;
-      auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return option::exists::no;
-      if(mass_centre_ptr->mass_c.location == new_location) return option::exists::yes;
+      auto body_it = find_body(tag);
+      if (body_it == m_bodies.end()) return option::exists::no;
+      auto body_ptr = *body_it;
+      if(body_ptr == nullptr) return option::exists::no;
+      if(body_ptr->centre.location == new_location) return option::exists::yes;
       // so, with corner cases handled, here's the thing:
       
-      vector2d old_location = mass_centre_ptr->mass_c.location;
+      vector2d old_location = body_ptr->centre.location;
 
       bool crosses_node_border = false;
       if(!is_leaf()) {
-         if     (m_child_nw->is_in(mass_centre_ptr->mass_c.location) && m_child_nw->is_in(new_location)) m_child_nw->move(tag, new_location);
-         else if(m_child_ne->is_in(mass_centre_ptr->mass_c.location) && m_child_ne->is_in(new_location)) m_child_ne->move(tag, new_location);
-         else if(m_child_sw->is_in(mass_centre_ptr->mass_c.location) && m_child_sw->is_in(new_location)) m_child_sw->move(tag, new_location);
-         else if(m_child_se->is_in(mass_centre_ptr->mass_c.location) && m_child_se->is_in(new_location)) m_child_se->move(tag, new_location);
+         if     (m_child_nw->is_in(body_ptr->centre.location) && m_child_nw->is_in(new_location)) m_child_nw->move(tag, new_location);
+         else if(m_child_ne->is_in(body_ptr->centre.location) && m_child_ne->is_in(new_location)) m_child_ne->move(tag, new_location);
+         else if(m_child_sw->is_in(body_ptr->centre.location) && m_child_sw->is_in(new_location)) m_child_sw->move(tag, new_location);
+         else if(m_child_se->is_in(body_ptr->centre.location) && m_child_se->is_in(new_location)) m_child_se->move(tag, new_location);
          else {
             crosses_node_border = true;
          }
@@ -174,15 +174,15 @@ public:
       if (crosses_node_border) {
          // in this case remove the body and insert it again in new position
          if (remove(tag) == option::removed::yes) {
-            mass_centre_ptr->mass_c.location = new_location;
-            add(mass_centre_ptr);         
+            body_ptr->centre.location = new_location;
+            add(body_ptr);         
          }
       }
       else {
          // in this case just update mass centres
-         m_mass_centre.remove_from_mass_centre({old_location, mass_centre_ptr->mass_c.mass});
-         mass_centre_ptr->mass_c.location = new_location;
-         m_mass_centre.add_to_mass_centre(mass_centre_ptr->mass_c); 
+         m_mass_centre.remove_from_mass_centre({old_location, body_ptr->centre.mass});
+         body_ptr->centre.location = new_location;
+         m_mass_centre.add_to_mass_centre(body_ptr->centre); 
       }
       
       return option::exists::yes;
@@ -190,15 +190,15 @@ public:
    
    option::changed change_mass (const int& tag, double new_mass)
    {
-      auto mass_centre_it = find_body (tag);
-      if (mass_centre_it == m_bodies.end()) return option::changed::no;
-      auto mass_centre_ptr = *mass_centre_it;
-      if(mass_centre_ptr == nullptr) return option::changed::no;
-      if(mass_centre_ptr->mass_c.mass == new_mass) return option::changed::yes;
+      auto body_it = find_body (tag);
+      if (body_it == m_bodies.end()) return option::changed::no;
+      auto body_ptr = *body_it;
+      if(body_ptr == nullptr) return option::changed::no;
+      if(body_ptr->centre.mass == new_mass) return option::changed::yes;
       // so, with corner cases handled, here's the thing:
       remove (tag);
-      mass_centre_ptr->mass_c.mass = new_mass;
-      add(mass_centre_ptr);
+      body_ptr->centre.mass = new_mass;
+      add(body_ptr);
       return option::changed::yes;
    }
    

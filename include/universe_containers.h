@@ -63,7 +63,7 @@ public:
    {
       for (body2d& found : m_vector) {
          if (found.tag.id() == body.tag.id()) {
-            found.mass_c.location = new_location;
+            found.centre.location = new_location;
             break;
          }
       }
@@ -74,7 +74,7 @@ public:
       for (body2d& this_body : m_vector) {
          for (body2d& that_body : m_vector) {
             if (this_body.tag.id() != that_body.tag.id()) { // body can't exert a force on itself,
-               calculate_forces_operation(this_body, that_body.mass_c);
+               calculate_forces_operation(this_body, that_body.centre);
             }
          }
       }         

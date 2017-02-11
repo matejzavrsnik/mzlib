@@ -133,10 +133,10 @@ public:
    
    virtual ~quadtree () = default;
    
-   int add (std::unique_ptr<body_frame2d<T>> mass_centre)
+   int add (std::unique_ptr<body_frame2d<T>> body)
    {
-      int tag = mass_centre->tag.id();
-      adjust_dynamic_tree (mass_centre->mass_c.location);
+      int tag = body->tag.id();
+      adjust_dynamic_tree (body->centre.location);
       
       // Can still be out of the tree even after it has been resized, because it
       // might not have been: there is a defined limitation to the maximum tree
@@ -147,22 +147,22 @@ public:
       // check this anyway, so there is not need to check twice. Especially so,
       // because nothing in particular needs to be done if it is not.
       
-      m_root->add(mass_centre.get());
-      m_all_bodies.push_back(std::move(mass_centre));
+      m_root->add(body.get());
+      m_all_bodies.push_back(std::move(body));
       return tag;
    }
    
-   int add (body_frame2d<T> mass_centre) 
+   int add (body_frame2d<T> body) 
    {
-      auto mc_ptr = std::make_unique<body_frame2d<T>>(mass_centre);
+      auto mc_ptr = std::make_unique<body_frame2d<T>>(body);
       int tag = add (std::move(mc_ptr));
       return tag;
    }
    
-   int add (T data, vector2d location, double mass = 0) 
+   int add (T properties, vector2d location, double mass = 0) 
    { 
-      auto mc_ptr = std::make_unique<body_frame2d<T>>(data, location, mass);
-      int tag = add (std::move(mc_ptr));
+      auto body_ptr = std::make_unique<body_frame2d<T>>(properties, location, mass);
+      int tag = add (std::move(body_ptr));
       return tag;
    }
    
@@ -173,7 +173,7 @@ public:
       
       adjust_dynamic_tree (new_location);
       m_root->move (tag,new_location);
-      m_all_bodies[index.get()]->mass_c.location = new_location;
+      m_all_bodies[index.get()]->centre.location = new_location;
       return option::exists::yes;
    }
    
@@ -216,7 +216,7 @@ public:
       // I know it looks stupid, but why searching for the body again?
       // If someone deliberately wants to game the system, they can just 
       // const_cast themselves. There is no const police.
-      return const_cast<T&>(body.data);
+      return const_cast<T&>(body.properties);
    }
    
    bool is_in (vector2d location) const 

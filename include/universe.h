@@ -173,11 +173,11 @@ private:
          {
             if (previous_body != &body)
             {
-               body.data.gravity = {0.0,0.0};
+               body.properties.gravity = {0.0,0.0};
                previous_body = &body;
             }
             law::gravitation2d law;
-            law.m_1 = body.mass_c;
+            law.m_1 = body.centre;
             law.m_2 = mass_c;
             law.G = m_properties.m_gravitational_constant;
             if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
@@ -186,7 +186,7 @@ private:
             else {
                law.solve_for_fun_force();
             }
-            body.data.gravity += law.f_1.get();
+            body.properties.gravity += law.f_1.get();
          }
       );
    }
@@ -199,9 +199,9 @@ private:
             vector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
-               body.data.gravity, body.data.velocity, body.mass_c.location, body.mass_c.mass, time_pixel);
+               body.properties.gravity, body.properties.velocity, body.centre.location, body.centre.mass, time_pixel);
             m_container->move (body, location_final);
-            body.data.velocity = velocity_final;            
+            body.properties.velocity = velocity_final;            
          }
       );
    }

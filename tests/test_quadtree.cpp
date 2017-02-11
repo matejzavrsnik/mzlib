@@ -42,7 +42,7 @@ TEST_F(fixture_cquadtree, tree_is_built_when_rectangle_not_provided)
    mzlib::quadtree<int> local_tree(m_min_node_size, m_max_tree_size);
    auto tag = local_tree.add(0, {50,50}, 50);
    auto found = local_tree.find(tag);
-   ASSERT_EQ(0, found->data);
+   ASSERT_EQ(0, found->properties);
 }
 
 TEST_F(fixture_cquadtree, tree_is_built_correctly)
@@ -232,11 +232,11 @@ TEST_F(fixture_cquadtree, find_body_basic)
    const mzlib::body_frame2d<int>* two = m_tree.find(tag_2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
-   ASSERT_EQ(1, one->data);
-   ASSERT_EQ(2, two->data);
+   ASSERT_EQ(1, one->properties);
+   ASSERT_EQ(2, two->properties);
 }
 
-TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
+TEST_F(fixture_cquadtree, find_body_when_properties_some_other_type)
 {
    mzlib::quadtree<std::string> local_tree = {
       m_tree.m_root->m_rectangle, 
@@ -248,8 +248,8 @@ TEST_F(fixture_cquadtree, find_body_when_data_some_other_type)
    const mzlib::body_frame2d<std::string>* two = local_tree.find(tag_two);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
-   ASSERT_EQ("one", one->data);
-   ASSERT_EQ("two", two->data);
+   ASSERT_EQ("one", one->properties);
+   ASSERT_EQ("two", two->properties);
 }
    
 TEST_F(fixture_cquadtree, find_body_not_found)
@@ -372,7 +372,7 @@ TEST_F(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes)
    ASSERT_EQ(mzlib::vector2d({1,-5}), local_tree.m_root->m_child_ne->m_child_sw->get_mass_centre().location);
 }
 
-TEST_F(fixture_cquadtree, move_nonexistent_data)
+TEST_F(fixture_cquadtree, move_nonexistent_tag)
 {
    m_tree.add(1, {25,25}, 150);
    m_tree.add(2, {23,23}, 150);
@@ -411,7 +411,7 @@ TEST_F(fixture_cquadtree, change_mass_basic)
    ASSERT_EQ(mzlib::vector2d({20,20}), m_tree.get_mass_centre().location);
 }
 
-TEST_F(fixture_cquadtree, change_mass_nonexistent_data)
+TEST_F(fixture_cquadtree, change_mass_nonexistent_tag)
 {
    m_tree.add(1, {5,5}, 100);
    m_tree.add(2, {25,25}, 100);
@@ -452,7 +452,7 @@ TEST_F(fixture_cquadtree, iterator_all_bodies)
 
    // Check if they can all be retrieved
    for(mzlib::body_frame2d<int> body : m_tree) {
-      bodies_retrieved[body.data] = true;
+      bodies_retrieved[body.properties] = true;
    }
    
    for(auto entry : bodies_retrieved) {
@@ -650,8 +650,8 @@ TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    
    // correct bodies are in those two nodes
-   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->data);
-   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->data);
+   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->properties);
+   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->properties);
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
@@ -704,8 +704,8 @@ TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    
    // correct bodies are in those two nodes
-   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->data);
-   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->data);
+   ASSERT_EQ(body_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->properties);
+   ASSERT_EQ(body_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->properties);
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
@@ -738,7 +738,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
    ASSERT_NE(nullptr, tree.find(tag_one));
    ASSERT_NE(nullptr, tree.find(tag_two));
    ASSERT_EQ(1, tree.m_root->m_bodies.size());
-   ASSERT_EQ(body_one, tree.m_root->m_bodies[0]->data);
+   ASSERT_EQ(body_one, tree.m_root->m_bodies[0]->properties);
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
@@ -774,5 +774,5 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    ASSERT_NE(nullptr, tree.find(tag_two));
    ASSERT_NE(nullptr, tree.find(tag_one));
    ASSERT_EQ(1, tree.m_root->m_bodies.size());
-   ASSERT_EQ(body_one, tree.m_root->m_bodies[0]->data);
+   ASSERT_EQ(body_one, tree.m_root->m_bodies[0]->properties);
 }

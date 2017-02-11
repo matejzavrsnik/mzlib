@@ -44,12 +44,12 @@ protected:
       // Too much would just scatter bodies out of reach of quadtree.
       for(unsigned int i=0; i<num_of_bodies; ++i) {
          mzlib::body2d object;
-         object.mass_c.mass = 1000000000000;
-         object.mass_c.location = mzlib::vector2d {
+         object.centre.mass = 1000000000000;
+         object.centre.location = mzlib::vector2d {
             (double)mzlib::get_random_integer_between(0,5000),
             (double)mzlib::get_random_integer_between(0,5000)
          };
-         object.data.velocity = mzlib::vector2d {
+         object.properties.velocity = mzlib::vector2d {
             (double)mzlib::get_random_integer_between(0,6)-3,
             (double)mzlib::get_random_integer_between(0,6)-3
          };
