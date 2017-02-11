@@ -38,12 +38,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests/test_dbl.o \
 	${OBJECTDIR}/tests/test_genetic.o \
+	${OBJECTDIR}/tests/test_law_screen_rectangle.o \
 	${OBJECTDIR}/tests/test_laws.o \
 	${OBJECTDIR}/tests/test_markov_chain.o \
 	${OBJECTDIR}/tests/test_masscentre.o \
 	${OBJECTDIR}/tests/test_probabilator.o \
 	${OBJECTDIR}/tests/test_quadtree.o \
-	${OBJECTDIR}/tests/test_rectangle.o \
 	${OBJECTDIR}/tests/test_relentless_file_reader.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
@@ -98,6 +98,11 @@ ${OBJECTDIR}/tests/test_genetic.o: tests/test_genetic.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic.o tests/test_genetic.cpp
 
+${OBJECTDIR}/tests/test_law_screen_rectangle.o: tests/test_law_screen_rectangle.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_law_screen_rectangle.o tests/test_law_screen_rectangle.cpp
+
 ${OBJECTDIR}/tests/test_laws.o: tests/test_laws.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -122,11 +127,6 @@ ${OBJECTDIR}/tests/test_quadtree.o: tests/test_quadtree.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_quadtree.o tests/test_quadtree.cpp
-
-${OBJECTDIR}/tests/test_rectangle.o: tests/test_rectangle.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_rectangle.o tests/test_rectangle.cpp
 
 ${OBJECTDIR}/tests/test_relentless_file_reader.o: tests/test_relentless_file_reader.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

@@ -9,13 +9,13 @@
 #include "gtest/gtest.h"
 #include "../include/dbl.h"
 
-class fixture_rectangle : public ::testing::Test 
+class fixture_law_screen_rectangle : public ::testing::Test 
 {
 
 protected:
    
-   fixture_rectangle () {}
-   virtual ~fixture_rectangle () {}
+   fixture_law_screen_rectangle () {}
+   virtual ~fixture_law_screen_rectangle () {}
    
    virtual void SetUp() {}
    virtual void TearDown() {}
@@ -35,7 +35,7 @@ protected:
    //    +
 };
 
-TEST_F(fixture_rectangle, is_in) 
+TEST_F(fixture_law_screen_rectangle, is_in) 
 {
    mzlib::screen_rectangle2d rect({-50,-50}, {50,50});
    mzlib::law::screen_rectangles2d law;
@@ -91,7 +91,7 @@ TEST_F(fixture_rectangle, is_in)
    }
 }
 
-TEST_F(fixture_rectangle, get_diagonal_length) 
+TEST_F(fixture_law_screen_rectangle, get_diagonal_length) 
 {
    mzlib::law::screen_rectangles2d rect_law;
    rect_law.consider(m_rectangle);
@@ -100,7 +100,7 @@ TEST_F(fixture_rectangle, get_diagonal_length)
    ASSERT_TRUE(mzlib::dbl(length).equals(36.055512754639892L));
 }
 
-TEST_F(fixture_rectangle, get_width) 
+TEST_F(fixture_law_screen_rectangle, get_width) 
 {
    mzlib::law::screen_rectangles2d law;
    law.consider(m_rectangle);
@@ -108,7 +108,7 @@ TEST_F(fixture_rectangle, get_width)
    ASSERT_TRUE(mzlib::dbl(width).equals(20L));
 }
 
-TEST_F(fixture_rectangle, get_heigth) 
+TEST_F(fixture_law_screen_rectangle, get_heigth) 
 {
    mzlib::law::screen_rectangles2d rect_law;
    rect_law.consider(m_rectangle);
@@ -117,7 +117,7 @@ TEST_F(fixture_rectangle, get_heigth)
 }
 
 
-TEST_F(fixture_rectangle, calculate_centre_point) 
+TEST_F(fixture_law_screen_rectangle, calculate_centre_point) 
 {
    mzlib::law::screen_rectangles2d rect_law;
    rect_law.consider(m_rectangle);
@@ -125,7 +125,7 @@ TEST_F(fixture_rectangle, calculate_centre_point)
    ASSERT_EQ(mzlib::vector2d({30,45}), centre_point);
 }
 
-TEST_F(fixture_rectangle, direction_of_point) 
+TEST_F(fixture_law_screen_rectangle, direction_of_point) 
 {
    mzlib::screen_rectangle2d rect({-50,-50}, {50,50});
    mzlib::law::screen_rectangles2d rect_law;
@@ -180,7 +180,7 @@ TEST_F(fixture_rectangle, direction_of_point)
    }
 }
 
-TEST_F(fixture_rectangle, enlarge_rectangle) 
+TEST_F(fixture_law_screen_rectangle, enlarge_rectangle) 
 {
    struct t_parameters {
       mzlib::direction direction;
@@ -208,7 +208,7 @@ TEST_F(fixture_rectangle, enlarge_rectangle)
    }
 }
 
-TEST_F(fixture_rectangle, flip) 
+TEST_F(fixture_law_screen_rectangle, flip) 
 {
       //        20  40
       //    + + + + + +
