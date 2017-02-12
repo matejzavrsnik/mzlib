@@ -26,9 +26,10 @@ public:
    using forces_applicator_function = std::function<void(const body_core2d&,body_properties2d&,mass_centre2d&)>;
    using body_iterator_function = std::function<void(const body_core2d&,body_properties2d&)>;
    
-   virtual void add_copy (body2d&) = 0;
+   virtual unique add_copy (const body2d&) = 0;
    virtual void remove (const unique) = 0;
-   virtual body2d find (const unique) const = 0;
+   virtual const body_core2d* find_body_core (const unique) const = 0;
+   virtual const body_properties2d find_body_properties (const unique) const = 0;
    virtual void move (const unique, vector2d) = 0;
    // todo: make core const, now it can be done
    virtual void for_every_mass_centre_combination (forces_applicator_function) = 0;
@@ -41,9 +42,10 @@ class universe_container_vector : public iuniverse_container
    
 public:
    
-   void add_copy (body2d& body) 
+   unique add_copy (const body2d& body) 
    {
       m_vector.push_back(body);
+      return body.core.tag;
    }
    
    void remove (const unique tag)
@@ -54,14 +56,24 @@ public:
          });         
    }
       
-   body2d find (const unique tag) const
+   const body_core2d* find_body_core (const unique tag) const
    {
       for (const body2d& found : m_vector) {
          if (found.core.tag == tag) {
-            return found;
+            return &found.core;
          }
       }
-      throw mzlib::exception::not_found();
+      return nullptr;
+   }
+   
+   const body_properties2d find_body_properties (const unique tag) const
+   {
+      for (const body2d& found : m_vector) {
+         if (found.core.tag == tag) {
+            return found.properties;
+         }
+      }
+      throw mzlib::exception::not_found();      
    }
    
    void move (const unique tag, vector2d new_location)
@@ -137,10 +149,11 @@ public:
    universe_container_quadtree& operator= (universe_container_quadtree&&) = default;
    ~universe_container_quadtree () = default;
    
-   void add_copy (body2d& body) 
+   unique add_copy (const body2d& body) 
    {
-      m_quad_tree.add_copy(body.core);
-      m_body_properties[body.core.tag] = body.properties;
+      unique tag = m_quad_tree.add_copy(body.core);
+      m_body_properties[tag] = body.properties;
+      return tag;
    }
    
    void remove (const unique tag)
@@ -152,16 +165,21 @@ public:
       }
    }
    
-   body2d find (const unique tag) const
+   const body_core2d* find_body_core (const unique tag) const
    {
-      auto body_core = m_quad_tree.find(tag);
-      if (body_core == nullptr) {
-         throw mzlib::exception::not_found();
-      }
-      
-      return recreate_body(body_core);
+      const body_core2d* body_core = m_quad_tree.find(tag);
+      return body_core;
    }
 
+   const body_properties2d find_body_properties (const unique tag) const
+   {
+      const auto found = m_body_properties.find(tag);
+      if (found != m_body_properties.end()) {
+         return found->second;
+      }
+      throw mzlib::exception::not_found();
+   }
+   
    void move (const unique tag, vector2d new_location)
    {
       m_quad_tree.move(tag, new_location);

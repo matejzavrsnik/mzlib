@@ -87,31 +87,34 @@ public:
    }
    
    // todo: rename to add_copy or something. or force people to std::move into. or something.
-   void add_copy (body2d& body) 
+   unique add_copy (const body2d& body) 
    {
-      m_container->add_copy(body);
+      unique tag = m_container->add_copy(body);
       // Forces should show up immediately after adding
       calculate_forces();
+      return tag;
    }
    
-   void remove (const body2d& body)
+   void remove (const unique tag)
    {
-      m_container->remove(body.core.tag);
+      m_container->remove(tag);
       // Forces should show up immediately after removing
       calculate_forces();
    }
    
-   // todo: rethink this one. Why is it needed? it returns copy now.
-   //       split to get_core and get_properties? return const reference and keep
-   //       yet another collection of those?
-   body2d find (const body2d& body) const
+   const body_core2d* find_body_core (const unique tag) const
    {
-      return m_container->find(body.core.tag);
+      return m_container->find_body_core(tag);
    }
    
-   void move (body2d& body, vector2d new_location)
+   const body_properties2d find_body_properties (const unique tag) const
    {
-      m_container->move(body.core.tag, new_location);
+      return m_container->find_body_properties(tag);
+   }
+   
+   void move (const unique tag, const vector2d new_location)
+   {
+      m_container->move(tag, new_location);
    }
         
    void forward_time (double seconds, double time_pixel) 

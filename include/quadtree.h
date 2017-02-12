@@ -151,14 +151,14 @@ public:
       return tag;
    }
    
-   unique add_copy (body_core2d& body_core) 
+   unique add_copy (const body_core2d& body_core) 
    {
       auto body_core_ptr = std::make_unique<body_core2d>(body_core);
       unique tag = add (std::move(body_core_ptr));
       return tag;
    }
    
-   unique add_create (vector2d location, double mass = 0) 
+   unique add_create (const vector2d location, const double mass = 0) 
    { 
       auto body_ptr = std::make_unique<body_core2d>();
       body_ptr->centre = {location, mass};
