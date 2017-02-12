@@ -33,7 +33,7 @@ protected:
 TEST_F(fixture_universe, after_adding_body_is_found)
 {
    mzlib::body2d body;
-   universe.add(body);
+   universe.add_copy(body);
    mzlib::body2d found_body;
    ASSERT_NO_THROW( found_body = universe.find(body) );
    ASSERT_EQ(found_body.tag, body.tag);
@@ -48,8 +48,8 @@ TEST_F(fixture_universe, after_adding_bodies_feel_force)
    earth.centre.location = {0,mzlib::consts::earth_distance_sun};
    earth.centre.mass = mzlib::consts::earth_mass;
     
-   universe.add(sun);
-	universe.add(earth);
+   universe.add_copy(sun);
+	universe.add_copy(earth);
     
    mzlib::vector2d f_sun = universe.find(sun).properties.gravity;
    mzlib::vector2d f_earth = universe.find(earth).properties.gravity;
@@ -75,8 +75,8 @@ TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_tha
    earth.centre.mass = mzlib::consts::earth_mass;
    earth.properties.velocity = {mzlib::consts::earth_velocity_aphelion,0};
     
-   universe.add(sun);
-	universe.add(earth);
+   universe.add_copy(sun);
+	universe.add_copy(earth);
    universe.forward_time(30.0_day, 1.0_day);
    
    mzlib::vector2d earth_location_quarter_later = universe.find(earth).centre.location;
@@ -100,8 +100,8 @@ TEST_F(fixture_universe, sun_earth_month_travel_naive)
    earth.centre.mass = mzlib::consts::earth_mass;
    earth.properties.velocity = {mzlib::consts::earth_velocity_aphelion,0};
     
-   universe.add(sun);
-	universe.add(earth);
+   universe.add_copy(sun);
+	universe.add_copy(earth);
    universe.forward_time(30.0_day, 1.0_day);
    
    mzlib::vector2d earth_location_quarter_later = universe.find(earth).centre.location;
@@ -120,8 +120,8 @@ TEST_F(fixture_universe, long_earth_around_the_sun)
    earth.centre.mass = mzlib::consts::earth_mass;
    earth.properties.velocity = {mzlib::consts::earth_velocity_aphelion,0};
     
-   universe.add(sun);
-	universe.add(earth);
+   universe.add_copy(sun);
+	universe.add_copy(earth);
    universe.forward_time(0.25_julian_year, 10.0_s);     
    
    mzlib::vector2d earth_location_quarter_later = universe.find(earth).centre.location;
@@ -144,7 +144,7 @@ TEST_F(fixture_universe, moving_object)
    body.centre.location = {1.0_m, 2.0_m};
    mzlib::vector2d move_to = {3.0_m, 4.0_m};
 
-   universe.add(body); 
+   universe.add_copy(body); 
    universe.move(body, move_to);
    
    // measure location
@@ -166,7 +166,7 @@ TEST_F(fixture_universe, moving_object_naive)
    body.centre.location = {1.0_m, 2.0_m};
    mzlib::vector2d move_to = {3.0_m, 4.0_m};
 
-   universe.add(body); 
+   universe.add_copy(body); 
    universe.move(body, move_to);
    
    // measure location
@@ -193,8 +193,8 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    body2.centre.mass = 10.0_kg; 
    body2.centre.location = body2_location_start;
    body1.properties.velocity = body1_velocity;
-   universe.add(body1);
-	universe.add(body2); 
+   universe.add_copy(body1);
+	universe.add_copy(body2); 
    
    // simulation
    universe.forward_time(1.0_s, 1.0_s);
@@ -209,8 +209,8 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    body1.centre.location = body1_location_start;
    body2.centre.location = body2_location_start;
    body2.properties.velocity = body1_velocity;
-   universe.add(body1);
-	universe.add(body2);
+   universe.add_copy(body1);
+	universe.add_copy(body2);
 
    // simulation   
    universe.forward_time(1.0_s, 1.0_s);
@@ -246,8 +246,8 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running_naive)
    body2.centre.mass = 10.0_kg; 
    body2.centre.location = body2_location_start;
    body1.properties.velocity = body1_velocity;
-   universe.add(body1);
-	universe.add(body2); 
+   universe.add_copy(body1);
+	universe.add_copy(body2); 
    
    // simulation
    universe.forward_time(1.0_s, 1.0_s);
@@ -262,8 +262,8 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running_naive)
    body1.centre.location = body1_location_start;
    body2.centre.location = body2_location_start;
    body2.properties.velocity = body1_velocity;
-   universe.add(body1);
-	universe.add(body2);
+   universe.add_copy(body1);
+	universe.add_copy(body2);
 
    // simulation   
    universe.forward_time(1.0_s, 1.0_s);

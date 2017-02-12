@@ -87,9 +87,9 @@ public:
    }
    
    // todo: rename to add_copy or something. or force people to std::move into. or something.
-   void add (body2d& body) 
+   void add_copy (body2d& body) 
    {
-      m_container->add(body);
+      m_container->add_copy(body);
       // Forces should show up immediately after adding
       calculate_forces();
    }

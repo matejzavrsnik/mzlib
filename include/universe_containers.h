@@ -26,7 +26,7 @@ public:
    using forces_applicator_function = std::function<void(const body_core2d&,body_properties2d&,mass_centre2d&)>;
    using body_iterator_function = std::function<void(const body_core2d&,body_properties2d&)>;
    
-   virtual void add (body2d&) = 0;
+   virtual void add_copy (body2d&) = 0;
    virtual void remove (const unique) = 0;
    virtual body2d find (const unique) const = 0;
    virtual void move (const unique, vector2d) = 0;
@@ -41,7 +41,7 @@ class universe_container_vector : public iuniverse_container
    
 public:
    
-   void add (body2d& body) 
+   void add_copy (body2d& body) 
    {
       m_vector.push_back(body);
    }
@@ -137,9 +137,9 @@ public:
    universe_container_quadtree& operator= (universe_container_quadtree&&) = default;
    ~universe_container_quadtree () = default;
    
-   void add (body2d& body) 
+   void add_copy (body2d& body) 
    {
-      m_quad_tree.add(body);
+      m_quad_tree.add_copy(body);
       m_body_properties[body.tag] = body.properties;
    }
    
