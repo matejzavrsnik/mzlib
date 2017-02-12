@@ -84,7 +84,7 @@ private:
       }
    }
    
-   optional<int> find_index (const int& tag) const
+   optional<int> find_index (const int tag) const
    {
       optional<int> index;
       for (size_t i=0; i<m_all_bodies.size(); ++i) {
@@ -176,12 +176,12 @@ public:
       return option::exists::yes;
    }
    
-   option::changed change_mass (const int& tag, double new_mass)
+   option::changed change_mass (const int tag, double new_mass)
    {
       return m_root->change_mass(tag,new_mass);
    }
    
-   option::removed remove (const int& tag)
+   option::removed remove (const int tag)
    {
       if(m_root->remove(tag) == option::removed::yes) {
          for(size_t i=0; i!=m_all_bodies.size(); ++i) {
@@ -199,7 +199,7 @@ public:
       return m_root->get_mass_centre();
    }
    
-   const body_core2d* find (const int& tag) const
+   const body_core2d* find (const int tag) const
    {
       auto index = find_index (tag);
       if (index.is_set()) {
@@ -225,7 +225,7 @@ public:
       return it_bodies(m_all_bodies.end()); 
    }
         
-   it_masscentres begin_masscentres (const int& tag, double quotient)
+   it_masscentres begin_masscentres (const int tag, double quotient)
    {
       return it_masscentres(m_root.get(), tag, quotient);
    }
