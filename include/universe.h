@@ -129,9 +129,9 @@ public:
       }
    }
 
-   void for_every_body (std::function<void(body_core2d&,body_properties2d&)> execute)
+   void for_every_body (iuniverse_container::body_iterator_function body_iterator)
    {
-      m_container->for_every_body(execute);
+      m_container->for_every_body(body_iterator);
    }
    
 private:
@@ -171,9 +171,9 @@ private:
 
    void calculate_forces () 
    {
-      body_core2d* previous_body = nullptr;
+      const body_core2d* previous_body = nullptr;
       m_container->for_every_mass_centre_combination(
-         [this, &previous_body] (body_core2d& body_core,body_properties2d& body_properties, mass_centre2d& mass_c) 
+         [this, &previous_body] (const body_core2d& body_core,body_properties2d& body_properties, mass_centre2d& mass_c) 
          {
             if (previous_body != &body_core)
             {
@@ -198,7 +198,7 @@ private:
    void calculate_positions (double time_pixel) 
    {
       m_container->for_every_body(
-         [this, &time_pixel](body_core2d& body_core,body_properties2d& body_properties)
+         [this, &time_pixel](const body_core2d& body_core,body_properties2d& body_properties)
          {
             vector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!

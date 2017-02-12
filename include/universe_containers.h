@@ -23,14 +23,16 @@ class iuniverse_container
    
 public:
    
+   using forces_applicator_function = std::function<void(const body_core2d&,body_properties2d&,mass_centre2d&)>;
+   using body_iterator_function = std::function<void(const body_core2d&,body_properties2d&)>;
+   
    virtual void add (body2d&) = 0;
    virtual void remove (const unique) = 0;
    virtual body2d find (const unique) const = 0;
    virtual void move (const unique, vector2d) = 0;
-   // todo: make some nicer typedef signature
    // todo: make core const, now it can be done
-   virtual void for_every_mass_centre_combination (std::function<void(body_core2d&,body_properties2d&,mass_centre2d&)>) = 0;
-   virtual void for_every_body (std::function<void(body_core2d&,body_properties2d&)>) = 0;
+   virtual void for_every_mass_centre_combination (forces_applicator_function) = 0;
+   virtual void for_every_body (body_iterator_function) = 0;
 
 };
 
@@ -72,21 +74,21 @@ public:
       }
    }
    
-   void for_every_mass_centre_combination (std::function<void(body_core2d&,body_properties2d&,mass_centre2d&)> calculate_forces_operation)
+   void for_every_mass_centre_combination (forces_applicator_function forces_applicator)
    {
       for (body2d& this_body : m_vector) {
          for (body2d& that_body : m_vector) {
             if (this_body.tag != that_body.tag) { // body can't exert a force on itself,
-               calculate_forces_operation(this_body, this_body.properties, that_body.centre);
+               forces_applicator(this_body, this_body.properties, that_body.centre);
             }
          }
       }         
    }
    
-   void for_every_body (std::function<void(body_core2d&,body_properties2d&)> body_properties_operation)
+   void for_every_body (body_iterator_function body_iterator)
    {
       for (body2d& body : m_vector) {
-         body_properties_operation (body, body.properties);
+         body_iterator (body, body.properties);
       }         
    }
    
@@ -165,22 +167,22 @@ public:
       m_quad_tree.move(tag, new_location);
    }
         
-   void for_every_mass_centre_combination (std::function<void(body_core2d&,body_properties2d&,mass_centre2d&)> calculate_forces_operation)
+   void for_every_mass_centre_combination (forces_applicator_function forces_applicator)
    {
       for (body_core2d& this_body_core : m_quad_tree) {
          quadtree::it_masscentres mass_centres_it = 
             m_quad_tree.begin_masscentres(this_body_core.tag, m_quotient);
          for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
-            calculate_forces_operation(this_body_core, m_body_properties[this_body_core.tag], *mass_centres_it);
+            forces_applicator(this_body_core, m_body_properties[this_body_core.tag], *mass_centres_it);
          }
       }
    }
    
    
-   void for_every_body (std::function<void(body_core2d&,body_properties2d&)> body_properties_operation)
+   void for_every_body (body_iterator_function body_iterator)
    {
       for (body_core2d& body_core : m_quad_tree) {
-         body_properties_operation (body_core, m_body_properties[body_core.tag]);
+         body_iterator (body_core, m_body_properties[body_core.tag]);
       }
    }
         
