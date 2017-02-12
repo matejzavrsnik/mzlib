@@ -49,9 +49,10 @@ struct body_core
 // use this final physical_body.
 
 template <class PropertiesT, class VectorT>
-struct physical_body : public body_core<VectorT>
+struct physical_body 
 {
    PropertiesT properties;
+   body_core<VectorT> core;
 };
 
 using body_properties2d = body_properties<vector2d>;

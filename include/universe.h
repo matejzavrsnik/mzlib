@@ -96,7 +96,7 @@ public:
    
    void remove (const body2d& body)
    {
-      m_container->remove(body.tag);
+      m_container->remove(body.core.tag);
       // Forces should show up immediately after removing
       calculate_forces();
    }
@@ -106,12 +106,12 @@ public:
    //       yet another collection of those?
    body2d find (const body2d& body) const
    {
-      return m_container->find(body.tag);
+      return m_container->find(body.core.tag);
    }
    
    void move (body2d& body, vector2d new_location)
    {
-      m_container->move(body.tag, new_location);
+      m_container->move(body.core.tag, new_location);
    }
         
    void forward_time (double seconds, double time_pixel) 

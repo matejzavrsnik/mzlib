@@ -50,14 +50,14 @@ public:
    {
       std::remove_if(m_vector.begin(), m_vector.end(),
          [&tag](const body2d& element) {
-            return element.tag == tag;
+            return element.core.tag == tag;
          });         
    }
       
    body2d find (const unique tag) const
    {
       for (const body2d& found : m_vector) {
-         if (found.tag == tag) {
+         if (found.core.tag == tag) {
             return found;
          }
       }
@@ -67,8 +67,8 @@ public:
    void move (const unique tag, vector2d new_location)
    {
       for (body2d& found : m_vector) {
-         if (found.tag == tag) {
-            found.centre.location = new_location;
+         if (found.core.tag == tag) {
+            found.core.centre.location = new_location;
             break;
          }
       }
@@ -78,8 +78,8 @@ public:
    {
       for (body2d& this_body : m_vector) {
          for (body2d& that_body : m_vector) {
-            if (this_body.tag != that_body.tag) { // body can't exert a force on itself,
-               forces_applicator(this_body, this_body.properties, that_body.centre);
+            if (this_body.core.tag != that_body.core.tag) { // body can't exert a force on itself,
+               forces_applicator(this_body.core, this_body.properties, that_body.core.centre);
             }
          }
       }         
@@ -88,7 +88,7 @@ public:
    void for_every_body (body_iterator_function body_iterator)
    {
       for (body2d& body : m_vector) {
-         body_iterator (body, body.properties);
+         body_iterator (body.core, body.properties);
       }         
    }
    
@@ -139,8 +139,8 @@ public:
    
    void add_copy (body2d& body) 
    {
-      m_quad_tree.add_copy(body);
-      m_body_properties[body.tag] = body.properties;
+      m_quad_tree.add_copy(body.core);
+      m_body_properties[body.core.tag] = body.properties;
    }
    
    void remove (const unique tag)
@@ -200,8 +200,8 @@ private:
       }
       
       body2d found_body;
-      found_body.centre = body_core->centre;
-      found_body.tag = body_core->tag;
+      found_body.core.centre = body_core->centre;
+      found_body.core.tag = body_core->tag;
       found_body.properties = body_properties->second;
       return found_body;
    }
