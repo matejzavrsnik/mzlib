@@ -115,7 +115,7 @@ public:
       }
    }
    
-   option::removed remove (const int tag) 
+   option::removed remove (const unique tag) 
    {
       // downside of the approach where every node contains all bodies under it: 
       // every subnode needs to find mass centre in it's own collection
@@ -138,17 +138,17 @@ public:
       return option::removed::no;
    }
    
-   typename std::vector<body_core2d*>::iterator find_body(const int tag)
+   typename std::vector<body_core2d*>::iterator find_body(const unique tag)
    {
       typename std::vector<body_core2d*>::iterator mass_centre_it = 
          std::find_if (m_bodies.begin(), m_bodies.end(), 
             [&](body_core2d* mass_centre) { 
-               return mass_centre->tag.id() == tag; 
+               return mass_centre->tag == tag; 
          });
       return mass_centre_it;
    }
    
-   option::exists move (const int tag, vector2d new_location)
+   option::exists move (const unique tag, vector2d new_location)
    {
       auto body_it = find_body(tag);
       if (body_it == m_bodies.end()) return option::exists::no;
@@ -187,7 +187,7 @@ public:
       return option::exists::yes;
    }
    
-   option::changed change_mass (const int tag, double new_mass)
+   option::changed change_mass (const unique tag, double new_mass)
    {
       auto body_it = find_body (tag);
       if (body_it == m_bodies.end()) return option::changed::no;
@@ -288,10 +288,10 @@ public:
       return candidate;
    }
    
-   const body_core2d* find (const int tag) const
+   const body_core2d* find (const unique tag) const
    {
       for (auto body : m_bodies) {
-         if (body->tag.id() == tag) {
+         if (body->tag == tag) {
             return body;
          }
       }

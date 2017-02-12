@@ -93,7 +93,7 @@ private:
    
 public:
 
-   explicit quadtree_it_masscentres (const quadnode* const node, const int tag, double quotient)
+   explicit quadtree_it_masscentres (const quadnode* const node, const unique tag, double quotient)
    { 
       const body_core2d* found_body = node->find (tag);
       if (found_body == nullptr) 

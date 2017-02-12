@@ -24,9 +24,9 @@ class iuniverse_container
 public:
    
    virtual void add (body2d&) = 0;
-   virtual void remove (const int) = 0;
-   virtual body2d find (const int) const = 0;
-   virtual void move (const int, vector2d) = 0;
+   virtual void remove (const unique) = 0;
+   virtual body2d find (const unique) const = 0;
+   virtual void move (const unique, vector2d) = 0;
    // todo: make some nicer typedef signature
    // todo: make core const, now it can be done
    virtual void for_every_mass_centre_combination (std::function<void(body_core2d&,body_properties2d&,mass_centre2d&)>) = 0;
@@ -44,28 +44,28 @@ public:
       m_vector.push_back(body);
    }
    
-   void remove (const int tag)
+   void remove (const unique tag)
    {
       std::remove_if(m_vector.begin(), m_vector.end(),
          [&tag](const body2d& element) {
-            return element.tag.id() == tag;
+            return element.tag == tag;
          });         
    }
       
-   body2d find (const int tag) const
+   body2d find (const unique tag) const
    {
       for (const body2d& found : m_vector) {
-         if (found.tag.id() == tag) {
+         if (found.tag == tag) {
             return found;
          }
       }
       throw mzlib::exception::not_found();
    }
    
-   void move (const int tag, vector2d new_location)
+   void move (const unique tag, vector2d new_location)
    {
       for (body2d& found : m_vector) {
-         if (found.tag.id() == tag) {
+         if (found.tag == tag) {
             found.centre.location = new_location;
             break;
          }
@@ -76,7 +76,7 @@ public:
    {
       for (body2d& this_body : m_vector) {
          for (body2d& that_body : m_vector) {
-            if (this_body.tag.id() != that_body.tag.id()) { // body can't exert a force on itself,
+            if (this_body.tag != that_body.tag) { // body can't exert a force on itself,
                calculate_forces_operation(this_body, this_body.properties, that_body.centre);
             }
          }
@@ -138,10 +138,10 @@ public:
    void add (body2d& body) 
    {
       m_quad_tree.add(body);
-      m_body_properties[body.tag.id()] = body.properties;
+      m_body_properties[body.tag] = body.properties;
    }
    
-   void remove (const int tag)
+   void remove (const unique tag)
    {
       m_quad_tree.remove(tag);
       auto found = m_body_properties.find(tag);
@@ -150,7 +150,7 @@ public:
       }
    }
    
-   body2d find (const int tag) const
+   body2d find (const unique tag) const
    {
       auto body_core = m_quad_tree.find(tag);
       if (body_core == nullptr) {
@@ -160,7 +160,7 @@ public:
       return recreate_body(body_core);
    }
 
-   void move (const int tag, vector2d new_location)
+   void move (const unique tag, vector2d new_location)
    {
       m_quad_tree.move(tag, new_location);
    }
@@ -169,9 +169,9 @@ public:
    {
       for (body_core2d& this_body_core : m_quad_tree) {
          quadtree::it_masscentres mass_centres_it = 
-            m_quad_tree.begin_masscentres(this_body_core.tag.id(), m_quotient);
+            m_quad_tree.begin_masscentres(this_body_core.tag, m_quotient);
          for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
-            calculate_forces_operation(this_body_core, m_body_properties[this_body_core.tag.id()], *mass_centres_it);
+            calculate_forces_operation(this_body_core, m_body_properties[this_body_core.tag], *mass_centres_it);
          }
       }
    }
@@ -180,19 +180,19 @@ public:
    void for_every_body (std::function<void(body_core2d&,body_properties2d&)> body_properties_operation)
    {
       for (body_core2d& body_core : m_quad_tree) {
-         body_properties_operation (body_core, m_body_properties[body_core.tag.id()]);
+         body_properties_operation (body_core, m_body_properties[body_core.tag]);
       }
    }
         
 private:
 
    quadtree m_quad_tree;
-   std::map<int, body_properties2d> m_body_properties;
+   std::map<unique, body_properties2d> m_body_properties;
    double m_quotient;
 
    body2d recreate_body(const body_core2d* const body_core) const
    {
-      auto body_properties = m_body_properties.find(body_core->tag.id());
+      auto body_properties = m_body_properties.find(body_core->tag);
       if (body_properties == m_body_properties.end()) {
          throw mzlib::exception::not_found();
       }

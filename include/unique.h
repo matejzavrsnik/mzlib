@@ -55,6 +55,12 @@ public:
       return !(*this == other);
    }
    
+   // To enable "native" use od mzlib::unique with std::map
+   bool operator <(const unique& rhs) const
+   {
+      return id() < rhs.id();
+   }
+   
 };
 
 } // namespace

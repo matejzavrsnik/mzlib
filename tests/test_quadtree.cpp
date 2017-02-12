@@ -34,6 +34,7 @@ protected:
       {{-50,-50}, {50,50}},
       m_min_node_size, 
       m_max_tree_size};
+   mzlib::unique nonexistent_tag;
 
 };
 
@@ -42,7 +43,7 @@ TEST_F(fixture_cquadtree, tree_is_built_when_rectangle_not_provided)
    mzlib::quadtree local_tree(m_min_node_size, m_max_tree_size);
    auto tag = local_tree.add({50,50}, 50);
    auto found = local_tree.find(tag);
-   ASSERT_EQ(tag, found->tag.id());
+   ASSERT_EQ(tag, found->tag);
 }
 
 TEST_F(fixture_cquadtree, tree_is_built_correctly)
@@ -155,9 +156,9 @@ TEST_F(fixture_cquadtree, iterator_mass_centres_body_not_in_tree)
    m_tree.add({ 25, 25}, 100);
    m_tree.add({-25,-25}, 100);
    m_tree.add({ 25,-25}, 100);
-   int unexistent_tag = 123;
+
    // then try to iterate mass centres around body that is not in
-   mzlib::quadtree::it_masscentres mass_centres_it = m_tree.begin_masscentres(unexistent_tag, 0.2);
+   mzlib::quadtree::it_masscentres mass_centres_it = m_tree.begin_masscentres(nonexistent_tag, 0.2);
    // preferably doesn't outright segfault
    for(; mass_centres_it != m_tree.end_masscentres(); ++mass_centres_it) {
       FAIL(); // and also should not find any
@@ -233,22 +234,21 @@ TEST_F(fixture_cquadtree, find_body_basic)
    const mzlib::body_core2d* two = m_tree.find(tag_2);
    ASSERT_NE(nullptr, one);
    ASSERT_NE(nullptr, two);
-   ASSERT_EQ(tag_1, one->tag.id());
-   ASSERT_EQ(tag_2, two->tag.id());
+   ASSERT_EQ(tag_1, one->tag);
+   ASSERT_EQ(tag_2, two->tag);
 }
    
 TEST_F(fixture_cquadtree, find_body_not_found)
 {
    m_tree.add({25,25}, 100);
    m_tree.add({-25,-25}, 100);
-   auto nonexistent_tag = 123;
    const mzlib::body_core2d* three = m_tree.find(nonexistent_tag);
    ASSERT_EQ(nullptr, three);
 }
 
 TEST_F(fixture_cquadtree, remove_body_when_tree_empty)
 {
-   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(2));
+   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(nonexistent_tag));
 }
 
 TEST_F(fixture_cquadtree, remove_body_last_body)
@@ -260,8 +260,7 @@ TEST_F(fixture_cquadtree, remove_body_last_body)
 TEST_F(fixture_cquadtree, remove_body_that_doesnt_exist)
 {
    m_tree.add({25,25}, 100);
-   int unexistant_tag = 123;
-   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(unexistant_tag));
+   ASSERT_EQ(mzlib::option::removed::no, m_tree.remove(nonexistent_tag));
 }
 
 TEST_F(fixture_cquadtree, move_does_not_cross_any_node_borders)
@@ -361,9 +360,8 @@ TEST_F(fixture_cquadtree, move_nonexistent_tag)
 {
    m_tree.add({25,25}, 150);
    m_tree.add({23,23}, 150);
-   int nonexistant_tag = 123;
    // hopefully doesn't crash
-   mzlib::option::exists exists = m_tree.move(nonexistant_tag, {21,21});
+   mzlib::option::exists exists = m_tree.move(nonexistent_tag, {21,21});
    ASSERT_EQ(mzlib::option::exists::no, exists);
    // mass centre stays unchanged
    ASSERT_EQ(300, m_tree.get_mass_centre().mass);
@@ -400,7 +398,6 @@ TEST_F(fixture_cquadtree, change_mass_nonexistent_tag)
 {
    m_tree.add({5,5}, 100);
    m_tree.add({25,25}, 100);
-   int nonexistent_tag = 123;
    // hopefully doesn't crash
    auto changed = m_tree.change_mass(nonexistent_tag, 150);
    ASSERT_EQ(mzlib::option::changed::no, changed);
@@ -428,7 +425,7 @@ TEST_F(fixture_cquadtree, iterator_all_bodies)
    auto tag_3 = m_tree.add({-25, 25});
    auto tag_4 = m_tree.add({ 25,-25});
    
-   std::map<int, bool> bodies_retrieved;
+   std::map<mzlib::unique, bool> bodies_retrieved;
    
    bodies_retrieved[tag_1] = false;
    bodies_retrieved[tag_2] = false;
@@ -437,7 +434,7 @@ TEST_F(fixture_cquadtree, iterator_all_bodies)
 
    // Check if they can all be retrieved
    for(mzlib::body_core2d body : m_tree) {
-      bodies_retrieved[body.tag.id()] = true;
+      bodies_retrieved[body.tag] = true;
    }
    
    for(auto entry : bodies_retrieved) {
@@ -633,8 +630,8 @@ TEST_F(fixture_cquadtree, dynamic_tree_make_it_expand)
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    
    // correct bodies are in those two nodes
-   ASSERT_EQ(tag_2, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->tag.id());
-   ASSERT_EQ(tag_1, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->tag.id());
+   ASSERT_EQ(tag_2, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->tag);
+   ASSERT_EQ(tag_1, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->tag);
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
@@ -685,8 +682,8 @@ TEST_F(fixture_cquadtree, dynamic_tree_move_out_to_up_left)
    ASSERT_EQ(0, tree.m_root->m_child_sw->m_bodies.size());
    
    // correct bodies are in those two nodes
-   ASSERT_EQ(tag_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->tag.id());
-   ASSERT_EQ(tag_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->tag.id());
+   ASSERT_EQ(tag_two, tree.m_root->m_child_nw->m_child_se->m_bodies[0]->tag);
+   ASSERT_EQ(tag_one, tree.m_root->m_child_se->m_child_nw->m_bodies[0]->tag);
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
@@ -717,7 +714,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add)
    ASSERT_NE(nullptr, tree.find(tag_one));
    ASSERT_NE(nullptr, tree.find(tag_two));
    ASSERT_EQ(1, tree.m_root->m_bodies.size());
-   ASSERT_EQ(tag_one, tree.m_root->m_bodies[0]->tag.id());
+   ASSERT_EQ(tag_one, tree.m_root->m_bodies[0]->tag);
 }
 
 TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
@@ -751,5 +748,5 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    ASSERT_NE(nullptr, tree.find(tag_two));
    ASSERT_NE(nullptr, tree.find(tag_one));
    ASSERT_EQ(1, tree.m_root->m_bodies.size());
-   ASSERT_EQ(tag_one, tree.m_root->m_bodies[0]->tag.id());
+   ASSERT_EQ(tag_one, tree.m_root->m_bodies[0]->tag);
 }

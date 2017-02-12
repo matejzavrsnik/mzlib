@@ -96,7 +96,7 @@ public:
    
    void remove (const body2d& body)
    {
-      m_container->remove(body.tag.id());
+      m_container->remove(body.tag);
       // Forces should show up immediately after removing
       calculate_forces();
    }
@@ -106,12 +106,12 @@ public:
    //       yet another collection of those?
    body2d find (const body2d& body) const
    {
-      return m_container->find(body.tag.id());
+      return m_container->find(body.tag);
    }
    
    void move (body2d& body, vector2d new_location)
    {
-      m_container->move(body.tag.id(), new_location);
+      m_container->move(body.tag, new_location);
    }
         
    void forward_time (double seconds, double time_pixel) 
@@ -204,7 +204,7 @@ private:
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
                body_properties.gravity, body_properties.velocity, body_core.centre.location, body_core.centre.mass, time_pixel);
-            m_container->move (body_core.tag.id(), location_final);
+            m_container->move (body_core.tag, location_final);
             body_properties.velocity = velocity_final;
          }
       );
