@@ -18,14 +18,12 @@ namespace mzlib {
 // Const iterator through all bodies
 // The purpouse if this custom iterator is to peel object reference out of 
 // unique_ptr structure that is actually stored in vector
-template<class T>
-class quadtree_it_bodies : 
-   public std::iterator<std::forward_iterator_tag, body_basis2d<T>>
+class quadtree_it_bodies : public std::iterator<std::forward_iterator_tag, body_core2d>
 {
 
 private:
 
-   using iterator_type = typename std::vector<std::unique_ptr<body_basis2d<T>>>::const_iterator;
+   using iterator_type = typename std::vector<std::unique_ptr<body_core2d>>::const_iterator;
    iterator_type m_body_it;
 
 public:
@@ -38,30 +36,30 @@ public:
    quadtree_it_bodies (quadtree_it_bodies&&) = default;
    quadtree_it_bodies (const quadtree_it_bodies&) = default;
 
-   quadtree_it_bodies<T>* operator++ () 
+   quadtree_it_bodies* operator++ () 
    { 
       ++m_body_it;
       return this; 
    }
         
-   quadtree_it_bodies<T>* operator++ (int) 
+   quadtree_it_bodies* operator++ (int) 
    {
       ++m_body_it; //todo: lies, damned lies!!
       return this; 
    }
 
    //todo: needs to be const
-   body_basis2d<T> const * operator-> () const
+   body_core2d const * operator-> () const
    { 
       return (*m_body_it).get();
    }
 
-   body_basis2d<T>& operator* () const
+   body_core2d& operator* () const
    { 
       return *(*m_body_it); 
    }
    
-   bool operator== (const quadtree_it_bodies<T>& other) const 
+   bool operator== (const quadtree_it_bodies& other) const 
    { 
       // Infinite recursion guard
       if(this == &other) return true;
@@ -69,7 +67,7 @@ public:
       return (this->m_body_it == other.m_body_it);  
    }
 
-   bool operator!= (const quadtree_it_bodies<T>& other) const 
+   bool operator!= (const quadtree_it_bodies& other) const 
    { 
       return !(*this == other); 
    }

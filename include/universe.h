@@ -86,6 +86,7 @@ public:
       apply_properties ();
    }
    
+   // todo: rename to add_copy or something. or force people to std::move into. or something.
    void add (body2d& body) 
    {
       m_container->add(body);
@@ -95,19 +96,22 @@ public:
    
    void remove (const body2d& body)
    {
-      m_container->remove(body);
+      m_container->remove(body.tag.id());
       // Forces should show up immediately after removing
       calculate_forces();
    }
    
-   body2d const* find (const body2d& body) const
+   // todo: rethink this one. Why is it needed? it returns copy now.
+   //       split to get_core and get_properties? return const reference and keep
+   //       yet another collection of those?
+   body2d find (const body2d& body) const
    {
-      return m_container->find(body);
+      return m_container->find(body.tag.id());
    }
    
    void move (body2d& body, vector2d new_location)
    {
-      m_container->move(body, new_location);
+      m_container->move(body.tag.id(), new_location);
    }
         
    void forward_time (double seconds, double time_pixel) 
@@ -125,7 +129,7 @@ public:
       }
    }
 
-   void for_every_body (std::function<void(body2d&)> execute)
+   void for_every_body (std::function<void(body_core2d&,body_properties2d&)> execute)
    {
       m_container->for_every_body(execute);
    }
@@ -167,17 +171,17 @@ private:
 
    void calculate_forces () 
    {
-      body2d* previous_body = nullptr;
+      body_core2d* previous_body = nullptr;
       m_container->for_every_mass_centre_combination(
-         [this, &previous_body] (body2d& body, mass_centre2d& mass_c) 
+         [this, &previous_body] (body_core2d& body_core,body_properties2d& body_properties, mass_centre2d& mass_c) 
          {
-            if (previous_body != &body)
+            if (previous_body != &body_core)
             {
-               body.properties.gravity = {0.0,0.0};
-               previous_body = &body;
+               body_properties.gravity = {0.0,0.0};
+               previous_body = &body_core;
             }
             law::gravitation2d law;
-            law.m_1 = body.centre;
+            law.m_1 = body_core.centre;
             law.m_2 = mass_c;
             law.G = m_properties.m_gravitational_constant;
             if (m_properties.m_law_of_gravitation == law_of_gravitation::realistic) {
@@ -186,7 +190,7 @@ private:
             else {
                law.solve_for_fun_force();
             }
-            body.properties.gravity += law.f_1.get();
+            body_properties.gravity += law.f_1.get();
          }
       );
    }
@@ -194,14 +198,14 @@ private:
    void calculate_positions (double time_pixel) 
    {
       m_container->for_every_body(
-         [this, &time_pixel](body2d& body)
+         [this, &time_pixel](body_core2d& body_core,body_properties2d& body_properties)
          {
             vector2d location_final, velocity_final;
             // can't wait for "auto [location, velocity]" feature of C++17 !!
             std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
-               body.properties.gravity, body.properties.velocity, body.centre.location, body.centre.mass, time_pixel);
-            m_container->move (body, location_final);
-            body.properties.velocity = velocity_final;            
+               body_properties.gravity, body_properties.velocity, body_core.centre.location, body_core.centre.mass, time_pixel);
+            m_container->move (body_core.tag.id(), location_final);
+            body_properties.velocity = velocity_final;
          }
       );
    }

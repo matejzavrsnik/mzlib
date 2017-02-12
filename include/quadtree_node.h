@@ -27,17 +27,16 @@ namespace mzlib {
 //    - Rightmost (W) and downmost (S) coordinates are inclusive.
 //    - Assumed order of iteration where it matters is nw -> ne -> sw -> se
 
-template <class T> class quadtree;
-template <class T> class quadtree_it_bodies;
-template <class T> class quadtree_it_masscentres;
+class quadtree;
+class quadtree_it_bodies;
+class quadtree_it_masscentres;
     
-template<class T>
-class quadnode : public std::enable_shared_from_this<quadnode<T>>
+class quadnode : public std::enable_shared_from_this<quadnode>
 {
    
-   friend class quadtree<T>;
-   friend class quadtree_it_bodies<T>;
-   friend class quadtree_it_masscentres<T>;
+   friend class quadtree;
+   friend class quadtree_it_bodies;
+   friend class quadtree_it_masscentres;
         
 public:
 
@@ -76,29 +75,29 @@ public:
          nw_rect_law.consider(nw_rect);
          
          if (m_child_nw == nullptr) {
-            m_child_nw = std::make_shared<quadnode<T>>();
+            m_child_nw = std::make_shared<quadnode>();
             m_child_nw->create(nw_rect, smallest_node_width, direction::nw, this->shared_from_this());
          }
          if (m_child_ne == nullptr) {
-            m_child_ne = std::make_shared<quadnode<T>>();
+            m_child_ne = std::make_shared<quadnode>();
 
             const screen_rectangle2d ne_rect = nw_rect_law.flip(direction::e);
             m_child_ne->create(ne_rect, smallest_node_width, direction::ne, this->shared_from_this());
          }
          if (m_child_sw == nullptr) {
-            m_child_sw = std::make_shared<quadnode<T>>();
+            m_child_sw = std::make_shared<quadnode>();
             const screen_rectangle2d sw_rect = nw_rect_law.flip(direction::s);
             m_child_sw->create(sw_rect, smallest_node_width, direction::sw, this->shared_from_this());
          }
          if (m_child_se == nullptr) {
-            m_child_se = std::make_shared<quadnode<T>>();
+            m_child_se = std::make_shared<quadnode>();
             const screen_rectangle2d se_rect = nw_rect_law.flip(direction::se);
             m_child_se->create(se_rect, smallest_node_width, direction::se, this->shared_from_this());
          }
       }
    }
 
-   void add (body_basis2d<T>* body) 
+   void add (body_core2d* body) 
    {
       // It is important that the is_in check is here, because it is not in
       // the quadtree class when it calls this function. Something needs to
@@ -124,7 +123,7 @@ public:
       // if no such mass centre here, go away
       if (mass_centre_it == m_bodies.end()) return option::removed::no; 
       // if found, convert to mass centre ptr
-      body_basis2d<T>* mass_centre_ptr = *mass_centre_it;
+      body_core2d* mass_centre_ptr = *mass_centre_it;
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
@@ -139,11 +138,11 @@ public:
       return option::removed::no;
    }
    
-   typename std::vector<body_basis2d<T>*>::iterator find_body(const int& tag)
+   typename std::vector<body_core2d*>::iterator find_body(const int& tag)
    {
-      typename std::vector<body_basis2d<T>*>::iterator mass_centre_it = 
+      typename std::vector<body_core2d*>::iterator mass_centre_it = 
          std::find_if (m_bodies.begin(), m_bodies.end(), 
-            [&](body_basis2d<T>* mass_centre) { 
+            [&](body_core2d* mass_centre) { 
                return mass_centre->tag.id() == tag; 
          });
       return mass_centre_it;
@@ -227,9 +226,9 @@ public:
       return m_parent == nullptr;
    }
         
-   quadnode<T>* get_nw_leaf ()
+   quadnode* get_nw_leaf ()
    {
-      quadnode<T>* leaf = this;
+      quadnode* leaf = this;
       while (!leaf->is_leaf()) {
          // Danger, that is why it must be const.
          // Collecting smart ptr instead is wasteful with resources and not really needed here.
@@ -264,7 +263,7 @@ public:
       return m_which_quadrant == direction::se;
    }
         
-   quadnode<T>* get_next_sibling () const 
+   quadnode* get_next_sibling () const 
    {
       if (is_nw_child()) {
          return m_parent->m_child_ne.get();
@@ -280,16 +279,16 @@ public:
       }
    }
         
-   quadnode<T>* get_first_leaf () const 
+   quadnode* get_first_leaf ()
    {
-      quadnode<T>* candidate = this;
+      quadnode* candidate = this;
       while (!candidate->is_leaf()) {
          candidate = candidate->m_child_nw.get();
       }
       return candidate;
    }
    
-   const body_basis2d<T>* find (const int& tag) const
+   const body_core2d* find (const int& tag) const
    {
       for (auto body : m_bodies) {
          if (body->tag.id() == tag) {
@@ -306,7 +305,7 @@ public:
         
 private:
 
-   void attach_child_node (direction which_node, std::shared_ptr<quadnode<T>> node)
+   void attach_child_node (direction which_node, std::shared_ptr<quadnode> node)
    {
       switch(which_node) {
          case direction::nw: m_child_nw = node; break;
@@ -318,18 +317,18 @@ private:
       node->m_parent = this->shared_from_this(); 
    }
    
-   std::shared_ptr<quadnode<T>> m_child_nw = nullptr;
-   std::shared_ptr<quadnode<T>> m_child_ne = nullptr;
-   std::shared_ptr<quadnode<T>> m_child_sw = nullptr;
-   std::shared_ptr<quadnode<T>> m_child_se = nullptr;
-   std::shared_ptr<quadnode<T>> m_parent = nullptr;
+   std::shared_ptr<quadnode> m_child_nw = nullptr;
+   std::shared_ptr<quadnode> m_child_ne = nullptr;
+   std::shared_ptr<quadnode> m_child_sw = nullptr;
+   std::shared_ptr<quadnode> m_child_se = nullptr;
+   std::shared_ptr<quadnode> m_parent = nullptr;
         
    // All bodies that are in this node, and in all it's subnodes, are stored in
    // this vector of shared pointers. This is to enable quick traversal of all
    // bodies stored here, and with that an effective search solution too. If it
    // wasn't for the fact that what is stored in here are pointers, which will be
    // causing cache misses all the time, it should look like using std::vector.
-   std::vector<body_basis2d<T>*> m_bodies;
+   std::vector<body_core2d*> m_bodies;
    mass_centre2d m_mass_centre;
         
    screen_rectangle2d m_rectangle;

@@ -34,9 +34,9 @@ TEST_F(fixture_universe, after_adding_body_is_found)
 {
    mzlib::body2d body;
    universe.add(body);
-   auto found_body = universe.find(body);
-   ASSERT_NE(nullptr, found_body);
-   ASSERT_EQ(found_body->tag, body.tag);
+   mzlib::body2d found_body;
+   ASSERT_NO_THROW( found_body = universe.find(body) );
+   ASSERT_EQ(found_body.tag, body.tag);
 }
 
 TEST_F(fixture_universe, after_adding_bodies_feel_force)
@@ -51,8 +51,8 @@ TEST_F(fixture_universe, after_adding_bodies_feel_force)
    universe.add(sun);
 	universe.add(earth);
     
-   mzlib::vector2d f_sun = universe.find(sun)->properties.gravity;
-   mzlib::vector2d f_earth = universe.find(earth)->properties.gravity;
+   mzlib::vector2d f_sun = universe.find(sun).properties.gravity;
+   mzlib::vector2d f_earth = universe.find(earth).properties.gravity;
     
    ASSERT_EQ(f_earth, -f_sun);
    ASSERT_NEAR(f_earth.length(), 3.541e+22, 0.001e+22);
@@ -79,7 +79,7 @@ TEST_F(fixture_universe, sun_earth_month_travel_barneshut_with_quotient_more_tha
 	universe.add(earth);
    universe.forward_time(30.0_day, 1.0_day);
    
-   mzlib::vector2d earth_location_quarter_later = universe.find(earth)->centre.location;
+   mzlib::vector2d earth_location_quarter_later = universe.find(earth).centre.location;
    ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.2e10_m);
    ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.2e10_m);
 }
@@ -104,7 +104,7 @@ TEST_F(fixture_universe, sun_earth_month_travel_naive)
 	universe.add(earth);
    universe.forward_time(30.0_day, 1.0_day);
    
-   mzlib::vector2d earth_location_quarter_later = universe.find(earth)->centre.location;
+   mzlib::vector2d earth_location_quarter_later = universe.find(earth).centre.location;
    ASSERT_NEAR(earth_location_quarter_later[0], 7.3e10_m, 0.2e10_m);
    ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.2e10_m);
 }
@@ -124,14 +124,14 @@ TEST_F(fixture_universe, long_earth_around_the_sun)
 	universe.add(earth);
    universe.forward_time(0.25_julian_year, 10.0_s);     
    
-   mzlib::vector2d earth_location_quarter_later = universe.find(earth)->centre.location;
+   mzlib::vector2d earth_location_quarter_later = universe.find(earth).centre.location;
    
    ASSERT_NEAR(earth_location_quarter_later[0], mzlib::consts::earth_distance_sun_perihelion, 2500000.0_km); // 1 day off
    ASSERT_NEAR(earth_location_quarter_later[1], 0, 5000000.0_km); // 2 days off
     
    universe.forward_time(0.75_julian_year, 10.0_s);
     
-   mzlib::vector2d earth_location_year_later = universe.find(earth)->centre.location;
+   mzlib::vector2d earth_location_year_later = universe.find(earth).centre.location;
     
    ASSERT_NEAR(earth_location_year_later[0], 0, 10000000.0_km); // 4 days off
    ASSERT_NEAR(earth_location_year_later[1], mzlib::consts::earth_distance_sun_aphelion, 2000000.0_km); // 8 days off
@@ -148,7 +148,7 @@ TEST_F(fixture_universe, moving_object)
    universe.move(body, move_to);
    
    // measure location
-   mzlib::vector2d location_after_move = universe.find(body)->centre.location;
+   mzlib::vector2d location_after_move = universe.find(body).centre.location;
    
    // did move work correctly?
    ASSERT_NEAR(location_after_move[0], move_to[0], 1.0_mm);
@@ -170,7 +170,7 @@ TEST_F(fixture_universe, moving_object_naive)
    universe.move(body, move_to);
    
    // measure location
-   mzlib::vector2d location_after_move = universe.find(body)->centre.location;
+   mzlib::vector2d location_after_move = universe.find(body).centre.location;
    
    // did move work correctly?
    ASSERT_NEAR(location_after_move[0], move_to[0], 1.0_mm);
@@ -201,7 +201,7 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
    universe.forward_time(1.0_s, 1.0_s);
    
    // measure location
-   mzlib::vector2d body1_location_without_move = universe.find(body1)->centre.location;
+   mzlib::vector2d body1_location_without_move = universe.find(body1).centre.location;
    
    // reset to start state
    universe.remove(body1);
@@ -214,12 +214,12 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running)
 
    // simulation   
    universe.forward_time(1.0_s, 1.0_s);
-   mzlib::vector2d move_to = universe.find(body1)->centre.location + body1_move_vector;
+   mzlib::vector2d move_to = universe.find(body1).centre.location + body1_move_vector;
    universe.move(body1, move_to);
    universe.forward_time(1.0_s, 1.0_s);
    
    // measure location
-   mzlib::vector2d body1_location_with_move = universe.find(body1)->centre.location;
+   mzlib::vector2d body1_location_with_move = universe.find(body1).centre.location;
    
    // did move work correctly?
    auto distance = body1_location_without_move - body1_location_with_move;
@@ -254,7 +254,7 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running_naive)
    universe.forward_time(1.0_s, 1.0_s);
    
    // measure location
-   mzlib::vector2d body1_location_without_move = universe.find(body1)->centre.location;
+   mzlib::vector2d body1_location_without_move = universe.find(body1).centre.location;
    
    // reset to start state
    universe.remove(body1);
@@ -267,12 +267,12 @@ TEST_F(fixture_universe, moving_object_while_gravity_simulation_running_naive)
 
    // simulation   
    universe.forward_time(1.0_s, 1.0_s);
-   mzlib::vector2d move_to = universe.find(body1)->centre.location + body1_move_vector;
+   mzlib::vector2d move_to = universe.find(body1).centre.location + body1_move_vector;
    universe.move(body1, move_to);
    universe.forward_time(1.0_s, 1.0_s);
    
    // measure location
-   mzlib::vector2d body1_location_with_move = universe.find(body1)->centre.location;
+   mzlib::vector2d body1_location_with_move = universe.find(body1).centre.location;
    
    // did move work correctly?
    auto distance = body1_location_without_move - body1_location_with_move;

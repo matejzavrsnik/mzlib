@@ -20,7 +20,6 @@
 
 namespace mzlib {
    
-template<class T>
 class quadtree
 {
     
@@ -28,11 +27,11 @@ private:
     
    const double m_min_node_size;
    const double m_max_tree_size;
-   std::shared_ptr<quadnode<T>> m_root = nullptr;
+   std::shared_ptr<quadnode> m_root = nullptr;
    
    // A container for all bodies, even ones that didn't get into the tree itself.
    // Every self respecting container should store stuff it promises.
-   std::vector<std::unique_ptr<body_basis2d<T>>> m_all_bodies;
+   std::vector<std::unique_ptr<body_core2d>> m_all_bodies;
    
    void create_root_from_location(const vector2d& location)
    {
@@ -57,7 +56,7 @@ private:
       }
       
       // create and groom new root
-      std::shared_ptr<quadnode<T>> new_root = std::make_shared<quadnode<T>>();
+      std::shared_ptr<quadnode> new_root = std::make_shared<quadnode>();
       new_root->create(
          enlarged_rectangle,
          m_min_node_size);
@@ -85,7 +84,7 @@ private:
       }
    }
    
-   optional<int> find_index (const int& tag)
+   optional<int> find_index (const int& tag) const
    {
       optional<int> index;
       for (size_t i=0; i<m_all_bodies.size(); ++i) {
@@ -99,16 +98,15 @@ private:
     
 public:
        
-   // And the 1st prize for the longest type name goes to:
-   typedef quadtree_it_bodies<T>             it_bodies;
-   typedef quadtree_it_masscentres<T>        it_masscentres;
+   typedef quadtree_it_bodies      it_bodies;
+   typedef quadtree_it_masscentres it_masscentres;
       
    explicit quadtree (
       const double min_node_size,
       const double max_tree_size) : 
          m_min_node_size (min_node_size),
          m_max_tree_size (max_tree_size),
-         m_root (std::make_shared<quadnode<T>>())
+         m_root (std::make_shared<quadnode>())
    {
    }
    
@@ -133,7 +131,7 @@ public:
    
    virtual ~quadtree () = default;
    
-   int add (std::unique_ptr<body_basis2d<T>> body)
+   int add (std::unique_ptr<body_core2d> body)
    {
       int tag = body->tag.id();
       adjust_dynamic_tree (body->centre.location);
@@ -152,18 +150,17 @@ public:
       return tag;
    }
    
-   int add (body_basis2d<T> body) 
+   int add (body_core2d& body_core) 
    {
-      auto mc_ptr = std::make_unique<body_basis2d<T>>(body);
-      int tag = add (std::move(mc_ptr));
+      auto body_core_ptr = std::make_unique<body_core2d>(body_core);
+      int tag = add (std::move(body_core_ptr));
       return tag;
    }
    
-   int add (T properties, vector2d location, double mass = 0) 
+   int add (vector2d location, double mass = 0) 
    { 
-      auto body_ptr = std::make_unique<body_basis2d<T>>();
+      auto body_ptr = std::make_unique<body_core2d>();
       body_ptr->centre = {location, mass};
-      body_ptr->properties = properties;
       int tag = add (std::move(body_ptr));
       return tag;
    }
@@ -202,7 +199,7 @@ public:
       return m_root->get_mass_centre();
    }
    
-   const body_basis2d<T>* find (const int& tag)
+   const body_core2d* find (const int& tag) const
    {
       auto index = find_index (tag);
       if (index.is_set()) {
@@ -211,14 +208,6 @@ public:
       else {
          return nullptr;
       }
-   }
-   
-   T& access_data(const body2d& body)
-   {
-      // I know it looks stupid, but why searching for the body again?
-      // If someone deliberately wants to game the system, they can just 
-      // const_cast themselves. There is no const police.
-      return const_cast<T&>(body.properties);
    }
    
    bool is_in (vector2d location) const 

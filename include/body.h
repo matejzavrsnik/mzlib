@@ -15,6 +15,7 @@
 namespace mzlib {
    
 // Physical properties of a body, that will be used in physical simulations.
+   
 template <class VectorT>
 struct body_properties
 {
@@ -34,20 +35,31 @@ struct body_properties
 // it enables abstract approach to building universes: this approach enables the
 // user to store a number with given "mass" on the specified coordinates in space
 // and see quadtree as something other than strictly "physical bodies in space".
-template <class PropertiesT, class VectorT>
-struct body_basis
+
+template <class VectorT>
+struct body_core
 {
-   PropertiesT properties;
    mass_centre<VectorT> centre;
    unique tag;
 };
 
+// And finally a physical body that can be used. Derives from body_core instead
+// of contining body_core so that core body features can be used without the need
+// for a system to be aware of it's properties. If latter is desired they can still
+// use this final physical_body.
+
+template <class PropertiesT, class VectorT>
+struct physical_body : public body_core<VectorT>
+{
+   PropertiesT properties;
+};
+
 using body_properties2d = body_properties<vector2d>;
 using body_properties3d = body_properties<vector3d>;
-template<class PropertiesT> using body_basis2d = body_basis<PropertiesT, vector2d>;
-template<class PropertiesT> using body_basis3d = body_basis<PropertiesT, vector3d>;
-using body2d = body_basis2d<body_properties2d>;
-using body3d = body_basis3d<body_properties3d>;
+using body_core2d = body_core<vector2d>;
+using body_core3d = body_core<vector3d>;
+using body2d = physical_body<body_properties2d, vector2d>;
+using body3d = physical_body<body_properties3d, vector3d>;
 
 } // namespace
 

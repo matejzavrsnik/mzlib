@@ -19,6 +19,7 @@ namespace exception {
    
 class is_empty        : public std::exception {};
 class not_set         : public std::exception {};
+class not_found       : public std::exception {};
 class invalid_values  : public std::exception {};
 class not_implemented : public std::exception {}; // java influence on me, I guess
 class meaningless     : public std::exception {};

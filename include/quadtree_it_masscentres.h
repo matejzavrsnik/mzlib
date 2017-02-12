@@ -17,18 +17,16 @@
 namespace mzlib {
 
 // Const iterator through all mass centres
-template<class T>
-class quadtree_it_masscentres : 
-   public std::iterator<std::forward_iterator_tag, body_basis2d<T>>
+class quadtree_it_masscentres : public std::iterator<std::forward_iterator_tag, body_core2d>
 {
 
 private:
 
    std::vector<mass_centre2d> m_mass_centres_queue;
 
-   const body_basis2d<T>* m_body;
+   const body_core2d* m_body;
    
-   std::vector<const quadnode<T>*> m_nodes_queue;
+   std::vector<const quadnode*> m_nodes_queue;
    double m_quotient;
    mass_centre2d m_next_mass_centre;
    bool m_done = false;
@@ -57,7 +55,7 @@ private:
          return; 
       }
       // By this point, queue of mass centres is depleted, but there are still nodes in need to be processed
-      const quadnode<T>* node = m_nodes_queue.back();
+      const quadnode* node = m_nodes_queue.back();
       m_nodes_queue.pop_back(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
       double node_distance = m_body->centre.location.distance_to(node->get_mass_centre().location);
@@ -95,9 +93,9 @@ private:
    
 public:
 
-   explicit quadtree_it_masscentres (const quadnode<T>* const node, const int& tag, double quotient)
+   explicit quadtree_it_masscentres (const quadnode* const node, const int& tag, double quotient)
    { 
-      const body_basis2d<T>* found_body = node->find (tag);
+      const body_core2d* found_body = node->find (tag);
       if (found_body == nullptr) 
       {
          set_done();
@@ -119,13 +117,13 @@ public:
    quadtree_it_masscentres (quadtree_it_masscentres&&) = default;
    quadtree_it_masscentres (const quadtree_it_masscentres&) = default;
 
-   quadtree_it_masscentres<T>* operator++ () 
+   quadtree_it_masscentres* operator++ () 
    {
       prepare_next_mass_centre ();
       return this; 
    }
         
-   quadtree_it_masscentres<T>* operator++ (int) 
+   quadtree_it_masscentres* operator++ (int) 
    { 
       //todo: I know, I lie about postfix. Will fix some day, I promise.
       prepare_next_mass_centre ();
@@ -142,7 +140,7 @@ public:
       return m_next_mass_centre; 
    }
    
-   bool operator== (const quadtree_it_masscentres<T>& other) const 
+   bool operator== (const quadtree_it_masscentres& other) const 
    {
       // Infinite recursion guard
       if (this == &other) return true;
@@ -152,7 +150,7 @@ public:
       return (m_done == true && other.m_done == true);  
    }
 
-   bool operator!= (const quadtree_it_masscentres<T>& other) const 
+   bool operator!= (const quadtree_it_masscentres& other) const 
    { 
       return !(*this == other); 
    }
