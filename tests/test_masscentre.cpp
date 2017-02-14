@@ -82,7 +82,7 @@ TEST_F(fixture_masscentre, add_to_mass_centre)
         
    mzlib::mass_centre2d mc;
    for (auto test_mass : test_mass_data) {
-      mc.add_to_mass_centre(test_mass.mass_centre);
+      add_to_mass_centre(mc, test_mass.mass_centre);
       ASSERT_DOUBLE_EQ(test_mass.average_now.location[0], mc.location[0]);
       ASSERT_DOUBLE_EQ(test_mass.average_now.location[1], mc.location[1]);
       ASSERT_DOUBLE_EQ(test_mass.average_now.mass, mc.mass);
@@ -122,7 +122,7 @@ TEST_F(fixture_masscentre, remove_from_mass_centre)
    size_t test_data_last_index = std::extent<decltype(test_mass_data)>::value-1;
    mzlib::mass_centre2d mc = test_mass_data[test_data_last_index].average_now;
    for(size_t index = test_data_last_index; index > 0; --index) {
-      mc.remove_from_mass_centre(test_mass_data[index].mass_centre);
+      remove_from_mass_centre(mc, test_mass_data[index].mass_centre);
       // can't test with ASSERT_DOUBLE_EQ even with fudging the data, because release build will
       // calculate slightly different values than debug.
       ASSERT_NEAR(test_mass_data[index-1].average_now.location[0], mc.location[0], 1e-12);
@@ -137,7 +137,7 @@ TEST_F(fixture_masscentre, add_to_mass_centre_initialised_with_zero_mass)
    mass_centre.location = {50,50}; // some location
    mass_centre.mass = 0; // zero mass
    
-   mass_centre.add_to_mass_centre({{10,10},10}); // add some non-zero mass
+   add_to_mass_centre(mass_centre, {{10,10},10}); // add some non-zero mass
    
    // mass center should assume new body location and mass, regardless of what the location has been before
    ASSERT_EQ(mass_centre.location, mzlib::vector2d({10,10}));

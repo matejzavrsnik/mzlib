@@ -105,7 +105,7 @@ public:
       if (is_in(body->centre.location)) {
          // insert
          m_bodies.push_back(body);
-         m_mass_centre.add_to_mass_centre(body->centre);
+         add_to_mass_centre(m_mass_centre, body->centre);
          if (is_leaf()) return; // nothing more to do
          // if has children, insert there as well
          if      (m_child_nw->is_in(body->centre.location)) m_child_nw->add(body);
@@ -127,7 +127,7 @@ public:
       // start removing
       // no need to check if it is in the node, because of course it is; checked earlier
       m_bodies.erase(mass_centre_it);
-      m_mass_centre.remove_from_mass_centre(mass_centre_ptr->centre);
+      remove_from_mass_centre(m_mass_centre, mass_centre_ptr->centre);
       // if leaf, this operation is done
       if (is_leaf()) return option::removed::yes;
       // if not leaf, delete in children too
@@ -179,9 +179,9 @@ public:
       }
       else {
          // in this case just update mass centres
-         m_mass_centre.remove_from_mass_centre({old_location, body_ptr->centre.mass});
+         remove_from_mass_centre(m_mass_centre, {old_location, body_ptr->centre.mass});
          body_ptr->centre.location = new_location;
-         m_mass_centre.add_to_mass_centre(body_ptr->centre); 
+         add_to_mass_centre(m_mass_centre, body_ptr->centre); 
       }
       
       return option::exists::yes;

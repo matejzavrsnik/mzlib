@@ -14,53 +14,34 @@
 namespace mzlib {
 
 template <class VectorT>
-class mass_centre
+struct mass_centre
 {
-
-public:
-     
    VectorT location;
    double mass;
-
-   mass_centre() :
-      location({0}),
-      mass(0)
-   {
-   }
-   
-   mass_centre(VectorT l, double m) :
-      location(l),
-      mass(m)
-   {
-   }
-   
-   mass_centre (const mass_centre<VectorT>&) = default;
-   mass_centre (mass_centre<VectorT>&&) = default;
-   mass_centre<VectorT>& operator= (const mass_centre<VectorT>&) = default;
-   mass_centre<VectorT>& operator= (mass_centre<VectorT>&&) = default;
-   ~mass_centre () = default;
-   
-   void add_to_mass_centre (const mass_centre<VectorT>& mc) 
-   {
-      VectorT new_location;
-      double new_mass = mass + mc.mass;
-      new_location = (location * mass + mc.location * mc.mass) / new_mass;
-      location = new_location;
-      mass = new_mass;
-   }
-        
-   void remove_from_mass_centre(const mass_centre<VectorT>& mc) 
-   {
-      VectorT new_location;
-      double new_mass = mass - mc.mass;
-      double sum_of_masses = new_mass + mc.mass;
-      auto a = location * sum_of_masses;
-      auto b = mc.location * mc.mass;
-      new_location = (a-b) / new_mass;
-      location = new_location;
-      mass = new_mass;
-   }
 };
+
+template<class VectorT>
+void add_to_mass_centre (mass_centre<VectorT>& to_mc, const mass_centre<VectorT>& mc) 
+{
+   VectorT new_location;
+   double new_mass = to_mc.mass + mc.mass;
+   new_location = (to_mc.location * to_mc.mass + mc.location * mc.mass) / new_mass;
+   to_mc.location = new_location;
+   to_mc.mass = new_mass;
+}
+
+template<class VectorT>
+void remove_from_mass_centre(mass_centre<VectorT>& from_mc, const mass_centre<VectorT>& mc) 
+{
+   VectorT new_location;
+   double new_mass = from_mc.mass - mc.mass;
+   double sum_of_masses = new_mass + mc.mass;
+   auto a = from_mc.location * sum_of_masses;
+   auto b = mc.location * mc.mass;
+   new_location = (a-b) / new_mass;
+   from_mc.location = new_location;
+   from_mc.mass = new_mass;
+}
 
 // convenient types
 
