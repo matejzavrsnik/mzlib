@@ -86,10 +86,10 @@ public:
       apply_properties ();
    }
    
-   // todo: rename to add_copy or something. or force people to std::move into. or something.
    unique add_copy (const body2d& body) 
    {
-      unique tag = m_container->add_copy(body);
+      unique tag = m_body_cores->add_copy(body.core);
+      m_full_bodies[tag] = body;
       // Forces should show up immediately after adding
       calculate_forces();
       return tag;
@@ -97,24 +97,40 @@ public:
    
    void remove (const unique tag)
    {
-      m_container->remove(tag);
+      m_body_cores->remove(tag);
+      auto found = m_full_bodies.find(tag);
+      if (found != m_full_bodies.end()) {
+         m_full_bodies.erase(found);
+      }
       // Forces should show up immediately after removing
       calculate_forces();
    }
    
-   const body_core2d* find_body_core (const unique tag) const
+   const body_core2d& get_body_core (const unique tag) const
    {
-      return m_container->find_body_core(tag);
+      auto found = m_full_bodies.find(tag);
+      if (found != m_full_bodies.end()) {
+         return found->second.core;
+      }
+      throw mzlib::exception::not_found();
    }
    
-   const body_properties2d find_body_properties (const unique tag) const
+   body_properties2d& get_body_properties (const unique tag)
    {
-      return m_container->find_body_properties(tag);
+      auto found = m_full_bodies.find(tag);
+      if (found != m_full_bodies.end()) {
+         return found->second.properties;
+      }
+      throw mzlib::exception::not_found();
    }
    
    void move (const unique tag, const vector2d new_location)
    {
-      m_container->move(tag, new_location);
+      m_body_cores->move(tag, new_location);
+      auto found = m_full_bodies.find(tag);
+      if (found != m_full_bodies.end()) {
+         found->second.core.centre.location = new_location;
+      }
    }
         
    void forward_time (double seconds, double time_pixel) 
@@ -132,9 +148,18 @@ public:
       }
    }
 
-   void for_every_body (iuniverse_container::body_iterator_function body_iterator)
+   void for_each_body_core (std::function<void(const body_core2d&)> body_core_fun)
    {
-      m_container->for_every_body(body_iterator);
+      for(const auto& body_pair : m_full_bodies) {
+         body_core_fun (body_pair.second.core);
+      }
+   }
+   
+   void for_each_body_properties (std::function<void(body_properties2d&)> body_properties_fun)
+   {
+      for(auto& body_pair : m_full_bodies) {
+         body_properties_fun (body_pair.second.properties);
+      }
    }
    
 private:
@@ -175,12 +200,12 @@ private:
    void calculate_forces () 
    {
       const body_core2d* previous_body = nullptr;
-      m_container->for_every_mass_centre_combination(
-         [this, &previous_body] (const body_core2d& body_core,body_properties2d& body_properties, mass_centre2d& mass_c) 
+      m_body_cores->for_every_mass_centre_combination(
+         [this, &previous_body] (const body_core2d& body_core, mass_centre2d& mass_c) 
          {
             if (previous_body != &body_core)
             {
-               body_properties.gravity = {0.0,0.0};
+               get_body_properties(body_core.tag).gravity = {0.0,0.0};
                previous_body = &body_core;
             }
             law::gravitation2d law;
@@ -193,49 +218,66 @@ private:
             else {
                law.solve_for_fun_force();
             }
-            body_properties.gravity += law.f_1.get();
+            get_body_properties(body_core.tag).gravity += law.f_1.get();
          }
       );
    }
    
    void calculate_positions (double time_pixel) 
    {
-      m_container->for_every_body(
-         [this, &time_pixel](const body_core2d& body_core,body_properties2d& body_properties)
-         {
-            vector2d location_final, velocity_final;
-            // can't wait for "auto [location, velocity]" feature of C++17 !!
-            std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
-               body_properties.gravity, body_properties.velocity, body_core.centre.location, body_core.centre.mass, time_pixel);
-            m_container->move (body_core.tag, location_final);
-            body_properties.velocity = velocity_final;
-         }
-      );
+      for(auto& body_pair : m_full_bodies)
+      {
+         body_properties2d& body_properties = body_pair.second.properties;
+         body_core2d& body_core = body_pair.second.core;
+         vector2d location_final, velocity_final;
+         // can't wait for "auto [location, velocity]" feature of C++17 !!
+         std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
+            body_properties.gravity, body_properties.velocity, body_core.centre.location, body_core.centre.mass, time_pixel);
+         m_body_cores->move (body_core.tag, location_final);
+         body_core.centre.location = location_final;
+         body_properties.velocity = velocity_final;
+      };
    }
    
    void apply_properties () 
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
          if (m_properties.m_rectangle.is_set()) {
-            m_container = std::make_unique<universe_container_quadtree>(
+            m_body_cores = std::make_unique<universe_container_quadtree>(
                m_properties.m_rectangle.get(),
                m_properties.m_min_node_size,
                m_properties.m_max_tree_size,
                m_properties.m_barnes_hut_quotient);            
          }
          else {
-            m_container = std::make_unique<universe_container_quadtree>(
+            m_body_cores = std::make_unique<universe_container_quadtree>(
                m_properties.m_min_node_size,
                m_properties.m_max_tree_size,
                m_properties.m_barnes_hut_quotient);            
          }
       }
       else if (m_properties.m_implementation == implementation::naive) {
-         m_container = std::make_unique<universe_container_vector>();
+         m_body_cores = std::make_unique<universe_container_vector>();
       }
    }
    
-   std::unique_ptr<iuniverse_container> m_container;
+   // Why are body properties held separately in a map, and not in the body containers
+   // themselves? Body properties semantically do not belong to the body itself; an
+   // argument being the body can still be the same body even when forces on the body
+   // and other such properties change. As an extention, properties do not belong to 
+   // a collection of bodies. Other thing to consider is speed. More bodies fit in
+   // cache at the same time and that can have measurable speed improvements when
+   // iterating (see my blog post). And for any decent simulation I need to do lots
+   // of iterating. Now to the part about why the rest of the body data and why map? 
+   // According to standard, insertions and deletions from map will not invalidate 
+   // existing references (23.1.2/8: "The insert members shall not affect the validity 
+   // of iterators and references to the container, and the erase members shall 
+   // invalidate only iterators and references to the erased elements.") This is 
+   // handy for users of this class because they can just monitor these references 
+   // and see the changes whenever they see fit, without additional hassle.
+
+   std::unique_ptr<iuniverse_container> m_body_cores;
+   std::map<unique, body2d> m_full_bodies;
    tproperties m_properties;
 
 };

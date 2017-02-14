@@ -23,17 +23,14 @@ class iuniverse_container
    
 public:
    
-   using forces_applicator_function = std::function<void(const body_core2d&,body_properties2d&,mass_centre2d&)>;
-   using body_iterator_function = std::function<void(const body_core2d&,body_properties2d&)>;
+   //todo: there are no tests for these
+   using forces_applicator_function = std::function<void(const body_core2d&,mass_centre2d&)>;
    
-   virtual unique add_copy (const body2d&) = 0;
+   virtual unique add_copy (const body_core2d&) = 0;
    virtual void remove (const unique) = 0;
    virtual const body_core2d* find_body_core (const unique) const = 0;
-   virtual const body_properties2d find_body_properties (const unique) const = 0;
    virtual void move (const unique, vector2d) = 0;
-   // todo: make core const, now it can be done
    virtual void for_every_mass_centre_combination (forces_applicator_function) = 0;
-   virtual void for_every_body (body_iterator_function) = 0;
 
 };
 
@@ -42,72 +39,55 @@ class universe_container_vector : public iuniverse_container
    
 public:
    
-   unique add_copy (const body2d& body) 
+   unique add_copy (const body_core2d& body) override
    {
       m_vector.push_back(body);
-      return body.core.tag;
+      return body.tag;
    }
    
-   void remove (const unique tag)
+   void remove (const unique tag) override
    {
-      std::remove_if(m_vector.begin(), m_vector.end(),
-         [&tag](const body2d& element) {
-            return element.core.tag == tag;
-         });         
+      auto element_it = std::find_if(m_vector.begin(), m_vector.end(),
+         [&tag](const body_core2d& element) {
+            return element.tag == tag;
+         });
+      m_vector.erase(element_it);
    }
       
-   const body_core2d* find_body_core (const unique tag) const
+   const body_core2d* find_body_core (const unique tag) const override
    {
-      for (const body2d& found : m_vector) {
-         if (found.core.tag == tag) {
-            return &found.core;
+      for (const body_core2d& found : m_vector) {
+         if (found.tag == tag) {
+            return &found;
          }
       }
       return nullptr;
    }
    
-   const body_properties2d find_body_properties (const unique tag) const
+   void move (const unique tag, vector2d new_location) override
    {
-      for (const body2d& found : m_vector) {
-         if (found.core.tag == tag) {
-            return found.properties;
-         }
-      }
-      throw mzlib::exception::not_found();      
-   }
-   
-   void move (const unique tag, vector2d new_location)
-   {
-      for (body2d& found : m_vector) {
-         if (found.core.tag == tag) {
-            found.core.centre.location = new_location;
+      for (body_core2d& found : m_vector) {
+         if (found.tag == tag) {
+            found.centre.location = new_location;
             break;
          }
       }
    }
    
-   void for_every_mass_centre_combination (forces_applicator_function forces_applicator)
+   void for_every_mass_centre_combination (forces_applicator_function forces_applicator) override
    {
-      for (body2d& this_body : m_vector) {
-         for (body2d& that_body : m_vector) {
-            if (this_body.core.tag != that_body.core.tag) { // body can't exert a force on itself,
-               forces_applicator(this_body.core, this_body.properties, that_body.core.centre);
+      for (body_core2d& this_body : m_vector) {
+         for (body_core2d& that_body : m_vector) {
+            if (this_body.tag != that_body.tag) { // body can't exert a force on itself,
+               forces_applicator(this_body, that_body.centre);
             }
          }
       }         
    }
-   
-   void for_every_body (body_iterator_function body_iterator)
-   {
-      for (body2d& body : m_vector) {
-         body_iterator (body.core, body.properties);
-      }         
-   }
-   
         
 private:
 
-   std::vector<body2d> m_vector;
+   std::vector<body_core2d> m_vector;
 
 };
 
@@ -149,80 +129,43 @@ public:
    universe_container_quadtree& operator= (universe_container_quadtree&&) = default;
    ~universe_container_quadtree () = default;
    
-   unique add_copy (const body2d& body) 
+   unique add_copy (const body_core2d& body) override
    {
-      unique tag = m_quad_tree.add_copy(body.core);
-      m_body_properties[tag] = body.properties;
+      unique tag = m_quad_tree.add_copy(body);
       return tag;
    }
    
-   void remove (const unique tag)
+   void remove (const unique tag) override
    {
       m_quad_tree.remove(tag);
-      auto found = m_body_properties.find(tag);
-      if (found != m_body_properties.end()) {
-         m_body_properties.erase(found);
-      }
    }
    
-   const body_core2d* find_body_core (const unique tag) const
+   const body_core2d* find_body_core (const unique tag) const override
    {
       const body_core2d* body_core = m_quad_tree.find(tag);
       return body_core;
    }
 
-   const body_properties2d find_body_properties (const unique tag) const
-   {
-      const auto found = m_body_properties.find(tag);
-      if (found != m_body_properties.end()) {
-         return found->second;
-      }
-      throw mzlib::exception::not_found();
-   }
-   
-   void move (const unique tag, vector2d new_location)
+   void move (const unique tag, vector2d new_location) override
    {
       m_quad_tree.move(tag, new_location);
    }
         
-   void for_every_mass_centre_combination (forces_applicator_function forces_applicator)
+   void for_every_mass_centre_combination (forces_applicator_function forces_applicator) override
    {
       for (body_core2d& this_body_core : m_quad_tree) {
          quadtree::it_masscentres mass_centres_it = 
             m_quad_tree.begin_masscentres(this_body_core.tag, m_quotient);
          for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
-            forces_applicator(this_body_core, m_body_properties[this_body_core.tag], *mass_centres_it);
+            forces_applicator(this_body_core, *mass_centres_it);
          }
-      }
-   }
-   
-   
-   void for_every_body (body_iterator_function body_iterator)
-   {
-      for (body_core2d& body_core : m_quad_tree) {
-         body_iterator (body_core, m_body_properties[body_core.tag]);
       }
    }
         
 private:
 
    quadtree m_quad_tree;
-   std::map<unique, body_properties2d> m_body_properties;
    double m_quotient;
-
-   body2d recreate_body(const body_core2d* const body_core) const
-   {
-      auto body_properties = m_body_properties.find(body_core->tag);
-      if (body_properties == m_body_properties.end()) {
-         throw mzlib::exception::not_found();
-      }
-      
-      body2d found_body;
-      found_body.core.centre = body_core->centre;
-      found_body.core.tag = body_core->tag;
-      found_body.properties = body_properties->second;
-      return found_body;
-   }
    
 };
 
