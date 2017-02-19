@@ -69,8 +69,12 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( removed        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( expanded       )
 MZLIB_GENERATE_NEW_BINARY_OPTION( changed        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( stop           )
+MZLIB_GENERATE_NEW_BINARY_OPTION( fullscreen     )
+MZLIB_GENERATE_NEW_BINARY_OPTION( success        )
 
-#undef MZLIB_GENERATE_NEW_BINARY_OPTION
+// Shouldn't undefine this macro. Users need convenient way to create more.
+// Not every option will make sense globally, to be included here.
+//#undef MZLIB_GENERATE_NEW_BINARY_OPTION
 
 }} // namespace
 
