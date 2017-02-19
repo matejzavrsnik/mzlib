@@ -48,13 +48,12 @@ public:
       return this; 
    }
 
-   //todo: needs to be const
-   body_core2d const * operator-> () const
+   body_core2d const * const operator-> () const
    { 
       return (*m_body_it).get();
    }
 
-   body_core2d& operator* () const
+   const body_core2d& operator* () const
    { 
       return *(*m_body_it); 
    }

@@ -153,7 +153,7 @@ public:
         
    void for_every_mass_centre_combination (forces_applicator_function forces_applicator) override
    {
-      for (body_core2d& this_body_core : m_quad_tree) {
+      for (const body_core2d& this_body_core : m_quad_tree) {
          quadtree::it_masscentres mass_centres_it = 
             m_quad_tree.begin_masscentres(this_body_core.tag, m_quotient);
          for (; mass_centres_it != m_quad_tree.end_masscentres(); ++mass_centres_it) {
