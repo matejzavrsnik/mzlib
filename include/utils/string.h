@@ -218,6 +218,19 @@ remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, cons
    return std::move(filtered);
 }
 
+// strips all non-letter characters from beginning and end of string
+inline std::string 
+trim_punctiation_from_start_end(const std::string& word)
+{
+   auto first = std::find_if(word.begin(), word.end(), isalpha);
+   auto last = std::find_if(word.rbegin(), word.rend(), isalpha);
+   std::string stripped;
+   if (first != word.end() && last  != word.rend()) {
+      stripped.assign(first, last.base());
+   }
+   return stripped;
+}
+
 } // namespace
 
 #endif /* MZLIB_UTILS_STRING_H */

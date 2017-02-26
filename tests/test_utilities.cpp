@@ -227,10 +227,65 @@ TEST_F(fixture_utilities, c64_basic_for_basic)
 {
    int should_be = 0;
    int use_step = 10;
-   for(int is : mzlib::c64_basic_for<int>::
-           loop()->from(0)->to(1000)->step(use_step))
+   using c64_for = mzlib::c64_basic_for<int>;
+   for(int is : c64_for::loop()->from(0)->to(1000)->step(use_step))
    {
       ASSERT_EQ(should_be, is);
       should_be += use_step;
    }
+}
+
+TEST_F(fixture_utilities, add_to_tally) 
+{
+   std::map<std::string, int> map;
+   
+   mzlib::add_to_tally(map, std::string("word"));
+   ASSERT_EQ(1, map["word"]);
+   
+   mzlib::add_to_tally(map, std::string("word"));
+   ASSERT_EQ(2, map["word"]);
+   
+   mzlib::add_to_tally(map, std::string("another word"));
+   ASSERT_EQ(2, map["word"]);
+   ASSERT_EQ(1, map["another word"]);
+}
+
+TEST_F(fixture_utilities, sort_map_by_value_ascending) 
+{
+   std::map<int, std::string> map;
+   map[1] = "ddd";
+   map[2] = "ccc";
+   map[3] = "bbb";
+   map[4] = "aaa";
+   
+   // If map was iterated here, it would come out sorted by key.
+   // We need it sorted by values instead;
+   
+   std::vector<std::pair<int, std::string>> sorted = 
+      mzlib::sort_map_by_value(map, mzlib::option::descending::no);
+   
+   ASSERT_EQ("aaa", sorted[0].second);
+   ASSERT_EQ("bbb", sorted[1].second);
+   ASSERT_EQ("ccc", sorted[2].second);
+   ASSERT_EQ("ddd", sorted[3].second);
+}
+
+TEST_F(fixture_utilities, sort_map_by_value_descending) 
+{
+   std::map<int, std::string> map;
+   map[1] = "ddd";
+   map[2] = "ccc";
+   map[3] = "bbb";
+   map[4] = "aaa";
+   
+   // If map was iterated here, it would come out sorted by key.
+   // We need it sorted by values instead;
+   
+   std::vector<std::pair<int, std::string>> sorted = 
+      mzlib::sort_map_by_value(map, mzlib::option::descending::yes);
+   
+   ASSERT_EQ("ddd", sorted[0].second);
+   ASSERT_EQ("ccc", sorted[1].second);
+   ASSERT_EQ("bbb", sorted[2].second);
+   ASSERT_EQ("aaa", sorted[3].second);
 }

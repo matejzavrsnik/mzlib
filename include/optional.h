@@ -50,12 +50,12 @@ public:
    }
    
    // This function is needed because otherwise every operator would need to have 
-   // coptional overload on top of every other just to have means to force 
-   // coptional to cast to basic type. I had at first casting operator implemented 
+   // optional overload on top of every other just to have means to force 
+   // optional to cast to basic type. I had at first casting operator implemented 
    // but it only seamlessly worked when assigned directly to underlying type. 
    // That makes sense, because how else should compiler know what to convert 
-   // coptional to in case when, for instance, writing f = m * a, where m is 
-   // coptional and appropriate operator* doesn't exist.
+   // optional to in case when, for instance, writing f = m * a, where m is 
+   // optional and appropriate operator* doesn't exist.
    const T& get () const
    {
       if(m_set == option::set::no) throw exception::not_set();

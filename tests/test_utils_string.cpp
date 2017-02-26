@@ -304,3 +304,16 @@ TEST_F(fixture_utils_string, remove_strings_that_dont_end_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the mind-killer"));
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
+
+TEST_F(fixture_utils_string, trim_punctiation_from_start_end)
+{
+   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end(""));
+   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end("."));
+   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end(".!#$%"));
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end(".!#I must not fear$%")); 
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end("I must not fear$%")); 
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end(".!#I must not fear")); 
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end("I must not fear")); 
+   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end("123"));
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end("11I must not fear11")); 
+}

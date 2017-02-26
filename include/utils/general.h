@@ -17,6 +17,7 @@
 #include <algorithm> // std::find
 #include <map>
 #include <cstring>
+#include "../binary_options.h"
 
 namespace mzlib {
         
@@ -136,7 +137,7 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
       if (prepend_space) { 
          sentence += " ";
       }
-      // close paretheses and quotes
+      // close parentheses and quotes
       if (word[0]=='.' || word[0]=='!' || word[0]=='?') {
          if (open_parentheses) {
             sentence += ")"; // close the parentheses before the sentence ends
@@ -147,7 +148,7 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
             open_quotes = false;
          }
       }
-      previous_punctuation = word[0]; // remember state of punctuaction
+      previous_punctuation = word[0]; // remember state of punctuation
       sentence += word;
    }
    return sentence;
@@ -194,6 +195,34 @@ parse_arguments (int argc, char **argv)
       }
    }
    return arguments;
+}
+
+// Useful for when you use map to count occurrences
+template <class Key, class Value>
+void add_to_tally(std::map<Key, Value>& word_map, const Key& word)
+{
+   word_map[word] = (word_map.count(word) == 0 ? 1 : word_map[word] += 1);
+}
+
+// Map is already intrinsically sorte by keys, but what if you need items sorted
+// by values instead?
+template <class Key, class Value>
+std::vector<std::pair<Key, Value>> sort_map_by_value(
+   const std::map<Key,Value>& unsorted, 
+   option::descending descending = option::descending::no)
+{
+   std::vector<std::pair<Key, Value>> result;
+   
+   std::copy (unsorted.begin(),unsorted.end(),std::back_inserter(result));
+   
+   std::sort(result.begin(), result.end(), 
+      [&descending](const std::pair<Key, Value>& a, const std::pair<Key, Value>& b) 
+      {
+         return descending ? 
+            b.second < a.second : 
+            b.second > a.second;   
+      });
+   return result;
 }
 
 } // namespace
