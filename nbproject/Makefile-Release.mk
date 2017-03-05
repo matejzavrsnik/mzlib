@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests/test_dbl.o \
 	${OBJECTDIR}/tests/test_genetic.o \
+	${OBJECTDIR}/tests/test_image_texture.o \
 	${OBJECTDIR}/tests/test_law_screen_rectangle.o \
 	${OBJECTDIR}/tests/test_laws.o \
 	${OBJECTDIR}/tests/test_markov_chain.o \
@@ -99,6 +100,11 @@ ${OBJECTDIR}/tests/test_genetic.o: tests/test_genetic.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic.o tests/test_genetic.cpp
+
+${OBJECTDIR}/tests/test_image_texture.o: tests/test_image_texture.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -w -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_image_texture.o tests/test_image_texture.cpp
 
 ${OBJECTDIR}/tests/test_law_screen_rectangle.o: tests/test_law_screen_rectangle.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

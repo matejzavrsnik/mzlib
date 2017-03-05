@@ -25,6 +25,7 @@
       <itemPath>include/direction.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
+      <itemPath>include/image_texture.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
       <itemPath>include/mass_centre.h</itemPath>
       <itemPath>include/optional.h</itemPath>
@@ -55,6 +56,7 @@
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
       <itemPath>tests/test_dbl.cpp</itemPath>
       <itemPath>tests/test_genetic.cpp</itemPath>
+      <itemPath>tests/test_image_texture.cpp</itemPath>
       <itemPath>tests/test_law_screen_rectangle.cpp</itemPath>
       <itemPath>tests/test_laws.cpp</itemPath>
       <itemPath>tests/test_markov_chain.cpp</itemPath>
@@ -141,6 +143,8 @@
       </item>
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/constant_linear_acceleration.h"
@@ -211,6 +215,8 @@
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_genetic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_law_screen_rectangle.cpp"
             ex="false"
@@ -316,6 +322,8 @@
       </item>
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/constant_linear_acceleration.h"
@@ -386,6 +394,8 @@
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_genetic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_law_screen_rectangle.cpp"
             ex="false"
