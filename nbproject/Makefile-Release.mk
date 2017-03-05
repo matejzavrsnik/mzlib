@@ -73,11 +73,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lgtest -lgtest_main -lpthread
+LDLIBSOPTIONS=-lgtest -lgtest_main -lpthread -lgmock /usr/lib64/libgmock.so
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib: /usr/lib64/libgmock.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -199,6 +201,8 @@ ${OBJECTDIR}/tests/test_vector.o: tests/test_vector.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} -r ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgmock.so
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib
 
 # Subprojects
 .clean-subprojects:

@@ -73,7 +73,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lgtest -lgtest_main -lpthread
+LDLIBSOPTIONS=-lgtest -lgtest_main -lgmock -lpthread
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

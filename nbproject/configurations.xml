@@ -118,6 +118,7 @@
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
+            <linkerLibLibItem>gmock</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
         </linkerTool>
@@ -292,6 +293,8 @@
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>gmock</linkerLibLibItem>
+            <linkerLibFileItem>/usr/lib64/libgmock.so</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
