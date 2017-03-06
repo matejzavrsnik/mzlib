@@ -66,9 +66,9 @@ TEST_F(fixture_image_texture, create_texture_fails_with_predictable_exception)
       InSequence dummy;
       EXPECT_CALL(m_sdl_mock, IMG_Load(_)).WillOnce(Return(&the_surface));
       EXPECT_CALL(m_sdl_mock, SDL_CreateTextureFromSurface(_,_)).WillOnce(Return(null_texture));
-      EXPECT_CALL(m_sdl_mock, SDL_FreeSurface(&the_surface)).Times(1); // the surface is still cleaned
       EXPECT_CALL(m_sdl_mock, SDL_GetError()).WillOnce(Return(const_cast<char*>(error_text)));
    }
+   EXPECT_CALL(m_sdl_mock, SDL_FreeSurface(&the_surface)).Times(1); // the surface is still cleaned
    mzlib::image_texture texture;
    texture.set_renderer(&the_renderer);
    try {

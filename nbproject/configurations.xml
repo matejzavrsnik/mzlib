@@ -29,6 +29,7 @@
       <itemPath>include/markov_chain.h</itemPath>
       <itemPath>include/mass_centre.h</itemPath>
       <itemPath>include/optional.h</itemPath>
+      <itemPath>include/pointer_wrapper.h</itemPath>
       <itemPath>include/probabilator.h</itemPath>
       <itemPath>include/quadtree.h</itemPath>
       <itemPath>include/quadtree_it_bodies.h</itemPath>
@@ -165,6 +166,8 @@
       <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/optional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -346,6 +349,8 @@
       <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/optional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>

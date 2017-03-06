@@ -12,6 +12,7 @@
 #if defined(_SDL_H) && defined(_SDL_IMAGE_H)
 
 #include "exceptions.h"
+#include "pointer_wrapper.h"
 #include <string>
 
 namespace mzlib {
@@ -76,7 +77,7 @@ public:
    
    void load_image()
    {
-      SDL_Surface* loaded_surface = IMG_Load( m_image_path.c_str() );
+      pointer_wrapper<SDL_Surface, free_surface> loaded_surface = IMG_Load( m_image_path.c_str() );
       if (loaded_surface == nullptr) {
          const auto error = IMG_GetError();
          throw mzlib::exception::sdl::image_load_failure(error);
@@ -84,15 +85,11 @@ public:
       else {
          SDL_SetColorKey( loaded_surface, SDL_TRUE, SDL_MapRGB( loaded_surface->format, 0, 0x00, 0x00 ) );
          if(!m_renderer) {
-            // TODO: wrap this surface thing into proper class so that I don't need to
-            // mind all the places functions can throw. Can't be bothered right now.
-            SDL_FreeSurface( loaded_surface ); 
             throw mzlib::exception::sdl::texture_create_failure("Renderer not set");
          }
          m_texture = SDL_CreateTextureFromSurface( m_renderer, loaded_surface );
          
          if (m_texture == nullptr) {
-            SDL_FreeSurface( loaded_surface ); 
             const auto error = SDL_GetError();
             throw mzlib::exception::sdl::texture_create_failure(error);
          }
@@ -100,8 +97,6 @@ public:
             m_image_width = loaded_surface->w;
             m_image_height = loaded_surface->h;
          }
-
-         SDL_FreeSurface( loaded_surface );
       }
    }
    
@@ -159,6 +154,17 @@ private:
       m_image_width = from.m_image_width;
       m_renderer = from.m_renderer;
       // don't copy from.m_texture pointer
+   }
+   
+   // This function is only needed because I used pointer wrapper that takes as
+   // a template parameter a function which destroys pointer. As I didn't know
+   // how to write a template parameter type so that a function can return any
+   // data type or void, I needed to change the signature of this call so that
+   // it is compatible with void(*func)(type*). When I learn more about templates
+   // I will do this last step.
+   static void free_surface(SDL_Surface* surface)
+   {
+      SDL_FreeSurface (surface);
    }
    
    std::string m_image_path;
