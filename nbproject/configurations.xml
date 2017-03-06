@@ -54,6 +54,9 @@
       <itemPath>options.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
+      <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
+        <itemPath>tests/mocks/mock_sdl.h</itemPath>
+      </logicalFolder>
       <itemPath>tests/test_dbl.cpp</itemPath>
       <itemPath>tests/test_genetic.cpp</itemPath>
       <itemPath>tests/test_image_texture.cpp</itemPath>
@@ -91,6 +94,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>include/utils</Elem>
+    <Elem>tests/mocks</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -211,6 +215,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -390,6 +396,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>

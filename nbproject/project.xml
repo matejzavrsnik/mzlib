@@ -11,6 +11,7 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>include/utils</sourceRootElem>
+                <sourceRootElem>tests/mocks</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
