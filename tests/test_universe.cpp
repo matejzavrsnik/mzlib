@@ -7,11 +7,11 @@
 
 #define private public
 #define protected public
-#include "../include/universe.h"
+#include "../include/nature/universe.h"
 #undef private
 #undef protected
 
-#include "../include/units.h"
+#include "../include/nature/units.h"
 #include "gtest/gtest.h"
 
 using namespace mzlib::units;

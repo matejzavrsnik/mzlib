@@ -8,7 +8,7 @@
 #ifndef MZLIB_DIRECTION_H
 #define	MZLIB_DIRECTION_H
 
-#include "vector.h"
+#include "nature/vector.h"
 #include "exceptions.h"
 #include <iostream> // operator<<
 

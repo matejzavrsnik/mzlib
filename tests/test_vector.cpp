@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/vector.h"
+#include "../include/nature/vector.h"
 #include "gtest/gtest.h"
     
 class fixture_cvector : public ::testing::Test 

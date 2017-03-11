@@ -8,7 +8,7 @@
 #ifndef MZLIB_RECTANGLE_H
 #define	MZLIB_RECTANGLE_H
 
-#include "vector.h"
+#include "nature/vector.h"
 #include "direction.h"
 #include "exceptions.h"
 #include "lang/optional.h"

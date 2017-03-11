@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/mass_centre.h"
+#include "../include/nature/mass_centre.h"
 #include "gtest/gtest.h"
 #include <array>
 #include <type_traits>

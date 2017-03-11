@@ -11,7 +11,7 @@
 #include <iterator>
 #include <vector>
 #include "quadtree.h"
-#include "mass_centre.h"
+#include "nature/mass_centre.h"
 #include "screen_rectangle.h"
 
 namespace mzlib {

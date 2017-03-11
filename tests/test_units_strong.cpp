@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/units_strong.h"
+#include "../include/nature/units_strong.h"
 #include "gtest/gtest.h"
    
 using namespace mzlib;

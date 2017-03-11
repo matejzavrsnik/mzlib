@@ -8,8 +8,8 @@
 #include "../include/laws/acceleration.h"
 #include "../include/laws/constant_linear_acceleration.h"
 #include "../include/laws/gravitation.h"
-#include "../include/units.h"
-#include "../include/consts.h"
+#include "../include/nature/units.h"
+#include "../include/nature/consts.h"
 
 #include "gtest/gtest.h"
 

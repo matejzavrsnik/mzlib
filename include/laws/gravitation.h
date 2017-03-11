@@ -8,9 +8,9 @@
 #ifndef MZLIB_LAWS_GRAVITATION_H
 #define	MZLIB_LAWS_GRAVITATION_H
 
-#include "../mass_centre.h"
+#include "../nature/mass_centre.h"
 #include "../lang/optional.h"
-#include "../consts.h"
+#include "../nature/consts.h"
 
 namespace mzlib {
 namespace law {

@@ -9,7 +9,7 @@
 #define	MZLIB_LAWS_ACCELERATION_H
 
 #include "../lang/optional.h"
-#include "../vector.h"
+#include "../nature/vector.h"
 
 namespace mzlib {
 namespace law {

@@ -13,6 +13,7 @@
                 <sourceRootElem>include/utils</sourceRootElem>
                 <sourceRootElem>tests/mocks</sourceRootElem>
                 <sourceRootElem>include/lang</sourceRootElem>
+                <sourceRootElem>include/nature</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

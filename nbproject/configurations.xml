@@ -17,6 +17,16 @@
         <itemPath>include/laws/gravitation.h</itemPath>
         <itemPath>include/laws/screen_rectangles.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="nature" displayName="nature" projectFiles="true">
+        <itemPath>include/nature/body.h</itemPath>
+        <itemPath>include/nature/consts.h</itemPath>
+        <itemPath>include/nature/mass_centre.h</itemPath>
+        <itemPath>include/nature/units.h</itemPath>
+        <itemPath>include/nature/units_strong.h</itemPath>
+        <itemPath>include/nature/universe.h</itemPath>
+        <itemPath>include/nature/universe_containers.h</itemPath>
+        <itemPath>include/nature/vector.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="utils" projectFiles="true">
         <itemPath>include/utils/filesystem.h</itemPath>
         <itemPath>include/utils/general.h</itemPath>
@@ -25,14 +35,11 @@
         <itemPath>include/utils/random.h</itemPath>
         <itemPath>include/utils/string.h</itemPath>
       </logicalFolder>
-      <itemPath>include/body.h</itemPath>
-      <itemPath>include/consts.h</itemPath>
       <itemPath>include/direction.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
-      <itemPath>include/mass_centre.h</itemPath>
       <itemPath>include/probabilator.h</itemPath>
       <itemPath>include/quadtree.h</itemPath>
       <itemPath>include/quadtree_it_bodies.h</itemPath>
@@ -44,11 +51,6 @@
       <itemPath>include/supersafe_number.h</itemPath>
       <itemPath>include/twoway_streambuf.h</itemPath>
       <itemPath>include/unique.h</itemPath>
-      <itemPath>include/units.h</itemPath>
-      <itemPath>include/units_strong.h</itemPath>
-      <itemPath>include/universe.h</itemPath>
-      <itemPath>include/universe_containers.h</itemPath>
-      <itemPath>include/vector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -99,6 +101,7 @@
     <Elem>include/utils</Elem>
     <Elem>tests/mocks</Elem>
     <Elem>include/lang</Elem>
+    <Elem>include/nature</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -133,10 +136,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="include/body.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/consts.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/direction.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
@@ -172,7 +171,24 @@
       </item>
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
+      <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/units_strong.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/universe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/universe_containers.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -196,14 +212,6 @@
       </item>
       <item path="include/unique.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/units.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/units_strong.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/universe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/universe_containers.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/general.h" ex="false" tool="3" flavor2="0">
@@ -215,8 +223,6 @@
       <item path="include/utils/random.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/string.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -316,10 +322,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="include/body.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/consts.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/direction.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
@@ -355,7 +357,24 @@
       </item>
       <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
+      <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/units_strong.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/universe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/universe_containers.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -379,14 +398,6 @@
       </item>
       <item path="include/unique.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/units.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/units_strong.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/universe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/universe_containers.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/general.h" ex="false" tool="3" flavor2="0">
@@ -398,8 +409,6 @@
       <item path="include/utils/random.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/string.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
