@@ -8,7 +8,7 @@
 #ifndef MZLIB_OPTIONAL_H
 #define	MZLIB_OPTIONAL_H
 
-#include "exceptions.h"
+#include "../exceptions.h"
 #include "binary_options.h"
 
 namespace mzlib {

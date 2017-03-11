@@ -12,7 +12,7 @@
 #include <exception>
 
 #include "utils/random.h"
-#include "dbl.h"
+#include "lang/dbl.h"
 
 namespace mzlib {
 

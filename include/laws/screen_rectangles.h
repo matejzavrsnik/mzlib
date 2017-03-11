@@ -8,7 +8,7 @@
 #ifndef MZLIB_LAWS_SCREEN_RECTANGLES_H
 #define	MZLIB_LAWS_SCREEN_RECTANGLES_H
 
-#include "../optional.h"
+#include "../lang/optional.h"
 #include "../screen_rectangle.h"
 
 namespace mzlib {

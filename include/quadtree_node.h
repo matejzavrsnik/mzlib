@@ -16,7 +16,7 @@
 #include "body.h"
 #include "screen_rectangle.h"
 #include "laws/screen_rectangles.h"
-#include "binary_options.h"
+#include "lang/binary_options.h"
 #include "exceptions.h"
 
 namespace mzlib {

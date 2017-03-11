@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/dbl.h"
+#include "../include/lang/dbl.h"
 #include "gtest/gtest.h"
 
 class fixture_dbl : public ::testing::Test 

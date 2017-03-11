@@ -11,7 +11,7 @@
 #include "vector.h"
 #include "direction.h"
 #include "exceptions.h"
-#include "optional.h"
+#include "lang/optional.h"
 
 namespace mzlib {
    

@@ -12,8 +12,8 @@
 #include "../include/universe.h"
 #include "../include/units.h"
 #include "../include/utils/random.h"
-#include "../include/stopwatch.h"
-#include "../include/c64_basic_for.h"
+#include "../include/lang/stopwatch.h"
+#include "../include/lang/c64_basic_for.h"
 
 #include "gtest/gtest.h"
 

@@ -14,7 +14,7 @@
 
 #include "probabilator.h"
 #include "utils/random.h"
-#include "optional.h"
+#include "lang/optional.h"
 
 namespace mzlib
 {

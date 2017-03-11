@@ -7,7 +7,7 @@
 
 #include "../include/laws/screen_rectangles.h"
 #include "gtest/gtest.h"
-#include "../include/dbl.h"
+#include "../include/lang/dbl.h"
 
 class fixture_law_screen_rectangle : public ::testing::Test 
 {

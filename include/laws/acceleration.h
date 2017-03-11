@@ -8,7 +8,7 @@
 #ifndef MZLIB_LAWS_ACCELERATION_H
 #define	MZLIB_LAWS_ACCELERATION_H
 
-#include "../optional.h"
+#include "../lang/optional.h"
 #include "../vector.h"
 
 namespace mzlib {

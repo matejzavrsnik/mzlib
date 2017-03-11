@@ -2,6 +2,15 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles" displayName="include" projectFiles="true">
+      <logicalFolder name="lang" displayName="lang" projectFiles="true">
+        <itemPath>include/lang/binary_options.h</itemPath>
+        <itemPath>include/lang/c64_basic_for.h</itemPath>
+        <itemPath>include/lang/cpucycle.h</itemPath>
+        <itemPath>include/lang/dbl.h</itemPath>
+        <itemPath>include/lang/optional.h</itemPath>
+        <itemPath>include/lang/pointer_wrapper.h</itemPath>
+        <itemPath>include/lang/stopwatch.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="laws" projectFiles="true">
         <itemPath>include/laws/acceleration.h</itemPath>
         <itemPath>include/laws/constant_linear_acceleration.h</itemPath>
@@ -16,20 +25,14 @@
         <itemPath>include/utils/random.h</itemPath>
         <itemPath>include/utils/string.h</itemPath>
       </logicalFolder>
-      <itemPath>include/binary_options.h</itemPath>
       <itemPath>include/body.h</itemPath>
-      <itemPath>include/c64_basic_for.h</itemPath>
       <itemPath>include/consts.h</itemPath>
-      <itemPath>include/cpucycle.h</itemPath>
-      <itemPath>include/dbl.h</itemPath>
       <itemPath>include/direction.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/genetic.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
       <itemPath>include/markov_chain.h</itemPath>
       <itemPath>include/mass_centre.h</itemPath>
-      <itemPath>include/optional.h</itemPath>
-      <itemPath>include/pointer_wrapper.h</itemPath>
       <itemPath>include/probabilator.h</itemPath>
       <itemPath>include/quadtree.h</itemPath>
       <itemPath>include/quadtree_it_bodies.h</itemPath>
@@ -38,7 +41,6 @@
       <itemPath>include/relentless_file_reader.h</itemPath>
       <itemPath>include/screen_rectangle.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
-      <itemPath>include/stopwatch.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
       <itemPath>include/twoway_streambuf.h</itemPath>
       <itemPath>include/unique.h</itemPath>
@@ -96,6 +98,7 @@
   <sourceRootList>
     <Elem>include/utils</Elem>
     <Elem>tests/mocks</Elem>
+    <Elem>include/lang</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -130,17 +133,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="include/binary_options.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/body.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/c64_basic_for.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/consts.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/cpucycle.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/direction.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -149,6 +144,20 @@
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -165,10 +174,6 @@
       </item>
       <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/optional.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
@@ -184,8 +189,6 @@
       <item path="include/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -313,17 +316,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="include/binary_options.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/body.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/c64_basic_for.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/consts.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/cpucycle.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/direction.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -332,6 +327,20 @@
       <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -348,10 +357,6 @@
       </item>
       <item path="include/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/optional.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
@@ -367,8 +372,6 @@
       <item path="include/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>

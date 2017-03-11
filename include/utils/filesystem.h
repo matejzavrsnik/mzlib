@@ -15,7 +15,7 @@
 #include <dirent.h>
 #include <cstring>
 
-#include "../binary_options.h"
+#include "../lang/binary_options.h"
 
 namespace mzlib {
     

@@ -17,7 +17,7 @@
 #include <algorithm> // std::find
 #include <map>
 #include <cstring>
-#include "../binary_options.h"
+#include "../lang/binary_options.h"
 
 namespace mzlib {
         

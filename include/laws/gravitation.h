@@ -9,7 +9,7 @@
 #define	MZLIB_LAWS_GRAVITATION_H
 
 #include "../mass_centre.h"
-#include "../optional.h"
+#include "../lang/optional.h"
 #include "../consts.h"
 
 namespace mzlib {

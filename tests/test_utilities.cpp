@@ -8,7 +8,7 @@
 #include <map>
 
 #include "../include/utils/general.h"
-#include "../include/c64_basic_for.h"
+#include "../include/lang/c64_basic_for.h"
 
 #include "gtest/gtest.h"
     

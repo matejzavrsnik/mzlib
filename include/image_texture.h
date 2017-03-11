@@ -12,7 +12,7 @@
 #if defined(_SDL_H) && defined(_SDL_IMAGE_H)
 
 #include "exceptions.h"
-#include "pointer_wrapper.h"
+#include "lang/pointer_wrapper.h"
 #include <string>
 
 namespace mzlib {

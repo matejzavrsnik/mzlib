@@ -15,8 +15,8 @@
 #include "body.h"
 #include "utils/missing_std.h"
 #include "screen_rectangle.h"
-#include "optional.h"
-#include "binary_options.h"
+#include "lang/optional.h"
+#include "lang/binary_options.h"
 #include "unique.h"
 
 namespace mzlib {

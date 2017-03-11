@@ -9,7 +9,7 @@
 #define	MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_H
 
 #include "../mass_centre.h"
-#include "../optional.h"
+#include "../lang/optional.h"
 
 namespace mzlib {
 namespace law {

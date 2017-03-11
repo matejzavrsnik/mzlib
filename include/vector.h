@@ -14,7 +14,7 @@
 #include <array>
 #include <ostream>
 
-#include "dbl.h"
+#include "lang/dbl.h"
 
 namespace mzlib {
 

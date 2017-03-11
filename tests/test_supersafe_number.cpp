@@ -12,7 +12,7 @@
 #undef protected
 
 #include "gtest/gtest.h"
-#include "../include/cpucycle.h"
+//#include "../include/cpucycle.h"
     
 class fixture_supersafe_number : public ::testing::Test 
 {
