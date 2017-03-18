@@ -13,7 +13,7 @@
 #include "quadtree_it_masscentres.h"
 #include "../nature/vector.h"
 #include "../nature/body.h"
-#include "../utils/missing_std.h"
+#include "../tools/missing_std.h"
 #include "../screen_rectangle.h"
 #include "../lang/optional.h"
 #include "../lang/binary_options.h"

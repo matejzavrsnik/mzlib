@@ -12,8 +12,8 @@
 #include <functional>
 #include <algorithm> // std::sort
    
-#include "../utils/random.h"
-#include "../utils/general.h"
+#include "../tools/random.h"
+#include "../tools/general.h"
 
 
 namespace mzlib {

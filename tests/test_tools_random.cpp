@@ -5,22 +5,22 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/utils/random.h"
+#include "../include/tools/random.h"
 #include "gtest/gtest.h"
     
-class fixture_utils_random : public ::testing::Test 
+class fixture_tools_random : public ::testing::Test 
 {
 
 protected:
 
-   fixture_utils_random() {}
-   virtual ~fixture_utils_random() {}
+   fixture_tools_random() {}
+   virtual ~fixture_tools_random() {}
    virtual void SetUp() {}
    virtual void TearDown() {}
    
 };
 
-TEST_F(fixture_utils_random, get_random_integer) 
+TEST_F(fixture_tools_random, get_random_integer) 
 {
    unsigned int a = mzlib::get_random_integer();
    unsigned int b = mzlib::get_random_integer();
@@ -31,7 +31,7 @@ TEST_F(fixture_utils_random, get_random_integer)
    ASSERT_NE(c, d);
 }
 
-TEST_F(fixture_utils_random, get_random_double_between_0_1) 
+TEST_F(fixture_tools_random, get_random_double_between_0_1) 
 {
    double a = mzlib::get_random_double_between_0_1();
    double b = mzlib::get_random_double_between_0_1();
@@ -42,7 +42,7 @@ TEST_F(fixture_utils_random, get_random_double_between_0_1)
    ASSERT_NE(c, d);
 }
 
-TEST_F(fixture_utils_random, get_random_element) 
+TEST_F(fixture_tools_random, get_random_element) 
 {
    std::map<int,int> example;
    example[0] = 0;

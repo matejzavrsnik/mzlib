@@ -5,25 +5,25 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/utils/filesystem.h"
+#include "../include/tools/filesystem.h"
 #include "gtest/gtest.h"
 #include "../options.h"
 #include <algorithm>    
 #include <cstdio>
 
-class fixture_utils_filesystem : public ::testing::Test 
+class fixture_tools_filesystem : public ::testing::Test 
 {
 
 protected:
 
-   fixture_utils_filesystem() 
+   fixture_tools_filesystem() 
    {
       if (g_arguments.find(g_test_dir_param) != g_arguments.end()) {
          m_test_dir = g_arguments[g_test_dir_param] + "/filesystem";
          m_should_test_filesystem = true;
       }
    }
-   virtual ~fixture_utils_filesystem() {}
+   virtual ~fixture_tools_filesystem() {}
    
    virtual void SetUp() {}
    virtual void TearDown() {}
@@ -32,7 +32,7 @@ protected:
    std::string m_test_dir;
 };
 
-TEST_F(fixture_utils_filesystem, list_files_defaults) 
+TEST_F(fixture_tools_filesystem, list_files_defaults) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir);
@@ -48,7 +48,7 @@ TEST_F(fixture_utils_filesystem, list_files_defaults)
    }
 }
 
-TEST_F(fixture_utils_filesystem, list_files_recursive_nohidden) 
+TEST_F(fixture_tools_filesystem, list_files_recursive_nohidden) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::option::recursive::yes, mzlib::option::include_hidden::no);
@@ -68,7 +68,7 @@ TEST_F(fixture_utils_filesystem, list_files_recursive_nohidden)
    }
 }
 
-TEST_F(fixture_utils_filesystem, list_files_recursive_hidden) 
+TEST_F(fixture_tools_filesystem, list_files_recursive_hidden) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::option::recursive::yes, mzlib::option::include_hidden::yes);
@@ -90,7 +90,7 @@ TEST_F(fixture_utils_filesystem, list_files_recursive_hidden)
    }
 }
 
-TEST_F(fixture_utils_filesystem, list_files_norecursive_hidden) 
+TEST_F(fixture_tools_filesystem, list_files_norecursive_hidden) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::option::recursive::no, mzlib::option::include_hidden::yes);
@@ -107,7 +107,7 @@ TEST_F(fixture_utils_filesystem, list_files_norecursive_hidden)
    }
 }
 
-TEST_F(fixture_utils_filesystem, is_meta_directory)
+TEST_F(fixture_tools_filesystem, is_meta_directory)
 {
    if(m_should_test_filesystem) {
       ASSERT_TRUE (mzlib::is_meta_directory("."));
@@ -121,7 +121,7 @@ TEST_F(fixture_utils_filesystem, is_meta_directory)
    }
 }
 
-TEST_F(fixture_utils_filesystem, write_append_read_file)
+TEST_F(fixture_tools_filesystem, write_append_read_file)
 {
    if(m_should_test_filesystem) {
       std::string temp_file = m_test_dir + "/temp_file";
@@ -143,7 +143,7 @@ TEST_F(fixture_utils_filesystem, write_append_read_file)
    }
 }
 
-TEST_F(fixture_utils_filesystem, read_file_from_to)
+TEST_F(fixture_tools_filesystem, read_file_from_to)
 {
    if(m_should_test_filesystem) {
       std::string temp_file = m_test_dir + "/temp_file";
@@ -160,7 +160,7 @@ TEST_F(fixture_utils_filesystem, read_file_from_to)
    }
 }
 
-TEST_F(fixture_utils_filesystem, find_eof_position)
+TEST_F(fixture_tools_filesystem, find_eof_position)
 {
    if(m_should_test_filesystem) {
       std::string temp_file = m_test_dir + "/temp_file";

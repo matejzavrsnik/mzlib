@@ -13,7 +13,7 @@
 #include <map>
 
 #include "probabilator.h"
-#include "../utils/random.h"
+#include "../tools/random.h"
 #include "../lang/optional.h"
 
 namespace mzlib

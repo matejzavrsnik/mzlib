@@ -7,24 +7,24 @@
 
 #include <map>
 
-#include "../include/utils/general.h"
+#include "../include/tools/general.h"
 #include "../include/lang/c64_basic_for.h"
 
 #include "gtest/gtest.h"
     
-class fixture_utilities : public ::testing::Test 
+class fixture_tools : public ::testing::Test 
 {
 
 protected:
 
-   fixture_utilities() {}
-   virtual ~fixture_utilities() {}
+   fixture_tools() {}
+   virtual ~fixture_tools() {}
    virtual void SetUp() {}
    virtual void TearDown() {}
    
 };
 
-TEST_F(fixture_utilities, get_number_of_decimals) 
+TEST_F(fixture_tools, get_number_of_decimals) 
 {
    double double_num = 0;
    ASSERT_EQ(0, mzlib::get_number_of_decimals(double_num));
@@ -38,7 +38,7 @@ TEST_F(fixture_utilities, get_number_of_decimals)
    ASSERT_EQ(6, mzlib::get_number_of_decimals(double_num));
 }
 
-TEST_F(fixture_utilities, push_back_if_not_in_different_vectors) 
+TEST_F(fixture_tools, push_back_if_not_in_different_vectors) 
 {
    std::vector<std::string> v_string;
    std::vector<int> v_int;
@@ -50,7 +50,7 @@ TEST_F(fixture_utilities, push_back_if_not_in_different_vectors)
    ASSERT_EQ(1, v_int.size());
 }
 
-TEST_F(fixture_utilities, push_back_if_not_in) 
+TEST_F(fixture_tools, push_back_if_not_in) 
 {
    std::vector<int> v;
    ASSERT_EQ(v.size(), 0);
@@ -77,7 +77,7 @@ TEST_F(fixture_utilities, push_back_if_not_in)
    ASSERT_EQ(v.size(), 3);
 }
 
-TEST_F(fixture_utilities, get_index) 
+TEST_F(fixture_tools, get_index) 
 {
    std::vector<int> v;
    for(int i=0; i<10; i++) {
@@ -101,7 +101,7 @@ TEST_F(fixture_utilities, get_index)
    ASSERT_EQ(index_9, 9);
 }
 
-TEST_F(fixture_utilities, create_matrix_basic) 
+TEST_F(fixture_tools, create_matrix_basic) 
 {
    auto matrix = mzlib::create_matrix(2,3,0);
    
@@ -113,7 +113,7 @@ TEST_F(fixture_utilities, create_matrix_basic)
    ASSERT_EQ(0, matrix[1][2]);
 }
 
-TEST_F(fixture_utilities, copy_first_n_over_rest_basic) 
+TEST_F(fixture_tools, copy_first_n_over_rest_basic) 
 {
    std::vector<int> v = {1,2,3,4,5,6,7,8,9,10};
    
@@ -124,7 +124,7 @@ TEST_F(fixture_utilities, copy_first_n_over_rest_basic)
    ASSERT_EQ(1, v[9]);
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_basic_test) 
+TEST_F(fixture_tools, sentence_assemblarator_basic_test) 
 {
    std::vector<std::string> words = {"veni", ",", "vidi", ",","dormivi", "."};
    auto words_iterator = words.begin();
@@ -135,7 +135,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_basic_test)
    ASSERT_EQ(sentence, "Veni, vidi, dormivi."); 
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_stops_on_exclamation_mark) 
+TEST_F(fixture_tools, sentence_assemblarator_stops_on_exclamation_mark) 
 {
    std::vector<std::string> words = {"veni", "!", "vidi", ",","dormivi", "."};
    auto words_iterator = words.begin();
@@ -143,7 +143,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_stops_on_exclamation_mark)
    ASSERT_EQ(sentence, "Veni!"); 
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_stops_on_question_mark) 
+TEST_F(fixture_tools, sentence_assemblarator_stops_on_question_mark) 
 {
    std::vector<std::string> words = {"veni", "?", "vidi", ",","dormivi", "."};
    auto words_iterator = words.begin();
@@ -151,7 +151,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_stops_on_question_mark)
    ASSERT_EQ(sentence, "Veni?"); 
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_spaces_around_quotes) 
+TEST_F(fixture_tools, sentence_assemblarator_spaces_around_quotes) 
 {
    std::vector<std::string> words = {"veni", "\"", "vidi", "\"","dormivi", "."};
    auto words_iterator = words.begin();
@@ -160,7 +160,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_spaces_around_quotes)
    ASSERT_EQ(sentence, "Veni \"vidi\" dormivi."); 
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_spaces_around_paretheses) 
+TEST_F(fixture_tools, sentence_assemblarator_spaces_around_paretheses) 
 {
    std::vector<std::string> words = {"veni", "(", "vidi", ")","dormivi", "."};
    auto words_iterator = words.begin();
@@ -169,7 +169,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_spaces_around_paretheses)
    ASSERT_EQ(sentence, "Veni (vidi) dormivi."); 
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_quote_handling) 
+TEST_F(fixture_tools, sentence_assemblarator_quote_handling) 
 {
    std::vector<std::string> words = {"veni", "\"", "\"", "vidi","dormivi", "."};
    auto words_iterator = words.begin();
@@ -178,7 +178,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_quote_handling)
    ASSERT_EQ(sentence, "Veni \"vidi dormivi\"."); 
 }
 
-TEST_F(fixture_utilities, sentence_assemblarator_paretheses_handling) 
+TEST_F(fixture_tools, sentence_assemblarator_paretheses_handling) 
 {
    std::vector<std::string> words = {"veni", "(", "(", "vidi","dormivi", "."};
    auto words_iterator = words.begin();
@@ -187,7 +187,7 @@ TEST_F(fixture_utilities, sentence_assemblarator_paretheses_handling)
    ASSERT_EQ(sentence, "Veni (vidi dormivi)."); 
 }
 
-TEST_F(fixture_utilities, fast_threeway_min_lvalue) 
+TEST_F(fixture_tools, fast_threeway_min_lvalue) 
 {
    int i1 = 1, i2 = 2, i3 = 3;
    // all permutations
@@ -199,7 +199,7 @@ TEST_F(fixture_utilities, fast_threeway_min_lvalue)
    ASSERT_EQ(1, mzlib::fast_min_ref(i3, i2, i1));
 }
 
-TEST_F(fixture_utilities, fast_threeway_min_rvalue) 
+TEST_F(fixture_tools, fast_threeway_min_rvalue) 
 {
    // all permutations
    ASSERT_EQ(1, mzlib::fast_min(1, 2, 3));
@@ -210,7 +210,7 @@ TEST_F(fixture_utilities, fast_threeway_min_rvalue)
    ASSERT_EQ(1, mzlib::fast_min(3, 2, 1));
 }
 
-TEST_F(fixture_utilities, coptional_basic) 
+TEST_F(fixture_tools, coptional_basic) 
 {
    mzlib::optional<int> optional;
    ASSERT_THROW(optional.get(), mzlib::exception::not_set);
@@ -223,7 +223,7 @@ TEST_F(fixture_utilities, coptional_basic)
    ASSERT_THROW(optional.get(), mzlib::exception::not_set);
 }
 
-TEST_F(fixture_utilities, c64_basic_for_basic) 
+TEST_F(fixture_tools, c64_basic_for_basic) 
 {
    int should_be = 0;
    int use_step = 10;
@@ -235,7 +235,7 @@ TEST_F(fixture_utilities, c64_basic_for_basic)
    }
 }
 
-TEST_F(fixture_utilities, add_to_tally) 
+TEST_F(fixture_tools, add_to_tally) 
 {
    std::map<std::string, int> map;
    
@@ -250,7 +250,7 @@ TEST_F(fixture_utilities, add_to_tally)
    ASSERT_EQ(1, map["another word"]);
 }
 
-TEST_F(fixture_utilities, sort_map_by_value_ascending) 
+TEST_F(fixture_tools, sort_map_by_value_ascending) 
 {
    std::map<int, std::string> map;
    map[1] = "ddd";
@@ -270,7 +270,7 @@ TEST_F(fixture_utilities, sort_map_by_value_ascending)
    ASSERT_EQ("ddd", sorted[3].second);
 }
 
-TEST_F(fixture_utilities, sort_map_by_value_descending) 
+TEST_F(fixture_tools, sort_map_by_value_descending) 
 {
    std::map<int, std::string> map;
    map[1] = "ddd";

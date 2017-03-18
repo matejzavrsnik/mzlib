@@ -15,6 +15,7 @@
                 <sourceRootElem>include/lang</sourceRootElem>
                 <sourceRootElem>include/nature</sourceRootElem>
                 <sourceRootElem>include/abstract</sourceRootElem>
+                <sourceRootElem>include/tools</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

@@ -11,7 +11,7 @@
 
 #include "../include/nature/universe.h"
 #include "../include/nature/units.h"
-#include "../include/utils/random.h"
+#include "../include/tools/random.h"
 #include "../include/lang/stopwatch.h"
 #include "../include/lang/c64_basic_for.h"
 

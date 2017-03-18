@@ -5,22 +5,22 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/utils/string.h"
+#include "../include/tools/string.h"
 #include "gtest/gtest.h"
     
-class fixture_utils_string : public ::testing::Test 
+class fixture_tools_string : public ::testing::Test 
 {
 
 protected:
 
-   fixture_utils_string() {}
-   virtual ~fixture_utils_string() {}
+   fixture_tools_string() {}
+   virtual ~fixture_tools_string() {}
    virtual void SetUp() {}
    virtual void TearDown() {}
    
 };
 
-TEST_F(fixture_utils_string, split_string_puctuation_basic) 
+TEST_F(fixture_tools_string, split_string_puctuation_basic) 
 {
    std::string test = ",word!)";
    std::vector<std::string> result = mzlib::split_string_puctuation(test);
@@ -31,7 +31,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_basic)
    ASSERT_EQ(result[3], ")");
 }
 
-TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations) 
+TEST_F(fixture_tools_string, split_string_puctuation_no_punctuations) 
 {
    std::string test = "word";
    std::vector<std::string> result = mzlib::split_string_puctuation(test);
@@ -39,7 +39,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations)
    ASSERT_EQ(result[0], "word");
 }
 
-TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_beginning) 
+TEST_F(fixture_tools_string, split_string_puctuation_no_punctuations_at_beginning) 
 {
    std::string test = "word).";
    std::vector<std::string> result = mzlib::split_string_puctuation(test);
@@ -49,7 +49,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_beginnin
    ASSERT_EQ(result[2], ".");
 }
 
-TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_end) 
+TEST_F(fixture_tools_string, split_string_puctuation_no_punctuations_at_end) 
 {
    std::string test = "\",word";
    std::vector<std::string> result = mzlib::split_string_puctuation(test);
@@ -59,7 +59,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_no_punctuations_at_end)
    ASSERT_EQ(result[2], "word");
 }
 
-TEST_F(fixture_utils_string, split_string_puctuation_all_punctuations) 
+TEST_F(fixture_tools_string, split_string_puctuation_all_punctuations) 
 {
    std::string test = "!?.,;:-\"()\n";
    std::vector<std::string> result = mzlib::split_string_puctuation(test);
@@ -77,7 +77,7 @@ TEST_F(fixture_utils_string, split_string_puctuation_all_punctuations)
    ASSERT_EQ(result[10], "\n");
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_basic) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_basic) 
 {
    std::string str1 = "matej";
    std::string str2 = "mtey";
@@ -88,7 +88,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_basic)
    ASSERT_EQ(2, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_basic_vectorversion) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_basic_vectorversion) 
 {
    std::vector<int> v1 = {1,2,3,4,5,6,7,8,9,10};
    std::vector<int> v2 = {1,  3,4,6,6,7,8,9,10,11};
@@ -99,7 +99,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_basic_vectorversion)
    ASSERT_EQ(3, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_equal) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_equal) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
@@ -110,7 +110,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_equal)
    ASSERT_EQ(0, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_a_complicated_one) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_a_complicated_one) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "mate zavrsnick lykes startrek but and very much the original series because it is too naive.";
@@ -122,7 +122,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_a_complicated_one)
    ASSERT_EQ(11, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_substition_first) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_substition_first) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "natej zavrsnik likes star trek but not so much the original series because it is too naive.";
@@ -133,7 +133,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_substition_first)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_substition_last) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_substition_last) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much the original series because it is too naive!";
@@ -144,7 +144,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_substition_last)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_substition_middle) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_substition_middle) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much theAoriginal series because it is too naive.";
@@ -155,7 +155,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_substition_middle)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_deletion_first) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_deletion_first) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 =  "atej zavrsnik likes star trek but not so much the original series because it is too naive.";
@@ -166,7 +166,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_deletion_first)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_deletion_last) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_deletion_last) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much the original series because it is too naive";
@@ -177,7 +177,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_deletion_last)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_deletion_middle) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_deletion_middle) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much the original eries because it is too naive.";
@@ -188,7 +188,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_deletion_middle)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_first) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_insertion_first) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "Qmatej zavrsnik likes star trek but not so much the original series because it is too naive.";
@@ -199,7 +199,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_first)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_last) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_insertion_last) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.Q";
@@ -210,7 +210,7 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_last)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_middle) 
+TEST_F(fixture_tools_string, wagner_fischer_distance_insertion_middle) 
 {
    std::string str1 = "matej zavrsnik likes star trek but not so much the original series because it is too naive.";
    std::string str2 = "matej zavrsnik likes star trek but not so much the original Qseries because it is too naive.";
@@ -221,21 +221,21 @@ TEST_F(fixture_utils_string, wagner_fischer_distance_insertion_middle)
    ASSERT_EQ(1, result);
 }
 
-TEST_F(fixture_utils_string, string_ends_with)
+TEST_F(fixture_tools_string, string_ends_with)
 {
    std::string test_string = "Fear is the little-death that brings total obliteration.";
    ASSERT_TRUE (mzlib::string_ends_with(test_string, "obliteration."));
    ASSERT_FALSE(mzlib::string_ends_with(test_string, "bliss."));
 }
 
-TEST_F(fixture_utils_string, string_starts_with)
+TEST_F(fixture_tools_string, string_starts_with)
 {
    std::string test_string = "Fear is the little-death that brings total obliteration.";
    ASSERT_TRUE (mzlib::string_starts_with(test_string, "Fear"));
    ASSERT_FALSE(mzlib::string_starts_with(test_string, "Courage"));
 }
 
-TEST_F(fixture_utils_string, remove_strings_that_end_with)
+TEST_F(fixture_tools_string, remove_strings_that_end_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -253,7 +253,7 @@ TEST_F(fixture_utils_string, remove_strings_that_end_with)
 }
 
 
-TEST_F(fixture_utils_string, remove_strings_that_start_with)
+TEST_F(fixture_tools_string, remove_strings_that_start_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -270,7 +270,7 @@ TEST_F(fixture_utils_string, remove_strings_that_start_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will permit it to pass over me and through me"));
 }
 
-TEST_F(fixture_utils_string, remove_strings_that_dont_start_with)
+TEST_F(fixture_tools_string, remove_strings_that_dont_start_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -288,7 +288,7 @@ TEST_F(fixture_utils_string, remove_strings_that_dont_start_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
 
-TEST_F(fixture_utils_string, remove_strings_that_dont_end_with)
+TEST_F(fixture_tools_string, remove_strings_that_dont_end_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -305,7 +305,7 @@ TEST_F(fixture_utils_string, remove_strings_that_dont_end_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
 
-TEST_F(fixture_utils_string, trim_punctiation_from_start_end)
+TEST_F(fixture_tools_string, trim_punctiation_from_start_end)
 {
    ASSERT_EQ("", mzlib::trim_punctiation_from_start_end(""));
    ASSERT_EQ("", mzlib::trim_punctiation_from_start_end("."));

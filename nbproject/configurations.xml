@@ -38,13 +38,13 @@
         <itemPath>include/nature/universe_containers.h</itemPath>
         <itemPath>include/nature/vector.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f2" displayName="utils" projectFiles="true">
-        <itemPath>include/utils/filesystem.h</itemPath>
-        <itemPath>include/utils/general.h</itemPath>
-        <itemPath>include/utils/libcmlpp.h</itemPath>
-        <itemPath>include/utils/missing_std.h</itemPath>
-        <itemPath>include/utils/random.h</itemPath>
-        <itemPath>include/utils/string.h</itemPath>
+      <logicalFolder name="tools" displayName="tools" projectFiles="true">
+        <itemPath>include/tools/filesystem.h</itemPath>
+        <itemPath>include/tools/general.h</itemPath>
+        <itemPath>include/tools/libcmlpp.h</itemPath>
+        <itemPath>include/tools/missing_std.h</itemPath>
+        <itemPath>include/tools/random.h</itemPath>
+        <itemPath>include/tools/string.h</itemPath>
       </logicalFolder>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
@@ -76,15 +76,15 @@
       <itemPath>tests/test_relentless_file_reader.cpp</itemPath>
       <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
+      <itemPath>tests/test_tools.cpp</itemPath>
+      <itemPath>tests/test_tools_filesystem.cpp</itemPath>
+      <itemPath>tests/test_tools_random.cpp</itemPath>
+      <itemPath>tests/test_tools_string.cpp</itemPath>
       <itemPath>tests/test_twoway_streambuf.cpp</itemPath>
       <itemPath>tests/test_unique.cpp</itemPath>
       <itemPath>tests/test_units_strong.cpp</itemPath>
       <itemPath>tests/test_universe.cpp</itemPath>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
-      <itemPath>tests/test_utilities.cpp</itemPath>
-      <itemPath>tests/test_utils_filesystem.cpp</itemPath>
-      <itemPath>tests/test_utils_random.cpp</itemPath>
-      <itemPath>tests/test_utils_string.cpp</itemPath>
       <itemPath>tests/test_vector.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -105,6 +105,7 @@
     <Elem>include/lang</Elem>
     <Elem>include/nature</Elem>
     <Elem>include/abstract</Elem>
+    <Elem>include/tools</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -219,19 +220,19 @@
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/libcmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/general.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/libcmlpp.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/missing_std.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/random.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -269,6 +270,14 @@
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="tests/test_tools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_string.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/test_twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
@@ -281,14 +290,6 @@
             ex="false"
             tool="1"
             flavor2="0">
-      </item>
-      <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_utils_filesystem.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_utils_random.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_utils_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -411,19 +412,19 @@
       </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/libcmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/general.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/libcmlpp.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/missing_std.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/random.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/utils/string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -461,6 +462,14 @@
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="tests/test_tools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_string.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/test_twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
@@ -473,14 +482,6 @@
             ex="false"
             tool="1"
             flavor2="0">
-      </item>
-      <item path="tests/test_utilities.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_utils_filesystem.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_utils_random.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_utils_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>

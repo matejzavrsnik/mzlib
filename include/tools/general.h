@@ -204,7 +204,7 @@ void add_to_tally(std::map<Key, Value>& word_map, const Key& word)
    word_map[word] = (word_map.count(word) == 0 ? 1 : word_map[word] += 1);
 }
 
-// Map is already intrinsically sorte by keys, but what if you need items sorted
+// Map is already intrinsically sorted by keys, but what if you need items sorted
 // by values instead?
 template <class Key, class Value>
 std::vector<std::pair<Key, Value>> sort_map_by_value(

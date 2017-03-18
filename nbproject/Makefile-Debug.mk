@@ -48,15 +48,15 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_relentless_file_reader.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
+	${OBJECTDIR}/tests/test_tools.o \
+	${OBJECTDIR}/tests/test_tools_filesystem.o \
+	${OBJECTDIR}/tests/test_tools_random.o \
+	${OBJECTDIR}/tests/test_tools_string.o \
 	${OBJECTDIR}/tests/test_twoway_streambuf.o \
 	${OBJECTDIR}/tests/test_unique.o \
 	${OBJECTDIR}/tests/test_units_strong.o \
 	${OBJECTDIR}/tests/test_universe.o \
 	${OBJECTDIR}/tests/test_universe_performance.o \
-	${OBJECTDIR}/tests/test_utilities.o \
-	${OBJECTDIR}/tests/test_utils_filesystem.o \
-	${OBJECTDIR}/tests/test_utils_random.o \
-	${OBJECTDIR}/tests/test_utils_string.o \
 	${OBJECTDIR}/tests/test_vector.o
 
 
@@ -149,6 +149,26 @@ ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
 
+${OBJECTDIR}/tests/test_tools.o: tests/test_tools.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools.o tests/test_tools.cpp
+
+${OBJECTDIR}/tests/test_tools_filesystem.o: tests/test_tools_filesystem.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_filesystem.o tests/test_tools_filesystem.cpp
+
+${OBJECTDIR}/tests/test_tools_random.o: tests/test_tools_random.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_random.o tests/test_tools_random.cpp
+
+${OBJECTDIR}/tests/test_tools_string.o: tests/test_tools_string.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_string.o tests/test_tools_string.cpp
+
 ${OBJECTDIR}/tests/test_twoway_streambuf.o: tests/test_twoway_streambuf.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -173,26 +193,6 @@ ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe_performance.o tests/test_universe_performance.cpp
-
-${OBJECTDIR}/tests/test_utilities.o: tests/test_utilities.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utilities.o tests/test_utilities.cpp
-
-${OBJECTDIR}/tests/test_utils_filesystem.o: tests/test_utils_filesystem.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_filesystem.o tests/test_utils_filesystem.cpp
-
-${OBJECTDIR}/tests/test_utils_random.o: tests/test_utils_random.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_random.o tests/test_utils_random.cpp
-
-${OBJECTDIR}/tests/test_utils_string.o: tests/test_utils_string.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_utils_string.o tests/test_utils_string.cpp
 
 ${OBJECTDIR}/tests/test_vector.o: tests/test_vector.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

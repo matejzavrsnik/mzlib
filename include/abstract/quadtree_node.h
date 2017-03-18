@@ -12,7 +12,7 @@
 #include <algorithm> // std::find_if
 #include "../nature/vector.h"
 #include "../nature/mass_centre.h"
-#include "../utils/missing_std.h"
+#include "../tools/missing_std.h"
 #include "../nature/body.h"
 #include "../screen_rectangle.h"
 #include "../laws/screen_rectangles.h"
