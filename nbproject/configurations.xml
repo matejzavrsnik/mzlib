@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles" displayName="include" projectFiles="true">
       <logicalFolder name="abstract" displayName="abstract" projectFiles="true">
         <itemPath>include/abstract/direction.h</itemPath>
-        <itemPath>include/abstract/genetic.h</itemPath>
+        <itemPath>include/abstract/genetic_base.h</itemPath>
+        <itemPath>include/abstract/genetic_container.h</itemPath>
+        <itemPath>include/abstract/genetic_object.h</itemPath>
         <itemPath>include/abstract/markov_chain.h</itemPath>
         <itemPath>include/abstract/probabilator.h</itemPath>
         <itemPath>include/abstract/quadtree.h</itemPath>
@@ -41,6 +43,7 @@
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <itemPath>include/tools/filesystem.h</itemPath>
         <itemPath>include/tools/general.h</itemPath>
+        <itemPath>include/tools/genetic.h</itemPath>
         <itemPath>include/tools/libcmlpp.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
@@ -65,7 +68,8 @@
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
       <itemPath>tests/test_dbl.cpp</itemPath>
-      <itemPath>tests/test_genetic.cpp</itemPath>
+      <itemPath>tests/test_genetic_container.cpp</itemPath>
+      <itemPath>tests/test_genetic_object.cpp</itemPath>
       <itemPath>tests/test_image_texture.cpp</itemPath>
       <itemPath>tests/test_law_screen_rectangle.cpp</itemPath>
       <itemPath>tests/test_laws.cpp</itemPath>
@@ -78,6 +82,7 @@
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
       <itemPath>tests/test_tools.cpp</itemPath>
       <itemPath>tests/test_tools_filesystem.cpp</itemPath>
+      <itemPath>tests/test_tools_genetic.cpp</itemPath>
       <itemPath>tests/test_tools_random.cpp</itemPath>
       <itemPath>tests/test_tools_string.cpp</itemPath>
       <itemPath>tests/test_twoway_streambuf.cpp</itemPath>
@@ -142,7 +147,14 @@
       </compileType>
       <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/abstract/genetic.h" ex="false" tool="3" flavor2="0">
+      <item path="include/abstract/genetic_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/genetic_container.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/genetic_object.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -224,6 +236,8 @@
       </item>
       <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/libcmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
@@ -242,7 +256,9 @@
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/test_genetic.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/test_genetic_container.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_genetic_object.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -273,6 +289,8 @@
       <item path="tests/test_tools.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_genetic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -334,7 +352,14 @@
       </compileType>
       <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/abstract/genetic.h" ex="false" tool="3" flavor2="0">
+      <item path="include/abstract/genetic_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/genetic_container.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/genetic_object.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -416,6 +441,8 @@
       </item>
       <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/libcmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
@@ -434,7 +461,9 @@
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/test_genetic.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/test_genetic_container.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_genetic_object.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -465,6 +494,8 @@
       <item path="tests/test_tools.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_tools_genetic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>

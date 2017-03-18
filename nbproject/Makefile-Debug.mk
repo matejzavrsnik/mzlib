@@ -37,7 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests/test_dbl.o \
-	${OBJECTDIR}/tests/test_genetic.o \
+	${OBJECTDIR}/tests/test_genetic_container.o \
+	${OBJECTDIR}/tests/test_genetic_object.o \
 	${OBJECTDIR}/tests/test_image_texture.o \
 	${OBJECTDIR}/tests/test_law_screen_rectangle.o \
 	${OBJECTDIR}/tests/test_laws.o \
@@ -50,6 +51,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
 	${OBJECTDIR}/tests/test_tools.o \
 	${OBJECTDIR}/tests/test_tools_filesystem.o \
+	${OBJECTDIR}/tests/test_tools_genetic.o \
 	${OBJECTDIR}/tests/test_tools_random.o \
 	${OBJECTDIR}/tests/test_tools_string.o \
 	${OBJECTDIR}/tests/test_twoway_streambuf.o \
@@ -94,10 +96,15 @@ ${OBJECTDIR}/tests/test_dbl.o: tests/test_dbl.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_dbl.o tests/test_dbl.cpp
 
-${OBJECTDIR}/tests/test_genetic.o: tests/test_genetic.cpp
+${OBJECTDIR}/tests/test_genetic_container.o: tests/test_genetic_container.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic.o tests/test_genetic.cpp
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_container.o tests/test_genetic_container.cpp
+
+${OBJECTDIR}/tests/test_genetic_object.o: tests/test_genetic_object.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_object.o tests/test_genetic_object.cpp
 
 ${OBJECTDIR}/tests/test_image_texture.o: tests/test_image_texture.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
@@ -158,6 +165,11 @@ ${OBJECTDIR}/tests/test_tools_filesystem.o: tests/test_tools_filesystem.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_filesystem.o tests/test_tools_filesystem.cpp
+
+${OBJECTDIR}/tests/test_tools_genetic.o: tests/test_tools_genetic.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_genetic.o tests/test_tools_genetic.cpp
 
 ${OBJECTDIR}/tests/test_tools_random.o: tests/test_tools_random.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
