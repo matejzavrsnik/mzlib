@@ -9,8 +9,8 @@
 #define	MZLIB_PROBABILATOR_H
 
 #include <algorithm>
-#include "utils/random.h"
-#include "exceptions.h"
+#include "../utils/random.h"
+#include "../exceptions.h"
 
 namespace mzlib {
    

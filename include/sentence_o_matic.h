@@ -8,7 +8,7 @@
 #ifndef MZLIB_SENTENCE_O_MATIC_H
 #define MZLIB_SENTENCE_O_MATIC_H
 
-#include "markov_chain.h"
+#include "abstract/markov_chain.h"
 #include "utils/general.h"
 #include "utils/string.h"
 

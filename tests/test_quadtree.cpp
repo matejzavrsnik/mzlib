@@ -7,7 +7,7 @@
 
 #define private public
 #define protected public
-#include "../include/quadtree.h"
+#include "../include/abstract/quadtree.h"
 #undef private
 #undef protected
 

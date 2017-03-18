@@ -8,8 +8,8 @@
 #ifndef MZLIB_DIRECTION_H
 #define	MZLIB_DIRECTION_H
 
-#include "nature/vector.h"
-#include "exceptions.h"
+#include "../nature/vector.h"
+#include "../exceptions.h"
 #include <iostream> // operator<<
 
 namespace mzlib {

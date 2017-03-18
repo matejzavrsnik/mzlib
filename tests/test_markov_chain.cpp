@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/markov_chain.h"
+#include "../include/abstract/markov_chain.h"
 #include "gtest/gtest.h"
 
 class fixture_markov_chain : public ::testing::Test 

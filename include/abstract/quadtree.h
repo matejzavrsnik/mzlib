@@ -11,12 +11,12 @@
 #include "quadtree_node.h"
 #include "quadtree_it_bodies.h"
 #include "quadtree_it_masscentres.h"
-#include "nature/vector.h"
-#include "nature/body.h"
-#include "utils/missing_std.h"
-#include "screen_rectangle.h"
-#include "lang/optional.h"
-#include "lang/binary_options.h"
+#include "../nature/vector.h"
+#include "../nature/body.h"
+#include "../utils/missing_std.h"
+#include "../screen_rectangle.h"
+#include "../lang/optional.h"
+#include "../lang/binary_options.h"
 #include "unique.h"
 
 namespace mzlib {

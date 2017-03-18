@@ -10,7 +10,7 @@
 
 #include "vector.h"
 #include "mass_centre.h"
-#include "../unique.h"
+#include "../abstract/unique.h"
 
 namespace mzlib {
    

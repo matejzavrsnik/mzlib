@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/unique.h"
+#include "../include/abstract/unique.h"
 #include "gtest/gtest.h"
 
 class fixture_unique : public ::testing::Test 

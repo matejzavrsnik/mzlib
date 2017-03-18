@@ -2,6 +2,17 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles" displayName="include" projectFiles="true">
+      <logicalFolder name="abstract" displayName="abstract" projectFiles="true">
+        <itemPath>include/abstract/direction.h</itemPath>
+        <itemPath>include/abstract/genetic.h</itemPath>
+        <itemPath>include/abstract/markov_chain.h</itemPath>
+        <itemPath>include/abstract/probabilator.h</itemPath>
+        <itemPath>include/abstract/quadtree.h</itemPath>
+        <itemPath>include/abstract/quadtree_it_bodies.h</itemPath>
+        <itemPath>include/abstract/quadtree_it_masscentres.h</itemPath>
+        <itemPath>include/abstract/quadtree_node.h</itemPath>
+        <itemPath>include/abstract/unique.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="lang" displayName="lang" projectFiles="true">
         <itemPath>include/lang/binary_options.h</itemPath>
         <itemPath>include/lang/c64_basic_for.h</itemPath>
@@ -35,22 +46,13 @@
         <itemPath>include/utils/random.h</itemPath>
         <itemPath>include/utils/string.h</itemPath>
       </logicalFolder>
-      <itemPath>include/direction.h</itemPath>
       <itemPath>include/exceptions.h</itemPath>
-      <itemPath>include/genetic.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
-      <itemPath>include/markov_chain.h</itemPath>
-      <itemPath>include/probabilator.h</itemPath>
-      <itemPath>include/quadtree.h</itemPath>
-      <itemPath>include/quadtree_it_bodies.h</itemPath>
-      <itemPath>include/quadtree_it_masscentres.h</itemPath>
-      <itemPath>include/quadtree_node.h</itemPath>
       <itemPath>include/relentless_file_reader.h</itemPath>
       <itemPath>include/screen_rectangle.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
       <itemPath>include/twoway_streambuf.h</itemPath>
-      <itemPath>include/unique.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -102,6 +104,7 @@
     <Elem>tests/mocks</Elem>
     <Elem>include/lang</Elem>
     <Elem>include/nature</Elem>
+    <Elem>include/abstract</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -136,11 +139,31 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="include/direction.h" ex="false" tool="3" flavor2="0">
+      <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/probabilator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_bodies.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_masscentres.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -169,8 +192,6 @@
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
@@ -190,16 +211,6 @@
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_it_bodies.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_it_masscentres.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/screen_rectangle.h" ex="false" tool="3" flavor2="0">
@@ -209,8 +220,6 @@
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -322,11 +331,31 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="include/direction.h" ex="false" tool="3" flavor2="0">
+      <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/probabilator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_bodies.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_masscentres.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -355,8 +384,6 @@
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/markov_chain.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
@@ -376,16 +403,6 @@
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/probabilator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_it_bodies.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_it_masscentres.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/quadtree_node.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/screen_rectangle.h" ex="false" tool="3" flavor2="0">
@@ -395,8 +412,6 @@
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>

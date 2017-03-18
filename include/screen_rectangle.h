@@ -9,7 +9,7 @@
 #define	MZLIB_RECTANGLE_H
 
 #include "nature/vector.h"
-#include "direction.h"
+#include "abstract/direction.h"
 #include "exceptions.h"
 #include "lang/optional.h"
 

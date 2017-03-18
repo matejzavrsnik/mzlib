@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/genetic.h"
+#include "../include/abstract/genetic.h"
 #include "gtest/gtest.h"
 
 #include "../include/utils/random.h"

@@ -14,7 +14,7 @@
 
 #include "vector.h"
 #include "body.h"
-#include "../quadtree.h"
+#include "../abstract/quadtree.h"
 
 namespace mzlib {
 

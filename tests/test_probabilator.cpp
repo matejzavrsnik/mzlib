@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/probabilator.h"
+#include "../include/abstract/probabilator.h"
 #include "gtest/gtest.h"
 
 class fixture_probabilator : public ::testing::Test 
