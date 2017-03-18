@@ -102,14 +102,14 @@ public:
    MOCK_METHOD7(SDL_RenderCopyEx, int(SDL_Renderer*, SDL_Texture*, const SDL_Rect*, const SDL_Rect*, const double, const SDL_Point*, const SDL_RendererFlip));
 };
 
-int SDL_DestroyTexture(SDL_Texture* texture) { _SDL_DestroyTexture(texture); }  
+int SDL_DestroyTexture(SDL_Texture* texture) { return _SDL_DestroyTexture(texture); }  
 SDL_Surface* IMG_Load(const char *file) { return _IMG_Load(file); }
 char* IMG_GetError() { return _IMG_GetError(); }
 Uint32 SDL_MapRGB(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b) { return _SDL_MapRGB(format, r, g, b); }
 int SDL_SetColorKey(SDL_Surface* surface, int flag, Uint32 key) { return _SDL_SetColorKey(surface, flag, key); }
 SDL_Texture* SDL_CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface) { return _SDL_CreateTextureFromSurface(renderer, surface); }
 char* SDL_GetError() { return _SDL_GetError(); }
-int SDL_FreeSurface(SDL_Surface* surface) { _SDL_FreeSurface(surface); }
+int SDL_FreeSurface(SDL_Surface* surface) { return _SDL_FreeSurface(surface); }
 int SDL_RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, const double angle, const SDL_Point* center, const SDL_RendererFlip flip) { return SDL_RenderCopyEx( renderer, texture, srcrect, dstrect, angle, center, flip); }
 
 #endif /*MZLIB_MOCK_SDL_H*/

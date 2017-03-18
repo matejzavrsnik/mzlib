@@ -130,8 +130,6 @@
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic</commandLine>
-          <warningLevel>2</warningLevel>
         </ccTool>
         <asmTool>
           <warningLevel>2</warningLevel>
@@ -331,7 +329,7 @@
             <pElem>/usr/include/gtest</pElem>
           </incDir>
           <commandLine>-Wall -Wextra -Wpedantic</commandLine>
-          <warningLevel>0</warningLevel>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

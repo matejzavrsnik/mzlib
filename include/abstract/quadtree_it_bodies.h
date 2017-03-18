@@ -48,7 +48,7 @@ public:
       return this; 
    }
 
-   body_core2d const * const operator-> () const
+   body_core2d const * operator-> () const
    { 
       return (*m_body_it).get();
    }

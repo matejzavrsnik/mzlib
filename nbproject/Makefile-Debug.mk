@@ -66,8 +66,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-Wall -Wextra -Wpedantic
-CXXFLAGS=-Wall -Wextra -Wpedantic
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -89,127 +89,127 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/tests/test_dbl.o: tests/test_dbl.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_dbl.o tests/test_dbl.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_dbl.o tests/test_dbl.cpp
 
 ${OBJECTDIR}/tests/test_genetic_container.o: tests/test_genetic_container.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_container.o tests/test_genetic_container.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_container.o tests/test_genetic_container.cpp
 
 ${OBJECTDIR}/tests/test_genetic_object.o: tests/test_genetic_object.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_object.o tests/test_genetic_object.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_object.o tests/test_genetic_object.cpp
 
 ${OBJECTDIR}/tests/test_image_texture.o: tests/test_image_texture.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_image_texture.o tests/test_image_texture.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_image_texture.o tests/test_image_texture.cpp
 
 ${OBJECTDIR}/tests/test_law_screen_rectangle.o: tests/test_law_screen_rectangle.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_law_screen_rectangle.o tests/test_law_screen_rectangle.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_law_screen_rectangle.o tests/test_law_screen_rectangle.cpp
 
 ${OBJECTDIR}/tests/test_laws.o: tests/test_laws.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_laws.o tests/test_laws.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_laws.o tests/test_laws.cpp
 
 ${OBJECTDIR}/tests/test_markov_chain.o: tests/test_markov_chain.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_markov_chain.o tests/test_markov_chain.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_markov_chain.o tests/test_markov_chain.cpp
 
 ${OBJECTDIR}/tests/test_masscentre.o: tests/test_masscentre.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_masscentre.o tests/test_masscentre.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_masscentre.o tests/test_masscentre.cpp
 
 ${OBJECTDIR}/tests/test_probabilator.o: tests/test_probabilator.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_probabilator.o tests/test_probabilator.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_probabilator.o tests/test_probabilator.cpp
 
 ${OBJECTDIR}/tests/test_quadtree.o: tests/test_quadtree.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_quadtree.o tests/test_quadtree.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_quadtree.o tests/test_quadtree.cpp
 
 ${OBJECTDIR}/tests/test_relentless_file_reader.o: tests/test_relentless_file_reader.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_relentless_file_reader.o tests/test_relentless_file_reader.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_relentless_file_reader.o tests/test_relentless_file_reader.cpp
 
 ${OBJECTDIR}/tests/test_sentence_o_matic.o: tests/test_sentence_o_matic.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sentence_o_matic.o tests/test_sentence_o_matic.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sentence_o_matic.o tests/test_sentence_o_matic.cpp
 
 ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
 
 ${OBJECTDIR}/tests/test_tools.o: tests/test_tools.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools.o tests/test_tools.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools.o tests/test_tools.cpp
 
 ${OBJECTDIR}/tests/test_tools_filesystem.o: tests/test_tools_filesystem.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_filesystem.o tests/test_tools_filesystem.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_filesystem.o tests/test_tools_filesystem.cpp
 
 ${OBJECTDIR}/tests/test_tools_genetic.o: tests/test_tools_genetic.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_genetic.o tests/test_tools_genetic.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_genetic.o tests/test_tools_genetic.cpp
 
 ${OBJECTDIR}/tests/test_tools_random.o: tests/test_tools_random.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_random.o tests/test_tools_random.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_random.o tests/test_tools_random.cpp
 
 ${OBJECTDIR}/tests/test_tools_string.o: tests/test_tools_string.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_string.o tests/test_tools_string.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_string.o tests/test_tools_string.cpp
 
 ${OBJECTDIR}/tests/test_twoway_streambuf.o: tests/test_twoway_streambuf.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_twoway_streambuf.o tests/test_twoway_streambuf.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_twoway_streambuf.o tests/test_twoway_streambuf.cpp
 
 ${OBJECTDIR}/tests/test_unique.o: tests/test_unique.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_unique.o tests/test_unique.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_unique.o tests/test_unique.cpp
 
 ${OBJECTDIR}/tests/test_units_strong.o: tests/test_units_strong.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_units_strong.o tests/test_units_strong.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_units_strong.o tests/test_units_strong.cpp
 
 ${OBJECTDIR}/tests/test_universe.o: tests/test_universe.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe.o tests/test_universe.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe.o tests/test_universe.cpp
 
 ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe_performance.o tests/test_universe_performance.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe_performance.o tests/test_universe_performance.cpp
 
 ${OBJECTDIR}/tests/test_vector.o: tests/test_vector.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_vector.o tests/test_vector.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_vector.o tests/test_vector.cpp
 
 # Subprojects
 .build-subprojects:

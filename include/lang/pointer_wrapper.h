@@ -80,12 +80,12 @@ public:
       }
    }
    
-   operator Type* const ()
+   operator Type* ()
    {
       return m_pointer;
    }
    
-   Type* const operator-> ()
+   Type* operator-> ()
    {
       return m_pointer;
    }
