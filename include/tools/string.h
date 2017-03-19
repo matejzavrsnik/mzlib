@@ -20,9 +20,18 @@ inline std::vector<std::string> split_string_puctuation (const std::string& str)
 {
    std::vector<std::string> split_string;
    std::string new_candidate = "";
+   char ch_prev = 0;
    for (std::string::const_iterator ch_it = str.begin(); ch_it != str.end(); ++ch_it) {
       char ch = *ch_it;
-      if (ispunct(ch) && ch!='\'') { // as in "isn't" and such
+      if (    !ispunct(ch)
+           || (ch=='\'') // as in "isn't"
+           || (ch=='-' && ch_prev!=' ') // as in "mind-boggling"
+         )
+      {
+         new_candidate += ch;
+      }
+      else
+      {
          if (!new_candidate.empty()) {
             split_string.push_back(new_candidate);
             new_candidate = "";
@@ -31,9 +40,7 @@ inline std::vector<std::string> split_string_puctuation (const std::string& str)
          ch_str += ch;
          split_string.push_back(ch_str);
       }
-      else {
-         new_candidate += ch;
-      }
+      ch_prev = ch;
    }
    if (!new_candidate.empty()) {
       split_string.push_back(new_candidate);

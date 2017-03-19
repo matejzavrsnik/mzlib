@@ -31,6 +31,15 @@ TEST_F(fixture_tools_string, split_string_puctuation_basic)
    ASSERT_EQ(result[3], ")");
 }
 
+TEST_F(fixture_tools_string, split_string_puctuation_just_one_at_the_end) 
+{
+   std::string test = "word.";
+   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   ASSERT_EQ(result.size(), 2);
+   ASSERT_EQ(result[0], "word");
+   ASSERT_EQ(result[1], ".");
+}
+
 TEST_F(fixture_tools_string, split_string_puctuation_no_punctuations) 
 {
    std::string test = "word";
@@ -75,6 +84,22 @@ TEST_F(fixture_tools_string, split_string_puctuation_all_punctuations)
    ASSERT_EQ(result[8], "(");
    ASSERT_EQ(result[9], ")");
    ASSERT_EQ(result[10], "\n");
+}
+
+TEST_F(fixture_tools_string, split_string_puctuation_skips_apostrophe_in_contractions) 
+{
+   std::string test = "isn't";
+   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   ASSERT_EQ(result.size(), 1);
+   ASSERT_EQ(result[0], "isn't");
+}
+
+TEST_F(fixture_tools_string, split_string_puctuation_skips_hyphen_in_compounds) 
+{
+   std::string test = "mind-killer";
+   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   ASSERT_EQ(result.size(), 1);
+   ASSERT_EQ(result[0], "mind-killer");
 }
 
 TEST_F(fixture_tools_string, wagner_fischer_distance_basic) 
