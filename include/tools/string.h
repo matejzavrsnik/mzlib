@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <algorithm> // std::generate
 
 #include "general.h" // fast_threeway_min
@@ -227,7 +228,7 @@ remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, cons
 
 // strips all non-letter characters from beginning and end of string
 inline std::string 
-trim_punctiation_from_start_end(const std::string& word)
+trim_punctiation(const std::string& word)
 {
    auto first = std::find_if(word.begin(), word.end(), isalpha);
    auto last = std::find_if(word.rbegin(), word.rend(), isalpha);
@@ -236,6 +237,46 @@ trim_punctiation_from_start_end(const std::string& word)
       stripped.assign(first, last.base());
    }
    return stripped;
+}
+
+inline std::set<std::string> 
+extract_vocabulary(std::istream& vocab_stream)
+{
+   std::set<std::string> vocab;
+   do {
+      std::string piece;
+      vocab_stream >> piece;
+      std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
+      auto split_words = mzlib::split_string_puctuation(piece);
+      for(auto word : split_words) {
+         word = mzlib::trim_punctiation(word);
+         if (word.length() > 0) {
+            vocab.insert(word);
+         }
+      }
+   }
+   while(vocab_stream);
+   return vocab;
+}
+
+inline std::map<std::string, int> 
+extract_vocabulary_with_count(std::istream& vocab_stream)
+{
+   std::map<std::string, int> word_tally;
+   do {
+      std::string piece;
+      vocab_stream >> piece;
+      std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
+      auto split_words = mzlib::split_string_puctuation(piece);
+      for(auto word : split_words) {
+         word = mzlib::trim_punctiation(word);
+         if (word.length()) {
+            mzlib::add_to_tally(word_tally, word);
+         }
+      }
+   }
+   while(vocab_stream);
+   return word_tally;
 }
 
 } // namespace

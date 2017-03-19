@@ -7,6 +7,9 @@
 
 #include "../include/tools/string.h"
 #include "gtest/gtest.h"
+
+#include <set>
+#include <map>
     
 class fixture_tools_string : public ::testing::Test 
 {
@@ -332,13 +335,64 @@ TEST_F(fixture_tools_string, remove_strings_that_dont_end_with)
 
 TEST_F(fixture_tools_string, trim_punctiation_from_start_end)
 {
-   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end(""));
-   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end("."));
-   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end(".!#$%"));
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end(".!#I must not fear$%")); 
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end("I must not fear$%")); 
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end(".!#I must not fear")); 
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end("I must not fear")); 
-   ASSERT_EQ("", mzlib::trim_punctiation_from_start_end("123"));
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation_from_start_end("11I must not fear11")); 
+   ASSERT_EQ("", mzlib::trim_punctiation(""));
+   ASSERT_EQ("", mzlib::trim_punctiation("."));
+   ASSERT_EQ("", mzlib::trim_punctiation(".!#$%"));
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation(".!#I must not fear$%")); 
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation("I must not fear$%")); 
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation(".!#I must not fear")); 
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation("I must not fear")); 
+   ASSERT_EQ("", mzlib::trim_punctiation("123"));
+   ASSERT_EQ("I must not fear", mzlib::trim_punctiation("11I must not fear11")); 
+}
+
+TEST_F(fixture_tools_string, extract_vocabulary_demo)
+{
+   std::istringstream text("I must not fear.Fear is the mind-killer.");
+   std::set<std::string> words = mzlib::extract_vocabulary(text);
+   
+   // There were 8 words in the sentence but just 7 unique.
+   // It recognised dot at the end of first sentence is not part of a word.
+   ASSERT_EQ(7, words.size());
+   ASSERT_NE(words.end(), words.find("i"));
+   ASSERT_NE(words.end(), words.find("must"));
+   ASSERT_NE(words.end(), words.find("not"));
+   ASSERT_NE(words.end(), words.find("fear"));
+   ASSERT_NE(words.end(), words.find("is"));
+   ASSERT_NE(words.end(), words.find("the"));
+   ASSERT_NE(words.end(), words.find("mind-killer"));
+}
+
+TEST_F(fixture_tools_string, extract_vocabulary_empty_stream)
+{
+   std::istringstream text("");
+   std::set<std::string> words = mzlib::extract_vocabulary(text);
+   
+   ASSERT_EQ(0, words.size());
+}
+
+TEST_F(fixture_tools_string, extract_vocabulary_with_count_demo)
+{
+   std::istringstream text("I must not fear.Fear is the mind-killer.");
+   std::map<std::string, int> words = mzlib::extract_vocabulary_with_count(text);
+   
+   // There were 8 words in the sentence but just 7 unique.
+   // It recognised dot at the end of first sentence is not part of a word.
+   ASSERT_EQ(7, words.size());
+   ASSERT_NE(words.end(), words.find("i"));
+   ASSERT_NE(words.end(), words.find("must"));
+   ASSERT_NE(words.end(), words.find("not"));
+   ASSERT_NE(words.end(), words.find("fear"));
+   ASSERT_NE(words.end(), words.find("is"));
+   ASSERT_NE(words.end(), words.find("the"));
+   ASSERT_NE(words.end(), words.find("mind-killer"));
+   ASSERT_EQ(2, words["fear"]); // word "fear" appears twice
+}
+
+TEST_F(fixture_tools_string, extract_vocabulary_with_count_empty_stream)
+{
+   std::istringstream text("");
+   std::map<std::string, int> words = mzlib::extract_vocabulary_with_count(text);
+   
+   ASSERT_EQ(0, words.size());
 }
