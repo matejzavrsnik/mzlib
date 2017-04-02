@@ -385,18 +385,3 @@ TEST_F(fixture_tools, average)
    ASSERT_EQ(3.5, mzlib::average(v.begin()+1, v.end()));
    ASSERT_EQ(2.5, mzlib::average(v.begin(),   v.end()-1));
 }
-
-TEST_F(fixture_tools, factorial)
-{
-   ASSERT_EQ(0, mzlib::factorial(0));
-   ASSERT_EQ(1, mzlib::factorial(1));
-   ASSERT_EQ(2, mzlib::factorial(2));
-   ASSERT_EQ(6, mzlib::factorial(3));
-   ASSERT_EQ(24, mzlib::factorial(4));
-   ASSERT_EQ(120, mzlib::factorial(5));
-   ASSERT_EQ(720, mzlib::factorial(6));
-   
-   // the biggest that can still be calculated the easy way
-   using l = unsigned long long int;
-   ASSERT_EQ(l(2432902008176640000), mzlib::factorial(l(20)));
-}
