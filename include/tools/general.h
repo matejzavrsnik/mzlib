@@ -17,7 +17,9 @@
 #include <algorithm> // std::find
 #include <map>
 #include <cstring>
+#include <numeric> // std::accumulate
 #include "../lang/binary_options.h"
+#include "../nature/vector.h"
 
 namespace mzlib {
         
@@ -224,6 +226,56 @@ std::vector<std::pair<Key, Value>> sort_map_by_value(
       });
    return result;
 }
+
+// useful when representing a matrix with one-dimensional array
+// conversion function, that will convert from coordinates to array index
+inline uint get_index_from_coordinates(vector<uint,2> const coordinates, uint const row_size)
+{
+   return (coordinates[0] + row_size*coordinates[1]);
+}
+
+// useful when representing a matrix with one-dimensional array
+// conversion function, that will convert from array index to coordinates
+inline vector<uint,2> get_coordinates_from_index(uint const index, uint const row_size)
+{
+   return {
+      index % row_size,
+      index / row_size
+   };
+}
+
+// after last element continue from the first again
+template<class Iterator>
+void circular_increment(Iterator &iterator, Iterator first, Iterator last)
+{
+   if(++iterator == last) iterator = first;
+}
+
+// calculate average of all container elements
+template<class Iterator>
+double average(Iterator first, Iterator last)
+{
+   double sum = std::accumulate(first, last, 0);
+   double avg = sum / std::distance(first, last);
+   return avg;
+}
+
+// recursively calculate factorial
+template<class T>
+T factorial(T number)
+{   
+   T result = number;
+   while(number > 2)
+   {
+      --number;
+      result *= number;
+   }
+   return result;
+}
+
+
+
+
 
 } // namespace
 

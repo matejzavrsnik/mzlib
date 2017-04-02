@@ -6,6 +6,7 @@
 //
 
 #include <map>
+#include <list>
 
 #include "../include/tools/general.h"
 #include "../include/lang/c64_basic_for.h"
@@ -288,4 +289,114 @@ TEST_F(fixture_tools, sort_map_by_value_descending)
    ASSERT_EQ("ccc", sorted[1].second);
    ASSERT_EQ("bbb", sorted[2].second);
    ASSERT_EQ("aaa", sorted[3].second);
+}
+
+TEST_F(fixture_tools, get_index_from_coordinates)
+{
+   ASSERT_EQ(0, mzlib::get_index_from_coordinates({0,0}, 3));
+   ASSERT_EQ(1, mzlib::get_index_from_coordinates({1,0}, 3));
+   ASSERT_EQ(2, mzlib::get_index_from_coordinates({2,0}, 3));
+   ASSERT_EQ(3, mzlib::get_index_from_coordinates({0,1}, 3));
+   
+   ASSERT_EQ(4, mzlib::get_index_from_coordinates({0,1}, 4));
+   ASSERT_EQ(5, mzlib::get_index_from_coordinates({0,1}, 5));
+   
+   ASSERT_EQ(24, mzlib::get_index_from_coordinates({4,4}, 5));
+}
+
+TEST_F(fixture_tools, get_coordinates_from_index)
+{
+   using coor = mzlib::vector<uint,2>;
+   ASSERT_EQ(coor({0,0}), mzlib::get_coordinates_from_index(0,3));
+   ASSERT_EQ(coor({1,0}), mzlib::get_coordinates_from_index(1,3));
+   ASSERT_EQ(coor({2,0}), mzlib::get_coordinates_from_index(2,3));
+   ASSERT_EQ(coor({0,1}), mzlib::get_coordinates_from_index(3,3));
+
+   ASSERT_EQ(coor({0,1}), mzlib::get_coordinates_from_index(4, 4));
+   ASSERT_EQ(coor({0,1}), mzlib::get_coordinates_from_index(5, 5));
+   
+   ASSERT_EQ(coor({4,4}), mzlib::get_coordinates_from_index(24, 5));
+}
+
+TEST_F(fixture_tools, circular_increment_vector)
+{
+   std::vector<int> v{1,2,3};
+   auto it = v.begin();
+   
+   ASSERT_EQ(1, *it);
+   mzlib::circular_increment(it, v.begin(), v.end());
+   ASSERT_EQ(2, *it);
+   mzlib::circular_increment(it, v.begin(), v.end());
+   ASSERT_EQ(3, *it);
+   mzlib::circular_increment(it, v.begin(), v.end());
+   ASSERT_EQ(1, *it);
+   mzlib::circular_increment(it, v.begin(), v.end());
+   ASSERT_EQ(2, *it);
+   mzlib::circular_increment(it, v.begin(), v.end());
+   ASSERT_EQ(3, *it);
+   mzlib::circular_increment(it, v.begin(), v.end());
+   ASSERT_EQ(1, *it);
+}
+
+TEST_F(fixture_tools, circular_increment_vector_section)
+{
+   std::vector<int> v{1,2,3,4,5};
+   auto it = v.begin();
+   auto begin = v.begin()+1;
+   auto end = v.begin()+3;
+   
+   ASSERT_EQ(1, *it);
+   mzlib::circular_increment(it, begin, end);
+   ASSERT_EQ(2, *it);
+   mzlib::circular_increment(it, begin, end);
+   ASSERT_EQ(3, *it);
+   mzlib::circular_increment(it, begin, end);
+   ASSERT_EQ(2, *it);
+   mzlib::circular_increment(it, begin, end);
+   ASSERT_EQ(3, *it);
+   mzlib::circular_increment(it, begin, end);
+   ASSERT_EQ(2, *it);
+}
+
+TEST_F(fixture_tools, circular_increment_list)
+{
+   std::list<int> l{1,2,3};
+   auto it = l.begin();
+   
+   ASSERT_EQ(1, *it);
+   mzlib::circular_increment(it, l.begin(), l.end());
+   ASSERT_EQ(2, *it);
+   mzlib::circular_increment(it, l.begin(), l.end());
+   ASSERT_EQ(3, *it);
+   mzlib::circular_increment(it, l.begin(), l.end());
+   ASSERT_EQ(1, *it);
+   mzlib::circular_increment(it, l.begin(), l.end());
+   ASSERT_EQ(2, *it);
+   mzlib::circular_increment(it, l.begin(), l.end());
+   ASSERT_EQ(3, *it);
+   mzlib::circular_increment(it, l.begin(), l.end());
+   ASSERT_EQ(1, *it);
+}
+
+TEST_F(fixture_tools, average)
+{
+   std::vector<int> v{1,2,3,4,5};
+   ASSERT_EQ(3.0, mzlib::average(v.begin(),   v.end()));
+   ASSERT_EQ(3.5, mzlib::average(v.begin()+1, v.end()));
+   ASSERT_EQ(2.5, mzlib::average(v.begin(),   v.end()-1));
+}
+
+TEST_F(fixture_tools, factorial)
+{
+   ASSERT_EQ(0, mzlib::factorial(0));
+   ASSERT_EQ(1, mzlib::factorial(1));
+   ASSERT_EQ(2, mzlib::factorial(2));
+   ASSERT_EQ(6, mzlib::factorial(3));
+   ASSERT_EQ(24, mzlib::factorial(4));
+   ASSERT_EQ(120, mzlib::factorial(5));
+   ASSERT_EQ(720, mzlib::factorial(6));
+   
+   // the biggest that can still be calculated the easy way
+   using l = unsigned long long int;
+   ASSERT_EQ(l(2432902008176640000), mzlib::factorial(l(20)));
 }
