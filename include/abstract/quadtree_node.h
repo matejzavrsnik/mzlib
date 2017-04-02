@@ -324,10 +324,9 @@ private:
    std::shared_ptr<quadnode> m_parent = nullptr;
         
    // All bodies that are in this node, and in all it's subnodes, are stored in
-   // this vector of shared pointers. This is to enable quick traversal of all
-   // bodies stored here, and with that an effective search solution too. If it
-   // wasn't for the fact that what is stored in here are pointers, which will be
-   // causing cache misses all the time, it should look like using std::vector.
+   // this vector of pointers. This is to enable quick traversal of all
+   // bodies stored here, and with that an effective search solution too.
+   // Without it I would need to traverse all children nodes instead.
    std::vector<body_core2d*> m_bodies;
    mass_centre2d m_mass_centre;
         
