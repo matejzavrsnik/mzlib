@@ -48,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_quadtree.o \
 	${OBJECTDIR}/tests/test_relentless_file_reader.o \
 	${OBJECTDIR}/tests/test_sentence_o_matic.o \
+	${OBJECTDIR}/tests/test_sudoku.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
 	${OBJECTDIR}/tests/test_tools.o \
 	${OBJECTDIR}/tests/test_tools_filesystem.o \
@@ -152,6 +153,11 @@ ${OBJECTDIR}/tests/test_sentence_o_matic.o: tests/test_sentence_o_matic.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sentence_o_matic.o tests/test_sentence_o_matic.cpp
+
+${OBJECTDIR}/tests/test_sudoku.o: tests/test_sudoku.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sudoku.o tests/test_sudoku.cpp
 
 ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

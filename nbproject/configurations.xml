@@ -54,6 +54,7 @@
       <itemPath>include/relentless_file_reader.h</itemPath>
       <itemPath>include/screen_rectangle.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
+      <itemPath>include/sudoku.h</itemPath>
       <itemPath>include/supersafe_number.h</itemPath>
       <itemPath>include/twoway_streambuf.h</itemPath>
     </logicalFolder>
@@ -79,6 +80,7 @@
       <itemPath>tests/test_quadtree.cpp</itemPath>
       <itemPath>tests/test_relentless_file_reader.cpp</itemPath>
       <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
+      <itemPath>tests/test_sudoku.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
       <itemPath>tests/test_tools.cpp</itemPath>
       <itemPath>tests/test_tools_filesystem.cpp</itemPath>
@@ -228,6 +230,8 @@
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
@@ -281,6 +285,8 @@
             flavor2="0">
       </item>
       <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -433,6 +439,8 @@
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
@@ -486,6 +494,8 @@
             flavor2="0">
       </item>
       <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
