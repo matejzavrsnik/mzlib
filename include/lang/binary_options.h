@@ -72,6 +72,8 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( stop           )
 MZLIB_GENERATE_NEW_BINARY_OPTION( fullscreen     )
 MZLIB_GENERATE_NEW_BINARY_OPTION( success        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( descending     )
+MZLIB_GENERATE_NEW_BINARY_OPTION( forward        )
+MZLIB_GENERATE_NEW_BINARY_OPTION( match          )
 
 // Shouldn't undefine this macro. Users need convenient way to create more.
 // Not every option will make sense globally, to be included here.
