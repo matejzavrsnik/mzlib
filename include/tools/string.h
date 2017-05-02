@@ -239,10 +239,21 @@ trim_punctiation(const std::string& word)
    return stripped;
 }
 
-inline std::set<std::string> 
-extract_vocabulary(std::istream& vocab_stream)
+// strips all non-letter characters from whole string
+inline std::string 
+trim_punctiation_whole(const std::string& word)
 {
-   std::set<std::string> vocab;
+   std::string trimmed;
+   for(auto ch : word) {
+      if(std::isalpha(ch))
+         trimmed.push_back(ch);
+   }
+   return trimmed;
+}
+
+template<class InsertIt>
+void extract_vocabulary(std::istream& vocab_stream, InsertIt insert_it)
+{
    do {
       std::string piece;
       vocab_stream >> piece;
@@ -251,12 +262,11 @@ extract_vocabulary(std::istream& vocab_stream)
       for(auto word : split_words) {
          word = mzlib::trim_punctiation(word);
          if (word.length() > 0) {
-            vocab.insert(word);
+            *insert_it++ = word;
          }
       }
    }
    while(vocab_stream);
-   return vocab;
 }
 
 inline std::map<std::string, int> 
@@ -277,6 +287,22 @@ extract_vocabulary_with_count(std::istream& vocab_stream)
    }
    while(vocab_stream);
    return word_tally;
+}
+
+inline void to_lowercase(std::string& str)
+{
+   std::transform(str.begin(), str.end(), str.begin(), 
+      [](unsigned char c) { 
+         return std::tolower(c); 
+      });
+}
+
+inline void to_uppercase(std::string& str)
+{
+   std::transform(str.begin(), str.end(), str.begin(), 
+      [](unsigned char c) { 
+         return std::toupper(c); 
+      });
 }
 
 } // namespace

@@ -349,10 +349,11 @@ TEST_F(fixture_tools_string, trim_punctiation_from_start_end)
 TEST_F(fixture_tools_string, extract_vocabulary_demo)
 {
    std::istringstream text("I must not fear.Fear is the mind-killer.");
-   std::set<std::string> words = mzlib::extract_vocabulary(text);
+   std::set<std::string> words;
+   mzlib::extract_vocabulary(text, std::inserter(words, words.begin()));
    
    // There were 8 words in the sentence but just 7 unique.
-   // It recognised dot at the end of first sentence is not part of a word.
+   // If used with set, only unique will be stored.
    ASSERT_EQ(7, words.size());
    ASSERT_NE(words.end(), words.find("i"));
    ASSERT_NE(words.end(), words.find("must"));
@@ -363,10 +364,29 @@ TEST_F(fixture_tools_string, extract_vocabulary_demo)
    ASSERT_NE(words.end(), words.find("mind-killer"));
 }
 
+TEST_F(fixture_tools_string, extract_vocabulary_another_type_of_container)
+{
+   std::istringstream text("I must not fear.Fear is the mind-killer.");
+   std::vector<std::string> words;
+   mzlib::extract_vocabulary(text, std::inserter(words, words.end()));
+   
+   // There were 8 words in the sentence but just 7 unique.
+   // If used with vector, duplicate will appear
+   ASSERT_EQ(8, words.size());
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "i"));
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "must"));
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "not"));
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "fear"));
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "is"));
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "the"));
+   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "mind-killer"));
+}
+
 TEST_F(fixture_tools_string, extract_vocabulary_empty_stream)
 {
    std::istringstream text("");
-   std::set<std::string> words = mzlib::extract_vocabulary(text);
+   std::set<std::string> words;
+   mzlib::extract_vocabulary(text, std::inserter(words, words.end()));
    
    ASSERT_EQ(0, words.size());
 }
@@ -395,4 +415,28 @@ TEST_F(fixture_tools_string, extract_vocabulary_with_count_empty_stream)
    std::map<std::string, int> words = mzlib::extract_vocabulary_with_count(text);
    
    ASSERT_EQ(0, words.size());
+}
+
+TEST_F(fixture_tools_string, trim_punctiation_whole)
+{
+   std::string text(" !?I must not fear.,: Fear is the mind-killer.,* ");
+   std::string trimmed = mzlib::trim_punctiation_whole(text);
+   
+   ASSERT_EQ("ImustnotfearFearisthemindkiller", trimmed);
+}
+
+TEST_F(fixture_tools_string, to_lowercase)
+{
+   std::string text("I must not fear. Fear is the mind-killer.");
+   mzlib::to_lowercase(text);
+   
+   ASSERT_EQ("i must not fear. fear is the mind-killer.", text);
+}
+
+TEST_F(fixture_tools_string, to_uppercase)
+{
+   std::string text("I must not fear.");
+   mzlib::to_uppercase(text);
+   
+   ASSERT_EQ("I MUST NOT FEAR.", text);
 }
