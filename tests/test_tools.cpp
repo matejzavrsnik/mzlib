@@ -385,3 +385,33 @@ TEST_F(fixture_tools, average)
    ASSERT_EQ(3.5, mzlib::average(v.begin()+1, v.end()));
    ASSERT_EQ(2.5, mzlib::average(v.begin(),   v.end()-1));
 }
+
+TEST_F(fixture_tools, is_distance_larger)
+{
+   std::vector<int> v = {1,2,3,4,5};
+   
+   ASSERT_FALSE(mzlib::is_distance_larger(v.begin(), v.begin(), 2));
+   ASSERT_FALSE(mzlib::is_distance_larger(v.begin(), v.begin()+1, 2));
+   ASSERT_FALSE(mzlib::is_distance_larger(v.begin(), v.begin()+2, 2));
+   ASSERT_TRUE (mzlib::is_distance_larger(v.begin(), v.begin()+3, 2));
+}
+
+TEST_F(fixture_tools, is_distance_smaller)
+{
+   std::vector<int> v = {1,2,3,4,5};
+   
+   ASSERT_TRUE (mzlib::is_distance_smaller(v.begin(), v.begin(), 2));
+   ASSERT_TRUE (mzlib::is_distance_smaller(v.begin(), v.begin()+1, 2));
+   ASSERT_FALSE(mzlib::is_distance_smaller(v.begin(), v.begin()+2, 2));
+   ASSERT_FALSE(mzlib::is_distance_smaller(v.begin(), v.begin()+3, 2));
+}
+
+TEST_F(fixture_tools, is_distance_equal)
+{
+   std::vector<int> v = {1,2,3,4,5};
+   
+   ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin(), 2));
+   ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin()+1, 2));
+   ASSERT_TRUE (mzlib::is_distance_equal(v.begin(), v.begin()+2, 2));
+   ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin()+3, 2));
+}

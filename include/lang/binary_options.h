@@ -74,7 +74,16 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( success        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( descending     )
 MZLIB_GENERATE_NEW_BINARY_OPTION( forward        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( match          )
+MZLIB_GENERATE_NEW_BINARY_OPTION( alphanumeric   )
 
+// Did you come here to add something like larger/smaller option? Think again. 
+// Imagine the function that takes type larger as an argument. The meaning of 
+// larger::yes is clear, but larger::no is not; does the function interpret it 
+// as "equal" or as "smaller"? For this case I would need to limit the user to 
+// larger/equal/smaller options, not larger::yes/larger::no, because they are 
+// really not that binary, that's why it doesn't fit in. Just add a new enum 
+// somewhere, they are free.
+        
 // Shouldn't undefine this macro. Users need convenient way to create more.
 // Not every option will make sense globally, to be included here.
 //#undef MZLIB_GENERATE_NEW_BINARY_OPTION
