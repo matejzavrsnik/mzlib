@@ -340,6 +340,48 @@ bool is_distance_equal(Iterator it1, Iterator it2, size_t distance)
    return false;
 }
 
+template<class Iterator>
+Iterator find_last_where_value_smaller_then_next(Iterator begin, Iterator end)
+{
+   if (mzlib::is_distance_smaller(begin, end, 2)) 
+      return end; // nothing to find
+   
+   auto next = end;
+   auto prev = next-1;
+   
+   while(prev != begin) 
+      if (*(--prev) < *(--next)) 
+         return prev;
+   
+   return end; // not found
+}
+
+template<class Iterator, class T>
+Iterator find_last_where_value_larger_then_given(Iterator begin, Iterator end, T value_given)
+{
+   auto last = end;
+   
+   while(last != begin) 
+      if (*(--last) > value_given) 
+         return last;
+   
+   return end; // not found
+}
+
+// I think everybody except me has written lexical permutation function at least 
+// once in their lives. Here it goes. (FYI: there is a function in std:: that
+// does this and probably does it better, if you actually need one.)
+template<class Iterator>
+void next_lex_permutation(Iterator begin, Iterator end)
+{
+   auto k = find_last_where_value_smaller_then_next(begin, end);
+   if (k==end) return; // done, this was last permutation
+   auto l = find_last_where_value_larger_then_given(begin, end, *k);
+   if (l==end) return; // done
+   std::iter_swap(k, l);
+   std::reverse(k+1, end);
+}
+
 } // namespace
 
 #endif /* MZLIB_UTILITIES_H */

@@ -415,3 +415,124 @@ TEST_F(fixture_tools, is_distance_equal)
    ASSERT_TRUE (mzlib::is_distance_equal(v.begin(), v.begin()+2, 2));
    ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin()+3, 2));
 }
+
+TEST_F(fixture_tools, next_lex_permutation)
+{
+   std::vector<int> v = {1,2,3,4,5};
+   
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({1,2,3,5,4}));
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({1,2,4,3,5}));
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({1,2,4,5,3}));
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({1,2,5,3,4}));
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({1,2,5,4,3}));
+}
+
+TEST_F(fixture_tools, next_lex_permutation_empty)
+{
+   std::vector<int> v = {};
+   
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({}));
+}
+
+TEST_F(fixture_tools, next_lex_permutation_one)
+{
+   std::vector<int> v = {1};
+   
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({1}));
+}
+
+TEST_F(fixture_tools, next_lex_permutation_two)
+{
+   std::vector<int> v = {1,2};
+   
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({2,1}));
+}
+
+TEST_F(fixture_tools, next_lex_permutation_end)
+{
+   std::vector<int> v = {2,1};
+   
+   mzlib::next_lex_permutation(v.begin(), v.end());
+   ASSERT_EQ(v, std::vector<int>({2,1}));
+}
+
+TEST_F(fixture_tools, find_last_where_value_larger_then_given)
+{
+   std::vector<int> v = {1,2,3,4,5};
+   
+   auto res = mzlib::find_last_where_value_larger_then_given(v.begin(), v.end(), 3);
+   ASSERT_EQ(*res, 5);
+}
+
+TEST_F(fixture_tools, find_last_where_value_larger_then_given_empty)
+{
+   std::vector<int> v = {};
+   
+   auto res = mzlib::find_last_where_value_larger_then_given(v.begin(), v.end(), 3);
+   ASSERT_EQ(res, v.end());
+}
+
+TEST_F(fixture_tools, find_last_where_value_larger_then_given_one_is_larger)
+{
+   std::vector<int> v = {5};
+   
+   auto res = mzlib::find_last_where_value_larger_then_given(v.begin(), v.end(), 3);
+   ASSERT_EQ(*res, 5);
+}
+
+TEST_F(fixture_tools, find_last_where_value_larger_then_given_one_is_smaller)
+{
+   std::vector<int> v = {2};
+   
+   auto res = mzlib::find_last_where_value_larger_then_given(v.begin(), v.end(), 3);
+   ASSERT_EQ(res, v.end());
+}
+
+TEST_F(fixture_tools, find_last_where_value_smaller_then_next)
+{
+   std::vector<int> v = {1,4,6,1,2,3};
+   // Smaller then nexts ^ ^   ^ ^ 
+   
+   auto res = mzlib::find_last_where_value_smaller_then_next(v.begin(), v.end());
+   ASSERT_EQ(*res, 2);
+}
+
+TEST_F(fixture_tools, find_last_where_value_smaller_then_next_empty)
+{
+   std::vector<int> v = {};
+   
+   auto res = mzlib::find_last_where_value_smaller_then_next(v.begin(), v.end());
+   ASSERT_EQ(res, v.end());
+}
+
+TEST_F(fixture_tools, find_last_where_value_smaller_then_next_one)
+{
+   std::vector<int> v = {1};
+   
+   auto res = mzlib::find_last_where_value_smaller_then_next(v.begin(), v.end());
+   ASSERT_EQ(res, v.end());
+}
+
+TEST_F(fixture_tools, find_last_where_value_smaller_then_next_two_equals)
+{
+   std::vector<int> v = {1,1};
+   
+   auto res = mzlib::find_last_where_value_smaller_then_next(v.begin(), v.end());
+   ASSERT_EQ(res, v.end());
+}
+
+TEST_F(fixture_tools, find_last_where_value_smaller_then_next_two)
+{
+   std::vector<int> v = {1,2};
+   
+   auto res = mzlib::find_last_where_value_smaller_then_next(v.begin(), v.end());
+   ASSERT_EQ(*res, 1);
+}
