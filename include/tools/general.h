@@ -246,9 +246,9 @@ inline vector<uint,2> get_coordinates_from_index(uint const index, uint const ro
    };
 }
 
-// after last element continue from the first again
+// after last element continue from the first again.
 template<class Iterator>
-void circular_increment(Iterator &iterator, Iterator first, Iterator last)
+void circular_next(Iterator &iterator, Iterator first, Iterator last)
 {
    if(++iterator == last) iterator = first;
 }

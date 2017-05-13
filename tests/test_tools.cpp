@@ -318,27 +318,27 @@ TEST_F(fixture_tools, get_coordinates_from_index)
    ASSERT_EQ(coor({4,4}), mzlib::get_coordinates_from_index(24, 5));
 }
 
-TEST_F(fixture_tools, circular_increment_vector)
+TEST_F(fixture_tools, circular_next_vector)
 {
    std::vector<int> v{1,2,3};
    auto it = v.begin();
    
    ASSERT_EQ(1, *it);
-   mzlib::circular_increment(it, v.begin(), v.end());
+   mzlib::circular_next(it, v.begin(), v.end());
    ASSERT_EQ(2, *it);
-   mzlib::circular_increment(it, v.begin(), v.end());
+   mzlib::circular_next(it, v.begin(), v.end());
    ASSERT_EQ(3, *it);
-   mzlib::circular_increment(it, v.begin(), v.end());
+   mzlib::circular_next(it, v.begin(), v.end());
    ASSERT_EQ(1, *it);
-   mzlib::circular_increment(it, v.begin(), v.end());
+   mzlib::circular_next(it, v.begin(), v.end());
    ASSERT_EQ(2, *it);
-   mzlib::circular_increment(it, v.begin(), v.end());
+   mzlib::circular_next(it, v.begin(), v.end());
    ASSERT_EQ(3, *it);
-   mzlib::circular_increment(it, v.begin(), v.end());
+   mzlib::circular_next(it, v.begin(), v.end());
    ASSERT_EQ(1, *it);
 }
 
-TEST_F(fixture_tools, circular_increment_vector_section)
+TEST_F(fixture_tools, circular_next_vector_section)
 {
    std::vector<int> v{1,2,3,4,5};
    auto it = v.begin();
@@ -346,35 +346,35 @@ TEST_F(fixture_tools, circular_increment_vector_section)
    auto end = v.begin()+3;
    
    ASSERT_EQ(1, *it);
-   mzlib::circular_increment(it, begin, end);
+   mzlib::circular_next(it, begin, end);
    ASSERT_EQ(2, *it);
-   mzlib::circular_increment(it, begin, end);
+   mzlib::circular_next(it, begin, end);
    ASSERT_EQ(3, *it);
-   mzlib::circular_increment(it, begin, end);
+   mzlib::circular_next(it, begin, end);
    ASSERT_EQ(2, *it);
-   mzlib::circular_increment(it, begin, end);
+   mzlib::circular_next(it, begin, end);
    ASSERT_EQ(3, *it);
-   mzlib::circular_increment(it, begin, end);
+   mzlib::circular_next(it, begin, end);
    ASSERT_EQ(2, *it);
 }
 
-TEST_F(fixture_tools, circular_increment_list)
+TEST_F(fixture_tools, circular_next_list)
 {
    std::list<int> l{1,2,3};
    auto it = l.begin();
    
    ASSERT_EQ(1, *it);
-   mzlib::circular_increment(it, l.begin(), l.end());
+   mzlib::circular_next(it, l.begin(), l.end());
    ASSERT_EQ(2, *it);
-   mzlib::circular_increment(it, l.begin(), l.end());
+   mzlib::circular_next(it, l.begin(), l.end());
    ASSERT_EQ(3, *it);
-   mzlib::circular_increment(it, l.begin(), l.end());
+   mzlib::circular_next(it, l.begin(), l.end());
    ASSERT_EQ(1, *it);
-   mzlib::circular_increment(it, l.begin(), l.end());
+   mzlib::circular_next(it, l.begin(), l.end());
    ASSERT_EQ(2, *it);
-   mzlib::circular_increment(it, l.begin(), l.end());
+   mzlib::circular_next(it, l.begin(), l.end());
    ASSERT_EQ(3, *it);
-   mzlib::circular_increment(it, l.begin(), l.end());
+   mzlib::circular_next(it, l.begin(), l.end());
    ASSERT_EQ(1, *it);
 }
 
