@@ -13,19 +13,7 @@
 
 #include "gtest/gtest.h"
     
-class fixture_tools : public ::testing::Test 
-{
-
-protected:
-
-   fixture_tools() {}
-   virtual ~fixture_tools() {}
-   virtual void SetUp() {}
-   virtual void TearDown() {}
-   
-};
-
-TEST_F(fixture_tools, get_number_of_decimals) 
+TEST(get_number_of_decimals, basic) 
 {
    double double_num = 0;
    ASSERT_EQ(0, mzlib::get_number_of_decimals(double_num));
@@ -39,7 +27,7 @@ TEST_F(fixture_tools, get_number_of_decimals)
    ASSERT_EQ(6, mzlib::get_number_of_decimals(double_num));
 }
 
-TEST_F(fixture_tools, push_back_if_not_in_different_vectors) 
+TEST(push_back_if_not_in_different_vectors, basic) 
 {
    std::vector<std::string> v_string;
    std::vector<int> v_int;
@@ -51,7 +39,7 @@ TEST_F(fixture_tools, push_back_if_not_in_different_vectors)
    ASSERT_EQ(1, v_int.size());
 }
 
-TEST_F(fixture_tools, push_back_if_not_in) 
+TEST(push_back_if_not_in, basic) 
 {
    std::vector<int> v;
    ASSERT_EQ(v.size(), 0);
@@ -78,7 +66,7 @@ TEST_F(fixture_tools, push_back_if_not_in)
    ASSERT_EQ(v.size(), 3);
 }
 
-TEST_F(fixture_tools, get_index) 
+TEST(get_index, basic) 
 {
    std::vector<int> v;
    for(int i=0; i<10; i++) {
@@ -102,7 +90,7 @@ TEST_F(fixture_tools, get_index)
    ASSERT_EQ(index_9, 9);
 }
 
-TEST_F(fixture_tools, create_matrix_basic) 
+TEST(create_matrix, basic) 
 {
    auto matrix = mzlib::create_matrix(2,3,0);
    
@@ -114,7 +102,7 @@ TEST_F(fixture_tools, create_matrix_basic)
    ASSERT_EQ(0, matrix[1][2]);
 }
 
-TEST_F(fixture_tools, copy_first_n_over_rest_basic) 
+TEST(copy_first_n_over_rest, basic) 
 {
    std::vector<int> v = {1,2,3,4,5,6,7,8,9,10};
    
@@ -125,7 +113,7 @@ TEST_F(fixture_tools, copy_first_n_over_rest_basic)
    ASSERT_EQ(1, v[9]);
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_basic_test) 
+TEST(sentence_assemblarator, basic) 
 {
    std::vector<std::string> words = {"veni", ",", "vidi", ",","dormivi", "."};
    auto words_iterator = words.begin();
@@ -136,7 +124,7 @@ TEST_F(fixture_tools, sentence_assemblarator_basic_test)
    ASSERT_EQ(sentence, "Veni, vidi, dormivi."); 
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_stops_on_exclamation_mark) 
+TEST(sentence_assemblarator, stops_on_exclamation_mark) 
 {
    std::vector<std::string> words = {"veni", "!", "vidi", ",","dormivi", "."};
    auto words_iterator = words.begin();
@@ -144,7 +132,7 @@ TEST_F(fixture_tools, sentence_assemblarator_stops_on_exclamation_mark)
    ASSERT_EQ(sentence, "Veni!"); 
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_stops_on_question_mark) 
+TEST(sentence_assemblarator, stops_on_question_mark) 
 {
    std::vector<std::string> words = {"veni", "?", "vidi", ",","dormivi", "."};
    auto words_iterator = words.begin();
@@ -152,7 +140,7 @@ TEST_F(fixture_tools, sentence_assemblarator_stops_on_question_mark)
    ASSERT_EQ(sentence, "Veni?"); 
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_spaces_around_quotes) 
+TEST(sentence_assemblarator, spaces_around_quotes) 
 {
    std::vector<std::string> words = {"veni", "\"", "vidi", "\"","dormivi", "."};
    auto words_iterator = words.begin();
@@ -161,7 +149,7 @@ TEST_F(fixture_tools, sentence_assemblarator_spaces_around_quotes)
    ASSERT_EQ(sentence, "Veni \"vidi\" dormivi."); 
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_spaces_around_paretheses) 
+TEST(sentence_assemblarator, spaces_around_paretheses) 
 {
    std::vector<std::string> words = {"veni", "(", "vidi", ")","dormivi", "."};
    auto words_iterator = words.begin();
@@ -170,7 +158,7 @@ TEST_F(fixture_tools, sentence_assemblarator_spaces_around_paretheses)
    ASSERT_EQ(sentence, "Veni (vidi) dormivi."); 
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_quote_handling) 
+TEST(sentence_assemblarator, quote_handling) 
 {
    std::vector<std::string> words = {"veni", "\"", "\"", "vidi","dormivi", "."};
    auto words_iterator = words.begin();
@@ -179,7 +167,7 @@ TEST_F(fixture_tools, sentence_assemblarator_quote_handling)
    ASSERT_EQ(sentence, "Veni \"vidi dormivi\"."); 
 }
 
-TEST_F(fixture_tools, sentence_assemblarator_paretheses_handling) 
+TEST(sentence_assemblarator, paretheses_handling) 
 {
    std::vector<std::string> words = {"veni", "(", "(", "vidi","dormivi", "."};
    auto words_iterator = words.begin();
@@ -188,7 +176,7 @@ TEST_F(fixture_tools, sentence_assemblarator_paretheses_handling)
    ASSERT_EQ(sentence, "Veni (vidi dormivi)."); 
 }
 
-TEST_F(fixture_tools, fast_threeway_min_lvalue) 
+TEST(fast_threeway_min_lvalue, basic) 
 {
    int i1 = 1, i2 = 2, i3 = 3;
    // all permutations
@@ -200,7 +188,7 @@ TEST_F(fixture_tools, fast_threeway_min_lvalue)
    ASSERT_EQ(1, mzlib::fast_min_ref(i3, i2, i1));
 }
 
-TEST_F(fixture_tools, fast_threeway_min_rvalue) 
+TEST(fast_threeway_min_rvalue, basic) 
 {
    // all permutations
    ASSERT_EQ(1, mzlib::fast_min(1, 2, 3));
@@ -211,7 +199,7 @@ TEST_F(fixture_tools, fast_threeway_min_rvalue)
    ASSERT_EQ(1, mzlib::fast_min(3, 2, 1));
 }
 
-TEST_F(fixture_tools, coptional_basic) 
+TEST(coptional, basic) 
 {
    mzlib::optional<int> optional;
    ASSERT_THROW(optional.get(), mzlib::exception::not_set);
@@ -224,7 +212,7 @@ TEST_F(fixture_tools, coptional_basic)
    ASSERT_THROW(optional.get(), mzlib::exception::not_set);
 }
 
-TEST_F(fixture_tools, c64_basic_for_basic) 
+TEST(c64_basic_for, basic) 
 {
    int should_be = 0;
    int use_step = 10;
@@ -236,7 +224,7 @@ TEST_F(fixture_tools, c64_basic_for_basic)
    }
 }
 
-TEST_F(fixture_tools, add_to_tally) 
+TEST(add_to_tally, basic) 
 {
    std::map<std::string, int> map;
    
@@ -251,7 +239,7 @@ TEST_F(fixture_tools, add_to_tally)
    ASSERT_EQ(1, map["another word"]);
 }
 
-TEST_F(fixture_tools, sort_map_by_value_ascending) 
+TEST(sort_map_by_value, ascending) 
 {
    std::map<int, std::string> map;
    map[1] = "ddd";
@@ -271,7 +259,7 @@ TEST_F(fixture_tools, sort_map_by_value_ascending)
    ASSERT_EQ("ddd", sorted[3].second);
 }
 
-TEST_F(fixture_tools, sort_map_by_value_descending) 
+TEST(sort_map_by_value, descending) 
 {
    std::map<int, std::string> map;
    map[1] = "ddd";
@@ -291,7 +279,7 @@ TEST_F(fixture_tools, sort_map_by_value_descending)
    ASSERT_EQ("aaa", sorted[3].second);
 }
 
-TEST_F(fixture_tools, get_index_from_coordinates)
+TEST(get_index_from_coordinates, basic)
 {
    ASSERT_EQ(0, mzlib::get_index_from_coordinates({0,0}, 3));
    ASSERT_EQ(1, mzlib::get_index_from_coordinates({1,0}, 3));
@@ -304,7 +292,7 @@ TEST_F(fixture_tools, get_index_from_coordinates)
    ASSERT_EQ(24, mzlib::get_index_from_coordinates({4,4}, 5));
 }
 
-TEST_F(fixture_tools, get_coordinates_from_index)
+TEST(get_coordinates_from_index, basic)
 {
    using coor = mzlib::vector<uint,2>;
    ASSERT_EQ(coor({0,0}), mzlib::get_coordinates_from_index(0,3));
@@ -318,7 +306,7 @@ TEST_F(fixture_tools, get_coordinates_from_index)
    ASSERT_EQ(coor({4,4}), mzlib::get_coordinates_from_index(24, 5));
 }
 
-TEST_F(fixture_tools, circular_next_vector)
+TEST(circular_next, vector)
 {
    std::vector<int> v{1,2,3};
    auto it = v.begin();
@@ -338,7 +326,7 @@ TEST_F(fixture_tools, circular_next_vector)
    ASSERT_EQ(1, *it);
 }
 
-TEST_F(fixture_tools, circular_next_vector_section)
+TEST(circular_next, vector_section)
 {
    std::vector<int> v{1,2,3,4,5};
    auto it = v.begin();
@@ -358,7 +346,7 @@ TEST_F(fixture_tools, circular_next_vector_section)
    ASSERT_EQ(2, *it);
 }
 
-TEST_F(fixture_tools, circular_next_list)
+TEST(circular_next, list)
 {
    std::list<int> l{1,2,3};
    auto it = l.begin();
@@ -378,7 +366,7 @@ TEST_F(fixture_tools, circular_next_list)
    ASSERT_EQ(1, *it);
 }
 
-TEST_F(fixture_tools, average)
+TEST(average, basic)
 {
    std::vector<int> v{1,2,3,4,5};
    ASSERT_EQ(3.0, mzlib::average(v.begin(),   v.end()));
@@ -386,7 +374,7 @@ TEST_F(fixture_tools, average)
    ASSERT_EQ(2.5, mzlib::average(v.begin(),   v.end()-1));
 }
 
-TEST_F(fixture_tools, is_distance_larger)
+TEST(is_distance_larger, basic)
 {
    std::vector<int> v = {1,2,3,4,5};
    
@@ -396,7 +384,7 @@ TEST_F(fixture_tools, is_distance_larger)
    ASSERT_TRUE (mzlib::is_distance_larger(v.begin(), v.begin()+3, 2));
 }
 
-TEST_F(fixture_tools, is_distance_smaller)
+TEST(is_distance_smaller, basic)
 {
    std::vector<int> v = {1,2,3,4,5};
    
@@ -406,7 +394,7 @@ TEST_F(fixture_tools, is_distance_smaller)
    ASSERT_FALSE(mzlib::is_distance_smaller(v.begin(), v.begin()+3, 2));
 }
 
-TEST_F(fixture_tools, is_distance_equal)
+TEST(is_distance_equal, basic)
 {
    std::vector<int> v = {1,2,3,4,5};
    
@@ -416,7 +404,7 @@ TEST_F(fixture_tools, is_distance_equal)
    ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin()+3, 2));
 }
 
-TEST_F(fixture_tools, next_lex_permutation)
+TEST(next_lex_permutation, basic)
 {
    std::vector<int> v = {1,2,3,4,5};
    
@@ -432,7 +420,7 @@ TEST_F(fixture_tools, next_lex_permutation)
    ASSERT_EQ(v, std::vector<int>({1,2,5,4,3}));
 }
 
-TEST_F(fixture_tools, next_lex_permutation_empty)
+TEST(next_lex_permutation, empty)
 {
    std::vector<int> v = {};
    
@@ -440,7 +428,7 @@ TEST_F(fixture_tools, next_lex_permutation_empty)
    ASSERT_EQ(v, std::vector<int>({}));
 }
 
-TEST_F(fixture_tools, next_lex_permutation_one)
+TEST(next_lex_permutation, one)
 {
    std::vector<int> v = {1};
    
@@ -448,7 +436,7 @@ TEST_F(fixture_tools, next_lex_permutation_one)
    ASSERT_EQ(v, std::vector<int>({1}));
 }
 
-TEST_F(fixture_tools, next_lex_permutation_two)
+TEST(next_lex_permutation, two)
 {
    std::vector<int> v = {1,2};
    
@@ -456,7 +444,7 @@ TEST_F(fixture_tools, next_lex_permutation_two)
    ASSERT_EQ(v, std::vector<int>({2,1}));
 }
 
-TEST_F(fixture_tools, next_lex_permutation_end)
+TEST(next_lex_permutation, end)
 {
    std::vector<int> v = {2,1};
    
@@ -464,7 +452,7 @@ TEST_F(fixture_tools, next_lex_permutation_end)
    ASSERT_EQ(v, std::vector<int>({2,1}));
 }
 
-TEST_F(fixture_tools, find_last_where_value_larger_then_given)
+TEST(find_last_where_value_larger_then_given, basic)
 {
    std::vector<int> v = {1,2,3,4,5};
    
@@ -472,7 +460,7 @@ TEST_F(fixture_tools, find_last_where_value_larger_then_given)
    ASSERT_EQ(*res, 5);
 }
 
-TEST_F(fixture_tools, find_last_where_value_larger_then_given_empty)
+TEST(find_last_where_value_larger_then_given, empty)
 {
    std::vector<int> v = {};
    
@@ -480,7 +468,7 @@ TEST_F(fixture_tools, find_last_where_value_larger_then_given_empty)
    ASSERT_EQ(res, v.end());
 }
 
-TEST_F(fixture_tools, find_last_where_value_larger_then_given_one_is_larger)
+TEST(find_last_where_value_larger_then_given, one_is_larger)
 {
    std::vector<int> v = {5};
    
@@ -488,7 +476,7 @@ TEST_F(fixture_tools, find_last_where_value_larger_then_given_one_is_larger)
    ASSERT_EQ(*res, 5);
 }
 
-TEST_F(fixture_tools, find_last_where_value_larger_then_given_one_is_smaller)
+TEST(find_last_where_value_larger_then_given, one_is_smaller)
 {
    std::vector<int> v = {2};
    
@@ -496,7 +484,7 @@ TEST_F(fixture_tools, find_last_where_value_larger_then_given_one_is_smaller)
    ASSERT_EQ(res, v.end());
 }
 
-TEST_F(fixture_tools, find_last_where_value_smaller_then_next)
+TEST(find_last_where_value_smaller_then_next, basic)
 {
    std::vector<int> v = {1,4,6,1,2,3};
    // Smaller then nexts ^ ^   ^ ^ 
@@ -505,7 +493,7 @@ TEST_F(fixture_tools, find_last_where_value_smaller_then_next)
    ASSERT_EQ(*res, 2);
 }
 
-TEST_F(fixture_tools, find_last_where_value_smaller_then_next_empty)
+TEST(find_last_where_value_smaller_then_next, empty)
 {
    std::vector<int> v = {};
    
@@ -513,7 +501,7 @@ TEST_F(fixture_tools, find_last_where_value_smaller_then_next_empty)
    ASSERT_EQ(res, v.end());
 }
 
-TEST_F(fixture_tools, find_last_where_value_smaller_then_next_one)
+TEST(find_last_where_value_smaller_then_next, one)
 {
    std::vector<int> v = {1};
    
@@ -521,7 +509,7 @@ TEST_F(fixture_tools, find_last_where_value_smaller_then_next_one)
    ASSERT_EQ(res, v.end());
 }
 
-TEST_F(fixture_tools, find_last_where_value_smaller_then_next_two_equals)
+TEST(find_last_where_value_smaller_then_next, two_equals)
 {
    std::vector<int> v = {1,1};
    
@@ -529,7 +517,7 @@ TEST_F(fixture_tools, find_last_where_value_smaller_then_next_two_equals)
    ASSERT_EQ(res, v.end());
 }
 
-TEST_F(fixture_tools, find_last_where_value_smaller_then_next_two)
+TEST(find_last_where_value_smaller_then_next, two)
 {
    std::vector<int> v = {1,2};
    

@@ -376,8 +376,10 @@ void next_lex_permutation(Iterator begin, Iterator end)
 {
    auto k = find_last_where_value_smaller_then_next(begin, end);
    if (k==end) return; // done, this was last permutation
+   
    auto l = find_last_where_value_larger_then_given(begin, end, *k);
    if (l==end) return; // done
+   
    std::iter_swap(k, l);
    std::reverse(k+1, end);
 }
