@@ -32,38 +32,31 @@ TEST(push_back_if_not_in_different_vectors, basic)
    std::vector<std::string> v_string;
    std::vector<int> v_int;
     
-   mzlib::push_back_unique(v_string, std::string("test"));
+   mzlib::insert_if_unique(v_string.begin(), v_string.end(), std::string("test"), std::inserter(v_string, v_string.end()));
    ASSERT_EQ(1, v_string.size());
     
-   mzlib::push_back_unique(v_int, 123);
+   mzlib::insert_if_unique(v_int.begin(), v_int.end(), 123, std::inserter(v_int, v_int.end()));
    ASSERT_EQ(1, v_int.size());
 }
 
 TEST(push_back_if_not_in, basic) 
 {
    std::vector<int> v;
-   ASSERT_EQ(v.size(), 0);
-   auto a = mzlib::push_back_unique(v, 11);
-   ASSERT_EQ(*a, 11);
-   ASSERT_EQ(v.size(), 1);
-   auto b = mzlib::push_back_unique(v, 11);
-   ASSERT_EQ(*b, 11);
-   ASSERT_EQ(v.size(), 1);
-   auto c = mzlib::push_back_unique(v, 12);
-   ASSERT_EQ(*c, 12);
-   ASSERT_EQ(v.size(), 2);
-   auto d = mzlib::push_back_unique(v, 12);
-   ASSERT_EQ(*d, 12);
-   ASSERT_EQ(v.size(), 2);    
-   auto e = mzlib::push_back_unique(v, 13);
-   ASSERT_EQ(*e, 13);
-   ASSERT_EQ(v.size(), 3);
-   auto f = mzlib::push_back_unique(v, 12);
-   ASSERT_EQ(*f, 12);
-   ASSERT_EQ(v.size(), 3);
-   auto g = mzlib::push_back_unique(v, 11);
-   ASSERT_EQ(*g, 11);
-   ASSERT_EQ(v.size(), 3);
+
+   mzlib::insert_if_unique(v.begin(), v.end(), 11, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11}));
+   mzlib::insert_if_unique(v.begin(), v.end(), 11, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11}));
+   mzlib::insert_if_unique(v.begin(), v.end(), 12, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11,12}));
+   mzlib::insert_if_unique(v.begin(), v.end(), 12, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11,12}));
+   mzlib::insert_if_unique(v.begin(), v.end(), 13, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11,12,13}));
+   mzlib::insert_if_unique(v.begin(), v.end(), 12, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11,12,13}));
+   mzlib::insert_if_unique(v.begin(), v.end(), 11, std::inserter(v, v.end()));
+   ASSERT_EQ(v, std::vector<int>({11,12,13}));
 }
 
 TEST(get_index, basic) 
@@ -73,20 +66,16 @@ TEST(get_index, basic)
       v.push_back(i);
    }
    // first 
-   auto it_0 = std::find(v.begin(), v.end(), 0);
-   int index_0 = mzlib::get_index(v, it_0);
+   int index_0 = mzlib::get_index(v.begin(), v.begin());
    ASSERT_EQ(index_0, 0);
    // second
-   auto it_1 = std::find(v.begin(), v.end(), 1);
-   int index_1 = mzlib::get_index(v, it_1);
+   int index_1 = mzlib::get_index(v.begin(), v.begin()+1);
    ASSERT_EQ(index_1, 1);
    // middle
-   auto it_5 = std::find(v.begin(), v.end(), 5);
-   int index_5 = mzlib::get_index(v, it_5);
+   int index_5 = mzlib::get_index(v.begin(), v.begin()+5);
    ASSERT_EQ(index_5, 5);
    // last
-   auto it_9 = std::find(v.begin(), v.end(), 9);
-   int index_9 = mzlib::get_index(v, it_9);
+   int index_9 = mzlib::get_index(v.begin(), v.begin()+9);
    ASSERT_EQ(index_9, 9);
 }
 

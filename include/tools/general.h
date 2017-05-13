@@ -52,24 +52,22 @@ get_number_of_decimals (T num)
    return str.length();
 }
     
-// adds to vector, unless the element is already in
-// returns iterator to element in the vector
-template<class T> typename std::vector<T>::iterator 
-push_back_unique (std::vector<T>& v, const T& element) 
+// adds to container, unless the element is already in
+// returns iterator to element in the container
+template<class Iterator, class T, class InsertIt> 
+void insert_if_unique (Iterator begin, Iterator end, const T& element, InsertIt inserter) 
 {
-   auto sought_element = std::find(v.begin(), v.end(), element);
-   if (sought_element == v.end()) {
-      v.push_back(element);
-      sought_element = --v.end();
+   auto sought_element = std::find(begin, end, element);
+   if (sought_element == end) {
+      *inserter++ = element;
    }
-   return sought_element;
 }
     
 // converts iterator to index
-template<class T> typename std::vector<T>::difference_type
-get_index (std::vector<T>& v, typename std::vector<T>::iterator& it) 
+template<class Iterator> 
+size_t get_index (Iterator begin, Iterator it) 
 {
-   return std::distance(v.begin(), it);
+   return std::distance(begin, it);
 }
 
 // creates vector of vectors; a matrix, so to speak
