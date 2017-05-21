@@ -514,6 +514,23 @@ TEST(find_last_where_value_smaller_then_next, two)
    ASSERT_EQ(*res, 1);
 }
 
+TEST(fast_forward_until, basic)
+{
+   std::vector<int> v = {1,2,3,4,5,6,7,8,9};
+   
+   using namespace std::placeholders;
+   
+   auto result_f = mzlib::fast_forward_until<int>(
+      v.begin(), v.end(), 
+      std::bind(std::greater<int>(), _1, 5));
+   ASSERT_EQ(6, *result_f);
+   
+   auto result_b = mzlib::fast_forward_until<int>(
+      v.rbegin(), v.rend(), 
+      std::bind(std::less<int>(), _1, 5));
+   ASSERT_EQ(4, *result_b);
+}
+
 TEST(create_equidistant_sequence, basic_forward)
 {
    std::string text("Upward, not Northward");
@@ -552,13 +569,14 @@ TEST(create_equidistant_sequence, basic_forward)
    
    for(const auto& test_case : test_cases_forward)
    {
-      std::string eds = mzlib::create_equidistant_sequence<std::string>(
+      auto eds = mzlib::create_equidistant_sequence<std::string>(
       test_case.begin,
       test_case.end,
       test_case.desired_sequence_length,
       test_case.letters_to_skip_in_between,
       test_case.counts_as_letter);
-      ASSERT_EQ(test_case.expected_result, eds);
+      ASSERT_TRUE(eds.is_set());
+      ASSERT_EQ(test_case.expected_result, eds.get());
    }
 }
 
@@ -600,14 +618,60 @@ TEST(create_equidistant_sequence, basic_backward)
    
    for(const auto& test_case : test_cases_backward)
    {
-      std::string eds = mzlib::create_equidistant_sequence<std::string>(
+      auto eds = mzlib::create_equidistant_sequence<std::string>(
       test_case.begin,
       test_case.end,
       test_case.desired_sequence_length,
       test_case.letters_to_skip_in_between,
       test_case.counts_as_letter);
-      ASSERT_EQ(test_case.expected_result, eds);
+      ASSERT_TRUE(eds.is_set());
+      ASSERT_EQ(test_case.expected_result, eds.get());
    }
+}
+
+TEST(create_equidistant_sequence, beginning_with_punctuation)
+{
+   std::string text("..Upward, not Northward");
+   
+   auto eds = mzlib::create_equidistant_sequence<std::string, char>(
+      text.begin(),
+      text.end(),
+      5, // desired sequence length
+      1, // letters to skip in between,
+      isalnum);
+      
+   ASSERT_TRUE(eds.is_set());
+   ASSERT_EQ("Uwrnt", eds.get());
+}
+
+TEST(create_equidistant_sequence, not_enough_letters)
+{
+   std::string text("Upward, not Northward");
+   
+   auto eds = mzlib::create_equidistant_sequence<std::string, char>(
+      text.begin(),
+      text.end(),
+      5, // desired sequence length
+      5, // letters to skip in between,
+      isalnum);
+      
+   ASSERT_FALSE(eds.is_set());
+}
+
+TEST(create_equidistant_sequence, just_enough_letters)
+{
+   std::string text("Upward, not Northwardd");
+   //                .  .    .   .  .  .  . 
+   
+   auto eds = mzlib::create_equidistant_sequence<std::string, char>(
+      text.begin(),
+      text.end(),
+      7, // desired sequence length
+      2, // letters to skip in between,
+      isalnum);
+      
+   ASSERT_TRUE(eds.is_set());
+   ASSERT_EQ("UanNtad", eds.get());
 }
 
 TEST(create_equidistant_sequence, another_type_of_container)
@@ -621,12 +685,13 @@ TEST(create_equidistant_sequence, another_type_of_container)
          else return true; 
       };
    
-   std::vector<int> eds = mzlib::create_equidistant_sequence<std::vector<int>>(
+   auto eds = mzlib::create_equidistant_sequence<std::vector<int>>(
       v.begin()+2,
       v.end(),
       5, // desired sequence length
       2, // letters to skip in between,
       counts_as_letter);
       
-   ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds);
+   ASSERT_TRUE(eds.is_set());
+   ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds.get());
 }

@@ -19,9 +19,11 @@
 #include <cstring>
 #include <numeric> // std::accumulate
 #include <cassert>
+
 #include "../lang/binary_options.h"
 #include "../nature/vector.h"
 #include "../exceptions.h"
+#include "../lang/optional.h"
 
 namespace mzlib {
         
@@ -382,21 +384,35 @@ void next_lex_permutation(Iterator begin, Iterator end)
    std::reverse(k+1, end);
 }
 
+template<class Element, class Iterator>
+Iterator fast_forward_until(
+   Iterator begin,
+   Iterator end,
+   std::function<bool(const Element&)> condition)
+{
+   while (begin != end && !condition(*begin)) {
+      begin = std::next(begin);
+   }
+   return begin;
+}
+
 template<class Container, class Letter, class Iterator>
-Container create_equidistant_sequence(
+optional<Container> create_equidistant_sequence(
    Iterator begin,
    Iterator end,
    uint desired_sequence_length,
    const uint elements_to_skip_between,
    std::function<bool(const Letter&)> counts_as_letter)
 {
-   Container result;
+   Container result_candidate;
    
-   while(begin != end && desired_sequence_length > 0) {
+   begin = fast_forward_until(begin, end, counts_as_letter);
+   
+   while (begin != end && desired_sequence_length > 0) {
       
       // add letter to final result
       auto ch = *begin;
-      result.push_back(*begin); 
+      result_candidate.push_back(*begin); 
       --desired_sequence_length;
       
       // prepare the next letter
@@ -404,13 +420,15 @@ Container create_equidistant_sequence(
       while (begin != end && iterator_increments_left > 0) {
 
          begin = std::next(begin);
-         // the skip counts only if letter counts
-         if (counts_as_letter(*begin)) {
-             --iterator_increments_left;
-         }
+         begin = fast_forward_until(begin, end, counts_as_letter);
+         --iterator_increments_left;
       }
    }
-   return result;
+   
+   if (begin == end && desired_sequence_length > 0)
+      return optional<Container>();
+   else
+      return optional<Container>(result_candidate);
 }
 
 } // namespace
