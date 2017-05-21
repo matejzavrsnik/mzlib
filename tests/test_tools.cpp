@@ -518,6 +518,9 @@ TEST(create_equidistant_sequence, basic_forward)
 {
    std::string text("Upward, not Northward");
    
+   std::function<bool(const char& c)> allchars =
+      [] (const char& i) { return true; };
+   
    struct t_cases {
       std::string::iterator begin;
       std::string::iterator end;
@@ -540,6 +543,11 @@ TEST(create_equidistant_sequence, basic_forward)
       {text.begin(),   text.end(), 5, 2, isalnum, "UanNt"},
       {text.begin(),   text.end(), 5, 3, isalnum, "Urttr"},
       {text.begin(),   text.end(), 4, 4, isalnum, "Udoa"},
+      // when all chars matter
+      {text.begin(),   text.end(), 5, 1, allchars, "Uwr,n"}, // basic
+      {text.begin()+1, text.end(), 5, 1, allchars, "pad o"}, // shift start
+      {text.begin(),   text.end(), 6, 1, allchars, "Uwr,nt"}, // length
+      {text.begin(),   text.end(), 5, 2, allchars, "Ua,oN"}, // # skips
    };
    
    for(const auto& test_case : test_cases_forward)
@@ -557,6 +565,9 @@ TEST(create_equidistant_sequence, basic_forward)
 TEST(create_equidistant_sequence, basic_backward)
 {
    std::string text("Upward, not Northward");
+
+   std::function<bool(const char& c)> allchars =
+      [] (const char& i) { return true; };
    
    struct t_cases {
       std::string::reverse_iterator begin;
@@ -580,6 +591,11 @@ TEST(create_equidistant_sequence, basic_backward)
       {text.rbegin(),   text.rend(), 5, 2, isalnum, "dwrtd"},
       {text.rbegin(),   text.rend(), 5, 3, isalnum, "dhNdp"},
       {text.rbegin(),   text.rend(), 4, 4, isalnum, "dtow"},
+      // when all chars matter
+      {text.rbegin(),   text.rend(), 6, 1, allchars, "dahrNt"}, // basic
+      {text.rbegin()+1, text.rend(), 5, 1, allchars, "rwto "}, // shift start
+      {text.rbegin(),   text.rend(), 7, 1, allchars, "dahrNtn"}, // length
+      {text.rbegin(),   text.rend(), 5, 2, allchars, "dwr n"}, // # skips
    };
    
    for(const auto& test_case : test_cases_backward)

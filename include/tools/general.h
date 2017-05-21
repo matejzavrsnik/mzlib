@@ -404,8 +404,8 @@ Container create_equidistant_sequence(
       while (begin != end && iterator_increments_left > 0) {
 
          begin = std::next(begin);
+         // the skip counts only if letter counts
          if (counts_as_letter(*begin)) {
-            // if letter doesn't count, the skip doesn't count
              --iterator_increments_left;
          }
       }
