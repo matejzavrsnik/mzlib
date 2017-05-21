@@ -382,33 +382,31 @@ void next_lex_permutation(Iterator begin, Iterator end)
    std::reverse(k+1, end);
 }
 
-template<class T, class Iterator>
-T create_equidistant_sequence(
+template<class Container, class Letter, class Iterator>
+Container create_equidistant_sequence(
    Iterator begin,
    Iterator end,
    uint desired_sequence_length,
-   uint skip,
-   mzlib::option::alphanumeric just_alnum)
+   const uint elements_to_skip_between,
+   std::function<bool(const Letter&)> counts_as_letter)
 {
-   T result;
-   auto iterator_increments = skip + 1;
-   int more_to_append = desired_sequence_length;
+   Container result;
    
-   while(begin != end && more_to_append > 0) {
+   while(begin != end && desired_sequence_length > 0) {
       
       // add letter to final result
-      auto ch = *begin; // collect letter
+      auto ch = *begin;
       result.push_back(*begin); 
-      --more_to_append;
+      --desired_sequence_length;
       
-      // prepare for next letter: skip necessary letters
-      for(int increments_left = iterator_increments; increments_left > 0 && begin != end;) {
-         begin += 1;
-         if (just_alnum == option::alphanumeric::no || 
-               (just_alnum == option::alphanumeric::yes && 
-                std::isalnum(*begin))
-         ) {
-             --increments_left;
+      // prepare the next letter
+      int iterator_increments_left = elements_to_skip_between + 1;
+      while (begin != end && iterator_increments_left > 0) {
+
+         begin = std::next(begin);
+         if (counts_as_letter(*begin)) {
+            // if letter doesn't count, the skip doesn't count
+             --iterator_increments_left;
          }
       }
    }

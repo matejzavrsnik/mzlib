@@ -517,29 +517,29 @@ TEST(find_last_where_value_smaller_then_next, two)
 TEST(create_equidistant_sequence, basic_forward)
 {
    std::string text("Upward, not Northward");
-
+   
    struct t_cases {
       std::string::iterator begin;
       std::string::iterator end;
       uint desired_sequence_length;
       uint letters_to_skip_in_between;
-      mzlib::option::alphanumeric skip_alphanumeric_or_not;
+      std::function<bool(const char&)> counts_as_letter;
       std::string expected_result;
    } test_cases_forward[] = {
       // basic case
-      {text.begin(),   text.end(), 5, 1, mzlib::option::alphanumeric::yes, "Uwrnt"},
+      {text.begin(),   text.end(), 5, 1, isalnum, "Uwrnt"},
       // shift start of the original sequence
-      {text.begin()+1, text.end(), 5, 1, mzlib::option::alphanumeric::yes, "padoN"},
-      {text.begin()+2, text.end(), 5, 1, mzlib::option::alphanumeric::yes, "wrnto"},
-      {text.begin()+3, text.end(), 5, 1, mzlib::option::alphanumeric::yes, "adoNr"},
+      {text.begin()+1, text.end(), 5, 1, isalnum, "padoN"},
+      {text.begin()+2, text.end(), 5, 1, isalnum, "wrnto"},
+      {text.begin()+3, text.end(), 5, 1, isalnum, "adoNr"},
       // change desired result length
-      {text.begin(),   text.end(), 6, 1, mzlib::option::alphanumeric::yes, "Uwrnto"},
-      {text.begin(),   text.end(), 7, 1, mzlib::option::alphanumeric::yes, "Uwrntot"},
-      {text.begin(),   text.end(), 8, 1, mzlib::option::alphanumeric::yes, "Uwrntotw"},
+      {text.begin(),   text.end(), 6, 1, isalnum, "Uwrnto"},
+      {text.begin(),   text.end(), 7, 1, isalnum, "Uwrntot"},
+      {text.begin(),   text.end(), 8, 1, isalnum, "Uwrntotw"},
       // change number of letters to skip in between
-      {text.begin(),   text.end(), 5, 2, mzlib::option::alphanumeric::yes, "UanNt"},
-      {text.begin(),   text.end(), 5, 3, mzlib::option::alphanumeric::yes, "Urttr"},
-      {text.begin(),   text.end(), 4, 4, mzlib::option::alphanumeric::yes, "Udoa"},
+      {text.begin(),   text.end(), 5, 2, isalnum, "UanNt"},
+      {text.begin(),   text.end(), 5, 3, isalnum, "Urttr"},
+      {text.begin(),   text.end(), 4, 4, isalnum, "Udoa"},
    };
    
    for(const auto& test_case : test_cases_forward)
@@ -549,7 +549,7 @@ TEST(create_equidistant_sequence, basic_forward)
       test_case.end,
       test_case.desired_sequence_length,
       test_case.letters_to_skip_in_between,
-      test_case.skip_alphanumeric_or_not);
+      test_case.counts_as_letter);
       ASSERT_EQ(test_case.expected_result, eds);
    }
 }
@@ -563,23 +563,23 @@ TEST(create_equidistant_sequence, basic_backward)
       std::string::reverse_iterator end;
       uint desired_sequence_length;
       uint letters_to_skip_in_between;
-      mzlib::option::alphanumeric skip_alphanumeric_or_not;
+      std::function<bool(const char&)> counts_as_letter;
       std::string expected_result;
    } test_cases_backward[] = {
       // basic case
-      {text.rbegin(),   text.rend(), 5, 1, mzlib::option::alphanumeric::yes, "dahrN"},
+      {text.rbegin(),   text.rend(), 5, 1, isalnum, "dahrN"},
       // shift start of the original sequence
-      {text.rbegin()+1, text.rend(), 5, 1, mzlib::option::alphanumeric::yes, "rwtot"},
-      {text.rbegin()+2, text.rend(), 5, 1, mzlib::option::alphanumeric::yes, "ahrNo"},
-      {text.rbegin()+3, text.rend(), 5, 1, mzlib::option::alphanumeric::yes, "wtotn"},
+      {text.rbegin()+1, text.rend(), 5, 1, isalnum, "rwtot"},
+      {text.rbegin()+2, text.rend(), 5, 1, isalnum, "ahrNo"},
+      {text.rbegin()+3, text.rend(), 5, 1, isalnum, "wtotn"},
       // change desired result length
-      {text.rbegin(),   text.rend(), 6, 1, mzlib::option::alphanumeric::yes, "dahrNo"},
-      {text.rbegin(),   text.rend(), 7, 1, mzlib::option::alphanumeric::yes, "dahrNod"},
-      {text.rbegin(),   text.rend(), 8, 1, mzlib::option::alphanumeric::yes, "dahrNoda"},
+      {text.rbegin(),   text.rend(), 6, 1, isalnum, "dahrNo"},
+      {text.rbegin(),   text.rend(), 7, 1, isalnum, "dahrNod"},
+      {text.rbegin(),   text.rend(), 8, 1, isalnum, "dahrNoda"},
       // change number of letters to skip in between
-      {text.rbegin(),   text.rend(), 5, 2, mzlib::option::alphanumeric::yes, "dwrtd"},
-      {text.rbegin(),   text.rend(), 5, 3, mzlib::option::alphanumeric::yes, "dhNdp"},
-      {text.rbegin(),   text.rend(), 4, 4, mzlib::option::alphanumeric::yes, "dtow"},
+      {text.rbegin(),   text.rend(), 5, 2, isalnum, "dwrtd"},
+      {text.rbegin(),   text.rend(), 5, 3, isalnum, "dhNdp"},
+      {text.rbegin(),   text.rend(), 4, 4, isalnum, "dtow"},
    };
    
    for(const auto& test_case : test_cases_backward)
@@ -589,7 +589,28 @@ TEST(create_equidistant_sequence, basic_backward)
       test_case.end,
       test_case.desired_sequence_length,
       test_case.letters_to_skip_in_between,
-      test_case.skip_alphanumeric_or_not);
+      test_case.counts_as_letter);
       ASSERT_EQ(test_case.expected_result, eds);
    }
+}
+
+TEST(create_equidistant_sequence, another_type_of_container)
+{
+   std::vector<int> v = {1,2,3,4,5,0,0,6,7,8,0,9,10,11,12,13,14,15};
+
+   std::function<bool(const int& i)> counts_as_letter =
+      [] (const int& i) -> bool
+      { // what counts as valid letter
+         if (i==0) return false; 
+         else return true; 
+      };
+   
+   std::vector<int> eds = mzlib::create_equidistant_sequence<std::vector<int>>(
+      v.begin()+2,
+      v.end(),
+      5, // desired sequence length
+      2, // letters to skip in between,
+      counts_as_letter);
+      
+   ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds);
 }
