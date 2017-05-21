@@ -125,7 +125,7 @@ TEST(sudoku, demo3)
    //std::cout << solved << std::endl;
 }
 
-TEST(sudoku, demo4) 
+TEST(sudoku, long_demo4) 
 {
    mzlib::sudoku original {
       0,1,0, 0,0,4, 0,0,0, 
@@ -163,7 +163,7 @@ TEST(sudoku, demo4)
    //std::cout << solved << std::endl;
 }
 
-TEST(sudoku, demo5) 
+TEST(sudoku, long_demo5) 
 {
    mzlib::sudoku original {
       1,3,0, 0,0,0, 0,0,0, 

@@ -382,6 +382,39 @@ void next_lex_permutation(Iterator begin, Iterator end)
    std::reverse(k+1, end);
 }
 
+template<class T, class Iterator>
+T create_equidistant_sequence(
+   Iterator begin,
+   Iterator end,
+   uint desired_sequence_length,
+   uint skip,
+   mzlib::option::alphanumeric just_alnum)
+{
+   T result;
+   auto iterator_increments = skip + 1;
+   int more_to_append = desired_sequence_length;
+   
+   while(begin != end && more_to_append > 0) {
+      
+      // add letter to final result
+      auto ch = *begin; // collect letter
+      result.push_back(*begin); 
+      --more_to_append;
+      
+      // prepare for next letter: skip necessary letters
+      for(int increments_left = iterator_increments; increments_left > 0 && begin != end;) {
+         begin += 1;
+         if (just_alnum == option::alphanumeric::no || 
+               (just_alnum == option::alphanumeric::yes && 
+                std::isalnum(*begin))
+         ) {
+             --increments_left;
+         }
+      }
+   }
+   return result;
+}
+
 } // namespace
 
 #endif /* MZLIB_UTILITIES_H */
