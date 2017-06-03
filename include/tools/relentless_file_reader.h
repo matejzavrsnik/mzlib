@@ -8,7 +8,7 @@
 #ifndef MZLIB_RELENTLESS_FILE_READER_H
 #define MZLIB_RELENTLESS_FILE_READER_H
 
-#include "tools/filesystem.h"
+#include "filesystem.h"
 
 #include <string>
 #include <functional>
@@ -62,42 +62,7 @@ public:
    
 };
 
-// Aggregates relentless file readers to work on a collection of files
-class aggregated_file_monitor
-{
+} // namespace
 
-private:
-   
-   std::vector<relentless_file_reader> m_readers;
-   
-public:
-   
-   aggregated_file_monitor(
-      const std::vector<std::string>& files,
-      relentless_file_reader::type_callback callback)
-   {
-      for (const std::string& file : files) {
-         m_readers.emplace_back(file, callback);
-      }
-   }
-   
-   void inspect_all()
-   {
-      for (auto& reader : m_readers) {
-         reader.anything_new_what_about_now();
-      }
-   }
-   
-   void set_callback(relentless_file_reader::type_callback callback)
-   {
-      for (auto& reader : m_readers) {
-         reader.set_callback(callback);
-      }
-   }
-           
-};
-
-} // namespaces
-
-#endif /* MZLIB_RELENTLESS_FILE_READER_H */
+#endif /* RELENTLESS_FILE_READER_H */
 

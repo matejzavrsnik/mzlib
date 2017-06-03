@@ -52,11 +52,12 @@
         <itemPath>include/tools/libcmlpp.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
+        <itemPath>include/tools/relentless_file_reader.h</itemPath>
         <itemPath>include/tools/string.h</itemPath>
         <itemPath>include/twoway_streambuf.h</itemPath>
       </logicalFolder>
+      <itemPath>include/aggregated_file_monitor.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
-      <itemPath>include/relentless_file_reader.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/sudoku.h</itemPath>
     </logicalFolder>
@@ -179,6 +180,8 @@
       </item>
       <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/aggregated_file_monitor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -231,8 +234,6 @@
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
@@ -248,6 +249,11 @@
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/relentless_file_reader.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -388,6 +394,8 @@
       </item>
       <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/aggregated_file_monitor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -440,8 +448,6 @@
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
@@ -457,6 +463,11 @@
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/relentless_file_reader.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
       </item>

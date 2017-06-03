@@ -5,7 +5,7 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/relentless_file_reader.h"
+#include "../include/aggregated_file_monitor.h"
 #include "gtest/gtest.h"
 
 #include "../options.h"
