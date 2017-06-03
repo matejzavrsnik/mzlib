@@ -9,7 +9,7 @@
 #define	MZLIB_LAWS_SCREEN_RECTANGLES_H
 
 #include "../lang/optional.h"
-#include "../screen_rectangle.h"
+#include "../nature/screen_rectangle.h"
 
 namespace mzlib {
 namespace law {

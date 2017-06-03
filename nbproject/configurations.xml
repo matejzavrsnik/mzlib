@@ -38,6 +38,7 @@
         <itemPath>include/nature/body.h</itemPath>
         <itemPath>include/nature/consts.h</itemPath>
         <itemPath>include/nature/mass_centre.h</itemPath>
+        <itemPath>include/nature/screen_rectangle.h</itemPath>
         <itemPath>include/nature/units.h</itemPath>
         <itemPath>include/nature/units_strong.h</itemPath>
         <itemPath>include/nature/universe.h</itemPath>
@@ -56,7 +57,6 @@
       </logicalFolder>
       <itemPath>include/image_texture.h</itemPath>
       <itemPath>include/relentless_file_reader.h</itemPath>
-      <itemPath>include/screen_rectangle.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/sudoku.h</itemPath>
     </logicalFolder>
@@ -216,6 +216,8 @@
       </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/units_strong.h" ex="false" tool="3" flavor2="0">
@@ -230,8 +232,6 @@
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -425,6 +425,8 @@
       </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/units_strong.h" ex="false" tool="3" flavor2="0">
@@ -439,8 +441,6 @@
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/relentless_file_reader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -8,10 +8,10 @@
 #ifndef MZLIB_RECTANGLE_H
 #define	MZLIB_RECTANGLE_H
 
-#include "nature/vector.h"
-#include "abstract/direction.h"
-#include "lang/exceptions.h"
-#include "lang/optional.h"
+#include "vector.h"
+#include "../abstract/direction.h"
+#include "../lang/exceptions.h"
+#include "../lang/optional.h"
 
 namespace mzlib {
    

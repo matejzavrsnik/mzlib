@@ -14,7 +14,7 @@
 #include "../nature/vector.h"
 #include "../nature/body.h"
 #include "../tools/missing_std.h"
-#include "../screen_rectangle.h"
+#include "../nature/screen_rectangle.h"
 #include "../lang/optional.h"
 #include "../lang/binary_options.h"
 #include "unique.h"

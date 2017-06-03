@@ -11,7 +11,7 @@
 // if included SDL.h and SDL_image.h from SDL2 library
 #if defined(_SDL_H) && defined(_SDL_IMAGE_H)
 
-#include "exceptions.h"
+#include "lang/exceptions.h"
 #include "lang/pointer_wrapper.h"
 #include <string>
 

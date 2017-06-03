@@ -14,7 +14,7 @@
 #include "../nature/mass_centre.h"
 #include "../tools/missing_std.h"
 #include "../nature/body.h"
-#include "../screen_rectangle.h"
+#include "../nature/screen_rectangle.h"
 #include "../laws/screen_rectangles.h"
 #include "../lang/binary_options.h"
 #include "../lang/exceptions.h"
