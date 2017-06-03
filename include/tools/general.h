@@ -24,7 +24,7 @@
 
 #include "../lang/binary_options.h"
 #include "../nature/vector.h"
-#include "../exceptions.h"
+#include "../lang/exceptions.h"
 #include "../lang/optional.h"
 
 namespace mzlib {

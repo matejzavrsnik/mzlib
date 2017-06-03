@@ -23,6 +23,7 @@
         <itemPath>include/lang/c64_basic_for.h</itemPath>
         <itemPath>include/lang/cpucycle.h</itemPath>
         <itemPath>include/lang/dbl.h</itemPath>
+        <itemPath>include/lang/exceptions.h</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
         <itemPath>include/lang/pointer_wrapper.h</itemPath>
         <itemPath>include/lang/stopwatch.h</itemPath>
@@ -53,7 +54,6 @@
         <itemPath>include/tools/string.h</itemPath>
         <itemPath>include/twoway_streambuf.h</itemPath>
       </logicalFolder>
-      <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
       <itemPath>include/relentless_file_reader.h</itemPath>
       <itemPath>include/screen_rectangle.h</itemPath>
@@ -179,8 +179,6 @@
       </item>
       <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -192,6 +190,8 @@
       <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -388,8 +388,6 @@
       </item>
       <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/exceptions.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -401,6 +399,8 @@
       <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -10,7 +10,7 @@
 
 #include <algorithm>
 #include "../tools/random.h"
-#include "../exceptions.h"
+#include "../lang/exceptions.h"
 
 namespace mzlib {
    

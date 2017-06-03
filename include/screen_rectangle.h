@@ -10,7 +10,7 @@
 
 #include "nature/vector.h"
 #include "abstract/direction.h"
-#include "exceptions.h"
+#include "lang/exceptions.h"
 #include "lang/optional.h"
 
 namespace mzlib {

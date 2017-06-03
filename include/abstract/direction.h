@@ -9,7 +9,7 @@
 #define	MZLIB_DIRECTION_H
 
 #include "../nature/vector.h"
-#include "../exceptions.h"
+#include "../lang/exceptions.h"
 #include <iostream> // operator<<
 
 namespace mzlib {
