@@ -15,6 +15,9 @@
         <itemPath>include/abstract/quadtree_node.h</itemPath>
         <itemPath>include/abstract/unique.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="joke" displayName="joke" projectFiles="true">
+        <itemPath>include/joke/supersafe_number.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="lang" displayName="lang" projectFiles="true">
         <itemPath>include/lang/binary_options.h</itemPath>
         <itemPath>include/lang/c64_basic_for.h</itemPath>
@@ -48,6 +51,7 @@
         <itemPath>include/tools/missing_std.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/string.h</itemPath>
+        <itemPath>include/twoway_streambuf.h</itemPath>
       </logicalFolder>
       <itemPath>include/exceptions.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
@@ -55,8 +59,6 @@
       <itemPath>include/screen_rectangle.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/sudoku.h</itemPath>
-      <itemPath>include/supersafe_number.h</itemPath>
-      <itemPath>include/twoway_streambuf.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -113,6 +115,7 @@
     <Elem>include/nature</Elem>
     <Elem>include/abstract</Elem>
     <Elem>include/tools</Elem>
+    <Elem>include/joke</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -180,6 +183,8 @@
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
@@ -231,8 +236,6 @@
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -389,6 +392,8 @@
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
@@ -440,8 +445,6 @@
       <item path="include/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>

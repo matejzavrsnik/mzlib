@@ -7,7 +7,7 @@
 
 #define private public
 #define protected public
-#include "../include/supersafe_number.h"
+#include "../include/joke/supersafe_number.h"
 #undef private
 #undef protected
 

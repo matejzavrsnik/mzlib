@@ -16,6 +16,7 @@
                 <sourceRootElem>include/nature</sourceRootElem>
                 <sourceRootElem>include/abstract</sourceRootElem>
                 <sourceRootElem>include/tools</sourceRootElem>
+                <sourceRootElem>include/joke</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
