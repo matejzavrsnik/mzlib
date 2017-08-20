@@ -68,3 +68,19 @@ public:
 
 #endif	/* MZLIB_OPTIONAL_H */
 
+#ifdef MZLIB_BUILDING_TESTS
+
+TEST(optional, basic) 
+{
+   mzlib::optional<int> optional;
+   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
+   ASSERT_FALSE(optional.is_set());
+   optional = 5;
+   ASSERT_NO_THROW(optional.get());
+   ASSERT_EQ(5, optional.get());
+   ASSERT_TRUE(optional.is_set()); 
+   optional.unset();
+   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
+}
+
+#endif // MZLIB_BUILDING_TESTS

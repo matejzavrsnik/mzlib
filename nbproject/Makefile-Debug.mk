@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/tests.o \
 	${OBJECTDIR}/tests/test_dbl.o \
 	${OBJECTDIR}/tests/test_genetic_container.o \
 	${OBJECTDIR}/tests/test_genetic_object.o \
@@ -91,6 +92,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/tests.o: tests.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
 
 ${OBJECTDIR}/tests/test_dbl.o: tests/test_dbl.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

@@ -10,24 +10,11 @@
 #include <unordered_set>
 #include <vector>
 
-#include "../include/tools/general.h"
 #include "../include/lang/c64_basic_for.h"
 
 #include "gtest/gtest.h"
-    
-TEST(get_number_of_decimals, basic) 
-{
-   double double_num = 0;
-   ASSERT_EQ(0, mzlib::get_number_of_decimals(double_num));
-   double_num = 1;
-   ASSERT_EQ(0, mzlib::get_number_of_decimals(double_num));
-   double_num = 0.111;
-   ASSERT_EQ(3, mzlib::get_number_of_decimals(double_num));
-   double_num = 0.11100;
-   ASSERT_EQ(3, mzlib::get_number_of_decimals(double_num));
-   double_num = 0.111001;
-   ASSERT_EQ(6, mzlib::get_number_of_decimals(double_num));
-}
+
+#include "../include/tools/general.h"
 
 TEST(push_back_if_not_in_different_vectors, basic) 
 {
@@ -188,19 +175,6 @@ TEST(fast_threeway_min_rvalue, basic)
    ASSERT_EQ(1, mzlib::fast_min(2, 3, 1));
    ASSERT_EQ(1, mzlib::fast_min(3, 1, 2));
    ASSERT_EQ(1, mzlib::fast_min(3, 2, 1));
-}
-
-TEST(coptional, basic) 
-{
-   mzlib::optional<int> optional;
-   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
-   ASSERT_FALSE(optional.is_set());
-   optional = 5;
-   ASSERT_NO_THROW(optional.get());
-   ASSERT_EQ(5, optional.get());
-   ASSERT_TRUE(optional.is_set()); 
-   optional.unset();
-   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
 }
 
 TEST(c64_basic_for, basic) 
@@ -698,108 +672,3 @@ TEST(create_equidistant_sequence, another_type_of_container)
    ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds.get());
 }
 
-TEST(is_word_in_dictionary, basic)
-{
-   std::unordered_set<std::string> dictionary;
-   dictionary.insert("upward");
-   dictionary.insert("northward");
-   
-   ASSERT_TRUE(mzlib::is_word_in_dictionary("upward", dictionary));
-   ASSERT_FALSE(mzlib::is_word_in_dictionary("downward", dictionary));
-}
-
-TEST(is_word_in_dictionary_partial, no_matches)
-{
-   std::vector<std::string> dictionary = {"upward", "not", "northward"};
-   
-   auto res = mzlib::is_word_in_dictionary_partial("space", dictionary.begin(), dictionary.end());
-   
-   ASSERT_FALSE(res.full_word);
-   ASSERT_FALSE(res.beginning);
-}
-
-TEST(is_word_in_dictionary_partial, exact_match)
-{
-   std::vector<std::string> dictionary = {"upward", "not", "northward"};
-   
-   auto res = mzlib::is_word_in_dictionary_partial("upward", dictionary.begin(), dictionary.end());
-   
-   ASSERT_TRUE (res.full_word);
-   ASSERT_FALSE(res.beginning);
-}
-
-TEST(is_word_in_dictionary_partial, start_of_word_match)
-{
-   std::vector<std::string> dictionary = {"upward", "not", "northward"};
-   
-   auto res = mzlib::is_word_in_dictionary_partial("no", dictionary.begin(), dictionary.end());
-   
-   ASSERT_FALSE(res.full_word);
-   ASSERT_TRUE (res.beginning);
-}
-
-TEST(is_word_in_dictionary_partial, exact_and_start_of_word_match)
-{
-   std::vector<std::string> dictionary = {"up", "upward", "not", "northward"};
-   
-   auto res = mzlib::is_word_in_dictionary_partial("up", dictionary.begin(), dictionary.end());
-   
-   ASSERT_TRUE(res.full_word);
-   ASSERT_TRUE(res.beginning);
-}
-
-TEST(first_symbol_sequence_in_pattern, produces_correct_sequence)
-{
-   std::vector<int> number = {4,5,6,7};
-   std::vector<char> sequence = mzlib::first_symbol_sequence_in_pattern(number, mzlib::phone_dial());
-   std::string str_sequence(sequence.begin(), sequence.end());
-   ASSERT_EQ("gjmp", str_sequence);
-}
-
-TEST(next_symbol_sequence_in_pattern, produces_correct_number_of_sequences)
-{
-   std::vector<int> number = {4,5,6,7};
-   std::vector<char> sequence = mzlib::first_symbol_sequence_in_pattern(number, mzlib::phone_dial());
-   std::set<std::vector<char>> collection;
-   mzlib::option::changed there_was_more;
-   do 
-   {
-      collection.insert(sequence);
-      there_was_more = mzlib::next_symbol_sequence_in_pattern(sequence, number, mzlib::phone_dial());
-   }
-   while (there_was_more == mzlib::option::changed::yes);
-
-   ASSERT_EQ(108, collection.size());
-}
-
-TEST(next_symbol_sequence_in_pattern, correctly_increments_sequences)
-{
-   std::vector<int> number = {4,5,6,7};
-   std::vector<char> sequence = mzlib::first_symbol_sequence_in_pattern(number, mzlib::phone_dial());
-   std::vector<std::string> collection;
-   mzlib::option::changed there_was_more;
-   do 
-   {
-      collection.emplace_back(sequence.begin(), sequence.end());
-      there_was_more = mzlib::next_symbol_sequence_in_pattern(sequence, number, mzlib::phone_dial());
-   }
-   while (there_was_more == mzlib::option::changed::yes);
-   
-   // start
-   ASSERT_EQ("gjmp", collection[0]);
-   ASSERT_EQ("hjmp", collection[1]);
-   ASSERT_EQ("ijmp", collection[2]);
-   ASSERT_EQ("gkmp", collection[3]);
-   ASSERT_EQ("hkmp", collection[4]);
-   ASSERT_EQ("ikmp", collection[5]);
-   ASSERT_EQ("glmp", collection[6]);
-   ASSERT_EQ("hlmp", collection[7]);
-   
-   // somewhere in the middle
-   ASSERT_EQ("hkoq", collection[49]);
-   ASSERT_EQ("ikoq", collection[50]);
-   
-   // end
-   ASSERT_EQ("hlos", collection[106]);
-   ASSERT_EQ("ilos", collection[107]);
-}
