@@ -26,7 +26,6 @@
         <itemPath>include/lang/dbl.h</itemPath>
         <itemPath>include/lang/exceptions.h</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
-        <itemPath>include/lang/pointer_wrapper.h</itemPath>
         <itemPath>include/lang/stopwatch.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="laws" projectFiles="true">
@@ -78,8 +77,6 @@
       <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
-      <itemPath>tests/test_dbl.cpp</itemPath>
-      <itemPath>tests/test_image_texture.cpp</itemPath>
       <itemPath>tests/test_law_screen_rectangle.cpp</itemPath>
       <itemPath>tests/test_laws.cpp</itemPath>
       <itemPath>tests/test_markov_chain.cpp</itemPath>
@@ -206,8 +203,6 @@
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/lang/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
@@ -293,10 +288,6 @@
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_law_screen_rectangle.cpp"
             ex="false"
@@ -438,8 +429,6 @@
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/lang/pointer_wrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
@@ -525,10 +514,6 @@
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_law_screen_rectangle.cpp"
             ex="false"
