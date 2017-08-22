@@ -12,8 +12,8 @@
 #if defined(_SDL_H) && defined(_SDL_IMAGE_H)
 
 #include "lang/exceptions.h"
-#include "lang/pointer_wrapper.h"
 #include <string>
+#include <memory>
 
 namespace mzlib {
 
@@ -77,17 +77,18 @@ public:
    
    void load_image()
    {
-      pointer_wrapper<SDL_Surface, free_surface> loaded_surface = IMG_Load( m_image_path.c_str() );
+      std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> 
+         loaded_surface( IMG_Load( m_image_path.c_str() ), &SDL_FreeSurface);
       if (loaded_surface == nullptr) {
          const auto error = IMG_GetError();
          throw mzlib::exception::sdl::image_load_failure(error);
       }
       else {
-         SDL_SetColorKey( loaded_surface, SDL_TRUE, SDL_MapRGB( loaded_surface->format, 0, 0x00, 0x00 ) );
+         SDL_SetColorKey( loaded_surface.get(), SDL_TRUE, SDL_MapRGB( loaded_surface->format, 0, 0x00, 0x00 ) );
          if(!m_renderer) {
             throw mzlib::exception::sdl::texture_create_failure("Renderer not set");
          }
-         m_texture = SDL_CreateTextureFromSurface( m_renderer, loaded_surface );
+         m_texture = SDL_CreateTextureFromSurface( m_renderer, loaded_surface.get() );
          
          if (m_texture == nullptr) {
             const auto error = SDL_GetError();
