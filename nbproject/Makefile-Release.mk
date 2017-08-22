@@ -38,8 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
 	${OBJECTDIR}/tests/test_dbl.o \
-	${OBJECTDIR}/tests/test_genetic_container.o \
-	${OBJECTDIR}/tests/test_genetic_object.o \
 	${OBJECTDIR}/tests/test_image_texture.o \
 	${OBJECTDIR}/tests/test_law_screen_rectangle.o \
 	${OBJECTDIR}/tests/test_laws.o \
@@ -53,10 +51,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
 	${OBJECTDIR}/tests/test_tools.o \
 	${OBJECTDIR}/tests/test_tools_filesystem.o \
-	${OBJECTDIR}/tests/test_tools_genetic.o \
 	${OBJECTDIR}/tests/test_tools_random.o \
 	${OBJECTDIR}/tests/test_tools_string.o \
-	${OBJECTDIR}/tests/test_twoway_streambuf.o \
 	${OBJECTDIR}/tests/test_unique.o \
 	${OBJECTDIR}/tests/test_units_strong.o \
 	${OBJECTDIR}/tests/test_universe.o \
@@ -104,16 +100,6 @@ ${OBJECTDIR}/tests/test_dbl.o: tests/test_dbl.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_dbl.o tests/test_dbl.cpp
-
-${OBJECTDIR}/tests/test_genetic_container.o: tests/test_genetic_container.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_container.o tests/test_genetic_container.cpp
-
-${OBJECTDIR}/tests/test_genetic_object.o: tests/test_genetic_object.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_genetic_object.o tests/test_genetic_object.cpp
 
 ${OBJECTDIR}/tests/test_image_texture.o: tests/test_image_texture.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
@@ -180,11 +166,6 @@ ${OBJECTDIR}/tests/test_tools_filesystem.o: tests/test_tools_filesystem.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_filesystem.o tests/test_tools_filesystem.cpp
 
-${OBJECTDIR}/tests/test_tools_genetic.o: tests/test_tools_genetic.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_genetic.o tests/test_tools_genetic.cpp
-
 ${OBJECTDIR}/tests/test_tools_random.o: tests/test_tools_random.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -194,11 +175,6 @@ ${OBJECTDIR}/tests/test_tools_string.o: tests/test_tools_string.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_string.o tests/test_tools_string.cpp
-
-${OBJECTDIR}/tests/test_twoway_streambuf.o: tests/test_twoway_streambuf.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_twoway_streambuf.o tests/test_twoway_streambuf.cpp
 
 ${OBJECTDIR}/tests/test_unique.o: tests/test_unique.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

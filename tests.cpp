@@ -17,6 +17,7 @@
 
 // mzlib headers that tests might be using
 #include "include/lang/optional.h"
+#include "include/abstract/genetic_container.h"
 
 // the main thing: tests themselves
 // tests are implemented where functionality is implemented so that they are 
@@ -26,4 +27,11 @@
    #include "include/tools/is_word_in_dictionary.h"
    #include "include/tools/number_of_decimals.h"
    #include "include/lang/optional.h"
+   #include "include/twoway_streambuf.h"
+   #include "include/tools/genetic.h"
+   #include "include/tools/fast_min.h"
+   #include "include/tools/sentence_assemblarator.h"
+   #include "include/tools/equidistant_sequence.h"
+   #include "include/abstract/genetic_container.h"
+   #include "include/abstract/genetic_object.h"
 #undef MZLIB_BUILDING_TESTS

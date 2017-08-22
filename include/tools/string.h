@@ -12,8 +12,10 @@
 #include <vector>
 #include <set>
 #include <algorithm> // std::generate
+#include <map>
 
-#include "general.h" // fast_threeway_min
+#include "fast_min.h" // fast_threeway_min
+#include "general.h" // add_to_tally
 
 namespace mzlib {
         

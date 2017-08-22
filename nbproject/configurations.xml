@@ -47,6 +47,8 @@
         <itemPath>include/nature/vector.h</itemPath>
       </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
+        <itemPath>include/tools/equidistant_sequence.h</itemPath>
+        <itemPath>include/tools/fast_min.h</itemPath>
         <itemPath>include/tools/filesystem.h</itemPath>
         <itemPath>include/tools/general.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
@@ -56,6 +58,7 @@
         <itemPath>include/tools/number_of_decimals.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
+        <itemPath>include/tools/sentence_assemblarator.h</itemPath>
         <itemPath>include/tools/string.h</itemPath>
         <itemPath>include/twoway_streambuf.h</itemPath>
       </logicalFolder>
@@ -76,8 +79,6 @@
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
       <itemPath>tests/test_dbl.cpp</itemPath>
-      <itemPath>tests/test_genetic_container.cpp</itemPath>
-      <itemPath>tests/test_genetic_object.cpp</itemPath>
       <itemPath>tests/test_image_texture.cpp</itemPath>
       <itemPath>tests/test_law_screen_rectangle.cpp</itemPath>
       <itemPath>tests/test_laws.cpp</itemPath>
@@ -91,10 +92,8 @@
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
       <itemPath>tests/test_tools.cpp</itemPath>
       <itemPath>tests/test_tools_filesystem.cpp</itemPath>
-      <itemPath>tests/test_tools_genetic.cpp</itemPath>
       <itemPath>tests/test_tools_random.cpp</itemPath>
       <itemPath>tests/test_tools_string.cpp</itemPath>
-      <itemPath>tests/test_twoway_streambuf.cpp</itemPath>
       <itemPath>tests/test_unique.cpp</itemPath>
       <itemPath>tests/test_units_strong.cpp</itemPath>
       <itemPath>tests/test_universe.cpp</itemPath>
@@ -247,6 +246,13 @@
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/equidistant_sequence.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
@@ -271,6 +277,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/sentence_assemblarator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
@@ -284,10 +295,6 @@
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_genetic_container.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_genetic_object.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -321,13 +328,9 @@
       </item>
       <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/test_tools_genetic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_string.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -475,6 +478,13 @@
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/equidistant_sequence.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
@@ -499,6 +509,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/sentence_assemblarator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
@@ -512,10 +527,6 @@
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_dbl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_genetic_container.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_genetic_object.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_image_texture.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -549,13 +560,9 @@
       </item>
       <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/test_tools_genetic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_string.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
       </item>

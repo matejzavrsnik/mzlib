@@ -9,7 +9,7 @@
 #define MZLIB_SENTENCE_O_MATIC_H
 
 #include "abstract/markov_chain.h"
-#include "tools/general.h"
+#include "tools/sentence_assemblarator.h"
 #include "tools/string.h"
 
 namespace mzlib {
