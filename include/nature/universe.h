@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <functional>
 
 #include "body.h"
 #include "consts.h"
@@ -44,7 +45,7 @@ public:
       law_of_gravitation m_law_of_gravitation = law_of_gravitation::realistic;
       double m_barnes_hut_quotient = 1.5;
       implementation m_implementation = implementation::barnes_hut;
-      optional<screen_rectangle2d> m_rectangle;
+      std::optional<screen_rectangle2d> m_rectangle;
       double m_min_node_size = 10e50/8; // not a very efficient default, but it needs to cover the whole space
       double m_max_tree_size = 10e50;
    };
@@ -178,15 +179,15 @@ private:
       acceleration_equation.solve_for_acceleration();
 
       law::constant_linear_acceleration2d final_parameters_equation;
-      final_parameters_equation.a = acceleration_equation.a.get();
+      final_parameters_equation.a = acceleration_equation.a.value();
       final_parameters_equation.v_0 = velocity;
       final_parameters_equation.r_0 = location;
       final_parameters_equation.t = time;
       final_parameters_equation.solve_for_final_location();
       final_parameters_equation.solve_for_final_velocity();
 
-      vector2d velocity_final = final_parameters_equation.v_f.get();
-      vector2d location_final = final_parameters_equation.r_f.get();
+      vector2d velocity_final = final_parameters_equation.v_f.value();
+      vector2d location_final = final_parameters_equation.r_f.value();
       
       // cap it at predefined max velocity
       if (velocity_final.length() > m_properties.m_max_velocity) {
@@ -218,7 +219,7 @@ private:
             else {
                law.solve_for_fun_force();
             }
-            get_body_properties(body_core.tag).gravity += law.f_1.get();
+            get_body_properties(body_core.tag).gravity += law.f_1.value();
          }
       );
    }
@@ -242,9 +243,9 @@ private:
    void apply_properties () 
    {
       if (m_properties.m_implementation == implementation::barnes_hut) {
-         if (m_properties.m_rectangle.is_set()) {
+         if (m_properties.m_rectangle.has_value()) {
             m_body_cores = std::make_unique<universe_container_quadtree>(
-               m_properties.m_rectangle.get(),
+               m_properties.m_rectangle.value(),
                m_properties.m_min_node_size,
                m_properties.m_max_tree_size,
                m_properties.m_barnes_hut_quotient);            

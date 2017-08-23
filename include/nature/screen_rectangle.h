@@ -8,10 +8,11 @@
 #ifndef MZLIB_RECTANGLE_H
 #define	MZLIB_RECTANGLE_H
 
+#include <optional>
+
 #include "vector.h"
 #include "../abstract/direction.h"
 #include "../lang/exceptions.h"
-#include "../lang/optional.h"
 
 namespace mzlib {
    
@@ -21,8 +22,8 @@ class screen_rectangle
    
 private:
    
-   optional<VectorT> m_top_left;
-   optional<VectorT> m_bottom_right;
+   std::optional<VectorT> m_top_left;
+   std::optional<VectorT> m_bottom_right;
    
 public:
 
@@ -48,7 +49,7 @@ public:
 
    const VectorT& get_top_left() const
    {
-      return m_top_left.get();
+      return m_top_left.value();
    }
    
    void set_bottom_right(const VectorT& bottom_right)
@@ -58,12 +59,12 @@ public:
 
    const VectorT& get_bottom_right() const
    {
-      return m_bottom_right.get();
+      return m_bottom_right.value();
    }
    
    bool is_defined() const
    {
-      return m_top_left.is_set() && m_bottom_right.is_set();
+      return m_top_left.has_value() && m_bottom_right.has_value();
    }
    
 };

@@ -10,6 +10,7 @@
 
 #include <iterator>
 #include <vector>
+
 #include "quadtree.h"
 #include "../nature/mass_centre.h"
 #include "../nature/screen_rectangle.h"
@@ -59,7 +60,7 @@ private:
       m_nodes_queue.pop_back(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
       double node_distance = m_body->centre.location.distance_to(node->get_mass_centre().location);
-      double node_quotient = node->m_diagonal_length.get() / node_distance;
+      double node_quotient = node->m_diagonal_length.value() / node_distance;
       // Now depending how far it is, we need to consider either just mass centre of the node, or individual bodies
       if (node_quotient < m_quotient) {
          // too far; we care nothing about this node beyond it's mass centre

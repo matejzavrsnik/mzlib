@@ -8,8 +8,9 @@
 #ifndef MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_H
 #define	MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_H
 
+#include <optional>
+
 #include "../nature/mass_centre.h"
-#include "../lang/optional.h"
 
 namespace mzlib {
 namespace law {
@@ -20,46 +21,46 @@ class constant_linear_acceleration
    
 public:
       
-   optional<VectorT> v_0;   
-   optional<VectorT> v_f;
-   optional<VectorT> r_0;   
-   optional<VectorT> r_f;
-   optional<VectorT> a;
-   optional<double>  t;
+   std::optional<VectorT> v_0;   
+   std::optional<VectorT> v_f;
+   std::optional<VectorT> r_0;   
+   std::optional<VectorT> r_f;
+   std::optional<VectorT> a;
+   std::optional<double>  t;
    
    void solve_for_final_velocity()
    {
-      v_f = v_0.get() + a.get() * t.get();
+      v_f = v_0.value() + a.value() * t.value();
    }
    
    void solve_for_initial_velocity()
    {
-      if ( v_f.is_set() ) {
-         v_0 = v_f.get() - a.get() * t.get();
+      if ( v_f.has_value() ) {
+         v_0 = v_f.value() - a.value() * t.value();
       }
-      else if ( r_f.is_set() ) {
-         v_0 = ( r_f.get() - r_0.get() ) / t.get() - 0.5 * a.get() * t.get();
+      else if ( r_f.has_value() ) {
+         v_0 = ( r_f.value() - r_0.value() ) / t.value() - 0.5 * a.value() * t.value();
       }
    }
 
    void solve_for_acceleration()
    {
-      if ( v_f.is_set() ) {
-         a = ( v_f.get() - v_0.get() ) / t.get();
+      if ( v_f.has_value() ) {
+         a = ( v_f.value() - v_0.value() ) / t.value();
       }
-      else if ( r_f.is_set() ) {
-         a = ( 2 / ( t.get() * t.get() ) ) * ( r_f.get() - r_0.get() - v_0.get() * t.get() );
+      else if ( r_f.has_value() ) {
+         a = ( 2 / ( t.value() * t.value() ) ) * ( r_f.value() - r_0.value() - v_0.value() * t.value() );
       }
    }
 
    void solve_for_time()
    {
-      t = ( v_f.get().length() - v_0.get().length() ) / a.get().length();
+      t = ( v_f.value().length() - v_0.value().length() ) / a.value().length();
    }
    
    void solve_for_final_location()
    {
-      r_f = r_0.get() + v_0.get() * t.get() + 0.5 * a.get() * t.get() * t.get();       
+      r_f = r_0.value() + v_0.value() * t.value() + 0.5 * a.value() * t.value() * t.value();       
    }
 };
 

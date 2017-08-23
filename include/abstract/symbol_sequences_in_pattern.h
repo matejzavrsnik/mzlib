@@ -46,7 +46,7 @@ option::changed next_symbol_sequence_in_pattern(
    const std::vector<Value>& value_pattern, 
    const std::map<Value, std::vector<Symbol>>& symbols_for_value)
 {
-   for (int i=0; i<value_pattern.size(); ++i) 
+   for (size_t i=0; i<value_pattern.size(); ++i) 
    {
       // find a symbol for this particular value in pattern
       auto symbol_it = std::find(

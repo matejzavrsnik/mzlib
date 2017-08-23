@@ -8,6 +8,8 @@
 #ifndef MZLIB_QUADREEE_H
 #define MZLIB_QUADREEE_H
 
+#include <optional>
+
 #include "quadtree_node.h"
 #include "quadtree_it_bodies.h"
 #include "quadtree_it_masscentres.h"
@@ -15,7 +17,6 @@
 #include "../nature/body.h"
 #include "../tools/missing_std.h"
 #include "../nature/screen_rectangle.h"
-#include "../lang/optional.h"
 #include "../lang/binary_options.h"
 #include "unique.h"
 
@@ -85,9 +86,9 @@ private:
       }
    }
    
-   optional<int> find_index (const unique tag) const
+   std::optional<int> find_index (const unique tag) const
    {
-      optional<int> index;
+      std::optional<int> index;
       for (size_t i=0; i<m_all_bodies.size(); ++i) {
          if (m_all_bodies[i]->tag == tag) {
             index = i;
@@ -169,11 +170,11 @@ public:
    option::exists move (const unique tag, vector2d new_location)
    {
       auto index = find_index (tag);
-      if (!index.is_set()) return option::exists::no;
+      if (!index.has_value()) return option::exists::no;
       
       adjust_dynamic_tree (new_location);
       m_root->move (tag,new_location);
-      m_all_bodies[index.get()]->centre.location = new_location;
+      m_all_bodies[index.value()]->centre.location = new_location;
       return option::exists::yes;
    }
    
@@ -203,8 +204,8 @@ public:
    const body_core2d* find (const unique tag) const
    {
       auto index = find_index (tag);
-      if (index.is_set()) {
-         return m_all_bodies[index.get()].get();
+      if (index.has_value()) {
+         return m_all_bodies[index.value()].get();
       }
       else {
          return nullptr;

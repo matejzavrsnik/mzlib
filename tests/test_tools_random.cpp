@@ -48,6 +48,11 @@ TEST_F(fixture_tools_random, get_random_element)
    example[0] = 0;
    example[1] = 2;
    example[2] = 3;
-   std::map<int,int>::iterator does_it_work = mzlib::get_random_element(example);
-   ASSERT_TRUE(true);
+   std::map<int,int>::iterator random_element = mzlib::get_random_element(example);
+   // how test if really random? :) I'll test instead if it returns any valid.
+   ASSERT_TRUE(
+      random_element->second == 0 ||
+      random_element->second == 2 ||
+      random_element->second == 3
+   );
 }

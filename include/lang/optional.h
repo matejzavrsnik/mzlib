@@ -16,7 +16,7 @@ namespace mzlib {
 // basic optional type 
 // doesn't really store references, waiting for C++17 or whenever, but good enough for now
 template<class T>
-class optional
+class [[deprecated]] optional
 {
    
 private:
@@ -70,17 +70,43 @@ public:
 
 #ifdef MZLIB_BUILDING_TESTS
 
-TEST(optional, basic) 
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+TEST(optional, throws_when_not_set) 
 {
    mzlib::optional<int> optional;
    ASSERT_THROW(optional.get(), mzlib::exception::not_set);
-   ASSERT_FALSE(optional.is_set());
-   optional = 5;
-   ASSERT_NO_THROW(optional.get());
-   ASSERT_EQ(5, optional.get());
-   ASSERT_TRUE(optional.is_set()); 
-   optional.unset();
-   ASSERT_THROW(optional.get(), mzlib::exception::not_set);
 }
+
+TEST(optional, throws_not_when_set) 
+{
+   mzlib::optional<int> optional = 5;
+   ASSERT_NO_THROW(optional.get());
+}
+
+TEST(optional, reports_when_not_set) 
+{
+   mzlib::optional<int> optional;
+   ASSERT_FALSE(optional.is_set());
+}
+
+TEST(optional, reports_when_set) 
+{
+   mzlib::optional<int> optional = 5;
+   ASSERT_TRUE(optional.is_set());
+}
+
+TEST(optional, gets_value_when_set) 
+{
+   mzlib::optional<int> optional = 5;
+   ASSERT_EQ(5, optional.get());
+}
+
+TEST(optional, can_unset) 
+{
+   mzlib::optional<int> optional = 5;
+   optional.unset();
+   ASSERT_FALSE(optional.is_set());
+}
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
 
 #endif // MZLIB_BUILDING_TESTS

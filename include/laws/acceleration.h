@@ -8,7 +8,8 @@
 #ifndef MZLIB_LAWS_ACCELERATION_H
 #define	MZLIB_LAWS_ACCELERATION_H
 
-#include "../lang/optional.h"
+#include <optional>
+
 #include "../nature/vector.h"
 
 namespace mzlib {
@@ -21,23 +22,23 @@ class acceleration
    
 public:
       
-   optional<VectorT> f;   
-   optional<VectorT> a;
-   optional<double>  m;
+   std::optional<VectorT> f;   
+   std::optional<VectorT> a;
+   std::optional<double>  m;
    
    void solve_for_force()
    {
-      f = m.get() * a.get();
+      f = m.value() * a.value();
    }
    
    void solve_for_acceleration()
    {
-      a = f.get() / m.get();
+      a = f.value() / m.value();
    }
 
    void solve_for_mass()
    {
-      m = f.get().length() / a.get().length();
+      m = f.value().length() / a.value().length();
    }
    
 };

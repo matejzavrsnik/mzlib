@@ -131,11 +131,11 @@
           <commandlineTool>gcc</commandlineTool>
         </cTool>
         <ccTool>
-          <standard>11</standard>
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
+          <commandLine>-std=c++1z</commandLine>
         </ccTool>
         <asmTool>
           <warningLevel>2</warningLevel>
@@ -350,12 +350,11 @@
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
-          <standard>11</standard>
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic</commandLine>
+          <commandLine>-Wall -Wextra -Wpedantic -std=c++1z</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>

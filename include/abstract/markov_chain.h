@@ -8,13 +8,12 @@
 #ifndef MZLIB_MARKOV_CHAIN_H
 #define MZLIB_MARKOV_CHAIN_H
 
-
 #include <vector>
 #include <map>
+#include <optional>
 
 #include "probabilator.h"
 #include "../tools/random.h"
-#include "../lang/optional.h"
 
 namespace mzlib
 {
@@ -26,7 +25,7 @@ class markov_chain
     
 private:
         
-   optional<T> m_previous_state;
+   std::optional<T> m_previous_state;
    T m_next_state;
    std::map<T, probabilator<T>> m_states;
         
@@ -39,8 +38,8 @@ protected:
         
    void read (T state) 
    {
-      if(m_previous_state.is_set()) {
-         m_states[m_previous_state.get()].add_event(state);
+      if(m_previous_state.has_value()) {
+         m_states[m_previous_state.value()].add_event(state);
          m_previous_state = state;
       }
       else {

@@ -16,7 +16,6 @@
 #include <algorithm>
 
 // mzlib headers that tests might be using
-#include "include/lang/optional.h"
 #include "include/abstract/genetic_container.h"
 // why not just include once, and in testing section? Because that way it might
 // become important that files are included in correct order. Why not avoid the

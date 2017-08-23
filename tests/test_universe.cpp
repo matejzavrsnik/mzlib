@@ -108,7 +108,7 @@ TEST_F(fixture_universe, sun_earth_month_travel_naive)
    ASSERT_NEAR(earth_location_quarter_later[1], 13.5e10_m, 0.2e10_m);
 }
 
-TEST_F(fixture_universe, long_earth_around_the_sun)
+TEST_F(fixture_universe, DISABLED_long_earth_around_the_sun)
 {
    mzlib::body2d sun;
    sun.core.centre.mass = mzlib::consts::sun_mass;

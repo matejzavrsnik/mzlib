@@ -8,12 +8,14 @@
 #ifndef EQUIDISTANT_SEQUENCE_H
 #define EQUIDISTANT_SEQUENCE_H
 
+#include <optional>
+
 #include "general.h"
 
 namespace mzlib {
 
 template<class Container, class Letter, class Iterator>
-optional<Container> create_equidistant_sequence(
+std::optional<Container> create_equidistant_sequence(
    Iterator begin,
    Iterator end,
    uint desired_sequence_length,
@@ -27,7 +29,6 @@ optional<Container> create_equidistant_sequence(
    while (begin != end && desired_sequence_length > 0) {
       
       // add letter to final result
-      auto ch = *begin;
       result_candidate.push_back(*begin); 
       --desired_sequence_length;
       
@@ -42,9 +43,9 @@ optional<Container> create_equidistant_sequence(
    }
    
    if (begin == end && desired_sequence_length > 0)
-      return optional<Container>();
+      return std::optional<Container>();
    else
-      return optional<Container>(result_candidate);
+      return std::optional<Container>(result_candidate);
 }
 
 } // namespace
@@ -58,7 +59,7 @@ TEST(create_equidistant_sequence, basic_forward)
    std::string text("Upward, not Northward");
    
    std::function<bool(const char& c)> allchars =
-      [] (const char& i) { return true; };
+      [] (const char&) { return true; };
    
    struct t_cases {
       std::string::iterator begin;
@@ -97,8 +98,8 @@ TEST(create_equidistant_sequence, basic_forward)
       test_case.desired_sequence_length,
       test_case.letters_to_skip_in_between,
       test_case.counts_as_letter);
-      ASSERT_TRUE(eds.is_set());
-      ASSERT_EQ(test_case.expected_result, eds.get());
+      ASSERT_TRUE(eds.has_value());
+      ASSERT_EQ(test_case.expected_result, eds.value());
    }
 }
 
@@ -107,7 +108,7 @@ TEST(create_equidistant_sequence, basic_backward)
    std::string text("Upward, not Northward");
 
    std::function<bool(const char& c)> allchars =
-      [] (const char& i) { return true; };
+      [] (const char&) { return true; };
    
    struct t_cases {
       std::string::reverse_iterator begin;
@@ -146,8 +147,8 @@ TEST(create_equidistant_sequence, basic_backward)
       test_case.desired_sequence_length,
       test_case.letters_to_skip_in_between,
       test_case.counts_as_letter);
-      ASSERT_TRUE(eds.is_set());
-      ASSERT_EQ(test_case.expected_result, eds.get());
+      ASSERT_TRUE(eds.has_value());
+      ASSERT_EQ(test_case.expected_result, eds.value());
    }
 }
 
@@ -162,8 +163,8 @@ TEST(create_equidistant_sequence, beginning_with_punctuation)
       1, // letters to skip in between,
       isalnum);
       
-   ASSERT_TRUE(eds.is_set());
-   ASSERT_EQ("Uwrnt", eds.get());
+   ASSERT_TRUE(eds.has_value());
+   ASSERT_EQ("Uwrnt", eds.value());
 }
 
 TEST(create_equidistant_sequence, not_enough_letters)
@@ -177,7 +178,7 @@ TEST(create_equidistant_sequence, not_enough_letters)
       5, // letters to skip in between,
       isalnum);
       
-   ASSERT_FALSE(eds.is_set());
+   ASSERT_FALSE(eds.has_value());
 }
 
 TEST(create_equidistant_sequence, just_enough_letters)
@@ -192,8 +193,8 @@ TEST(create_equidistant_sequence, just_enough_letters)
       2, // letters to skip in between,
       isalnum);
       
-   ASSERT_TRUE(eds.is_set());
-   ASSERT_EQ("UanNtad", eds.get());
+   ASSERT_TRUE(eds.has_value());
+   ASSERT_EQ("UanNtad", eds.value());
 }
 
 TEST(create_equidistant_sequence, another_type_of_container)
@@ -214,8 +215,8 @@ TEST(create_equidistant_sequence, another_type_of_container)
       2, // letters to skip in between,
       counts_as_letter);
       
-   ASSERT_TRUE(eds.is_set());
-   ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds.get());
+   ASSERT_TRUE(eds.has_value());
+   ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds.value());
 }
 
 #endif // MZLIB_BUILDING_TESTS

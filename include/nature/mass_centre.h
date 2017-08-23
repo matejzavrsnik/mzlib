@@ -48,8 +48,17 @@ void remove_from_mass_centre(mass_centre<VectorT>& from_mc, const mass_centre<Ve
 using mass_centre2d = mass_centre<vector2d>;
 using mass_centre3d = mass_centre<vector3d>;
 
-
 } // namespace
-    
+
+template<class VectorT>
+inline std::ostream& operator<< (std::ostream& os, const mzlib::mass_centre<VectorT> mc)
+{
+   os << "[" 
+      << mc.location << ","
+      << mc.mass
+      << "]";
+   return os;
+}
+
 #endif	/* MZLIB_MASS_CENTRE_H */
 

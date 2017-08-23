@@ -8,7 +8,8 @@
 #ifndef MZLIB_C64_BASIC_FOR_H
 #define	MZLIB_C64_BASIC_FOR_H
 
-#include "optional.h"
+#include <optional>
+
 #include "../tools/missing_std.h" // std::make_unique
 #include "exceptions.h"
 
@@ -24,9 +25,9 @@ class c64_basic_for
    
 private:
    
-   optional<T> m_from;
-   optional<T> m_to;
-   optional<T> m_step;
+   std::optional<T> m_from;
+   std::optional<T> m_to;
+   std::optional<T> m_step;
    
 public:
    
@@ -52,7 +53,7 @@ public:
       std::vector<T> result;
       try {
          m_step = s;
-         for (auto val = m_from.get(); val < m_to.get(); val += m_step.get()) {
+         for (auto val = m_from.value(); val < m_to.value(); val += m_step.value()) {
             result.push_back(val);
          }
       }

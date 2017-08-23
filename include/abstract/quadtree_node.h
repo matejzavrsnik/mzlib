@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <algorithm> // std::find_if
+
 #include "../nature/vector.h"
 #include "../nature/mass_centre.h"
 #include "../tools/missing_std.h"
@@ -61,7 +62,8 @@ public:
       
       law::screen_rectangles2d rect_law;
       rect_law.consider(m_rectangle);
-      if (!m_diagonal_length.is_set()) {
+      
+      if (!m_diagonal_length.has_value()) {
          m_diagonal_length = rect_law.solve_for_diagonal_length();
       }
       if (rect_law.solve_for_width() > smallest_node_width) {
@@ -331,7 +333,7 @@ private:
    mass_centre2d m_mass_centre;
         
    screen_rectangle2d m_rectangle;
-   optional<double> m_diagonal_length;
+   std::optional<double> m_diagonal_length;
    direction m_which_quadrant;
 };
 
