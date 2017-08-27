@@ -37,15 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
-	${OBJECTDIR}/tests/test_law_screen_rectangle.o \
-	${OBJECTDIR}/tests/test_laws.o \
-	${OBJECTDIR}/tests/test_markov_chain.o \
-	${OBJECTDIR}/tests/test_masscentre.o \
-	${OBJECTDIR}/tests/test_probabilator.o \
 	${OBJECTDIR}/tests/test_quadtree.o \
-	${OBJECTDIR}/tests/test_relentless_file_reader.o \
-	${OBJECTDIR}/tests/test_sentence_o_matic.o \
-	${OBJECTDIR}/tests/test_sudoku.o \
 	${OBJECTDIR}/tests/test_supersafe_number.o \
 	${OBJECTDIR}/tests/test_tools.o \
 	${OBJECTDIR}/tests/test_tools_filesystem.o \
@@ -92,50 +84,10 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
 
-${OBJECTDIR}/tests/test_law_screen_rectangle.o: tests/test_law_screen_rectangle.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_law_screen_rectangle.o tests/test_law_screen_rectangle.cpp
-
-${OBJECTDIR}/tests/test_laws.o: tests/test_laws.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_laws.o tests/test_laws.cpp
-
-${OBJECTDIR}/tests/test_markov_chain.o: tests/test_markov_chain.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_markov_chain.o tests/test_markov_chain.cpp
-
-${OBJECTDIR}/tests/test_masscentre.o: tests/test_masscentre.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_masscentre.o tests/test_masscentre.cpp
-
-${OBJECTDIR}/tests/test_probabilator.o: tests/test_probabilator.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_probabilator.o tests/test_probabilator.cpp
-
 ${OBJECTDIR}/tests/test_quadtree.o: tests/test_quadtree.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_quadtree.o tests/test_quadtree.cpp
-
-${OBJECTDIR}/tests/test_relentless_file_reader.o: tests/test_relentless_file_reader.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_relentless_file_reader.o tests/test_relentless_file_reader.cpp
-
-${OBJECTDIR}/tests/test_sentence_o_matic.o: tests/test_sentence_o_matic.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sentence_o_matic.o tests/test_sentence_o_matic.cpp
-
-${OBJECTDIR}/tests/test_sudoku.o: tests/test_sudoku.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_sudoku.o tests/test_sudoku.cpp
 
 ${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

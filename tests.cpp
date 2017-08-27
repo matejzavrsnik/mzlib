@@ -8,15 +8,26 @@
 // gtest header for obvious reasons
 #include "gtest/gtest.h"
 
+// command line options
+#include "options.h"
+
 // std stuff that tests might be using
 #include <map>
 #include <list>
 #include <unordered_set>
 #include <vector>
 #include <algorithm>
+#include <fstream>
 
 // mzlib headers that tests might be using
+// two reasons for files to be here:
+//   - headers have circular dependencies and can't just be included in correct
+//     order in section where tests are included
+//   - functionality is used in tests, but has no tests itself *alarm sounds*
 #include "include/abstract/genetic_container.h"
+#include "include/nature/units.h"
+#include "include/abstract/quadtree.h"
+using namespace mzlib::units;
 // why not just include once, and in testing section? Because that way it might
 // become important that files are included in correct order. Why not avoid the
 // pain if it is simple to do?
@@ -47,4 +58,17 @@
    #include "include/abstract/genetic_object.h"
    #include "include/lang/dbl.h"
    #include "include/image_texture.h"
+   #include "include/laws/screen_rectangles.h"
+   #include "include/laws/acceleration.h"
+   #include "include/laws/constant_linear_acceleration.h"
+   #include "include/laws/gravitation.h"
+   #include "include/abstract/markov_chain.h"
+   #include "include/nature/mass_centre.h"
+   #include "include/abstract/probabilator.h"
+   #include "include/abstract/quadtree_it_bodies.h"
+   #include "include/abstract/quadtree_it_masscentres.h"
+   #include "include/aggregated_file_monitor.h"
+   #include "include/sentence_o_matic.h"
+   #include "include/sudoku.h"
+   #include "include/killer_sudoku.h"
 #undef MZLIB_BUILDING_TESTS

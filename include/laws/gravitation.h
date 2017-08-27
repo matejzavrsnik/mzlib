@@ -62,3 +62,24 @@ using gravitation3d = gravitation<vector3d>;
 
 #endif /* MZLIB_LAWS_H */
 
+#ifdef MZLIB_BUILDING_TESTS
+
+TEST(gravitation, solve_for_force)
+{
+   mzlib::law::gravitation2d gra;
+   gra.m_1 = mzlib::mass_centre2d{
+      mzlib::vector2d::unit * 0, 
+      mzlib::consts::earth_mass };
+   gra.m_2 = mzlib::mass_centre2d{
+      mzlib::vector2d::unit * mzlib::consts::moon_distance_earth, 
+      mzlib::consts::moon_mass };
+   gra.solve_for_force();
+   
+   auto direction = gra.f_1.value().normalise();
+   auto size = gra.f_1.value().length();
+   
+   ASSERT_TRUE(mzlib::dbl(size).equals(1.9820850603183325e20_N));
+   ASSERT_TRUE(direction == mzlib::vector2d::unit);
+}
+
+#endif // MZLIB_BUILDING_TESTS

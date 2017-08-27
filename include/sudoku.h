@@ -182,105 +182,6 @@ private:
 
 };
 
-
-class killer_sudoku : public sudoku 
-{
-
-public:
-   
-   struct region_sum
-   {
-      short region;
-      int sum;
-   };
-   
-   using regions = std::vector<short>;
-   using region_sums = std::vector<region_sum>;
-   
-   killer_sudoku(
-      const puzzle& puzzle,
-      const regions& regions,
-      const region_sums& region_sums)
-   {
-      set_puzzle(puzzle);
-      set_regions(regions);
-      set_region_sums(region_sums);
-   }
-
-   killer_sudoku() = default;
-   killer_sudoku(const killer_sudoku& orig) = default;
-   killer_sudoku& operator=(const killer_sudoku& orig) = default;
-   ~killer_sudoku() = default;
-   
-   void set_regions(const regions& regions)
-   {
-      m_regions.assign(regions.begin(), regions.end());
-   }
-   
-   void set_region_sums(const region_sums& region_sums)
-   {
-      m_region_sums.assign(region_sums.begin(), region_sums.end());
-   }
-      
-private:
-   
-   bool value_fails_additional_restrictions(cell_coordinates coordinates) const override
-   {
-      if (number_exceeds_sum_in_region(coordinates)) {
-         return true;
-      }
-      return false;
-   }
-   
-   bool number_exceeds_sum_in_region(cell_coordinates coordinates) const
-   {
-      short region = get_region(coordinates);
-      int sum_in_region = get_sum_of_region(region);
-
-      int partial_sum = 0;
-      auto region_it = m_regions.begin(); 
-      while((region_it = std::find(region_it, m_regions.end(), region)) != m_regions.end())
-      {
-         auto coor = get_coordinates_of_region(region_it);
-         partial_sum += get_cell(coor);
-         if(partial_sum > sum_in_region) {
-            return true;
-         }
-         ++region_it;
-      };
-      
-      return false;
-   }
-   
-   short get_region(cell_coordinates coordinates) const
-   {
-      auto index = mzlib::get_index_from_coordinates(coordinates, 9);
-      return m_regions[index];
-   }
-   
-   int get_sum_of_region(short region) const
-   {
-      auto region_sum_it = std::find_if(m_region_sums.begin(), m_region_sums.end(), 
-         [&region](const region_sum& s) {
-            return s.region == region;
-         });
-      if (region_sum_it == m_region_sums.end()) {
-         return 0;
-      }
-      return region_sum_it->sum;
-   }
-   
-   cell_coordinates get_coordinates_of_region(regions::const_iterator it) const
-   {
-      int index = std::distance(m_regions.cbegin(), it);
-      cell_coordinates coor = mzlib::get_coordinates_from_index(index, 9);
-      return coor;
-   }
-   
-   regions m_regions;
-   region_sums m_region_sums;
-};
-
 } // namespaces
 
 bool operator== (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
@@ -321,3 +222,201 @@ std::ostream& operator<< (std::ostream& os, const mzlib::sudoku& puzzle)
 
 #endif /* MZLIB_SUDOKU_H */
 
+#ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_SUDOKU_TESTS_H
+#define MZLIB_SUDOKU_TESTS_H
+
+TEST(sudoku, demo1) 
+{
+   mzlib::sudoku original {
+      0,5,9, 0,2,0, 4,6,0, 
+      1,0,0, 4,0,3, 0,0,8,
+      3,0,0, 0,7,0, 0,0,2,
+
+      0,3,0, 8,0,9, 0,2,0,
+      6,0,5, 0,0,0, 3,0,7,
+      0,1,0, 7,0,6, 0,4,0,
+
+      2,0,0, 0,1,0, 0,0,4,
+      9,0,0, 3,0,2, 0,0,5,
+      0,7,8, 0,6,0, 2,3,0
+   };
+
+   mzlib::sudoku solution {
+      7,5,9, 1,2,8, 4,6,3, 
+      1,2,6, 4,9,3, 7,5,8, 
+      3,8,4, 6,7,5, 9,1,2, 
+
+      4,3,7, 8,5,9, 1,2,6, 
+      6,9,5, 2,4,1, 3,8,7, 
+      8,1,2, 7,3,6, 5,4,9, 
+
+      2,6,3, 5,1,7, 8,9,4, 
+      9,4,1, 3,8,2, 6,7,5, 
+      5,7,8, 9,6,4, 2,3,1
+   };
+
+   mzlib::sudoku solved = original;
+   solved.solve();
+   ASSERT_TRUE(solution == solved);
+   
+   //std::cout << original << std::endl;
+   //std::cout << solved << std::endl;
+}
+
+TEST(sudoku, demo2) 
+{
+   mzlib::sudoku original {
+      0,0,0, 0,0,0, 6,8,0, 
+      0,0,0, 0,7,3, 0,0,9,
+      3,0,9, 0,0,0, 0,4,5,
+
+      4,9,0, 0,0,0, 0,0,0,
+      8,0,3, 0,5,0, 9,0,2,
+      0,0,0, 0,0,0, 0,3,6,
+
+      9,6,0, 0,0,0, 3,0,8,
+      7,0,0, 6,8,0, 0,0,0,
+      0,2,8, 0,0,0, 0,0,0
+   };
+
+   mzlib::sudoku solution {
+      1,7,2, 5,4,9, 6,8,3, 
+      6,4,5, 8,7,3, 2,1,9, 
+      3,8,9, 2,6,1, 7,4,5, 
+
+      4,9,6, 3,2,7, 8,5,1, 
+      8,1,3, 4,5,6, 9,7,2, 
+      2,5,7, 1,9,8, 4,3,6, 
+
+      9,6,4, 7,1,5, 3,2,8, 
+      7,3,1, 6,8,2, 5,9,4, 
+      5,2,8, 9,3,4, 1,6,7 
+   };
+
+   mzlib::sudoku solved = original;
+   solved.solve();
+   ASSERT_TRUE(solution == solved);
+   
+   //std::cout << original << std::endl;
+   //std::cout << solved << std::endl;
+}
+
+TEST(sudoku, demo3) 
+{
+   mzlib::sudoku original {
+      0,0,0, 2,0,0, 0,6,3, 
+      3,0,0, 0,0,5, 4,0,1,
+      0,0,1, 0,0,3, 9,8,0,
+
+      0,0,0, 0,0,0, 0,9,0,
+      0,0,0, 5,3,8, 0,0,0,
+      0,3,0, 0,0,0, 0,0,0,
+
+      0,2,6, 3,0,0, 5,0,0,
+      5,0,3, 7,0,0, 0,0,8,
+      4,7,0, 0,0,1, 0,0,0
+   };
+
+   mzlib::sudoku solution {
+      8,5,4, 2,1,9, 7,6,3,
+      3,9,7, 8,6,5, 4,2,1,
+      2,6,1, 4,7,3, 9,8,5,
+
+      7,8,5, 1,2,6, 3,9,4,
+      6,4,9, 5,3,8, 1,7,2,
+      1,3,2, 9,4,7, 8,5,6,
+
+      9,2,6, 3,8,4, 5,1,7,
+      5,1,3, 7,9,2, 6,4,8,
+      4,7,8, 6,5,1, 2,3,9
+   };
+
+   mzlib::sudoku solved = original;
+   solved.solve();
+   ASSERT_TRUE(solution == solved);
+   
+   //std::cout << original << std::endl;
+   //std::cout << solved << std::endl;
+}
+
+TEST(sudoku, long_demo4) 
+{
+   mzlib::sudoku original {
+      0,1,0, 0,0,4, 0,0,0, 
+      0,0,6, 8,0,5, 0,0,1,
+      5,0,3, 7,0,1, 9,0,0,
+
+      8,0,4, 0,0,7, 0,0,0,
+      0,0,0, 0,0,0, 0,0,0,
+      0,0,0, 3,0,0, 6,0,9,
+
+      0,0,1, 5,0,8, 2,0,4,
+      6,0,0, 4,0,3, 1,0,0,
+      0,0,0, 2,0,0, 0,5,0
+   };
+
+   mzlib::sudoku solution {
+      2,1,8, 9,6,4, 5,3,7,
+      9,7,6, 8,3,5, 4,2,1,
+      5,4,3, 7,2,1, 9,8,6,
+
+      8,9,4, 6,5,7, 3,1,2,
+      3,6,2, 1,4,9, 8,7,5,
+      1,5,7, 3,8,2, 6,4,9,
+
+      7,3,1, 5,9,8, 2,6,4,
+      6,2,5, 4,7,3, 1,9,8,
+      4,8,9, 2,1,6, 7,5,3
+   };
+
+   mzlib::sudoku solved = original;
+   solved.solve();
+   ASSERT_TRUE(solution == solved);
+   
+   //std::cout << original << std::endl;
+   //std::cout << solved << std::endl;
+}
+
+TEST(sudoku, long_demo5) 
+{
+   mzlib::sudoku original {
+      1,3,0, 0,0,0, 0,0,0, 
+      0,0,2, 0,5,0, 0,3,0,
+      0,0,9, 0,0,2, 0,8,0,
+
+      5,0,0, 3,0,0, 0,1,0,
+      0,0,0, 1,0,6, 0,0,0,
+      0,1,0, 0,0,5, 0,0,7,
+
+      0,9,0, 4,0,0, 3,0,0,
+      0,8,0, 0,2,0, 5,0,0,
+      0,0,0, 0,0,0, 0,6,4
+   };
+
+   mzlib::sudoku solution {
+      1,3,8, 9,6,4, 7,2,5,
+      7,6,2, 8,5,1, 4,3,9,
+      4,5,9, 7,3,2, 1,8,6,
+
+      5,4,6, 3,7,9, 2,1,8,
+      8,2,7, 1,4,6, 9,5,3,
+      9,1,3, 2,8,5, 6,4,7,
+
+      6,9,5, 4,1,8, 3,7,2,
+      3,8,4, 6,2,7, 5,9,1,
+      2,7,1, 5,9,3, 8,6,4
+   };
+
+   mzlib::sudoku solved = original;
+   solved.solve();
+   ASSERT_TRUE(solution == solved);
+   
+   //std::cout << original << std::endl;
+   //std::cout << solved << std::endl;
+}
+
+#endif // MZLIB_SUDOKU_TESTS_H
+
+#endif // MZLIB_BUILDING_TESTS

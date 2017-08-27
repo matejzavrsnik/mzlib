@@ -33,7 +33,11 @@ int main(int argc, char **argv) {
 namespace mzlib {
 } // namespace
 #endif // HEADER_H
+
 #ifdef MZLIB_BUILDING_TESTS
+#ifndef HEADER_TESTS_H
+#define HEADER_TESTS_H
+#endif // HEADER_TESTS_H
 #endif // MZLIB_BUILDING_TESTS
 
 */

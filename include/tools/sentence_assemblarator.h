@@ -88,6 +88,9 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
 
 #ifdef MZLIB_BUILDING_TESTS
 
+#ifndef SENTENCE_ASSEMBLARATOR_TESTS_H
+#define SENTENCE_ASSEMBLARATOR_TESTS_H
+
 TEST(sentence_assemblarator, basic) 
 {
    std::vector<std::string> words = {"veni", ",", "vidi", ",","dormivi", "."};
@@ -150,5 +153,7 @@ TEST(sentence_assemblarator, paretheses_handling)
    // will reject second opening paretheses in the row, but will close it before sentence ends
    ASSERT_EQ(sentence, "Veni (vidi dormivi)."); 
 }
+
+#endif // SENTENCE_ASSEMBLARATOR_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS

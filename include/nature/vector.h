@@ -34,13 +34,22 @@ class vector
 private:
 
    std::array<TYPE, DIM> m_array;
-    
+
+   constexpr static vector<TYPE,DIM> create_unit()
+   {
+      vector<TYPE,DIM> v;
+      for (TYPE& e : v.m_array) e = 1;
+      return v.normalise();
+   }
+
 public:
    
    constexpr static size_t dimensions()
    {
       return DIM;
    }
+   
+   constexpr static vector<TYPE,DIM> unit = vector<TYPE,DIM>::create_unit();
     
    // This weird constructor uses variadic templates to try to squeeze anything into a vector
    template <typename... T> constexpr explicit vector (T... val) : 
@@ -52,7 +61,7 @@ public:
       m_array{0} // the rest will be zero too
    {
    };
-
+   
    vector (const vector<TYPE,DIM>&) = default;
    vector (vector<TYPE,DIM> &&) = default;
    vector& operator= (const vector<TYPE,DIM>&) = default;
@@ -98,12 +107,12 @@ public:
       return *this;
    }
         
-   TYPE& operator[] (size_t n) 
+   constexpr TYPE& operator[] (size_t n) 
    { 
       return m_array[n]; 
    }
     
-   const TYPE& operator[] (size_t n) const 
+   constexpr const TYPE& operator[] (size_t n) const 
    { 
       return m_array[n];
    }
@@ -160,7 +169,7 @@ public:
       return *this - other;
    }
     
-   TYPE length () const 
+   constexpr TYPE length () const 
    {
       TYPE len = 0;
       for (size_t i=0; i<DIM; ++i) {
@@ -170,7 +179,7 @@ public:
       return len;
    }
     
-   vector<TYPE, DIM> normalise () const
+   constexpr vector<TYPE, DIM> normalise () const
    {
       vector<TYPE, DIM> result(*this);
       TYPE l = length();
@@ -344,7 +353,10 @@ using vector2d = vector<double, 2>;
 using vector3d = vector<double, 3>;
 using point2d  = vector<double, 2>;
 using point3d  = vector<double, 3>;
-    
+
+//constexpr vector2d unit_vector2d = vector2d::create_unit();
+//constexpr vector3d unit_vector3d = vector3d::create_unit();
+
 } // namespace
 
 #endif /* MZLIB_VECTOR_H */

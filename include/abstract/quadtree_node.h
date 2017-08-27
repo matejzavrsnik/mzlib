@@ -59,19 +59,17 @@ public:
       m_parent = parent;
       m_rectangle = rectangle;
       m_which_quadrant = which_quadrant;
+      m_bodies.clear();
       
       law::screen_rectangles2d rect_law;
       rect_law.consider(m_rectangle);
+      m_diagonal_length = rect_law.solve_for_diagonal_length();
+      const vector2d centre_point = rect_law.solve_for_centre_point();
       
-      if (!m_diagonal_length.has_value()) {
-         m_diagonal_length = rect_law.solve_for_diagonal_length();
-      }
+      // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
+      m_mass_centre = {centre_point, 0};
+      
       if (rect_law.solve_for_width() > smallest_node_width) {
-         const vector2d centre_point = rect_law.solve_for_centre_point();
-         
-         // Set mass centre in the centre of the node, even if 0. Philosophical, huh?
-         m_mass_centre.location = centre_point;
-         
          const screen_rectangle2d nw_rect(m_rectangle.get_top_left(), centre_point);
          law::screen_rectangles2d nw_rect_law;
          nw_rect_law.consider(nw_rect);

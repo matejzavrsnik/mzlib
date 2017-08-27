@@ -63,6 +63,7 @@
       </logicalFolder>
       <itemPath>include/aggregated_file_monitor.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
+      <itemPath>include/killer_sudoku.h</itemPath>
       <itemPath>include/sentence_o_matic.h</itemPath>
       <itemPath>include/sudoku.h</itemPath>
     </logicalFolder>
@@ -77,15 +78,7 @@
       <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
-      <itemPath>tests/test_law_screen_rectangle.cpp</itemPath>
-      <itemPath>tests/test_laws.cpp</itemPath>
-      <itemPath>tests/test_markov_chain.cpp</itemPath>
-      <itemPath>tests/test_masscentre.cpp</itemPath>
-      <itemPath>tests/test_probabilator.cpp</itemPath>
       <itemPath>tests/test_quadtree.cpp</itemPath>
-      <itemPath>tests/test_relentless_file_reader.cpp</itemPath>
-      <itemPath>tests/test_sentence_o_matic.cpp</itemPath>
-      <itemPath>tests/test_sudoku.cpp</itemPath>
       <itemPath>tests/test_supersafe_number.cpp</itemPath>
       <itemPath>tests/test_tools.cpp</itemPath>
       <itemPath>tests/test_tools_filesystem.cpp</itemPath>
@@ -191,6 +184,8 @@
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/killer_sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
@@ -289,29 +284,7 @@
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/test_law_screen_rectangle.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/test_laws.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_markov_chain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_masscentre.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_probabilator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_relentless_file_reader.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -416,6 +389,8 @@
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/killer_sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
@@ -514,29 +489,7 @@
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/test_law_screen_rectangle.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/test_laws.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_markov_chain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_masscentre.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_probabilator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_relentless_file_reader.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/test_sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -35,6 +35,9 @@ template <class T> T&& fast_min (T&& min1, T&& min2, T&& min3)
 
 #ifdef MZLIB_BUILDING_TESTS
 
+#ifndef FAST_MIN_TESTS_H
+#define FAST_MIN_TESTS_H
+
 TEST(fast_min, basic_lvalue) 
 {
    int i1 = 1, i2 = 2, i3 = 3;
@@ -57,6 +60,8 @@ TEST(lvalue, basic_rvalue)
    ASSERT_EQ(1, mzlib::fast_min(3, 1, 2));
    ASSERT_EQ(1, mzlib::fast_min(3, 2, 1));
 }
+
+#endif // FAST_MIN_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS
 
