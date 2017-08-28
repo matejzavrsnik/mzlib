@@ -59,7 +59,10 @@ public:
 
 #ifdef MZLIB_BUILDING_TESTS
 
-double allowed_double_delta(double val, int ulp)
+#ifndef MZLIB_DBL_TESTS_H
+#define MZLIB_DBL_TESTS_H
+
+inline double allowed_double_delta(double val, int ulp)
 { 
    double use_val = std::abs(val);
    if(use_val<1) use_val = 1;
@@ -133,5 +136,6 @@ TEST(dbl, compare_different_doubles_for_equality_within_epsilon)
    ASSERT_FALSE(mzlib::dbl(13.3).equals(13.2).within_epsilon(0.01));
 }
 
+#endif // MZLIB_DBL_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS

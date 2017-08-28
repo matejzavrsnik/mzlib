@@ -66,9 +66,12 @@ public:
 
 } // namespace
 
-#endif	/* MZLIB_OPTIONAL_H */
+#endif	// MZLIB_OPTIONAL_H
 
 #ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_OPTIONAL_TESTS_H
+#define MZLIB_OPTIONAL_TESTS_H
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 TEST(optional, throws_when_not_set) 
@@ -108,5 +111,7 @@ TEST(optional, can_unset)
    ASSERT_FALSE(optional.is_set());
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
+
+#endif // MZLIB_OPTIONAL_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS

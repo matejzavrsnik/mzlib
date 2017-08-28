@@ -67,3 +67,29 @@ public:
 
 #endif	/* MZLIB_UNIQUE_H */
 
+#ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_UNIQUE_TESTS_H
+#define MZLIB_UNIQUE_TESTS_H
+
+TEST(unique, demo) 
+{
+   mzlib::unique a;
+   mzlib::unique b;
+   ASSERT_NE(a.id(), b.id()); 
+}
+
+TEST(unique, unique_on_copy) 
+{
+   mzlib::unique a;
+   mzlib::unique b;
+   mzlib::unique c(a);
+   mzlib::unique d = a;
+   ASSERT_NE(a.id(), b.id());
+   ASSERT_EQ(a.id(), c.id());
+   ASSERT_EQ(a.id(), d.id());
+}
+
+#endif // MZLIB_UNIQUE_TESTS_H
+
+#endif // MZLIB_BUILDING_TESTS

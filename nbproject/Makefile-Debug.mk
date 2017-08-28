@@ -37,15 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
-	${OBJECTDIR}/tests/test_quadtree.o \
-	${OBJECTDIR}/tests/test_supersafe_number.o \
-	${OBJECTDIR}/tests/test_tools.o \
 	${OBJECTDIR}/tests/test_tools_filesystem.o \
 	${OBJECTDIR}/tests/test_tools_random.o \
 	${OBJECTDIR}/tests/test_tools_string.o \
-	${OBJECTDIR}/tests/test_unique.o \
-	${OBJECTDIR}/tests/test_units_strong.o \
-	${OBJECTDIR}/tests/test_universe.o \
 	${OBJECTDIR}/tests/test_universe_performance.o \
 	${OBJECTDIR}/tests/test_vector.o
 
@@ -84,21 +78,6 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
 
-${OBJECTDIR}/tests/test_quadtree.o: tests/test_quadtree.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_quadtree.o tests/test_quadtree.cpp
-
-${OBJECTDIR}/tests/test_supersafe_number.o: tests/test_supersafe_number.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_supersafe_number.o tests/test_supersafe_number.cpp
-
-${OBJECTDIR}/tests/test_tools.o: tests/test_tools.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools.o tests/test_tools.cpp
-
 ${OBJECTDIR}/tests/test_tools_filesystem.o: tests/test_tools_filesystem.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
@@ -113,21 +92,6 @@ ${OBJECTDIR}/tests/test_tools_string.o: tests/test_tools_string.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_string.o tests/test_tools_string.cpp
-
-${OBJECTDIR}/tests/test_unique.o: tests/test_unique.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_unique.o tests/test_unique.cpp
-
-${OBJECTDIR}/tests/test_units_strong.o: tests/test_units_strong.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_units_strong.o tests/test_units_strong.cpp
-
-${OBJECTDIR}/tests/test_universe.o: tests/test_universe.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe.o tests/test_universe.cpp
 
 ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

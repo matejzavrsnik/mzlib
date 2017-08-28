@@ -8,7 +8,7 @@
 #ifndef MZLIB_SUDOKU_H
 #define MZLIB_SUDOKU_H
 
-#include "tools/general.h"
+#include "tools/index_iterator_conversions.h"
 
 #include <vector>
 #include <iostream>
@@ -23,7 +23,7 @@ class sudoku
 public:
    
    using puzzle = std::vector<short>;
-   using cell_coordinates = mzlib::vector<uint, 2>;
+   using cell_coordinates = std::array<uint, 2>;
    const short has_no_value = 0;
     
    sudoku(const std::initializer_list<short>& puzzle)

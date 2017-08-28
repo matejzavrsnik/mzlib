@@ -7,6 +7,7 @@
 
 // gtest header for obvious reasons
 #include "gtest/gtest.h"
+#include "gtest/gtest_prod.h"
 
 // command line options
 #include "options.h"
@@ -71,4 +72,23 @@ using namespace mzlib::units;
    #include "include/sentence_o_matic.h"
    #include "include/sudoku.h"
    #include "include/killer_sudoku.h"
+   #include "include/tools/split_string_puctuation.h"
+   #include "include/tools/wagner_fischer_distance.h"
+   #include "include/abstract/quadtree.h"
+   #include "include/joke/supersafe_number.h"
+   #include "include/abstract/unique.h"
+   #include "include/nature/units_strong_definitions.h"
+   #include "include/tools/insert_if_unique.h"
+   #include "include/tools/index_iterator_conversions.h"
+   #include "include/nature/universe.h"
+   #include "include/tools/copy_first_n_over_rest.h"
+   #include "include/lang/c64_basic_for.h"
+   #include "include/tools/add_to_tally.h"
+   #include "include/tools/sort_map_by_value.h"
+   #include "include/tools/circular_next_iterator.h"
+   #include "include/tools/average_iterator.h"
+   #include "include/tools/iterator_distance_comparison.h"
+   #include "include/tools/conditional_find_iterator.h"
+   #include "include/tools/next_lex_permutation.h"
+   #include "include/tools/fast_forward_iterator_until.h"
 #undef MZLIB_BUILDING_TESTS

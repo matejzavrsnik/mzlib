@@ -25,44 +25,11 @@
 #include "../nature/vector.h"
 #include "../lang/exceptions.h"
 #include "../lang/optional.h"
+#include "iterator_distance_comparison.h"
+#include "conditional_find_iterator.h"
 
 namespace mzlib {
     
-// adds to container, unless the element is already in
-// returns iterator to element in the container
-template<class Iterator, class T, class InsertIt> 
-void insert_if_unique (Iterator begin, Iterator end, const T& element, InsertIt inserter) 
-{
-   auto sought_element = std::find(begin, end, element);
-   if (sought_element == end) {
-      *inserter++ = element;
-   }
-}
-    
-// converts iterator to index
-template<class Iterator> 
-size_t get_index (Iterator begin, Iterator it) 
-{
-   return std::distance(begin, it);
-}
-
-// creates vector of vectors; a matrix, so to speak
-template<class T> std::vector<std::vector<T>>
-create_matrix (size_t first_dim, size_t second_dim, T initial_value)
-{
-   std::vector<int> line(second_dim, initial_value);
-   std::vector<std::vector<int>> matrix(first_dim, line);
-   return std::move(matrix);
-}
-
-template<class T> void copy_first_n_over_rest (std::vector<T>& v, size_t n)
-{
-   if (n >= v.size()) return;
-   for (uint to = n, from = 0; to < v.size(); ++to, from = to % n) {
-      v[to] = v[from];
-   }
-}
-
 // Parses main function arguments in form of "--name=value"
 inline std::map<std::string, std::string> 
 parse_arguments (int argc, char **argv)
@@ -85,67 +52,6 @@ parse_arguments (int argc, char **argv)
       }
    }
    return arguments;
-}
-
-// Useful for when you use map to count occurrences
-template <class Key, class Value>
-void add_to_tally(std::map<Key, Value>& word_map, const Key& word)
-{
-   word_map[word] = (word_map.count(word) == 0 ? 1 : word_map[word] += 1);
-}
-
-// Map is already intrinsically sorted by keys, but what if you need items sorted
-// by values instead?
-template <class Key, class Value>
-std::vector<std::pair<Key, Value>> sort_map_by_value(
-   const std::map<Key,Value>& unsorted, 
-   option::descending descending = option::descending::no)
-{
-   std::vector<std::pair<Key, Value>> result;
-   
-   std::copy (unsorted.begin(),unsorted.end(),std::back_inserter(result));
-   
-   std::sort(result.begin(), result.end(), 
-      [&descending](const std::pair<Key, Value>& a, const std::pair<Key, Value>& b) 
-      {
-         return descending ? 
-            b.second < a.second : 
-            b.second > a.second;   
-      });
-   return result;
-}
-
-// useful when representing a matrix with one-dimensional array
-// conversion function, that will convert from coordinates to array index
-inline uint get_index_from_coordinates(vector<uint,2> const coordinates, uint const row_size)
-{
-   return (coordinates[0] + row_size*coordinates[1]);
-}
-
-// useful when representing a matrix with one-dimensional array
-// conversion function, that will convert from array index to coordinates
-inline vector<uint,2> get_coordinates_from_index(uint const index, uint const row_size)
-{
-   return {
-      index % row_size,
-      index / row_size
-   };
-}
-
-// after last element continue from the first again.
-template<class Iterator>
-void circular_next(Iterator &iterator, Iterator first, Iterator last)
-{
-   if(++iterator == last) iterator = first;
-}
-
-// calculate average of all container elements
-template<class Iterator>
-double average(Iterator first, Iterator last)
-{
-   double sum = std::accumulate(first, last, 0);
-   double avg = sum / std::distance(first, last);
-   return avg;
 }
 
 // All things considered, this is not a bad way to implement naive factorial
@@ -183,105 +89,13 @@ factorial(unsigned short number)
    }
 }
 
-// For when you only want to know if it is larger than some value, for instance
-// if you are checking if there is at least one element in the container, or at
-// least two, or whatever. You could use std::distance and compare, but that has
-// linear complexity of N, because it iterates the whole container and if you are 
-// just checking if at least two elements are present, that is a huge overhead. 
-template<class Iterator>
-bool is_distance_larger(Iterator it1, Iterator it2, size_t distance)
-{
-   do {
-      if(it1==it2) 
-         return false;
-      it1 = std::next(it1);
-   }
-   while (distance--);
-   return true;
-}
 
-template<class Iterator>
-bool is_distance_smaller(Iterator it1, Iterator it2, size_t distance)
-{
-   distance--; // because the question is not if distance is equal
-   do {
-      if(it1==it2) 
-         return true;
-      it1 = std::next(it1);
-   }
-   while (distance--);
-   return false;
-}
 
-// It did occur to me to have one function where you specify if you want to ask
-// if larger, smaller, or equal, but the implementation included an if-branch
-// too convoluted for a simple problem like this. Readability and robustness
-// over cleverness, I say.
-template<class Iterator>
-bool is_distance_equal(Iterator it1, Iterator it2, size_t distance)
-{
-   std::advance(it1, distance);
-   if(it1==it2) 
-      return true;
-   return false;
-}
 
-template<class Iterator>
-Iterator find_last_where_value_smaller_then_next(Iterator begin, Iterator end)
-{
-   if (mzlib::is_distance_smaller(begin, end, 2)) 
-      return end; // nothing to find
-   
-   auto next = end;
-   auto prev = next-1;
-   
-   while(prev != begin) 
-      if (*(--prev) < *(--next)) 
-         return prev;
-   
-   return end; // not found
-}
 
-template<class Iterator, class T>
-Iterator find_last_where_value_larger_then_given(Iterator begin, Iterator end, T value_given)
-{
-   auto last = end;
-   
-   while(last != begin) 
-      if (*(--last) > value_given) 
-         return last;
-   
-   return end; // not found
-}
 
-// I think everybody except me has written lexical permutation function at least 
-// once in their lives. Here it goes. (FYI: there is a function in std:: that
-// does this and probably does it better, if you actually need one.)
-template<class Iterator>
-void next_lex_permutation(Iterator begin, Iterator end)
-{
-   auto k = find_last_where_value_smaller_then_next(begin, end);
-   if (k==end) return; // done, this was last permutation
-   
-   auto l = find_last_where_value_larger_then_given(begin, end, *k);
-   if (l==end) return; // done
-   
-   std::iter_swap(k, l);
-   std::reverse(k+1, end);
-}
 
-// Iterate forward in a container until the condition is met.
-template<class Element, class Iterator>
-Iterator fast_forward_until(
-   Iterator begin,
-   Iterator end,
-   std::function<bool(const Element&)> condition)
-{
-   while (begin != end && !condition(*begin)) {
-      begin = std::next(begin);
-   }
-   return begin;
-}
+
 
 
 

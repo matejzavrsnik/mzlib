@@ -52,7 +52,10 @@ using acceleration3d = acceleration<vector3d>;
 
 #ifdef MZLIB_BUILDING_TESTS
 
-TEST(acceleration2d, solve_for_force) 
+#ifndef MZLIB_LAWS_ACCELERATION_TESTS_H
+#define MZLIB_LAWS_ACCELERATION_TESTS_H
+
+TEST(acceleration, solve_for_force) 
 {
    mzlib::law::acceleration2d acc;
    acc.m = 14.17_kg;
@@ -66,7 +69,7 @@ TEST(acceleration2d, solve_for_force)
    ASSERT_TRUE(direction == mzlib::vector2d::unit);
 }
 
-TEST(acceleration2d, solve_for_force_missing_argument) 
+TEST(acceleration, solve_for_force_missing_argument) 
 {
    mzlib::law::acceleration2d acc;
    //acc.m = 14.17_kg;
@@ -75,7 +78,7 @@ TEST(acceleration2d, solve_for_force_missing_argument)
    ASSERT_THROW(acc.solve_for_force(), std::bad_optional_access);
 }
 
-TEST(acceleration2d, solve_for_acceleration) 
+TEST(acceleration, solve_for_acceleration) 
 {
    mzlib::law::acceleration2d acc;
    acc.m = 17.23_kg;
@@ -89,7 +92,7 @@ TEST(acceleration2d, solve_for_acceleration)
    ASSERT_TRUE(direction == mzlib::vector2d::unit);
 }
 
-TEST(acceleration2d, solve_for_acceleration_missing_argument) 
+TEST(acceleration, solve_for_acceleration_missing_argument) 
 {
    mzlib::law::acceleration2d acc;
    acc.m = 17.23_kg;
@@ -98,7 +101,7 @@ TEST(acceleration2d, solve_for_acceleration_missing_argument)
    ASSERT_THROW(acc.solve_for_acceleration(), std::bad_optional_access);
 }
 
-TEST(acceleration2d, solve_for_mass) 
+TEST(acceleration, solve_for_mass) 
 {
    mzlib::law::acceleration2d acc;
    acc.f = mzlib::vector2d::unit * 16.66_N;
@@ -110,7 +113,7 @@ TEST(acceleration2d, solve_for_mass)
    ASSERT_TRUE(mzlib::dbl(size).equals(0.90839694656488568L));
 }
 
-TEST(acceleration2d, solve_for_mass_missing_argument) 
+TEST(acceleration, solve_for_mass_missing_argument) 
 {
    mzlib::law::acceleration2d acc;
    //acc.f = unit_vector2d * 16.66_N;
@@ -118,5 +121,7 @@ TEST(acceleration2d, solve_for_mass_missing_argument)
    
    ASSERT_THROW(acc.solve_for_mass(), std::bad_optional_access);
 }
+
+#endif // MZLIB_LAWS_ACCELERATION_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS

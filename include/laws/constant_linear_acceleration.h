@@ -73,6 +73,9 @@ using constant_linear_acceleration3d = constant_linear_acceleration<vector3d>;
 
 #ifdef MZLIB_BUILDING_TESTS
 
+#ifndef MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
+#define MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
+
 TEST(constant_linear_acceleration, solve_for_final_velocity)
 {
    mzlib::law::constant_linear_acceleration2d acc;
@@ -176,5 +179,7 @@ TEST(constant_linear_acceleration, solve_for_final_location)
    
    ASSERT_TRUE(direction == mzlib::vector2d({9.4368168809072515L,10.536816880907253L}));
 }
+
+#endif // MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS

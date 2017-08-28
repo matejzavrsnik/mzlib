@@ -333,6 +333,22 @@ private:
    screen_rectangle2d m_rectangle;
    std::optional<double> m_diagonal_length;
    direction m_which_quadrant;
+   
+#ifdef FRIEND_TEST
+   FRIEND_TEST(fixture_cquadtree, tree_is_built_correctly);
+   FRIEND_TEST(fixture_cquadtree, move_does_not_cross_any_node_borders);
+   FRIEND_TEST(fixture_cquadtree, move_crosses_2nd_level_node_borders);
+   FRIEND_TEST(fixture_cquadtree, move_crosses_borders_on_all_levels_of_nodes);
+   FRIEND_TEST(fixture_cquadtree, move_beyond_tree_size);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_at_beginning_nodes_null);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_after_add_nodes_are_correct);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_after_add_body_in_correct_node);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_single_level_adds_all_in_correct_node);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_make_it_expand);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_move_out_to_up_left);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_add);
+   FRIEND_TEST(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move);
+#endif
 };
 
 } // namespace

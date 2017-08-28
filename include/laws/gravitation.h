@@ -60,9 +60,12 @@ using gravitation3d = gravitation<vector3d>;
 
 } } // namespace
 
-#endif /* MZLIB_LAWS_H */
+#endif // MZLIB_LAWS_GRAVITATION_H
 
 #ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_LAWS_GRAVITATION_TESTS_H
+#define MZLIB_LAWS_GRAVITATION_TESTS_H
 
 TEST(gravitation, solve_for_force)
 {
@@ -81,5 +84,7 @@ TEST(gravitation, solve_for_force)
    ASSERT_TRUE(mzlib::dbl(size).equals(1.9820850603183325e20_N));
    ASSERT_TRUE(direction == mzlib::vector2d::unit);
 }
+
+#endif // MZLIB_LAWS_GRAVITATION_TESTS_H
 
 #endif // MZLIB_BUILDING_TESTS

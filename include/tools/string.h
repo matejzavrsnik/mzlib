@@ -13,43 +13,13 @@
 #include <set>
 #include <algorithm> // std::generate
 #include <map>
+#include <sstream>
 
+#include "split_string_puctuation.h"
 #include "fast_min.h" // fast_threeway_min
-#include "general.h" // add_to_tally
+#include "add_to_tally.h" // add_to_tally
 
 namespace mzlib {
-        
-inline std::vector<std::string> split_string_puctuation (const std::string& str) 
-{
-   std::vector<std::string> split_string;
-   std::string new_candidate = "";
-   char ch_prev = 0;
-   for (std::string::const_iterator ch_it = str.begin(); ch_it != str.end(); ++ch_it) {
-      char ch = *ch_it;
-      if (    !ispunct(ch)
-           || (ch=='\'') // as in "isn't"
-           || (ch=='-' && ch_prev!=' ') // as in "mind-boggling"
-         )
-      {
-         new_candidate += ch;
-      }
-      else
-      {
-         if (!new_candidate.empty()) {
-            split_string.push_back(new_candidate);
-            new_candidate = "";
-         }
-         std::string ch_str = "";
-         ch_str += ch;
-         split_string.push_back(ch_str);
-      }
-      ch_prev = ch;
-   }
-   if (!new_candidate.empty()) {
-      split_string.push_back(new_candidate);
-   }
-   return split_string;
-}
 
 // Replace all occurrences of a string in a string
 inline void string_replace (std::string& str, const std::string& replace_what, const std::string& replace_with) 
@@ -100,41 +70,6 @@ inline std::string extract_filename_from_path (std::string path)
    if (pos == std::string::npos) return "";
    return path.substr(pos+1, path.length()-pos);
 }    
-
-template <class TYPE>
-int wagner_fischer_distance (const TYPE& str1, const TYPE& str2)
-{
-   // Optimised version of this algorithm only needs two vectors, current and 
-   // previous rows of the matrix
-   std::vector<int> prev_row (str2.size()+1, 0);
-   std::vector<int> curr_row (str2.size()+1, 0);
-   
-   int n=0;
-   std::generate (curr_row.begin(), curr_row.end(), [&n]{ return n++; });
-   
-   // The core of the algorithm: a crazy cacophony of narrowly avoided off-by-ones
-   for(size_t i = 1; i<str1.size()+1; i++) {
-      // Some maintenance due to the fact there are only two lines available
-      prev_row = curr_row;
-      std::fill (curr_row.begin(), curr_row.end(), 0);;
-      curr_row [0] = i;
-      
-      for(size_t j = 1; j<str2.size()+1; j++) {
-         if(str1 [i-1] == str2 [j-1]) {
-            curr_row [j] = prev_row [j-1];
-         }
-         else {
-            curr_row [j] = fast_min(
-               prev_row [j-1] +1, // substitution
-               prev_row [j]   +1, // deletion
-               curr_row [j-1] +1  // insertion
-            );
-         }
-      }
-   }
-
-   return curr_row [curr_row.size()-1];
-}
 
 inline bool string_ends_with (const std::string& str, const std::string& end) {
    if (str.length() >= end.length()) {

@@ -10,7 +10,7 @@
 
 #include <optional>
 
-#include "general.h"
+#include "fast_forward_iterator_until.h"
 
 namespace mzlib {
 

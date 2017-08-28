@@ -361,3 +361,13 @@ using point3d  = vector<double, 3>;
 
 #endif /* MZLIB_VECTOR_H */
 
+#ifdef MZLIB_BUILDING_TESTS
+
+#ifndef HEADER_TESTS_H
+#define HEADER_TESTS_H
+
+
+
+#endif // HEADER_TESTS_H
+
+#endif // MZLIB_BUILDING_TESTS

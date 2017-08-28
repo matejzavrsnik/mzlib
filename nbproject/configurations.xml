@@ -40,26 +40,40 @@
         <itemPath>include/nature/mass_centre.h</itemPath>
         <itemPath>include/nature/screen_rectangle.h</itemPath>
         <itemPath>include/nature/units.h</itemPath>
-        <itemPath>include/nature/units_strong.h</itemPath>
+        <itemPath>include/nature/units_strong_definitions.h</itemPath>
+        <itemPath>include/nature/units_strong_foundation.h</itemPath>
         <itemPath>include/nature/universe.h</itemPath>
         <itemPath>include/nature/universe_containers.h</itemPath>
         <itemPath>include/nature/vector.h</itemPath>
       </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
+        <itemPath>include/tools/add_to_tally.h</itemPath>
+        <itemPath>include/tools/average_iterator.h</itemPath>
+        <itemPath>include/tools/circular_next_iterator.h</itemPath>
+        <itemPath>include/tools/conditional_find_iterator.h</itemPath>
+        <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
+        <itemPath>include/tools/fast_forward_iterator_until.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
         <itemPath>include/tools/filesystem.h</itemPath>
         <itemPath>include/tools/general.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
+        <itemPath>include/tools/index_iterator_conversions.h</itemPath>
+        <itemPath>include/tools/insert_if_unique.h</itemPath>
         <itemPath>include/tools/is_word_in_dictionary.h</itemPath>
+        <itemPath>include/tools/iterator_distance_comparison.h</itemPath>
         <itemPath>include/tools/libcmlpp.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
+        <itemPath>include/tools/next_lex_permutation.h</itemPath>
         <itemPath>include/tools/number_of_decimals.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
         <itemPath>include/tools/sentence_assemblarator.h</itemPath>
+        <itemPath>include/tools/sort_map_by_value.h</itemPath>
+        <itemPath>include/tools/split_string_puctuation.h</itemPath>
         <itemPath>include/tools/string.h</itemPath>
         <itemPath>include/twoway_streambuf.h</itemPath>
+        <itemPath>include/tools/wagner_fischer_distance.h</itemPath>
       </logicalFolder>
       <itemPath>include/aggregated_file_monitor.h</itemPath>
       <itemPath>include/image_texture.h</itemPath>
@@ -78,15 +92,9 @@
       <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
-      <itemPath>tests/test_quadtree.cpp</itemPath>
-      <itemPath>tests/test_supersafe_number.cpp</itemPath>
-      <itemPath>tests/test_tools.cpp</itemPath>
       <itemPath>tests/test_tools_filesystem.cpp</itemPath>
       <itemPath>tests/test_tools_random.cpp</itemPath>
       <itemPath>tests/test_tools_string.cpp</itemPath>
-      <itemPath>tests/test_unique.cpp</itemPath>
-      <itemPath>tests/test_units_strong.cpp</itemPath>
-      <itemPath>tests/test_universe.cpp</itemPath>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
       <itemPath>tests/test_vector.cpp</itemPath>
     </logicalFolder>
@@ -221,7 +229,15 @@
       </item>
       <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/nature/units_strong.h" ex="false" tool="3" flavor2="0">
+      <item path="include/nature/units_strong_definitions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/nature/units_strong_foundation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/nature/universe.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -236,7 +252,31 @@
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/average_iterator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/circular_next_iterator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/conditional_find_iterator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/copy_first_n_over_rest.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/equidistant_sequence.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/fast_forward_iterator_until.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -249,7 +289,19 @@
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/index_iterator_conversions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/insert_if_unique.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/is_word_in_dictionary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/iterator_distance_comparison.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -257,6 +309,11 @@
       <item path="include/tools/libcmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/next_lex_permutation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/number_of_decimals.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -272,7 +329,19 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/split_string_puctuation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/wagner_fischer_distance.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -284,23 +353,11 @@
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_tools.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_string.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_units_strong.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_universe.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"
@@ -426,7 +483,15 @@
       </item>
       <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/nature/units_strong.h" ex="false" tool="3" flavor2="0">
+      <item path="include/nature/units_strong_definitions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/nature/units_strong_foundation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/nature/universe.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -441,7 +506,31 @@
       </item>
       <item path="include/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/average_iterator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/circular_next_iterator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/conditional_find_iterator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/copy_first_n_over_rest.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/equidistant_sequence.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/fast_forward_iterator_until.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -454,7 +543,19 @@
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/index_iterator_conversions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/insert_if_unique.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/is_word_in_dictionary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/iterator_distance_comparison.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -462,6 +563,11 @@
       <item path="include/tools/libcmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/next_lex_permutation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/number_of_decimals.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -477,7 +583,19 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/split_string_puctuation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/string.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/wagner_fischer_distance.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -489,23 +607,11 @@
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/test_quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_supersafe_number.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_tools.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_string.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_unique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_units_strong.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/test_universe.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"
