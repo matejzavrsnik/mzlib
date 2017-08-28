@@ -40,8 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_tools_filesystem.o \
 	${OBJECTDIR}/tests/test_tools_random.o \
 	${OBJECTDIR}/tests/test_tools_string.o \
-	${OBJECTDIR}/tests/test_universe_performance.o \
-	${OBJECTDIR}/tests/test_vector.o
+	${OBJECTDIR}/tests/test_universe_performance.o
 
 
 # C Compiler Flags
@@ -99,11 +98,6 @@ ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe_performance.o tests/test_universe_performance.cpp
-
-${OBJECTDIR}/tests/test_vector.o: tests/test_vector.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_vector.o tests/test_vector.cpp
 
 # Subprojects
 .build-subprojects:

@@ -31,7 +31,7 @@ public:
    {
       VectorT m1_force = {0};
       double sqare_distance = m_1.value().location.square_distance_to(m_2.value().location); 
-      m1_force = -m_1.value().location.direction_to(m_2.value().location).normalise(); 
+      m1_force = normalise(-m_1.value().location.direction_to(m_2.value().location)); 
       m1_force *= m_1.value().mass * m_2.value().mass; // masses
       m1_force /= sqare_distance; // distance
       m1_force *= G.value(); // factor
@@ -46,7 +46,7 @@ public:
       VectorT m1_force = {0};
       // todo: what when the distance is zero?
       double sqare_distance = m_1.value().location.square_distance_to(m_2.value().location); 
-      m1_force = -m_1.value().location.direction_to(m_2.value().location).normalise(); 
+      m1_force = normalise(-m_1.value().location.direction_to(m_2.value().location)); 
       m1_force *= m_1.value().mass * m_2.value().mass; // masses
       m1_force /= std::sqrt(sqare_distance); // distance
       m1_force *= G.value(); // factor
@@ -78,8 +78,8 @@ TEST(gravitation, solve_for_force)
       mzlib::consts::moon_mass };
    gra.solve_for_force();
    
-   auto direction = gra.f_1.value().normalise();
-   auto size = gra.f_1.value().length();
+   auto direction = normalise(gra.f_1.value());
+   auto size = vector_length(gra.f_1.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(1.9820850603183325e20_N));
    ASSERT_TRUE(direction == mzlib::vector2d::unit);

@@ -98,7 +98,7 @@ public:
          return centre_point.value();
       }
 
-      const_cast<std::optional<VectorT>&>(centre_point) = top_left.value() + ((bottom_right.value() - top_left.value()) / 2);
+      const_cast<std::optional<VectorT>&>(centre_point) = top_left.value() + ((bottom_right.value() - top_left.value()) / 2.0);
       return centre_point.value();
    }
    

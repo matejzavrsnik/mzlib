@@ -91,4 +91,5 @@ using namespace mzlib::units;
    #include "include/tools/conditional_find_iterator.h"
    #include "include/tools/next_lex_permutation.h"
    #include "include/tools/fast_forward_iterator_until.h"
+   #include "include/nature/vector.h"
 #undef MZLIB_BUILDING_TESTS

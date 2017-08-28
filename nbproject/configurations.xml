@@ -96,7 +96,6 @@
       <itemPath>tests/test_tools_random.cpp</itemPath>
       <itemPath>tests/test_tools_string.cpp</itemPath>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
-      <itemPath>tests/test_vector.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -364,8 +363,6 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="tests/test_vector.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -617,8 +614,6 @@
             ex="false"
             tool="1"
             flavor2="0">
-      </item>
-      <item path="tests/test_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
