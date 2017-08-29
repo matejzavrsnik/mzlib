@@ -133,7 +133,7 @@ TEST_F(fixture_quadtree_it_bodies, one_node_many_bodies_other_nodes_none)
    const int number_of_bodies_inserted = 10;
    for (double i=1; i<=number_of_bodies_inserted; i++)
    {
-      m_tree.add_create(m_top_left.move_by({i,i}));
+      m_tree.add_create(mzlib::vec_op::move_by(m_top_left, {i,i}));
    }
    // Are all of them iterated over
    int bodies_seen = 0;
@@ -149,7 +149,7 @@ TEST_F(fixture_quadtree_it_bodies, many_bodies_each_node)
    {
       for(double j=1; j<2*m_min_node_size; j++)
       {
-         m_tree.add_create(m_top_left.move_by({i, j}));
+         m_tree.add_create(mzlib::vec_op::move_by(m_top_left, {i, j}));
          ++number_of_bodies_inserted;
       }
    }

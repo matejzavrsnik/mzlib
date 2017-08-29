@@ -38,7 +38,7 @@ public:
 
    void solve_for_mass()
    {
-      m = vector_length(f.value()) / vector_length(a.value());
+      m = vec_op::length(f.value()) / vec_op::length(a.value());
    }
    
 };
@@ -59,21 +59,21 @@ TEST(acceleration, solve_for_force)
 {
    mzlib::law::acceleration2d acc;
    acc.m = 14.17_kg;
-   acc.a = mzlib::vector2d::unit * 14.14_m_per_s2;
+   acc.a = mzlib::unit_vector2d * 14.14_m_per_s2;
    acc.solve_for_force();
    
-   auto direction = normalise(acc.f.value());
-   auto size = vector_length(acc.f.value());
+   auto direction = mzlib::vec_op::normalise(acc.f.value());
+   auto size = mzlib::vec_op::length(acc.f.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(200.3638L));
-   ASSERT_TRUE(direction == mzlib::vector2d::unit);
+   ASSERT_TRUE(direction == mzlib::unit_vector2d);
 }
 
 TEST(acceleration, solve_for_force_missing_argument) 
 {
    mzlib::law::acceleration2d acc;
    //acc.m = 14.17_kg;
-   acc.a = mzlib::vector2d::unit * 14.14_m_per_s2;
+   acc.a = mzlib::unit_vector2d * 14.14_m_per_s2;
 
    ASSERT_THROW(acc.solve_for_force(), std::bad_optional_access);
 }
@@ -82,14 +82,14 @@ TEST(acceleration, solve_for_acceleration)
 {
    mzlib::law::acceleration2d acc;
    acc.m = 17.23_kg;
-   acc.f = mzlib::vector2d::unit * 10.52_N;
+   acc.f = mzlib::unit_vector2d * 10.52_N;
    acc.solve_for_acceleration();
    
-   auto direction = normalise(acc.a.value());
-   auto size = vector_length(acc.a.value());
+   auto direction = mzlib::vec_op::normalise(acc.a.value());
+   auto size = mzlib::vec_op::length(acc.a.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(0.61056297156123029L));
-   ASSERT_TRUE(direction == mzlib::vector2d::unit);
+   ASSERT_TRUE(direction == mzlib::unit_vector2d);
 }
 
 TEST(acceleration, solve_for_acceleration_missing_argument) 
@@ -104,8 +104,8 @@ TEST(acceleration, solve_for_acceleration_missing_argument)
 TEST(acceleration, solve_for_mass) 
 {
    mzlib::law::acceleration2d acc;
-   acc.f = mzlib::vector2d::unit * 16.66_N;
-   acc.a = mzlib::vector2d::unit * 18.34_m_per_s2;
+   acc.f = mzlib::unit_vector2d * 16.66_N;
+   acc.a = mzlib::unit_vector2d * 18.34_m_per_s2;
    acc.solve_for_mass();
    
    auto size = acc.m.value();
@@ -117,7 +117,7 @@ TEST(acceleration, solve_for_mass_missing_argument)
 {
    mzlib::law::acceleration2d acc;
    //acc.f = unit_vector2d * 16.66_N;
-   acc.a = mzlib::vector2d::unit * 18.34_m_per_s2;
+   acc.a = mzlib::unit_vector2d * 18.34_m_per_s2;
    
    ASSERT_THROW(acc.solve_for_mass(), std::bad_optional_access);
 }

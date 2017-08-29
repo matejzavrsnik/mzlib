@@ -55,7 +55,7 @@ public:
          return diagonal_length.value();
       }
       
-      const_cast<std::optional<double>&>(diagonal_length) = top_left.value().distance_to(bottom_right.value());
+      const_cast<std::optional<double>&>(diagonal_length) = vec_op::distance(top_left.value(), bottom_right.value());
       return diagonal_length.value();      
    }
    

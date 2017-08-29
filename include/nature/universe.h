@@ -190,8 +190,8 @@ private:
       vector2d location_final = final_parameters_equation.r_f.value();
       
       // cap it at predefined max velocity
-      if (vector_length(velocity_final) > m_properties.m_max_velocity) {
-         velocity_final = normalise(velocity_final) * m_properties.m_max_velocity;
+      if (vec_op::length(velocity_final) > m_properties.m_max_velocity) {
+         velocity_final = vec_op::normalise(velocity_final) * m_properties.m_max_velocity;
       }
       
       // ship it!
@@ -320,7 +320,7 @@ TEST(universe, after_adding_bodies_feel_force)
    mzlib::vector2d f_earth = universe.get_body_properties(earth_tag).gravity;
     
    ASSERT_EQ(f_earth, -f_sun);
-   ASSERT_NEAR(vector_length(f_earth), 3.541e+22, 0.001e+22);
+   ASSERT_NEAR(mzlib::vec_op::length(f_earth), 3.541e+22, 0.001e+22);
 }
 
 TEST(universe, sun_earth_month_travel_barneshut_with_quotient_more_than_0)
@@ -494,7 +494,7 @@ TEST(universe, moving_object_while_gravity_simulation_running)
    
    // did move work correctly?
    auto distance = body1_location_without_move - body1_location_with_move;
-   ASSERT_NEAR(vector_length(distance), vector_length(body1_move_vector), 10.0_m);
+   ASSERT_NEAR(mzlib::vec_op::length(distance), mzlib::vec_op::length(body1_move_vector), 10.0_m);
 }
    
 TEST(universe, moving_object_while_gravity_simulation_running_naive)
@@ -548,7 +548,7 @@ TEST(universe, moving_object_while_gravity_simulation_running_naive)
    
    // did move work correctly?
    auto distance = body1_location_without_move - body1_location_with_move;
-   ASSERT_NEAR(vector_length(distance), vector_length(body1_move_vector), 10.0_m);
+   ASSERT_NEAR(mzlib::vec_op::length(distance), mzlib::vec_op::length(body1_move_vector), 10.0_m);
 }
 
 #endif // MZLIB_UNIVERSE_TESTS_H

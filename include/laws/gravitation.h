@@ -30,8 +30,8 @@ public:
    void solve_for_force ()
    {
       VectorT m1_force = {0};
-      double sqare_distance = m_1.value().location.square_distance_to(m_2.value().location); 
-      m1_force = normalise(-m_1.value().location.direction_to(m_2.value().location)); 
+      double sqare_distance = vec_op::sqr_distance(m_1.value().location, m_2.value().location); 
+      m1_force = vec_op::normalise(-vec_op::direction(m_1.value().location, m_2.value().location)); 
       m1_force *= m_1.value().mass * m_2.value().mass; // masses
       m1_force /= sqare_distance; // distance
       m1_force *= G.value(); // factor
@@ -45,8 +45,8 @@ public:
    {
       VectorT m1_force = {0};
       // todo: what when the distance is zero?
-      double sqare_distance = m_1.value().location.square_distance_to(m_2.value().location); 
-      m1_force = normalise(-m_1.value().location.direction_to(m_2.value().location)); 
+      double sqare_distance = vec_op::sqr_distance(m_1.value().location, m_2.value().location); 
+      m1_force = vec_op::normalise( -vec_op::direction( m_1.value().location, m_2.value().location  )   ); 
       m1_force *= m_1.value().mass * m_2.value().mass; // masses
       m1_force /= std::sqrt(sqare_distance); // distance
       m1_force *= G.value(); // factor
@@ -71,18 +71,18 @@ TEST(gravitation, solve_for_force)
 {
    mzlib::law::gravitation2d gra;
    gra.m_1 = mzlib::mass_centre2d{
-      mzlib::vector2d::unit * 0, 
+      mzlib::unit_vector2d * 0, 
       mzlib::consts::earth_mass };
    gra.m_2 = mzlib::mass_centre2d{
-      mzlib::vector2d::unit * mzlib::consts::moon_distance_earth, 
+      mzlib::unit_vector2d * mzlib::consts::moon_distance_earth, 
       mzlib::consts::moon_mass };
    gra.solve_for_force();
    
-   auto direction = normalise(gra.f_1.value());
-   auto size = vector_length(gra.f_1.value());
+   auto direction = mzlib::vec_op::normalise(gra.f_1.value());
+   auto size = mzlib::vec_op::length(gra.f_1.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(1.9820850603183325e20_N));
-   ASSERT_TRUE(direction == mzlib::vector2d::unit);
+   ASSERT_TRUE(direction == mzlib::unit_vector2d);
 }
 
 #endif // MZLIB_LAWS_GRAVITATION_TESTS_H

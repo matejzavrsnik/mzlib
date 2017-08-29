@@ -35,12 +35,7 @@ private:
 
    std::array<TYPE, DIM> m_array;
 
-   constexpr static vector<TYPE,DIM> create_unit()
-   {
-      vector<TYPE,DIM> v;
-      for (TYPE& e : v.m_array) e = 1;
-      return normalise(v);
-   }
+
 
 public:
    
@@ -49,7 +44,7 @@ public:
       return DIM;
    }
    
-   constexpr static vector<TYPE,DIM> unit = vector<TYPE,DIM>::create_unit();
+   
     
    // This weird constructor uses variadic templates to try to squeeze anything into a vector
    template <typename... T> constexpr explicit vector (T... val) : 
@@ -117,245 +112,287 @@ public:
       return m_array[n];
    }
     
-   size_t size() const 
+   constexpr size_t size() const 
    {
-      return DIM;
+      return m_array.size();
    }
     
-   static vector<TYPE,DIM> all_ones () 
-   {
-      vector<TYPE,DIM> ones;
-      for (size_t i = 0; i<DIM; ++i) {
-         ones[i] = 1;
-      }
-      return ones;
-   }
-
-   static vector<TYPE,DIM> all_zeros () 
-   {
-      vector<TYPE,DIM> ones;
-      for (size_t i = 0; i<DIM; ++i) {
-         ones[i] = 0;
-      }
-      return ones;
-   }
-    
-   vector<TYPE, DIM> move_by (const vector<TYPE,DIM>& other) const
-   {
-      vector<TYPE, DIM> result(*this);
-      for (size_t i = 0; i<DIM; ++i) {
-         result[i] += other[i];
-      }
-      return result;
-   }
-    
-   TYPE square_distance_to(const vector<TYPE,DIM>& other) const 
-   {
-      TYPE sqrdist = 0;
-      for (size_t i = 0; i<DIM; ++i) {
-         sqrdist += std::pow( m_array[i]-other[i], 2);
-      }
-      return sqrdist;
-   }
-
-   TYPE distance_to (const vector<TYPE,DIM>& other) const 
-   {
-      TYPE dist = std::sqrt(square_distance_to(other));
-      return dist;
-   }
-    
-   vector<TYPE,DIM> direction_to (const vector<TYPE,DIM>& other) const 
-   {
-      return *this - other;
-   }
-    
+  
 
     
 
-    
+
    
 };
 
-template<typename TYPE, size_t DIM> 
-constexpr TYPE vector_length (const vector<TYPE,DIM>& vector_other)
+namespace vec_op { // rename to simply vector if I chose to abolish vector class at some point
+
+template<class VectorT> 
+constexpr size_t rank (const VectorT& v)
 {
-   TYPE len = 0;
-   for (size_t i=0; i<DIM; ++i) {
-      len += std::pow(vector_other[i], 2);
-   }
-   len = std::sqrt(len);
-   return len;
+   return v.size();
+}
+    
+template<class VectorT> 
+constexpr VectorT move_by (const VectorT& from, const VectorT& by)
+{
+   VectorT result(from);
+   for (size_t i = 0; i<rank(from); ++i) 
+      result[i] += by[i];
+   return std::move(result);
+}
+    
+template<class VectorT> 
+constexpr auto sqr_distance(const VectorT& from, const VectorT& to)
+-> decltype(std::pow(from[0], 2)) // limited to return type of std::pow
+{
+   decltype(std::pow(from[0], 2)) sqrdist = 0;
+   for (size_t i = 0; i<rank(from); ++i)
+      sqrdist += std::pow( from[i]-to[i], 2);
+   return sqrdist;
 }
 
-template<typename TYPE, size_t DIM> 
-constexpr vector<TYPE, DIM> normalise (vector<TYPE,DIM> vector_other)
+template<class VectorT> 
+constexpr auto distance (const VectorT& from, const VectorT& to)
+-> decltype(sqr_distance(from, to))
 {
-   TYPE l = vector_length(vector_other);
-   for (size_t i=0; i<DIM; ++i) {
-      vector_other[i] /= l;
-   }
-   return vector_other;
+   return std::sqrt( sqr_distance(from, to) );
 }
 
-// I don't think gcc v4.8.3 handles std::is_integral well. It still reports a
-// floating point comparing problem in this function.
-//todo: remove the diagnostic suppression after it's been fixed. Or after I am proved wrong.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wfloat-equal"
-template<typename TYPE, size_t DIM> 
-bool operator== (const mzlib::vector<TYPE,DIM>& vector_this, const vector<TYPE,DIM>& vector_other)
+template<class VectorT>
+constexpr VectorT direction(const VectorT& from, const VectorT& to)
 {
-   for (size_t i=0; i<DIM; ++i) {
-      //todo: switch to is_integral_v when C++17 is available
-      if (std::is_floating_point<TYPE>::value) {
-         if (!dbl(vector_this[i]).equals(vector_other[i])) {
+   return std::move(from - to);
+}
+
+template<class VectorT> 
+constexpr auto length (const VectorT& v)
+-> decltype(std::pow(v[0], 2)) // limited to return type of std::pow
+{
+   decltype(std::pow(v[0], 2)) l = 0;
+   for (size_t i=0; i<rank(v); ++i)
+      l += std::pow(v[i], 2);
+   return std::sqrt(l);
+}
+
+template<class VectorT> 
+constexpr VectorT normalise (const VectorT& v)
+{
+   auto l = length(v);
+   VectorT result(v);
+   for (size_t i=0; i<rank(v); ++i)
+      result[i] /= l;
+   return std::move(result);
+}
+
+template<class VectorT> 
+constexpr VectorT create_unit_vector()
+{
+   VectorT v;
+   for (size_t i = 0; i<rank(v); ++i) 
+       v[i] = 1;
+   return normalise(v);
+}
+
+template<class VectorT> 
+constexpr bool equals(const VectorT& a, const VectorT& b)
+{
+   if (std::is_integral<decltype(a[0])>::value) {
+      for (size_t i = 0; i<rank(a); ++i) 
+         if (a[i] != b[i])
             return false;
-         }
-      }
-      else if (vector_this[i] != vector_other[i]) {
-         return false;
-      }
+   }
+   else {
+      for (size_t i = 0; i<rank(a); ++i)
+         if (!dbl(a[i]).equals(b[i]))
+            return false;
    }
    return true;
 }
-#pragma GCC diagnostic pop
 
-template<typename TYPE, size_t DIM> 
-bool operator!= (const mzlib::vector<TYPE,DIM>& vector_this, const vector<TYPE,DIM>& vector_other)
-{
-   return !operator==(vector_this, vector_other);
-}
-   
-
-
-
-
-
-template<typename TYPE, size_t DIM> 
-vector<TYPE,DIM> operator+ (mzlib::vector<TYPE,DIM> vector_this, const vector<TYPE,DIM>& vector_other)
+template<class VectorT> 
+constexpr VectorT add (const VectorT& a, const VectorT& b)
 {  
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] += vector_other[i];
-   }
-   return vector_this; 
+   VectorT result(a);
+   for (size_t i = 0; i<rank(a); ++i)
+      result[i] += b[i];
+   return std::move(result); 
 }
 
-template<typename TYPE, size_t DIM> 
-vector<TYPE,DIM> operator+= (mzlib::vector<TYPE,DIM>& vector_this, const vector<TYPE,DIM>& vector_other) 
-{
-   vector_this = vector_this + vector_other;
-   return vector_this;
-}
-
-template<typename TYPE, size_t DIM> 
-vector<TYPE,DIM> operator- (mzlib::vector<TYPE,DIM> vector_this, const vector<TYPE,DIM>& vector_other)
-{
-   // will compiler unwind this loop? test someday. It has every info available.
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] -= vector_other[i];
-   }
-   return vector_this;
-}
-
-template<typename TYPE, size_t DIM> 
-vector<TYPE, DIM> operator- (mzlib::vector<TYPE,DIM> vector_this)
-{
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] *= -1;
-   }
-   return vector_this;
-}
-
-template<typename TYPE, size_t DIM> 
-vector<TYPE,DIM> operator-= (mzlib::vector<TYPE,DIM>& vector_this, const vector<TYPE,DIM>& vector_other) 
-{
-   vector_this = vector_this - vector_other;
-   return vector_this;
-}
-
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator* (mzlib::vector<TYPE,DIM> vector_this, const mzlib::vector<TYPE,DIM>& vector_other)
+template<class VectorT> 
+constexpr VectorT subtract (const VectorT& a, const VectorT& b)
 {  
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] *= vector_other[i];
-   }
-   return vector_this; 
+   VectorT result(a);
+   for (size_t i = 0; i<rank(a); ++i)
+      result[i] -= b[i];
+   return std::move(result); 
 }
 
-template<typename TYPE, typename SCALAR, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator* (mzlib::vector<TYPE,DIM> vector_this, const SCALAR& other)
+template<class VectorT> 
+constexpr VectorT multiply_by_vector (const VectorT& a, const VectorT& b)
 {  
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] *= other;
-   }
-   return vector_this; 
+   VectorT result(a);
+   for (size_t i = 0; i<rank(a); ++i)
+      result[i] *= b[i];
+   return std::move(result); 
 }
 
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator*= (mzlib::vector<TYPE,DIM>& vector_this, const mzlib::vector<TYPE,DIM>& vector_other) 
-{
-   vector_this = vector_this * vector_other;
-   return vector_this;
-}
-
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator*= (mzlib::vector<TYPE,DIM>& vector_this, const TYPE& other) 
-{
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] *= other;
-   }        
-   return vector_this;
-}
-
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator/ (mzlib::vector<TYPE,DIM> vector_this, const mzlib::vector<TYPE,DIM>& other)
+template<class VectorT, class ScalarT> 
+constexpr VectorT multiply_by_scalar (const VectorT& a, const ScalarT& b)
 {  
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] /= other[i];
-   }
-   return vector_this; 
+   VectorT result(a);
+   for (size_t i = 0; i<rank(a); ++i)
+      result[i] *= b;
+   return std::move(result); 
 }
 
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator/ (mzlib::vector<TYPE,DIM> vector_this, const TYPE& other)
+template<class VectorT> 
+constexpr VectorT divide_by_vector (const VectorT& a, const VectorT& b)
 {  
-   for (size_t i = 0; i<DIM; ++i) 
-   {
-      vector_this[i] /= other;
-   }
-   return vector_this; 
+   VectorT result(a);
+   for (size_t i = 0; i<rank(a); ++i)
+      result[i] /= b[i];
+   return std::move(result); 
 }
 
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator/= (mzlib::vector<TYPE,DIM>& vector_this, const mzlib::vector<TYPE,DIM>& vector_other) 
-{
-   vector_this = vector_this / vector_other;
-   return vector_this;
+template<class VectorT, class ScalarT> 
+constexpr VectorT divide_by_scalar (const VectorT& a, const ScalarT& b)
+{  
+   VectorT result(a);
+   for (size_t i = 0; i<rank(a); ++i)
+      result[i] /= b;
+   return std::move(result); 
 }
 
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator/= (mzlib::vector<TYPE,DIM>& vector_this, const TYPE& vector_other) 
-{
-   for (size_t i = 0; i<DIM; ++i) {
-      vector_this[i] /= vector_other;
-   }        
-   return vector_this;
+template<class VectorT> 
+constexpr VectorT flip (const VectorT& v)
+{  
+   VectorT result(v);
+   for (size_t i = 0; i<rank(v); ++i)
+      result[i] *= -1;
+   return std::move(result); 
 }
 
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator* (const TYPE& scalar, const mzlib::vector<TYPE,DIM>& vector)
+} // namespace vec_op
+
+template<typename T, size_t D> 
+constexpr bool operator== (const mzlib::vector<T,D>& a, const vector<T,D>& b)
 {
-   return vector * scalar; // turning the operands around is enough, operation is commutative
+    return vec_op::equals(a, b);
 }
 
-template<typename TYPE, size_t DIM> 
-mzlib::vector<TYPE,DIM> operator/ (const TYPE& scalar, const mzlib::vector<TYPE,DIM>& vector)
+template<typename T, size_t D> 
+constexpr bool operator!= (const mzlib::vector<T,D>& a, const vector<T,D>& b)
 {
-   return vector / scalar; // turning the operands around is enough, operation is commutative
+   return !vec_op::equals(a, b);
 }
+
+template<typename T, size_t D> 
+constexpr vector<T,D> operator+ (const mzlib::vector<T,D>& a, const vector<T,D>& b)
+{  
+   return vec_op::add(a, b);
+}
+
+template<typename T, size_t D>
+constexpr vector<T,D>& operator+= (mzlib::vector<T,D>& a, const vector<T,D>& b) 
+{
+   return a = vec_op::add(a, b);
+}
+
+template<typename T, size_t D> 
+constexpr vector<T,D> operator- (const mzlib::vector<T,D>& a, const vector<T,D>& b)
+{
+   return vec_op::subtract(a, b);
+}
+
+template<typename T, size_t D> 
+constexpr vector<T,D>& operator-= (mzlib::vector<T,D>& a, const vector<T,D>& b) 
+{
+   return a = vec_op::subtract(a, b);
+}
+
+template<typename T, size_t D> 
+constexpr vector<T, D> operator- (const mzlib::vector<T,D>& v)
+{
+   return vec_op::flip(v);
+}
+
+template<typename T, size_t D> 
+constexpr mzlib::vector<T,D> operator* (const mzlib::vector<T,D>& a, const mzlib::vector<T,D>& b)
+{  
+   return vec_op::multiply_by_vector(a, b);
+}
+
+template<typename T, size_t D> 
+constexpr mzlib::vector<T,D>& operator*= (mzlib::vector<T,D>& a, const mzlib::vector<T,D>& b) 
+{
+   return a = vec_op::multiply_by_vector(a, b);
+}
+
+template<typename T, typename S, size_t D> 
+constexpr mzlib::vector<T,D> operator* (const mzlib::vector<T,D>& vec, const S& scalar)
+{  
+   return vec_op::multiply_by_scalar(vec, scalar);
+}
+
+template<typename T, typename S, size_t D> 
+constexpr mzlib::vector<T,D>& operator*= (mzlib::vector<T,D>& vec, const S& scalar) 
+{
+   return vec = vec_op::multiply_by_scalar(vec, scalar); 
+}
+
+template<typename T, typename S, size_t D> 
+constexpr mzlib::vector<T,D> operator* (const S& scalar, const mzlib::vector<T,D>& vec)
+{
+   return vec_op::multiply_by_scalar(vec, scalar);
+}
+
+template<typename T, size_t D> 
+constexpr mzlib::vector<T,D> operator/ (const mzlib::vector<T,D>& a, const mzlib::vector<T,D>& b)
+{  
+   return vec_op::divide_by_vector(a, b);
+}
+
+template<typename T, size_t D> 
+constexpr mzlib::vector<T,D>& operator/= (mzlib::vector<T,D>& a, const mzlib::vector<T,D>& b) 
+{
+   return a = vec_op::divide_by_vector(a, b);
+}
+
+template<typename T, typename S, size_t D> 
+constexpr mzlib::vector<T,D> operator/ (const mzlib::vector<T,D>& vec, const S& scalar)
+{  
+   return vec_op::divide_by_scalar(vec, scalar);
+}
+
+template<typename T, typename S, size_t D> 
+constexpr mzlib::vector<T,D>& operator/= (mzlib::vector<T,D>& vec, const S& scalar) 
+{
+   return vec = vec_op::divide_by_scalar(vec, scalar); 
+}
+
+template<typename T, typename S, size_t D> 
+constexpr mzlib::vector<T,D> operator/ (const S& scalar, const mzlib::vector<T,D>& vec)
+{
+   return vec_op::divide_by_scalar(vec, scalar); 
+}
+
+// Convenient types
+
+using vector2d = vector<double, 2>;
+using vector3d = vector<double, 3>;
+using point2d  = vector<double, 2>;
+using point3d  = vector<double, 3>;
+
+// convenient values
+
+constexpr vector2d unit_vector2d = vec_op::create_unit_vector<vector2d>();
+constexpr vector3d unit_vector3d = vec_op::create_unit_vector<vector3d>();
+
+} // namespace
 
 template<class TYPE, size_t DIM>
-std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,DIM>& vector)
+constexpr std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,DIM>& vector)
 {
    os << "[";
    for (size_t i=0; i<vector.size(); ++i) {
@@ -366,21 +403,14 @@ std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,DIM>& vecto
    return os;
 }
 
-// Convenient types
-
-using vector2d = vector<double, 2>;
-using vector3d = vector<double, 3>;
-using point2d  = vector<double, 2>;
-using point3d  = vector<double, 3>;
-
-} // namespace
-
 #endif // MZLIB_VECTOR_H
 
 #ifdef MZLIB_BUILDING_TESTS
 
 #ifndef MZLIB_VECTOR_TESTS_H
 #define MZLIB_VECTOR_TESTS_H
+
+namespace mzlib { namespace vec_op {
 
 class fixture_vector : public ::testing::Test 
 {
@@ -519,7 +549,7 @@ TEST_F(fixture_vector, assignment_from_std_vector_too_big)
 
 TEST_F(fixture_vector, move_by) 
 {
-   mzlib::vector<double, 3> v_dest = v123.move_by(v456);
+   mzlib::vector<double, 3> v_dest = move_by(v123, v456);
    ASSERT_DOUBLE_EQ(5.5, v_dest[0]);
    ASSERT_DOUBLE_EQ(7.7, v_dest[1]);
    ASSERT_DOUBLE_EQ(9.9, v_dest[2]);
@@ -527,19 +557,27 @@ TEST_F(fixture_vector, move_by)
 
 TEST_F(fixture_vector, square_distance_to) 
 {
-   double dist = v123.square_distance_to(v456);
+   double dist = sqr_distance(v123, v456);
+   ASSERT_DOUBLE_EQ(32.67, dist);
+}
+
+TEST_F(fixture_vector, square_distance_std_array) 
+{
+   std::array<double, 3> a123{1.1,2.2,3.3};
+   std::array<double, 3> a456{4.4,5.5,6.6};
+   double dist = sqr_distance(a123, a456);
    ASSERT_DOUBLE_EQ(32.67, dist);
 }
 
 TEST_F(fixture_vector, distance_to) 
 {
-   double dist = v123.distance_to(v456);
+   double dist = distance(v123, v456);
    ASSERT_DOUBLE_EQ(5.715767664977295, dist);
 }
 
 TEST_F(fixture_vector, length) 
 {
-   ASSERT_DOUBLE_EQ(9.6524608261313336, vector_length(v456));
+   ASSERT_DOUBLE_EQ(9.6524608261313336, length(v456));
 }
 
 TEST_F(fixture_vector, operator_equals) 
@@ -682,6 +720,7 @@ TEST_F(fixture_vector, dimensions)
    ASSERT_EQ(4, (mzlib::vector<double, 4>::dimensions()));
 }
 
+} } // namespace mzlib::vecns
 
 #endif // MZLIB_VECTOR_TESTS_H
 
