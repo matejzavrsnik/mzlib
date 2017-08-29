@@ -35,17 +35,8 @@ private:
 
    std::array<TYPE, DIM> m_array;
 
-
-
 public:
    
-   constexpr static size_t dimensions()
-   {
-      return DIM;
-   }
-   
-   
-    
    // This weird constructor uses variadic templates to try to squeeze anything into a vector
    template <typename... T> constexpr explicit vector (T... val) : 
       m_array{val...}
@@ -112,17 +103,11 @@ public:
       return m_array[n];
    }
     
-   constexpr size_t size() const 
+   constexpr static size_t size()
    {
-      return m_array.size();
+      return DIM;
    }
-    
   
-
-    
-
-
-   
 };
 
 namespace vec_op { // rename to simply vector if I chose to abolish vector class at some point
@@ -410,7 +395,7 @@ constexpr std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,D
 #ifndef MZLIB_VECTOR_TESTS_H
 #define MZLIB_VECTOR_TESTS_H
 
-namespace mzlib { namespace vec_op {
+namespace mzlib {
 
 class fixture_vector : public ::testing::Test 
 {
@@ -518,8 +503,8 @@ TEST_F(fixture_vector, assignment_from_std_initializer_list_too_big)
 
 TEST_F(fixture_vector, assignment_from_std_vector) 
 {
-   mzlib::vector<double, 3> v = {9,9,9};
-   std::vector<double> standard_vector = {1,2,3};
+   mzlib::vector<int, 3> v = {9,9,9};
+   std::vector<int> standard_vector = {1,2,3};
    v = standard_vector;
    ASSERT_DOUBLE_EQ(1, v[0]);
    ASSERT_DOUBLE_EQ(2, v[1]);
@@ -528,36 +513,35 @@ TEST_F(fixture_vector, assignment_from_std_vector)
 
 TEST_F(fixture_vector, assignment_from_std_vector_too_small) 
 {
-   mzlib::vector<double, 4> v = {9,9,9,9};
-   std::vector<double> standard_vector = {1,2};
+   mzlib::vector<int, 4> v = {9,9,9,9};
+   mzlib::vector<int, 4> v_should_be = {1,2,9,9};
+   
+   std::vector<int> standard_vector = {1,2};
    v = standard_vector;
-   ASSERT_DOUBLE_EQ(1, v[0]);
-   ASSERT_DOUBLE_EQ(2, v[1]);
-   ASSERT_DOUBLE_EQ(9, v[2]);
-   ASSERT_DOUBLE_EQ(9, v[3]);
+
+   ASSERT_EQ(v_should_be, v);
 }
 
 TEST_F(fixture_vector, assignment_from_std_vector_too_big) 
 {
-   mzlib::vector<double, 3> v = {9,9,9};
-   std::vector<double> standard_vector = {1,2,3,4,5,6};
+   mzlib::vector<int, 3> v = {9,9,9};
+   mzlib::vector<int, 3> v_should_be = {1,2,3};
+   
+   std::vector<int> standard_vector = {1,2,3,4,5,6};
    v = standard_vector;
-   ASSERT_DOUBLE_EQ(1, v[0]);
-   ASSERT_DOUBLE_EQ(2, v[1]);
-   ASSERT_DOUBLE_EQ(3, v[2]);
+   
+   ASSERT_EQ(v_should_be, v);
 }
 
 TEST_F(fixture_vector, move_by) 
 {
-   mzlib::vector<double, 3> v_dest = move_by(v123, v456);
-   ASSERT_DOUBLE_EQ(5.5, v_dest[0]);
-   ASSERT_DOUBLE_EQ(7.7, v_dest[1]);
-   ASSERT_DOUBLE_EQ(9.9, v_dest[2]);
+   mzlib::vector<double, 3> v = vec_op::move_by(v123, v456);
+   ASSERT_EQ(mzlib::vector3d(5.5,7.7,9.9), v);
 }
 
 TEST_F(fixture_vector, square_distance_to) 
 {
-   double dist = sqr_distance(v123, v456);
+   double dist = vec_op::sqr_distance(v123, v456);
    ASSERT_DOUBLE_EQ(32.67, dist);
 }
 
@@ -565,74 +549,61 @@ TEST_F(fixture_vector, square_distance_std_array)
 {
    std::array<double, 3> a123{1.1,2.2,3.3};
    std::array<double, 3> a456{4.4,5.5,6.6};
-   double dist = sqr_distance(a123, a456);
+   double dist = vec_op::sqr_distance(a123, a456);
    ASSERT_DOUBLE_EQ(32.67, dist);
 }
 
 TEST_F(fixture_vector, distance_to) 
 {
-   double dist = distance(v123, v456);
+   double dist = vec_op::distance(v123, v456);
    ASSERT_DOUBLE_EQ(5.715767664977295, dist);
 }
 
 TEST_F(fixture_vector, length) 
 {
-   ASSERT_DOUBLE_EQ(9.6524608261313336, length(v456));
+   ASSERT_DOUBLE_EQ(9.6524608261313336, vec_op::length(v456));
 }
 
 TEST_F(fixture_vector, operator_equals) 
 {
-   mzlib::vector<double, 3> v_equal{1.1,2.2,3.3};
-   ASSERT_TRUE(v123 == v_equal);
+   ASSERT_TRUE(mzlib::vector3d(1.1,2.2,3.3) == v123);
 }
 
 TEST_F(fixture_vector, normalise) 
 {
-   auto v = normalise(v456);
-   ASSERT_DOUBLE_EQ(0.45584230583855184, v[0]);
-   ASSERT_DOUBLE_EQ(0.56980288229818976, v[1]);
-   ASSERT_DOUBLE_EQ(0.68376345875782774, v[2]);
+   auto v = vec_op::normalise(v456);
+   ASSERT_EQ(mzlib::vector3d(0.45584230583855184,0.56980288229818976,0.68376345875782774), v);
 }
 
 TEST_F(fixture_vector, operator_multiply) 
 {   
    auto v = v123 * v456;
-   ASSERT_DOUBLE_EQ(4.84, v[0]);
-   ASSERT_DOUBLE_EQ(12.1, v[1]);
-   ASSERT_DOUBLE_EQ(21.77999999999999, v[2]);
+   ASSERT_EQ(mzlib::vector3d(4.84,12.1,21.77999999999999), v);
 }
 
 TEST_F(fixture_vector, operator_multiply_with_scalar) 
 {   
    auto v = v123 * 3.14;
-   ASSERT_DOUBLE_EQ(3.454, v[0]);
-   ASSERT_DOUBLE_EQ(6.908, v[1]);
-   ASSERT_DOUBLE_EQ(10.362, v[2]);
+   ASSERT_EQ(mzlib::vector3d(3.454,6.908,10.362), v);
 }
 
 TEST_F(fixture_vector, operator_multiply_with_scalar_scalarfirst) 
 {   
    auto v = 3.14 * v123;
-   ASSERT_DOUBLE_EQ(3.454, v[0]);
-   ASSERT_DOUBLE_EQ(6.908, v[1]);
-   ASSERT_DOUBLE_EQ(10.362, v[2]);
+   ASSERT_EQ(mzlib::vector3d(3.454,6.908,10.362), v);
 }
 
 TEST_F(fixture_vector, operator_multiply_equals) 
 {
    v123 *= v456;
-   ASSERT_DOUBLE_EQ(4.84, v123[0]);
-   ASSERT_DOUBLE_EQ(12.1, v123[1]);
-   ASSERT_DOUBLE_EQ(21.77999999999999, v123[2]);
+   ASSERT_EQ(mzlib::vector3d(4.84,12.1,21.77999999999999), v123);
 }
 
 TEST_F(fixture_vector, operator_multiply_equals_with_scalar) 
 {
    // todo: do the other with scalar
    v123 *= 3.14;
-   ASSERT_DOUBLE_EQ(3.454, v123[0]);
-   ASSERT_DOUBLE_EQ(6.908, v123[1]);
-   ASSERT_DOUBLE_EQ(10.362, v123[2]);
+   ASSERT_EQ(mzlib::vector3d(3.454,6.908,10.362), v123);
 }
 
 TEST_F(fixture_vector, operator_divide) 
@@ -646,81 +617,64 @@ TEST_F(fixture_vector, operator_divide)
 TEST_F(fixture_vector, operator_divide_with_scalar) 
 {   
    auto v = v123 / 3.14;
-   ASSERT_DOUBLE_EQ(0.35031847133757965, v[0]);
-   ASSERT_DOUBLE_EQ(0.7006369426751593, v[1]);
-   ASSERT_DOUBLE_EQ(1.0509554140127388, v[2]);
+   ASSERT_EQ(mzlib::vector3d(0.35031847133757965,0.7006369426751593,1.0509554140127388), v);
 }
 
 TEST_F(fixture_vector, operator_divide_with_scalar_scalarfirst) 
 {   
    auto v = 3.14 / v123;
-   ASSERT_DOUBLE_EQ(0.35031847133757965, v[0]);
-   ASSERT_DOUBLE_EQ(0.7006369426751593, v[1]);
-   ASSERT_DOUBLE_EQ(1.0509554140127388, v[2]);
+   ASSERT_EQ(mzlib::vector3d(0.35031847133757965,0.7006369426751593,1.0509554140127388), v);
 }
 
 TEST_F(fixture_vector, operator_divide_equals) 
 {
    v123 /= v456;
-   ASSERT_DOUBLE_EQ(0.25, v123[0]);
-   ASSERT_DOUBLE_EQ(0.4, v123[1]);
-   ASSERT_DOUBLE_EQ(0.5, v123[2]);
+   ASSERT_EQ(mzlib::vector3d(0.25,0.4,0.5), v123);
 }
 
 TEST_F(fixture_vector, operator_divide_equals_with_scalar) 
 {
    v123 /= 3.14;
-   ASSERT_DOUBLE_EQ(0.35031847133757965, v123[0]);
-   ASSERT_DOUBLE_EQ(0.7006369426751593, v123[1]);
-   ASSERT_DOUBLE_EQ(1.0509554140127388, v123[2]);
+   ASSERT_EQ(mzlib::vector3d(0.35031847133757965,0.7006369426751593,1.0509554140127388), v123);
 }
 
 TEST_F(fixture_vector, operator_plus) 
 {   
    auto v = v123 + v456;
-   ASSERT_DOUBLE_EQ(5.5, v[0]);
-   ASSERT_DOUBLE_EQ(7.7, v[1]);
-   ASSERT_DOUBLE_EQ(9.9, v[2]);
+   ASSERT_EQ(mzlib::vector3d(5.5,7.7,9.9), v);
 }
 
 TEST_F(fixture_vector, operator_plus_equals) 
 {
    v123 += v456;
-   ASSERT_DOUBLE_EQ(5.5, v123[0]);
-   ASSERT_DOUBLE_EQ(7.7, v123[1]);
-   ASSERT_DOUBLE_EQ(9.9, v123[2]);
+   ASSERT_EQ(mzlib::vector3d(5.5,7.7,9.9), v123);
 }
 
 TEST_F(fixture_vector, operator_minus) 
 {
    auto v = v456 - v123;
-   ASSERT_DOUBLE_EQ(3.3, v[0]);
-   ASSERT_DOUBLE_EQ(3.3, v[1]);
-   ASSERT_DOUBLE_EQ(3.3, v[2]);
+   ASSERT_EQ(mzlib::vector3d(3.3,3.3,3.3), v);
 }
 
 TEST_F(fixture_vector, operator_minus_equals) 
 {
    v456 -= v123;
-   ASSERT_DOUBLE_EQ(3.3, v456[0]);
-   ASSERT_DOUBLE_EQ(3.3, v456[1]);
-   ASSERT_DOUBLE_EQ(3.3, v456[2]);
+   ASSERT_EQ(mzlib::vector3d(3.3,3.3,3.3), v456);
 }
 
 TEST_F(fixture_vector, operator_minus_unary) 
 {
-   mzlib::vector<double, 3> negative_v456{-4.4,-5.5,-6.6};
-   ASSERT_TRUE(negative_v456 == -v456);
+   ASSERT_EQ(mzlib::vector3d(-4.4,-5.5,-6.6), -v456);
 }
 
 TEST_F(fixture_vector, dimensions)
 {
-   ASSERT_EQ(2, (mzlib::vector<double, 2>::dimensions()));
-   ASSERT_EQ(3, (mzlib::vector<double, 3>::dimensions()));
-   ASSERT_EQ(4, (mzlib::vector<double, 4>::dimensions()));
+   ASSERT_EQ(2, (mzlib::vector<double, 2>::size()));
+   ASSERT_EQ(3, (mzlib::vector<double, 3>::size()));
+   ASSERT_EQ(4, (mzlib::vector<double, 4>::size()));
 }
 
-} } // namespace mzlib::vecns
+} // namespace mzlib::vecns
 
 #endif // MZLIB_VECTOR_TESTS_H
 
