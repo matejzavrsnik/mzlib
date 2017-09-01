@@ -28,7 +28,9 @@
 #include "include/abstract/genetic_container.h"
 #include "include/nature/units.h"
 #include "include/abstract/quadtree.h"
+
 using namespace mzlib::units;
+
 // why not just include once, and in testing section? Because that way it might
 // become important that files are included in correct order. Why not avoid the
 // pain if it is simple to do?
@@ -92,4 +94,6 @@ using namespace mzlib::units;
    #include "include/tools/next_lex_permutation.h"
    #include "include/tools/fast_forward_iterator_until.h"
    #include "include/nature/vector.h"
+   #include "include/laws/vector_operations.h"
+   #include "include/tools/copy_iterators.h"
 #undef MZLIB_BUILDING_TESTS

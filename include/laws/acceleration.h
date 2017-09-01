@@ -38,7 +38,7 @@ public:
 
    void solve_for_mass()
    {
-      m = vec_op::length(f.value()) / vec_op::length(a.value());
+      m = vector::length(f.value()) / vector::length(a.value());
    }
    
 };
@@ -62,8 +62,8 @@ TEST(acceleration, solve_for_force)
    acc.a = mzlib::unit_vector2d * 14.14_m_per_s2;
    acc.solve_for_force();
    
-   auto direction = mzlib::vec_op::normalise(acc.f.value());
-   auto size = mzlib::vec_op::length(acc.f.value());
+   auto direction = mzlib::law::vector::normalise(acc.f.value());
+   auto size = mzlib::law::vector::length(acc.f.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(200.3638L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);
@@ -85,8 +85,8 @@ TEST(acceleration, solve_for_acceleration)
    acc.f = mzlib::unit_vector2d * 10.52_N;
    acc.solve_for_acceleration();
    
-   auto direction = mzlib::vec_op::normalise(acc.a.value());
-   auto size = mzlib::vec_op::length(acc.a.value());
+   auto direction = mzlib::law::vector::normalise(acc.a.value());
+   auto size = mzlib::law::vector::length(acc.a.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(0.61056297156123029L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);

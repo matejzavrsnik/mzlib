@@ -11,6 +11,8 @@
 #include <optional>
 
 #include "../nature/screen_rectangle.h"
+#include "../nature/vector.h"
+#include "vector_operations.h"
 
 namespace mzlib {
 namespace law {
@@ -55,7 +57,8 @@ public:
          return diagonal_length.value();
       }
       
-      const_cast<std::optional<double>&>(diagonal_length) = vec_op::distance(top_left.value(), bottom_right.value());
+      const_cast<std::optional<double>&>(diagonal_length) = 
+         mzlib::law::vector::distance(top_left.value(), bottom_right.value());
       return diagonal_length.value();      
    }
    
@@ -340,13 +343,12 @@ TEST_F(fixture_law_screen_rectangle, get_heigth)
    ASSERT_TRUE(mzlib::dbl(height).equals(30L));
 }
 
-
 TEST_F(fixture_law_screen_rectangle, calculate_centre_point) 
 {
    mzlib::law::screen_rectangles2d rect_law;
    rect_law.consider(m_rectangle);
    mzlib::vector2d centre_point = rect_law.solve_for_centre_point();
-   ASSERT_EQ(mzlib::vector2d({30,45}), centre_point);
+   ASSERT_TRUE(mzlib::vector2d({30,45}) == centre_point);
 }
 
 TEST_F(fixture_law_screen_rectangle, direction_of_point) 
@@ -423,10 +425,10 @@ TEST_F(fixture_law_screen_rectangle, enlarge_rectangle)
    
    for (auto parameter : test_parameters) {
       auto new_rect = law.enlarge_rectangle(parameter.direction, parameter.factor);
-      ASSERT_EQ(parameter.expected_top_left,     new_rect.get_top_left())
+      ASSERT_TRUE(parameter.expected_top_left == new_rect.get_top_left())
          << "unexpected value for top left for expansion in direction: " 
          << parameter.direction << " with factor " << parameter.factor;
-      ASSERT_EQ(parameter.expected_bottom_right, new_rect.get_bottom_right())
+      ASSERT_TRUE(parameter.expected_bottom_right == new_rect.get_bottom_right())
          << "unexpected value for bottom right for expansion in direction: " 
          << parameter.direction << " with factor " << parameter.factor;
    }
@@ -465,8 +467,8 @@ TEST_F(fixture_law_screen_rectangle, flip)
       auto result = rect_law.flip (parameter.direction);
       auto top_left = result.get_top_left();
       auto bottom_right = result.get_bottom_right();
-      ASSERT_EQ(parameter.expected_top_left,     top_left)     << parameter.direction;
-      ASSERT_EQ(parameter.expected_bottom_right, bottom_right) << parameter.direction;
+      ASSERT_TRUE(parameter.expected_top_left == top_left)     << parameter.direction;
+      ASSERT_TRUE(parameter.expected_bottom_right == bottom_right) << parameter.direction;
    }
 }
 

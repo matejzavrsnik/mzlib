@@ -14,6 +14,7 @@
 #include "quadtree.h"
 #include "../nature/mass_centre.h"
 #include "../nature/screen_rectangle.h"
+#include "../laws/vector_operations.h"
 
 namespace mzlib {
 
@@ -59,7 +60,7 @@ private:
       const quadnode* node = m_nodes_queue.back();
       m_nodes_queue.pop_back(); // don't use this node again
       // Calculate quotient that tells how far it is compared to its size
-      double node_distance = vec_op::distance(m_body->centre.location, node->get_mass_centre().location);
+      double node_distance = law::vector::distance(m_body->centre.location, node->get_mass_centre().location);
       double node_quotient = node->m_diagonal_length.value() / node_distance;
       // Now depending how far it is, we need to consider either just mass centre of the node, or individual bodies
       if (node_quotient < m_quotient) {

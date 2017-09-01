@@ -55,7 +55,7 @@ public:
 
    void solve_for_time()
    {
-      t = ( vec_op::length(v_f.value()) - vec_op::length(v_0.value()) ) / vec_op::length(a.value());
+      t = ( vector::length(v_f.value()) - vector::length(v_0.value()) ) / vector::length(a.value());
    }
    
    void solve_for_final_location()
@@ -84,8 +84,8 @@ TEST(constant_linear_acceleration, solve_for_final_velocity)
    acc.t = 9.83_s;
    acc.solve_for_final_velocity();
    
-   auto direction = mzlib::vec_op::normalise(acc.v_f.value());
-   auto size = mzlib::vec_op::length(acc.v_f.value());
+   auto direction = mzlib::law::vector::normalise(acc.v_f.value());
+   auto size = mzlib::law::vector::length(acc.v_f.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(17.5566L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);
@@ -99,8 +99,8 @@ TEST(constant_linear_acceleration, solve_for_initial_velocity_given_final_veloci
    acc.t = 2.57_s;
    acc.solve_for_initial_velocity();
    
-   auto direction = mzlib::vec_op::normalise(acc.v_0.value());
-   auto size = mzlib::vec_op::length(acc.v_0.value());
+   auto direction = mzlib::law::vector::normalise(acc.v_0.value());
+   auto size = mzlib::law::vector::length(acc.v_0.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(25.214600000000001L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);
@@ -115,8 +115,8 @@ TEST(constant_linear_acceleration, solve_for_initial_velocity_given_location)
    acc.t = 3.90_s;
    acc.solve_for_initial_velocity();
    
-   auto direction = mzlib::vec_op::normalise(acc.v_0.value());
-   auto size = mzlib::vec_op::length(acc.v_0.value());
+   auto direction = mzlib::law::vector::normalise(acc.v_0.value());
+   auto size = mzlib::law::vector::length(acc.v_0.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(2.3879067788786936L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);
@@ -130,8 +130,8 @@ TEST(constant_linear_acceleration, solve_for_acceleration_given_velocities)
    acc.t = 8.66_s;
    acc.solve_for_acceleration();
    
-   auto direction = mzlib::vec_op::normalise(acc.a.value());
-   auto size = mzlib::vec_op::length(acc.a.value());
+   auto direction = mzlib::law::vector::normalise(acc.a.value());
+   auto size = mzlib::law::vector::length(acc.a.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(2.5681293302540422L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);
@@ -146,8 +146,8 @@ TEST(constant_linear_acceleration, solve_for_acceleration_given_location)
    acc.t = 9.13_s;
    acc.solve_for_acceleration();
    
-   auto direction = mzlib::vec_op::normalise(acc.a.value());
-   auto size = mzlib::vec_op::length(acc.a.value());
+   auto direction = mzlib::law::vector::normalise(acc.a.value());
+   auto size = mzlib::law::vector::length(acc.a.value());
    
    ASSERT_TRUE(mzlib::dbl(size).equals(0.89254486281584111L));
    ASSERT_TRUE(direction == mzlib::unit_vector2d);

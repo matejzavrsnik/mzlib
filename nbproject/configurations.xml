@@ -33,6 +33,7 @@
         <itemPath>include/laws/constant_linear_acceleration.h</itemPath>
         <itemPath>include/laws/gravitation.h</itemPath>
         <itemPath>include/laws/screen_rectangles.h</itemPath>
+        <itemPath>include/laws/vector_operations.h</itemPath>
       </logicalFolder>
       <logicalFolder name="nature" displayName="nature" projectFiles="true">
         <itemPath>include/nature/body.h</itemPath>
@@ -52,6 +53,7 @@
         <itemPath>include/tools/circular_next_iterator.h</itemPath>
         <itemPath>include/tools/conditional_find_iterator.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
+        <itemPath>include/tools/copy_iterators.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_forward_iterator_until.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
@@ -218,6 +220,8 @@
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/vector_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
@@ -269,6 +273,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/copy_iterators.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"
@@ -470,6 +476,8 @@
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/vector_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
@@ -521,6 +529,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/copy_iterators.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"

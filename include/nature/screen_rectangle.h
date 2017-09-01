@@ -10,7 +10,6 @@
 
 #include <optional>
 
-#include "vector.h"
 #include "../abstract/direction.h"
 #include "../lang/exceptions.h"
 
