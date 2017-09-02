@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
-	${OBJECTDIR}/tests/test_tools_filesystem.o \
 	${OBJECTDIR}/tests/test_tools_random.o \
 	${OBJECTDIR}/tests/test_tools_string.o \
 	${OBJECTDIR}/tests/test_universe_performance.o
@@ -76,11 +75,6 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
-
-${OBJECTDIR}/tests/test_tools_filesystem.o: tests/test_tools_filesystem.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_filesystem.o tests/test_tools_filesystem.cpp
 
 ${OBJECTDIR}/tests/test_tools_random.o: tests/test_tools_random.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

@@ -1,29 +1,117 @@
 //
-// Copyright (c) 2016 Matej Zavrsnik
+// Copyright (c) 2015 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/tools/filesystem.h"
-#include "gtest/gtest.h"
-#include "../options.h"
-#include <algorithm>    
-#include <cstdio>
+#ifndef MZLIB_LIST_FILES_H
+#define MZLIB_LIST_FILES_H
 
-class fixture_tools_filesystem : public ::testing::Test 
+#include "is_meta_directory.h"
+#include <dirent.h>
+
+namespace mzlib {
+
+namespace old {
+// List all files in a directory
+inline std::vector<std::string> list_files (std::string directory, bool include_hidden = true)
+{
+   std::vector<std::string> files;	
+   DIR *pDIR;
+   struct dirent *entry;
+   if ( (pDIR=opendir(directory.c_str())) ) {
+      while ( (entry = readdir(pDIR)) ) {
+         bool hidden = (entry->d_name[0] == '.');
+         if (hidden && !include_hidden) {
+            continue;
+         }
+         std::string filename = entry->d_name;
+         files.push_back(filename);
+      }
+      closedir(pDIR);
+   }
+   return files;
+}
+
+} // namespace old
+
+inline std::vector<std::string> 
+list_files2 (const std::string& directory, option::recursive recursive = option::recursive::no, option::include_hidden include_hidden = option::include_hidden::no)
+{
+   std::vector<std::string> files;   
+   DIR *pDIR;
+   struct dirent *entry;
+   if ( (pDIR=opendir(directory.c_str())) ) {
+      while ( (entry = readdir(pDIR)) ) {
+         bool is_hidden = (entry->d_name[0] == '.');
+         bool is_directory = (entry->d_type == DT_DIR);
+         bool is_meta = is_meta_directory(entry->d_name);
+         if ((is_hidden && include_hidden == option::include_hidden::no) || is_meta) {
+            continue;
+         }
+         if(is_directory && recursive == option::recursive::yes) {
+            std::string subdir_name = directory + "/" + std::string(entry->d_name);
+            auto files_in_subdir = list_files2(subdir_name, recursive, include_hidden);
+            std::copy (files_in_subdir.begin(), files_in_subdir.end(), std::back_inserter(files));
+         }
+         else if (!is_directory) {
+            std::string filename = directory + "/" + std::string(entry->d_name);
+            files.push_back(filename);
+         }
+      }
+      closedir(pDIR);
+   }
+   return files;
+}
+
+// defined in boost/filesystem.hpp
+// if project includes that, it will see, compile, and be able to use the following functions
+#ifdef BOOST_FILESYSTEM_FILESYSTEM_HPP    
+
+// List all files in a directory using boost
+inline std::vector<std::string> boost_list_files (std::string directory, bool include_hidden = true)
+{
+   std::vector<std::string> files;
+   boost::filesystem::path p(directory);
+   boost::filesystem::directory_iterator end;
+   for (boost::filesystem::directory_iterator path_it(p); path_it != end; ++path_it)
+   {
+      if (boost::filesystem::is_regular_file(*path_it)) {
+         std::string filename = path_it->path().string();
+         bool hidden = (filename[0] == '.');
+         if (hidden && !include_hidden) {
+            continue;
+         }
+         files.push_back(filename);
+      }
+   }
+   return files;
+}
+#endif
+    
+} // namespace
+
+#endif // MZLIB_LIST_FILES_H
+
+#ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_LIST_FILES_TESTS_H
+#define MZLIB_LIST_FILES_TESTS_H
+
+class fixture_list_files: public ::testing::Test 
 {
 
 protected:
 
-   fixture_tools_filesystem() 
+   fixture_list_files() 
    {
       if (g_arguments.find(g_test_dir_param) != g_arguments.end()) {
          m_test_dir = g_arguments[g_test_dir_param] + "/filesystem";
          m_should_test_filesystem = true;
       }
    }
-   virtual ~fixture_tools_filesystem() {}
+   virtual ~fixture_list_files() {}
    
    virtual void SetUp() {}
    virtual void TearDown() {}
@@ -32,7 +120,7 @@ protected:
    std::string m_test_dir;
 };
 
-TEST_F(fixture_tools_filesystem, list_files_defaults) 
+TEST_F(fixture_list_files, list_files_defaults) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir);
@@ -48,7 +136,7 @@ TEST_F(fixture_tools_filesystem, list_files_defaults)
    }
 }
 
-TEST_F(fixture_tools_filesystem, list_files_recursive_nohidden) 
+TEST_F(fixture_list_files, list_files_recursive_nohidden) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::option::recursive::yes, mzlib::option::include_hidden::no);
@@ -68,7 +156,7 @@ TEST_F(fixture_tools_filesystem, list_files_recursive_nohidden)
    }
 }
 
-TEST_F(fixture_tools_filesystem, list_files_recursive_hidden) 
+TEST_F(fixture_list_files, list_files_recursive_hidden) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::option::recursive::yes, mzlib::option::include_hidden::yes);
@@ -90,7 +178,7 @@ TEST_F(fixture_tools_filesystem, list_files_recursive_hidden)
    }
 }
 
-TEST_F(fixture_tools_filesystem, list_files_norecursive_hidden) 
+TEST_F(fixture_list_files, list_files_norecursive_hidden) 
 {
    if(m_should_test_filesystem) {
       std::vector<std::string> list = mzlib::list_files2(m_test_dir, mzlib::option::recursive::no, mzlib::option::include_hidden::yes);
@@ -107,72 +195,8 @@ TEST_F(fixture_tools_filesystem, list_files_norecursive_hidden)
    }
 }
 
-TEST_F(fixture_tools_filesystem, is_meta_directory)
-{
-   if(m_should_test_filesystem) {
-      ASSERT_TRUE (mzlib::is_meta_directory("."));
-      ASSERT_TRUE (mzlib::is_meta_directory(".."));
-      ASSERT_TRUE (mzlib::is_meta_directory("avengers/."));
-      ASSERT_TRUE (mzlib::is_meta_directory("avengers/.."));
-      ASSERT_FALSE(mzlib::is_meta_directory("avengers/ironman"));
-   }
-   else {
-      ASSERT_TRUE(true);
-   }
-}
 
-TEST_F(fixture_tools_filesystem, write_append_read_file)
-{
-   if(m_should_test_filesystem) {
-      std::string temp_file = m_test_dir + "/temp_file";
-      std::string sample_content = "I must not fear.";
+#endif // MZLIB_LIST_FILES_TESTS_H
 
-      mzlib::save_file (temp_file, sample_content);
-      std::string temp_file_content = mzlib::read_file(temp_file);
-      ASSERT_EQ(sample_content, temp_file_content);
+#endif // MZLIB_BUILDING_TESTS
 
-      std::string additional_content = "Fear is the mind-killer.";
-      mzlib::append_file (temp_file, additional_content);
-      temp_file_content = mzlib::read_file(temp_file);
-      ASSERT_EQ(sample_content + additional_content, temp_file_content);
-
-      std::remove (temp_file.c_str());
-   }
-   else {
-      ASSERT_TRUE(true);
-   }
-}
-
-TEST_F(fixture_tools_filesystem, read_file_from_to)
-{
-   if(m_should_test_filesystem) {
-      std::string temp_file = m_test_dir + "/temp_file";
-      std::string sample_content = "I must not fear.";
-
-      mzlib::save_file (temp_file, sample_content);
-      std::string temp_file_content = mzlib::read_file(temp_file, std::streampos(11), std::streampos(15));
-      ASSERT_EQ("fear", temp_file_content);
-
-      std::remove (temp_file.c_str());
-   }
-   else {
-      ASSERT_TRUE(true);
-   }
-}
-
-TEST_F(fixture_tools_filesystem, find_eof_position)
-{
-   if(m_should_test_filesystem) {
-      std::string temp_file = m_test_dir + "/temp_file";
-      std::string sample_content = "I must not fear.";
-
-      mzlib::save_file (temp_file, sample_content);
-      std::streampos eof = mzlib::find_eof_position(temp_file);
-      ASSERT_EQ(16, eof);
-
-      std::remove (temp_file.c_str());
-   }
-   else {
-      ASSERT_TRUE(true);
-   }
-}

@@ -96,4 +96,8 @@ using namespace mzlib::units;
    #include "include/nature/vector.h"
    #include "include/laws/vector_operations.h"
    #include "include/tools/copy_iterators.h"
+   #include "include/filesystem/read_write_file.h"
+   #include "include/filesystem/list_files.h"
+   #include "include/filesystem/find_eof_position.h"
+   #include "include/filesystem/is_meta_directory.h"
 #undef MZLIB_BUILDING_TESTS

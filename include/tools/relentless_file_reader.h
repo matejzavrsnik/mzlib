@@ -8,7 +8,8 @@
 #ifndef MZLIB_RELENTLESS_FILE_READER_H
 #define MZLIB_RELENTLESS_FILE_READER_H
 
-#include "filesystem.h"
+#include "../filesystem/read_write_file.h"
+#include "../filesystem/find_eof_position.h"
 
 #include <string>
 #include <functional>

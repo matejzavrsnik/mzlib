@@ -16,6 +16,12 @@
         <itemPath>include/abstract/symbol_sequences_in_pattern.h</itemPath>
         <itemPath>include/abstract/unique.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2" displayName="filesystem" projectFiles="true">
+        <itemPath>include/filesystem/find_eof_position.h</itemPath>
+        <itemPath>include/filesystem/is_meta_directory.h</itemPath>
+        <itemPath>include/filesystem/list_files.h</itemPath>
+        <itemPath>include/filesystem/read_write_file.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="joke" displayName="joke" projectFiles="true">
         <itemPath>include/joke/supersafe_number.h</itemPath>
       </logicalFolder>
@@ -57,7 +63,6 @@
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_forward_iterator_until.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
-        <itemPath>include/tools/filesystem.h</itemPath>
         <itemPath>include/tools/general.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
         <itemPath>include/tools/index_iterator_conversions.h</itemPath>
@@ -94,7 +99,6 @@
       <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
-      <itemPath>tests/test_tools_filesystem.cpp</itemPath>
       <itemPath>tests/test_tools_random.cpp</itemPath>
       <itemPath>tests/test_tools_string.cpp</itemPath>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
@@ -189,6 +193,23 @@
       </item>
       <item path="include/aggregated_file_monitor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/filesystem/find_eof_position.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/filesystem/is_meta_directory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/filesystem/list_files.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/filesystem/read_write_file.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -288,8 +309,6 @@
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
@@ -357,8 +376,6 @@
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -445,6 +462,23 @@
       </item>
       <item path="include/aggregated_file_monitor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/filesystem/find_eof_position.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/filesystem/is_meta_directory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/filesystem/list_files.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/filesystem/read_write_file.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -544,8 +578,6 @@
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/filesystem.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
@@ -613,8 +645,6 @@
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/test_tools_filesystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_tools_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
