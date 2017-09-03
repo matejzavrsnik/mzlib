@@ -25,8 +25,8 @@
 #include "../nature/vector.h"
 #include "../lang/exceptions.h"
 #include "../lang/optional.h"
-#include "iterator_distance_comparison.h"
-#include "conditional_find_iterator.h"
+#include "../iterators/distance_comparison.h"
+#include "../iterators/conditional_find.h"
 
 namespace mzlib {
     

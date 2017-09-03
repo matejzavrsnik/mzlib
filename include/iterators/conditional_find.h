@@ -8,7 +8,7 @@
 #ifndef MZLIB_CONDITIONAL_FIND_ITERATOR_H
 #define MZLIB_CONDITIONAL_FIND_ITERATOR_H
 
-#include "iterator_distance_comparison.h"
+#include "distance_comparison.h"
 
 namespace mzlib {
     

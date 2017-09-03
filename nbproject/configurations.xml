@@ -22,6 +22,16 @@
         <itemPath>include/filesystem/list_files.h</itemPath>
         <itemPath>include/filesystem/read_write_file.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="iterators" projectFiles="true">
+        <itemPath>include/iterators/average.h</itemPath>
+        <itemPath>include/iterators/circular_next.h</itemPath>
+        <itemPath>include/iterators/conditional_find.h</itemPath>
+        <itemPath>include/iterators/copy.h</itemPath>
+        <itemPath>include/iterators/distance_comparison.h</itemPath>
+        <itemPath>include/iterators/fast_forward.h</itemPath>
+        <itemPath>include/iterators/index_conversion.h</itemPath>
+        <itemPath>include/iterators/insert_if_unique.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="joke" displayName="joke" projectFiles="true">
         <itemPath>include/joke/supersafe_number.h</itemPath>
       </logicalFolder>
@@ -55,20 +65,13 @@
       </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <itemPath>include/tools/add_to_tally.h</itemPath>
-        <itemPath>include/tools/average_iterator.h</itemPath>
-        <itemPath>include/tools/circular_next_iterator.h</itemPath>
-        <itemPath>include/tools/conditional_find_iterator.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
-        <itemPath>include/tools/copy_iterators.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
-        <itemPath>include/tools/fast_forward_iterator_until.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
         <itemPath>include/tools/general.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
-        <itemPath>include/tools/index_iterator_conversions.h</itemPath>
-        <itemPath>include/tools/insert_if_unique.h</itemPath>
+        <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
         <itemPath>include/tools/is_word_in_dictionary.h</itemPath>
-        <itemPath>include/tools/iterator_distance_comparison.h</itemPath>
         <itemPath>include/tools/libcmlpp.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
         <itemPath>include/tools/next_lex_permutation.h</itemPath>
@@ -212,6 +215,34 @@
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/average.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/conditional_find.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/distance_comparison.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/index_conversion.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/insert_if_unique.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/killer_sudoku.h" ex="false" tool="3" flavor2="0">
@@ -278,31 +309,12 @@
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/average_iterator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/circular_next_iterator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/conditional_find_iterator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/tools/copy_first_n_over_rest.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/tools/copy_iterators.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/equidistant_sequence.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/fast_forward_iterator_until.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -313,19 +325,12 @@
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/index_iterator_conversions.h"
+      <item path="include/tools/index_coordinate_conversions.h"
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="include/tools/insert_if_unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/is_word_in_dictionary.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/iterator_distance_comparison.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -481,6 +486,34 @@
       </item>
       <item path="include/image_texture.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/average.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/conditional_find.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/distance_comparison.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/index_conversion.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/insert_if_unique.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/killer_sudoku.h" ex="false" tool="3" flavor2="0">
@@ -547,31 +580,12 @@
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/average_iterator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/circular_next_iterator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/conditional_find_iterator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/tools/copy_first_n_over_rest.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/tools/copy_iterators.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/equidistant_sequence.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/fast_forward_iterator_until.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -582,19 +596,12 @@
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/index_iterator_conversions.h"
+      <item path="include/tools/index_coordinate_conversions.h"
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="include/tools/insert_if_unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/is_word_in_dictionary.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/iterator_distance_comparison.h"
             ex="false"
             tool="3"
             flavor2="0">

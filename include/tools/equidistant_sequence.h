@@ -10,7 +10,7 @@
 
 #include <optional>
 
-#include "fast_forward_iterator_until.h"
+#include "../iterators/fast_forward.h"
 
 namespace mzlib {
 
@@ -24,7 +24,7 @@ std::optional<Container> create_equidistant_sequence(
 {
    Container result_candidate;
    
-   begin = fast_forward_until(begin, end, counts_as_letter);
+   begin = fast_forward(begin, end, counts_as_letter);
    
    while (begin != end && desired_sequence_length > 0) {
       
@@ -37,7 +37,7 @@ std::optional<Container> create_equidistant_sequence(
       while (begin != end && iterator_increments_left > 0) {
 
          begin = std::next(begin);
-         begin = fast_forward_until(begin, end, counts_as_letter);
+         begin = fast_forward(begin, end, counts_as_letter);
          --iterator_increments_left;
       }
    }

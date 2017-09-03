@@ -15,7 +15,7 @@
 
 #include "../lang/dbl.h"
 #include "../laws/vector_operations.h"
-#include "../tools/copy_iterators.h"
+#include "../iterators/copy.h"
 
 namespace mzlib {
 

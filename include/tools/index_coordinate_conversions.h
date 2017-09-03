@@ -28,13 +28,6 @@
 
 namespace mzlib {
     
-// converts iterator to index
-template<class Iterator> 
-size_t get_index (Iterator begin, Iterator it) 
-{
-   return std::distance(begin, it);
-}
-
 // useful when representing a matrix with one-dimensional array
 // conversion function, that will convert from coordinates to array index
 inline uint get_index_from_coordinates(std::array<uint,2> const coordinates, uint const row_size)
@@ -60,26 +53,6 @@ inline std::array<uint,2> get_coordinates_from_index(uint const index, uint cons
 
 #ifndef MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
 #define MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
-
-TEST(get_index, basic) 
-{
-   std::vector<int> v;
-   for(int i=0; i<10; i++) {
-      v.push_back(i);
-   }
-   // first 
-   int index_0 = mzlib::get_index(v.begin(), v.begin());
-   ASSERT_EQ(index_0, 0);
-   // second
-   int index_1 = mzlib::get_index(v.begin(), v.begin()+1);
-   ASSERT_EQ(index_1, 1);
-   // middle
-   int index_5 = mzlib::get_index(v.begin(), v.begin()+5);
-   ASSERT_EQ(index_5, 5);
-   // last
-   int index_9 = mzlib::get_index(v.begin(), v.begin()+9);
-   ASSERT_EQ(index_9, 9);
-}
 
 TEST(get_index_from_coordinates, basic)
 {
