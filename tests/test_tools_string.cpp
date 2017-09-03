@@ -46,7 +46,8 @@ TEST_F(fixture_tools_string, remove_strings_that_end_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   auto filtered = mzlib::remove_strings_that_end_with (list, {"mind-killer", "obliteration", "me"});
+   using namespace mzlib::parameters::remove_strings_which;
+   auto filtered = mzlib::remove_strings_which (list, end_with, {"mind-killer", "obliteration", "me"});
    
    auto not_found = filtered.end();
    ASSERT_EQ(2, filtered.size());
@@ -64,7 +65,8 @@ TEST_F(fixture_tools_string, remove_strings_that_start_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   auto filtered = mzlib::remove_strings_that_start_with (list, {"I must", "Fear"});
+   using namespace mzlib::parameters::remove_strings_which;
+   auto filtered = mzlib::remove_strings_which (list, start_with, {"I must", "Fear"});
    
    auto not_found = filtered.end();
    ASSERT_EQ(2, filtered.size());
@@ -81,7 +83,8 @@ TEST_F(fixture_tools_string, remove_strings_that_dont_start_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   auto filtered = mzlib::remove_strings_that_dont_start_with (list, {"I must", "Fear"});
+   using namespace mzlib::parameters::remove_strings_which;
+   auto filtered = mzlib::remove_strings_which_dont (list, start_with, {"I must", "Fear"});
    
    auto not_found = filtered.end();
    ASSERT_EQ(3, filtered.size());
@@ -99,7 +102,8 @@ TEST_F(fixture_tools_string, remove_strings_that_dont_end_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   auto filtered = mzlib::remove_strings_that_dont_end_with (list, {"mind-killer", "obliteration"});
+   using namespace mzlib::parameters::remove_strings_which;
+   auto filtered = mzlib::remove_strings_which_dont (list, end_with, {"mind-killer", "obliteration"});
    
    auto not_found = filtered.end();
    ASSERT_EQ(2, filtered.size());
@@ -120,76 +124,7 @@ TEST_F(fixture_tools_string, trim_punctiation_from_start_end)
    ASSERT_EQ("I must not fear", mzlib::trim_punctiation("11I must not fear11")); 
 }
 
-TEST_F(fixture_tools_string, extract_vocabulary_demo)
-{
-   std::istringstream text("I must not fear.Fear is the mind-killer.");
-   std::set<std::string> words;
-   mzlib::extract_vocabulary(text, std::inserter(words, words.begin()));
-   
-   // There were 8 words in the sentence but just 7 unique.
-   // If used with set, only unique will be stored.
-   ASSERT_EQ(7, words.size());
-   ASSERT_NE(words.end(), words.find("i"));
-   ASSERT_NE(words.end(), words.find("must"));
-   ASSERT_NE(words.end(), words.find("not"));
-   ASSERT_NE(words.end(), words.find("fear"));
-   ASSERT_NE(words.end(), words.find("is"));
-   ASSERT_NE(words.end(), words.find("the"));
-   ASSERT_NE(words.end(), words.find("mind-killer"));
-}
 
-TEST_F(fixture_tools_string, extract_vocabulary_another_type_of_container)
-{
-   std::istringstream text("I must not fear.Fear is the mind-killer.");
-   std::vector<std::string> words;
-   mzlib::extract_vocabulary(text, std::inserter(words, words.end()));
-   
-   // There were 8 words in the sentence but just 7 unique.
-   // If used with vector, duplicate will appear
-   ASSERT_EQ(8, words.size());
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "i"));
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "must"));
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "not"));
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "fear"));
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "is"));
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "the"));
-   ASSERT_NE(words.end(), std::find (words.begin(), words.end(), "mind-killer"));
-}
-
-TEST_F(fixture_tools_string, extract_vocabulary_empty_stream)
-{
-   std::istringstream text("");
-   std::set<std::string> words;
-   mzlib::extract_vocabulary(text, std::inserter(words, words.end()));
-   
-   ASSERT_EQ(0, words.size());
-}
-
-TEST_F(fixture_tools_string, extract_vocabulary_with_count_demo)
-{
-   std::istringstream text("I must not fear.Fear is the mind-killer.");
-   std::map<std::string, int> words = mzlib::extract_vocabulary_with_count(text);
-   
-   // There were 8 words in the sentence but just 7 unique.
-   // It recognised dot at the end of first sentence is not part of a word.
-   ASSERT_EQ(7, words.size());
-   ASSERT_NE(words.end(), words.find("i"));
-   ASSERT_NE(words.end(), words.find("must"));
-   ASSERT_NE(words.end(), words.find("not"));
-   ASSERT_NE(words.end(), words.find("fear"));
-   ASSERT_NE(words.end(), words.find("is"));
-   ASSERT_NE(words.end(), words.find("the"));
-   ASSERT_NE(words.end(), words.find("mind-killer"));
-   ASSERT_EQ(2, words["fear"]); // word "fear" appears twice
-}
-
-TEST_F(fixture_tools_string, extract_vocabulary_with_count_empty_stream)
-{
-   std::istringstream text("");
-   std::map<std::string, int> words = mzlib::extract_vocabulary_with_count(text);
-   
-   ASSERT_EQ(0, words.size());
-}
 
 TEST_F(fixture_tools_string, trim_punctiation_whole)
 {

@@ -101,4 +101,5 @@ using namespace mzlib::units;
    #include "include/filesystem/find_eof_position.h"
    #include "include/filesystem/is_meta_directory.h"
    #include "include/iterators/index_conversion.h"
+   #include "include/tools/extract_vocabulary.h"
 #undef MZLIB_BUILDING_TESTS

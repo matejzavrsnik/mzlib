@@ -14,6 +14,7 @@
 #include <algorithm> // std::generate
 #include <map>
 #include <sstream>
+#include <functional>
 
 #include "split_string_puctuation.h"
 #include "fast_min.h" // fast_threeway_min
@@ -91,71 +92,60 @@ inline bool string_starts_with (const std::string& str, const std::string& start
    }
 }
 
+namespace parameters {
+namespace remove_strings_which {
+enum E { start_with, end_with};
+}}
+
 inline std::vector<std::string> 
-remove_strings_that_end_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
+remove_strings_which (const std::vector<std::string>& all_strings, parameters::remove_strings_which::E which, const std::vector<std::string>& edge_strings)
 {
+   using namespace parameters::remove_strings_which;
+   
+   std::function<bool(const std::string&, const std::string&)> deciding_function;
+   if (which == start_with)
+      deciding_function = string_starts_with;
+   else
+      deciding_function = string_ends_with;
+
    std::vector<std::string> filtered;
-   for (const auto& str : all_str) {
-      bool is_on_the_list = false;
-      for (const auto& end : ends) {
-         if (string_ends_with(str, end)) {
-            is_on_the_list = true;
+   for (const auto& full_string : all_strings) {
+      bool goes_on_the_list = false;
+      for (const auto& edge_string : edge_strings) 
+      {
+         if (deciding_function(full_string, edge_string))
+         {
+            goes_on_the_list = true;
             break;
          }
       }
-      if(!is_on_the_list) {
-         filtered.push_back(str);
+      if(!goes_on_the_list) {
+         filtered.push_back(full_string);
       }
    }
    return std::move(filtered);
 }
 
 inline std::vector<std::string> 
-remove_strings_that_start_with (const std::vector<std::string>& all_str, const std::vector<std::string>& starts)
+remove_strings_which_dont (const std::vector<std::string>& all_strings, parameters::remove_strings_which::E which, const std::vector<std::string>& edge_strings)
 {
+   using namespace parameters::remove_strings_which;
+   
+   std::function<bool(const std::string&, const std::string&)> deciding_function;
+   if (which == start_with)
+      deciding_function = string_starts_with;
+   else
+      deciding_function = string_ends_with;
+   
    std::vector<std::string> filtered;
-   for (const auto& str : all_str) {
-      bool is_on_the_list = false;
-      for (const auto& start : starts) {
-         if (string_starts_with(str, start)) {
-            is_on_the_list = true;
-            break;
-         }
-      }
-      if(!is_on_the_list) {
-         filtered.push_back(str);
-      }
-   }
-   return std::move(filtered);
-}
-
-inline std::vector<std::string> 
-remove_strings_that_dont_start_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
-{
-   std::vector<std::string> filtered;
-   for (const auto& str : all_str) {
-      bool is_on_the_list = false;
-      for (const auto& end : ends) {
-         is_on_the_list = string_starts_with(str, end);
-         if(is_on_the_list) {
-            filtered.push_back(str);
-            break;
-         }
-      }
-   }
-   return std::move(filtered);
-}
-
-inline std::vector<std::string> 
-remove_strings_that_dont_end_with (const std::vector<std::string>& all_str, const std::vector<std::string>& ends)
-{
-   std::vector<std::string> filtered;
-   for (const auto& str : all_str) {
-      bool is_on_the_list = false;
-      for (const auto& end : ends) {
-         is_on_the_list = string_ends_with(str, end);
-         if(is_on_the_list) {
-            filtered.push_back(str);
+   for (const auto& full_string : all_strings) {
+      bool goes_on_the_list = false;
+      for (const auto& edge_string : edge_strings) 
+      {
+         goes_on_the_list = deciding_function(full_string, edge_string);
+         if(goes_on_the_list) 
+         {
+            filtered.push_back(full_string);
             break;
          }
       }
@@ -186,44 +176,6 @@ trim_punctiation_whole(const std::string& word)
          trimmed.push_back(ch);
    }
    return trimmed;
-}
-
-template<class InsertIt>
-void extract_vocabulary(std::istream& vocab_stream, InsertIt insert_it)
-{
-   do {
-      std::string piece;
-      vocab_stream >> piece;
-      std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
-      auto split_words = mzlib::split_string_puctuation(piece);
-      for(auto word : split_words) {
-         word = mzlib::trim_punctiation(word);
-         if (word.length() > 0) {
-            *insert_it++ = word;
-         }
-      }
-   }
-   while(vocab_stream);
-}
-
-inline std::map<std::string, int> 
-extract_vocabulary_with_count(std::istream& vocab_stream)
-{
-   std::map<std::string, int> word_tally;
-   do {
-      std::string piece;
-      vocab_stream >> piece;
-      std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
-      auto split_words = mzlib::split_string_puctuation(piece);
-      for(auto word : split_words) {
-         word = mzlib::trim_punctiation(word);
-         if (word.length()) {
-            mzlib::add_to_tally(word_tally, word);
-         }
-      }
-   }
-   while(vocab_stream);
-   return word_tally;
 }
 
 inline void to_lowercase(std::string& str)
