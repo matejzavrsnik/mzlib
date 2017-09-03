@@ -10,7 +10,7 @@
 
 #include "../abstract/markov_chain.h"
 #include "../tools/sentence_assemblarator.h"
-#include "../tools/string.h"
+#include "../tools/split_string_puctuation.h"
 
 namespace mzlib {
 

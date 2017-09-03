@@ -5,39 +5,86 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../include/tools/string.h"
-#include "gtest/gtest.h"
+#ifndef MZLIB_REMOVE_STRINGS_H
+#define MZLIB_REMOVE_STRINGS_H
 
-#include <set>
-#include <map>
-    
-class fixture_tools_string : public ::testing::Test 
-{
+#include "string_start_end.h"
 
-protected:
+namespace mzlib {
 
-   fixture_tools_string() {}
-   virtual ~fixture_tools_string() {}
-   virtual void SetUp() {}
-   virtual void TearDown() {}
+namespace parameters {
+namespace remove_strings_which {
    
-};
+enum E { start_with, end_with};
 
-TEST_F(fixture_tools_string, string_ends_with)
+}}
+
+inline std::vector<std::string> 
+remove_strings_which (const std::vector<std::string>& all_strings, parameters::remove_strings_which::E which, const std::vector<std::string>& edge_strings)
 {
-   std::string test_string = "Fear is the little-death that brings total obliteration.";
-   ASSERT_TRUE (mzlib::string_ends_with(test_string, "obliteration."));
-   ASSERT_FALSE(mzlib::string_ends_with(test_string, "bliss."));
+   using namespace parameters::remove_strings_which;
+   
+   std::function<bool(const std::string&, const std::string&)> deciding_function;
+   if (which == start_with)
+      deciding_function = string_starts_with;
+   else
+      deciding_function = string_ends_with;
+
+   std::vector<std::string> filtered;
+   for (const auto& full_string : all_strings) {
+      bool goes_on_the_list = false;
+      for (const auto& edge_string : edge_strings) 
+      {
+         if (deciding_function(full_string, edge_string))
+         {
+            goes_on_the_list = true;
+            break;
+         }
+      }
+      if(!goes_on_the_list) {
+         filtered.push_back(full_string);
+      }
+   }
+   return std::move(filtered);
 }
 
-TEST_F(fixture_tools_string, string_starts_with)
+inline std::vector<std::string> 
+remove_strings_which_dont (const std::vector<std::string>& all_strings, parameters::remove_strings_which::E which, const std::vector<std::string>& edge_strings)
 {
-   std::string test_string = "Fear is the little-death that brings total obliteration.";
-   ASSERT_TRUE (mzlib::string_starts_with(test_string, "Fear"));
-   ASSERT_FALSE(mzlib::string_starts_with(test_string, "Courage"));
+   using namespace parameters::remove_strings_which;
+   
+   std::function<bool(const std::string&, const std::string&)> deciding_function;
+   if (which == start_with)
+      deciding_function = string_starts_with;
+   else
+      deciding_function = string_ends_with;
+   
+   std::vector<std::string> filtered;
+   for (const auto& full_string : all_strings) {
+      bool goes_on_the_list = false;
+      for (const auto& edge_string : edge_strings) 
+      {
+         goes_on_the_list = deciding_function(full_string, edge_string);
+         if(goes_on_the_list) 
+         {
+            filtered.push_back(full_string);
+            break;
+         }
+      }
+   }
+   return std::move(filtered);
 }
 
-TEST_F(fixture_tools_string, remove_strings_that_end_with)
+} // namespace
+
+#endif // MZLIB_REMOVE_STRINGS_H
+
+#ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_REMOVE_STRINGS_TESTS_H
+#define MZLIB_REMOVE_STRINGS_TESTS_H
+
+TEST(remove_strings, which_end_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -55,8 +102,7 @@ TEST_F(fixture_tools_string, remove_strings_that_end_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will face my fear"));
 }
 
-
-TEST_F(fixture_tools_string, remove_strings_that_start_with)
+TEST(remove_strings, which_start_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -74,7 +120,7 @@ TEST_F(fixture_tools_string, remove_strings_that_start_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will permit it to pass over me and through me"));
 }
 
-TEST_F(fixture_tools_string, remove_strings_that_dont_start_with)
+TEST(remove_strings, which_dont_start_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -93,7 +139,7 @@ TEST_F(fixture_tools_string, remove_strings_that_dont_start_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
 
-TEST_F(fixture_tools_string, remove_strings_that_dont_end_with)
+TEST(remove_strings, which_dont_end_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -111,41 +157,7 @@ TEST_F(fixture_tools_string, remove_strings_that_dont_end_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
 
-TEST_F(fixture_tools_string, trim_punctiation_from_start_end)
-{
-   ASSERT_EQ("", mzlib::trim_punctiation(""));
-   ASSERT_EQ("", mzlib::trim_punctiation("."));
-   ASSERT_EQ("", mzlib::trim_punctiation(".!#$%"));
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation(".!#I must not fear$%")); 
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation("I must not fear$%")); 
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation(".!#I must not fear")); 
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation("I must not fear")); 
-   ASSERT_EQ("", mzlib::trim_punctiation("123"));
-   ASSERT_EQ("I must not fear", mzlib::trim_punctiation("11I must not fear11")); 
-}
+#endif // MZLIB_REMOVE_STRINGS_TESTS_H
 
+#endif // MZLIB_BUILDING_TESTS
 
-
-TEST_F(fixture_tools_string, trim_punctiation_whole)
-{
-   std::string text(" !?I must not fear.,: Fear is the mind-killer.,* ");
-   std::string trimmed = mzlib::trim_punctiation_whole(text);
-   
-   ASSERT_EQ("ImustnotfearFearisthemindkiller", trimmed);
-}
-
-TEST_F(fixture_tools_string, to_lowercase)
-{
-   std::string text("I must not fear. Fear is the mind-killer.");
-   mzlib::to_lowercase(text);
-   
-   ASSERT_EQ("i must not fear. fear is the mind-killer.", text);
-}
-
-TEST_F(fixture_tools_string, to_uppercase)
-{
-   std::string text("I must not fear.");
-   mzlib::to_uppercase(text);
-   
-   ASSERT_EQ("I MUST NOT FEAR.", text);
-}

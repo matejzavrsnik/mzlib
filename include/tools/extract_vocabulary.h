@@ -8,6 +8,8 @@
 #ifndef MZLIB_EXTRACT_VOCABULARY_H
 #define MZLIB_EXTRACT_VOCABULARY_H
 
+#include "trim_punctuation.h"
+
 namespace mzlib {
 
 template<class InsertIt>
@@ -19,7 +21,7 @@ void extract_vocabulary(std::istream& vocab_stream, InsertIt insert_it)
       std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
       auto split_words = mzlib::split_string_puctuation(piece);
       for(auto word : split_words) {
-         word = mzlib::trim_punctiation(word);
+         word = mzlib::trim_punctuation(word);
          if (word.length() > 0) {
             *insert_it++ = word;
          }
@@ -38,7 +40,7 @@ extract_vocabulary_with_count(std::istream& vocab_stream)
       std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
       auto split_words = mzlib::split_string_puctuation(piece);
       for(auto word : split_words) {
-         word = mzlib::trim_punctiation(word);
+         word = mzlib::trim_punctuation(word);
          if (word.length()) {
             mzlib::add_to_tally(word_tally, word);
          }

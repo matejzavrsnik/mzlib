@@ -60,5 +60,50 @@ get_random_element (std::map<T,U>& from_map)
 
 } // namespace
 
-#endif /* MZLIB_UTILS_RANDOM_H */
+#endif // MZLIB_UTILS_RANDOM_H
 
+#ifdef MZLIB_BUILDING_TESTS
+
+#ifndef MZLIB_UTILS_RANDOM_TESTS_H
+#define MZLIB_UTILS_RANDOM_TESTS_H
+
+TEST(random, get_random_integer) 
+{
+   unsigned int a = mzlib::get_random_integer();
+   unsigned int b = mzlib::get_random_integer();
+   unsigned int c = mzlib::get_random_integer();
+   unsigned int d = mzlib::get_random_integer();
+   ASSERT_NE(a, b);
+   ASSERT_NE(b, c);
+   ASSERT_NE(c, d);
+}
+
+TEST(random, get_random_double_between_0_1) 
+{
+   double a = mzlib::get_random_double_between_0_1();
+   double b = mzlib::get_random_double_between_0_1();
+   double c = mzlib::get_random_double_between_0_1();
+   double d = mzlib::get_random_double_between_0_1();
+   ASSERT_NE(a, b);
+   ASSERT_NE(b, c);
+   ASSERT_NE(c, d);
+}
+
+TEST(random, get_random_element) 
+{
+   std::map<int,int> example;
+   example[0] = 0;
+   example[1] = 2;
+   example[2] = 3;
+   std::map<int,int>::iterator random_element = mzlib::get_random_element(example);
+   // how test if really random? :) I'll test instead if it returns any valid.
+   ASSERT_TRUE(
+      random_element->second == 0 ||
+      random_element->second == 2 ||
+      random_element->second == 3
+   );
+}
+
+#endif // MZLIB_UTILS_RANDOM_TESTS_H
+
+#endif // MZLIB_BUILDING_TESTS

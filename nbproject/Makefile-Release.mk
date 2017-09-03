@@ -37,8 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
-	${OBJECTDIR}/tests/test_tools_random.o \
-	${OBJECTDIR}/tests/test_tools_string.o \
 	${OBJECTDIR}/tests/test_universe_performance.o
 
 
@@ -77,16 +75,6 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
-
-${OBJECTDIR}/tests/test_tools_random.o: tests/test_tools_random.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_random.o tests/test_tools_random.cpp
-
-${OBJECTDIR}/tests/test_tools_string.o: tests/test_tools_string.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_tools_string.o tests/test_tools_string.cpp
 
 ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
