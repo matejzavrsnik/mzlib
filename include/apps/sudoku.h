@@ -8,7 +8,7 @@
 #ifndef MZLIB_SUDOKU_H
 #define MZLIB_SUDOKU_H
 
-#include "tools/index_coordinate_conversions.h"
+#include "../tools/index_coordinate_conversions.h"
 
 #include <vector>
 #include <iostream>

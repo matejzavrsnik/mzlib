@@ -8,7 +8,7 @@
 #ifndef MZLIB_AGGREGATED_FILE_MONITOR_H
 #define MZLIB_AGGREGATED_FILE_MONITOR_H
 
-#include "tools/relentless_file_reader.h"
+#include "../tools/relentless_file_reader.h"
 #include <string>
 
 namespace mzlib {
