@@ -9,8 +9,8 @@
 #define MZLIB_SENTENCE_O_MATIC_H
 
 #include "../abstract/markov_chain.h"
-#include "../tools/sentence_assemblarator.h"
-#include "../tools/split_string_puctuation.h"
+#include "../string/sentence_assemblarator.h"
+#include "../string/split_string_puctuation.h"
 
 namespace mzlib {
 

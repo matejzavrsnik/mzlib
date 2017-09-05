@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef EQUIDISTANT_SEQUENCE_H
-#define EQUIDISTANT_SEQUENCE_H
+#ifndef MZLIB_EQUIDISTANT_SEQUENCE_H
+#define MZLIB_EQUIDISTANT_SEQUENCE_H
 
 #include <optional>
 
@@ -50,7 +50,7 @@ std::optional<Container> create_equidistant_sequence(
 
 } // namespace
 
-#endif // EQUIDISTANT_SEQUENCE_H
+#endif // MZLIB_EQUIDISTANT_SEQUENCE_H
 
 #ifdef MZLIB_BUILDING_TESTS
 

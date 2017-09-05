@@ -8,6 +8,8 @@
 #ifndef SYMBOL_SEQUENCES_IN_PATTERN_H
 #define SYMBOL_SEQUENCES_IN_PATTERN_H
 
+#include "../iterators/is_last.h"
+
 namespace mzlib {
 
 inline const std::map<int, std::vector<char>>& phone_dial()
@@ -28,11 +30,18 @@ inline const std::map<int, std::vector<char>>& phone_dial()
    return dial;
 }
 
-//todo: needs to be moved
-template<class Iterator, class Container>
-bool is_last(const Iterator& i, const Container& c)
+template<class Value, class Symbol>
+std::vector<Symbol> first_symbol_sequence_in_pattern(
+   std::vector<Value> pattern,
+   const std::map<Value, std::vector<Symbol>>& symbols)
 {
-   return (i == std::prev(c.end()));
+    std::vector<Symbol> result;
+    for (auto value : pattern) 
+    {
+        Symbol symbol = *(symbols.at(value).begin());
+        result.push_back(symbol);
+    }
+    return result;
 }
 
 // Creates sequences of symbols where you can define which symbols can
@@ -76,20 +85,6 @@ option::changed next_symbol_sequence_in_pattern(
       return option::changed::yes;
    }
    return option::changed::no;
-}
-
-template<class Value, class Symbol>
-std::vector<Symbol> first_symbol_sequence_in_pattern(
-   std::vector<Value> pattern,
-   const std::map<Value, std::vector<Symbol>>& symbols)
-{
-    std::vector<Symbol> result;
-    for (auto value : pattern) 
-    {
-        Symbol symbol = *(symbols.at(value).begin());
-        result.push_back(symbol);
-    }
-    return result;
 }
 
 } // namespace

@@ -31,9 +31,9 @@ constexpr VectorT move_by (const VectorT& from, const VectorT& by)
 
 template<class VectorT> 
 constexpr auto sqr_distance(const VectorT& from, const VectorT& to)
--> typename std::remove_const_t<std::remove_reference_t<decltype(from[0])>>
+-> typename std::decay_t<decltype(from[0])>
 {
-   typename std::remove_const_t<std::remove_reference_t<decltype(from[0])>> dist = 0, sqrdist = 0;
+   typename std::decay_t<decltype(from[0])> dist = 0, sqrdist = 0;
    for (size_t i = 0; i<rank(from); ++i) {
       dist = from[i]-to[i];
       sqrdist += dist * dist;
@@ -65,9 +65,9 @@ constexpr VectorT direction(const VectorT& from, const VectorT& to)
 
 template<class VectorT> 
 constexpr auto length (const VectorT& v)
--> typename std::remove_const_t<std::remove_reference_t<decltype(v[0])>>
+-> typename std::decay_t<decltype(v[0])>
 {
-   typename std::remove_const_t<std::remove_reference_t<decltype(v[0])>> l = 0;
+   typename std::decay_t<decltype(v[0])> l = 0;
    for (size_t i=0; i<rank(v); ++i)
       l += v[i] * v[i];
    return std::sqrt(l);

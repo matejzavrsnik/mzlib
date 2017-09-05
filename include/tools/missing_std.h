@@ -14,18 +14,16 @@
 #include <memory>
 
 // in anticipation of adoption of the newer c++ standard
-namespace std {
+namespace mzlib {
 
-#if __cplusplus < 201402L 
 // Herb Sutter's implementiation suggestion   
 template<typename T, typename ...Args>
 std::unique_ptr<T> make_unique( Args&& ...args )
 {
     return std::unique_ptr<T>( new T( std::forward<Args>(args)... ) );
 }
-#endif
 
-} // namespace std
+} // namespace
 
 #endif	/* MZLIB_UTILS_MISSING_STD_H */
 

@@ -13,7 +13,6 @@
 #include <algorithm> // std::sort
    
 #include "genetic_base.h"
-#include "../tools/general.h"
 
 namespace mzlib {
   

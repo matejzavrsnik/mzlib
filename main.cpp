@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "include/tools/general.h"
+#include "include/tools/parse_cli_arguments.h"
 
 std::map<std::string, std::string> g_arguments;
 

@@ -9,6 +9,7 @@
 #define MZLIB_EXTRACT_VOCABULARY_H
 
 #include "trim_punctuation.h"
+#include "../tools/add_to_tally.h"
 
 namespace mzlib {
 

@@ -13,8 +13,8 @@
 
 namespace mzlib {
 
-// basic optional type 
-// doesn't really store references, waiting for C++17 or whenever, but good enough for now
+// basic optional type if you can't use C++17 yet
+// doesn't store references
 template<class T>
 class [[deprecated]] optional
 {

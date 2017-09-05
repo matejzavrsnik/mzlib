@@ -10,7 +10,6 @@
 
 #include <optional>
 
-#include "../tools/missing_std.h" // std::make_unique
 #include "exceptions.h"
 
 #include <memory> // std::unique_ptr

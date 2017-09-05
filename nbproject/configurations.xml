@@ -39,6 +39,7 @@
         <itemPath>include/iterators/fast_forward.h</itemPath>
         <itemPath>include/iterators/index_conversion.h</itemPath>
         <itemPath>include/iterators/insert_if_unique.h</itemPath>
+        <itemPath>include/iterators/is_last.h</itemPath>
       </logicalFolder>
       <logicalFolder name="joke" displayName="joke" projectFiles="true">
         <itemPath>include/joke/supersafe_number.h</itemPath>
@@ -62,6 +63,7 @@
       <logicalFolder name="nature" displayName="nature" projectFiles="true">
         <itemPath>include/nature/body.h</itemPath>
         <itemPath>include/nature/consts.h</itemPath>
+        <itemPath>include/nature/factorial.h</itemPath>
         <itemPath>include/nature/mass_centre.h</itemPath>
         <itemPath>include/nature/screen_rectangle.h</itemPath>
         <itemPath>include/nature/units.h</itemPath>
@@ -71,31 +73,33 @@
         <itemPath>include/nature/universe_containers.h</itemPath>
         <itemPath>include/nature/vector.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f5" displayName="string" projectFiles="true">
+        <itemPath>include/string/extract_vocabulary.h</itemPath>
+        <itemPath>include/string/get_substring.h</itemPath>
+        <itemPath>include/string/is_word_in_dictionary.h</itemPath>
+        <itemPath>include/string/remove_strings.h</itemPath>
+        <itemPath>include/string/sentence_assemblarator.h</itemPath>
+        <itemPath>include/string/split_string_puctuation.h</itemPath>
+        <itemPath>include/string/string_case.h</itemPath>
+        <itemPath>include/string/string_replace.h</itemPath>
+        <itemPath>include/string/string_start_end.h</itemPath>
+        <itemPath>include/string/trim_punctuation.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <itemPath>include/tools/add_to_tally.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
-        <itemPath>include/tools/extract_vocabulary.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
-        <itemPath>include/tools/general.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
-        <itemPath>include/tools/get_substring.h</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
-        <itemPath>include/tools/is_word_in_dictionary.h</itemPath>
         <itemPath>include/tools/libcmlpp.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
         <itemPath>include/tools/next_lex_permutation.h</itemPath>
         <itemPath>include/tools/number_of_decimals.h</itemPath>
+        <itemPath>include/tools/parse_cli_arguments.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
-        <itemPath>include/tools/remove_strings.h</itemPath>
-        <itemPath>include/tools/sentence_assemblarator.h</itemPath>
         <itemPath>include/tools/sort_map_by_value.h</itemPath>
-        <itemPath>include/tools/split_string_puctuation.h</itemPath>
-        <itemPath>include/tools/string_case.h</itemPath>
-        <itemPath>include/tools/string_replace.h</itemPath>
-        <itemPath>include/tools/string_start_end.h</itemPath>
-        <itemPath>include/tools/trim_punctuation.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
         <itemPath>include/tools/wagner_fischer_distance.h</itemPath>
       </logicalFolder>
@@ -267,6 +271,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
@@ -300,6 +306,8 @@
       </item>
       <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/nature/factorial.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
@@ -325,6 +333,38 @@
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/extract_vocabulary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/is_word_in_dictionary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/remove_strings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/sentence_assemblarator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_string_puctuation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/string_case.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/string_replace.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/trim_punctuation.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.h"
@@ -337,22 +377,11 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/tools/extract_vocabulary.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/get_substring.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/index_coordinate_conversions.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/is_word_in_dictionary.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -368,6 +397,11 @@
       </item>
       <item path="include/tools/number_of_decimals.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/parse_cli_arguments.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/relentless_file_reader.h"
@@ -375,27 +409,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/tools/remove_strings.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/sentence_assemblarator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/split_string_puctuation.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/string_case.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/string_replace.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/string_start_end.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/trim_punctuation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -556,6 +570,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
@@ -589,6 +605,8 @@
       </item>
       <item path="include/nature/consts.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/nature/factorial.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
@@ -614,6 +632,38 @@
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/extract_vocabulary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/is_word_in_dictionary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/remove_strings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/sentence_assemblarator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_string_puctuation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/string_case.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/string_replace.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/trim_punctuation.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.h"
@@ -626,22 +676,11 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/tools/extract_vocabulary.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/general.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/get_substring.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/index_coordinate_conversions.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/is_word_in_dictionary.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -657,6 +696,11 @@
       </item>
       <item path="include/tools/number_of_decimals.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/parse_cli_arguments.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/relentless_file_reader.h"
@@ -664,27 +708,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/tools/remove_strings.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/sentence_assemblarator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/split_string_puctuation.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/tools/string_case.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/string_replace.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/string_start_end.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/trim_punctuation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
       </item>
