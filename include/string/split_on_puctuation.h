@@ -13,7 +13,7 @@
 
 namespace mzlib {
         
-inline std::vector<std::string> split_string_puctuation (const std::string& str) 
+inline std::vector<std::string> split_on_puctuation (const std::string& str) 
 {
    std::vector<std::string> split_string;
    std::string new_candidate = "";
@@ -54,10 +54,10 @@ inline std::vector<std::string> split_string_puctuation (const std::string& str)
 #ifndef MZLIB_SPLIT_STRING_PUNCTUATION_TESTS_H
 #define MZLIB_SPLIT_STRING_PUNCTUATION_TESTS_H
 
-TEST(split_string_puctuation, basic) 
+TEST(split_on_puctuation, basic) 
 {
    std::string test = ",word!)";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 4);
    ASSERT_EQ(result[0], ",");
    ASSERT_EQ(result[1], "word");
@@ -65,47 +65,47 @@ TEST(split_string_puctuation, basic)
    ASSERT_EQ(result[3], ")");
 }
 
-TEST(split_string_puctuation, just_one_at_the_end) 
+TEST(split_on_puctuation, just_one_at_the_end) 
 {
    std::string test = "word.";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 2);
    ASSERT_EQ(result[0], "word");
    ASSERT_EQ(result[1], ".");
 }
 
-TEST(split_string_puctuation, no_punctuations) 
+TEST(split_on_puctuation, no_punctuations) 
 {
    std::string test = "word";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 1);
    ASSERT_EQ(result[0], "word");
 }
 
-TEST(split_string_puctuation, no_punctuations_at_beginning) 
+TEST(split_on_puctuation, no_punctuations_at_beginning) 
 {
    std::string test = "word).";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 3);
    ASSERT_EQ(result[0], "word");
    ASSERT_EQ(result[1], ")");
    ASSERT_EQ(result[2], ".");
 }
 
-TEST(split_string_puctuation, no_punctuations_at_end) 
+TEST(split_on_puctuation, no_punctuations_at_end) 
 {
    std::string test = "\",word";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 3);
    ASSERT_EQ(result[0], "\"");
    ASSERT_EQ(result[1], ",");
    ASSERT_EQ(result[2], "word");
 }
 
-TEST(split_string_puctuation, all_punctuations) 
+TEST(split_on_puctuation, all_punctuations) 
 {
    std::string test = "!?.,;:-\"()\n";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 11);
    ASSERT_EQ(result[0], "!");
    ASSERT_EQ(result[1], "?");
@@ -120,18 +120,18 @@ TEST(split_string_puctuation, all_punctuations)
    ASSERT_EQ(result[10], "\n");
 }
 
-TEST(split_string_puctuation, skips_apostrophe_in_contractions) 
+TEST(split_on_puctuation, skips_apostrophe_in_contractions) 
 {
    std::string test = "isn't";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 1);
    ASSERT_EQ(result[0], "isn't");
 }
 
-TEST(split_string_puctuation, skips_hyphen_in_compounds) 
+TEST(split_on_puctuation, skips_hyphen_in_compounds) 
 {
    std::string test = "mind-killer";
-   std::vector<std::string> result = mzlib::split_string_puctuation(test);
+   std::vector<std::string> result = mzlib::split_on_puctuation(test);
    ASSERT_EQ(result.size(), 1);
    ASSERT_EQ(result[0], "mind-killer");
 }

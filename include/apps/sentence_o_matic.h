@@ -10,7 +10,7 @@
 
 #include "../abstract/markov_chain.h"
 #include "../string/sentence_assemblarator.h"
-#include "../string/split_string_puctuation.h"
+#include "../string/split_on_puctuation.h"
 
 namespace mzlib {
 
@@ -22,7 +22,7 @@ public:
         
    void read_next (std::string state) override 
    {
-      std::vector<std::string> split = split_string_puctuation(state);
+      std::vector<std::string> split = split_on_puctuation(state);
       for (auto& word : split) {
          read(word);
       }

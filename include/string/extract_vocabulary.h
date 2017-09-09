@@ -20,7 +20,7 @@ void extract_vocabulary(std::istream& vocab_stream, InsertIt insert_it)
       std::string piece;
       vocab_stream >> piece;
       std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
-      auto split_words = mzlib::split_string_puctuation(piece);
+      auto split_words = mzlib::split_on_puctuation(piece);
       for(auto word : split_words) {
          word = mzlib::trim_punctuation(word);
          if (word.length() > 0) {
@@ -39,7 +39,7 @@ extract_vocabulary_with_count(std::istream& vocab_stream)
       std::string piece;
       vocab_stream >> piece;
       std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
-      auto split_words = mzlib::split_string_puctuation(piece);
+      auto split_words = mzlib::split_on_puctuation(piece);
       for(auto word : split_words) {
          word = mzlib::trim_punctuation(word);
          if (word.length()) {

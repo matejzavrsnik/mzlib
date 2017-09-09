@@ -102,7 +102,8 @@ using namespace mzlib::units;
 
    #include "include/string/is_word_in_dictionary.h"
    #include "include/string/sentence_assemblarator.h"
-   #include "include/string/split_string_puctuation.h"
+   #include "include/string/split_on_delimiter.h"
+   #include "include/string/split_on_puctuation.h"
    #include "include/string/extract_vocabulary.h"
    #include "include/string/remove_strings.h"
    #include "include/string/trim_punctuation.h"

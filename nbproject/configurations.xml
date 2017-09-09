@@ -80,7 +80,8 @@
         <itemPath>include/string/is_word_in_dictionary.h</itemPath>
         <itemPath>include/string/remove_strings.h</itemPath>
         <itemPath>include/string/sentence_assemblarator.h</itemPath>
-        <itemPath>include/string/split_string_puctuation.h</itemPath>
+        <itemPath>include/string/split_on_delimiter.h</itemPath>
+        <itemPath>include/string/split_on_puctuation.h</itemPath>
         <itemPath>include/string/string_case.h</itemPath>
         <itemPath>include/string/string_replace.h</itemPath>
         <itemPath>include/string/string_start_end.h</itemPath>
@@ -355,7 +356,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/split_string_puctuation.h"
+      <item path="include/string/split_on_delimiter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_on_puctuation.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -656,7 +662,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/split_string_puctuation.h"
+      <item path="include/string/split_on_delimiter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_on_puctuation.h"
             ex="false"
             tool="3"
             flavor2="0">
