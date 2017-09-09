@@ -8,6 +8,8 @@
 #ifndef MZLIB_PARSE_CLI_ARGUMENTS_H
 #define MZLIB_PARSE_CLI_ARGUMENTS_H
 
+#include <cstring>
+
 namespace mzlib {
 
 // Parses main function arguments in form of "--name=value"

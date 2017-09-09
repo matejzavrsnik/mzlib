@@ -8,6 +8,8 @@
 #ifndef MZLIB_STRING_CASE_H
 #define MZLIB_STRING_CASE_H
 
+#include <algorithm>
+
 namespace mzlib {
 
 inline void to_lowercase(std::string& str)

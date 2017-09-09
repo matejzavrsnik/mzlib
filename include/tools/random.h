@@ -49,15 +49,6 @@ inline unsigned get_random_integer_between (unsigned from, unsigned to)
    return static_cast<unsigned>(random_number * static_cast<double>(to - from) + static_cast<double>(from));
 }
 
-template<class T, class U> typename std::map<T,U>::iterator 
-get_random_element (std::map<T,U>& from_map) 
-{
-   unsigned random = get_random_integer_between(0, from_map.size()-1);
-   auto result = from_map.begin();
-   std::advance(result, random);
-   return result;
-}
-
 } // namespace
 
 #endif // MZLIB_UTILS_RANDOM_H
@@ -67,7 +58,7 @@ get_random_element (std::map<T,U>& from_map)
 #ifndef MZLIB_UTILS_RANDOM_TESTS_H
 #define MZLIB_UTILS_RANDOM_TESTS_H
 
-TEST(random, get_random_integer) 
+TEST(get_random_integer, demo) 
 {
    unsigned int a = mzlib::get_random_integer();
    unsigned int b = mzlib::get_random_integer();
@@ -76,6 +67,40 @@ TEST(random, get_random_integer)
    ASSERT_NE(a, b);
    ASSERT_NE(b, c);
    ASSERT_NE(c, d);
+}
+
+TEST(get_random_integer_between, distribution_test_whole_range) 
+{
+   int repetitions = 100000;
+   std::vector<int> event_occurences(100, 0);
+   for(int i=0; i<repetitions; ++i) {
+      int event = mzlib::get_random_integer_between(0, 100);
+      event_occurences[event]++;
+   }
+
+   for(int i=0; i<100; ++i)
+   {
+      ASSERT_NEAR(event_occurences[i], repetitions/100, repetitions*0.02);
+   }
+}
+
+TEST(get_random_integer_between, distribution_test_range_without_zero) 
+{
+   int repetitions = 100000;
+   std::vector<int> event_occurences(100, 0);
+   for(int i=0; i<repetitions; ++i) {
+      int event = mzlib::get_random_integer_between(50, 100);
+      event_occurences[event]++;
+   }
+   
+   for(int i=0; i<50; ++i)
+   {
+      ASSERT_EQ(0, event_occurences[i]);
+   }
+   for(int i=50; i<100; ++i)
+   {
+      ASSERT_NEAR(event_occurences[i], repetitions/50, repetitions*0.02);
+   }
 }
 
 TEST(random, get_random_double_between_0_1) 
@@ -87,21 +112,6 @@ TEST(random, get_random_double_between_0_1)
    ASSERT_NE(a, b);
    ASSERT_NE(b, c);
    ASSERT_NE(c, d);
-}
-
-TEST(random, get_random_element) 
-{
-   std::map<int,int> example;
-   example[0] = 0;
-   example[1] = 2;
-   example[2] = 3;
-   std::map<int,int>::iterator random_element = mzlib::get_random_element(example);
-   // how test if really random? :) I'll test instead if it returns any valid.
-   ASSERT_TRUE(
-      random_element->second == 0 ||
-      random_element->second == 2 ||
-      random_element->second == 3
-   );
 }
 
 #endif // MZLIB_UTILS_RANDOM_TESTS_H

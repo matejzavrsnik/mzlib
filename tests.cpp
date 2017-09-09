@@ -80,6 +80,7 @@ using namespace mzlib::units;
    #include "include/iterators/copy.h"
    #include "include/iterators/index_conversion.h"
    #include "include/iterators/is_last.h"
+   #include "include/iterators/get_random.h"
 
    #include "include/joke/supersafe_number.h"
 

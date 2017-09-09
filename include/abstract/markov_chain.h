@@ -31,7 +31,7 @@ private:
         
    const T get_random_state () 
    {
-      return get_random_element(m_states)->first;
+      return get_random_element(m_states.begin(), m_states.end())->first;
    }
         
 protected:

@@ -9,6 +9,8 @@
 #define MZLIB_READ_WRITE_FILE_H
 
 #include <string>
+#include <fstream>
+#include <sstream>
 
 namespace mzlib {
 
@@ -34,6 +36,16 @@ inline std::string read_file (
    filestream.read(&vec_content[0], chars_to_read);
    std::string str_content(vec_content.begin(), vec_content.end());
    return str_content;
+}
+
+inline std::vector<std::string> read_file_lines(std::string filename)
+{
+   std::ifstream file(filename);
+   std::string line;
+   std::vector<std::string> lines;
+   while (std::getline(file, line))
+      lines.push_back(line);
+   return std::move(lines);
 }
 
 // Save string contents into a file

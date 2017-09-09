@@ -9,6 +9,7 @@
 #define MZLIB_WAGNER_FISCHER_DISTANCE_H
 
 #include <vector>
+#include "fast_min.h"
 
 namespace mzlib {
         

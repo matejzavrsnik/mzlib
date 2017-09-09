@@ -37,6 +37,7 @@
         <itemPath>include/iterators/copy.h</itemPath>
         <itemPath>include/iterators/distance_comparison.h</itemPath>
         <itemPath>include/iterators/fast_forward.h</itemPath>
+        <itemPath>include/iterators/get_random.h</itemPath>
         <itemPath>include/iterators/index_conversion.h</itemPath>
         <itemPath>include/iterators/insert_if_unique.h</itemPath>
         <itemPath>include/iterators/is_last.h</itemPath>
@@ -260,6 +261,8 @@
             flavor2="0">
       </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/get_random.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/index_conversion.h"
             ex="false"
@@ -559,6 +562,8 @@
             flavor2="0">
       </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/get_random.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/index_conversion.h"
             ex="false"
