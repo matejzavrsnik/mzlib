@@ -54,6 +54,7 @@ TEST(get_random_element, size_one)
    std::vector<int> example;
    example.push_back(1);
    auto random_element = mzlib::get_random_element(example.begin(), example.end());
+   ASSERT_EQ(example.begin(), random_element);
 }
 
 #endif // MZLIB_GET_RANDOM_TESTS_H
