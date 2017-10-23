@@ -8,6 +8,10 @@
 #ifndef MZLIB_SORT_MAP_BY_VALUE_H
 #define MZLIB_SORT_MAP_BY_VALUE_H
 
+#include <map>
+#include <algorithm>
+#include "../lang/binary_options.h"
+
 namespace mzlib {
     
 // Map is already intrinsically sorted by keys, but what if you need items sorted

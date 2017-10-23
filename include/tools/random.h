@@ -53,10 +53,7 @@ inline unsigned get_random_integer_between (unsigned from, unsigned to)
 
 #endif // MZLIB_UTILS_RANDOM_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_UTILS_RANDOM_TESTS_H
-#define MZLIB_UTILS_RANDOM_TESTS_H
+#ifdef MZLIB_UTILS_RANDOM_TESTS_H
 
 TEST(get_random_integer, demo) 
 {
@@ -115,5 +112,3 @@ TEST(random, get_random_double_between_0_1)
 }
 
 #endif // MZLIB_UTILS_RANDOM_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

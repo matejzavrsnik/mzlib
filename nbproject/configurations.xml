@@ -118,6 +118,21 @@
       <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f1" displayName="tools" projectFiles="true">
+        <itemPath>tests/tools/add_to_tally.cpp</itemPath>
+        <itemPath>tests/tools/copy_first_n_over_rest.cpp</itemPath>
+        <itemPath>tests/tools/equidistant_sequence.cpp</itemPath>
+        <itemPath>tests/tools/fast_min.cpp</itemPath>
+        <itemPath>tests/tools/genetic.cpp</itemPath>
+        <itemPath>tests/tools/index_coordinate_conversions.cpp</itemPath>
+        <itemPath>tests/tools/next_lex_permutation.cpp</itemPath>
+        <itemPath>tests/tools/number_of_decimals.cpp</itemPath>
+        <itemPath>tests/tools/parse_cli_arguments.cpp</itemPath>
+        <itemPath>tests/tools/random.cpp</itemPath>
+        <itemPath>tests/tools/sort_map_by_value.cpp</itemPath>
+        <itemPath>tests/tools/twoway_streambuf.cpp</itemPath>
+        <itemPath>tests/tools/wagner_fischer_distance.cpp</itemPath>
+      </logicalFolder>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -440,6 +455,50 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="tests/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/copy_first_n_over_rest.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/equidistant_sequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/index_coordinate_conversions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/next_lex_permutation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/number_of_decimals.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/parse_cli_arguments.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/sort_map_by_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/wagner_fischer_distance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -742,6 +801,50 @@
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/copy_first_n_over_rest.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/equidistant_sequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/index_coordinate_conversions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/next_lex_permutation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/number_of_decimals.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/parse_cli_arguments.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/tools/random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/sort_map_by_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/wagner_fischer_distance.cpp"
             ex="false"
             tool="1"
             flavor2="0">

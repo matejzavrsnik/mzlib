@@ -9,6 +9,7 @@
 #define MZLIB_WAGNER_FISCHER_DISTANCE_H
 
 #include <vector>
+#include <algorithm>
 #include "fast_min.h"
 
 namespace mzlib {
@@ -52,10 +53,7 @@ int wagner_fischer_distance (const TYPE& str1, const TYPE& str2)
 
 #endif // MZLIB_WAGNER_FISCHER_DISTANCE_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_WAGNER_FISCHER_DISTANCE_TESTS_H
-#define MZLIB_WAGNER_FISCHER_DISTANCE_TESTS_H
+#ifdef MZLIB_WAGNER_FISCHER_DISTANCE_TESTS_H
 
 TEST(wagner_fischer_distance, demo) 
 {
@@ -202,5 +200,3 @@ TEST(wagner_fischer_distance, insertion_middle)
 }
 
 #endif // MZLIB_WAGNER_FISCHER_DISTANCE_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

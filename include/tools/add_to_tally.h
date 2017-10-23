@@ -8,6 +8,8 @@
 #ifndef MZLIB_ADD_TO_TALLY_H
 #define MZLIB_ADD_TO_TALLY_H
 
+#include <map>
+
 namespace mzlib {
     
 // Useful for when you use map to count occurrences
@@ -21,10 +23,7 @@ void add_to_tally(std::map<Key, Value>& word_map, const Key& word)
 
 #endif // MZLIB_ADD_TO_TALLY_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_ADD_TO_TALLY_TESTS_H
-#define MZLIB_ADD_TO_TALLY_TESTS_H
+#ifdef MZLIB_ADD_TO_TALLY_TESTS_H
 
 TEST(add_to_tally, basic) 
 {
@@ -42,5 +41,3 @@ TEST(add_to_tally, basic)
 }
 
 #endif // MZLIB_ADD_TO_TALLY_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

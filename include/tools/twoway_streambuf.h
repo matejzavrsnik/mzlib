@@ -62,7 +62,7 @@ using twoway_streambuf = basic_twoway_streambuf<char, std::char_traits<char>>;
 
 #endif	/* MZLIB_TWOWAY_STREAMBUF_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_TWOWAY_STREAMBUF_TESTS_H
 
 TEST(basic_twoway_streambuf, demo_test_string_in_integer_out) 
 {
@@ -123,4 +123,4 @@ TEST(basic_twoway_streambuf, demo_test_integer_in_integer_out)
 }
 
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_TWOWAY_STREAMBUF_TESTS_H

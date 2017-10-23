@@ -8,6 +8,9 @@
 #ifndef MZLIB_NEXT_LEX_PERMUTATION_H
 #define MZLIB_NEXT_LEX_PERMUTATION_H
 
+#include <algorithm>
+#include "../iterators/conditional_find.h"
+
 namespace mzlib {
     
 // I think everybody except me has written lexical permutation function at least 
@@ -30,10 +33,7 @@ void next_lex_permutation(Iterator begin, Iterator end)
 
 #endif // MZLIB_NEXT_LEX_PERMUTATION_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_NEXT_LEX_PERMUTATION_TESTS_H
-#define MZLIB_NEXT_LEX_PERMUTATION_TESTS_H
+#ifdef MZLIB_NEXT_LEX_PERMUTATION_TESTS_H
 
 TEST(next_lex_permutation, basic)
 {
@@ -84,5 +84,3 @@ TEST(next_lex_permutation, end)
 }
 
 #endif // MZLIB_NEXT_LEX_PERMUTATION_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

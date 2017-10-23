@@ -8,24 +8,6 @@
 #ifndef MZLIB_INDEX_ITERATOR_CONVERSIONS_H
 #define MZLIB_INDEX_ITERATOR_CONVERSIONS_H
 
-#include <string>
-#include <iomanip> // std::setprecision
-#include <sstream>
-#include <vector>
-#include <functional> // std::function
-#include <limits> // std::numeric_limits
-#include <algorithm> // std::find
-#include <map>
-#include <cstring>
-#include <numeric> // std::accumulate
-#include <cassert>
-#include <unordered_set>
-
-#include "../lang/binary_options.h"
-#include "../nature/vector.h"
-#include "../lang/exceptions.h"
-#include "../lang/optional.h"
-
 namespace mzlib {
     
 // useful when representing a matrix with one-dimensional array
@@ -49,10 +31,7 @@ inline std::array<uint,2> get_coordinates_from_index(uint const index, uint cons
 
 #endif // MZLIB_INDEX_ITERATOR_CONVERSIONS_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
-#define MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
+#ifdef MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
 
 TEST(get_index_from_coordinates, basic)
 {
@@ -83,4 +62,3 @@ TEST(get_coordinates_from_index, basic)
 
 #endif // MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

@@ -11,6 +11,7 @@
 #include <functional>
 #include <algorithm> // std::sort
 #include "../tools/random.h"
+#include "../tools/copy_first_n_over_rest.h"
 
 namespace mzlib {
    

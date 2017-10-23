@@ -41,7 +41,7 @@ get_number_of_decimals (T num)
 
 #endif // NUMBER_OF_DECIMALS_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef NUMBER_OF_DECIMALS_TESTS_H
 
 TEST(get_number_of_decimals, basic) 
 {
@@ -57,4 +57,4 @@ TEST(get_number_of_decimals, basic)
    ASSERT_EQ(6, mzlib::get_number_of_decimals(double_num));
 }
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // NUMBER_OF_DECIMALS_TESTS_H

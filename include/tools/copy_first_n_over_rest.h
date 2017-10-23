@@ -22,10 +22,7 @@ template<class T> void copy_first_n_over_rest (T& v, size_t n)
 
 #endif // MZLIB_COPY_FIRST_N_OVER_REST_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
-#define MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
+#ifdef MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
 
 TEST(copy_first_n_over_rest, demo) 
 {
@@ -39,4 +36,3 @@ TEST(copy_first_n_over_rest, demo)
 
 #endif // MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

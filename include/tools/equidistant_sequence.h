@@ -9,7 +9,6 @@
 #define MZLIB_EQUIDISTANT_SEQUENCE_H
 
 #include <optional>
-
 #include "../iterators/fast_forward.h"
 
 namespace mzlib {
@@ -52,7 +51,7 @@ std::optional<Container> create_equidistant_sequence(
 
 #endif // MZLIB_EQUIDISTANT_SEQUENCE_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_EQUIDISTANT_SEQUENCE_TESTS_H
 
 TEST(create_equidistant_sequence, basic_forward)
 {
@@ -219,4 +218,4 @@ TEST(create_equidistant_sequence, another_type_of_container)
    ASSERT_EQ(std::vector<int>({3,6,9,12,15}), eds.value());
 }
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_EQUIDISTANT_SEQUENCE_TESTS_H

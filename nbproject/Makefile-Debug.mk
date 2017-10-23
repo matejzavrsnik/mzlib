@@ -37,7 +37,20 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
-	${OBJECTDIR}/tests/test_universe_performance.o
+	${OBJECTDIR}/tests/test_universe_performance.o \
+	${OBJECTDIR}/tests/tools/add_to_tally.o \
+	${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o \
+	${OBJECTDIR}/tests/tools/equidistant_sequence.o \
+	${OBJECTDIR}/tests/tools/fast_min.o \
+	${OBJECTDIR}/tests/tools/genetic.o \
+	${OBJECTDIR}/tests/tools/index_coordinate_conversions.o \
+	${OBJECTDIR}/tests/tools/next_lex_permutation.o \
+	${OBJECTDIR}/tests/tools/number_of_decimals.o \
+	${OBJECTDIR}/tests/tools/parse_cli_arguments.o \
+	${OBJECTDIR}/tests/tools/random.o \
+	${OBJECTDIR}/tests/tools/sort_map_by_value.o \
+	${OBJECTDIR}/tests/tools/twoway_streambuf.o \
+	${OBJECTDIR}/tests/tools/wagner_fischer_distance.o
 
 
 # C Compiler Flags
@@ -78,6 +91,71 @@ ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_universe_performance.o tests/test_universe_performance.cpp
+
+${OBJECTDIR}/tests/tools/add_to_tally.o: tests/tools/add_to_tally.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/add_to_tally.o tests/tools/add_to_tally.cpp
+
+${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o: tests/tools/copy_first_n_over_rest.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o tests/tools/copy_first_n_over_rest.cpp
+
+${OBJECTDIR}/tests/tools/equidistant_sequence.o: tests/tools/equidistant_sequence.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/equidistant_sequence.o tests/tools/equidistant_sequence.cpp
+
+${OBJECTDIR}/tests/tools/fast_min.o: tests/tools/fast_min.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/fast_min.o tests/tools/fast_min.cpp
+
+${OBJECTDIR}/tests/tools/genetic.o: tests/tools/genetic.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/genetic.o tests/tools/genetic.cpp
+
+${OBJECTDIR}/tests/tools/index_coordinate_conversions.o: tests/tools/index_coordinate_conversions.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/index_coordinate_conversions.o tests/tools/index_coordinate_conversions.cpp
+
+${OBJECTDIR}/tests/tools/next_lex_permutation.o: tests/tools/next_lex_permutation.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/next_lex_permutation.o tests/tools/next_lex_permutation.cpp
+
+${OBJECTDIR}/tests/tools/number_of_decimals.o: tests/tools/number_of_decimals.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/number_of_decimals.o tests/tools/number_of_decimals.cpp
+
+${OBJECTDIR}/tests/tools/parse_cli_arguments.o: tests/tools/parse_cli_arguments.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/parse_cli_arguments.o tests/tools/parse_cli_arguments.cpp
+
+${OBJECTDIR}/tests/tools/random.o: tests/tools/random.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/random.o tests/tools/random.cpp
+
+${OBJECTDIR}/tests/tools/sort_map_by_value.o: tests/tools/sort_map_by_value.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/sort_map_by_value.o tests/tools/sort_map_by_value.cpp
+
+${OBJECTDIR}/tests/tools/twoway_streambuf.o: tests/tools/twoway_streambuf.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/twoway_streambuf.o tests/tools/twoway_streambuf.cpp
+
+${OBJECTDIR}/tests/tools/wagner_fischer_distance.o: tests/tools/wagner_fischer_distance.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/wagner_fischer_distance.o tests/tools/wagner_fischer_distance.cpp
 
 # Subprojects
 .build-subprojects:

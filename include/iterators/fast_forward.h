@@ -8,6 +8,8 @@
 #ifndef MZLIB_FAST_FORWARD_ITERATOR_UNTIL_H
 #define MZLIB_FAST_FORWARD_ITERATOR_UNTIL_H
 
+#include <functional>
+
 namespace mzlib {
     
 // Iterate forward in a container until the condition is met.

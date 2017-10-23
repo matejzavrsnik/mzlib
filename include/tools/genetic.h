@@ -8,7 +8,7 @@
 #ifndef MZLIB_UTILS_GENETIC_H
 #define	MZLIB_UTILS_GENETIC_H
 
-#include "../abstract/genetic_base.h"
+#include "../abstract/genetic_container.h"
 
 namespace mzlib {
 
@@ -76,7 +76,7 @@ TYPE mendel_smart(genetic_base<TYPE>& genetic)
 
 #endif	/* MZLIB_UTILS_GENETIC_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_UTILS_GENETIC_TESTS_H
 
 // Delete DISABLED_ to see the function in action
 TEST(genetic_tools, DISABLED_mendel_smart_demo) 
@@ -111,4 +111,4 @@ TEST(genetic_tools, DISABLED_mendel_smart_demo)
    ASSERT_LT(penalty_before, penalty_after); // warning: probabilistic assert
 }
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_UTILS_GENETIC_TESTS_H

@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef FAST_MIN_H
-#define FAST_MIN_H
+#ifndef MZLIB_FAST_MIN_H
+#define MZLIB_FAST_MIN_H
 
 namespace mzlib {
    
@@ -31,12 +31,9 @@ template <class T> T&& fast_min (T&& min1, T&& min2, T&& min3)
 
 } // namespace
 
-#endif // FAST_MIN_H
+#endif // MZLIB_FAST_MIN_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef FAST_MIN_TESTS_H
-#define FAST_MIN_TESTS_H
+#ifdef MZLIB_FAST_MIN_TESTS_H
 
 TEST(fast_min, basic_lvalue) 
 {
@@ -61,8 +58,6 @@ TEST(lvalue, basic_rvalue)
    ASSERT_EQ(1, mzlib::fast_min(3, 2, 1));
 }
 
-#endif // FAST_MIN_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_FAST_MIN_TESTS_H
 
 

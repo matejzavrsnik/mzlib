@@ -112,20 +112,6 @@ using namespace mzlib::units;
    #include "include/string/string_replace.h"
    #include "include/string/get_substring.h"
 
-   #include "include/tools/number_of_decimals.h"
-   #include "include/tools/twoway_streambuf.h"
-   #include "include/tools/genetic.h"
-   #include "include/tools/fast_min.h"
-   #include "include/tools/equidistant_sequence.h"
-   #include "include/tools/wagner_fischer_distance.h"
-   #include "include/tools/index_coordinate_conversions.h"
-   #include "include/tools/copy_first_n_over_rest.h"
-   #include "include/tools/add_to_tally.h"
-   #include "include/tools/sort_map_by_value.h"
-   #include "include/tools/next_lex_permutation.h"
-   #include "include/tools/random.h"
-   #include "include/tools/parse_cli_arguments.h"
-
    #include "include/image_texture.h"
 
 #undef MZLIB_BUILDING_TESTS
