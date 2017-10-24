@@ -15,7 +15,7 @@ namespace mzlib {
 
 // Parses main function arguments in form of "--name=value"
 inline std::map<std::string, std::string> 
-parse_arguments (int argc, char **argv)
+parse_arguments (int argc, char const* const* argv)
 {
    std::map<std::string, std::string> arguments;
    if (argc>1) // 0 is executable name
@@ -43,6 +43,45 @@ parse_arguments (int argc, char **argv)
 
 #ifdef MZLIB_PARSE_CLI_ARGUMENTS_TESTS_H
 
-// No tests yet
+TEST(parse_arguments, zero_arguments) 
+{
+   const int argc = 1;
+   const char* argv[argc] = 
+   {
+      "program.exe"
+   };
+   auto arguments = mzlib::parse_arguments(argc, argv);
+   ASSERT_EQ(0, arguments.size());
+}
+
+TEST(parse_arguments, one_argument) 
+{
+   const int argc = 2;
+   const char* argv[argc] = 
+   {
+      "program.exe",
+      "--superhero=batman"
+   };
+   auto arguments = mzlib::parse_arguments(argc, argv);
+   ASSERT_EQ(1, arguments.size());
+   ASSERT_EQ("batman", arguments["superhero"]);
+}
+
+TEST(parse_arguments, many_arguments) 
+{
+   const int argc = 4;
+   const char* argv[argc] = 
+   {
+      "program.exe",
+      "--superhero=batman",
+      "--sidekick=robin",
+      "--archvillain=joker"
+   };
+   auto arguments = mzlib::parse_arguments(argc, argv);
+   ASSERT_EQ(3, arguments.size());
+   ASSERT_EQ("batman", arguments["superhero"]);
+   ASSERT_EQ("robin", arguments["sidekick"]);
+   ASSERT_EQ("joker", arguments["archvillain"]);
+}
 
 #endif // MZLIB_PARSE_CLI_ARGUMENTS_TESTS_H

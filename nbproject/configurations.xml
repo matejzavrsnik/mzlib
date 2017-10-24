@@ -118,6 +118,25 @@
       <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
         <itemPath>tests/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="nature" projectFiles="true">
+        <itemPath>tests/nature/mass_centre.cpp</itemPath>
+        <itemPath>tests/nature/units_strong_definitions.cpp</itemPath>
+        <itemPath>tests/nature/universe.cpp</itemPath>
+        <itemPath>tests/nature/vector.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="string" projectFiles="true">
+        <itemPath>tests/string/extract_vocabulary.cpp</itemPath>
+        <itemPath>tests/string/get_substring.cpp</itemPath>
+        <itemPath>tests/string/is_word_in_dictionary.cpp</itemPath>
+        <itemPath>tests/string/remove_strings.cpp</itemPath>
+        <itemPath>tests/string/sentence_assemblarator.cpp</itemPath>
+        <itemPath>tests/string/split_on_delimiter.cpp</itemPath>
+        <itemPath>tests/string/split_on_punctuation.cpp</itemPath>
+        <itemPath>tests/string/string_case.cpp</itemPath>
+        <itemPath>tests/string/string_replace.cpp</itemPath>
+        <itemPath>tests/string/string_start_end.cpp</itemPath>
+        <itemPath>tests/string/trim_punctuation.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="tools" projectFiles="true">
         <itemPath>tests/tools/add_to_tally.cpp</itemPath>
         <itemPath>tests/tools/copy_first_n_over_rest.cpp</itemPath>
@@ -449,6 +468,54 @@
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/nature/units_strong_definitions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/nature/universe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/nature/vector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/extract_vocabulary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/is_word_in_dictionary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/sentence_assemblarator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/split_on_delimiter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/split_on_punctuation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/string_case.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/string_start_end.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/trim_punctuation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"
@@ -799,6 +866,54 @@
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/nature/units_strong_definitions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/nature/universe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/nature/vector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/extract_vocabulary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/is_word_in_dictionary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/sentence_assemblarator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/split_on_delimiter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/split_on_punctuation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/string/string_case.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/string_start_end.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/trim_punctuation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"

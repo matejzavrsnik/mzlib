@@ -25,13 +25,9 @@ inline void string_replace (std::string& str, const std::string& replace_what, c
 
 #endif // HEADER_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_STRING_REPLACE_TESTS_H
-#define MZLIB_STRING_REPLACE_TESTS_H
+#ifdef MZLIB_STRING_REPLACE_TESTS_H
 
 // No tests yet
 
 #endif // MZLIB_STRING_REPLACE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

@@ -94,24 +94,6 @@ using namespace mzlib::units;
    #include "include/laws/gravitation.h"
    #include "include/laws/vector_operations.h"
 
-   #include "include/nature/mass_centre.h"
-   #include "include/nature/units_strong_definitions.h"
-   #include "include/nature/universe.h"
-   #include "include/nature/vector.h"
-   #include "include/nature/factorial.h"
-
-   #include "include/string/is_word_in_dictionary.h"
-   #include "include/string/sentence_assemblarator.h"
-   #include "include/string/split_on_delimiter.h"
-   #include "include/string/split_on_puctuation.h"
-   #include "include/string/extract_vocabulary.h"
-   #include "include/string/remove_strings.h"
-   #include "include/string/trim_punctuation.h"
-   #include "include/string/string_start_end.h"
-   #include "include/string/string_case.h"
-   #include "include/string/string_replace.h"
-   #include "include/string/get_substring.h"
-
    #include "include/image_texture.h"
 
 #undef MZLIB_BUILDING_TESTS

@@ -9,6 +9,7 @@
 #define MZLIB_REMOVE_STRINGS_H
 
 #include "string_start_end.h"
+#include <functional>
 
 namespace mzlib {
 
@@ -79,10 +80,7 @@ remove_strings_which_dont (const std::vector<std::string>& all_strings, paramete
 
 #endif // MZLIB_REMOVE_STRINGS_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_REMOVE_STRINGS_TESTS_H
-#define MZLIB_REMOVE_STRINGS_TESTS_H
+#ifdef MZLIB_REMOVE_STRINGS_TESTS_H
 
 TEST(remove_strings, which_end_with)
 {
@@ -159,5 +157,4 @@ TEST(remove_strings, which_dont_end_with)
 
 #endif // MZLIB_REMOVE_STRINGS_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
 

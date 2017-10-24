@@ -37,6 +37,21 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
+	${OBJECTDIR}/tests/nature/mass_centre.o \
+	${OBJECTDIR}/tests/nature/units_strong_definitions.o \
+	${OBJECTDIR}/tests/nature/universe.o \
+	${OBJECTDIR}/tests/nature/vector.o \
+	${OBJECTDIR}/tests/string/extract_vocabulary.o \
+	${OBJECTDIR}/tests/string/get_substring.o \
+	${OBJECTDIR}/tests/string/is_word_in_dictionary.o \
+	${OBJECTDIR}/tests/string/remove_strings.o \
+	${OBJECTDIR}/tests/string/sentence_assemblarator.o \
+	${OBJECTDIR}/tests/string/split_on_delimiter.o \
+	${OBJECTDIR}/tests/string/split_on_punctuation.o \
+	${OBJECTDIR}/tests/string/string_case.o \
+	${OBJECTDIR}/tests/string/string_replace.o \
+	${OBJECTDIR}/tests/string/string_start_end.o \
+	${OBJECTDIR}/tests/string/trim_punctuation.o \
 	${OBJECTDIR}/tests/test_universe_performance.o \
 	${OBJECTDIR}/tests/tools/add_to_tally.o \
 	${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o \
@@ -86,6 +101,81 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
+
+${OBJECTDIR}/tests/nature/mass_centre.o: tests/nature/mass_centre.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/nature/mass_centre.o tests/nature/mass_centre.cpp
+
+${OBJECTDIR}/tests/nature/units_strong_definitions.o: tests/nature/units_strong_definitions.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/nature/units_strong_definitions.o tests/nature/units_strong_definitions.cpp
+
+${OBJECTDIR}/tests/nature/universe.o: tests/nature/universe.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/nature/universe.o tests/nature/universe.cpp
+
+${OBJECTDIR}/tests/nature/vector.o: tests/nature/vector.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/nature/vector.o tests/nature/vector.cpp
+
+${OBJECTDIR}/tests/string/extract_vocabulary.o: tests/string/extract_vocabulary.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/extract_vocabulary.o tests/string/extract_vocabulary.cpp
+
+${OBJECTDIR}/tests/string/get_substring.o: tests/string/get_substring.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/get_substring.o tests/string/get_substring.cpp
+
+${OBJECTDIR}/tests/string/is_word_in_dictionary.o: tests/string/is_word_in_dictionary.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/is_word_in_dictionary.o tests/string/is_word_in_dictionary.cpp
+
+${OBJECTDIR}/tests/string/remove_strings.o: tests/string/remove_strings.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/remove_strings.o tests/string/remove_strings.cpp
+
+${OBJECTDIR}/tests/string/sentence_assemblarator.o: tests/string/sentence_assemblarator.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/sentence_assemblarator.o tests/string/sentence_assemblarator.cpp
+
+${OBJECTDIR}/tests/string/split_on_delimiter.o: tests/string/split_on_delimiter.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/split_on_delimiter.o tests/string/split_on_delimiter.cpp
+
+${OBJECTDIR}/tests/string/split_on_punctuation.o: tests/string/split_on_punctuation.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/split_on_punctuation.o tests/string/split_on_punctuation.cpp
+
+${OBJECTDIR}/tests/string/string_case.o: tests/string/string_case.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/string_case.o tests/string/string_case.cpp
+
+${OBJECTDIR}/tests/string/string_replace.o: tests/string/string_replace.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/string_replace.o tests/string/string_replace.cpp
+
+${OBJECTDIR}/tests/string/string_start_end.o: tests/string/string_start_end.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/string_start_end.o tests/string/string_start_end.cpp
+
+${OBJECTDIR}/tests/string/trim_punctuation.o: tests/string/trim_punctuation.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/trim_punctuation.o tests/string/trim_punctuation.cpp
 
 ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

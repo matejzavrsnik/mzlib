@@ -49,10 +49,7 @@ inline std::vector<std::string> split_on_puctuation (const std::string& str)
 
 #endif // MZLIB_SPLIT_STRING_PUNCTUATION_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_SPLIT_STRING_PUNCTUATION_TESTS_H
-#define MZLIB_SPLIT_STRING_PUNCTUATION_TESTS_H
+#ifdef MZLIB_SPLIT_STRING_PUNCTUATION_TESTS_H
 
 TEST(split_on_puctuation, basic) 
 {
@@ -138,4 +135,3 @@ TEST(split_on_puctuation, skips_hyphen_in_compounds)
 
 #endif // MZLIB_SPLIT_STRING_PUNCTUATION_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

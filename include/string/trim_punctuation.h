@@ -8,6 +8,8 @@
 #ifndef MZLIB_TRIM_PUNCTUATION_H
 #define MZLIB_TRIM_PUNCTUATION_H
 
+#include <algorithm>
+
 namespace mzlib {
 
 // strips all non-letter characters from beginning and end of string
@@ -39,10 +41,7 @@ trim_punctuation_whole(const std::string& word)
 
 #endif // MZLIB_TRIM_PUNCTUATION_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_TRIM_PUNCTUATION_TESTS_H
-#define MZLIB_TRIM_PUNCTUATION_TESTS_H
+#ifdef MZLIB_TRIM_PUNCTUATION_TESTS_H
 
 TEST(trim_punctiation, demo)
 {
@@ -57,8 +56,6 @@ TEST(trim_punctiation, demo)
    ASSERT_EQ("I must not fear", mzlib::trim_punctuation("11I must not fear11")); 
 }
 
-
-
 TEST(trim_punctiation_whole, demo)
 {
    std::string text(" !?I must not fear.,: Fear is the mind-killer.,* ");
@@ -68,6 +65,4 @@ TEST(trim_punctiation_whole, demo)
 }
 
 #endif // MZLIB_TRIM_PUNCTUATION_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS
 

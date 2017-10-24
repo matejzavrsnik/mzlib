@@ -287,10 +287,7 @@ private:
 
 #endif /* MZLIB_UNIVERSE_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_UNIVERSE_TESTS_H
-#define MZLIB_UNIVERSE_TESTS_H
+#ifdef MZLIB_UNIVERSE_TESTS_H
 
 using namespace mzlib::units;
 
@@ -552,5 +549,3 @@ TEST(universe, moving_object_while_gravity_simulation_running_naive)
 }
 
 #endif // MZLIB_UNIVERSE_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

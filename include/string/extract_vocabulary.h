@@ -9,6 +9,7 @@
 #define MZLIB_EXTRACT_VOCABULARY_H
 
 #include "trim_punctuation.h"
+#include "split_on_puctuation.h"
 #include "../tools/add_to_tally.h"
 
 namespace mzlib {
@@ -55,10 +56,7 @@ extract_vocabulary_with_count(std::istream& vocab_stream)
 
 #endif // MZLIB_EXTRACT_VOCABULARY_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_EXTRACT_VOCABULARY_TESTS_H
-#define MZLIB_EXTRACT_VOCABULARY_TESTS_H
+#ifdef MZLIB_EXTRACT_VOCABULARY_TESTS_H
 
 TEST(extract_vocabulary, demo)
 {
@@ -133,4 +131,3 @@ TEST(extract_vocabulary_with_count, empty_stream)
 
 #endif // MZLIB_EXTRACT_VOCABULARY_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

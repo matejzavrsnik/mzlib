@@ -86,10 +86,7 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
 
 #endif // SENTENCE_ASSEMBLARATOR_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef SENTENCE_ASSEMBLARATOR_TESTS_H
-#define SENTENCE_ASSEMBLARATOR_TESTS_H
+#ifdef SENTENCE_ASSEMBLARATOR_TESTS_H
 
 TEST(sentence_assemblarator, basic) 
 {
@@ -156,4 +153,3 @@ TEST(sentence_assemblarator, paretheses_handling)
 
 #endif // SENTENCE_ASSEMBLARATOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

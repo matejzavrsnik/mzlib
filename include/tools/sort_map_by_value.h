@@ -39,10 +39,7 @@ std::vector<std::pair<Key, Value>> sort_map_by_value(
 
 #endif // MZLIB_SORT_MAP_BY_VALUE_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_SORT_MAP_BY_VALUE_TESTS_H
-#define MZLIB_SORT_MAP_BY_VALUE_TESTS_H
+#ifdef MZLIB_SORT_MAP_BY_VALUE_TESTS_H
 
 TEST(sort_map_by_value, ascending) 
 {
@@ -86,4 +83,3 @@ TEST(sort_map_by_value, descending)
 
 #endif // MZLIB_SORT_MAP_BY_VALUE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

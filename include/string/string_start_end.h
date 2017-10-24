@@ -34,10 +34,7 @@ inline bool string_starts_with (const std::string& str, const std::string& start
 
 #endif // MZLIB_STRING_START_END_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_STRING_START_END_TESTS_H
-#define MZLIB_STRING_START_END_TESTS_H
+#ifdef MZLIB_STRING_START_END_TESTS_H
 
 TEST(string_ends_with, demo)
 {
@@ -55,4 +52,3 @@ TEST(string_starts_with, demo)
 
 #endif // MZLIB_STRING_START_END_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

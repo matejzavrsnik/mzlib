@@ -225,10 +225,7 @@ constexpr std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,D
 
 #endif // MZLIB_VECTOR_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_VECTOR_TESTS_H
-#define MZLIB_VECTOR_TESTS_H
+#ifdef MZLIB_VECTOR_TESTS_H
 
 namespace mzlib {
 
@@ -458,4 +455,3 @@ TEST_F(fixture_vector, dimensions)
 
 #endif // MZLIB_VECTOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

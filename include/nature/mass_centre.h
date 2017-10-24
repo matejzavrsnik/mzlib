@@ -62,10 +62,7 @@ inline std::ostream& operator<< (std::ostream& os, const mzlib::mass_centre<Vect
 
 #endif	/* MZLIB_MASS_CENTRE_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_MASS_CENTRE_TESTS_H
-#define	MZLIB_MASS_CENTRE_TESTS_H
+#ifdef MZLIB_MASS_CENTRE_TESTS_H
 
 TEST(mass_centre, add_to_mass_centre) 
 {
@@ -191,4 +188,3 @@ TEST(mass_centre, add_to_mass_centre_initialised_with_zero_mass)
 
 #endif // MZLIB_MASS_CENTRE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

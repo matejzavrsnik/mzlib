@@ -9,6 +9,8 @@
 #define IS_WORD_IN_DICTIONARY_H
 
 #include <regex>
+#include <unordered_set>
+#include "../lang/binary_options.h"
 
 namespace mzlib {
    
@@ -71,7 +73,7 @@ word_match is_word_in_dictionary_partial(
 
 #endif /* IS_WORD_IN_DICTIONARY_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef IS_WORD_IN_DICTIONARY_TESTS_H
 
 TEST(is_word_in_dictionary, basic)
 {
@@ -123,4 +125,4 @@ TEST(is_word_in_dictionary_partial, exact_and_start_of_word_match)
    ASSERT_TRUE(res.beginning);
 }
 
-#endif /* MZLIB_BUILDING_TESTS */
+#endif // IS_WORD_IN_DICTIONARY_TESTS_H
