@@ -37,6 +37,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
+	${OBJECTDIR}/tests/laws/acceleration.o \
+	${OBJECTDIR}/tests/laws/constant_linear_acceleration.o \
+	${OBJECTDIR}/tests/laws/gravitation.o \
+	${OBJECTDIR}/tests/laws/screen_rectangles.o \
+	${OBJECTDIR}/tests/laws/vector_operations.o \
 	${OBJECTDIR}/tests/nature/mass_centre.o \
 	${OBJECTDIR}/tests/nature/units_strong_definitions.o \
 	${OBJECTDIR}/tests/nature/universe.o \
@@ -101,6 +106,31 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
+
+${OBJECTDIR}/tests/laws/acceleration.o: tests/laws/acceleration.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/laws/acceleration.o tests/laws/acceleration.cpp
+
+${OBJECTDIR}/tests/laws/constant_linear_acceleration.o: tests/laws/constant_linear_acceleration.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/laws/constant_linear_acceleration.o tests/laws/constant_linear_acceleration.cpp
+
+${OBJECTDIR}/tests/laws/gravitation.o: tests/laws/gravitation.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/laws/gravitation.o tests/laws/gravitation.cpp
+
+${OBJECTDIR}/tests/laws/screen_rectangles.o: tests/laws/screen_rectangles.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/laws/screen_rectangles.o tests/laws/screen_rectangles.cpp
+
+${OBJECTDIR}/tests/laws/vector_operations.o: tests/laws/vector_operations.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/laws/vector_operations.o tests/laws/vector_operations.cpp
 
 ${OBJECTDIR}/tests/nature/mass_centre.o: tests/nature/mass_centre.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/nature

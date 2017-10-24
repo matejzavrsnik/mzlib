@@ -71,10 +71,11 @@ using constant_linear_acceleration3d = constant_linear_acceleration<vector3d>;
 
 #endif /* MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
+#undef MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
 
-#ifndef MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
-#define MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
+#include "../nature/units.h"
+using namespace mzlib::units;
 
 TEST(constant_linear_acceleration, solve_for_final_velocity)
 {
@@ -180,6 +181,5 @@ TEST(constant_linear_acceleration, solve_for_final_location)
    ASSERT_TRUE(direction == mzlib::vector2d({9.4368168809072515L,10.536816880907253L}));
 }
 
-#endif // MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
+#endif

@@ -9,6 +9,7 @@
 #define VECTOR_OPERATIONS_H
 
 #include <cmath> // std::sqrt
+#include "../lang/dbl.h"
 
 namespace mzlib {
 namespace law {
@@ -166,10 +167,10 @@ constexpr VectorT flip (const VectorT& v)
 
 #endif /* VECTOR_OPERATIONS_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef VECTOR_OPERATIONS_TESTS_H
+#undef VECTOR_OPERATIONS_TESTS_H
 
-#ifndef VECTOR_OPERATIONS_TESTS_H
-#define VECTOR_OPERATIONS_TESTS_H
+#include "../nature/vector.h"
 
 TEST(law_vector_operations, rank) 
 {
@@ -309,6 +310,5 @@ TEST(law_vector_operations, flip)
    ASSERT_EQ(expected, mzlib::law::vector::flip(a));
 }
 
-#endif // VECTOR_OPERATIONS_TESTS_H
+#endif
 
-#endif // MZLIB_BUILDING_TESTS

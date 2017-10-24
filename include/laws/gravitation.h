@@ -62,10 +62,11 @@ using gravitation3d = gravitation<vector3d>;
 
 #endif // MZLIB_LAWS_GRAVITATION_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_LAWS_GRAVITATION_TESTS_H
+#undef MZLIB_LAWS_GRAVITATION_TESTS_H
 
-#ifndef MZLIB_LAWS_GRAVITATION_TESTS_H
-#define MZLIB_LAWS_GRAVITATION_TESTS_H
+#include "../nature/units.h"
+using namespace mzlib::units;
 
 TEST(gravitation, solve_for_force)
 {
@@ -85,6 +86,5 @@ TEST(gravitation, solve_for_force)
    ASSERT_TRUE(direction == mzlib::unit_vector2d);
 }
 
-#endif // MZLIB_LAWS_GRAVITATION_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
+#endif

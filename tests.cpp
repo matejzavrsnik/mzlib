@@ -88,12 +88,6 @@ using namespace mzlib::units;
    #include "include/lang/dbl.h"
    #include "include/lang/c64_basic_for.h"
 
-   #include "include/laws/screen_rectangles.h"
-   #include "include/laws/acceleration.h"
-   #include "include/laws/constant_linear_acceleration.h"
-   #include "include/laws/gravitation.h"
-   #include "include/laws/vector_operations.h"
-
    #include "include/image_texture.h"
 
 #undef MZLIB_BUILDING_TESTS

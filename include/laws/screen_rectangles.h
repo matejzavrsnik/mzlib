@@ -231,10 +231,8 @@ using screen_rectangles2d = screen_rectangles<vector2d>;
 
 #endif /* MZLIB_LAWS_SCREEN_RECTANGLES_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_LAWS_SCREEN_RECTANGLES_TESTS_H
-#define MZLIB_LAWS_SCREEN_RECTANGLES_TESTS_H
+#ifdef MZLIB_LAWS_SCREEN_RECTANGLES_TESTS_H
+#undef MZLIB_LAWS_SCREEN_RECTANGLES_TESTS_H
 
 class fixture_law_screen_rectangle : public ::testing::Test 
 {
@@ -472,6 +470,5 @@ TEST_F(fixture_law_screen_rectangle, flip)
    }
 }
 
-#endif // MZLIB_LAWS_SCREEN_RECTANGLES_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
+#endif

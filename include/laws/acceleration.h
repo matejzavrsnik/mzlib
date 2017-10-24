@@ -50,10 +50,11 @@ using acceleration3d = acceleration<vector3d>;
 
 #endif /* MZLIB_LAWS_ACCELERATION_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_LAWS_ACCELERATION_TESTS_H
+#undef MZLIB_LAWS_ACCELERATION_TESTS_H
 
-#ifndef MZLIB_LAWS_ACCELERATION_TESTS_H
-#define MZLIB_LAWS_ACCELERATION_TESTS_H
+#include "../nature/units.h"
+using namespace mzlib::units;
 
 TEST(acceleration, solve_for_force) 
 {
@@ -122,6 +123,5 @@ TEST(acceleration, solve_for_mass_missing_argument)
    ASSERT_THROW(acc.solve_for_mass(), std::bad_optional_access);
 }
 
-#endif // MZLIB_LAWS_ACCELERATION_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
+#endif
