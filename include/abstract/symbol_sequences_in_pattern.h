@@ -9,6 +9,9 @@
 #define SYMBOL_SEQUENCES_IN_PATTERN_H
 
 #include "../iterators/is_last.h"
+#include "../lang/binary_options.h"
+#include <map>
+#include <algorithm>
 
 namespace mzlib {
 
@@ -91,7 +94,8 @@ option::changed next_symbol_sequence_in_pattern(
 
 #endif /* SYMBOL_SEQUENCES_IN_PATTERN_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef SYMBOL_SEQUENCES_IN_PATTERN_TESTS_H
+#undef SYMBOL_SEQUENCES_IN_PATTERN_TESTS_H
 
 TEST(first_symbol_sequence_in_pattern, produces_correct_sequence)
 {
@@ -149,4 +153,4 @@ TEST(next_symbol_sequence_in_pattern, correctly_increments_sequences)
    ASSERT_EQ("ilos", collection[107]);
 }
 
-#endif /* MZLIB_BUILDING_TESTS */
+#endif // SYMBOL_SEQUENCES_IN_PATTERN_TESTS_H

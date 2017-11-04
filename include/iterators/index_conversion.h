@@ -32,10 +32,10 @@ Iterator get_iterator (Iterator begin, size_t index)
 
 #endif // MZLIB_INDEX_CONVERSION_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_INDEX_CONVERSION_TESTS_H
+#undef MZLIB_INDEX_CONVERSION_TESTS_H
 
-#ifndef MZLIB_INDEX_CONVERSION_TESTS_H
-#define MZLIB_INDEX_CONVERSION_TESTS_H
+#include <algorithm>
 
 TEST(get_index, basic) 
 {
@@ -79,4 +79,3 @@ TEST(get_iterator, basic)
 
 #endif // MZLIB_INDEX_CONVERSION_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

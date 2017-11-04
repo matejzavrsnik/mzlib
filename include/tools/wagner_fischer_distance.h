@@ -54,6 +54,7 @@ int wagner_fischer_distance (const TYPE& str1, const TYPE& str2)
 #endif // MZLIB_WAGNER_FISCHER_DISTANCE_H
 
 #ifdef MZLIB_WAGNER_FISCHER_DISTANCE_TESTS_H
+#undef MZLIB_WAGNER_FISCHER_DISTANCE_TESTS_H
 
 TEST(wagner_fischer_distance, demo) 
 {

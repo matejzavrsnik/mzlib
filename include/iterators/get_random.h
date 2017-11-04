@@ -26,10 +26,8 @@ Iterator get_random_element (const Iterator& start, const Iterator& end)
 
 #endif // MZLIB_GET_RANDOM_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_GET_RANDOM_TESTS_H
-#define MZLIB_GET_RANDOM_TESTS_H
+#ifdef MZLIB_GET_RANDOM_TESTS_H
+#undef MZLIB_GET_RANDOM_TESTS_H
 
 TEST(get_random_element, demo) 
 {
@@ -59,4 +57,3 @@ TEST(get_random_element, size_one)
 
 #endif // MZLIB_GET_RANDOM_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

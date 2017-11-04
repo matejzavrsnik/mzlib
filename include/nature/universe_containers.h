@@ -8,13 +8,10 @@
 #ifndef MZLIB_UNIVERSE_CONTAINERS_H
 #define MZLIB_UNIVERSE_CONTAINERS_H
 
-#include <vector>
-#include <algorithm>
-#include <map>
-
-#include "vector.h"
 #include "body.h"
 #include "../abstract/quadtree.h"
+#include <vector>
+#include <functional>
 
 namespace mzlib {
 

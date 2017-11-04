@@ -87,6 +87,7 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
 #endif // SENTENCE_ASSEMBLARATOR_H
 
 #ifdef SENTENCE_ASSEMBLARATOR_TESTS_H
+#undef SENTENCE_ASSEMBLARATOR_TESTS_H
 
 TEST(sentence_assemblarator, basic) 
 {

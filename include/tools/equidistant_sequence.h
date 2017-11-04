@@ -52,6 +52,7 @@ std::optional<Container> create_equidistant_sequence(
 #endif // MZLIB_EQUIDISTANT_SEQUENCE_H
 
 #ifdef MZLIB_EQUIDISTANT_SEQUENCE_TESTS_H
+#undef MZLIB_EQUIDISTANT_SEQUENCE_TESTS_H
 
 TEST(create_equidistant_sequence, basic_forward)
 {

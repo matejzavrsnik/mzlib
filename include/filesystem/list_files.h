@@ -9,6 +9,7 @@
 #define MZLIB_LIST_FILES_H
 
 #include "is_meta_directory.h"
+#include "../lang/binary_options.h"
 #include <dirent.h>
 
 namespace mzlib {
@@ -94,10 +95,11 @@ inline std::vector<std::string> boost_list_files (std::string directory, bool in
 
 #endif // MZLIB_LIST_FILES_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_LIST_FILES_TESTS_H
+#undef MZLIB_LIST_FILES_TESTS_H
 
-#ifndef MZLIB_LIST_FILES_TESTS_H
-#define MZLIB_LIST_FILES_TESTS_H
+#include "../../options.h"
+#include <algorithm>
 
 class fixture_list_files: public ::testing::Test 
 {
@@ -197,6 +199,4 @@ TEST_F(fixture_list_files, list_files_norecursive_hidden)
 
 
 #endif // MZLIB_LIST_FILES_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS
 

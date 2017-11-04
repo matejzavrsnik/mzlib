@@ -8,10 +8,6 @@
 #ifndef MZLIB_GENETIC_OBJECT_H
 #define	MZLIB_GENETIC_OBJECT_H
 
-#include <vector>
-#include <functional>
-#include <algorithm> // std::sort
-   
 #include "genetic_base.h"
 
 namespace mzlib {
@@ -55,7 +51,8 @@ private:
 
 #endif	/* MZLIB_GENETIC_OBJECT_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_GENETIC_OBJECT_TESTS_H
+#undef MZLIB_GENETIC_OBJECT_TESTS_H
 
 TEST(genetic_object, demo) 
 {
@@ -97,4 +94,4 @@ TEST(genetic_object, demo)
    ASSERT_EQ(0, genetic.get_best_genome());
 }
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_GENETIC_OBJECT_TESTS_H

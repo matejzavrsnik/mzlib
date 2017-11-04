@@ -8,11 +8,8 @@
 #ifndef MZLIB_GENETIC_H
 #define	MZLIB_GENETIC_H
 
-#include <vector>
-#include <functional>
-#include <algorithm> // std::sort
-   
 #include "genetic_base.h"
+#include <vector>
 
 namespace mzlib {
   
@@ -62,7 +59,8 @@ private:
 
 #endif	/* MZLIB_GENETIC_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_GENETIC_TESTS_H
+#undef MZLIB_GENETIC_TESTS_H
 
 TEST(genetic_container, demo) 
 {
@@ -97,4 +95,4 @@ TEST(genetic_container, demo)
    ASSERT_TRUE(true);
 }
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_GENETIC_TESTS_H

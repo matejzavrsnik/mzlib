@@ -67,10 +67,8 @@ public:
 
 #endif	/* MZLIB_UNIQUE_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_UNIQUE_TESTS_H
-#define MZLIB_UNIQUE_TESTS_H
+#ifdef MZLIB_UNIQUE_TESTS_H
+#undef MZLIB_UNIQUE_TESTS_H
 
 TEST(unique, demo) 
 {
@@ -92,4 +90,3 @@ TEST(unique, unique_on_copy)
 
 #endif // MZLIB_UNIQUE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

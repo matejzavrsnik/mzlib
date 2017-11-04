@@ -8,7 +8,6 @@
 #ifndef MZLIB_BODY_H
 #define	MZLIB_BODY_H
 
-#include "vector.h"
 #include "mass_centre.h"
 #include "../abstract/unique.h"
 

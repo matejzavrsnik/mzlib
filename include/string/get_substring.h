@@ -36,6 +36,7 @@ inline std::string get_substring_between (const std::string& str, const std::str
 #endif // MZLIB_GET_SUBSTRING_H
 
 #ifdef MZLIB_GET_SUBSTRING_TESTS_H
+#undef MZLIB_GET_SUBSTRING_TESTS_H
 
 TEST(get_substring_between, demo)
 {

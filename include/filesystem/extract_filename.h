@@ -21,14 +21,11 @@ inline std::string extract_filename_from_path (std::string path)
 
 #endif // HEADER_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_EXTRACT_FILENAME_TESTS_H
-#define MZLIB_EXTRACT_FILENAME_TESTS_H
+#ifdef MZLIB_EXTRACT_FILENAME_TESTS_H
+#undef MZLIB_EXTRACT_FILENAME_TESTS_H
 
 // Has no tests yet
 
 #endif // MZLIB_EXTRACT_FILENAME_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
 

@@ -8,6 +8,8 @@
 // Just options for google tests.
 // Not many should be needed.
 
+// TODO: rename file into something that shows it's only about tests
+
 #ifndef OPTIONS_H
 #define	OPTIONS_H
 

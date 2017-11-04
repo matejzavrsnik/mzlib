@@ -54,6 +54,7 @@ inline unsigned get_random_integer_between (unsigned from, unsigned to)
 #endif // MZLIB_UTILS_RANDOM_H
 
 #ifdef MZLIB_UTILS_RANDOM_TESTS_H
+#undef MZLIB_UTILS_RANDOM_TESTS_H
 
 TEST(get_random_integer, demo) 
 {

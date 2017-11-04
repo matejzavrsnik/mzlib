@@ -11,7 +11,7 @@
 #include <iterator>
 #include <memory>
 #include <vector>
-#include "quadtree.h"
+#include "../nature/body.h"
 
 namespace mzlib {
 
@@ -76,10 +76,11 @@ public:
 
 #endif /* MZLIB_QUADTREE_IT_BODIES_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_QUADTREE_IT_BODIES_TESTS_H
+#undef MZLIB_QUADTREE_IT_BODIES_TESTS_H
 
-#ifndef MZLIB_QUADTREE_IT_BODIES_TESTS_H
-#define MZLIB_QUADTREE_IT_BODIES_TESTS_H
+#include "quadtree.h"
+#include <map>
 
 class fixture_quadtree_it_bodies : public ::testing::Test 
 {
@@ -161,4 +162,3 @@ TEST_F(fixture_quadtree_it_bodies, many_bodies_each_node)
 
 #endif // MZLIB_QUADTREE_IT_BODIES_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

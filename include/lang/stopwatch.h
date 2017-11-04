@@ -9,7 +9,6 @@
 #define MZLIB_STOPWATCH_H
 
 #include <chrono>
-#include <ctime>
 
 namespace mzlib {
 

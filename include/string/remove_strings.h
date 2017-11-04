@@ -81,6 +81,7 @@ remove_strings_which_dont (const std::vector<std::string>& all_strings, paramete
 #endif // MZLIB_REMOVE_STRINGS_H
 
 #ifdef MZLIB_REMOVE_STRINGS_TESTS_H
+#undef MZLIB_REMOVE_STRINGS_TESTS_H
 
 TEST(remove_strings, which_end_with)
 {

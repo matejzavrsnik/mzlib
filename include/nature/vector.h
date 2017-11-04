@@ -226,6 +226,7 @@ constexpr std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,D
 #endif // MZLIB_VECTOR_H
 
 #ifdef MZLIB_VECTOR_TESTS_H
+#undef MZLIB_VECTOR_TESTS_H
 
 namespace mzlib {
 

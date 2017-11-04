@@ -115,6 +115,48 @@
       <itemPath>tests.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
+      <logicalFolder name="f9" displayName="abstract" projectFiles="true">
+        <itemPath>tests/abstract/genetic_container.cpp</itemPath>
+        <itemPath>tests/abstract/genetic_object.cpp</itemPath>
+        <itemPath>tests/abstract/markov_chain.cpp</itemPath>
+        <itemPath>tests/abstract/probabilator.cpp</itemPath>
+        <itemPath>tests/abstract/quadtree.cpp</itemPath>
+        <itemPath>tests/abstract/quadtree_it_bodies.cpp</itemPath>
+        <itemPath>tests/abstract/quadtree_it_masscentres.cpp</itemPath>
+        <itemPath>tests/abstract/symbol_sequences_in_pattern.cpp</itemPath>
+        <itemPath>tests/abstract/unique.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f8" displayName="apps" projectFiles="true">
+        <itemPath>tests/apps/aggregated_file_monitor.cpp</itemPath>
+        <itemPath>tests/apps/killer_sudoku.cpp</itemPath>
+        <itemPath>tests/apps/sentence_o_matic.cpp</itemPath>
+        <itemPath>tests/apps/sudoku.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="filesystem" projectFiles="true">
+        <itemPath>tests/filesystem/extract_filename.cpp</itemPath>
+        <itemPath>tests/filesystem/filenamearise.cpp</itemPath>
+        <itemPath>tests/filesystem/find_eof_position.cpp</itemPath>
+        <itemPath>tests/filesystem/is_meta_directory.cpp</itemPath>
+        <itemPath>tests/filesystem/list_files.cpp</itemPath>
+        <itemPath>tests/filesystem/read_write_file.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="iterators" projectFiles="true">
+        <itemPath>tests/iterators/average.cpp</itemPath>
+        <itemPath>tests/iterators/circular_next.cpp</itemPath>
+        <itemPath>tests/iterators/conditional_find.cpp</itemPath>
+        <itemPath>tests/iterators/copy.cpp</itemPath>
+        <itemPath>tests/iterators/distance_comparison.cpp</itemPath>
+        <itemPath>tests/iterators/fast_forward.cpp</itemPath>
+        <itemPath>tests/iterators/get_random.cpp</itemPath>
+        <itemPath>tests/iterators/index_conversion.cpp</itemPath>
+        <itemPath>tests/iterators/insert_if_unique.cpp</itemPath>
+        <itemPath>tests/iterators/is_last.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="lang" projectFiles="true">
+        <itemPath>tests/lang/c64_basic_for.cpp</itemPath>
+        <itemPath>tests/lang/dbl.cpp</itemPath>
+        <itemPath>tests/lang/optional.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f4" displayName="laws" projectFiles="true">
         <itemPath>tests/laws/acceleration.cpp</itemPath>
         <itemPath>tests/laws/constant_linear_acceleration.cpp</itemPath>
@@ -473,6 +515,109 @@
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/genetic_container.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/genetic_object.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/quadtree_it_bodies.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/quadtree_it_masscentres.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/symbol_sequences_in_pattern.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/apps/aggregated_file_monitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/filesystem/extract_filename.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/filesystem/filenamearise.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/filesystem/find_eof_position.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/filesystem/is_meta_directory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/filesystem/list_files.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/filesystem/read_write_file.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/average.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/circular_next.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/conditional_find.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/distance_comparison.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/index_conversion.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/insert_if_unique.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/lang/dbl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -884,6 +1029,109 @@
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/genetic_container.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/genetic_object.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/quadtree_it_bodies.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/quadtree_it_masscentres.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/symbol_sequences_in_pattern.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/apps/aggregated_file_monitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/filesystem/extract_filename.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/filesystem/filenamearise.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/filesystem/find_eof_position.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/filesystem/is_meta_directory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/filesystem/list_files.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/filesystem/read_write_file.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/average.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/circular_next.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/conditional_find.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/distance_comparison.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/iterators/index_conversion.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/insert_if_unique.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/lang/dbl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
       </item>

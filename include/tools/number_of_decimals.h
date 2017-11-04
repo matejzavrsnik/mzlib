@@ -42,6 +42,7 @@ get_number_of_decimals (T num)
 #endif // NUMBER_OF_DECIMALS_H
 
 #ifdef NUMBER_OF_DECIMALS_TESTS_H
+#undef NUMBER_OF_DECIMALS_TESTS_H
 
 TEST(get_number_of_decimals, basic) 
 {

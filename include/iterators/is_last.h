@@ -20,13 +20,10 @@ bool is_last(const Iterator& i, const Container& c)
 
 #endif // MZLIB_IS_LAST_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_IS_LAST_TESTS_H
-#define MZLIB_IS_LAST_TESTS_H
+#ifdef MZLIB_IS_LAST_TESTS_H
+#undef MZLIB_IS_LAST_TESTS_H
 
 // No tests yet
 
 #endif // MZLIB_IS_LAST_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

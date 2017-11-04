@@ -57,6 +57,7 @@ extract_vocabulary_with_count(std::istream& vocab_stream)
 #endif // MZLIB_EXTRACT_VOCABULARY_H
 
 #ifdef MZLIB_EXTRACT_VOCABULARY_TESTS_H
+#undef MZLIB_EXTRACT_VOCABULARY_TESTS_H
 
 TEST(extract_vocabulary, demo)
 {

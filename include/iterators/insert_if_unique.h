@@ -27,10 +27,10 @@ void insert_if_unique (Iterator begin, Iterator end, const T& element, InsertIt 
 
 #endif /* MZLIB_INSERT_IF_UNIQUE_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_INSERT_IF_UNIQUE_TESTS_H
+#undef MZLIB_INSERT_IF_UNIQUE_TESTS_H
 
-#ifndef MZLIB_INSERT_IF_UNIQUE_TESTS_H
-#define MZLIB_INSERT_IF_UNIQUE_TESTS_H
+#include <list>
 
 TEST(insert_if_unique, works_on_vector_of_strings) 
 {
@@ -97,4 +97,3 @@ TEST(insert_if_unique, size3_does_insert_if_not_duplicate)
 
 #endif // MZLIB_INSERT_IF_UNIQUE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

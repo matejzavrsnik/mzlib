@@ -21,10 +21,10 @@ void circular_next_iterator(Iterator &iterator, Iterator first, Iterator last)
 
 #endif // MZLIB_CIRCULAR_NEXT_ITERATOR_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_CIRCULAR_NEXT_ITERATOR_TESTS_H
+#undef MZLIB_CIRCULAR_NEXT_ITERATOR_TESTS_H
 
-#ifndef MZLIB_CIRCULAR_NEXT_ITERATOR_TESTS_H
-#define MZLIB_CIRCULAR_NEXT_ITERATOR_TESTS_H
+#include <list>
 
 TEST(circular_next, vector)
 {
@@ -88,4 +88,3 @@ TEST(circular_next, list)
 
 #endif // MZLIB_CIRCULAR_NEXT_ITERATOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

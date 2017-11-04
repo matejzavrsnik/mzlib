@@ -23,6 +23,7 @@ template<class T> void copy_first_n_over_rest (T& v, size_t n)
 #endif // MZLIB_COPY_FIRST_N_OVER_REST_H
 
 #ifdef MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
+#undef MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
 
 TEST(copy_first_n_over_rest, demo) 
 {

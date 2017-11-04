@@ -8,10 +8,10 @@
 #ifndef MZLIB_GENETIC_BASE_H
 #define	MZLIB_GENETIC_BASE_H
 
-#include <functional>
-#include <algorithm> // std::sort
 #include "../tools/random.h"
 #include "../tools/copy_first_n_over_rest.h"
+#include <functional>
+#include <algorithm> // std::sort
 
 namespace mzlib {
    

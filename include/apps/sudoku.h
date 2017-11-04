@@ -9,7 +9,6 @@
 #define MZLIB_SUDOKU_H
 
 #include "../tools/index_coordinate_conversions.h"
-
 #include <vector>
 #include <iostream>
 #include <initializer_list>
@@ -184,7 +183,7 @@ private:
 
 } // namespaces
 
-bool operator== (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
+inline bool operator== (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
 {
    for(uint j=0; j<9; ++j) {
       for(uint i=0; i<9; ++i) {
@@ -197,12 +196,12 @@ bool operator== (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
    return true;
 }
 
-bool operator!= (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
+inline bool operator!= (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
 {
    return !operator==(puzzle1, puzzle2);
 }
 
-std::ostream& operator<< (std::ostream& os, const mzlib::sudoku& puzzle)
+inline std::ostream& operator<< (std::ostream& os, const mzlib::sudoku& puzzle)
 {
    for(uint j=0; j<9; ++j) {
       for(uint i=0; i<9; ++i) {
@@ -222,10 +221,8 @@ std::ostream& operator<< (std::ostream& os, const mzlib::sudoku& puzzle)
 
 #endif /* MZLIB_SUDOKU_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_SUDOKU_TESTS_H
-#define MZLIB_SUDOKU_TESTS_H
+#ifdef MZLIB_SUDOKU_TESTS_H
+#undef MZLIB_SUDOKU_TESTS_H
 
 TEST(sudoku, demo1) 
 {
@@ -418,5 +415,3 @@ TEST(sudoku, long_demo5)
 }
 
 #endif // MZLIB_SUDOKU_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

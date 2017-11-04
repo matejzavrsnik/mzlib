@@ -114,10 +114,8 @@ private:
 
 #endif // MZLIB_KILLER_SUDOKU_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_KILLER_SUDOKU_TESTS_H
-#define MZLIB_KILLER_SUDOKU_TESTS_H
+#ifdef MZLIB_KILLER_SUDOKU_TESTS_H
+#undef MZLIB_KILLER_SUDOKU_TESTS_H
 
 // It appears to be converging towards solution, but the last time I ran this it
 // took 15h and it didn't solve yet. I gave up. Obviously, backtracking is wrong
@@ -168,5 +166,3 @@ TEST(killer_sudoku, DISABLED_demo1)
 }
 
 #endif // MZLIB_KILLER_SUDOKU_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

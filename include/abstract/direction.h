@@ -8,8 +8,6 @@
 #ifndef MZLIB_DIRECTION_H
 #define	MZLIB_DIRECTION_H
 
-#include "../nature/vector.h"
-#include "../lang/exceptions.h"
 #include <iostream> // operator<<
 
 namespace mzlib {
@@ -33,7 +31,6 @@ inline direction the_opposite_direction (direction direction)
       
       case direction::centre: return direction::centre;
    }
-   throw exception::meaningless();
 }
 
 

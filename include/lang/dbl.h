@@ -57,10 +57,8 @@ public:
 
 #endif	/* MZLIB_DBL_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_DBL_TESTS_H
-#define MZLIB_DBL_TESTS_H
+#ifdef MZLIB_DBL_TESTS_H
+#undef MZLIB_DBL_TESTS_H
 
 inline double allowed_double_delta(double val, int ulp)
 { 
@@ -137,5 +135,3 @@ TEST(dbl, compare_different_doubles_for_equality_within_epsilon)
 }
 
 #endif // MZLIB_DBL_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

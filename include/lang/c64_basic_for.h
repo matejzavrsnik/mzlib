@@ -8,11 +8,9 @@
 #ifndef MZLIB_C64_BASIC_FOR_H
 #define	MZLIB_C64_BASIC_FOR_H
 
-#include <optional>
-
 #include "exceptions.h"
-
 #include <memory> // std::unique_ptr
+#include <optional>
 
 namespace mzlib {
 
@@ -68,10 +66,8 @@ public:
 
 #endif	/* MZLIB_C64_BASIC_FOR_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_C64_BASIC_FOR_TESTS_H
-#define MZLIB_C64_BASIC_FOR_TESTS_H
+#ifdef MZLIB_C64_BASIC_FOR_TESTS_H
+#undef MZLIB_C64_BASIC_FOR_TESTS_H
 
 TEST(c64_basic_for, demo) 
 {
@@ -86,5 +82,3 @@ TEST(c64_basic_for, demo)
 }
 
 #endif // MZLIB_C64_BASIC_FOR_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

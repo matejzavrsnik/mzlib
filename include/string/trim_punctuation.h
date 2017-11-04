@@ -42,6 +42,7 @@ trim_punctuation_whole(const std::string& word)
 #endif // MZLIB_TRIM_PUNCTUATION_H
 
 #ifdef MZLIB_TRIM_PUNCTUATION_TESTS_H
+#undef MZLIB_TRIM_PUNCTUATION_TESTS_H
 
 TEST(trim_punctiation, demo)
 {

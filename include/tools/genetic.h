@@ -77,6 +77,7 @@ TYPE mendel_smart(genetic_base<TYPE>& genetic)
 #endif	/* MZLIB_UTILS_GENETIC_H */
 
 #ifdef MZLIB_UTILS_GENETIC_TESTS_H
+#undef MZLIB_UTILS_GENETIC_TESTS_H
 
 // Delete DISABLED_ to see the function in action
 TEST(genetic_tools, DISABLED_mendel_smart_demo) 

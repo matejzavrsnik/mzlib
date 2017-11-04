@@ -8,6 +8,8 @@
 #ifndef MZLIB_FIND_EOF_POSITION_H
 #define MZLIB_FIND_EOF_POSITION_H
 
+#include <fstream>
+
 namespace mzlib {
 
 inline std::ifstream::pos_type find_eof_position(const std::string filename)
@@ -21,10 +23,11 @@ inline std::ifstream::pos_type find_eof_position(const std::string filename)
 
 #endif // MZLIB_FIND_EOF_POSITION_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_FIND_EOF_POSITION_TESTS_H
+#undef MZLIB_FIND_EOF_POSITION_TESTS_H
 
-#ifndef MZLIB_FIND_EOF_POSITION_TESTS_H
-#define MZLIB_FIND_EOF_POSITION_TESTS_H
+#include "../../options.h"
+#include "read_write_file.h"
 
 class fixture_find_eof_position : public ::testing::Test 
 {
@@ -65,5 +68,3 @@ TEST_F(fixture_find_eof_position, find_eof_position)
 }
 
 #endif // MZLIB_FIND_EOF_POSITION_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

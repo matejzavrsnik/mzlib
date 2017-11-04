@@ -32,6 +32,7 @@ inline std::array<uint,2> get_coordinates_from_index(uint const index, uint cons
 #endif // MZLIB_INDEX_ITERATOR_CONVERSIONS_H
 
 #ifdef MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
+#undef MZLIB_INDEX_ITERATOR_CONVERSIONS_TESTS_H
 
 TEST(get_index_from_coordinates, basic)
 {

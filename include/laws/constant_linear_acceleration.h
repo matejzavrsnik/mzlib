@@ -8,9 +8,8 @@
 #ifndef MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_H
 #define	MZLIB_LAWS_CONSTANT_LINEAR_ACCELERATION_H
 
-#include <optional>
-
 #include "../nature/mass_centre.h"
+#include <optional>
 
 namespace mzlib {
 namespace law {

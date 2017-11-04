@@ -8,6 +8,8 @@
 #ifndef MZLIB_AVERAGE_ITERATOR_H
 #define MZLIB_AVERAGE_ITERATOR_H
 
+#include <numeric>
+
 namespace mzlib {
     
 // calculate average of all container elements
@@ -23,10 +25,8 @@ double average(Iterator first, Iterator last)
 
 #endif // MZLIB_AVERAGE_ITERATOR_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_AVERAGE_ITERATOR_TESTS_H
-#define MZLIB_AVERAGE_ITERATOR_TESTS_H
+#ifdef MZLIB_AVERAGE_ITERATOR_TESTS_H
+#undef MZLIB_AVERAGE_ITERATOR_TESTS_H
 
 TEST(average_iterator, demo)
 {
@@ -38,4 +38,3 @@ TEST(average_iterator, demo)
 
 #endif // MZLIB_AVERAGE_ITERATOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

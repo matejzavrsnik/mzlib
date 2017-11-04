@@ -97,10 +97,8 @@ public:
 
 #endif /* MZLIB_PROBABILATOR_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_PROBABILATOR_TESTS_H
-#define MZLIB_PROBABILATOR_TESTS_H
+#ifdef MZLIB_PROBABILATOR_TESTS_H
+#undef MZLIB_PROBABILATOR_TESTS_H
 
 TEST(probabilator, demo_test) 
 {
@@ -124,5 +122,4 @@ TEST(probabilator, demo_test)
 
 #endif // MZLIB_PROBABILATOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
 

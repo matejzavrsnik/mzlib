@@ -8,13 +8,12 @@
 #ifndef MZLIB_QUADTREE_IT_MASSCENTRES_H
 #define MZLIB_QUADTREE_IT_MASSCENTRES_H
 
+#include "../nature/body.h"
+#include "../nature/mass_centre.h"
+#include "quadtree_node.h"
+
 #include <iterator>
 #include <vector>
-
-#include "quadtree.h"
-#include "../nature/mass_centre.h"
-#include "../nature/screen_rectangle.h"
-#include "../laws/vector_operations.h"
 
 namespace mzlib {
 
@@ -162,10 +161,10 @@ public:
 
 #endif /* MZLIB_QUADTREE_IT_MASSCENTRES_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_QUADTREE_IT_MASSCENTRES_TESTS_H
+#undef MZLIB_QUADTREE_IT_MASSCENTRES_TESTS_H
 
-#ifndef MZLIB_QUADTREE_IT_MASSCENTRES_TESTS_H
-#define MZLIB_QUADTREE_IT_MASSCENTRES_TESTS_H
+#include "quadtree.h"
 
 class fixture_quadtree_it_masscentres : public ::testing::Test 
 {
@@ -260,4 +259,3 @@ TEST_F(fixture_quadtree_it_masscentres, body_not_in_tree)
 
 #endif // MZLIB_QUADTREE_IT_MASSCENTRES_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

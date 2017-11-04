@@ -136,6 +136,7 @@ inline time_unit operator/ (const length& lhs, const speed& rhs)
 #endif // MZLIB_UNITS_STRONG_DEFINITIONS_H
 
 #ifdef MZLIB_UNITS_STRONG_DEFINITIONS_TESTS_H
+#undef MZLIB_UNITS_STRONG_DEFINITIONS_TESTS_H
 
 namespace mzlib {
 

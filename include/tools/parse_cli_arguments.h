@@ -42,6 +42,7 @@ parse_arguments (int argc, char const* const* argv)
 #endif // MZLIB_PARSE_CLI_ARGUMENTS_H
 
 #ifdef MZLIB_PARSE_CLI_ARGUMENTS_TESTS_H
+#undef MZLIB_PARSE_CLI_ARGUMENTS_TESTS_H
 
 TEST(parse_arguments, zero_arguments) 
 {

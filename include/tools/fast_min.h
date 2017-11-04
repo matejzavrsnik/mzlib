@@ -34,6 +34,7 @@ template <class T> T&& fast_min (T&& min1, T&& min2, T&& min3)
 #endif // MZLIB_FAST_MIN_H
 
 #ifdef MZLIB_FAST_MIN_TESTS_H
+#undef MZLIB_FAST_MIN_TESTS_H
 
 TEST(fast_min, basic_lvalue) 
 {

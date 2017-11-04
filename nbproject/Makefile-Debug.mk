@@ -37,6 +37,38 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
+	${OBJECTDIR}/tests/abstract/genetic_container.o \
+	${OBJECTDIR}/tests/abstract/genetic_object.o \
+	${OBJECTDIR}/tests/abstract/markov_chain.o \
+	${OBJECTDIR}/tests/abstract/probabilator.o \
+	${OBJECTDIR}/tests/abstract/quadtree.o \
+	${OBJECTDIR}/tests/abstract/quadtree_it_bodies.o \
+	${OBJECTDIR}/tests/abstract/quadtree_it_masscentres.o \
+	${OBJECTDIR}/tests/abstract/symbol_sequences_in_pattern.o \
+	${OBJECTDIR}/tests/abstract/unique.o \
+	${OBJECTDIR}/tests/apps/aggregated_file_monitor.o \
+	${OBJECTDIR}/tests/apps/killer_sudoku.o \
+	${OBJECTDIR}/tests/apps/sentence_o_matic.o \
+	${OBJECTDIR}/tests/apps/sudoku.o \
+	${OBJECTDIR}/tests/filesystem/extract_filename.o \
+	${OBJECTDIR}/tests/filesystem/filenamearise.o \
+	${OBJECTDIR}/tests/filesystem/find_eof_position.o \
+	${OBJECTDIR}/tests/filesystem/is_meta_directory.o \
+	${OBJECTDIR}/tests/filesystem/list_files.o \
+	${OBJECTDIR}/tests/filesystem/read_write_file.o \
+	${OBJECTDIR}/tests/iterators/average.o \
+	${OBJECTDIR}/tests/iterators/circular_next.o \
+	${OBJECTDIR}/tests/iterators/conditional_find.o \
+	${OBJECTDIR}/tests/iterators/copy.o \
+	${OBJECTDIR}/tests/iterators/distance_comparison.o \
+	${OBJECTDIR}/tests/iterators/fast_forward.o \
+	${OBJECTDIR}/tests/iterators/get_random.o \
+	${OBJECTDIR}/tests/iterators/index_conversion.o \
+	${OBJECTDIR}/tests/iterators/insert_if_unique.o \
+	${OBJECTDIR}/tests/iterators/is_last.o \
+	${OBJECTDIR}/tests/lang/c64_basic_for.o \
+	${OBJECTDIR}/tests/lang/dbl.o \
+	${OBJECTDIR}/tests/lang/optional.o \
 	${OBJECTDIR}/tests/laws/acceleration.o \
 	${OBJECTDIR}/tests/laws/constant_linear_acceleration.o \
 	${OBJECTDIR}/tests/laws/gravitation.o \
@@ -106,6 +138,166 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
+
+${OBJECTDIR}/tests/abstract/genetic_container.o: tests/abstract/genetic_container.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/genetic_container.o tests/abstract/genetic_container.cpp
+
+${OBJECTDIR}/tests/abstract/genetic_object.o: tests/abstract/genetic_object.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/genetic_object.o tests/abstract/genetic_object.cpp
+
+${OBJECTDIR}/tests/abstract/markov_chain.o: tests/abstract/markov_chain.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/markov_chain.o tests/abstract/markov_chain.cpp
+
+${OBJECTDIR}/tests/abstract/probabilator.o: tests/abstract/probabilator.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/probabilator.o tests/abstract/probabilator.cpp
+
+${OBJECTDIR}/tests/abstract/quadtree.o: tests/abstract/quadtree.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/quadtree.o tests/abstract/quadtree.cpp
+
+${OBJECTDIR}/tests/abstract/quadtree_it_bodies.o: tests/abstract/quadtree_it_bodies.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/quadtree_it_bodies.o tests/abstract/quadtree_it_bodies.cpp
+
+${OBJECTDIR}/tests/abstract/quadtree_it_masscentres.o: tests/abstract/quadtree_it_masscentres.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/quadtree_it_masscentres.o tests/abstract/quadtree_it_masscentres.cpp
+
+${OBJECTDIR}/tests/abstract/symbol_sequences_in_pattern.o: tests/abstract/symbol_sequences_in_pattern.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/symbol_sequences_in_pattern.o tests/abstract/symbol_sequences_in_pattern.cpp
+
+${OBJECTDIR}/tests/abstract/unique.o: tests/abstract/unique.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/unique.o tests/abstract/unique.cpp
+
+${OBJECTDIR}/tests/apps/aggregated_file_monitor.o: tests/apps/aggregated_file_monitor.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/apps
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/apps/aggregated_file_monitor.o tests/apps/aggregated_file_monitor.cpp
+
+${OBJECTDIR}/tests/apps/killer_sudoku.o: tests/apps/killer_sudoku.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/apps
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/apps/killer_sudoku.o tests/apps/killer_sudoku.cpp
+
+${OBJECTDIR}/tests/apps/sentence_o_matic.o: tests/apps/sentence_o_matic.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/apps
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/apps/sentence_o_matic.o tests/apps/sentence_o_matic.cpp
+
+${OBJECTDIR}/tests/apps/sudoku.o: tests/apps/sudoku.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/apps
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/apps/sudoku.o tests/apps/sudoku.cpp
+
+${OBJECTDIR}/tests/filesystem/extract_filename.o: tests/filesystem/extract_filename.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/filesystem/extract_filename.o tests/filesystem/extract_filename.cpp
+
+${OBJECTDIR}/tests/filesystem/filenamearise.o: tests/filesystem/filenamearise.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/filesystem/filenamearise.o tests/filesystem/filenamearise.cpp
+
+${OBJECTDIR}/tests/filesystem/find_eof_position.o: tests/filesystem/find_eof_position.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/filesystem/find_eof_position.o tests/filesystem/find_eof_position.cpp
+
+${OBJECTDIR}/tests/filesystem/is_meta_directory.o: tests/filesystem/is_meta_directory.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/filesystem/is_meta_directory.o tests/filesystem/is_meta_directory.cpp
+
+${OBJECTDIR}/tests/filesystem/list_files.o: tests/filesystem/list_files.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/filesystem/list_files.o tests/filesystem/list_files.cpp
+
+${OBJECTDIR}/tests/filesystem/read_write_file.o: tests/filesystem/read_write_file.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/filesystem/read_write_file.o tests/filesystem/read_write_file.cpp
+
+${OBJECTDIR}/tests/iterators/average.o: tests/iterators/average.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/average.o tests/iterators/average.cpp
+
+${OBJECTDIR}/tests/iterators/circular_next.o: tests/iterators/circular_next.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/circular_next.o tests/iterators/circular_next.cpp
+
+${OBJECTDIR}/tests/iterators/conditional_find.o: tests/iterators/conditional_find.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/conditional_find.o tests/iterators/conditional_find.cpp
+
+${OBJECTDIR}/tests/iterators/copy.o: tests/iterators/copy.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/copy.o tests/iterators/copy.cpp
+
+${OBJECTDIR}/tests/iterators/distance_comparison.o: tests/iterators/distance_comparison.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/distance_comparison.o tests/iterators/distance_comparison.cpp
+
+${OBJECTDIR}/tests/iterators/fast_forward.o: tests/iterators/fast_forward.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/fast_forward.o tests/iterators/fast_forward.cpp
+
+${OBJECTDIR}/tests/iterators/get_random.o: tests/iterators/get_random.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/get_random.o tests/iterators/get_random.cpp
+
+${OBJECTDIR}/tests/iterators/index_conversion.o: tests/iterators/index_conversion.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/index_conversion.o tests/iterators/index_conversion.cpp
+
+${OBJECTDIR}/tests/iterators/insert_if_unique.o: tests/iterators/insert_if_unique.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/insert_if_unique.o tests/iterators/insert_if_unique.cpp
+
+${OBJECTDIR}/tests/iterators/is_last.o: tests/iterators/is_last.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/is_last.o tests/iterators/is_last.cpp
+
+${OBJECTDIR}/tests/lang/c64_basic_for.o: tests/lang/c64_basic_for.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/lang
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/lang/c64_basic_for.o tests/lang/c64_basic_for.cpp
+
+${OBJECTDIR}/tests/lang/dbl.o: tests/lang/dbl.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/lang
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/lang/dbl.o tests/lang/dbl.cpp
+
+${OBJECTDIR}/tests/lang/optional.o: tests/lang/optional.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/lang
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/lang/optional.o tests/lang/optional.cpp
 
 ${OBJECTDIR}/tests/laws/acceleration.o: tests/laws/acceleration.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/laws

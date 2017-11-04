@@ -33,6 +33,7 @@ inline void to_uppercase(std::string& str)
 #endif // HEADER_H
 
 #ifdef MZLIB_STRING_CASE_TESTS_H
+#undef MZLIB_STRING_CASE_TESTS_H
 
 TEST(to_lowercase, demo)
 {

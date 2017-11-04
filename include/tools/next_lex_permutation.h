@@ -34,6 +34,7 @@ void next_lex_permutation(Iterator begin, Iterator end)
 #endif // MZLIB_NEXT_LEX_PERMUTATION_H
 
 #ifdef MZLIB_NEXT_LEX_PERMUTATION_TESTS_H
+#undef MZLIB_NEXT_LEX_PERMUTATION_TESTS_H
 
 TEST(next_lex_permutation, basic)
 {

@@ -40,10 +40,8 @@ public:
     
 #endif /* MZLIB_SENTENCE_O_MATIC_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_SENTENCE_O_MATIC_TESTS_H
-#define MZLIB_SENTENCE_O_MATIC_TESTS_H
+#ifdef MZLIB_SENTENCE_O_MATIC_TESTS_H
+#undef MZLIB_SENTENCE_O_MATIC_TESTS_H
 
 TEST(sentence_o_matic, demo_test) 
 {
@@ -80,4 +78,3 @@ TEST(sentence_o_matic, demo_test)
 
 #endif // MZLIB_SENTENCE_O_MATIC_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

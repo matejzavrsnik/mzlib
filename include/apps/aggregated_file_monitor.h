@@ -52,10 +52,10 @@ public:
 
 #endif /* MZLIB_AGGREGATED_FILE_MONITOR_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_AGGREGATED_FILE_MONITOR_TESTS_H
+#undef MZLIB_AGGREGATED_FILE_MONITOR_TESTS_H
 
-#ifndef MZLIB_AGGREGATED_FILE_MONITOR_TESTS_H
-#define MZLIB_AGGREGATED_FILE_MONITOR_TESTS_H
+#include "../../options.h"
 
 class fixture_aggregated_file_monitor : public ::testing::Test 
 {
@@ -188,4 +188,3 @@ TEST_F(fixture_aggregated_file_monitor, aggregated_file_monitor_basic_test)
 
 #endif // MZLIB_AGGREGATED_FILE_MONITOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

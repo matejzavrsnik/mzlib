@@ -8,11 +8,8 @@
 #ifndef MZLIB_LAWS_SCREEN_RECTANGLES_H
 #define	MZLIB_LAWS_SCREEN_RECTANGLES_H
 
-#include <optional>
-
 #include "../nature/screen_rectangle.h"
-#include "../nature/vector.h"
-#include "vector_operations.h"
+#include <optional>
 
 namespace mzlib {
 namespace law {

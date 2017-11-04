@@ -68,10 +68,10 @@ inline void append_file (const std::string& filename, const std::string& content
 
 #endif // MZLIB_READ_WRITE_FILE_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_READ_WRITE_FILE_TESTS_H
+#undef MZLIB_READ_WRITE_FILE_TESTS_H
 
-#ifndef MZLIB_READ_WRITE_FILE_TESTS_H
-#define MZLIB_READ_WRITE_FILE_TESTS_H
+#include "../../options.h"
 
 class fixture_read_write_files : public ::testing::Test 
 {
@@ -135,6 +135,3 @@ TEST_F(fixture_read_write_files, read_file_from_to)
 
 
 #endif // MZLIB_READ_WRITE_FILE_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS
-

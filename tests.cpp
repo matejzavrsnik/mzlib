@@ -49,44 +49,7 @@ using namespace mzlib::units;
 // that is merely using mzlib. You would be surprised to see mzlib tests themselves
 // suddenly appear amongst the tests you wrote for that thing only.
 
-   #include "include/abstract/symbol_sequences_in_pattern.h"
-   #include "include/abstract/genetic_container.h"
-   #include "include/abstract/genetic_object.h"
-   #include "include/abstract/probabilator.h"
-   #include "include/abstract/quadtree_it_bodies.h"
-   #include "include/abstract/quadtree_it_masscentres.h"
-   #include "include/abstract/markov_chain.h"
-   #include "include/abstract/unique.h"
-   #include "include/abstract/quadtree.h"
-
-   #include "include/apps/aggregated_file_monitor.h"
-   #include "include/apps/sentence_o_matic.h"
-   #include "include/apps/sudoku.h"
-   #include "include/apps/killer_sudoku.h"
-
-   #include "include/filesystem/read_write_file.h"
-   #include "include/filesystem/list_files.h"
-   #include "include/filesystem/find_eof_position.h"
-   #include "include/filesystem/is_meta_directory.h"
-   #include "include/filesystem/filenamearise.h"
-   #include "include/filesystem/extract_filename.h"
-
-   #include "include/iterators/circular_next.h"
-   #include "include/iterators/average.h"
-   #include "include/iterators/distance_comparison.h"
-   #include "include/iterators/conditional_find.h"
-   #include "include/iterators/insert_if_unique.h"
-   #include "include/iterators/fast_forward.h"
-   #include "include/iterators/copy.h"
-   #include "include/iterators/index_conversion.h"
-   #include "include/iterators/is_last.h"
-   #include "include/iterators/get_random.h"
-
    #include "include/joke/supersafe_number.h"
-
-   #include "include/lang/optional.h"
-   #include "include/lang/dbl.h"
-   #include "include/lang/c64_basic_for.h"
 
    #include "include/image_texture.h"
 

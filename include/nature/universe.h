@@ -8,19 +8,14 @@
 #ifndef MZLIB_UNIVERSE_H
 #define MZLIB_UNIVERSE_H
 
-#include <vector>
-#include <map>
-#include <algorithm>
-#include <functional>
-
 #include "body.h"
 #include "consts.h"
 #include "universe_containers.h"
 #include "screen_rectangle.h"
-
 #include "../laws/constant_linear_acceleration.h"
 #include "../laws/acceleration.h"
 #include "../laws/gravitation.h"
+#include <map>
 
 namespace mzlib {
    
@@ -288,6 +283,7 @@ private:
 #endif /* MZLIB_UNIVERSE_H */
 
 #ifdef MZLIB_UNIVERSE_TESTS_H
+#undef MZLIB_UNIVERSE_TESTS_H
 
 using namespace mzlib::units;
 

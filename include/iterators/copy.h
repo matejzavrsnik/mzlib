@@ -37,10 +37,8 @@ constexpr OutputIt copy(
 
 #endif // MZLIB_COPY_ITERATORS_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_COPY_ITERATORS_TESTS_H
-#define MZLIB_COPY_ITERATORS_TESTS_H
+#ifdef MZLIB_COPY_ITERATORS_TESTS_H
+#undef MZLIB_COPY_ITERATORS_TESTS_H
 
 TEST(copy_iterators, equal_size) 
 {
@@ -76,4 +74,3 @@ TEST(copy_iterators, copy_middle)
 
 #endif // MZLIB_COPY_ITERATORS_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

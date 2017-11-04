@@ -8,12 +8,11 @@
 #ifndef MZLIB_MARKOV_CHAIN_H
 #define MZLIB_MARKOV_CHAIN_H
 
-#include <vector>
+#include "probabilator.h"
+#include "../iterators/get_random.h"
 #include <map>
 #include <optional>
 
-#include "probabilator.h"
-#include "../tools/random.h"
 
 namespace mzlib
 {
@@ -85,10 +84,8 @@ public:
 
 #endif /* MZLIB_MARKOV_CHAIN_H */
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_MARKOV_CHAIN_TESTS_H
-#define MZLIB_MARKOV_CHAIN_TESTS_H
+#ifdef MZLIB_MARKOV_CHAIN_TESTS_H
+#undef MZLIB_MARKOV_CHAIN_TESTS_H
 
 TEST(markov_chain, basic_test) 
 {
@@ -134,4 +131,3 @@ TEST(markov_chain, basic_test)
 
 #endif // MZLIB_MARKOV_CHAIN_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

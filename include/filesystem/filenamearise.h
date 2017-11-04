@@ -29,14 +29,11 @@ inline std::string filenamearise (const std::string& filename_candidate, char sp
 
 #endif // MZLIB_FILENAMEARISE_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_FILENAMEARISE_TESTS_H
-#define MZLIB_FILENAMEARISE_TESTS_H
+#ifdef MZLIB_FILENAMEARISE_TESTS_H
+#undef MZLIB_FILENAMEARISE_TESTS_H
 
 // Has no tests yet
 
 #endif // MZLIB_FILENAMEARISE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS
 

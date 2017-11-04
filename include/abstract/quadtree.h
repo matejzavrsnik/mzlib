@@ -8,17 +8,11 @@
 #ifndef MZLIB_QUADREEE_H
 #define MZLIB_QUADREEE_H
 
-#include <optional>
-
 #include "quadtree_node.h"
 #include "quadtree_it_bodies.h"
 #include "quadtree_it_masscentres.h"
 #include "../nature/vector.h"
-#include "../nature/body.h"
-#include "../tools/missing_std.h"
-#include "../nature/screen_rectangle.h"
-#include "../lang/binary_options.h"
-#include "unique.h"
+#include <optional>
 
 namespace mzlib {
    
@@ -260,12 +254,15 @@ public:
 
 #endif	/* MZLIB_QUADREEE_H */
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_QUADREEE_TESTS_H
+#undef MZLIB_QUADREEE_TESTS_H
 
-#ifndef MZLIB_QUADREEE_TESTS_H
-#define MZLIB_QUADREEE_TESTS_H
-
-namespace mzlib {
+// without having tests in the same namespace as the code the google's FRIEND_TEST 
+// mechanism will not work and I won't be able to reach private members. 
+// "You shouldn't test privates." 
+// You can't tell me what to do, you're not my real dad! :)
+namespace mzlib
+{
 
 class fixture_cquadtree : public ::testing::Test 
 {
@@ -816,8 +813,7 @@ TEST_F(fixture_cquadtree, dynamic_tree_doesnt_exceed_max_size_on_move)
    ASSERT_EQ(tag_one, tree.m_root->m_bodies[0]->tag);
 }
 
-} // namespace
+}
 
 #endif // MZLIB_QUADREEE_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

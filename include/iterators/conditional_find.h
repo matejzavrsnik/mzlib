@@ -44,10 +44,8 @@ Iterator last_where_value_larger_then_given(Iterator begin, Iterator end, T valu
 
 #endif // MZLIB_CONDITIONAL_FIND_ITERATOR_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_CONDITIONAL_FIND_ITERATOR_TESTS_H
-#define MZLIB_CONDITIONAL_FIND_ITERATOR_TESTS_H
+#ifdef MZLIB_CONDITIONAL_FIND_ITERATOR_TESTS_H
+#undef MZLIB_CONDITIONAL_FIND_ITERATOR_TESTS_H
 
 TEST(last_where_value_larger_then_given, basic)
 {
@@ -124,4 +122,3 @@ TEST(last_where_value_smaller_then_next, two)
 
 #endif // MZLIB_CONDITIONAL_FIND_ITERATOR_TESTS_H
 
-#endif // MZLIB_BUILDING_TESTS

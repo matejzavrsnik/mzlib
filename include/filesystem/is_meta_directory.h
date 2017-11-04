@@ -24,10 +24,10 @@ inline bool is_meta_directory(const char* directory_name)
 
 #endif // MZLIB_IS_META_DIRECTORY_H
 
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_IS_META_DIRECTORY_TESTS_H
+#undef MZLIB_IS_META_DIRECTORY_TESTS_H
 
-#ifndef MZLIB_IS_META_DIRECTORY_TESTS_H
-#define MZLIB_IS_META_DIRECTORY_TESTS_H
+#include "../../options.h"
 
 class fixture_is_meta_directory : public ::testing::Test 
 {
@@ -66,5 +66,3 @@ TEST_F(fixture_is_meta_directory, is_meta_directory)
 }
 
 #endif // MZLIB_IS_META_DIRECTORY_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS

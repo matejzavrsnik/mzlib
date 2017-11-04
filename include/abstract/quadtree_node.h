@@ -8,17 +8,11 @@
 #ifndef MZLIB_QUADTREE_NODE_H
 #define	MZLIB_QUADTREE_NODE_H
 
-#include <memory>
-#include <algorithm> // std::find_if
-
-#include "../nature/vector.h"
-#include "../nature/mass_centre.h"
-#include "../tools/missing_std.h"
 #include "../nature/body.h"
-#include "../nature/screen_rectangle.h"
 #include "../laws/screen_rectangles.h"
 #include "../lang/binary_options.h"
-#include "../lang/exceptions.h"
+#include <memory>
+#include <algorithm>
 
 namespace mzlib {
 

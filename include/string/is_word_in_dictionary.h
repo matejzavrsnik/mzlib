@@ -74,6 +74,7 @@ word_match is_word_in_dictionary_partial(
 #endif /* IS_WORD_IN_DICTIONARY_H */
 
 #ifdef IS_WORD_IN_DICTIONARY_TESTS_H
+#undef IS_WORD_IN_DICTIONARY_TESTS_H
 
 TEST(is_word_in_dictionary, basic)
 {
