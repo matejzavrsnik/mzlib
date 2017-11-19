@@ -101,6 +101,7 @@
         <itemPath>include/tools/parse_cli_arguments.h</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
+        <itemPath>include/tools/some_long_operation.h</itemPath>
         <itemPath>include/tools/sort_map_by_value.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
         <itemPath>include/tools/wagner_fischer_distance.h</itemPath>
@@ -197,6 +198,7 @@
         <itemPath>tests/tools/number_of_decimals.cpp</itemPath>
         <itemPath>tests/tools/parse_cli_arguments.cpp</itemPath>
         <itemPath>tests/tools/random.cpp</itemPath>
+        <itemPath>tests/tools/some_long_operation.cpp</itemPath>
         <itemPath>tests/tools/sort_map_by_value.cpp</itemPath>
         <itemPath>tests/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>tests/tools/wagner_fischer_distance.cpp</itemPath>
@@ -501,6 +503,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/some_long_operation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
@@ -721,6 +728,11 @@
             flavor2="0">
       </item>
       <item path="tests/tools/random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/some_long_operation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/tools/sort_map_by_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1015,6 +1027,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/some_long_operation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
@@ -1235,6 +1252,11 @@
             flavor2="0">
       </item>
       <item path="tests/tools/random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/some_long_operation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/tools/sort_map_by_value.cpp" ex="false" tool="1" flavor2="0">
       </item>

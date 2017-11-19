@@ -100,6 +100,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/tools/number_of_decimals.o \
 	${OBJECTDIR}/tests/tools/parse_cli_arguments.o \
 	${OBJECTDIR}/tests/tools/random.o \
+	${OBJECTDIR}/tests/tools/some_long_operation.o \
 	${OBJECTDIR}/tests/tools/sort_map_by_value.o \
 	${OBJECTDIR}/tests/tools/twoway_streambuf.o \
 	${OBJECTDIR}/tests/tools/wagner_fischer_distance.o
@@ -455,6 +456,11 @@ ${OBJECTDIR}/tests/tools/random.o: tests/tools/random.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/random.o tests/tools/random.cpp
+
+${OBJECTDIR}/tests/tools/some_long_operation.o: tests/tools/some_long_operation.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/some_long_operation.o tests/tools/some_long_operation.cpp
 
 ${OBJECTDIR}/tests/tools/sort_map_by_value.o: tests/tools/sort_map_by_value.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/tools
