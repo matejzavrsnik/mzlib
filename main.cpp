@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
    return RUN_ALL_TESTS();
 }
 
-/* TEMPLATE FOR NEW FILES
+/* TEMPLATE FOR NEW H FILES
 
 //
 // Copyright (c) 2017 Matej Zavrsnik
@@ -27,17 +27,35 @@ int main(int argc, char **argv) {
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef HEADER_H
-#define HEADER_H
+#ifndef MZLIB_HEADER_H
+#define MZLIB_HEADER_H
 #include <stuff>
 namespace mzlib {
 } // namespace
-#endif // HEADER_H
+#endif // MZLIB_HEADER_H
 
-#ifdef MZLIB_BUILDING_TESTS
-#ifndef HEADER_TESTS_H
-#define HEADER_TESTS_H
-#endif // HEADER_TESTS_H
-#endif // MZLIB_BUILDING_TESTS
+#ifdef MZLIB_HEADER_TESTS
+#undef MZLIB_HEADER_TESTS
+
+#endif // MZLIB_HEADER_TESTS
+
+*/
+
+/* TEMPLATE FOR NEW CPP FILES
+
+//
+// Copyright (c) 2017 Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
+//
+
+#include "gtest/gtest.h"
+
+// Tests are implemented where functionality is implemented so that they are 
+// easier to find while developing. This switch will turn on compilation of tests.
+
+#define MZLIB_HEADER_TESTS_H
+#include "include/the_thing.h"
 
 */

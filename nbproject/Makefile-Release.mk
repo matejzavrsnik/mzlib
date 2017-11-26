@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests.o \
+	${OBJECTDIR}/tests/abstract/genetic_base.o \
 	${OBJECTDIR}/tests/abstract/genetic_container.o \
 	${OBJECTDIR}/tests/abstract/genetic_object.o \
 	${OBJECTDIR}/tests/abstract/markov_chain.o \
@@ -92,6 +93,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/test_universe_performance.o \
 	${OBJECTDIR}/tests/tools/add_to_tally.o \
 	${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o \
+	${OBJECTDIR}/tests/tools/count_bits.o \
 	${OBJECTDIR}/tests/tools/equidistant_sequence.o \
 	${OBJECTDIR}/tests/tools/fast_min.o \
 	${OBJECTDIR}/tests/tools/genetic.o \
@@ -141,6 +143,11 @@ ${OBJECTDIR}/tests.o: tests.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
+
+${OBJECTDIR}/tests/abstract/genetic_base.o: tests/abstract/genetic_base.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/abstract
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/abstract/genetic_base.o tests/abstract/genetic_base.cpp
 
 ${OBJECTDIR}/tests/abstract/genetic_container.o: tests/abstract/genetic_container.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/abstract
@@ -416,6 +423,11 @@ ${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o: tests/tools/copy_first_n_over
 	${MKDIR} -p ${OBJECTDIR}/tests/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o tests/tools/copy_first_n_over_rest.cpp
+
+${OBJECTDIR}/tests/tools/count_bits.o: tests/tools/count_bits.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/count_bits.o tests/tools/count_bits.cpp
 
 ${OBJECTDIR}/tests/tools/equidistant_sequence.o: tests/tools/equidistant_sequence.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/tools

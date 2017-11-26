@@ -90,6 +90,7 @@
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <itemPath>include/tools/add_to_tally.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
+        <itemPath>include/tools/count_bits.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
@@ -117,6 +118,7 @@
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
       <logicalFolder name="f9" displayName="abstract" projectFiles="true">
+        <itemPath>tests/abstract/genetic_base.cpp</itemPath>
         <itemPath>tests/abstract/genetic_container.cpp</itemPath>
         <itemPath>tests/abstract/genetic_object.cpp</itemPath>
         <itemPath>tests/abstract/markov_chain.cpp</itemPath>
@@ -190,6 +192,7 @@
       <logicalFolder name="f1" displayName="tools" projectFiles="true">
         <itemPath>tests/tools/add_to_tally.cpp</itemPath>
         <itemPath>tests/tools/copy_first_n_over_rest.cpp</itemPath>
+        <itemPath>tests/tools/count_bits.cpp</itemPath>
         <itemPath>tests/tools/equidistant_sequence.cpp</itemPath>
         <itemPath>tests/tools/fast_min.cpp</itemPath>
         <itemPath>tests/tools/genetic.cpp</itemPath>
@@ -466,6 +469,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"
             tool="3"
@@ -522,6 +527,8 @@
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/abstract/genetic_container.cpp"
             ex="false"
@@ -700,6 +707,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/tools/equidistant_sequence.cpp"
             ex="false"
@@ -990,6 +999,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"
             tool="3"
@@ -1046,6 +1057,8 @@
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/abstract/genetic_container.cpp"
             ex="false"
@@ -1224,6 +1237,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/tools/equidistant_sequence.cpp"
             ex="false"

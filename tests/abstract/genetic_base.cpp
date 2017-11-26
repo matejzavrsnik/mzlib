@@ -10,6 +10,6 @@
 // Tests are implemented where functionality is implemented so that they are 
 // easier to find while developing. This switch will turn on compilation of tests.
 
-#define MZLIB_GENETIC_CONTAINER_TESTS_H
-#include "../../include/abstract/genetic_container.h"
+#define MZLIB_GENETIC_BASE_TESTS_H
+#include "../../include/abstract/genetic_base.h"
 

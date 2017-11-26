@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_GENETIC_H
-#define	MZLIB_GENETIC_H
+#ifndef MZLIB_GENETIC_CONTAINER_H
+#define	MZLIB_GENETIC_CONTAINER_H
 
 #include "genetic_base.h"
 #include <vector>
@@ -57,10 +57,10 @@ private:
 
 } // namespace
 
-#endif	/* MZLIB_GENETIC_H */
+#endif	/* MZLIB_GENETIC_CONTAINER_H */
 
-#ifdef MZLIB_GENETIC_TESTS_H
-#undef MZLIB_GENETIC_TESTS_H
+#ifdef MZLIB_GENETIC_CONTAINER_TESTS_H
+#undef MZLIB_GENETIC_CONTAINER_TESTS_H
 
 TEST(genetic_container, demo) 
 {
@@ -95,4 +95,4 @@ TEST(genetic_container, demo)
    ASSERT_TRUE(true);
 }
 
-#endif // MZLIB_GENETIC_TESTS_H
+#endif // MZLIB_GENETIC_CONTAINER_TESTS_H

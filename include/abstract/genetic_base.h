@@ -149,3 +149,9 @@ private:
 
 #endif	/* MZLIB_GENETIC_BASE_H */
 
+#ifdef MZLIB_GENETIC_BASE_TESTS_H
+#undef MZLIB_GENETIC_BASE_TESTS_H
+
+
+
+#endif
