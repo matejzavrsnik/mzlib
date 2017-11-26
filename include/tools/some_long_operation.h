@@ -36,7 +36,8 @@ TEST(some_long_operation, demo)
    mzlib::some_long_operation(20ms);
    auto end_time = std::chrono::high_resolution_clock::now();
    auto duration = end_time - start_time;
-   ASSERT_NEAR(20ms, duration, 1ms);
+   ASSERT_TRUE(21ms > duration);
+   ASSERT_TRUE(19ms < duration);
 }
 
 #endif // MZLIB_SOME_LONG_OPERATION_TESTS_H
