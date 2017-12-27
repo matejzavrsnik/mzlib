@@ -30,6 +30,14 @@ inline direction the_opposite_direction (direction direction)
       case direction::w: return direction::e;
       
       case direction::centre: return direction::centre;
+      
+      // The following is not the best thing ever, but it does keep compiler
+      // warnings away. As soon as I invent direction::unknown I would have to
+      // account for it everywhere, if I throw I would have to catch everywhere.
+      // This is simple function, let it remain simple. There are not many simple
+      // things in the world today and that makes them so much more precious :)
+      // Besides, "should never happen" anyway, right?
+      default: return direction::centre;
    }
 }
 
