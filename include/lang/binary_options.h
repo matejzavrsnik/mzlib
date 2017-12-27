@@ -75,7 +75,8 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( descending     )
 MZLIB_GENERATE_NEW_BINARY_OPTION( forward        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( match          )
 MZLIB_GENERATE_NEW_BINARY_OPTION( alphanumeric   )
-
+MZLIB_GENERATE_NEW_BINARY_OPTION( case_sensitive )
+        
 // Did you come here to add something like larger/smaller option? Think again. 
 // Imagine the function that takes type larger as an argument. The meaning of 
 // larger::yes is clear, but larger::no is not; does the function interpret it 
