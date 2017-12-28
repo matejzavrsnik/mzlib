@@ -36,7 +36,7 @@ inline void delete_all_children_except (std::vector<std::string> names, xmlpp::N
    }
 }
 
-inline void delete_all_attributes_but (std::vector<std::string> names, xmlpp::Node* from_node)
+inline void delete_all_attributes_except (std::vector<std::string> names, xmlpp::Node* from_node)
 {
    xmlpp::Element* from_element = dynamic_cast<xmlpp::Element*>(from_node);
    if (from_element == nullptr) return;
@@ -52,7 +52,7 @@ inline void delete_all_attributes_but (std::vector<std::string> names, xmlpp::No
 
 inline void delete_all_attributes (xmlpp::Node* from_node)
 {
-   delete_all_attributes_but({}, from_node);
+   delete_all_attributes_except({}, from_node);
 }
 
 inline void delete_all_but_xpath (std::string xpath, xmlpp::Node* from_node) 
@@ -128,11 +128,24 @@ protected:
    xmlpp::Element* m_root;
 };
 
-TEST_F(fixture_libxmlpp, delete_all_children_but) 
+TEST_F(fixture_libxmlpp, delete_all_children_except_demo) 
 {
-   auto children_before = m_root->get_children();
    mzlib::delete_all_children_except({"chrisjen", "amos"}, m_root);
-   auto children_after = m_root->get_children();
+   
+   ASSERT_TRUE (m_root->get_children("chrisjen").size() == 1);
+   ASSERT_TRUE (m_root->get_children("amos").size() == 1);
+   ASSERT_FALSE(m_root->get_children("naomi").size() == 1);
+   ASSERT_FALSE(m_root->get_children("miller").size() == 1);
+}
+
+TEST_F(fixture_libxmlpp, delete_all_children_except_empty) 
+{
+   mzlib::delete_all_children_except({}, m_root);
+   
+   ASSERT_FALSE(m_root->get_children("chrisjen").size() == 1);
+   ASSERT_FALSE(m_root->get_children("amos").size() == 1);
+   ASSERT_FALSE(m_root->get_children("naomi").size() == 1);
+   ASSERT_FALSE(m_root->get_children("miller").size() == 1);
 }
 
 #endif // MZLIB_TOOLS_LIBXMLPP_TESTS_H
