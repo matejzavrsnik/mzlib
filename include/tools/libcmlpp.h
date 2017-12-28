@@ -5,8 +5,10 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_UTILS_LIBXMLPP_H
-#define MZLIB_UTILS_LIBXMLPP_H
+#ifndef MZLIB_TOOLS_LIBXMLPP_H
+#define MZLIB_TOOLS_LIBXMLPP_H
+
+#include <libxml++/libxml++.h>
 
 #include <string>
 #include <iostream>
@@ -21,11 +23,7 @@
 
 namespace mzlib {
 
-// defined in libxml++.h
-// if project includes libxml++ lib, it will see, compile, and be able to use the following functions
-#ifdef __LIBXMLCPP_H
-
-inline void delete_all_but (std::vector<std::string> names, xmlpp::Node* from_node) 
+inline void delete_all_children_except (std::vector<std::string> names, xmlpp::Node* from_node) 
 {
    if (from_node == nullptr) return;
    std::list<xmlpp::Node*> children = from_node->get_children();
@@ -63,7 +61,7 @@ inline void delete_all_but_xpath (std::string xpath, xmlpp::Node* from_node)
    if(content_div.size() > 0) {
       xmlpp::Document tempXmlDocument;
       tempXmlDocument.create_root_node_by_import(content_div[0]);
-      delete_all_but({}, from_node);
+      delete_all_children_except({}, from_node);
       from_node->import_node(tempXmlDocument.get_root_node());
    }
 }
@@ -93,9 +91,49 @@ inline std::string get_content (std::string xpath, xmlpp::Node* from_node)
    }
    return content;
 }
-#endif
     
 } // namespace
 
-#endif /* MZLIB_UTILS_LIBXMLPP_H */
+#endif // MZLIB_TOOLS_LIBXMLPP_H
+
+#ifdef MZLIB_TOOLS_LIBXMLPP_TESTS_H
+#undef MZLIB_TOOLS_LIBXMLPP_TESTS_H
+
+class fixture_libxmlpp : public ::testing::Test 
+{
+
+protected:
+   
+   fixture_libxmlpp () {}
+   virtual ~fixture_libxmlpp () {}
+   
+   virtual void SetUp() 
+   {
+      std::string xml_file = R"(
+      <show title="The Expanse">
+         <chrisjen>Shohreh Aghdashloo</chrisjen>
+         <amos>Wes Chatham</amos>
+         <naomi>Dominique Tipper</naomi>
+         <miller>Thomas Jane</miller>
+      </show>
+      )";
+      
+      m_parser.parse_memory(xml_file);
+      m_root = m_parser.get_document()->get_root_node();
+   }
+   
+   virtual void TearDown() {}
+
+   xmlpp::DomParser m_parser;
+   xmlpp::Element* m_root;
+};
+
+TEST_F(fixture_libxmlpp, delete_all_children_but) 
+{
+   auto children_before = m_root->get_children();
+   mzlib::delete_all_children_except({"chrisjen", "amos"}, m_root);
+   auto children_after = m_root->get_children();
+}
+
+#endif // MZLIB_TOOLS_LIBXMLPP_TESTS_H
 

@@ -197,6 +197,7 @@
         <itemPath>tests/tools/fast_min.cpp</itemPath>
         <itemPath>tests/tools/genetic.cpp</itemPath>
         <itemPath>tests/tools/index_coordinate_conversions.cpp</itemPath>
+        <itemPath>tests/tools/libcmlpp.cpp</itemPath>
         <itemPath>tests/tools/next_lex_permutation.cpp</itemPath>
         <itemPath>tests/tools/number_of_decimals.cpp</itemPath>
         <itemPath>tests/tools/parse_cli_arguments.cpp</itemPath>
@@ -245,6 +246,12 @@
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
+            <pElem>/usr/include/glib-2.0</pElem>
+            <pElem>/usr/lib64/glib-2.0/include</pElem>
+            <pElem>/usr/include/glibmm-2.4</pElem>
+            <pElem>/usr/lib64/glibmm-2.4/include</pElem>
+            <pElem>/usr/include/libxml++-2.6</pElem>
+            <pElem>/usr/lib64/libxml++-2.6/include</pElem>
           </incDir>
           <commandLine>-std=c++1z</commandLine>
         </ccTool>
@@ -253,10 +260,13 @@
         </asmTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
             <linkerLibLibItem>gmock</linkerLibLibItem>
-            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>glib-2.0</linkerLibLibItem>
+            <linkerLibLibItem>glibmm-2.4</linkerLibLibItem>
+            <linkerLibLibItem>xml++-2.6</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -723,6 +733,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/tools/libcmlpp.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/tools/next_lex_permutation.cpp"
             ex="false"
@@ -769,6 +781,12 @@
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>/usr/include/gtest</pElem>
+            <pElem>/usr/include/glib-2.0</pElem>
+            <pElem>/usr/lib64/glib-2.0/include</pElem>
+            <pElem>/usr/include/glibmm-2.4</pElem>
+            <pElem>/usr/lib64/glibmm-2.4/include</pElem>
+            <pElem>/usr/include/libxml++-2.6</pElem>
+            <pElem>/usr/lib64/libxml++-2.6/include</pElem>
           </incDir>
           <commandLine>-Wall -Wextra -Wpedantic -std=c++1z</commandLine>
           <warningLevel>2</warningLevel>
@@ -782,11 +800,13 @@
         </asmTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
-            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibLibItem>gmock</linkerLibLibItem>
-            <linkerLibFileItem>/usr/lib64/libgmock.so</linkerLibFileItem>
+            <linkerLibLibItem>glib-2.0</linkerLibLibItem>
+            <linkerLibLibItem>glibmm-2.4</linkerLibLibItem>
+            <linkerLibLibItem>xml++-2.6</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -1253,6 +1273,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/tools/libcmlpp.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/tools/next_lex_permutation.cpp"
             ex="false"
