@@ -8,29 +8,47 @@
 #ifndef MZLIB_SENTENCE_O_MATIC_H
 #define MZLIB_SENTENCE_O_MATIC_H
 
+#include <set>
+
 #include "../abstract/markov_chain.h"
 #include "../string/sentence_assemblarator.h"
 #include "../string/split_on_puctuation.h"
+#include "../string/remove_substrings.h"
 
 namespace mzlib {
 
+class sentence_o_matic_builder : public markov_chain_builder<std::string>
+{
+public:
+   
+   using markov_chain_builder::markov_chain_builder;
+   
+   virtual void add_state (std::string next_state) override
+   {
+      std::vector<std::string> split = split_on_puctuation(next_state);
+      for (auto& word : split) {
+         markov_chain_builder<std::string>::add_state(word);
+      }
+   }
+   
+};
+   
 // specialisation of generic markov chain generator that generates sentences
 class sentence_o_matic : public markov_chain<std::string>
 {
-        
+   
 public:
         
-   void read_next (std::string state) override 
+   virtual const std::string get_next () override
    {
-      std::vector<std::string> split = split_on_puctuation(state);
-      for (auto& word : split) {
-         read(word);
-      }
-   }
-        
-   std::string get_next () override 
-   {
-      std::string sentence = sentence_assemblarator([&](){return get();});
+      std::string sentence = sentence_assemblarator(
+         [&]() {
+            return markov_chain<std::string>::get_next();
+         });
+      // by preventing some words we enabled weird combinations like the
+      // following, that are better if they are removed:
+      sentence = remove_all_occurences_of_substring(sentence, " ()");
+      sentence = remove_all_occurences_of_substring(sentence, " \"\"");
       return sentence;
    }
         
@@ -46,6 +64,7 @@ public:
 TEST(sentence_o_matic, demo_test) 
 {
    mzlib::sentence_o_matic sentence_o_matic;
+   mzlib::sentence_o_matic_builder builder(sentence_o_matic);
    std::stringstream ss(
       "I have always believed, and I still believe, that whatever good or bad fortune may "
       "come our way we can always give it meaning and transform it into something of value. " 
@@ -59,10 +78,10 @@ TEST(sentence_o_matic, demo_test)
    std::string word;
    do {
       ss >> word;
-      sentence_o_matic.read_next(word);
+      builder.add_state(word);
    }
    while(ss);
-   sentence_o_matic.wrap_up();
+   builder.wrap_up();
     
    std::string generated = "";
    do {

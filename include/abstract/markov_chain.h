@@ -15,8 +15,10 @@
 
 
 namespace mzlib
-{
-
+{   
+   
+template<class T> class markov_chain_builder;
+   
 // generic markov chain generator
 template<class T> 
 class markov_chain
@@ -24,29 +26,17 @@ class markov_chain
     
 private:
         
-   std::optional<T> m_previous_state;
    T m_next_state;
    std::map<T, probabilator<T>> m_states;
         
-   const T get_random_state () 
+public:
+   
+   virtual const T get_random_state () 
    {
       return get_random_element(m_states.begin(), m_states.end())->first;
    }
         
-protected:
-        
-   void read (T state) 
-   {
-      if(m_previous_state.has_value()) {
-         m_states[m_previous_state.value()].add_event(state);
-         m_previous_state = state;
-      }
-      else {
-         m_previous_state = state;
-      }
-   }
-        
-   const T get() 
+   virtual const T get_next() 
    {
       T& return_state = m_next_state;
       probabilator<T>& probabilator = m_states[m_next_state];
@@ -59,27 +49,62 @@ protected:
       return return_state;
    }
         
+   friend class markov_chain_builder<T>;
+};
+
+template<class T> 
+class markov_chain_builder
+{
+private:
+      
+   std::optional<T> m_previous_state;
+   std::set<T> m_forbidden_states;
+   markov_chain<T>& m_markov_chain;
+   
 public:
-        
-   virtual void read_next (T state) 
-   {  
-      read(state);
-   }
-        
-   void wrap_up () 
+   
+   markov_chain_builder(markov_chain<T>& mc)
+      : m_markov_chain(mc) 
    {
-      for (auto& state : m_states) {
+         m_markov_chain.m_states.clear();
+   };
+
+   void add_forbidden_states(std::vector<T> forbidden_states)
+   {
+      m_forbidden_states.insert(
+         forbidden_states.begin(), 
+         forbidden_states.end());
+   }
+   
+   virtual void add_state (T next_state)
+   {
+      if(m_previous_state.has_value()) {
+         if(m_forbidden_states.count(next_state) == 0)
+         {
+            m_markov_chain.m_states[m_previous_state.value()].add_event(next_state);
+            m_previous_state = next_state;
+         }
+      }
+      else {
+         m_previous_state = next_state;
+      }
+   }
+   
+   virtual void add_state (T prev_state, T next_state)
+   {
+      m_previous_state = prev_state;
+      add_state (next_state);
+   }
+   
+   virtual void wrap_up ()
+   {
+      for (auto& state : m_markov_chain.m_states) {
          state.second.wrap_up();
       }
-      m_next_state = get_random_state();
-   }
-        
-   virtual T get_next () 
-   {
-      return get();
+      m_markov_chain.m_next_state = m_markov_chain.get_random_state();
    }
 };
-    
+
 }
 
 #endif /* MZLIB_MARKOV_CHAIN_H */
@@ -90,11 +115,13 @@ public:
 TEST(markov_chain, basic_test) 
 {
    mzlib::markov_chain<int> markov_chain;
+   mzlib::markov_chain_builder<int> markov_chain_builder(markov_chain);
    // 1 -> 2 -> 1
    //   -> 3 -> 2
    for (int number : {1,2,1,3,2})
-      markov_chain.read_next(number);
-   markov_chain.wrap_up();
+      markov_chain_builder.add_state(number);
+   
+   markov_chain_builder.wrap_up();
    
    int count = 0, repetitions = 10000, next_number;
    std::array<int,3> stats = {0,0,0};
