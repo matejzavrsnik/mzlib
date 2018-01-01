@@ -31,9 +31,9 @@ private:
         
 public:
    
-   virtual const T get_random_state () 
+   virtual void set_random_next_state () 
    {
-      return get_random_element(m_states.begin(), m_states.end())->first;
+      m_next_state = get_random_element(m_states.begin(), m_states.end())->first;
    }
         
    virtual const T get_next() 
@@ -41,7 +41,7 @@ public:
       T& return_state = m_next_state;
       probabilator<T>& probabilator = m_states[m_next_state];
       if (probabilator.count_events() == 0) {
-         m_next_state = get_random_state();
+         set_random_next_state();
       }
       else {
          m_next_state = probabilator.get_event();
@@ -101,7 +101,7 @@ public:
       for (auto& state : m_markov_chain.m_states) {
          state.second.wrap_up();
       }
-      m_markov_chain.m_next_state = m_markov_chain.get_random_state();
+      m_markov_chain.set_random_next_state();
    }
 };
 

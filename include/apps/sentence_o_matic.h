@@ -41,6 +41,7 @@ public:
         
    virtual const std::string get_next () override
    {
+      set_random_next_state();
       std::string sentence = sentence_assemblarator(
          [&]() {
             return markov_chain<std::string>::get_next();
