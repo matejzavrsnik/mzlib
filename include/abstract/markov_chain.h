@@ -16,30 +16,36 @@
 
 namespace mzlib
 {   
-   
-template<class T> class markov_chain_builder;
-   
+
+template<class T> using markov_chain = std::map<T, probabilator<T>>;
+
 // generic markov chain generator
 template<class T> 
-class markov_chain
+class markov_chain_traverser
 {
     
 private:
         
    T m_next_state;
-   std::map<T, probabilator<T>> m_states;
+   markov_chain<T> m_markov_chain;
         
 public:
    
+   markov_chain_traverser(markov_chain<T> chain)
+   {
+      m_markov_chain = chain;
+      set_random_next_state ();
+   }
+   
    virtual void set_random_next_state () 
    {
-      m_next_state = get_random_element(m_states.begin(), m_states.end())->first;
+      m_next_state = get_random_element(m_markov_chain.begin(), m_markov_chain.end())->first;
    }
         
    virtual const T get_next() 
    {
       T& return_state = m_next_state;
-      probabilator<T>& probabilator = m_states[m_next_state];
+      probabilator<T>& probabilator = m_markov_chain[m_next_state];
       if (probabilator.count_events() == 0) {
          set_random_next_state();
       }
@@ -48,8 +54,7 @@ public:
       }
       return return_state;
    }
-        
-   friend class markov_chain_builder<T>;
+
 };
 
 template<class T> 
@@ -59,15 +64,9 @@ private:
       
    std::optional<T> m_previous_state;
    std::set<T> m_forbidden_states;
-   markov_chain<T>& m_markov_chain;
+   markov_chain<T> m_markov_chain;
    
 public:
-   
-   markov_chain_builder(markov_chain<T>& mc)
-      : m_markov_chain(mc) 
-   {
-         m_markov_chain.m_states.clear();
-   };
 
    void add_forbidden_states(std::vector<T> forbidden_states)
    {
@@ -81,7 +80,7 @@ public:
       if(m_previous_state.has_value()) {
          if(m_forbidden_states.count(next_state) == 0)
          {
-            m_markov_chain.m_states[m_previous_state.value()].add_event(next_state);
+            m_markov_chain[m_previous_state.value()].add_event(next_state);
             m_previous_state = next_state;
          }
       }
@@ -96,12 +95,12 @@ public:
       add_state (next_state);
    }
    
-   virtual void wrap_up ()
+   virtual markov_chain<T> wrap_up ()
    {
-      for (auto& state : m_markov_chain.m_states) {
+      for (auto& state : m_markov_chain) {
          state.second.wrap_up();
       }
-      m_markov_chain.set_random_next_state();
+      return m_markov_chain;
    }
 };
 
@@ -112,16 +111,32 @@ public:
 #ifdef MZLIB_MARKOV_CHAIN_TESTS_H
 #undef MZLIB_MARKOV_CHAIN_TESTS_H
 
-TEST(markov_chain, basic_test) 
+TEST(markov_chain_builder, basic_test) 
 {
-   mzlib::markov_chain<int> markov_chain;
-   mzlib::markov_chain_builder<int> markov_chain_builder(markov_chain);
+   mzlib::markov_chain_builder<int> markov_chain_builder;
    // 1 -> 2 -> 1
    //   -> 3 -> 2
    for (int number : {1,2,1,3,2})
       markov_chain_builder.add_state(number);
    
-   markov_chain_builder.wrap_up();
+   mzlib::markov_chain<int> mc = markov_chain_builder.wrap_up();
+   
+   ASSERT_EQ(2, mc[1].count_events());
+   ASSERT_EQ(1, mc[2].count_events());
+   ASSERT_EQ(1, mc[3].count_events());
+}
+
+TEST(markov_chain, basic_test) 
+{
+   mzlib::markov_chain_builder<int> markov_chain_builder;
+   // 1 -> 2 -> 1
+   //   -> 3 -> 2
+   for (int number : {1,2,1,3,2})
+      markov_chain_builder.add_state(number);
+   
+   auto mc = markov_chain_builder.wrap_up();
+   
+   mzlib::markov_chain_traverser<int> markov_chain(mc);
    
    int count = 0, repetitions = 10000, next_number;
    std::array<int,3> stats = {0,0,0};

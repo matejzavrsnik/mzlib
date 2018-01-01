@@ -21,8 +21,6 @@ class sentence_o_matic_builder : public markov_chain_builder<std::string>
 {
 public:
    
-   using markov_chain_builder::markov_chain_builder;
-   
    virtual void add_state (std::string next_state) override
    {
       std::vector<std::string> split = split_on_puctuation(next_state);
@@ -34,17 +32,19 @@ public:
 };
    
 // specialisation of generic markov chain generator that generates sentences
-class sentence_o_matic : public markov_chain<std::string>
+class sentence_o_matic : public markov_chain_traverser<std::string>
 {
    
 public:
+   
+   using markov_chain_traverser::markov_chain_traverser;
         
    virtual const std::string get_next () override
    {
       set_random_next_state();
       std::string sentence = sentence_assemblarator(
          [&]() {
-            return markov_chain<std::string>::get_next();
+            return markov_chain_traverser<std::string>::get_next();
          });
       // by preventing some words we enabled weird combinations like the
       // following, that are better if they are removed:
@@ -64,8 +64,8 @@ public:
 
 TEST(sentence_o_matic, demo_test) 
 {
-   mzlib::sentence_o_matic sentence_o_matic;
-   mzlib::sentence_o_matic_builder builder(sentence_o_matic);
+
+   mzlib::sentence_o_matic_builder builder;
    std::stringstream ss(
       "I have always believed, and I still believe, that whatever good or bad fortune may "
       "come our way we can always give it meaning and transform it into something of value. " 
@@ -82,7 +82,8 @@ TEST(sentence_o_matic, demo_test)
       builder.add_state(word);
    }
    while(ss);
-   builder.wrap_up();
+   
+   mzlib::sentence_o_matic sentence_o_matic(builder.wrap_up());
     
    std::string generated = "";
    do {
