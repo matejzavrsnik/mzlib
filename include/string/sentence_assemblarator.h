@@ -20,6 +20,10 @@ inline std::string sentence_assemblarator (std::function<std::string()> words_ge
 {
    // get first word
    std::string word = words_generator();
+   while(ispunct(word[0])) {
+      // no point in trying to start a sentence with punctuation
+      word = words_generator(); 
+   }
    // reset state variables
    bool open_quotes = false;
    bool open_parentheses = false;
@@ -114,6 +118,14 @@ TEST(sentence_assemblarator, stops_on_question_mark)
    auto words_iterator = words.begin();
    std::string sentence = mzlib::sentence_assemblarator([&](){return *(words_iterator++);});
    ASSERT_EQ(sentence, "Veni?"); 
+}
+
+TEST(sentence_assemblarator, refuses_to_start_with_punctuation) 
+{
+   std::vector<std::string> words = {".", "?", "vidi", ",","dormivi", "."};
+   auto words_iterator = words.begin();
+   std::string sentence = mzlib::sentence_assemblarator([&](){return *(words_iterator++);});
+   ASSERT_EQ(sentence, "Vidi, dormivi."); 
 }
 
 TEST(sentence_assemblarator, spaces_around_quotes) 
