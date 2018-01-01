@@ -85,7 +85,7 @@
         <itemPath>include/string/string_case.h</itemPath>
         <itemPath>include/string/string_replace.h</itemPath>
         <itemPath>include/string/string_start_end.h</itemPath>
-        <itemPath>include/string/trim_punctuation.h</itemPath>
+        <itemPath>include/string/trim_nonalpha.h</itemPath>
       </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <itemPath>include/tools/add_to_tally.h</itemPath>
@@ -187,7 +187,7 @@
         <itemPath>tests/string/string_case.cpp</itemPath>
         <itemPath>tests/string/string_replace.cpp</itemPath>
         <itemPath>tests/string/string_start_end.cpp</itemPath>
-        <itemPath>tests/string/trim_punctuation.cpp</itemPath>
+        <itemPath>tests/string/trim_nonalpha.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="tools" projectFiles="true">
         <itemPath>tests/tools/add_to_tally.cpp</itemPath>
@@ -470,7 +470,7 @@
       </item>
       <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/string/trim_punctuation.h" ex="false" tool="3" flavor2="0">
+      <item path="include/string/trim_nonalpha.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -704,7 +704,7 @@
       </item>
       <item path="tests/string/string_start_end.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/string/trim_punctuation.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"
@@ -1010,7 +1010,7 @@
       </item>
       <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/string/trim_punctuation.h" ex="false" tool="3" flavor2="0">
+      <item path="include/string/trim_nonalpha.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1244,7 +1244,7 @@
       </item>
       <item path="tests/string/string_start_end.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/string/trim_punctuation.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"

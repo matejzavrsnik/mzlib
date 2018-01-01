@@ -8,7 +8,7 @@
 #ifndef MZLIB_EXTRACT_VOCABULARY_H
 #define MZLIB_EXTRACT_VOCABULARY_H
 
-#include "trim_punctuation.h"
+#include "trim_nonalpha.h"
 #include "split_on_puctuation.h"
 #include "../tools/add_to_tally.h"
 
@@ -23,7 +23,7 @@ void extract_vocabulary(std::istream& vocab_stream, InsertIt insert_it)
       std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
       auto split_words = mzlib::split_on_puctuation(piece);
       for(auto word : split_words) {
-         word = mzlib::trim_punctuation(word);
+         word = mzlib::trim_nonalpha(word);
          if (word.length() > 0) {
             *insert_it++ = word;
          }
@@ -42,7 +42,7 @@ extract_vocabulary_with_count(std::istream& vocab_stream)
       std::transform(piece.begin(), piece.end(), piece.begin(), ::tolower);
       auto split_words = mzlib::split_on_puctuation(piece);
       for(auto word : split_words) {
-         word = mzlib::trim_punctuation(word);
+         word = mzlib::trim_nonalpha(word);
          if (word.length()) {
             mzlib::add_to_tally(word_tally, word);
          }

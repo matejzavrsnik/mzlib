@@ -89,7 +89,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/string/string_case.o \
 	${OBJECTDIR}/tests/string/string_replace.o \
 	${OBJECTDIR}/tests/string/string_start_end.o \
-	${OBJECTDIR}/tests/string/trim_punctuation.o \
+	${OBJECTDIR}/tests/string/trim_nonalpha.o \
 	${OBJECTDIR}/tests/test_universe_performance.o \
 	${OBJECTDIR}/tests/tools/add_to_tally.o \
 	${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o \
@@ -403,10 +403,10 @@ ${OBJECTDIR}/tests/string/string_start_end.o: tests/string/string_start_end.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/string_start_end.o tests/string/string_start_end.cpp
 
-${OBJECTDIR}/tests/string/trim_punctuation.o: tests/string/trim_punctuation.cpp
+${OBJECTDIR}/tests/string/trim_nonalpha.o: tests/string/trim_nonalpha.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/string
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/trim_punctuation.o tests/string/trim_punctuation.cpp
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/trim_nonalpha.o tests/string/trim_nonalpha.cpp
 
 ${OBJECTDIR}/tests/test_universe_performance.o: tests/test_universe_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
