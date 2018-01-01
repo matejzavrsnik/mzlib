@@ -79,6 +79,7 @@
         <itemPath>include/string/get_substring.h</itemPath>
         <itemPath>include/string/is_word_in_dictionary.h</itemPath>
         <itemPath>include/string/remove_strings.h</itemPath>
+        <itemPath>include/string/remove_substrings.h</itemPath>
         <itemPath>include/string/sentence_assemblarator.h</itemPath>
         <itemPath>include/string/split_on_delimiter.h</itemPath>
         <itemPath>include/string/split_on_puctuation.h</itemPath>
@@ -181,6 +182,7 @@
         <itemPath>tests/string/get_substring.cpp</itemPath>
         <itemPath>tests/string/is_word_in_dictionary.cpp</itemPath>
         <itemPath>tests/string/remove_strings.cpp</itemPath>
+        <itemPath>tests/string/remove_substrings.cpp</itemPath>
         <itemPath>tests/string/sentence_assemblarator.cpp</itemPath>
         <itemPath>tests/string/split_on_delimiter.cpp</itemPath>
         <itemPath>tests/string/split_on_punctuation.cpp</itemPath>
@@ -449,6 +451,8 @@
       </item>
       <item path="include/string/remove_strings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/sentence_assemblarator.h"
             ex="false"
             tool="3"
@@ -682,6 +686,8 @@
             flavor2="0">
       </item>
       <item path="tests/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/remove_substrings.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/string/sentence_assemblarator.cpp"
             ex="false"
@@ -989,6 +995,8 @@
       </item>
       <item path="include/string/remove_strings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/sentence_assemblarator.h"
             ex="false"
             tool="3"
@@ -1222,6 +1230,8 @@
             flavor2="0">
       </item>
       <item path="tests/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/remove_substrings.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/string/sentence_assemblarator.cpp"
             ex="false"

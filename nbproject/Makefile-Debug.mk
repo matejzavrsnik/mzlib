@@ -83,6 +83,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/string/get_substring.o \
 	${OBJECTDIR}/tests/string/is_word_in_dictionary.o \
 	${OBJECTDIR}/tests/string/remove_strings.o \
+	${OBJECTDIR}/tests/string/remove_substrings.o \
 	${OBJECTDIR}/tests/string/sentence_assemblarator.o \
 	${OBJECTDIR}/tests/string/split_on_delimiter.o \
 	${OBJECTDIR}/tests/string/split_on_punctuation.o \
@@ -372,6 +373,11 @@ ${OBJECTDIR}/tests/string/remove_strings.o: tests/string/remove_strings.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/remove_strings.o tests/string/remove_strings.cpp
+
+${OBJECTDIR}/tests/string/remove_substrings.o: tests/string/remove_substrings.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/remove_substrings.o tests/string/remove_substrings.cpp
 
 ${OBJECTDIR}/tests/string/sentence_assemblarator.o: tests/string/sentence_assemblarator.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/string
