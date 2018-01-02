@@ -36,7 +36,7 @@ using namespace mzlib::units;
 // pain if it is simple to do?
 
 // include custom mocks
-#include "tests/mocks/mock_sdl.h"
+
 
 // the main thing: tests themselves
 // tests are implemented where functionality is implemented so that they are 
@@ -50,7 +50,5 @@ using namespace mzlib::units;
 // suddenly appear amongst the tests you wrote for that thing only.
 
    #include "include/joke/supersafe_number.h"
-
-   #include "include/image_texture.h"
 
 #undef MZLIB_BUILDING_TESTS

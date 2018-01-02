@@ -5,13 +5,13 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_IMAGE_TEXTURE_H
-#define	MZLIB_IMAGE_TEXTURE_H
+#ifndef MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_H
+#define	MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_H
 
 // if included SDL.h and SDL_image.h from SDL2 library
 #if defined(_SDL_H) && defined(_SDL_IMAGE_H)
 
-#include "lang/exceptions.h"
+#include "../lang/exceptions.h"
 #include <string>
 #include <memory>
 
@@ -180,10 +180,10 @@ private:
 
 #endif
 
+#endif // MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_H
 
-#endif	/* MZLIB_IMAGE_TEXTURE_H */
-
-#ifdef MZLIB_BUILDING_TESTS
+#ifdef MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_TESTS_H
+#undef MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_TESTS_H
 
 using namespace ::testing;
 
@@ -373,4 +373,4 @@ TEST_F(fixture_image_texture, on_copy_assigned_will_reload_image_again_and_event
    // image file again for the copy. 
 }
 
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_TESTS_H

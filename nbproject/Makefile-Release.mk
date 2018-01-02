@@ -51,6 +51,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/apps/killer_sudoku.o \
 	${OBJECTDIR}/tests/apps/sentence_o_matic.o \
 	${OBJECTDIR}/tests/apps/sudoku.o \
+	${OBJECTDIR}/tests/extension/libxmlpp.o \
+	${OBJECTDIR}/tests/extension/sdl_image_texture.o \
 	${OBJECTDIR}/tests/filesystem/extract_filename.o \
 	${OBJECTDIR}/tests/filesystem/filenamearise.o \
 	${OBJECTDIR}/tests/filesystem/find_eof_position.o \
@@ -99,7 +101,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/tools/fast_min.o \
 	${OBJECTDIR}/tests/tools/genetic.o \
 	${OBJECTDIR}/tests/tools/index_coordinate_conversions.o \
-	${OBJECTDIR}/tests/tools/libcmlpp.o \
 	${OBJECTDIR}/tests/tools/next_lex_permutation.o \
 	${OBJECTDIR}/tests/tools/number_of_decimals.o \
 	${OBJECTDIR}/tests/tools/parse_cli_arguments.o \
@@ -213,6 +214,16 @@ ${OBJECTDIR}/tests/apps/sudoku.o: tests/apps/sudoku.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/apps
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/apps/sudoku.o tests/apps/sudoku.cpp
+
+${OBJECTDIR}/tests/extension/libxmlpp.o: tests/extension/libxmlpp.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/extension
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/extension/libxmlpp.o tests/extension/libxmlpp.cpp
+
+${OBJECTDIR}/tests/extension/sdl_image_texture.o: tests/extension/sdl_image_texture.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/extension
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/extension/sdl_image_texture.o tests/extension/sdl_image_texture.cpp
 
 ${OBJECTDIR}/tests/filesystem/extract_filename.o: tests/filesystem/extract_filename.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/filesystem
@@ -453,11 +464,6 @@ ${OBJECTDIR}/tests/tools/index_coordinate_conversions.o: tests/tools/index_coord
 	${MKDIR} -p ${OBJECTDIR}/tests/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/index_coordinate_conversions.o tests/tools/index_coordinate_conversions.cpp
-
-${OBJECTDIR}/tests/tools/libcmlpp.o: tests/tools/libcmlpp.cpp
-	${MKDIR} -p ${OBJECTDIR}/tests/tools
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/libcmlpp.o tests/tools/libcmlpp.cpp
 
 ${OBJECTDIR}/tests/tools/next_lex_permutation.o: tests/tools/next_lex_permutation.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/tools

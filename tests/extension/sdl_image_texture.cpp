@@ -10,6 +10,8 @@
 // Tests are implemented where functionality is implemented so that they are 
 // easier to find while developing. This switch will turn on compilation of tests.
 
-#define MZLIB_TOOLS_LIBXMLPP_TESTS_H
-#include "../../include/tools/libcmlpp.h"
+#include "../mocks/mock_sdl.h"
+
+#define MZLIB_EXTENSTION_SDL_IMAGE_TEXTURE_TESTS_H
+#include "../../include/extension/sdl_image_texture.h"
 

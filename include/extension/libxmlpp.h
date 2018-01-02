@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_TOOLS_LIBXMLPP_H
-#define MZLIB_TOOLS_LIBXMLPP_H
+#ifndef MZLIB_EXTENSION_LIBXMLPP_H
+#define MZLIB_EXTENSION_LIBXMLPP_H
 
 #include <libxml++/libxml++.h>
 
@@ -172,10 +172,10 @@ inline void delete_all_xpath (std::string xpath, xmlpp::Node* from_node)
   
 } // namespace
 
-#endif // MZLIB_TOOLS_LIBXMLPP_H
+#endif // MZLIB_EXTENSION_LIBXMLPP_H
 
-#ifdef MZLIB_TOOLS_LIBXMLPP_TESTS_H
-#undef MZLIB_TOOLS_LIBXMLPP_TESTS_H
+#ifdef MZLIB_EXTENSION_LIBXMLPP_TESTS_H
+#undef MZLIB_EXTENSION_LIBXMLPP_TESTS_H
 
 TEST(delete_all_children_except, demo) 
 {
@@ -306,5 +306,5 @@ TEST(delete_all_xpath, demo)
    ASSERT_TRUE(root->find("/show/characters/unn").size() > 0);
 }
 
-#endif // MZLIB_TOOLS_LIBXMLPP_TESTS_H
+#endif // MZLIB_EXTENSION_LIBXMLPP_TESTS_H
 
