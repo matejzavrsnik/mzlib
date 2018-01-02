@@ -20,32 +20,138 @@
 #include <locale>
 #include <fstream>
 #include <dirent.h>
+#include <list>
 
 namespace mzlib {
 
+bool is_content_node(const xmlpp::Node* node)
+{
+   const auto p = dynamic_cast<const xmlpp::ContentNode*>(node);
+   return p != nullptr;
+}
+
+bool is_text_node(const xmlpp::Node* node)
+{
+   const auto p = dynamic_cast<const xmlpp::TextNode*>(node);
+   return p != nullptr;
+}
+
+bool is_element(const xmlpp::Node* node)
+{
+   const auto p = dynamic_cast<const xmlpp::Element*>(node);
+   return p != nullptr;
+}
+
+bool is_attribute(const xmlpp::Node* node)
+{
+   const auto p = dynamic_cast<const xmlpp::Attribute*>(node);
+   return p != nullptr;
+}
+
+bool is_attribute_node(const xmlpp::Node* node)
+{
+   const auto p = dynamic_cast<const xmlpp::AttributeNode*>(node);
+   return p != nullptr;
+}
+
+bool is_attribute_declaration(const xmlpp::Node* node)
+{
+   const auto p = dynamic_cast<const xmlpp::AttributeDeclaration*>(node);
+   return p != nullptr;
+}
+
+bool has_attribute(
+   const xmlpp::Node* node, 
+   std::string attribute_name)
+{
+   if (is_element(node)) {
+      const auto element = dynamic_cast<const xmlpp::Element*>(node);
+      const auto attribute = element->get_attribute(attribute_name);
+      if (attribute) {
+         return true;
+      }
+   }
+   return false;
+}
+
+bool has_attributes(const xmlpp::Node* node)
+{
+   if (is_element(node)) {
+      const auto element = dynamic_cast<const xmlpp::Element*>(node);
+      return (element->get_attributes().size() > 0);
+   }
+   return false;
+}
+
+bool has_children(const xmlpp::Node* node)
+{
+   if (is_element(node)) {
+      const auto element = dynamic_cast<const xmlpp::Element*>(node);
+      return (element->get_children().size() > 0);
+   }
+   return false;
+}
+
+bool has_text_node(const xmlpp::Node* node)
+{
+   if (is_element(node)) {
+      const auto element = dynamic_cast<const xmlpp::Element*>(node);
+      const auto text_node = element->get_child_text();
+      if (text_node) {
+         return true;
+      }
+   }
+   return false;
+}
+
+std::string get_attribute_or_default(
+   const xmlpp::Node* node, 
+   std::string attribute_name, 
+   std::string default_value = "")
+{
+   if (has_attribute(node, attribute_name)) {
+      const auto element = dynamic_cast<const xmlpp::Element*>(node);
+      element->get_attribute(attribute_name)->get_value();
+   }
+   return default_value;
+}
+
+std::string get_content_or_default(
+   const xmlpp::Node* node, 
+   std::string default_value = "")
+{
+   if (has_text_node(node)) {
+        const auto element = dynamic_cast<const xmlpp::Element*>(node);
+        return element->get_child_text()->get_content();
+    }
+    return default_value;
+}
+   
 inline void delete_all_children_except (std::vector<std::string> names, xmlpp::Node* from_node) 
 {
-   if (from_node == nullptr) return;
-   std::list<xmlpp::Node*> children = from_node->get_children();
-   for (xmlpp::Node* child : children) {
-      std::string child_name = child->get_name();
-      bool found = (std::find(names.begin(), names.end(), child_name) != names.end());
-      if (!found) {
-          from_node->remove_child(child);
+   if (has_children(from_node)) {
+      std::list<xmlpp::Node*> children = from_node->get_children();
+      for (xmlpp::Node* child : children) {
+         std::string child_name = child->get_name();
+         bool found = (std::find(names.begin(), names.end(), child_name) != names.end());
+         if (!found) {
+             from_node->remove_child(child);
+         }
       }
    }
 }
 
 inline void delete_all_attributes_except (std::vector<std::string> names, xmlpp::Node* from_node)
 {
-   xmlpp::Element* from_element = dynamic_cast<xmlpp::Element*>(from_node);
-   if (from_element == nullptr) return;
-   std::list<xmlpp::Attribute*> attributes_list = from_element->get_attributes();
-   for (xmlpp::Attribute* attribute : attributes_list) {
-      std::string attribute_name = attribute->get_name();
-      bool found = (std::find(names.begin(), names.end(), attribute_name) != names.end());
-      if (!found) {
-         from_node->remove_child(attribute);
+   if (has_attributes(from_node)) {
+      xmlpp::Element* from_element = dynamic_cast<xmlpp::Element*>(from_node);
+      std::list<xmlpp::Attribute*> attributes_list = from_element->get_attributes();
+      for (xmlpp::Attribute* attribute : attributes_list) {
+         std::string attribute_name = attribute->get_name();
+         bool found = (std::find(names.begin(), names.end(), attribute_name) != names.end());
+         if (!found) {
+            from_node->remove_child(attribute);
+         }
       }
    }
 }
@@ -53,17 +159,6 @@ inline void delete_all_attributes_except (std::vector<std::string> names, xmlpp:
 inline void delete_all_attributes (xmlpp::Node* from_node)
 {
    delete_all_attributes_except({}, from_node);
-}
-
-inline void delete_all_but_xpath (std::string xpath, xmlpp::Node* from_node) 
-{
-   std::vector<xmlpp::Node*> content_div = from_node->find(xpath);
-   if(content_div.size() > 0) {
-      xmlpp::Document tempXmlDocument;
-      tempXmlDocument.create_root_node_by_import(content_div[0]);
-      delete_all_children_except({}, from_node);
-      from_node->import_node(tempXmlDocument.get_root_node());
-   }
 }
 
 inline void delete_all_xpath (std::string xpath, xmlpp::Node* from_node) 
@@ -74,24 +169,7 @@ inline void delete_all_xpath (std::string xpath, xmlpp::Node* from_node)
       parent->remove_child(node_found);
    }
 }
-
-inline std::string get_content (std::string xpath, xmlpp::Node* from_node)
-{
-   if (from_node == nullptr) return "";
-   std::string content;
-   std::vector<xmlpp::Node*> nodes_found = from_node->find(xpath);
-   if (nodes_found.size() > 0) {
-      std::list<xmlpp::Node*> children = nodes_found[0]->get_children();
-      if (children.size() > 0) {
-         xmlpp::ContentNode* content_node = dynamic_cast<xmlpp::ContentNode*>(children.front());
-         if (content_node != nullptr) {
-            content = content_node->get_content();
-         }
-      }
-   }
-   return content;
-}
-    
+  
 } // namespace
 
 #endif // MZLIB_TOOLS_LIBXMLPP_H
@@ -99,53 +177,133 @@ inline std::string get_content (std::string xpath, xmlpp::Node* from_node)
 #ifdef MZLIB_TOOLS_LIBXMLPP_TESTS_H
 #undef MZLIB_TOOLS_LIBXMLPP_TESTS_H
 
-class fixture_libxmlpp : public ::testing::Test 
+TEST(delete_all_children_except, demo) 
 {
+   xmlpp::DomParser parser;
+   xmlpp::Element* root;
+   
+   std::string xml_file = R"(
+   <show title="The Expanse">
+      <chrisjen>Shohreh Aghdashloo</chrisjen>
+      <amos>Wes Chatham</amos>
+      <naomi>Dominique Tipper</naomi>
+      <miller>Thomas Jane</miller>
+   </show>
+   )";
 
-protected:
+   parser.parse_memory(xml_file);
+   root = parser.get_document()->get_root_node();
    
-   fixture_libxmlpp () {}
-   virtual ~fixture_libxmlpp () {}
+   mzlib::delete_all_children_except({"chrisjen", "amos"}, root);
    
-   virtual void SetUp() 
-   {
-      std::string xml_file = R"(
-      <show title="The Expanse">
-         <chrisjen>Shohreh Aghdashloo</chrisjen>
-         <amos>Wes Chatham</amos>
-         <naomi>Dominique Tipper</naomi>
-         <miller>Thomas Jane</miller>
-      </show>
-      )";
-      
-      m_parser.parse_memory(xml_file);
-      m_root = m_parser.get_document()->get_root_node();
-   }
-   
-   virtual void TearDown() {}
-
-   xmlpp::DomParser m_parser;
-   xmlpp::Element* m_root;
-};
-
-TEST_F(fixture_libxmlpp, delete_all_children_except_demo) 
-{
-   mzlib::delete_all_children_except({"chrisjen", "amos"}, m_root);
-   
-   ASSERT_TRUE (m_root->get_children("chrisjen").size() == 1);
-   ASSERT_TRUE (m_root->get_children("amos").size() == 1);
-   ASSERT_FALSE(m_root->get_children("naomi").size() == 1);
-   ASSERT_FALSE(m_root->get_children("miller").size() == 1);
+   ASSERT_TRUE (root->get_children("chrisjen").size() > 0);
+   ASSERT_TRUE (root->get_children("amos").size() > 0);
+   ASSERT_FALSE(root->get_children("naomi").size() > 0);
+   ASSERT_FALSE(root->get_children("miller").size() > 0);
 }
 
-TEST_F(fixture_libxmlpp, delete_all_children_except_empty) 
+TEST(delete_all_children_except, empty) 
 {
-   mzlib::delete_all_children_except({}, m_root);
+   xmlpp::DomParser parser;
+   xmlpp::Element* root;
    
-   ASSERT_FALSE(m_root->get_children("chrisjen").size() == 1);
-   ASSERT_FALSE(m_root->get_children("amos").size() == 1);
-   ASSERT_FALSE(m_root->get_children("naomi").size() == 1);
-   ASSERT_FALSE(m_root->get_children("miller").size() == 1);
+   std::string xml_file = R"(
+   <show title="The Expanse">
+      <chrisjen>Shohreh Aghdashloo</chrisjen>
+      <amos>Wes Chatham</amos>
+      <naomi>Dominique Tipper</naomi>
+      <miller>Thomas Jane</miller>
+   </show>
+   )";
+
+   parser.parse_memory(xml_file);
+   root = parser.get_document()->get_root_node();
+   
+   mzlib::delete_all_children_except({}, root);
+   
+   ASSERT_FALSE(root->get_children("chrisjen").size() > 0);
+   ASSERT_FALSE(root->get_children("amos").size() > 0);
+   ASSERT_FALSE(root->get_children("naomi").size() > 0);
+   ASSERT_FALSE(root->get_children("miller").size() > 0);
+}
+
+TEST(delete_all_attributes_except, demo) 
+{
+   xmlpp::DomParser parser;
+   xmlpp::Element* root;
+   
+   std::string xml_file = R"(
+   <show title="The Expanse" genre="scifi" channel="SyFy" on_netflix="yes">
+   </show>
+   )";
+
+   parser.parse_memory(xml_file);
+   root = parser.get_document()->get_root_node();
+   
+   mzlib::delete_all_attributes_except({"title", "genre"}, root);
+   
+   ASSERT_TRUE (root->get_attribute("title") != nullptr);
+   ASSERT_TRUE (root->get_attribute("genre") != nullptr);
+   ASSERT_FALSE(root->get_attribute("channel") != nullptr);
+   ASSERT_FALSE(root->get_attribute("on_netflix") != nullptr);
+}
+
+TEST(delete_all_attributes, demo) 
+{
+   xmlpp::DomParser parser;
+   xmlpp::Element* root;
+   
+   std::string xml_file = R"(
+   <show title="The Expanse" genre="scifi" channel="SyFy" on_netflix="yes">
+   </show>
+   )";
+
+   parser.parse_memory(xml_file);
+   root = parser.get_document()->get_root_node();
+   
+   mzlib::delete_all_attributes(root);
+   mzlib::delete_all_attributes(root);
+   
+   ASSERT_TRUE(root->get_attribute("title") == nullptr);
+   ASSERT_TRUE(root->get_attribute("genre") == nullptr);
+   ASSERT_TRUE(root->get_attribute("channel") == nullptr);
+   ASSERT_TRUE(root->get_attribute("on_netflix") == nullptr);
+}
+
+TEST(delete_all_xpath, demo) 
+{
+   xmlpp::DomParser parser;
+   xmlpp::Element* root;
+   
+   std::string xml_file = R"(
+   <show title="The Expanse">
+      <ships>
+         <mars>Rocinante</mars>
+         <mars>Donnager</mars>
+         <mormons>Nauvoo</mormons>
+         <unn>Arboghast</unn>
+      </ships>
+      <characters>
+         <mars>Theresa Yao</mars>
+         <mars>Sutton</mars>
+         <mormons>Elder McCann</mormons>
+         <unn>Chrisjen Avasarala</unn>
+      </characters>
+   </show>
+   )";
+
+   parser.parse_memory(xml_file);
+   root = parser.get_document()->get_root_node();
+   
+   mzlib::delete_all_xpath("/show/*/mars", root);
+   
+   ASSERT_FALSE(root->find("/show/ships/mars").size() > 0);
+   ASSERT_FALSE(root->find("/show/characters/mars").size() > 0);
+   
+   ASSERT_TRUE(root->find("/show/ships/mormons").size() > 0);
+   ASSERT_TRUE(root->find("/show/ships/unn").size() > 0);
+   ASSERT_TRUE(root->find("/show/characters/mormons").size() > 0);
+   ASSERT_TRUE(root->find("/show/characters/unn").size() > 0);
 }
 
 #endif // MZLIB_TOOLS_LIBXMLPP_TESTS_H
