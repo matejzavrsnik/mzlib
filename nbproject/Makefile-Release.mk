@@ -51,6 +51,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/apps/sentence_o_matic.o \
 	${OBJECTDIR}/tests/apps/sudoku.o \
 	${OBJECTDIR}/tests/extension/libxmlpp.o \
+	${OBJECTDIR}/tests/extension/libxmlpp_datashelf.o \
 	${OBJECTDIR}/tests/extension/sdl_image_texture.o \
 	${OBJECTDIR}/tests/filesystem/extract_filename.o \
 	${OBJECTDIR}/tests/filesystem/filenamearise.o \
@@ -214,6 +215,11 @@ ${OBJECTDIR}/tests/extension/libxmlpp.o: tests/extension/libxmlpp.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/extension
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/extension/libxmlpp.o tests/extension/libxmlpp.cpp
+
+${OBJECTDIR}/tests/extension/libxmlpp_datashelf.o: tests/extension/libxmlpp_datashelf.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/extension
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/extension/libxmlpp_datashelf.o tests/extension/libxmlpp_datashelf.cpp
 
 ${OBJECTDIR}/tests/extension/sdl_image_texture.o: tests/extension/sdl_image_texture.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/extension

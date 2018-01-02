@@ -24,43 +24,43 @@
 
 namespace mzlib {
 
-bool is_content_node(const xmlpp::Node* node)
+inline bool is_content_node(const xmlpp::Node* node)
 {
    const auto p = dynamic_cast<const xmlpp::ContentNode*>(node);
    return p != nullptr;
 }
 
-bool is_text_node(const xmlpp::Node* node)
+inline bool is_text_node(const xmlpp::Node* node)
 {
    const auto p = dynamic_cast<const xmlpp::TextNode*>(node);
    return p != nullptr;
 }
 
-bool is_element(const xmlpp::Node* node)
+inline bool is_element(const xmlpp::Node* node)
 {
    const auto p = dynamic_cast<const xmlpp::Element*>(node);
    return p != nullptr;
 }
 
-bool is_attribute(const xmlpp::Node* node)
+inline bool is_attribute(const xmlpp::Node* node)
 {
    const auto p = dynamic_cast<const xmlpp::Attribute*>(node);
    return p != nullptr;
 }
 
-bool is_attribute_node(const xmlpp::Node* node)
+inline bool is_attribute_node(const xmlpp::Node* node)
 {
    const auto p = dynamic_cast<const xmlpp::AttributeNode*>(node);
    return p != nullptr;
 }
 
-bool is_attribute_declaration(const xmlpp::Node* node)
+inline bool is_attribute_declaration(const xmlpp::Node* node)
 {
    const auto p = dynamic_cast<const xmlpp::AttributeDeclaration*>(node);
    return p != nullptr;
 }
 
-bool has_attribute(
+inline bool has_attribute(
    const xmlpp::Node* node, 
    std::string attribute_name)
 {
@@ -74,7 +74,7 @@ bool has_attribute(
    return false;
 }
 
-bool has_attributes(const xmlpp::Node* node)
+inline bool has_attributes(const xmlpp::Node* node)
 {
    if (is_element(node)) {
       const auto element = dynamic_cast<const xmlpp::Element*>(node);
@@ -83,7 +83,7 @@ bool has_attributes(const xmlpp::Node* node)
    return false;
 }
 
-bool has_children(const xmlpp::Node* node)
+inline bool has_children(const xmlpp::Node* node)
 {
    if (is_element(node)) {
       const auto element = dynamic_cast<const xmlpp::Element*>(node);
@@ -92,7 +92,7 @@ bool has_children(const xmlpp::Node* node)
    return false;
 }
 
-bool has_text_node(const xmlpp::Node* node)
+inline bool has_text_node(const xmlpp::Node* node)
 {
    if (is_element(node)) {
       const auto element = dynamic_cast<const xmlpp::Element*>(node);
@@ -104,7 +104,7 @@ bool has_text_node(const xmlpp::Node* node)
    return false;
 }
 
-std::string get_attribute_or_default(
+inline std::string get_attribute_or_default(
    const xmlpp::Node* node, 
    std::string attribute_name, 
    std::string default_value = "")
@@ -116,7 +116,7 @@ std::string get_attribute_or_default(
    return default_value;
 }
 
-std::string get_content_or_default(
+inline std::string get_content_or_default(
    const xmlpp::Node* node, 
    std::string default_value = "")
 {
@@ -169,7 +169,7 @@ inline void delete_all_xpath (std::string xpath, xmlpp::Node* from_node)
       parent->remove_child(node_found);
    }
 }
-  
+
 } // namespace
 
 #endif // MZLIB_EXTENSION_LIBXMLPP_H

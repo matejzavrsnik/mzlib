@@ -24,6 +24,7 @@
       </logicalFolder>
       <logicalFolder name="f6" displayName="extension" projectFiles="true">
         <itemPath>include/extension/libxmlpp.h</itemPath>
+        <itemPath>include/extension/libxmlpp_datashelf.h</itemPath>
         <itemPath>include/extension/sdl_image_texture.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="filesystem" projectFiles="true">
@@ -139,6 +140,7 @@
       </logicalFolder>
       <logicalFolder name="f10" displayName="extension" projectFiles="true">
         <itemPath>tests/extension/libxmlpp.cpp</itemPath>
+        <itemPath>tests/extension/libxmlpp_datashelf.cpp</itemPath>
         <itemPath>tests/extension/sdl_image_texture.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f7" displayName="filesystem" projectFiles="true">
@@ -327,6 +329,11 @@
       <item path="include/apps/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/extension/libxmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp_datashelf.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/extension/sdl_image_texture.h"
             ex="false"
@@ -594,6 +601,11 @@
       <item path="tests/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/extension/libxmlpp_datashelf.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/extension/sdl_image_texture.cpp"
             ex="false"
@@ -880,6 +892,11 @@
       </item>
       <item path="include/extension/libxmlpp.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/extension/libxmlpp_datashelf.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/extension/sdl_image_texture.h"
             ex="false"
             tool="3"
@@ -1146,6 +1163,11 @@
       <item path="tests/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/extension/libxmlpp_datashelf.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/extension/sdl_image_texture.cpp"
             ex="false"
