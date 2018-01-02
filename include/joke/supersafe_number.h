@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_SUPERSAFE_NUMBER_H
-#define MZLIB_SUPERSAFE_NUMBER_H
+#ifndef MZLIB_JOKE_SUPERSAFE_NUMBER_H
+#define MZLIB_JOKE_SUPERSAFE_NUMBER_H
 
 #include <vector>
 #include <exception>
@@ -70,12 +70,10 @@ public:
 
 } // namespace
 
-#endif /* MZLIB_SUPERSAFE_NUMBER_H */
+#endif // MZLIB_JOKE_SUPERSAFE_NUMBER_H
 
-#ifdef MZLIB_BUILDING_TESTS
-
-#ifndef MZLIB_SUPERSAFE_NUMBER_TESTS_H
-#define MZLIB_SUPERSAFE_NUMBER_TESTS_H
+#ifdef MZLIB_JOKE_SUPERSAFE_NUMBER_TESTS_H
+#undef MZLIB_JOKE_SUPERSAFE_NUMBER_TESTS_H
 
 namespace mzlib {
 
@@ -184,6 +182,4 @@ TEST(supersafe_number, computation)
 
 } // namespace
 
-#endif // MZLIB_SUPERSAFE_NUMBER_TESTS_H
-
-#endif // MZLIB_BUILDING_TESTS
+#endif // MZLIB_JOKE_SUPERSAFE_NUMBER_TESTS_H

@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/tests.o \
 	${OBJECTDIR}/tests/abstract/genetic_base.o \
 	${OBJECTDIR}/tests/abstract/genetic_container.o \
 	${OBJECTDIR}/tests/abstract/genetic_object.o \
@@ -69,6 +68,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/iterators/index_conversion.o \
 	${OBJECTDIR}/tests/iterators/insert_if_unique.o \
 	${OBJECTDIR}/tests/iterators/is_last.o \
+	${OBJECTDIR}/tests/joke/supersafe_number.o \
 	${OBJECTDIR}/tests/lang/c64_basic_for.o \
 	${OBJECTDIR}/tests/lang/dbl.o \
 	${OBJECTDIR}/tests/lang/optional.o \
@@ -139,11 +139,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/tests.o: tests.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.cpp
 
 ${OBJECTDIR}/tests/abstract/genetic_base.o: tests/abstract/genetic_base.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/abstract
@@ -304,6 +299,11 @@ ${OBJECTDIR}/tests/iterators/is_last.o: tests/iterators/is_last.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/iterators
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/iterators/is_last.o tests/iterators/is_last.cpp
+
+${OBJECTDIR}/tests/joke/supersafe_number.o: tests/joke/supersafe_number.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/joke
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/joke/supersafe_number.o tests/joke/supersafe_number.cpp
 
 ${OBJECTDIR}/tests/lang/c64_basic_for.o: tests/lang/c64_basic_for.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/lang

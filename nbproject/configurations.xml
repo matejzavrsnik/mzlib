@@ -117,7 +117,6 @@
                    projectFiles="true">
       <itemPath>main.cpp</itemPath>
       <itemPath>options.h</itemPath>
-      <itemPath>tests.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
       <logicalFolder name="f9" displayName="abstract" projectFiles="true">
@@ -161,6 +160,9 @@
         <itemPath>tests/iterators/index_conversion.cpp</itemPath>
         <itemPath>tests/iterators/insert_if_unique.cpp</itemPath>
         <itemPath>tests/iterators/is_last.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f11" displayName="joke" projectFiles="true">
+        <itemPath>tests/joke/supersafe_number.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="lang" projectFiles="true">
         <itemPath>tests/lang/c64_basic_for.cpp</itemPath>
@@ -548,8 +550,6 @@
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/abstract/genetic_container.cpp"
@@ -655,6 +655,8 @@
             flavor2="0">
       </item>
       <item path="tests/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1100,8 +1102,6 @@
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/abstract/genetic_container.cpp"
@@ -1207,6 +1207,8 @@
             flavor2="0">
       </item>
       <item path="tests/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
       </item>
