@@ -21,8 +21,10 @@
 // or in the end. (I have yet to add the saving part.)
 
 namespace mzlib {
+
+namespace xml {
    
-class xml_base
+class base
 {
 
 public:
@@ -33,25 +35,25 @@ public:
 };
 
 // a new name just to avoid confusion
-class xml_attribute : public xml_base
+class attribute : public base
 {
 };
 
-class xml_node : public xml_base
+class node : public base
 {
 
 public:
 
-   std::vector<xml_attribute> attributes;
-   std::vector<std::shared_ptr<xml_node>> nodes;
+   std::vector<attribute> attributes;
+   std::vector<std::shared_ptr<node>> nodes;
    
-   using node_it = std::vector<std::shared_ptr<xml_node>>::iterator;
+   using node_it = std::vector<std::shared_ptr<node>>::iterator;
 
-   std::shared_ptr<xml_node> get_random (
+   std::shared_ptr<node> get_random (
       std::string node_name,
       decltype(get_random_element<node_it>) rnd = get_random_element<node_it>)
    {
-      std::vector<std::shared_ptr<xml_node>> filtered_nodes;
+      std::vector<std::shared_ptr<node>> filtered_nodes;
       for(auto node : nodes) {
          if(node->name == node_name) {
             filtered_nodes.push_back(node);
@@ -60,20 +62,20 @@ public:
       return *rnd(filtered_nodes.begin(), filtered_nodes.end());
    }
 
-   std::shared_ptr<xml_node> get_first (std::string node_name)
+   std::shared_ptr<node> get_first (std::string node_name)
    {
       for(auto node : nodes) {
          if(node->name == node_name) {
             return node;
          }
       }
-      return std::make_shared<xml_node>();
+      return std::make_shared<node>();
    }
 
-   xml_attribute* get_attribute (std::string attribute_name)
+   attribute* get_attribute (std::string attribute_name)
    {
       auto attribute_it = std::find_if(attributes.begin(), attributes.end(),
-         [&attribute_name] (const xml_attribute& att) {
+         [&attribute_name] (const attribute& att) {
             return att.name == attribute_name;
          });
       if (attribute_it != attributes.end())
@@ -83,12 +85,11 @@ public:
 };
 
 // new name just to avoid confusion
-class xml_root : public xml_node
+class root : public node
 {
 };
 
-
-void fill_data_shelf(xml_node& xml, const xmlpp::Node* node)
+void fill_data_shelf(node& xml, const xmlpp::Node* node)
 {
    // read common to all
    xml.name = node->get_name();
@@ -98,7 +99,7 @@ void fill_data_shelf(xml_node& xml, const xmlpp::Node* node)
 
       // read attributes if any
       for (const xmlpp::Attribute* attribute : element->get_attributes()) {
-         xml_attribute new_attribute;
+         attribute new_attribute;
          new_attribute.name = attribute->get_name();
          new_attribute.value = attribute->get_value();
          xml.attributes.emplace_back(new_attribute);
@@ -106,17 +107,17 @@ void fill_data_shelf(xml_node& xml, const xmlpp::Node* node)
 
       // iteratively read child nodes if any
       for (const xmlpp::Node* child : element->get_children()) {
-         xml.nodes.push_back(std::make_shared<xml_node>());
-         xml_node& newly_inserted_node = *xml.nodes[xml.nodes.size()-1];
+         xml.nodes.push_back(std::make_shared<node>());
+         node& newly_inserted_node = *xml.nodes[xml.nodes.size()-1];
          fill_data_shelf(newly_inserted_node, child);
       }
    }
 }
 
-xml_root create_data_shelf_from_string(std::string xml_string)
+root create_data_shelf_from_string(std::string xml_string)
 {
    xmlpp::DomParser parser;
-   xml_root data_shelf;
+   root data_shelf;
    // todo: when parsing doesn't succeed do something
    parser.parse_memory(xml_string);
    fill_data_shelf(data_shelf, parser.get_document()->get_root_node());
@@ -124,18 +125,20 @@ xml_root create_data_shelf_from_string(std::string xml_string)
    return data_shelf;
 }
 
-xml_root create_data_shelf_from_file(std::string path_to_xml_file)
+root create_data_shelf_from_file(std::string path_to_xml_file)
 {
    xmlpp::DomParser parser;
-   xml_root data_shelf;
+   root data_shelf;
    // todo: when parsing doesn't succeed do something
    parser.parse_file(path_to_xml_file);
    fill_data_shelf(data_shelf, parser.get_document()->get_root_node());
 
    return data_shelf;
 }
-  
-} // namespace
+
+} // namespace xml
+
+} // namespace mzlib
 
 #endif // MZLIB_EXTENSION_LIBXMLPP_DATASHELF_H
 
@@ -152,7 +155,7 @@ protected:
    
    virtual void SetUp() 
    {
-      m_shelf = mzlib::create_data_shelf_from_string(m_xml);
+      m_shelf = mzlib::xml::create_data_shelf_from_string(m_xml);
    }
    
    virtual void TearDown() {}
@@ -177,7 +180,7 @@ protected:
       </shelf>
    )";
    
-   mzlib::xml_root m_shelf;
+   mzlib::xml::root m_shelf;
 };
 
 TEST_F(fixture_datashelf, demo)
@@ -214,7 +217,7 @@ TEST_F(fixture_datashelf, get_random_node)
 {
    auto first_random_book = m_shelf.get_random("book", 
       // in-place mock
-      [](const mzlib::xml_node::node_it& first, const mzlib::xml_node::node_it& last) -> mzlib::xml_node::node_it 
+      [](const mzlib::xml::node::node_it& first, const mzlib::xml::node::node_it& last) -> mzlib::xml::node::node_it 
       {
          return first;
       });
@@ -225,7 +228,7 @@ TEST_F(fixture_datashelf, get_random_node)
    
    auto second_random_book = m_shelf.get_random("book", 
       // in-place mock
-      [](const mzlib::xml_node::node_it& first, const mzlib::xml_node::node_it& last) -> mzlib::xml_node::node_it 
+      [](const mzlib::xml::node::node_it& first, const mzlib::xml::node::node_it& last) -> mzlib::xml::node::node_it 
       {
          return std::next(first);
       });
