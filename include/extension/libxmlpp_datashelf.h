@@ -21,7 +21,7 @@
 // or in the end. (I have yet to add the saving part.)
 
 namespace mzlib {
-
+   
 class xml_base
 {
 
@@ -159,6 +159,7 @@ protected:
    
    std::string m_xml = R"(
       <shelf title="my bookshelf">
+         <airplane model="spitfire"/>
          <book title="Children of Time">
             <rating source="Goodreads">4.29</rating>
             <rating source="Amazon">4.5</rating>
@@ -179,16 +180,34 @@ protected:
    mzlib::xml_root m_shelf;
 };
 
-TEST_F(fixture_datashelf, test_driving_sandbox)
+TEST_F(fixture_datashelf, demo)
 {  
-   ASSERT_EQ("shelf", m_shelf.name);
-   ASSERT_EQ("my bookshelf", m_shelf.get_attribute("title")->value);
-   
    auto rating = m_shelf.get_first("book")->get_first("rating");
    ASSERT_EQ("Goodreads", rating->get_attribute("source")->value);
    ASSERT_EQ("4.29", rating->value);
+}
+
+TEST_F(fixture_datashelf, querying_root_node_works)
+{  
+   ASSERT_EQ("shelf", m_shelf.name);
+   ASSERT_EQ("my bookshelf", m_shelf.get_attribute("title")->value);
+}
+
+TEST_F(fixture_datashelf, get_first_node)
+{
+   // note: first node is not a book
+   auto first_book_node_name = m_shelf.get_first("book")->name;
+   auto first_airplane_node_name = m_shelf.get_first("airplane")->name;
    
-   ASSERT_EQ("book", m_shelf.get_random("book")->name);
+   ASSERT_EQ("book", first_book_node_name);
+   ASSERT_EQ("airplane", first_airplane_node_name);
+}
+
+TEST_F(fixture_datashelf, get_first_node__no_such_node)
+{
+   auto does_not_exist = m_shelf.get_first("ufo evidence")->name;
+   
+   ASSERT_EQ("", does_not_exist);
 }
 
 TEST_F(fixture_datashelf, get_random_node)
@@ -200,7 +219,10 @@ TEST_F(fixture_datashelf, get_random_node)
          return first;
       });
    std::string first_random_book_title = first_random_book->get_attribute("title")->value;
-
+   
+   // note: there is a node between two books that is not a book
+   // getting random book should not return non-book nodes
+   
    auto second_random_book = m_shelf.get_random("book", 
       // in-place mock
       [](const mzlib::xml_node::node_it& first, const mzlib::xml_node::node_it& last) -> mzlib::xml_node::node_it 
