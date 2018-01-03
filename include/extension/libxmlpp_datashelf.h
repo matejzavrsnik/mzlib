@@ -44,8 +44,12 @@ public:
 
    std::vector<xml_attribute> attributes;
    std::vector<std::shared_ptr<xml_node>> nodes;
+   
+   using node_it = std::vector<std::shared_ptr<xml_node>>::iterator;
 
-   std::shared_ptr<xml_node> get_random (std::string node_name)
+   std::shared_ptr<xml_node> get_random (
+      std::string node_name,
+      decltype(get_random_element<node_it>) rnd = get_random_element<node_it>)
    {
       std::vector<std::shared_ptr<xml_node>> filtered_nodes;
       for(auto node : nodes) {
@@ -53,7 +57,7 @@ public:
             filtered_nodes.push_back(node);
          }
       }
-      return *mzlib::get_random_element(filtered_nodes.begin(), filtered_nodes.end());
+      return *rnd(filtered_nodes.begin(), filtered_nodes.end());
    }
 
    std::shared_ptr<xml_node> get_first (std::string node_name)
@@ -146,17 +150,24 @@ protected:
    fixture_datashelf() {}
    virtual ~fixture_datashelf() {}
    
-   virtual void SetUp() {}
+   virtual void SetUp() 
+   {
+      m_shelf = mzlib::create_data_shelf_from_string(m_xml);
+   }
+   
    virtual void TearDown() {}
    
    std::string m_xml = R"(
-      <shelf title="scifi bookshelf">
+      <shelf title="my bookshelf">
          <book title="Children of Time">
             <rating source="Goodreads">4.29</rating>
             <rating source="Amazon">4.5</rating>
             <author>Adrian Tchaikovsky</author>
             <year>2016</year>
          </book>
+         <folder>
+            <coin_collection></coin_collection>
+         </folder>
          <book title="Morning Star">
             <rating source="Goodreads">4.5</rating>
             <rating source="Amazon">4.6</rating>
@@ -164,18 +175,42 @@ protected:
          </book>
       </shelf>
    )";
+   
+   mzlib::xml_root m_shelf;
 };
 
 TEST_F(fixture_datashelf, test_driving_sandbox)
-{
-   mzlib::xml_root shelf = mzlib::create_data_shelf_from_string(m_xml);
+{  
+   ASSERT_EQ("shelf", m_shelf.name);
+   ASSERT_EQ("my bookshelf", m_shelf.get_attribute("title")->value);
    
-   ASSERT_EQ("shelf", shelf.name);
-   ASSERT_EQ("scifi bookshelf", shelf.get_attribute("title")->value);
-   
-   auto rating = shelf.get_first("book")->get_first("rating");
+   auto rating = m_shelf.get_first("book")->get_first("rating");
    ASSERT_EQ("Goodreads", rating->get_attribute("source")->value);
    ASSERT_EQ("4.29", rating->value);
+   
+   ASSERT_EQ("book", m_shelf.get_random("book")->name);
+}
+
+TEST_F(fixture_datashelf, get_random_node)
+{
+   auto first_random_book = m_shelf.get_random("book", 
+      // in-place mock
+      [](const mzlib::xml_node::node_it& first, const mzlib::xml_node::node_it& last) -> mzlib::xml_node::node_it 
+      {
+         return first;
+      });
+   std::string first_random_book_title = first_random_book->get_attribute("title")->value;
+
+   auto second_random_book = m_shelf.get_random("book", 
+      // in-place mock
+      [](const mzlib::xml_node::node_it& first, const mzlib::xml_node::node_it& last) -> mzlib::xml_node::node_it 
+      {
+         return std::next(first);
+      });
+   std::string second_random_book_title = second_random_book->get_attribute("title")->value;
+      
+   ASSERT_EQ("Children of Time", first_random_book_title);
+   ASSERT_EQ("Morning Star", second_random_book_title);
 }
 
 #endif // MZLIB_EXTENSION_LIBXMLPP_DATASHELF_TESTS_H
