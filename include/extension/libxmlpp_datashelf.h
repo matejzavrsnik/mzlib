@@ -69,7 +69,7 @@ private:
    
 public:
 
-   std::vector<attribute> attributes;
+   std::vector<std::shared_ptr<attribute>> attributes;
    std::vector<std::shared_ptr<node>> nodes;
    
    using node_it = std::vector<std::shared_ptr<node>>::iterator;
@@ -136,14 +136,14 @@ public:
       return *next_node;
    }
    
-   attribute* get_attribute (std::string attribute_name)
+   std::shared_ptr<attribute> get_attribute (std::string attribute_name)
    {
       auto attribute_it = std::find_if(attributes.begin(), attributes.end(),
-         [&attribute_name] (const attribute& att) {
-            return att.get_name() == attribute_name;
+         [&attribute_name] (const std::shared_ptr<attribute> att) {
+            return att->get_name() == attribute_name;
          });
       if (attribute_it != attributes.end())
-         return &*attribute_it;
+         return *attribute_it;
       return nullptr;
    }
 };
@@ -163,9 +163,9 @@ void fill_node(std::shared_ptr<xml::node> xml_node, const xmlpp::Node* node)
 
       // read attributes if any
       for (const xmlpp::Attribute* attribute : element->get_attributes()) {
-         xml::attribute new_attribute;
-         new_attribute.set_name(attribute->get_name());
-         new_attribute.set_value(attribute->get_value());
+         auto new_attribute = std::make_shared<xml::attribute>();
+         new_attribute->set_name(attribute->get_name());
+         new_attribute->set_value(attribute->get_value());
          xml_node->attributes.emplace_back(new_attribute);
       }
 
