@@ -27,11 +27,33 @@ namespace xml {
 class base
 {
 
+private:
+   
+   std::string m_name;
+   std::string m_value;
+   
 public:
    
-   std::string name;
-   std::string value;
+   std::string get_name() const
+   {
+      return m_name;
+   }
+   
+   std::string get_value() const
+   {
+      return m_value;
+   }
 
+   void set_name(std::string name)
+   {
+      m_name = name;
+   }
+   
+   void set_value(std::string value)
+   {
+      m_value = value;
+   }
+   
 };
 
 // a new name just to avoid confusion
@@ -61,7 +83,7 @@ public:
    {
       std::shared_ptr<node> filter_node = std::make_shared<node>();
       for(auto node : nodes) {
-         if(node->name == node_name) {
+         if(node->get_name() == node_name) {
             filter_node->nodes.push_back(node);
          }
       }
@@ -74,7 +96,7 @@ public:
    {
       std::vector<std::shared_ptr<node>> filtered_nodes;
       for(auto node : nodes) {
-         if(node->name == node_name) {
+         if(node->get_name() == node_name) {
             filtered_nodes.push_back(node);
          }
       }
@@ -84,7 +106,7 @@ public:
    std::shared_ptr<node> get_first_node (std::string node_name)
    {
       for(auto node : nodes) {
-         if(node->name == node_name) {
+         if(node->get_name() == node_name) {
             return node;
          }
       }
@@ -96,7 +118,7 @@ public:
       auto empty_node = std::make_shared<node>();
       if (m_parent == nullptr) return empty_node;
       
-      auto peers = m_parent->get_all_nodes(name);
+      auto peers = m_parent->get_all_nodes(get_name());
       
       auto this_node = std::find_if(
          peers->nodes.begin(), peers->nodes.end(),
@@ -118,7 +140,7 @@ public:
    {
       auto attribute_it = std::find_if(attributes.begin(), attributes.end(),
          [&attribute_name] (const attribute& att) {
-            return att.name == attribute_name;
+            return att.get_name() == attribute_name;
          });
       if (attribute_it != attributes.end())
          return &*attribute_it;
@@ -134,16 +156,16 @@ class root : public node
 void fill_node(std::shared_ptr<xml::node> xml_node, const xmlpp::Node* node)
 {
    // read common to all
-   xml_node->name = node->get_name();
-   xml_node->value = mzlib::get_content_or_default(node);
+   xml_node->set_name(node->get_name());
+   xml_node->set_value(mzlib::get_content_or_default(node));
    if (mzlib::is_element(node)) {
       const auto element = dynamic_cast<const xmlpp::Element*>(node);
 
       // read attributes if any
       for (const xmlpp::Attribute* attribute : element->get_attributes()) {
          xml::attribute new_attribute;
-         new_attribute.name = attribute->get_name();
-         new_attribute.value = attribute->get_value();
+         new_attribute.set_name(attribute->get_name());
+         new_attribute.set_value(attribute->get_value());
          xml_node->attributes.emplace_back(new_attribute);
       }
 
@@ -228,21 +250,21 @@ protected:
 TEST_F(fixture_datashelf, demo)
 {  
    auto rating = m_shelf->get_first_node("book")->get_first_node("rating");
-   ASSERT_EQ("Goodreads", rating->get_attribute("source")->value);
-   ASSERT_EQ("4.29", rating->value);
+   ASSERT_EQ("Goodreads", rating->get_attribute("source")->get_value());
+   ASSERT_EQ("4.29", rating->get_value());
 }
 
 TEST_F(fixture_datashelf, querying_root_node_works)
 {  
-   ASSERT_EQ("shelf", m_shelf->name);
-   ASSERT_EQ("my bookshelf", m_shelf->get_attribute("title")->value);
+   ASSERT_EQ("shelf", m_shelf->get_name());
+   ASSERT_EQ("my bookshelf", m_shelf->get_attribute("title")->get_value());
 }
 
 TEST_F(fixture_datashelf, get_first_node)
 {
    // note: first node is not a book
-   auto first_book_node_name = m_shelf->get_first_node("book")->name;
-   auto first_airplane_node_name = m_shelf->get_first_node("airplane")->name;
+   auto first_book_node_name = m_shelf->get_first_node("book")->get_name();
+   auto first_airplane_node_name = m_shelf->get_first_node("airplane")->get_name();
    
    ASSERT_EQ("book", first_book_node_name);
    ASSERT_EQ("airplane", first_airplane_node_name);
@@ -250,7 +272,7 @@ TEST_F(fixture_datashelf, get_first_node)
 
 TEST_F(fixture_datashelf, get_first_node__no_such_node)
 {
-   auto does_not_exist = m_shelf->get_first_node("ufo evidence")->name;
+   auto does_not_exist = m_shelf->get_first_node("ufo evidence")->get_name();
    
    ASSERT_EQ("", does_not_exist);
 }
@@ -260,7 +282,7 @@ TEST_F(fixture_datashelf, get_next_node)
    auto next_book_title = m_shelf
       ->get_first_node("book")
       ->get_next_node()
-      ->get_attribute("title")->value;
+      ->get_attribute("title")->get_value();
    
    ASSERT_EQ("Morning Star", next_book_title);
 }
@@ -272,7 +294,7 @@ TEST_F(fixture_datashelf, get_next_node__no_such_node)
       ->get_next_node();
    
    // there is just one airplane on my shelf
-   ASSERT_EQ("", next_airplane_node->name);
+   ASSERT_EQ("", next_airplane_node->get_name());
 }
 
 TEST_F(fixture_datashelf, get_all_nodes_named)
@@ -282,8 +304,8 @@ TEST_F(fixture_datashelf, get_all_nodes_named)
    auto next_book_node = first_book_node->get_next_node();
    auto end_book_node = next_book_node->get_next_node();
    
-   ASSERT_EQ("Children of Time", first_book_node->get_attribute("title")->value);
-   ASSERT_EQ("Morning Star", next_book_node->get_attribute("title")->value);
+   ASSERT_EQ("Children of Time", first_book_node->get_attribute("title")->get_value());
+   ASSERT_EQ("Morning Star", next_book_node->get_attribute("title")->get_value());
    ASSERT_EQ(nullptr, end_book_node->get_attribute("title"));
 }
 
@@ -295,7 +317,7 @@ TEST_F(fixture_datashelf, get_random_node)
       {
          return first;
       });
-   std::string first_random_book_title = first_random_book->get_attribute("title")->value;
+   std::string first_random_book_title = first_random_book->get_attribute("title")->get_value();
    
    // note: there is a node between two books that is not a book
    // getting random book should not return non-book nodes
@@ -306,7 +328,7 @@ TEST_F(fixture_datashelf, get_random_node)
       {
          return std::next(first);
       });
-   std::string second_random_book_title = second_random_book->get_attribute("title")->value;
+   std::string second_random_book_title = second_random_book->get_attribute("title")->get_value();
       
    ASSERT_EQ("Children of Time", first_random_book_title);
    ASSERT_EQ("Morning Star", second_random_book_title);
