@@ -34,6 +34,12 @@ private:
    
 public:
    
+   base(std::string name = "", std::string value = "") :
+      m_name(name),
+      m_value(value)
+   {
+   }
+   
    std::string get_name() const
    {
       return m_name;
@@ -53,30 +59,51 @@ public:
    {
       m_value = value;
    }
-   
+
 };
 
 // a new name just to avoid confusion
 class attribute : public base
 {
+   
+public:
+   
+   using base::base;
 };
 
-class node : public base
+class node : public base, public std::enable_shared_from_this<node>
 {
 private:
 
    std::shared_ptr<node> m_parent;
-   
-public:
-
    std::vector<std::shared_ptr<attribute>> attributes;
    std::vector<std::shared_ptr<node>> nodes;
    
+public:   
+   
    using node_it = std::vector<std::shared_ptr<node>>::iterator;
    
-   node(std::shared_ptr<node> parent = nullptr) :
-      m_parent(parent)
+   node(
+      std::string name = "", 
+      std::string value = "", 
+      std::shared_ptr<node> parent = nullptr) :
+         base(name, value), 
+         m_parent(parent)
    {
+   }
+   
+   std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
+   {
+      auto new_attribute = std::make_shared<attribute>(name, value);
+      attributes.push_back(new_attribute);
+      return new_attribute;
+   }
+   
+   std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
+   {
+      auto new_node = std::make_shared<node>(name, value, shared_from_this());
+      nodes.push_back(new_node);
+      return new_node;
    }
    
    std::shared_ptr<node> get_all_nodes (std::string node_name)
@@ -144,7 +171,7 @@ public:
          });
       if (attribute_it != attributes.end())
          return *attribute_it;
-      return nullptr;
+      return std::make_shared<attribute>();
    }
 };
 
@@ -153,35 +180,34 @@ class root : public node
 {
 };
 
-void fill_node(std::shared_ptr<xml::node> xml_node, const xmlpp::Node* node)
+void fill_node(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node)
 {
    // read common to all
-   xml_node->set_name(node->get_name());
-   xml_node->set_value(mzlib::get_content_or_default(node));
-   if (mzlib::is_element(node)) {
-      const auto element = dynamic_cast<const xmlpp::Element*>(node);
+   my_node->set_name(xmlpp_node->get_name());
+   my_node->set_value(mzlib::get_content_or_default(xmlpp_node));
+   if (mzlib::is_element(xmlpp_node)) {
+      const auto xmlpp_element = dynamic_cast<const xmlpp::Element*>(xmlpp_node);
 
       // read attributes if any
-      for (const xmlpp::Attribute* attribute : element->get_attributes()) {
-         auto new_attribute = std::make_shared<xml::attribute>();
-         new_attribute->set_name(attribute->get_name());
-         new_attribute->set_value(attribute->get_value());
-         xml_node->attributes.emplace_back(new_attribute);
+      for (const xmlpp::Attribute* xmlpp_attribute : xmlpp_element->get_attributes()) {
+         my_node->add_attribute(
+            xmlpp_attribute->get_name(), 
+            xmlpp_attribute->get_value());
       }
 
       // iteratively read child nodes if any
-      for (const xmlpp::Node* child : element->get_children()) {
-         xml_node->nodes.push_back(std::make_shared<xml::node>(xml_node));
-         std::shared_ptr<xml::node> newly_inserted_node = *std::prev(xml_node->nodes.end());
-         fill_node(newly_inserted_node, child);
+      for (const xmlpp::Node* xmlpp_child_node : xmlpp_element->get_children()) {
+         fill_node(
+            my_node->add_node(), 
+            xmlpp_child_node);
       }
    }
 }
 
-std::shared_ptr<root> create_data_shelf_from_string(std::string xml_string)
+std::shared_ptr<xml::root> create_data_shelf_from_string(std::string xml_string)
 {
    xmlpp::DomParser parser;
-   std::shared_ptr<root> data_shelf = std::make_shared<root>();
+   std::shared_ptr<xml::root> data_shelf = std::make_shared<xml::root>();
    // todo: when parsing doesn't succeed do something
    parser.parse_memory(xml_string);
    fill_node(data_shelf, parser.get_document()->get_root_node());
@@ -189,10 +215,10 @@ std::shared_ptr<root> create_data_shelf_from_string(std::string xml_string)
    return data_shelf;
 }
 
-std::shared_ptr<root> create_data_shelf_from_file(std::string path_to_xml_file)
+std::shared_ptr<xml::root> create_data_shelf_from_file(std::string path_to_xml_file)
 {
    xmlpp::DomParser parser;
-   std::shared_ptr<root> data_shelf = std::make_shared<root>();
+   std::shared_ptr<xml::root> data_shelf = std::make_shared<xml::root>();
    // todo: when parsing doesn't succeed do something
    parser.parse_file(path_to_xml_file);
    fill_node(data_shelf, parser.get_document()->get_root_node());
@@ -254,7 +280,33 @@ TEST_F(fixture_datashelf, demo)
    ASSERT_EQ("4.29", rating->get_value());
 }
 
-TEST_F(fixture_datashelf, querying_root_node_works)
+TEST_F(fixture_datashelf, add_node_clean)
+{
+   auto root = std::make_shared<mzlib::xml::root>();
+   auto added_node1 = root->add_node("book", "Children of Time");
+   auto added_node2 = root->add_node("book", "Morning Star");
+   
+   ASSERT_EQ(added_node1, root->get_first_node("book"));
+   ASSERT_EQ("Children of Time", root->get_first_node("book")->get_value());
+ 
+   ASSERT_EQ(added_node2, root->get_first_node("book")->get_next_node());
+   ASSERT_EQ("Morning Star", root->get_first_node("book")->get_next_node()->get_value());
+}
+
+TEST_F(fixture_datashelf, add_attribute_clean)
+{
+   auto root = std::make_shared<mzlib::xml::root>();
+   auto added_att1 = root->add_attribute("att1", "val1");
+   auto added_att2 = root->add_attribute("att2", "val2");
+   
+   ASSERT_EQ(added_att1, root->get_attribute("att1"));
+   ASSERT_EQ("val1", root->get_attribute("att1")->get_value());
+ 
+   ASSERT_EQ(added_att2, root->get_attribute("att2"));
+   ASSERT_EQ("val2", root->get_attribute("att2")->get_value());
+}
+
+TEST_F(fixture_datashelf, querying_root_node)
 {  
    ASSERT_EQ("shelf", m_shelf->get_name());
    ASSERT_EQ("my bookshelf", m_shelf->get_attribute("title")->get_value());
@@ -275,6 +327,20 @@ TEST_F(fixture_datashelf, get_first_node__no_such_node)
    auto does_not_exist = m_shelf->get_first_node("ufo evidence")->get_name();
    
    ASSERT_EQ("", does_not_exist);
+}
+
+TEST_F(fixture_datashelf, get_attribute)
+{
+   // note: first node is not a book
+   auto book = m_shelf->get_first_node("book");
+   ASSERT_EQ("Children of Time", book->get_attribute("title")->get_value());
+}
+
+TEST_F(fixture_datashelf, get_attribute__no_such_attribute)
+{
+   // note: first node is not a book
+   auto book = m_shelf->get_first_node("book");
+   ASSERT_EQ("", book->get_attribute("unattribute")->get_value());
 }
 
 TEST_F(fixture_datashelf, get_next_node)
@@ -306,7 +372,7 @@ TEST_F(fixture_datashelf, get_all_nodes_named)
    
    ASSERT_EQ("Children of Time", first_book_node->get_attribute("title")->get_value());
    ASSERT_EQ("Morning Star", next_book_node->get_attribute("title")->get_value());
-   ASSERT_EQ(nullptr, end_book_node->get_attribute("title"));
+   ASSERT_EQ("", end_book_node->get_attribute("title")->get_value());
 }
 
 TEST_F(fixture_datashelf, get_random_node)
