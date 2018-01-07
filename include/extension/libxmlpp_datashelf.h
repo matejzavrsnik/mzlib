@@ -280,6 +280,17 @@ TEST_F(fixture_datashelf, demo)
    ASSERT_EQ("4.29", rating->get_value());
 }
 
+TEST_F(fixture_datashelf, add_node_to_existing_structure)
+{
+   auto added_node = m_shelf->get_first_node("book")
+      ->add_node("new_node", "new_val");
+   
+   ASSERT_EQ(added_node, m_shelf->get_first_node("book")
+      ->get_first_node("new_node"));
+   ASSERT_EQ("new_val", m_shelf->get_first_node("book")
+      ->get_first_node("new_node")->get_value());
+}
+
 TEST_F(fixture_datashelf, add_node_clean)
 {
    auto root = std::make_shared<mzlib::xml::root>();
@@ -291,6 +302,16 @@ TEST_F(fixture_datashelf, add_node_clean)
  
    ASSERT_EQ(added_node2, root->get_first_node("book")->get_next_node());
    ASSERT_EQ("Morning Star", root->get_first_node("book")->get_next_node()->get_value());
+}
+
+TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
+{
+   auto added_attr = m_shelf->get_first_node("book")
+      ->add_attribute("pages", "like 500 or whatever");
+   
+   ASSERT_EQ(added_attr, m_shelf->get_first_node("book")->get_attribute("pages"));
+   ASSERT_EQ("like 500 or whatever", m_shelf->get_first_node("book")
+      ->get_attribute("pages")->get_value());
 }
 
 TEST_F(fixture_datashelf, add_attribute_clean)
