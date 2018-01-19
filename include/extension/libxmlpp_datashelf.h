@@ -76,8 +76,8 @@ class node : public base, public std::enable_shared_from_this<node>
 private:
 
    std::shared_ptr<node> m_parent;
-   std::vector<std::shared_ptr<attribute>> attributes;
-   std::vector<std::shared_ptr<node>> nodes;
+   std::vector<std::shared_ptr<attribute>> m_attributes;
+   std::vector<std::shared_ptr<node>> m_nodes;
    
 public:   
    
@@ -92,26 +92,61 @@ public:
    {
    }
    
+   // attributes
+   
    std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
    {
       auto new_attribute = std::make_shared<attribute>(name, value);
-      attributes.push_back(new_attribute);
+      m_attributes.push_back(new_attribute);
       return new_attribute;
    }
+   
+   std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
+   {
+      return m_attributes.begin();
+   }
+   
+   std::vector<std::shared_ptr<attribute>>::iterator end_attributes ()
+   {
+      return m_attributes.end();
+   }
+   
+   std::shared_ptr<attribute> get_attribute (std::string attribute_name)
+   {
+      auto attribute_it = std::find_if(m_attributes.begin(), m_attributes.end(),
+         [&attribute_name] (const std::shared_ptr<attribute> att) {
+            return att->get_name() == attribute_name;
+         });
+      if (attribute_it != m_attributes.end())
+         return *attribute_it;
+      return std::make_shared<attribute>();
+   }
+   
+   // nodes
    
    std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
    {
       auto new_node = std::make_shared<node>(name, value, shared_from_this());
-      nodes.push_back(new_node);
+      m_nodes.push_back(new_node);
       return new_node;
+   }
+   
+   std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
+   {
+      return m_nodes.begin();
+   }
+   
+   std::vector<std::shared_ptr<node>>::iterator end_nodes ()
+   {
+      return m_nodes.end();
    }
    
    std::shared_ptr<node> get_all_nodes (std::string node_name)
    {
       std::shared_ptr<node> filter_node = std::make_shared<node>();
-      for(auto node : nodes) {
+      for(auto node : m_nodes) {
          if(node->get_name() == node_name) {
-            filter_node->nodes.push_back(node);
+            filter_node->m_nodes.push_back(node);
          }
       }
       return filter_node;
@@ -122,7 +157,7 @@ public:
       decltype(get_random_element<node_it>) rnd = get_random_element<node_it>)
    {
       std::vector<std::shared_ptr<node>> filtered_nodes;
-      for(auto node : nodes) {
+      for(auto node : m_nodes) {
          if(node->get_name() == node_name) {
             filtered_nodes.push_back(node);
          }
@@ -132,7 +167,7 @@ public:
 
    std::shared_ptr<node> get_first_node (std::string node_name)
    {
-      for(auto node : nodes) {
+      for(auto node : m_nodes) {
          if(node->get_name() == node_name) {
             return node;
          }
@@ -148,36 +183,22 @@ public:
       auto peers = m_parent->get_all_nodes(get_name());
       
       auto this_node = std::find_if(
-         peers->nodes.begin(), peers->nodes.end(),
+         peers->m_nodes.begin(), peers->m_nodes.end(),
          [this](std::shared_ptr<node> node_in_parent) {
             return node_in_parent.get() == this;
          });
-      if (this_node == peers->nodes.end()) {
+      if (this_node == peers->m_nodes.end()) {
          return empty_node;
       }
       auto next_node = ++this_node;
-      if (next_node == peers->nodes.end()) { 
+      if (next_node == peers->m_nodes.end()) { 
          return empty_node;
       }
       
       return *next_node;
    }
    
-   std::shared_ptr<attribute> get_attribute (std::string attribute_name)
-   {
-      auto attribute_it = std::find_if(attributes.begin(), attributes.end(),
-         [&attribute_name] (const std::shared_ptr<attribute> att) {
-            return att->get_name() == attribute_name;
-         });
-      if (attribute_it != attributes.end())
-         return *attribute_it;
-      return std::make_shared<attribute>();
-   }
-};
 
-// new name just to avoid confusion
-class root : public node
-{
 };
 
 void fill_node(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node)
@@ -204,10 +225,10 @@ void fill_node(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node
    }
 }
 
-std::shared_ptr<xml::root> create_data_shelf_from_string(std::string xml_string)
+std::shared_ptr<xml::node> create_data_shelf_from_string(std::string xml_string)
 {
    xmlpp::DomParser parser;
-   std::shared_ptr<xml::root> data_shelf = std::make_shared<xml::root>();
+   std::shared_ptr<xml::node> data_shelf = std::make_shared<xml::node>();
    // todo: when parsing doesn't succeed do something
    parser.parse_memory(xml_string);
    fill_node(data_shelf, parser.get_document()->get_root_node());
@@ -215,10 +236,27 @@ std::shared_ptr<xml::root> create_data_shelf_from_string(std::string xml_string)
    return data_shelf;
 }
 
-std::shared_ptr<xml::root> create_data_shelf_from_file(std::string path_to_xml_file)
+/*
+std::string save_data_shelf_to_string(std::shared_ptr<xml::node> shelf)
 {
    xmlpp::DomParser parser;
-   std::shared_ptr<xml::root> data_shelf = std::make_shared<xml::root>();
+   
+   auto root = parser.get_document()->create_root_node(shelf->get_name());
+   
+   for(auto my_attribute : shelf->get_all_attributes()) {
+      root->set_attribute()
+   }
+   
+   for(auto my_node : shelf->get_all_nodes()
+
+   return data_shelf;
+}
+*/
+
+std::shared_ptr<xml::node> create_data_shelf_from_file(std::string path_to_xml_file)
+{
+   xmlpp::DomParser parser;
+   std::shared_ptr<xml::node> data_shelf = std::make_shared<xml::node>();
    // todo: when parsing doesn't succeed do something
    parser.parse_file(path_to_xml_file);
    fill_node(data_shelf, parser.get_document()->get_root_node());
@@ -252,7 +290,7 @@ protected:
    
    std::string m_xml = R"(
       <shelf title="my bookshelf">
-         <airplane model="spitfire"/>
+         <airplane model="spitfire" year="1943" designer="R. J. Mitchell"/>
          <book title="Children of Time">
             <rating source="Goodreads">4.29</rating>
             <rating source="Amazon">4.5</rating>
@@ -270,7 +308,7 @@ protected:
       </shelf>
    )";
    
-   std::shared_ptr<mzlib::xml::root> m_shelf;
+   std::shared_ptr<mzlib::xml::node> m_shelf;
 };
 
 TEST_F(fixture_datashelf, demo)
@@ -293,7 +331,7 @@ TEST_F(fixture_datashelf, add_node_to_existing_structure)
 
 TEST_F(fixture_datashelf, add_node_clean)
 {
-   auto root = std::make_shared<mzlib::xml::root>();
+   auto root = std::make_shared<mzlib::xml::node>();
    auto added_node1 = root->add_node("book", "Children of Time");
    auto added_node2 = root->add_node("book", "Morning Star");
    
@@ -316,7 +354,7 @@ TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 
 TEST_F(fixture_datashelf, add_attribute_clean)
 {
-   auto root = std::make_shared<mzlib::xml::root>();
+   auto root = std::make_shared<mzlib::xml::node>();
    auto added_att1 = root->add_attribute("att1", "val1");
    auto added_att2 = root->add_attribute("att2", "val2");
    
@@ -419,6 +457,42 @@ TEST_F(fixture_datashelf, get_random_node)
       
    ASSERT_EQ("Children of Time", first_random_book_title);
    ASSERT_EQ("Morning Star", second_random_book_title);
+}
+
+TEST_F(fixture_datashelf, all_attributes_iteration)
+{
+   auto airplane_node = m_shelf->get_first_node("airplane");
+   std::vector<std::shared_ptr<mzlib::xml::attribute>> 
+      attributes(airplane_node->begin_attributes(), airplane_node->end_attributes());
+   
+   ASSERT_EQ(3, attributes.size());
+   ASSERT_EQ("model", attributes[0]->get_name());
+   ASSERT_EQ("spitfire", attributes[0]->get_value());
+   ASSERT_EQ("year", attributes[1]->get_name());
+   ASSERT_EQ("1943", attributes[1]->get_value());
+   ASSERT_EQ("designer", attributes[2]->get_name());
+   ASSERT_EQ("R. J. Mitchell", attributes[2]->get_value());
+}
+
+TEST_F(fixture_datashelf, all_attributes_iteration__root)
+{
+   std::vector<std::shared_ptr<mzlib::xml::attribute>> 
+      attributes(m_shelf->begin_attributes(), m_shelf->end_attributes());
+   
+   ASSERT_EQ(1, attributes.size());
+   ASSERT_EQ("title", attributes[0]->get_name());
+   ASSERT_EQ("my bookshelf", attributes[0]->get_value());
+}
+
+TEST_F(fixture_datashelf, all_nodes_iteration)
+{
+   auto all_book_nodes = m_shelf->get_all_nodes("book");
+   std::vector<std::shared_ptr<mzlib::xml::node>> 
+      all_books(all_book_nodes->begin_nodes(), all_book_nodes->end_nodes());
+   
+   ASSERT_EQ(2, all_books.size());
+   ASSERT_EQ("Children of Time", all_books[0]->get_attribute("title")->get_value());
+   ASSERT_EQ("Morning Star", all_books[1]->get_attribute("title")->get_value());
 }
 
 #endif // MZLIB_EXTENSION_LIBXMLPP_DATASHELF_TESTS_H
