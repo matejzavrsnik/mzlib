@@ -53,7 +53,7 @@ trim_nonalpha(const std::string& word)
 
 // strips all non-letter characters from whole string
 inline std::string 
-trim_punctuation_whole(const std::string& word)
+trim_nonalpha_whole(const std::string& word)
 {
    std::string trimmed;
    for(auto ch : word) {
@@ -112,7 +112,7 @@ TEST(trim_nonalpha, demo)
 TEST(trim_punctiation_whole, demo)
 {
    std::string text(" !?I must not fear.,: Fear is the mind-killer.,* ");
-   std::string trimmed = mzlib::trim_punctuation_whole(text);
+   std::string trimmed = mzlib::trim_nonalpha_whole(text);
    
    ASSERT_EQ("ImustnotfearFearisthemindkiller", trimmed);
 }
