@@ -99,6 +99,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/tools/add_to_tally.o \
 	${OBJECTDIR}/tests/tools/copy_first_n_over_rest.o \
 	${OBJECTDIR}/tests/tools/count_bits.o \
+	${OBJECTDIR}/tests/tools/datashelf.o \
 	${OBJECTDIR}/tests/tools/equidistant_sequence.o \
 	${OBJECTDIR}/tests/tools/fast_min.o \
 	${OBJECTDIR}/tests/tools/genetic.o \
@@ -456,6 +457,11 @@ ${OBJECTDIR}/tests/tools/count_bits.o: tests/tools/count_bits.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/count_bits.o tests/tools/count_bits.cpp
+
+${OBJECTDIR}/tests/tools/datashelf.o: tests/tools/datashelf.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/tools/datashelf.o tests/tools/datashelf.cpp
 
 ${OBJECTDIR}/tests/tools/equidistant_sequence.o: tests/tools/equidistant_sequence.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/tools
