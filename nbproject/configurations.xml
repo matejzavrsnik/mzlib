@@ -82,6 +82,7 @@
       <logicalFolder name="f5" displayName="string" projectFiles="true">
         <itemPath>include/string/extract_vocabulary.h</itemPath>
         <itemPath>include/string/get_substring.h</itemPath>
+        <itemPath>include/string/is_just_whitespace.h</itemPath>
         <itemPath>include/string/is_word_in_dictionary.h</itemPath>
         <itemPath>include/string/remove_strings.h</itemPath>
         <itemPath>include/string/remove_substrings.h</itemPath>
@@ -190,6 +191,7 @@
       <logicalFolder name="f2" displayName="string" projectFiles="true">
         <itemPath>tests/string/extract_vocabulary.cpp</itemPath>
         <itemPath>tests/string/get_substring.cpp</itemPath>
+        <itemPath>tests/string/is_just_whitespace.cpp</itemPath>
         <itemPath>tests/string/is_word_in_dictionary.cpp</itemPath>
         <itemPath>tests/string/remove_strings.cpp</itemPath>
         <itemPath>tests/string/remove_substrings.cpp</itemPath>
@@ -463,6 +465,11 @@
       </item>
       <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/is_just_whitespace.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/string/is_word_in_dictionary.h"
             ex="false"
             tool="3"
@@ -708,6 +715,11 @@
             flavor2="0">
       </item>
       <item path="tests/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/is_just_whitespace.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/string/is_word_in_dictionary.cpp"
             ex="false"
@@ -1025,6 +1037,11 @@
       </item>
       <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/is_just_whitespace.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/string/is_word_in_dictionary.h"
             ex="false"
             tool="3"
@@ -1270,6 +1287,11 @@
             flavor2="0">
       </item>
       <item path="tests/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/string/is_just_whitespace.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/string/is_word_in_dictionary.cpp"
             ex="false"

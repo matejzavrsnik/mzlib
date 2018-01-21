@@ -84,6 +84,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tests/nature/vector.o \
 	${OBJECTDIR}/tests/string/extract_vocabulary.o \
 	${OBJECTDIR}/tests/string/get_substring.o \
+	${OBJECTDIR}/tests/string/is_just_whitespace.o \
 	${OBJECTDIR}/tests/string/is_word_in_dictionary.o \
 	${OBJECTDIR}/tests/string/remove_strings.o \
 	${OBJECTDIR}/tests/string/remove_substrings.o \
@@ -380,6 +381,11 @@ ${OBJECTDIR}/tests/string/get_substring.o: tests/string/get_substring.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/get_substring.o tests/string/get_substring.cpp
+
+${OBJECTDIR}/tests/string/is_just_whitespace.o: tests/string/is_just_whitespace.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/string/is_just_whitespace.o tests/string/is_just_whitespace.cpp
 
 ${OBJECTDIR}/tests/string/is_word_in_dictionary.o: tests/string/is_word_in_dictionary.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests/string
