@@ -170,6 +170,13 @@ inline void delete_all_xpath (std::string xpath, xmlpp::Node* from_node)
    }
 }
 
+inline bool is_empty_node(const xmlpp::Node* xmlpp_node)
+{
+   const std::string& name = xmlpp_node->get_name();
+   const std::string& value = mzlib::get_content_or_default(xmlpp_node);
+   return (name == "text" && value.empty());
+}
+
 } // namespace
 
 #endif // MZLIB_EXTENSION_LIBXMLPP_H

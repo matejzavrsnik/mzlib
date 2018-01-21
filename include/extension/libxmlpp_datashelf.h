@@ -16,10 +16,14 @@
 // The point of this whole thing is to have an in-memory data shelf
 // for basic data needs, like settings or a collection of books or
 // whatever. Such that is most conveniently stored in xml, but then
-// need further editing once in memory. Like changing settings, adding
+// needs further editing once in memory. Like changing settings, adding
 // reviews to books and such, and then after that you want it to be
 // easy to persist that back on the xml file, either during the process
-// or in the end. (I have yet to add the saving part.)
+// or in the end.
+
+// Features an extensive and non-orthogonal interface which goes against 
+// best practices, but if I want to have fluent interface on this thing, this 
+// is the fastest way.
 
 namespace mzlib {
 
@@ -59,6 +63,21 @@ public:
    void set_value(std::string value)
    {
       m_value = value;
+   }
+   
+   bool has_empty_name() const
+   {
+      return (m_name.empty()  || mzlib::is_just_whitespaces(m_name));
+   }
+
+   bool has_empty_value() const
+   {
+      return (m_value.empty()  || mzlib::is_just_whitespaces(m_value));
+   }
+
+   bool is_empty_node() const
+   {
+      return (has_empty_name() && has_empty_value());
    }
 
 };
@@ -201,30 +220,6 @@ public:
    
 };
 
-bool has_empty_name(const std::shared_ptr<xml::node> my_node)
-{
-   const std::string& name = my_node->get_name();
-   return (name.empty()  || mzlib::is_just_whitespaces(name));
-}
-
-bool has_empty_value(const std::shared_ptr<xml::node> my_node)
-{
-   const std::string& value = my_node->get_value();
-   return (value.empty()  || mzlib::is_just_whitespaces(value));
-}
-
-bool is_empty_node(const std::shared_ptr<xml::node> my_node)
-{
-   return (has_empty_name(my_node) && has_empty_value(my_node));
-}
-
-bool is_empty_node(const xmlpp::Node* xmlpp_node)
-{
-   const std::string& name = xmlpp_node->get_name();
-   const std::string& value = mzlib::get_content_or_default(xmlpp_node);
-   return (name == "text" && value.empty());
-}
-
 void fill_my_node_from_xmlpp(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node)
 {
    // read common to all
@@ -252,8 +247,6 @@ void fill_my_node_from_xmlpp(std::shared_ptr<xml::node> my_node, const xmlpp::No
    }
 }
 
-
-
 std::shared_ptr<xml::node> create_data_shelf_from_string(std::string xml_string)
 {
    xmlpp::DomParser parser;
@@ -276,15 +269,13 @@ std::shared_ptr<xml::node> create_data_shelf_from_file(std::string path_to_xml_f
    return data_shelf;
 }
 
-
-
 void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_ptr<xml::node> my_node)
 {
    //todo: this part is basically conversion. make function for that
-   if (!has_empty_name(my_node)) {
+   if (!my_node->has_empty_name()) {
       xmlpp_element->set_name(my_node->get_name());
    }
-   if (!has_empty_value(my_node)) {
+   if (!my_node->has_empty_value()) {
       xmlpp_element->set_child_text(my_node->get_value());
    }
 
@@ -303,7 +294,7 @@ void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_
       my_child != my_node->end_nodes();
       ++my_child) 
    {
-      if (!is_empty_node(*my_child)) {
+      if (!(*my_child)->is_empty_node()) {
          xmlpp::Element* xmlpp_child = xmlpp_element->add_child("");
          fill_xmlpp_node_from_mine(xmlpp_child, *my_child);
       }
