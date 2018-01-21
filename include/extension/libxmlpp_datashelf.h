@@ -8,9 +8,10 @@
 #ifndef MZLIB_EXTENSION_LIBXMLPP_DATASHELF_H
 #define MZLIB_EXTENSION_LIBXMLPP_DATASHELF_H
 
-#include "libxmlpp.h"
-
 #include "../iterators/get_random.h"
+#include "../string/is_just_whitespace.h"
+
+#include "libxmlpp.h"
 
 // The point of this whole thing is to have an in-memory data shelf
 // for basic data needs, like settings or a collection of books or
@@ -198,14 +199,40 @@ public:
       return *next_node;
    }
    
-
 };
 
-void fill_node(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node)
+bool has_empty_name(const std::shared_ptr<xml::node> my_node)
+{
+   const std::string& name = my_node->get_name();
+   return (name.empty()  || mzlib::is_just_whitespaces(name));
+}
+
+bool has_empty_value(const std::shared_ptr<xml::node> my_node)
+{
+   const std::string& value = my_node->get_value();
+   return (value.empty()  || mzlib::is_just_whitespaces(value));
+}
+
+bool is_empty_node(const std::shared_ptr<xml::node> my_node)
+{
+   return (has_empty_name(my_node) && has_empty_value(my_node));
+}
+
+bool is_empty_node(const xmlpp::Node* xmlpp_node)
+{
+   const std::string& name = xmlpp_node->get_name();
+   const std::string& value = mzlib::get_content_or_default(xmlpp_node);
+   return (name == "text" && value.empty());
+}
+
+void fill_my_node_from_xmlpp(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node)
 {
    // read common to all
-   my_node->set_name(xmlpp_node->get_name());
-   my_node->set_value(mzlib::get_content_or_default(xmlpp_node));
+   if (!is_empty_node(xmlpp_node)) {
+      my_node->set_name(xmlpp_node->get_name());
+      my_node->set_value(mzlib::get_content_or_default(xmlpp_node));
+   }
+   
    if (mzlib::is_element(xmlpp_node)) {
       const auto xmlpp_element = dynamic_cast<const xmlpp::Element*>(xmlpp_node);
 
@@ -218,12 +245,14 @@ void fill_node(std::shared_ptr<xml::node> my_node, const xmlpp::Node* xmlpp_node
 
       // iteratively read child nodes if any
       for (const xmlpp::Node* xmlpp_child_node : xmlpp_element->get_children()) {
-         fill_node(
+         fill_my_node_from_xmlpp(
             my_node->add_node(), 
             xmlpp_child_node);
       }
    }
 }
+
+
 
 std::shared_ptr<xml::node> create_data_shelf_from_string(std::string xml_string)
 {
@@ -231,27 +260,10 @@ std::shared_ptr<xml::node> create_data_shelf_from_string(std::string xml_string)
    std::shared_ptr<xml::node> data_shelf = std::make_shared<xml::node>();
    // todo: when parsing doesn't succeed do something
    parser.parse_memory(xml_string);
-   fill_node(data_shelf, parser.get_document()->get_root_node());
+   fill_my_node_from_xmlpp(data_shelf, parser.get_document()->get_root_node());
 
    return data_shelf;
 }
-
-/*
-std::string save_data_shelf_to_string(std::shared_ptr<xml::node> shelf)
-{
-   xmlpp::DomParser parser;
-   
-   auto root = parser.get_document()->create_root_node(shelf->get_name());
-   
-   for(auto my_attribute : shelf->get_all_attributes()) {
-      root->set_attribute()
-   }
-   
-   for(auto my_node : shelf->get_all_nodes()
-
-   return data_shelf;
-}
-*/
 
 std::shared_ptr<xml::node> create_data_shelf_from_file(std::string path_to_xml_file)
 {
@@ -259,9 +271,56 @@ std::shared_ptr<xml::node> create_data_shelf_from_file(std::string path_to_xml_f
    std::shared_ptr<xml::node> data_shelf = std::make_shared<xml::node>();
    // todo: when parsing doesn't succeed do something
    parser.parse_file(path_to_xml_file);
-   fill_node(data_shelf, parser.get_document()->get_root_node());
+   fill_my_node_from_xmlpp(data_shelf, parser.get_document()->get_root_node());
 
    return data_shelf;
+}
+
+
+
+void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_ptr<xml::node> my_node)
+{
+   //todo: this part is basically conversion. make function for that
+   if (!has_empty_name(my_node)) {
+      xmlpp_element->set_name(my_node->get_name());
+   }
+   if (!has_empty_value(my_node)) {
+      xmlpp_element->set_child_text(my_node->get_value());
+   }
+
+   // read attributes if any
+   for(auto my_attribute = my_node->begin_attributes(); 
+      my_attribute != my_node->end_attributes(); 
+      ++my_attribute) 
+   {
+      const std::string& name = (*my_attribute)->get_name();
+      const std::string& value = (*my_attribute)->get_value();
+      xmlpp_element->set_attribute(name, value);
+   }
+
+   // iteratively read child nodes if any
+   for(auto my_child = my_node->begin_nodes();
+      my_child != my_node->end_nodes();
+      ++my_child) 
+   {
+      if (!is_empty_node(*my_child)) {
+         xmlpp::Element* xmlpp_child = xmlpp_element->add_child("");
+         fill_xmlpp_node_from_mine(xmlpp_child, *my_child);
+      }
+   }
+
+}
+
+std::string save_data_shelf_to_string(std::shared_ptr<xml::node> shelf)
+{
+   xmlpp::DomParser parser;
+   
+   auto root = parser.get_document()->create_root_node("");
+   fill_xmlpp_node_from_mine(root, shelf);
+   const std::string doc = parser.get_document()->write_to_string_formatted();
+   
+   std::cout << doc;
+   return doc;
 }
 
 } // namespace xml
@@ -493,6 +552,33 @@ TEST_F(fixture_datashelf, all_nodes_iteration)
    ASSERT_EQ(2, all_books.size());
    ASSERT_EQ("Children of Time", all_books[0]->get_attribute("title")->get_value());
    ASSERT_EQ("Morning Star", all_books[1]->get_attribute("title")->get_value());
+}
+
+TEST_F(fixture_datashelf, save_data_shelf_to_string_demo)
+{  
+   std::string created = mzlib::xml::save_data_shelf_to_string(m_shelf);
+   
+   std::string expected = R"(<?xml version="1.0" encoding="UTF-8"?>
+<shelf title="my bookshelf">
+  <airplane model="spitfire" year="1943" designer="R. J. Mitchell"/>
+  <book title="Children of Time">
+    <rating source="Goodreads">4.29</rating>
+    <rating source="Amazon">4.5</rating>
+    <author>Adrian Tchaikovsky</author>
+    <year>2016</year>
+  </book>
+  <folder>
+    <coin_collection/>
+  </folder>
+  <book title="Morning Star">
+    <rating source="Goodreads">4.5</rating>
+    <rating source="Amazon">4.6</rating>
+    <author>Pierce Brown</author>
+  </book>
+</shelf>
+)";
+
+   ASSERT_EQ(expected, created);
 }
 
 #endif // MZLIB_EXTENSION_LIBXMLPP_DATASHELF_TESTS_H
