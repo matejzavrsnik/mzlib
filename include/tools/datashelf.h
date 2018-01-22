@@ -12,7 +12,8 @@
 #include "../string/is_just_whitespace.h"
 
 #include <memory> // for shared ptr
-#include <algorithm> // find_if
+#include <algorithm>
+#include <stack> // find_if
 
 // The point of this whole thing is to have an in-memory data shelf
 // for basic data needs, like settings or a collection of books or
@@ -93,6 +94,8 @@ public:
    using base::base;
 };
 
+class fluent;
+
 class node : public base, public std::enable_shared_from_this<node>
 {
 private:
@@ -116,12 +119,12 @@ public:
    
    // attributes
    
-   std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
-   {
-      auto new_attribute = std::make_shared<attribute>(name, value);
-      m_attributes.push_back(new_attribute);
-      return new_attribute;
-   }
+   //std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
+   //{
+   //   auto new_attribute = std::make_shared<attribute>(name, value);
+   //   m_attributes.push_back(new_attribute);
+   //   return new_attribute;
+   //}
    
    std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
    {
@@ -146,12 +149,12 @@ public:
    
    // nodes
    
-   std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
-   {
-      auto new_node = std::make_shared<node>(name, value, shared_from_this());
-      m_nodes.push_back(new_node);
-      return new_node;
-   }
+   //std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
+   //{
+   //   auto new_node = std::make_shared<node>(name, value, shared_from_this());
+   //   m_nodes.push_back(new_node);
+   //   return new_node;
+   //}
    
    std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
    {
@@ -220,9 +223,130 @@ public:
       return *next_node;
    }
    
+   friend class fluent;
+   
 };
 
-} // namespace xml
+class fluent
+{
+
+private:
+   
+   enum class last_added_t { node, attribute } m_last_added;
+   
+   std::stack<std::shared_ptr<node>> m_using_nodes;
+ 
+   // attributes don't need to be stacked because they can never be nested
+   std::shared_ptr<attribute> m_using_attribute;
+   
+   std::shared_ptr<node> current_node()
+   {
+      if (m_using_nodes.size() == 0)
+         return nullptr;
+      
+      return m_using_nodes.top();
+   }
+   
+   std::shared_ptr<node> last_added_node()
+   {
+      if (current_node()->m_nodes.size() > 0) {
+         return *std::prev(current_node()->m_nodes.end());
+      }
+      return nullptr;
+   }
+   
+   void mark_node_added()
+   {
+      m_last_added = last_added_t::node;
+   }
+   
+   std::shared_ptr<attribute> last_added_attribute()
+   {
+      if (current_node()->m_attributes.size() > 0) {
+         return *std::prev(current_node()->m_attributes.end());
+      }
+      return nullptr;
+   }
+   
+   void mark_attribute_added()
+   {
+      m_last_added = last_added_t::attribute;
+   }
+   
+public:
+   
+   fluent(std::shared_ptr<node> shelf)
+   {
+      m_using_nodes.push(shelf);
+   }
+      
+   fluent& set_name(std::string name)
+   {
+      current_node()->set_name(name);
+      return *this;
+   }
+   
+   fluent& set_value(std::string value)
+   {
+      current_node()->set_value(value);
+      return *this;
+   }
+   
+   fluent& add_attribute(std::string name, std::string value = "")
+   {
+      auto new_attribute = std::make_shared<attribute>(name, value);
+      mark_attribute_added();
+      current_node()->m_attributes.push_back(new_attribute);
+      return *this;
+   }
+   
+   fluent& add_node(std::string name = "", std::string value = "")
+   {
+      auto new_node = std::make_shared<node>(name, value, current_node());
+      mark_node_added();
+      current_node()->m_nodes.push_back(new_node);
+      return *this;
+   }
+   
+   fluent& use()
+   {
+      if (m_last_added == last_added_t::node) {
+         auto last = last_added_node();
+         if (last != nullptr) {
+            m_using_nodes.push(last);
+         }
+      }
+      else if (m_last_added == last_added_t::attribute) {
+         m_using_attribute = last_added_attribute();
+      }
+      return *this;
+   }
+   
+   fluent& stop_using()
+   {
+      m_using_attribute = nullptr;
+      if(m_using_nodes.size()>1) {
+         m_using_nodes.pop();
+      }
+      return *this;
+   }
+   
+   // queries
+   
+   std::shared_ptr<node> get_node()
+   {
+      return current_node();
+   }
+   
+   std::shared_ptr<attribute> get_attribute()
+   {
+      return m_using_attribute;
+   }
+};
+
+
+
+} // namespace ds
 
 } // namespace mzlib
 
@@ -242,24 +366,45 @@ protected:
    virtual void SetUp() 
    {
       m_shelf = std::make_shared<mzlib::ds::node>();
-      m_shelf->set_name("shelf");
-      m_shelf->add_attribute("title", "my bookshelf");
-      auto airplane_node = m_shelf->add_node("airplane");
-         airplane_node->add_attribute("model", "spitfire");
-         airplane_node->add_attribute("year", "1943");
-         airplane_node->add_attribute("designer", "R. J. Mitchell");
-      auto book1_node = m_shelf->add_node("book");
-         book1_node->add_attribute("title", "Children of Time");
-         book1_node->add_node("rating", "4.29")->add_attribute("source", "Goodreads");
-         book1_node->add_node("rating", "4.5")->add_attribute("source", "Amazon");
-         book1_node->add_node("author", "Adrian Tchaikovsky");
-         book1_node->add_node("year", "2016");
-      m_shelf->add_node("folder")->add_node("coin_collection");
-      auto book2_node = m_shelf->add_node("book");
-         book2_node->add_attribute("title", "Morning Star");
-         book2_node->add_node("rating", "4.5")->add_attribute("source", "Goodreads");
-         book2_node->add_node("rating", "4.6")->add_attribute("source", "Amazon");
-         book2_node->add_node("author", "Pierce Brown");
+      mzlib::ds::fluent(m_shelf)
+         .set_name("shelf")
+         .add_attribute("title", "my bookshelf")
+         .add_node("airplane")
+            .use()
+            .add_attribute("model", "spitfire")
+            .add_attribute("year", "1943")
+            .add_attribute("designer", "R. J. Mitchell")
+            .stop_using()
+         .add_node("book")
+            .use()
+            .add_attribute("title", "Children of Time")
+            .add_node("rating", "4.29")
+               .use()
+               .add_attribute("source", "Goodreads")
+               .stop_using()
+            .add_node("rating", "4.5")
+               .use()
+               .add_attribute("source", "Amazon")
+               .stop_using()
+            .add_node("author", "Adrian Tchaikovsky")
+            .add_node("year", "2016")
+            .stop_using()
+         .add_node("folder")
+            .use()
+            .add_node("coin_collection")
+            .stop_using()
+         .add_node("book")
+            .use()
+            .add_attribute("title", "Morning Star")
+            .add_node("rating", "4.5")
+               .use()
+               .add_attribute("source", "Goodreads")
+               .stop_using()
+            .add_node("rating", "4.6")
+               .use()
+               .add_attribute("source", "Amazon")
+               .stop_using()
+            .add_node("author", "Pierce Brown");
    }
    
    virtual void TearDown() {}
@@ -276,8 +421,8 @@ TEST_F(fixture_datashelf, demo)
 
 TEST_F(fixture_datashelf, add_node_to_existing_structure)
 {
-   auto added_node = m_shelf->get_first_node("book")
-      ->add_node("new_node", "new_val");
+   auto added_node = mzlib::ds::fluent(m_shelf->get_first_node("book"))
+      .add_node("new_node", "new_val").use().get_node();
    
    ASSERT_EQ(added_node, m_shelf->get_first_node("book")
       ->get_first_node("new_node"));
@@ -288,8 +433,10 @@ TEST_F(fixture_datashelf, add_node_to_existing_structure)
 TEST_F(fixture_datashelf, add_node_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
-   auto added_node1 = root->add_node("book", "Children of Time");
-   auto added_node2 = root->add_node("book", "Morning Star");
+   auto added_node1 = mzlib::ds::fluent(root)
+      .add_node("book", "Children of Time").use().get_node();
+   auto added_node2 = mzlib::ds::fluent(root)
+      .add_node("book", "Morning Star").use().get_node();
    
    ASSERT_EQ(added_node1, root->get_first_node("book"));
    ASSERT_EQ("Children of Time", root->get_first_node("book")->get_value());
@@ -300,8 +447,8 @@ TEST_F(fixture_datashelf, add_node_clean)
 
 TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 {
-   auto added_attr = m_shelf->get_first_node("book")
-      ->add_attribute("pages", "like 500 or whatever");
+   auto added_attr = mzlib::ds::fluent(m_shelf->get_first_node("book"))
+      .add_attribute("pages", "like 500 or whatever").use().get_attribute();
    
    ASSERT_EQ(added_attr, m_shelf->get_first_node("book")->get_attribute("pages"));
    ASSERT_EQ("like 500 or whatever", m_shelf->get_first_node("book")
@@ -311,8 +458,8 @@ TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 TEST_F(fixture_datashelf, add_attribute_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
-   auto added_att1 = root->add_attribute("att1", "val1");
-   auto added_att2 = root->add_attribute("att2", "val2");
+   auto added_att1 = mzlib::ds::fluent(root).add_attribute("att1", "val1").use().get_attribute();
+   auto added_att2 = mzlib::ds::fluent(root).add_attribute("att2", "val2").use().get_attribute();
    
    ASSERT_EQ(added_att1, root->get_attribute("att1"));
    ASSERT_EQ("val1", root->get_attribute("att1")->get_value());

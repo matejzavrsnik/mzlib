@@ -27,7 +27,7 @@ void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xmlpp::Nod
 
       // read attributes if any
       for (const xmlpp::Attribute* xmlpp_attribute : xmlpp_element->get_attributes()) {
-         my_node->add_attribute(
+         ds::fluent(my_node).add_attribute(
             xmlpp_attribute->get_name(), 
             xmlpp_attribute->get_value());
       }
@@ -35,7 +35,7 @@ void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xmlpp::Nod
       // iteratively read child nodes if any
       for (const xmlpp::Node* xmlpp_child_node : xmlpp_element->get_children()) {
          fill_my_node_from_xmlpp(
-            my_node->add_node(), 
+            ds::fluent(my_node).add_node().use().get_node(), 
             xmlpp_child_node);
       }
    }
