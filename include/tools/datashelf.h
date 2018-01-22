@@ -232,10 +232,7 @@ class fluent
 
 private:
    
-   enum class last_added_t { node, attribute } m_last_added;
-   
    std::stack<std::shared_ptr<node>> m_using_nodes;
- 
    // attributes don't need to be stacked because they can never be nested
    std::shared_ptr<attribute> m_using_attribute;
    
@@ -255,22 +252,12 @@ private:
       return nullptr;
    }
    
-   void mark_node_added()
-   {
-      m_last_added = last_added_t::node;
-   }
-   
    std::shared_ptr<attribute> last_added_attribute()
    {
       if (current_node()->m_attributes.size() > 0) {
          return *std::prev(current_node()->m_attributes.end());
       }
       return nullptr;
-   }
-   
-   void mark_attribute_added()
-   {
-      m_last_added = last_added_t::attribute;
    }
    
 public:
@@ -292,10 +279,21 @@ public:
       return *this;
    }
    
+   fluent& set_attribute_name(std::string name)
+   {
+      m_using_attribute->set_name(name);
+      return *this;
+   }
+   
+   fluent& set_attribute_value(std::string value)
+   {
+      m_using_attribute->set_value(value);
+      return *this;
+   }
+   
    fluent& add_attribute(std::string name, std::string value = "")
    {
       auto new_attribute = std::make_shared<attribute>(name, value);
-      mark_attribute_added();
       current_node()->m_attributes.push_back(new_attribute);
       return *this;
    }
@@ -303,31 +301,36 @@ public:
    fluent& add_node(std::string name = "", std::string value = "")
    {
       auto new_node = std::make_shared<node>(name, value, current_node());
-      mark_node_added();
       current_node()->m_nodes.push_back(new_node);
       return *this;
    }
    
    fluent& use()
    {
-      if (m_last_added == last_added_t::node) {
-         auto last = last_added_node();
-         if (last != nullptr) {
-            m_using_nodes.push(last);
-         }
-      }
-      else if (m_last_added == last_added_t::attribute) {
-         m_using_attribute = last_added_attribute();
+      auto last = last_added_node();
+      if (last != nullptr) {
+         m_using_nodes.push(last);
       }
       return *this;
    }
    
    fluent& stop_using()
    {
-      m_using_attribute = nullptr;
       if(m_using_nodes.size()>1) {
          m_using_nodes.pop();
       }
+      return *this;
+   }
+   
+   fluent& use_attribute()
+   {
+      m_using_attribute = last_added_attribute();
+      return *this;
+   }
+   
+   fluent& stop_using_attribute()
+   {
+      m_using_attribute = nullptr;
       return *this;
    }
    
@@ -419,6 +422,31 @@ TEST_F(fixture_datashelf, demo)
    ASSERT_EQ("4.29", rating->get_value());
 }
 
+TEST_F(fixture_datashelf, fluent_using_attribute)
+{
+   
+   auto shelf = std::make_shared<mzlib::ds::node>();
+   
+   mzlib::ds::fluent(shelf)
+      .add_node("node1", "node_value1")
+         .use()
+         .add_attribute("att1", "att_value1")
+            .use_attribute()
+            .set_attribute_name("att2")
+            .set_attribute_value("att_value2")
+            .stop_using_attribute()
+         .set_name("node2")
+         .set_value("node_value2")
+         .stop_using();
+   
+   ASSERT_TRUE(shelf->get_first_node("node1")->is_empty_node());
+   
+   auto node2 = shelf->get_first_node("node2");
+   ASSERT_EQ("node_value2", node2->get_value());
+   ASSERT_TRUE(node2->get_attribute("att1")->is_empty_node());
+   ASSERT_EQ("att_value2", node2->get_attribute("att2")->get_value());
+}
+
 TEST_F(fixture_datashelf, add_node_to_existing_structure)
 {
    auto added_node = mzlib::ds::fluent(m_shelf->get_first_node("book"))
@@ -448,7 +476,9 @@ TEST_F(fixture_datashelf, add_node_clean)
 TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 {
    auto added_attr = mzlib::ds::fluent(m_shelf->get_first_node("book"))
-      .add_attribute("pages", "like 500 or whatever").use().get_attribute();
+      .add_attribute("pages", "like 500 or whatever")
+      .use_attribute()
+      .get_attribute();
    
    ASSERT_EQ(added_attr, m_shelf->get_first_node("book")->get_attribute("pages"));
    ASSERT_EQ("like 500 or whatever", m_shelf->get_first_node("book")
@@ -458,8 +488,10 @@ TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 TEST_F(fixture_datashelf, add_attribute_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
-   auto added_att1 = mzlib::ds::fluent(root).add_attribute("att1", "val1").use().get_attribute();
-   auto added_att2 = mzlib::ds::fluent(root).add_attribute("att2", "val2").use().get_attribute();
+   auto added_att1 = mzlib::ds::fluent(root).add_attribute("att1", "val1")
+      .use_attribute().get_attribute();
+   auto added_att2 = mzlib::ds::fluent(root).add_attribute("att2", "val2")
+      .use_attribute().get_attribute();
    
    ASSERT_EQ(added_att1, root->get_attribute("att1"));
    ASSERT_EQ("val1", root->get_attribute("att1")->get_value());
