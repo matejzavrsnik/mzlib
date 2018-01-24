@@ -27,7 +27,6 @@
 // best practices, but if I want to have fluent interface on this thing, this 
 // is the fastest way.
 
-
 namespace mzlib {
 
 namespace ds {
@@ -94,7 +93,13 @@ public:
    using base::base;
 };
 
-class fluent;
+class state_node {};
+class state_attribute_added {};
+class state_attribute {};
+
+template <class T> class fluent;
+template<> class fluent<state_attribute_added>;
+template<> class fluent<state_attribute>;
 
 class node : public base, public std::enable_shared_from_this<node>
 {
@@ -119,13 +124,6 @@ public:
    
    // attributes
    
-   //std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
-   //{
-   //   auto new_attribute = std::make_shared<attribute>(name, value);
-   //   m_attributes.push_back(new_attribute);
-   //   return new_attribute;
-   //}
-   
    std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
    {
       return m_attributes.begin();
@@ -148,13 +146,6 @@ public:
    }
    
    // nodes
-   
-   //std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
-   //{
-   //   auto new_node = std::make_shared<node>(name, value, shared_from_this());
-   //   m_nodes.push_back(new_node);
-   //   return new_node;
-   //}
    
    std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
    {
@@ -223,18 +214,44 @@ public:
       return *next_node;
    }
    
-   friend class fluent;
+   friend class fluent<state_node>;
    
 };
 
+
+
+// when I grow up I am going to be a fluent interface
+
+// "Certainly chaining is a common technique to use with fluent interfaces, 
+// but true fluency is much more than that." (Martin Fowler)
+//
+// Here I am making it into a state machine, because it makes sense. When in state
+// "working on attribute" function add_node makes no sense, because attributes
+// can't have nested nodes, while add_node makes perfect sense in "working on
+// nodes" state, because you can always add subnodes. This is simple example,
+// more complicated are functions that change meaning with state. In "attribute"
+// state get() should mean get me the attribute, whilst in "node" state it means
+// get me the node. How would you otherwise overload for function return type?
+// That, my friends, is impossible. Or when I start adding queries ... for example,
+// when I have filtered all subnodes with certain name, what does add_node mean
+// then? With state machine, all states can be programmed separately and I can
+// get errors in compile time; for example, I can simply not implement add_node
+// in a "filtered a collection of nodes" state. It all makes perfect sense at the
+// moment, let's see the idea mature first before I brag too much :)
+//
+// Didn't expect fluent interface part of the project to be so interesting.
+
+
+template <class T = state_node>
 class fluent
 {
 
 private:
    
+   // all the nodes that are actively used
    std::stack<std::shared_ptr<node>> m_using_nodes;
-   // attributes don't need to be stacked because they can never be nested
-   std::shared_ptr<attribute> m_using_attribute;
+   // temporary storage for the next state
+   std::unique_ptr<fluent<state_attribute_added>> m_state_attribute_added;
    
    std::shared_ptr<node> current_node()
    {
@@ -279,29 +296,20 @@ public:
       return *this;
    }
    
-   fluent& set_attribute_name(std::string name)
-   {
-      m_using_attribute->set_name(name);
-      return *this;
-   }
-   
-   fluent& set_attribute_value(std::string value)
-   {
-      m_using_attribute->set_value(value);
-      return *this;
-   }
-   
-   fluent& add_attribute(std::string name, std::string value = "")
+   fluent<state_attribute_added>& add_attribute
+      (std::string name, std::string value = "")
    {
       auto new_attribute = std::make_shared<attribute>(name, value);
       current_node()->m_attributes.push_back(new_attribute);
-      return *this;
+      m_state_attribute_added = std::make_unique<fluent<state_attribute_added>>(*this);
+      return *m_state_attribute_added.get();
    }
    
    fluent& add_node(std::string name = "", std::string value = "")
    {
-      auto new_node = std::make_shared<node>(name, value, current_node());
-      current_node()->m_nodes.push_back(new_node);
+      auto parent = current_node();
+      auto new_node = std::make_shared<node>(name, value, parent);
+      parent->m_nodes.push_back(new_node);
       return *this;
    }
    
@@ -322,31 +330,114 @@ public:
       return *this;
    }
    
-   fluent& use_attribute()
-   {
-      m_using_attribute = last_added_attribute();
-      return *this;
-   }
-   
-   fluent& stop_using_attribute()
-   {
-      m_using_attribute = nullptr;
-      return *this;
-   }
-   
    // queries
    
-   std::shared_ptr<node> get_node()
+   std::shared_ptr<node> get()
    {
       return current_node();
    }
    
-   std::shared_ptr<attribute> get_attribute()
-   {
-      return m_using_attribute;
-   }
+   friend class fluent<state_attribute_added>;
+   friend class fluent<state_attribute>;
 };
 
+template <>
+class fluent<state_attribute_added>
+{
+private:
+   
+   // origin state for going back
+   fluent<state_node>& m_state_node;
+   // temporary storage for the next state
+   std::unique_ptr<fluent<state_attribute>> m_attribute_state;
+   
+public:
+   
+   fluent<state_attribute_added>(fluent<state_node>& origin) :
+      m_state_node(origin)
+   {
+   }
+      
+   fluent<state_node>& set_name(std::string name)
+   {
+      return m_state_node.set_name(name);
+   }
+   
+   fluent<state_node>& set_value(std::string value)
+   {
+      return m_state_node.set_value(value);
+   }
+   
+   fluent<state_attribute_added>& add_attribute(std::string name, std::string value = "")
+   {
+      return m_state_node.add_attribute(name, value);
+   }
+   
+   fluent<state_node>& add_node(std::string name = "", std::string value = "")
+   {
+      return m_state_node.add_node(name, value);
+   }
+   
+   fluent<state_attribute>& use()
+   {
+      m_attribute_state = std::make_unique<fluent<state_attribute>>(m_state_node);
+      return *m_attribute_state.get();
+   }
+   
+   fluent<state_node>& stop_using()
+   {
+      return m_state_node.stop_using();
+   }
+   
+   friend class fluent<state_attribute>;
+   
+};
+
+template <>
+class fluent<state_attribute>
+{
+private:
+   
+   // origin state for going back
+   fluent<state_node>& m_state_node;
+   
+public:
+
+   fluent<state_attribute>(fluent<state_node>& origin) :
+      m_state_node(origin)
+   {
+   }
+
+   
+   fluent<state_attribute>& set_name(std::string name)
+   {
+      auto attribute = m_state_node.last_added_attribute();
+      if (attribute) {
+         attribute->set_name(name);
+      }
+      return *this;
+   }
+   
+   fluent<state_attribute>& set_value(std::string value)
+   {
+      auto attribute = m_state_node.last_added_attribute();
+      if (attribute) {
+         attribute->set_value(value);
+      }
+      return *this;
+   }
+
+   std::shared_ptr<attribute> get()
+   {
+      return m_state_node.last_added_attribute();
+   }
+   
+   fluent<state_node>& stop_using()
+   {
+      return m_state_node;
+   }
+   
+};
 
 
 } // namespace ds
@@ -431,10 +522,10 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
       .add_node("node1", "node_value1")
          .use()
          .add_attribute("att1", "att_value1")
-            .use_attribute()
-            .set_attribute_name("att2")
-            .set_attribute_value("att_value2")
-            .stop_using_attribute()
+            .use()
+            .set_name("att2")
+            .set_value("att_value2")
+            .stop_using()
          .set_name("node2")
          .set_value("node_value2")
          .stop_using();
@@ -450,7 +541,7 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
 TEST_F(fixture_datashelf, add_node_to_existing_structure)
 {
    auto added_node = mzlib::ds::fluent(m_shelf->get_first_node("book"))
-      .add_node("new_node", "new_val").use().get_node();
+      .add_node("new_node", "new_val").use().get();
    
    ASSERT_EQ(added_node, m_shelf->get_first_node("book")
       ->get_first_node("new_node"));
@@ -462,9 +553,9 @@ TEST_F(fixture_datashelf, add_node_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
    auto added_node1 = mzlib::ds::fluent(root)
-      .add_node("book", "Children of Time").use().get_node();
+      .add_node("book", "Children of Time").use().get();
    auto added_node2 = mzlib::ds::fluent(root)
-      .add_node("book", "Morning Star").use().get_node();
+      .add_node("book", "Morning Star").use().get();
    
    ASSERT_EQ(added_node1, root->get_first_node("book"));
    ASSERT_EQ("Children of Time", root->get_first_node("book")->get_value());
@@ -477,8 +568,7 @@ TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 {
    auto added_attr = mzlib::ds::fluent(m_shelf->get_first_node("book"))
       .add_attribute("pages", "like 500 or whatever")
-      .use_attribute()
-      .get_attribute();
+      .use().get();
    
    ASSERT_EQ(added_attr, m_shelf->get_first_node("book")->get_attribute("pages"));
    ASSERT_EQ("like 500 or whatever", m_shelf->get_first_node("book")
@@ -489,9 +579,9 @@ TEST_F(fixture_datashelf, add_attribute_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
    auto added_att1 = mzlib::ds::fluent(root).add_attribute("att1", "val1")
-      .use_attribute().get_attribute();
+      .use().get();
    auto added_att2 = mzlib::ds::fluent(root).add_attribute("att2", "val2")
-      .use_attribute().get_attribute();
+      .use().get();
    
    ASSERT_EQ(added_att1, root->get_attribute("att1"));
    ASSERT_EQ("val1", root->get_attribute("att1")->get_value());

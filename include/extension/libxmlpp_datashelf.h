@@ -14,7 +14,7 @@
 
 namespace mzlib {
 
-void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xmlpp::Node* xmlpp_node)
+inline void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xmlpp::Node* xmlpp_node)
 {
    // read common to all
    if (!is_empty_node(xmlpp_node)) {
@@ -35,13 +35,13 @@ void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xmlpp::Nod
       // iteratively read child nodes if any
       for (const xmlpp::Node* xmlpp_child_node : xmlpp_element->get_children()) {
          fill_my_node_from_xmlpp(
-            ds::fluent(my_node).add_node().use().get_node(), 
+            ds::fluent(my_node).add_node().use().get(), 
             xmlpp_child_node);
       }
    }
 }
 
-void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_ptr<ds::node> my_node)
+inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_ptr<ds::node> my_node)
 {
    //todo: this part is basically conversion. make function for that
    if (!my_node->has_empty_name()) {
@@ -74,7 +74,7 @@ void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_
 
 }
 
-std::shared_ptr<ds::node> create_datashelf_from_xml_string(std::string xml_string)
+inline std::shared_ptr<ds::node> create_datashelf_from_xml_string(std::string xml_string)
 {
    xmlpp::DomParser parser;
    std::shared_ptr<ds::node> data_shelf = std::make_shared<ds::node>();
@@ -85,7 +85,7 @@ std::shared_ptr<ds::node> create_datashelf_from_xml_string(std::string xml_strin
    return data_shelf;
 }
 
-std::shared_ptr<ds::node> create_data_shelf_from_xml_file(std::string path_to_xml_file)
+inline std::shared_ptr<ds::node> create_data_shelf_from_xml_file(std::string path_to_xml_file)
 {
    xmlpp::DomParser parser;
    std::shared_ptr<ds::node> data_shelf = std::make_shared<ds::node>();
@@ -96,7 +96,7 @@ std::shared_ptr<ds::node> create_data_shelf_from_xml_file(std::string path_to_xm
    return data_shelf;
 }
 
-std::string save_datashelf_to_xml_string(std::shared_ptr<ds::node> shelf)
+inline std::string save_datashelf_to_xml_string(std::shared_ptr<ds::node> shelf)
 {
    xmlpp::DomParser parser;
    auto root = parser.get_document()->create_root_node("");
@@ -105,7 +105,7 @@ std::string save_datashelf_to_xml_string(std::shared_ptr<ds::node> shelf)
    return doc;
 }
 
-void save_datashelf_to_xml_file(std::shared_ptr<ds::node> shelf, std::string path_to_xml_file)
+inline void save_datashelf_to_xml_file(std::shared_ptr<ds::node> shelf, std::string path_to_xml_file)
 {
    xmlpp::DomParser parser;
    auto root = parser.get_document()->create_root_node("");
