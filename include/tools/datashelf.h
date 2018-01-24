@@ -178,6 +178,10 @@ public:
             filtered_nodes.push_back(node);
          }
       }
+      
+      if (filtered_nodes.size() == 0)
+         return std::make_shared<node>();
+              
       return *rnd(filtered_nodes.begin(), filtered_nodes.end());
    }
 
@@ -682,6 +686,20 @@ TEST_F(fixture_datashelf, get_random_node)
       
    ASSERT_EQ("Children of Time", first_random_book_title);
    ASSERT_EQ("Morning Star", second_random_book_title);
+}
+
+TEST_F(fixture_datashelf, get_random_node_when_empty)
+{
+   auto random_ufo_evidence = m_shelf->get_random_node("ufo evidence", 
+      // in-place mock
+      [](const mzlib::ds::node::node_it& first, const mzlib::ds::node::node_it& last) -> mzlib::ds::node::node_it 
+      {
+         return first;
+      });
+   
+   // it didn't crash or anything like that
+      
+   ASSERT_TRUE(random_ufo_evidence->is_empty_node());
 }
 
 TEST_F(fixture_datashelf, all_attributes_iteration)
