@@ -99,6 +99,7 @@
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
         <itemPath>include/tools/count_bits.h</itemPath>
         <itemPath>include/tools/datashelf.h</itemPath>
+        <itemPath>include/tools/datashelf_foundation.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
@@ -514,6 +515,11 @@
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/datashelf_foundation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"
@@ -1090,6 +1096,11 @@
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/datashelf_foundation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"

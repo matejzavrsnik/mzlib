@@ -15,6 +15,19 @@
 #include <algorithm>
 #include <stack> // find_if
 
+namespace mzlib { 
+namespace ds {
+
+class fluent;
+class fluent_state_attribute_added;
+class fluent_state_attribute;
+class fluent_state_filter_one;
+
+}
+}
+
+#include "datashelf_foundation.h"
+
 // The point of this whole thing is to have an in-memory data shelf
 // for basic data needs, like settings or a collection of books or
 // whatever. Such that is most conveniently stored in xml, but then
@@ -30,199 +43,6 @@
 namespace mzlib {
 
 namespace ds {
-   
-class base
-{
-
-private:
-   
-   std::string m_name;
-   std::string m_value;
-   
-public:
-   
-   base(std::string name = "", std::string value = "") :
-      m_name(name),
-      m_value(value)
-   {
-   }
-   
-   std::string get_name() const
-   {
-      return m_name;
-   }
-   
-   std::string get_value() const
-   {
-      return m_value;
-   }
-
-   void set_name(std::string name)
-   {
-      m_name = name;
-   }
-   
-   void set_value(std::string value)
-   {
-      m_value = value;
-   }
-   
-   bool has_empty_name() const
-   {
-      return (m_name.empty()  || mzlib::is_just_whitespaces(m_name));
-   }
-
-   bool has_empty_value() const
-   {
-      return (m_value.empty()  || mzlib::is_just_whitespaces(m_value));
-   }
-
-   bool is_empty_node() const
-   {
-      return (has_empty_name() && has_empty_value());
-   }
-
-};
-
-// a new name just to avoid confusion
-class attribute : public base
-{
-   
-public:
-   
-   using base::base;
-};
-
-class state_node {};
-class state_attribute_added {};
-class state_attribute {};
-
-template <class T> class fluent;
-template<> class fluent<state_attribute_added>;
-template<> class fluent<state_attribute>;
-
-class node : public base, public std::enable_shared_from_this<node>
-{
-private:
-
-   std::shared_ptr<node> m_parent;
-   std::vector<std::shared_ptr<attribute>> m_attributes;
-   std::vector<std::shared_ptr<node>> m_nodes;
-   
-public:   
-   
-   using node_it = std::vector<std::shared_ptr<node>>::iterator;
-   
-   node(
-      std::string name = "", 
-      std::string value = "", 
-      std::shared_ptr<node> parent = nullptr) :
-         base(name, value), 
-         m_parent(parent)
-   {
-   }
-   
-   // attributes
-   
-   std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
-   {
-      return m_attributes.begin();
-   }
-   
-   std::vector<std::shared_ptr<attribute>>::iterator end_attributes ()
-   {
-      return m_attributes.end();
-   }
-   
-   std::shared_ptr<attribute> get_attribute (std::string attribute_name)
-   {
-      auto attribute_it = std::find_if(m_attributes.begin(), m_attributes.end(),
-         [&attribute_name] (const std::shared_ptr<attribute> att) {
-            return att->get_name() == attribute_name;
-         });
-      if (attribute_it != m_attributes.end())
-         return *attribute_it;
-      return std::make_shared<attribute>();
-   }
-   
-   // nodes
-   
-   std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
-   {
-      return m_nodes.begin();
-   }
-   
-   std::vector<std::shared_ptr<node>>::iterator end_nodes ()
-   {
-      return m_nodes.end();
-   }
-   
-   std::shared_ptr<node> get_all_nodes (std::string node_name)
-   {
-      std::shared_ptr<node> filter_node = std::make_shared<node>();
-      for(auto node : m_nodes) {
-         if(node->get_name() == node_name) {
-            filter_node->m_nodes.push_back(node);
-         }
-      }
-      return filter_node;
-   }
-   
-   std::shared_ptr<node> get_random_node (
-      std::string node_name,
-      decltype(get_random_element<node_it>) rnd = get_random_element<node_it>)
-   {
-      std::vector<std::shared_ptr<node>> filtered_nodes;
-      for(auto node : m_nodes) {
-         if(node->get_name() == node_name) {
-            filtered_nodes.push_back(node);
-         }
-      }
-      
-      if (filtered_nodes.size() == 0)
-         return std::make_shared<node>();
-              
-      return *rnd(filtered_nodes.begin(), filtered_nodes.end());
-   }
-
-   std::shared_ptr<node> get_first_node (std::string node_name)
-   {
-      for(auto node : m_nodes) {
-         if(node->get_name() == node_name) {
-            return node;
-         }
-      }
-      return std::make_shared<node>();
-   }
-   
-   std::shared_ptr<node> get_next_node()
-   {
-      auto empty_node = std::make_shared<node>();
-      if (m_parent == nullptr) return empty_node;
-      
-      auto peers = m_parent->get_all_nodes(get_name());
-      
-      auto this_node = std::find_if(
-         peers->m_nodes.begin(), peers->m_nodes.end(),
-         [this](std::shared_ptr<node> node_in_parent) {
-            return node_in_parent.get() == this;
-         });
-      if (this_node == peers->m_nodes.end()) {
-         return empty_node;
-      }
-      auto next_node = ++this_node;
-      if (next_node == peers->m_nodes.end()) { 
-         return empty_node;
-      }
-      
-      return *next_node;
-   }
-   
-   friend class fluent<state_node>;
-   
-};
-
-
 
 // when I grow up I am going to be a fluent interface
 
@@ -245,8 +65,6 @@ public:
 //
 // Didn't expect fluent interface part of the project to be so interesting.
 
-
-template <class T = state_node>
 class fluent
 {
 
@@ -255,7 +73,8 @@ private:
    // all the nodes that are actively used
    std::stack<std::shared_ptr<node>> m_using_nodes;
    // temporary storage for the next state
-   std::unique_ptr<fluent<state_attribute_added>> m_state_attribute_added;
+   std::unique_ptr<fluent_state_attribute_added> m_state_attribute_added;
+   std::shared_ptr<fluent_state_filter_one> m_state_filter_one;
    
    std::shared_ptr<node> current_node()
    {
@@ -300,12 +119,12 @@ public:
       return *this;
    }
    
-   fluent<state_attribute_added>& add_attribute
+   fluent_state_attribute_added& add_attribute
       (std::string name, std::string value = "")
    {
       auto new_attribute = std::make_shared<attribute>(name, value);
       current_node()->m_attributes.push_back(new_attribute);
-      m_state_attribute_added = std::make_unique<fluent<state_attribute_added>>(*this);
+      m_state_attribute_added = std::make_unique<fluent_state_attribute_added>(*this);
       return *m_state_attribute_added.get();
    }
    
@@ -341,79 +160,123 @@ public:
       return current_node();
    }
    
-   friend class fluent<state_attribute_added>;
-   friend class fluent<state_attribute>;
+   fluent_state_filter_one& first(std::string name)
+   {
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(current_node(), name);
+      return *m_state_filter_one.get();
+   }
+   
+   friend class fluent_state_attribute_added;
+   friend class fluent_state_attribute;
 };
 
-template <>
-class fluent<state_attribute_added>
+class fluent_state_filter_one
+{
+private:
+   
+   std::shared_ptr<fluent> m_state_node;
+   std::shared_ptr<node> m_filtered_one;
+   
+public:
+   fluent_state_filter_one(std::shared_ptr<node> origin, std::string name)
+   {
+      m_filtered_one = origin;
+      auto ignore = first(name);
+   }
+   
+   std::shared_ptr<node> get()
+   {
+      return m_filtered_one;
+   }
+      
+   fluent_state_filter_one& first(std::string name)
+   {
+      auto nodes = m_filtered_one->m_nodes;
+      m_filtered_one = std::make_shared<node>();
+      for(auto node : nodes) {
+         if(node->get_name() == name) {
+            m_filtered_one = node;
+            break;
+         }
+      }
+      return *this;
+   }
+   
+   fluent& use()
+   {
+      m_state_node = std::make_shared<fluent>(m_filtered_one);
+      return *m_state_node.get();
+   }
+};
+        
+class fluent_state_attribute_added
 {
 private:
    
    // origin state for going back
-   fluent<state_node>& m_state_node;
+   fluent& m_state_node;
    // temporary storage for the next state
-   std::unique_ptr<fluent<state_attribute>> m_attribute_state;
+   std::unique_ptr<fluent_state_attribute> m_attribute_state;
    
 public:
    
-   fluent<state_attribute_added>(fluent<state_node>& origin) :
+   fluent_state_attribute_added(fluent& origin) :
       m_state_node(origin)
    {
    }
       
-   fluent<state_node>& set_name(std::string name)
+   fluent& set_name(std::string name)
    {
       return m_state_node.set_name(name);
    }
    
-   fluent<state_node>& set_value(std::string value)
+   fluent& set_value(std::string value)
    {
       return m_state_node.set_value(value);
    }
    
-   fluent<state_attribute_added>& add_attribute(std::string name, std::string value = "")
+   fluent_state_attribute_added& add_attribute(std::string name, std::string value = "")
    {
       return m_state_node.add_attribute(name, value);
    }
    
-   fluent<state_node>& add_node(std::string name = "", std::string value = "")
+   fluent& add_node(std::string name = "", std::string value = "")
    {
       return m_state_node.add_node(name, value);
    }
    
-   fluent<state_attribute>& use()
+   fluent_state_attribute& use()
    {
-      m_attribute_state = std::make_unique<fluent<state_attribute>>(m_state_node);
+      m_attribute_state = std::make_unique<fluent_state_attribute>(m_state_node);
       return *m_attribute_state.get();
    }
    
-   fluent<state_node>& stop_using()
+   fluent& stop_using()
    {
       return m_state_node.stop_using();
    }
    
-   friend class fluent<state_attribute>;
+   friend class fluent_state_attribute;
    
 };
 
-template <>
-class fluent<state_attribute>
+
+class fluent_state_attribute
 {
 private:
    
    // origin state for going back
-   fluent<state_node>& m_state_node;
+   fluent& m_state_node;
    
 public:
 
-   fluent<state_attribute>(fluent<state_node>& origin) :
+   fluent_state_attribute(fluent& origin) :
       m_state_node(origin)
    {
    }
 
    
-   fluent<state_attribute>& set_name(std::string name)
+   fluent_state_attribute& set_name(std::string name)
    {
       auto attribute = m_state_node.last_added_attribute();
       if (attribute) {
@@ -422,7 +285,7 @@ public:
       return *this;
    }
    
-   fluent<state_attribute>& set_value(std::string value)
+   fluent_state_attribute& set_value(std::string value)
    {
       auto attribute = m_state_node.last_added_attribute();
       if (attribute) {
@@ -436,7 +299,7 @@ public:
       return m_state_node.last_added_attribute();
    }
    
-   fluent<state_node>& stop_using()
+   fluent& stop_using()
    {
       return m_state_node;
    }
@@ -512,7 +375,7 @@ protected:
 
 TEST_F(fixture_datashelf, demo)
 {  
-   auto rating = m_shelf->get_first_node("book")->get_first_node("rating");
+   auto rating = mzlib::ds::fluent(m_shelf).first("book").first("rating").get();
    ASSERT_EQ("Goodreads", rating->get_attribute("source")->get_value());
    ASSERT_EQ("4.29", rating->get_value());
 }
@@ -534,9 +397,9 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
          .set_value("node_value2")
          .stop_using();
    
-   ASSERT_TRUE(shelf->get_first_node("node1")->is_empty_node());
+   ASSERT_TRUE(mzlib::ds::fluent(shelf).first("node1").get()->is_empty_node());
    
-   auto node2 = shelf->get_first_node("node2");
+   auto node2 = mzlib::ds::fluent(shelf).first("node2").get();
    ASSERT_EQ("node_value2", node2->get_value());
    ASSERT_TRUE(node2->get_attribute("att1")->is_empty_node());
    ASSERT_EQ("att_value2", node2->get_attribute("att2")->get_value());
@@ -544,13 +407,18 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
 
 TEST_F(fixture_datashelf, add_node_to_existing_structure)
 {
-   auto added_node = mzlib::ds::fluent(m_shelf->get_first_node("book"))
+   auto added_node = mzlib::ds::fluent(m_shelf)
+      .first("book").use()
       .add_node("new_node", "new_val").use().get();
    
-   ASSERT_EQ(added_node, m_shelf->get_first_node("book")
-      ->get_first_node("new_node"));
-   ASSERT_EQ("new_val", m_shelf->get_first_node("book")
-      ->get_first_node("new_node")->get_value());
+   ASSERT_EQ(added_node, mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .first("new_node")
+      .get());
+   ASSERT_EQ("new_val", mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .first("new_node")
+      .get()->get_value());
 }
 
 TEST_F(fixture_datashelf, add_node_clean)
@@ -561,21 +429,21 @@ TEST_F(fixture_datashelf, add_node_clean)
    auto added_node2 = mzlib::ds::fluent(root)
       .add_node("book", "Morning Star").use().get();
    
-   ASSERT_EQ(added_node1, root->get_first_node("book"));
-   ASSERT_EQ("Children of Time", root->get_first_node("book")->get_value());
+   ASSERT_EQ(added_node1, mzlib::ds::fluent(root).first("book").get());
+   ASSERT_EQ("Children of Time", mzlib::ds::fluent(root).first("book").get()->get_value());
  
-   ASSERT_EQ(added_node2, root->get_first_node("book")->get_next_node());
-   ASSERT_EQ("Morning Star", root->get_first_node("book")->get_next_node()->get_value());
+   ASSERT_EQ(added_node2, mzlib::ds::fluent(root).first("book").get()->get_next_node());
+   ASSERT_EQ("Morning Star", mzlib::ds::fluent(root).first("book").get()->get_next_node()->get_value());
 }
 
 TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 {
-   auto added_attr = mzlib::ds::fluent(m_shelf->get_first_node("book"))
+   auto added_attr = mzlib::ds::fluent(m_shelf).first("book").use()
       .add_attribute("pages", "like 500 or whatever")
       .use().get();
    
-   ASSERT_EQ(added_attr, m_shelf->get_first_node("book")->get_attribute("pages"));
-   ASSERT_EQ("like 500 or whatever", m_shelf->get_first_node("book")
+   ASSERT_EQ(added_attr, mzlib::ds::fluent(m_shelf).first("book").get()->get_attribute("pages"));
+   ASSERT_EQ("like 500 or whatever", mzlib::ds::fluent(m_shelf).first("book").get()
       ->get_attribute("pages")->get_value());
 }
 
@@ -603,8 +471,8 @@ TEST_F(fixture_datashelf, querying_root_node)
 TEST_F(fixture_datashelf, get_first_node)
 {
    // note: first node is not a book
-   auto first_book_node_name = m_shelf->get_first_node("book")->get_name();
-   auto first_airplane_node_name = m_shelf->get_first_node("airplane")->get_name();
+   auto first_book_node_name = mzlib::ds::fluent(m_shelf).first("book").get()->get_name();
+   auto first_airplane_node_name = mzlib::ds::fluent(m_shelf).first("airplane").get()->get_name();
    
    ASSERT_EQ("book", first_book_node_name);
    ASSERT_EQ("airplane", first_airplane_node_name);
@@ -612,7 +480,7 @@ TEST_F(fixture_datashelf, get_first_node)
 
 TEST_F(fixture_datashelf, get_first_node__no_such_node)
 {
-   auto does_not_exist = m_shelf->get_first_node("ufo evidence")->get_name();
+   auto does_not_exist = mzlib::ds::fluent(m_shelf).first("ufo evidence").get()->get_name();
    
    ASSERT_EQ("", does_not_exist);
 }
@@ -620,21 +488,21 @@ TEST_F(fixture_datashelf, get_first_node__no_such_node)
 TEST_F(fixture_datashelf, get_attribute)
 {
    // note: first node is not a book
-   auto book = m_shelf->get_first_node("book");
+   auto book = mzlib::ds::fluent(m_shelf).first("book").get();
    ASSERT_EQ("Children of Time", book->get_attribute("title")->get_value());
 }
 
 TEST_F(fixture_datashelf, get_attribute__no_such_attribute)
 {
    // note: first node is not a book
-   auto book = m_shelf->get_first_node("book");
+   auto book = mzlib::ds::fluent(m_shelf).first("book").get();
    ASSERT_EQ("", book->get_attribute("unattribute")->get_value());
 }
 
 TEST_F(fixture_datashelf, get_next_node)
 {
-   auto next_book_title = m_shelf
-      ->get_first_node("book")
+   auto next_book_title = mzlib::ds::fluent(m_shelf)
+      .first("book").get()
       ->get_next_node()
       ->get_attribute("title")->get_value();
    
@@ -643,8 +511,8 @@ TEST_F(fixture_datashelf, get_next_node)
 
 TEST_F(fixture_datashelf, get_next_node__no_such_node)
 {
-   auto next_airplane_node = m_shelf
-      ->get_first_node("airplane")
+   auto next_airplane_node = mzlib::ds::fluent(m_shelf)
+      .first("airplane").get()
       ->get_next_node();
    
    // there is just one airplane on my shelf
@@ -654,7 +522,7 @@ TEST_F(fixture_datashelf, get_next_node__no_such_node)
 TEST_F(fixture_datashelf, get_all_nodes_named)
 {
    auto all_books = m_shelf->get_all_nodes("book");
-   auto first_book_node = all_books->get_first_node("book");
+   auto first_book_node = mzlib::ds::fluent(all_books).first("book").get();
    auto next_book_node = first_book_node->get_next_node();
    auto end_book_node = next_book_node->get_next_node();
    
@@ -704,7 +572,7 @@ TEST_F(fixture_datashelf, get_random_node_when_empty)
 
 TEST_F(fixture_datashelf, all_attributes_iteration)
 {
-   auto airplane_node = m_shelf->get_first_node("airplane");
+   auto airplane_node = mzlib::ds::fluent(m_shelf).first("airplane").get();
    std::vector<std::shared_ptr<mzlib::ds::attribute>> 
       attributes(airplane_node->begin_attributes(), airplane_node->end_attributes());
    
