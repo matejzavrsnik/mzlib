@@ -14,6 +14,9 @@
 #ifndef DATASHELF_FOUNDATION_H
 #define DATASHELF_FOUNDATION_H
 
+#include <vector>
+
+
 namespace mzlib {
 
 namespace ds {
@@ -126,25 +129,36 @@ public:
    
    // nodes
    
-   std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
+   //std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
+   //{
+   //   return m_nodes.begin();
+   //}
+   
+   //std::vector<std::shared_ptr<node>>::iterator end_nodes ()
+   //{
+   //   return m_nodes.end();
+   //}
+   
+   std::shared_ptr<node> get_parent_node ()
    {
-      return m_nodes.begin();
+      return m_parent;
    }
    
-   std::vector<std::shared_ptr<node>>::iterator end_nodes ()
+   std::vector<std::shared_ptr<node>> get_all_nodes ()
    {
-      return m_nodes.end();
+      std::vector<std::shared_ptr<node>> all(m_nodes.begin(), m_nodes.end());
+      return all;
    }
    
-   std::shared_ptr<node> get_all_nodes (std::string node_name)
+   std::vector<std::shared_ptr<node>> get_all_nodes (std::string node_name)
    {
-      std::shared_ptr<node> filter_node = std::make_shared<node>();
+      std::vector<std::shared_ptr<node>> filtered;
       for(auto node : m_nodes) {
          if(node->get_name() == node_name) {
-            filter_node->m_nodes.push_back(node);
+            filtered.push_back(node);
          }
       }
-      return filter_node;
+      return filtered;
    }
    
    std::shared_ptr<node> get_random_node (
@@ -174,28 +188,28 @@ public:
    //   return std::make_shared<node>();
    //}
    
-   std::shared_ptr<node> get_next_node()
-   {
-      auto empty_node = std::make_shared<node>();
-      if (m_parent == nullptr) return empty_node;
-      
-      auto peers = m_parent->get_all_nodes(get_name());
-      
-      auto this_node = std::find_if(
-         peers->m_nodes.begin(), peers->m_nodes.end(),
-         [this](std::shared_ptr<node> node_in_parent) {
-            return node_in_parent.get() == this;
-         });
-      if (this_node == peers->m_nodes.end()) {
-         return empty_node;
-      }
-      auto next_node = ++this_node;
-      if (next_node == peers->m_nodes.end()) { 
-         return empty_node;
-      }
-      
-      return *next_node;
-   }
+   //std::shared_ptr<node> get_next_node()
+   //{
+   //   auto empty_node = std::make_shared<node>();
+   //   if (m_parent == nullptr) return empty_node;
+   //   
+   //   auto peers = m_parent->get_all_nodes(get_name());
+   //   
+   //   auto this_node = std::find_if(
+   //      peers->m_nodes.begin(), peers->m_nodes.end(),
+   //      [this](std::shared_ptr<node> node_in_parent) {
+   //         return node_in_parent.get() == this;
+   //      });
+   //   if (this_node == peers->m_nodes.end()) {
+   //      return empty_node;
+   //   }
+   //   auto next_node = ++this_node;
+   //   if (next_node == peers->m_nodes.end()) { 
+   //      return empty_node;
+   //   }
+   //   
+   //   return *next_node;
+   //}
    
    friend class fluent;
    friend class fluent_state_filter_one;
