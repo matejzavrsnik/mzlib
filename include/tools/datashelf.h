@@ -530,7 +530,7 @@ TEST_F(fixture_datashelf, get_next_node__no_such_node)
 
 TEST_F(fixture_datashelf, get_all_nodes)
 {
-   auto all_nodes = m_shelf->get_all_nodes();
+   auto all_nodes = m_shelf->nodes();
    
    ASSERT_EQ(4, all_nodes.size());
    ASSERT_EQ("airplane", all_nodes[0]->get_name());
@@ -541,7 +541,7 @@ TEST_F(fixture_datashelf, get_all_nodes)
 
 TEST_F(fixture_datashelf, get_all_nodes_named)
 {
-   auto all_nodes = m_shelf->get_all_nodes();
+   auto all_nodes = m_shelf->nodes();
    auto all_books = mzlib::ds::filter_by_name(all_nodes, "book");
    
    ASSERT_EQ(2, all_books.size());
@@ -588,11 +588,10 @@ TEST_F(fixture_datashelf, get_random_node_when_empty)
    ASSERT_TRUE(random_ufo_evidence->is_empty_node());
 }
 
-TEST_F(fixture_datashelf, all_attributes_iteration)
+TEST_F(fixture_datashelf, all_attributes)
 {
    auto airplane_node = mzlib::ds::fluent(m_shelf).first("airplane").get();
-   std::vector<std::shared_ptr<mzlib::ds::attribute>> 
-      attributes(airplane_node->begin_attributes(), airplane_node->end_attributes());
+   auto attributes = airplane_node->attributes();
    
    ASSERT_EQ(3, attributes.size());
    ASSERT_EQ("model", attributes[0]->get_name());
@@ -605,8 +604,7 @@ TEST_F(fixture_datashelf, all_attributes_iteration)
 
 TEST_F(fixture_datashelf, all_attributes_iteration__root)
 {
-   std::vector<std::shared_ptr<mzlib::ds::attribute>> 
-      attributes(m_shelf->begin_attributes(), m_shelf->end_attributes());
+   auto attributes = m_shelf->attributes();
    
    ASSERT_EQ(1, attributes.size());
    ASSERT_EQ("title", attributes[0]->get_name());

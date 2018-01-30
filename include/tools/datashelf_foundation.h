@@ -112,14 +112,22 @@ public:
    
    // attributes
    
-   std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
-   {
-      return m_attributes.begin();
-   }
+   //std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
+   //{
+   //   return m_attributes.begin();
+   //}
    
-   std::vector<std::shared_ptr<attribute>>::iterator end_attributes ()
+   //std::vector<std::shared_ptr<attribute>>::iterator end_attributes ()
+   //{
+   //   return m_attributes.end();
+   //}
+   
+   std::vector<std::shared_ptr<attribute>> attributes ()
    {
-      return m_attributes.end();
+      std::vector<std::shared_ptr<attribute>> all(
+         m_attributes.begin(), 
+         m_attributes.end());
+      return all;
    }
    
    std::shared_ptr<attribute> get_attribute (std::string attribute_name)
@@ -135,37 +143,18 @@ public:
    
    // nodes
    
-   //std::vector<std::shared_ptr<node>>::iterator begin_nodes ()
-   //{
-   //   return m_nodes.begin();
-   //}
-   
-   //std::vector<std::shared_ptr<node>>::iterator end_nodes ()
-   //{
-   //   return m_nodes.end();
-   //}
-   
-   std::shared_ptr<node> get_parent_node ()
+   std::shared_ptr<node> parent ()
    {
       return m_parent;
    }
    
-   std::vector<std::shared_ptr<node>> get_all_nodes ()
+   std::vector<std::shared_ptr<node>> nodes ()
    {
-      std::vector<std::shared_ptr<node>> all(m_nodes.begin(), m_nodes.end());
+      std::vector<std::shared_ptr<node>> all(
+         m_nodes.begin(), 
+         m_nodes.end());
       return all;
    }
-   
-   //std::vector<std::shared_ptr<node>> get_all_nodes (std::string node_name)
-   //{
-   //   std::vector<std::shared_ptr<node>> filtered;
-   //   for(auto node : m_nodes) {
-   //      if(node->get_name() == node_name) {
-   //         filtered.push_back(node);
-   //      }
-   //   }
-   //   return filtered;
-   //}
    
    std::shared_ptr<node> get_random_node (
       std::string node_name,
@@ -184,39 +173,7 @@ public:
       return *rnd(filtered_nodes.begin(), filtered_nodes.end());
    }
 
-   //std::shared_ptr<node> get_first_node (std::string node_name)
-   //{
-   //   for(auto node : m_nodes) {
-   //      if(node->get_name() == node_name) {
-   //         return node;
-   //      }
-   //   }
-   //   return std::make_shared<node>();
-   //}
-   
-   //std::shared_ptr<node> get_next_node()
-   //{
-   //   auto empty_node = std::make_shared<node>();
-   //   if (m_parent == nullptr) return empty_node;
-   //   
-   //   auto peers = m_parent->get_all_nodes(get_name());
-   //   
-   //   auto this_node = std::find_if(
-   //      peers->m_nodes.begin(), peers->m_nodes.end(),
-   //      [this](std::shared_ptr<node> node_in_parent) {
-   //         return node_in_parent.get() == this;
-   //      });
-   //   if (this_node == peers->m_nodes.end()) {
-   //      return empty_node;
-   //   }
-   //   auto next_node = ++this_node;
-   //   if (next_node == peers->m_nodes.end()) { 
-   //      return empty_node;
-   //   }
-   //   
-   //   return *next_node;
-   //}
-   
+  
    friend class fluent;
    friend class fluent_state_filter_one;
    
@@ -227,9 +184,9 @@ inline std::vector<std::shared_ptr<node>> get_peers(
 {
    std::vector<std::shared_ptr<node>> no_peers;
    if (this_node == nullptr) return no_peers;
-   auto parent = this_node->get_parent_node();
+   auto parent = this_node->parent();
    if (parent == nullptr) return no_peers;
-   return parent->get_all_nodes();
+   return parent->nodes();
 }
 
 inline std::vector<std::shared_ptr<node>> filter_by_name(

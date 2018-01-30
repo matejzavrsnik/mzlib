@@ -52,17 +52,15 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::
    }
 
    // read attributes if any
-   for(auto my_attribute = my_node->begin_attributes(); 
-      my_attribute != my_node->end_attributes(); 
-      ++my_attribute) 
+   for(auto my_attribute : my_node->attributes()) 
    {
-      const std::string& name = (*my_attribute)->get_name();
-      const std::string& value = (*my_attribute)->get_value();
+      const std::string& name = my_attribute->get_name();
+      const std::string& value = my_attribute->get_value();
       xmlpp_element->set_attribute(name, value);
    }
 
    // iteratively read child nodes if any
-   for(auto my_child : my_node->get_all_nodes()) 
+   for(auto my_child : my_node->nodes()) 
    {
       if (!my_child->is_empty_node()) {
          xmlpp::Element* xmlpp_child = xmlpp_element->add_child("");
