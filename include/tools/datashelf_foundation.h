@@ -131,8 +131,6 @@ public:
       return std::make_shared<attribute>();
    }
    
-   // nodes
-   
    std::shared_ptr<node> parent ()
    {
       return m_parent;
@@ -145,24 +143,6 @@ public:
          m_nodes.end());
       return all;
    }
-   
-   //std::shared_ptr<node> get_random_node (
-   //   std::string node_name,
-   //   decltype(get_random_element<typename node::iterator>) rnd = get_random_element<typename node::iterator>)
-   //{
-   //   std::vector<std::shared_ptr<node>> filtered_nodes;
-   //   for(auto node : m_nodes) {
-   //      if(node->get_name() == node_name) {
-   //         filtered_nodes.push_back(node);
-   //      }
-   //   }
-   //   
-   //   if (filtered_nodes.size() == 0)
-   //      return empty();
-   //           
-   //   return *rnd(filtered_nodes.begin(), filtered_nodes.end());
-   //}
-
   
    friend class fluent;
    friend class fluent_state_filter_one;
@@ -170,11 +150,11 @@ public:
 };
 
 inline std::vector<std::shared_ptr<node>> get_peers(
-   std::shared_ptr<node> this_node)
+   std::shared_ptr<node> the_node)
 {
    std::vector<std::shared_ptr<node>> no_peers;
-   if (this_node == nullptr) return no_peers;
-   auto parent = this_node->parent();
+   if (the_node == nullptr) return no_peers;
+   auto parent = the_node->parent();
    if (parent == nullptr) return no_peers;
    return parent->nodes();
 }
@@ -240,6 +220,15 @@ inline std::shared_ptr<node> random (
       return node::empty();
 
    return *rnd(namesakes.begin(), namesakes.end());
+}
+
+inline std::shared_ptr<node> next (
+   std::shared_ptr<node> the_node,
+   std::string name)
+{
+   auto all_peers = get_peers(the_node);
+   auto namesakes = filter_by_name(all_peers, name);
+   return find_next_of(namesakes, the_node);
 }
 
 } // namespace ds

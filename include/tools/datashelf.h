@@ -226,9 +226,9 @@ public:
    
    fluent_state_filter_one& next(std::string name)
    {
-      auto all_peers = get_peers(m_filtered_one);
-      auto namesakes = filter_by_name(all_peers, name);
-      m_filtered_one = find_next_of(namesakes, m_filtered_one);
+      m_filtered_one = ::mzlib::ds::next(
+         m_filtered_one,
+         name);
       return *this;
    }
    
