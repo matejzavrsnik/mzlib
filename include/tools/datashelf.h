@@ -8,7 +8,6 @@
 #ifndef MZLIB_DATASHELF_H
 #define MZLIB_DATASHELF_H
 
-#include "../iterators/get_random.h"
 #include "../string/is_just_whitespace.h"
 
 #include <memory> // for shared ptr
@@ -28,20 +27,7 @@ class fluent_state_filter_one;
 
 #include "datashelf_foundation.h"
 
-// The point of this whole thing is to have an in-memory data shelf
-// for basic data needs, like settings or a collection of books or
-// whatever. Such that is most conveniently stored in xml, but then
-// needs further editing once in memory. Like changing settings, adding
-// reviews to books and such, and then after that you want it to be
-// easy to persist that back on the xml file, either during the process
-// or in the end.
-
-// Features an extensive and non-orthogonal interface which goes against 
-// best practices, but if I want to have fluent interface on this thing, this 
-// is the fastest way.
-
 namespace mzlib {
-
 namespace ds {
 
 // when I grow up I am going to be a fluent interface
@@ -421,7 +407,8 @@ TEST_F(fixture_datashelf, demo)
 {  
    auto rating_node = mzlib::ds::fluent(m_shelf)
       .first("book")
-      .first("rating").get();
+      .first("rating")
+      .get();
    auto rating_attribute_source = mzlib::ds::fluent(m_shelf)
       .first("book")
       .first("rating")
@@ -447,7 +434,10 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
          .set_value("node_value2")
          .stop_using();
    
-   ASSERT_TRUE(mzlib::ds::fluent(shelf).first("node1").get()->is_empty_node());
+   ASSERT_TRUE(mzlib::ds::fluent(shelf)
+      .first("node1")
+      .get()
+      ->is_empty_node());
    
    auto node2 = mzlib::ds::fluent(shelf).first("node2");
    ASSERT_EQ("node_value2", node2.get()->get_value());

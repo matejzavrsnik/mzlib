@@ -1,23 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//
+// Copyright (c) 2018 Matej Zavrsnik
+//
+// Web:  matejzavrsnik.com
+// Mail: matejzavrsnik@gmail.com
+//
 
-/* 
- * File:   datashelf_foundation.h
- * Author: matej
- *
- * Created on January 28, 2018, 10:33 AM
- */
+#ifndef MZLIB_DATASHELF_FOUNDATION_H
+#define MZLIB_DATASHELF_FOUNDATION_H
 
-#ifndef DATASHELF_FOUNDATION_H
-#define DATASHELF_FOUNDATION_H
-
+#include "../iterators/get_random.h"
 #include <vector>
 
-namespace mzlib {
+// The point of this whole thing is to have an in-memory data shelf
+// for basic data needs, like settings or a collection of books or
+// whatever. Such that is most conveniently stored in xml, but then
+// needs further editing once in memory. Like changing settings, adding
+// reviews to books and such, and then after that you want it to be
+// easy to persist that back on the xml file, either during the process
+// or in the end.
 
+namespace mzlib {
 namespace ds {
    
 class base
@@ -81,14 +83,15 @@ public:
    
    static const std::shared_ptr<attribute> empty()
    {
-      static std::shared_ptr<attribute> empty = std::make_shared<attribute>();
+      static std::shared_ptr<attribute> empty = 
+         std::make_shared<attribute>();
       return empty;
    }
    
    using base::base;
 };
 
-class node : public base, public std::enable_shared_from_this<node>
+class node : public base
 {
 private:
 
@@ -102,7 +105,8 @@ public:
 
    static const std::shared_ptr<node> empty()
    {
-      static std::shared_ptr<node> empty = std::make_shared<node>();
+      static std::shared_ptr<node> empty = 
+         std::make_shared<node>();
       return empty;
    }
    
@@ -137,7 +141,6 @@ public:
    }
   
    friend class fluent;
-   friend class fluent_state_filter_one;
    
 };
 
@@ -243,8 +246,7 @@ inline std::shared_ptr<attribute> get_attribute (
 }
 
 } // namespace ds
-
 } // namespace mzlib
 
-#endif /* DATASHELF_FOUNDATION_H */
+#endif // MZLIB_DATASHELF_FOUNDATION_H
 
