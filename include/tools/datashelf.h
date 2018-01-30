@@ -182,6 +182,13 @@ public:
       return *m_state_filter_one.get();
    }
    
+   std::shared_ptr<attribute> get_attribute(std::string name)
+   {
+      return ::mzlib::ds::get_attribute(
+         current_node(),
+         name);
+   }
+   
    friend class fluent_state_attribute_added;
    friend class fluent_state_attribute;
 };
@@ -230,6 +237,13 @@ public:
          m_filtered_one,
          name);
       return *this;
+   }
+   
+   std::shared_ptr<attribute> get_attribute(std::string name)
+   {
+      return ::mzlib::ds::get_attribute(
+         m_filtered_one,
+         name);
    }
    
    fluent& use()
@@ -405,9 +419,15 @@ protected:
 
 TEST_F(fixture_datashelf, demo)
 {  
-   auto rating = mzlib::ds::fluent(m_shelf).first("book").first("rating").get();
-   ASSERT_EQ("Goodreads", rating->get_attribute("source")->get_value());
-   ASSERT_EQ("4.29", rating->get_value());
+   auto rating_node = mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .first("rating").get();
+   auto rating_attribute_source = mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .first("rating")
+      .get_attribute("source");
+   ASSERT_EQ("Goodreads", rating_attribute_source->get_value());
+   ASSERT_EQ("4.29", rating_node->get_value());
 }
 
 TEST_F(fixture_datashelf, fluent_using_attribute)
@@ -429,10 +449,14 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
    
    ASSERT_TRUE(mzlib::ds::fluent(shelf).first("node1").get()->is_empty_node());
    
-   auto node2 = mzlib::ds::fluent(shelf).first("node2").get();
-   ASSERT_EQ("node_value2", node2->get_value());
-   ASSERT_TRUE(node2->get_attribute("att1")->is_empty_node());
-   ASSERT_EQ("att_value2", node2->get_attribute("att2")->get_value());
+   auto node2 = mzlib::ds::fluent(shelf).first("node2");
+   ASSERT_EQ("node_value2", node2.get()->get_value());
+   
+   auto node2_att1 = node2.get_attribute("att1");
+   ASSERT_TRUE(node2_att1->is_empty_node());
+   
+   auto node2_att2 = node2.get_attribute("att2");
+   ASSERT_EQ("att_value2", node2_att2->get_value());
 }
 
 TEST_F(fixture_datashelf, add_node_to_existing_structure)
@@ -468,34 +492,39 @@ TEST_F(fixture_datashelf, add_node_clean)
 
 TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 {
-   auto added_attr = mzlib::ds::fluent(m_shelf).first("book").use()
-      .add_attribute("pages", "like 500 or whatever")
-      .use().get();
+   auto added_attr = mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .use()
+         .add_attribute("pages", "like 500 or whatever")
+         .use().get();
    
-   ASSERT_EQ(added_attr, mzlib::ds::fluent(m_shelf).first("book").get()->get_attribute("pages"));
-   ASSERT_EQ("like 500 or whatever", mzlib::ds::fluent(m_shelf).first("book").get()
-      ->get_attribute("pages")->get_value());
+   ASSERT_EQ(added_attr, mzlib::ds::fluent(m_shelf).first("book").get_attribute("pages"));
+   ASSERT_EQ("like 500 or whatever", mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .get_attribute("pages")->get_value());
 }
 
 TEST_F(fixture_datashelf, add_attribute_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
-   auto added_att1 = mzlib::ds::fluent(root).add_attribute("att1", "val1")
+   auto added_att1 = mzlib::ds::fluent(root)
+      .add_attribute("att1", "val1")
       .use().get();
-   auto added_att2 = mzlib::ds::fluent(root).add_attribute("att2", "val2")
+   auto added_att2 = mzlib::ds::fluent(root)
+      .add_attribute("att2", "val2")
       .use().get();
    
-   ASSERT_EQ(added_att1, root->get_attribute("att1"));
-   ASSERT_EQ("val1", root->get_attribute("att1")->get_value());
+   ASSERT_EQ(added_att1, mzlib::ds::fluent(root).get_attribute("att1"));
+   ASSERT_EQ("val1", mzlib::ds::fluent(root).get_attribute("att1")->get_value());
  
-   ASSERT_EQ(added_att2, root->get_attribute("att2"));
-   ASSERT_EQ("val2", root->get_attribute("att2")->get_value());
+   ASSERT_EQ(added_att2, mzlib::ds::fluent(root).get_attribute("att2"));
+   ASSERT_EQ("val2", mzlib::ds::fluent(root).get_attribute("att2")->get_value());
 }
 
 TEST_F(fixture_datashelf, querying_root_node)
 {  
    ASSERT_EQ("shelf", m_shelf->get_name());
-   ASSERT_EQ("my bookshelf", m_shelf->get_attribute("title")->get_value());
+   ASSERT_EQ("my bookshelf", mzlib::ds::fluent(m_shelf).get_attribute("title")->get_value());
 }
 
 TEST_F(fixture_datashelf, get_first_node)
@@ -518,23 +547,30 @@ TEST_F(fixture_datashelf, get_first_node__no_such_node)
 TEST_F(fixture_datashelf, get_attribute)
 {
    // note: first node is not a book
-   auto book = mzlib::ds::fluent(m_shelf).first("book").get();
-   ASSERT_EQ("Children of Time", book->get_attribute("title")->get_value());
+   auto book_title = mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .get_attribute("title")
+      ->get_value();
+   ASSERT_EQ("Children of Time", book_title);
 }
 
 TEST_F(fixture_datashelf, get_attribute__no_such_attribute)
 {
    // note: first node is not a book
-   auto book = mzlib::ds::fluent(m_shelf).first("book").get();
-   ASSERT_EQ("", book->get_attribute("unattribute")->get_value());
+   auto book_notattribute = mzlib::ds::fluent(m_shelf)
+      .first("book")
+      .get_attribute("unattribute")
+      ->get_value();
+   ASSERT_EQ("", book_notattribute);
 }
 
 TEST_F(fixture_datashelf, get_next_node)
 {
    auto next_book_title = mzlib::ds::fluent(m_shelf)
       .first("book")
-      .next("book").get()
-      ->get_attribute("title")->get_value();
+      .next("book")
+      .get_attribute("title")
+      ->get_value();
    
    ASSERT_EQ("Morning Star", next_book_title);
 }
@@ -564,11 +600,14 @@ TEST_F(fixture_datashelf, get_all_nodes)
 TEST_F(fixture_datashelf, get_all_nodes_named)
 {
    auto all_nodes = m_shelf->nodes();
-   auto all_books = mzlib::ds::filter_by_name(all_nodes, "book");
    
+   auto all_books = mzlib::ds::filter_by_name(all_nodes, "book");
    ASSERT_EQ(2, all_books.size());
-   ASSERT_EQ("Children of Time", all_books[0]->get_attribute("title")->get_value());
-   ASSERT_EQ("Morning Star", all_books[1]->get_attribute("title")->get_value());
+   
+   auto book1_title = mzlib::ds::get_attribute(all_books[0], "title");
+   auto book2_title = mzlib::ds::get_attribute(all_books[1], "title");
+   ASSERT_EQ("Children of Time", book1_title->get_value());
+   ASSERT_EQ("Morning Star", book2_title->get_value());
 }
 
 TEST_F(fixture_datashelf, get_random_node)
@@ -579,7 +618,7 @@ TEST_F(fixture_datashelf, get_random_node)
       {
          return first;
       });
-   std::string first_random_book_title = first_random_book.get()->get_attribute("title")->get_value();
+   std::string first_random_book_title = first_random_book.get_attribute("title")->get_value();
    
    // note: there is a node between two books that is not a book
    // getting random book should not return non-book nodes
@@ -590,7 +629,7 @@ TEST_F(fixture_datashelf, get_random_node)
       {
          return std::next(first);
       });
-   std::string second_random_book_title = second_random_book.get()->get_attribute("title")->get_value();
+   std::string second_random_book_title = second_random_book.get_attribute("title")->get_value();
       
    ASSERT_EQ("Children of Time", first_random_book_title);
    ASSERT_EQ("Morning Star", second_random_book_title);

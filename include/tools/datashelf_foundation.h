@@ -16,7 +16,6 @@
 
 #include <vector>
 
-
 namespace mzlib {
 
 namespace ds {
@@ -80,6 +79,12 @@ class attribute : public base
    
 public:
    
+   static const std::shared_ptr<attribute> empty()
+   {
+      static std::shared_ptr<attribute> empty = std::make_shared<attribute>();
+      return empty;
+   }
+   
    using base::base;
 };
 
@@ -110,7 +115,13 @@ public:
    {
    }
    
-   // attributes
+   std::vector<std::shared_ptr<node>> nodes ()
+   {
+      std::vector<std::shared_ptr<node>> all(
+         m_nodes.begin(), 
+         m_nodes.end());
+      return all;
+   }
    
    std::vector<std::shared_ptr<attribute>> attributes ()
    {
@@ -120,28 +131,9 @@ public:
       return all;
    }
    
-   std::shared_ptr<attribute> get_attribute (std::string attribute_name)
-   {
-      auto attribute_it = std::find_if(m_attributes.begin(), m_attributes.end(),
-         [&attribute_name] (const std::shared_ptr<attribute> att) {
-            return att->get_name() == attribute_name;
-         });
-      if (attribute_it != m_attributes.end())
-         return *attribute_it;
-      return std::make_shared<attribute>();
-   }
-   
    std::shared_ptr<node> parent ()
    {
       return m_parent;
-   }
-   
-   std::vector<std::shared_ptr<node>> nodes ()
-   {
-      std::vector<std::shared_ptr<node>> all(
-         m_nodes.begin(), 
-         m_nodes.end());
-      return all;
    }
   
    friend class fluent;
@@ -160,12 +152,12 @@ inline std::vector<std::shared_ptr<node>> get_peers(
 }
 
 inline std::vector<std::shared_ptr<node>> filter_by_name(
-   std::vector<std::shared_ptr<node>> all_nodes, 
+   std::vector<std::shared_ptr<node>> all, 
    std::string name)
 {
    std::vector<std::shared_ptr<node>> filtered_by_name;
    std::copy_if (
-      all_nodes.begin(), all_nodes.end(), 
+      all.begin(), all.end(), 
       std::back_inserter(filtered_by_name), 
       [&](const std::shared_ptr<node> n){
          return n->get_name() == name;
@@ -229,6 +221,25 @@ inline std::shared_ptr<node> next (
    auto all_peers = get_peers(the_node);
    auto namesakes = filter_by_name(all_peers, name);
    return find_next_of(namesakes, the_node);
+}
+
+inline std::shared_ptr<attribute> get_attribute (
+   std::shared_ptr<node> the_node,
+   std::string name)
+{
+   auto all_attributes = the_node->attributes();
+   
+   auto attribute_it = std::find_if(
+      all_attributes.begin(), 
+      all_attributes.end(),
+      [&name] (const std::shared_ptr<attribute> a) {
+         return a->get_name() == name;
+      });
+      
+   if (attribute_it != all_attributes.end())
+      return *attribute_it;
+      
+   return attribute::empty();
 }
 
 } // namespace ds

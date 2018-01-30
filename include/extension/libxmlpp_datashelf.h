@@ -151,9 +151,9 @@ protected:
 TEST_F(fixture_datashelf_former, create_datashelf_from_xml_string_demo)
 {  
    auto shelf = mzlib::create_datashelf_from_xml_string(m_xml);
-   auto rating = mzlib::ds::fluent(shelf).first("book").first("rating").get();
-   ASSERT_EQ("Goodreads", rating->get_attribute("source")->get_value());
-   ASSERT_EQ("4.29", rating->get_value());
+   auto rating = mzlib::ds::fluent(shelf).first("book").first("rating");
+   ASSERT_EQ("Goodreads", rating.get_attribute("source")->get_value());
+   ASSERT_EQ("4.29", rating.get()->get_value());
 }
 
 TEST_F(fixture_datashelf_former, save_datashelf_to_xml_string_demo)
