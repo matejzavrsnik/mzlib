@@ -94,6 +94,12 @@ private:
 public:   
    
    using node_it = std::vector<std::shared_ptr<node>>::iterator;
+
+   static const std::shared_ptr<node> empty()
+   {
+      static std::shared_ptr<node> empty = std::make_shared<node>();
+      return empty;
+   }
    
    node(
       std::string name = "", 
@@ -150,16 +156,16 @@ public:
       return all;
    }
    
-   std::vector<std::shared_ptr<node>> get_all_nodes (std::string node_name)
-   {
-      std::vector<std::shared_ptr<node>> filtered;
-      for(auto node : m_nodes) {
-         if(node->get_name() == node_name) {
-            filtered.push_back(node);
-         }
-      }
-      return filtered;
-   }
+   //std::vector<std::shared_ptr<node>> get_all_nodes (std::string node_name)
+   //{
+   //   std::vector<std::shared_ptr<node>> filtered;
+   //   for(auto node : m_nodes) {
+   //      if(node->get_name() == node_name) {
+   //         filtered.push_back(node);
+   //      }
+   //   }
+   //   return filtered;
+   //}
    
    std::shared_ptr<node> get_random_node (
       std::string node_name,
@@ -173,7 +179,7 @@ public:
       }
       
       if (filtered_nodes.size() == 0)
-         return std::make_shared<node>();
+         return empty();
               
       return *rnd(filtered_nodes.begin(), filtered_nodes.end());
    }
@@ -215,6 +221,52 @@ public:
    friend class fluent_state_filter_one;
    
 };
+
+inline std::vector<std::shared_ptr<node>> get_peers(
+   std::shared_ptr<node> this_node)
+{
+   std::vector<std::shared_ptr<node>> no_peers;
+   if (this_node == nullptr) return no_peers;
+   auto parent = this_node->get_parent_node();
+   if (parent == nullptr) return no_peers;
+   return parent->get_all_nodes();
+}
+
+inline std::vector<std::shared_ptr<node>> filter_by_name(
+   std::vector<std::shared_ptr<node>> all_nodes, 
+   std::string name)
+{
+   std::vector<std::shared_ptr<node>> filtered_by_name;
+   std::copy_if (
+      all_nodes.begin(), all_nodes.end(), 
+      std::back_inserter(filtered_by_name), 
+      [&](const std::shared_ptr<node> n){
+         return n->get_name() == name;
+      });
+   return filtered_by_name;
+}
+
+inline std::shared_ptr<node> find_next_of(
+   std::vector<std::shared_ptr<node>> all_nodes, 
+   std::shared_ptr<node> this_node)
+{
+   
+   auto this_node_it = std::find_if(
+      all_nodes.begin(), all_nodes.end(),
+      [&](std::shared_ptr<node> n) {
+         return n == this_node;
+      });
+
+   if (this_node_it == all_nodes.end()) {
+      return node::empty();
+   }
+   auto next_node_it = ++this_node_it;
+   if (next_node_it == all_nodes.end()) { 
+      return node::empty();
+   }
+   
+   return *next_node_it;
+}
 
 } // namespace ds
 

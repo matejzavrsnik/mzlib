@@ -192,7 +192,7 @@ public:
    fluent_state_filter_one& first(std::string name)
    {
       auto nodes = m_filtered_one->m_nodes;
-      m_filtered_one = std::make_shared<node>();
+      m_filtered_one = node::empty();
       for(auto node : nodes) {
          if(node->get_name() == name) {
             m_filtered_one = node;
@@ -204,31 +204,9 @@ public:
    
    fluent_state_filter_one& next(std::string name)
    {
-      auto empty_node = std::make_shared<node>();
-      auto parent = m_filtered_one->get_parent_node();
-      if (parent == nullptr) {
-         m_filtered_one = empty_node;
-         return *this;
-      }
-      
-      auto peers = parent->get_all_nodes(name);
-      auto this_node = std::find_if(
-         peers.begin(), peers.end(),
-         [this](std::shared_ptr<node> node_in_parent) {
-            return node_in_parent == m_filtered_one;
-         });
-         
-      if (this_node == peers.end()) {
-         m_filtered_one = empty_node;
-         return *this;
-      }
-      auto next_node = ++this_node;
-      if (next_node == peers.end()) { 
-         m_filtered_one = empty_node;
-         return *this;
-      }
-
-      m_filtered_one = *next_node;
+      auto all_peers = get_peers(m_filtered_one);
+      auto namesakes = filter_by_name(all_peers, name);
+      m_filtered_one = find_next_of(namesakes, m_filtered_one);
       return *this;
    }
    
@@ -550,9 +528,21 @@ TEST_F(fixture_datashelf, get_next_node__no_such_node)
    ASSERT_EQ("", next_airplane_node->get_name());
 }
 
+TEST_F(fixture_datashelf, get_all_nodes)
+{
+   auto all_nodes = m_shelf->get_all_nodes();
+   
+   ASSERT_EQ(4, all_nodes.size());
+   ASSERT_EQ("airplane", all_nodes[0]->get_name());
+   ASSERT_EQ("book", all_nodes[1]->get_name());
+   ASSERT_EQ("folder", all_nodes[2]->get_name());
+   ASSERT_EQ("book", all_nodes[3]->get_name());
+}
+
 TEST_F(fixture_datashelf, get_all_nodes_named)
 {
-   auto all_books = m_shelf->get_all_nodes("book");
+   auto all_nodes = m_shelf->get_all_nodes();
+   auto all_books = mzlib::ds::filter_by_name(all_nodes, "book");
    
    ASSERT_EQ(2, all_books.size());
    ASSERT_EQ("Children of Time", all_books[0]->get_attribute("title")->get_value());
