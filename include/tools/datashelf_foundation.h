@@ -93,7 +93,7 @@ private:
    
 public:   
    
-   using node_it = std::vector<std::shared_ptr<node>>::iterator;
+   using iterator = std::vector<std::shared_ptr<node>>::iterator;
 
    static const std::shared_ptr<node> empty()
    {
@@ -111,16 +111,6 @@ public:
    }
    
    // attributes
-   
-   //std::vector<std::shared_ptr<attribute>>::iterator begin_attributes ()
-   //{
-   //   return m_attributes.begin();
-   //}
-   
-   //std::vector<std::shared_ptr<attribute>>::iterator end_attributes ()
-   //{
-   //   return m_attributes.end();
-   //}
    
    std::vector<std::shared_ptr<attribute>> attributes ()
    {
@@ -156,22 +146,22 @@ public:
       return all;
    }
    
-   std::shared_ptr<node> get_random_node (
-      std::string node_name,
-      decltype(get_random_element<node_it>) rnd = get_random_element<node_it>)
-   {
-      std::vector<std::shared_ptr<node>> filtered_nodes;
-      for(auto node : m_nodes) {
-         if(node->get_name() == node_name) {
-            filtered_nodes.push_back(node);
-         }
-      }
-      
-      if (filtered_nodes.size() == 0)
-         return empty();
-              
-      return *rnd(filtered_nodes.begin(), filtered_nodes.end());
-   }
+   //std::shared_ptr<node> get_random_node (
+   //   std::string node_name,
+   //   decltype(get_random_element<typename node::iterator>) rnd = get_random_element<typename node::iterator>)
+   //{
+   //   std::vector<std::shared_ptr<node>> filtered_nodes;
+   //   for(auto node : m_nodes) {
+   //      if(node->get_name() == node_name) {
+   //         filtered_nodes.push_back(node);
+   //      }
+   //   }
+   //   
+   //   if (filtered_nodes.size() == 0)
+   //      return empty();
+   //           
+   //   return *rnd(filtered_nodes.begin(), filtered_nodes.end());
+   //}
 
   
    friend class fluent;
@@ -223,6 +213,33 @@ inline std::shared_ptr<node> find_next_of(
    }
    
    return *next_node_it;
+}
+
+inline std::shared_ptr<node> first(
+   std::vector<std::shared_ptr<node>> all_nodes, 
+   std::string name)
+{
+   for(auto n : all_nodes) {
+      if(n->get_name() == name) {
+         return n;
+         break;
+      }
+   }
+   return node::empty();
+}
+
+inline std::shared_ptr<node> random (
+   std::vector<std::shared_ptr<node>> all_nodes,
+   std::string name,
+   decltype(get_random_element<typename node::iterator>) rnd = 
+      get_random_element<typename node::iterator>)
+{
+   auto namesakes = filter_by_name(all_nodes, name);
+
+   if (namesakes.size() == 0)
+      return node::empty();
+
+   return *rnd(namesakes.begin(), namesakes.end());
 }
 
 } // namespace ds

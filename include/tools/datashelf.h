@@ -79,7 +79,7 @@ private:
    std::shared_ptr<node> current_node()
    {
       if (m_using_nodes.size() == 0)
-         return nullptr;
+         return node::empty();
       
       return m_using_nodes.top();
    }
@@ -162,7 +162,23 @@ public:
    
    fluent_state_filter_one& first(std::string name)
    {
-      m_state_filter_one = std::make_unique<fluent_state_filter_one>(current_node(), name);
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(
+         ::mzlib::ds::first(
+            current_node()->nodes(), 
+            name));
+      return *m_state_filter_one.get();
+   }
+   
+   fluent_state_filter_one& random (
+      std::string name,
+      decltype(get_random_element<typename node::iterator>) rnd = 
+         get_random_element<typename node::iterator>)
+   {
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(
+         ::mzlib::ds::random(
+            current_node()->nodes(), 
+            name, 
+            rnd));
       return *m_state_filter_one.get();
    }
    
@@ -178,10 +194,9 @@ private:
    std::shared_ptr<node> m_filtered_one;
    
 public:
-   fluent_state_filter_one(std::shared_ptr<node> origin, std::string name)
+   fluent_state_filter_one(std::shared_ptr<node> origin)
    {
       m_filtered_one = origin;
-      auto ignore = first(name);
    }
    
    std::shared_ptr<node> get()
@@ -191,14 +206,21 @@ public:
       
    fluent_state_filter_one& first(std::string name)
    {
-      auto nodes = m_filtered_one->m_nodes;
-      m_filtered_one = node::empty();
-      for(auto node : nodes) {
-         if(node->get_name() == name) {
-            m_filtered_one = node;
-            break;
-         }
-      }
+      m_filtered_one = ::mzlib::ds::first(
+         m_filtered_one->nodes(), 
+         name);
+      return *this;
+   }
+   
+   fluent_state_filter_one& random (
+      std::string name,
+      decltype(get_random_element<typename node::iterator>) rnd = 
+         get_random_element<typename node::iterator>)
+   {
+      m_filtered_one = ::mzlib::ds::random(
+         m_filtered_one->nodes(), 
+         name, 
+         rnd);
       return *this;
    }
    
@@ -551,24 +573,24 @@ TEST_F(fixture_datashelf, get_all_nodes_named)
 
 TEST_F(fixture_datashelf, get_random_node)
 {
-   auto first_random_book = m_shelf->get_random_node("book", 
+   auto first_random_book = mzlib::ds::fluent(m_shelf).random("book", 
       // in-place mock
-      [](const mzlib::ds::node::node_it& first, const mzlib::ds::node::node_it& last) -> mzlib::ds::node::node_it 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
       {
          return first;
       });
-   std::string first_random_book_title = first_random_book->get_attribute("title")->get_value();
+   std::string first_random_book_title = first_random_book.get()->get_attribute("title")->get_value();
    
    // note: there is a node between two books that is not a book
    // getting random book should not return non-book nodes
    
-   auto second_random_book = m_shelf->get_random_node("book", 
+   auto second_random_book = mzlib::ds::fluent(m_shelf).random("book", 
       // in-place mock
-      [](const mzlib::ds::node::node_it& first, const mzlib::ds::node::node_it& last) -> mzlib::ds::node::node_it 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
       {
          return std::next(first);
       });
-   std::string second_random_book_title = second_random_book->get_attribute("title")->get_value();
+   std::string second_random_book_title = second_random_book.get()->get_attribute("title")->get_value();
       
    ASSERT_EQ("Children of Time", first_random_book_title);
    ASSERT_EQ("Morning Star", second_random_book_title);
@@ -576,16 +598,16 @@ TEST_F(fixture_datashelf, get_random_node)
 
 TEST_F(fixture_datashelf, get_random_node_when_empty)
 {
-   auto random_ufo_evidence = m_shelf->get_random_node("ufo evidence", 
+   auto random_ufo_evidence = mzlib::ds::fluent(m_shelf).random("ufo evidence", 
       // in-place mock
-      [](const mzlib::ds::node::node_it& first, const mzlib::ds::node::node_it& last) -> mzlib::ds::node::node_it 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
       {
          return first;
       });
    
    // it didn't crash or anything like that
       
-   ASSERT_TRUE(random_ufo_evidence->is_empty_node());
+   ASSERT_TRUE(random_ufo_evidence.get()->is_empty_node());
 }
 
 TEST_F(fixture_datashelf, all_attributes)
