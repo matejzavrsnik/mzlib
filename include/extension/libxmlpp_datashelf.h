@@ -45,17 +45,17 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::
 {
    //todo: this part is basically conversion. make function for that
    if (!my_node->has_empty_name()) {
-      xmlpp_element->set_name(my_node->get_name());
+      xmlpp_element->set_name(my_node->name());
    }
    if (!my_node->has_empty_value()) {
-      xmlpp_element->set_child_text(my_node->get_value());
+      xmlpp_element->set_child_text(my_node->value());
    }
 
    // read attributes if any
    for(auto my_attribute : my_node->attributes()) 
    {
-      const std::string& name = my_attribute->get_name();
-      const std::string& value = my_attribute->get_value();
+      const std::string& name = my_attribute->name();
+      const std::string& value = my_attribute->value();
       xmlpp_element->set_attribute(name, value);
    }
 
@@ -152,8 +152,8 @@ TEST_F(fixture_datashelf_former, create_datashelf_from_xml_string_demo)
 {  
    auto shelf = mzlib::create_datashelf_from_xml_string(m_xml);
    auto rating = mzlib::ds::fluent(shelf).first("book").first("rating");
-   ASSERT_EQ("Goodreads", rating.get_attribute("source")->get_value());
-   ASSERT_EQ("4.29", rating.get()->get_value());
+   ASSERT_EQ("Goodreads", rating.get_attribute("source").value());
+   ASSERT_EQ("4.29", rating.get()->value());
 }
 
 TEST_F(fixture_datashelf_former, save_datashelf_to_xml_string_demo)

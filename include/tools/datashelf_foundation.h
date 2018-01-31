@@ -38,12 +38,12 @@ public:
    {
    }
    
-   std::string get_name() const
+   std::string name() const
    {
       return m_name;
    }
    
-   std::string get_value() const
+   std::string value() const
    {
       return m_value;
    }
@@ -83,9 +83,7 @@ public:
    
    static const std::shared_ptr<attribute> empty()
    {
-      static std::shared_ptr<attribute> empty = 
-         std::make_shared<attribute>();
-      return empty;
+      return std::make_shared<attribute>();
    }
    
    using base::base;
@@ -105,9 +103,7 @@ public:
 
    static const std::shared_ptr<node> empty()
    {
-      static std::shared_ptr<node> empty = 
-         std::make_shared<node>();
-      return empty;
+      return std::make_shared<node>();
    }
    
    node(
@@ -163,7 +159,7 @@ inline std::vector<std::shared_ptr<node>> filter_by_name(
       all.begin(), all.end(), 
       std::back_inserter(filtered_by_name), 
       [&](const std::shared_ptr<node> n){
-         return n->get_name() == name;
+         return n->name() == name;
       });
    return filtered_by_name;
 }
@@ -195,7 +191,7 @@ inline std::shared_ptr<node> first(
    std::string name)
 {
    for(auto n : all_nodes) {
-      if(n->get_name() == name) {
+      if(n->name() == name) {
          return n;
          break;
       }
@@ -236,7 +232,7 @@ inline std::shared_ptr<attribute> get_attribute (
       all_attributes.begin(), 
       all_attributes.end(),
       [&name] (const std::shared_ptr<attribute> a) {
-         return a->get_name() == name;
+         return a->name() == name;
       });
       
    if (attribute_it != all_attributes.end())
