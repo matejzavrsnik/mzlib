@@ -68,7 +68,7 @@ public:
       return (m_value.empty()  || mzlib::is_just_whitespaces(m_value));
    }
 
-   bool is_empty_node() const
+   bool is_empty() const
    {
       return (has_empty_name() && has_empty_value());
    }

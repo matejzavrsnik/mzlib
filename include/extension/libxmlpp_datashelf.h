@@ -62,7 +62,7 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::
    // iteratively read child nodes if any
    for(auto my_child : my_node->nodes()) 
    {
-      if (!my_child->is_empty_node()) {
+      if (!my_child->is_empty()) {
          xmlpp::Element* xmlpp_child = xmlpp_element->add_child("");
          fill_xmlpp_node_from_mine(xmlpp_child, my_child);
       }
