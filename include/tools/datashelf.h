@@ -58,6 +58,9 @@ private:
    
    // all the nodes that are actively used
    std::stack<std::shared_ptr<node>> m_using_nodes;
+   std::shared_ptr<node> m_last_added_node;
+   std::shared_ptr<attribute> m_last_added_attribute;
+   
    // temporary storage for the next state
    std::unique_ptr<fluent_state_attribute_added> m_state_attribute_added;
    std::shared_ptr<fluent_state_filter_one> m_state_filter_one;
@@ -68,22 +71,6 @@ private:
          return node::empty();
       
       return m_using_nodes.top();
-   }
-   
-   std::shared_ptr<node> last_added_node()
-   {
-      if (current_node()->m_nodes.size() > 0) {
-         return *std::prev(current_node()->m_nodes.end());
-      }
-      return nullptr;
-   }
-   
-   std::shared_ptr<attribute> last_added_attribute()
-   {
-      if (current_node()->m_attributes.size() > 0) {
-         return *std::prev(current_node()->m_attributes.end());
-      }
-      return nullptr;
    }
    
 public:
@@ -108,25 +95,23 @@ public:
    fluent_state_attribute_added& add_attribute
       (std::string name, std::string value = "")
    {
-      auto new_attribute = std::make_shared<attribute>(name, value);
-      current_node()->m_attributes.push_back(new_attribute);
-      m_state_attribute_added = std::make_unique<fluent_state_attribute_added>(*this);
+      m_last_added_attribute = current_node()->add_attribute(name, value);
+      m_state_attribute_added = std::make_unique<fluent_state_attribute_added>(
+         *this,
+         m_last_added_attribute);
       return *m_state_attribute_added.get();
    }
    
    fluent& add_node(std::string name = "", std::string value = "")
    {
-      auto parent = current_node();
-      auto new_node = std::make_shared<node>(name, value, parent);
-      parent->m_nodes.push_back(new_node);
+      m_last_added_node = current_node()->add_node(name, value);
       return *this;
    }
    
    fluent& use()
    {
-      auto last = last_added_node();
-      if (last != nullptr) {
-         m_using_nodes.push(last);
+      if (m_last_added_node != nullptr) {
+         m_using_nodes.push(m_last_added_node);
       }
       return *this;
    }
@@ -192,6 +177,8 @@ private:
    std::shared_ptr<fluent> m_state_node;
    std::shared_ptr<node> m_filtered_one;
    
+   std::shared_ptr<fluent_state_attribute_added> m_state_attribute_added;
+   
 public:
    fluent_state_filter_one(std::shared_ptr<node> origin)
    {
@@ -255,6 +242,20 @@ public:
       return *m_state_node.get();
    }
    
+   fluent_state_filter_one& add_attribute
+      (std::string name, std::string value = "")
+   {
+      m_filtered_one->add_attribute(name, value);
+      return *this;
+   }
+   
+   fluent_state_filter_one& add_node(std::string name = "", std::string value = "")
+   {
+      std::cout << m_filtered_one->name() << "\n";
+      m_filtered_one->add_node(name, value);
+      return *this;
+   }
+   
    bool is_empty()
    {
       return m_filtered_one->is_empty();
@@ -277,13 +278,18 @@ private:
    
    // origin state for going back
    fluent& m_state_node;
+   std::shared_ptr<attribute> m_attribute;
+   
    // temporary storage for the next state
    std::unique_ptr<fluent_state_attribute> m_attribute_state;
    
 public:
    
-   fluent_state_attribute_added(fluent& origin) :
-      m_state_node(origin)
+   fluent_state_attribute_added(
+      fluent& origin,
+      std::shared_ptr<attribute> the_attribute) :
+         m_state_node(origin),
+         m_attribute(the_attribute)
    {
    }
       
@@ -309,7 +315,9 @@ public:
    
    fluent_state_attribute& use()
    {
-      m_attribute_state = std::make_unique<fluent_state_attribute>(m_state_node);
+      m_attribute_state = std::make_unique<fluent_state_attribute>(
+         m_state_node,
+         m_attribute);
       return *m_attribute_state.get();
    }
    
@@ -317,8 +325,6 @@ public:
    {
       return m_state_node.stop_using();
    }
-   
-   friend class fluent_state_attribute;
    
 };
 
@@ -330,35 +336,34 @@ private:
    // origin state for going back
    fluent& m_state_node;
    
+   std::shared_ptr<attribute> m_attribute;
+   
 public:
 
-   fluent_state_attribute(fluent& origin) :
-      m_state_node(origin)
+   fluent_state_attribute(
+      fluent& origin,
+      std::shared_ptr<attribute> the_attribute) :
+         m_state_node(origin),
+         m_attribute(the_attribute)
    {
    }
 
    
    fluent_state_attribute& set_name(std::string name)
    {
-      auto attribute = m_state_node.last_added_attribute();
-      if (attribute) {
-         attribute->set_name(name);
-      }
+      m_attribute->set_name(name);
       return *this;
    }
    
    fluent_state_attribute& set_value(std::string value)
    {
-      auto attribute = m_state_node.last_added_attribute();
-      if (attribute) {
-         attribute->set_value(value);
-      }
+      m_attribute->set_value(value);
       return *this;
    }
 
    attribute& get()
    {
-      return *m_state_node.last_added_attribute();
+      return *m_attribute;
    }
    
    fluent& stop_using()
@@ -522,17 +527,9 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
 
 TEST_F(fixture_datashelf, add_node_to_existing_structure)
 {
-   auto added_node = mzlib::ds::fluent(m_shelf)
+   mzlib::ds::fluent(m_shelf)
       .first("book")
-      .use()
-      .add_node("new_node", "new_val")
-      .use()
-      .get();
-   
-   ASSERT_EQ(added_node, mzlib::ds::fluent(m_shelf)
-      .first("book")
-      .first("new_node")
-      .get());
+      .add_node("new_node", "new_val");
    
    ASSERT_EQ("new_val", mzlib::ds::fluent(m_shelf)
       .first("book")
@@ -540,7 +537,7 @@ TEST_F(fixture_datashelf, add_node_to_existing_structure)
       .value());
 }
 
-TEST_F(fixture_datashelf, add_node_clean)
+TEST_F(fixture_datashelf, add_node_to_empty_shelf)
 {
    auto root = std::make_shared<mzlib::ds::node>();
    auto added_node1 = mzlib::ds::fluent(root)

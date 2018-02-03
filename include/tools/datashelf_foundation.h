@@ -89,7 +89,7 @@ public:
    using base::base;
 };
 
-class node : public base
+class node : public base, public std::enable_shared_from_this<node>
 {
 private:
 
@@ -135,9 +135,24 @@ public:
    {
       return m_parent;
    }
-  
-   friend class fluent;
+
+   std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
+   {
+      auto new_node = std::make_shared<node>(
+         name, 
+         value, 
+         shared_from_this());
+      m_nodes.push_back(new_node);
+      return new_node;
+   }
    
+   std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
+   {
+      auto new_attribute = std::make_shared<attribute>(name, value);
+      m_attributes.push_back(new_attribute);
+      return new_attribute;
+   }
+
 };
 
 inline std::vector<std::shared_ptr<node>> get_peers(
