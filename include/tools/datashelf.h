@@ -92,6 +92,16 @@ public:
       return *this;
    }
    
+   std::string value()
+   {
+      return current_node()->value();
+   }
+   
+   std::string name()
+   {
+      return current_node()->name();
+   }
+   
    fluent_state_attribute_added& add_attribute
       (std::string name, std::string value = "")
    {
@@ -251,7 +261,6 @@ public:
    
    fluent_state_filter_one& add_node(std::string name = "", std::string value = "")
    {
-      std::cout << m_filtered_one->name() << "\n";
       m_filtered_one->add_node(name, value);
       return *this;
    }
@@ -540,29 +549,17 @@ TEST_F(fixture_datashelf, add_node_to_existing_structure)
 TEST_F(fixture_datashelf, add_node_to_empty_shelf)
 {
    auto root = std::make_shared<mzlib::ds::node>();
-   auto added_node1 = mzlib::ds::fluent(root)
-      .add_node("book", "Children of Time")
-      .use()
-      .get();
    
-   auto added_node2 = mzlib::ds::fluent(root)
-      .add_node("book", "Morning Star")
-      .use()
-      .get();
+   mzlib::ds::fluent(root)
+      .add_node("book", "Children of Time");
    
-   ASSERT_EQ(added_node1, mzlib::ds::fluent(root)
-      .first("book")
-      .get());
+   mzlib::ds::fluent(root)
+      .add_node("book", "Morning Star");
    
    ASSERT_EQ("Children of Time", mzlib::ds::fluent(root)
       .first("book")
       .value());
  
-   ASSERT_EQ(added_node2, mzlib::ds::fluent(root)
-      .first("book")
-      .next("book")
-      .get());
-   
    ASSERT_EQ("Morning Star", mzlib::ds::fluent(root)
       .first("book")
       .next("book")
@@ -585,15 +582,12 @@ TEST_F(fixture_datashelf, add_attribute_to_existing_structure)
 TEST_F(fixture_datashelf, add_attribute_clean)
 {
    auto root = std::make_shared<mzlib::ds::node>();
-   auto added_att1 = mzlib::ds::fluent(root)
-      .add_attribute("att1", "val1")
-      .use()
-      .get();
    
-   auto added_att2 = mzlib::ds::fluent(root)
-      .add_attribute("att2", "val2")
-      .use()
-      .get();
+   mzlib::ds::fluent(root)
+      .add_attribute("att1", "val1");
+   
+   mzlib::ds::fluent(root)
+      .add_attribute("att2", "val2");
 
    ASSERT_EQ("val1", mzlib::ds::fluent(root)
       .get_attribute("att1")
@@ -606,8 +600,8 @@ TEST_F(fixture_datashelf, add_attribute_clean)
 
 TEST_F(fixture_datashelf, querying_root_node)
 {  
-   ASSERT_EQ("shelf", m_shelf
-      ->name());
+   ASSERT_EQ("shelf", mzlib::ds::fluent(m_shelf)
+      .name());
    
    ASSERT_EQ("my bookshelf", mzlib::ds::fluent(m_shelf)
       .get_attribute("title")
