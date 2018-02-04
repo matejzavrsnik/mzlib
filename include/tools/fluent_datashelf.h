@@ -8,13 +8,10 @@
 #ifndef MZLIB_FLUENT_DATASHELF_H
 #define MZLIB_FLUENT_DATASHELF_H
 
-#include "../string/is_just_whitespace.h"
-
-#include <memory> // for shared ptr
-#include <algorithm>
-#include <stack> // find_if
-
 #include "datashelf_foundation.h"
+
+#include <algorithm>
+#include <stack>
 
 namespace mzlib {
 namespace ds {

@@ -9,7 +9,11 @@
 #define MZLIB_DATASHELF_FOUNDATION_H
 
 #include "../iterators/get_random.h"
+#include "../string/is_just_whitespace.h"
+
 #include <vector>
+#include <memory> // for smart ptrs
+#include <algorithm>
 
 // The point of this whole thing is to have an in-memory data shelf
 // for basic data needs, like settings or a collection of books or
