@@ -18,7 +18,6 @@ namespace mzlib {
 namespace ds {
 
 class fluent;
-class fluent_state_attribute_added;
 class fluent_state_attribute;
 class fluent_state_filter_one;
 
@@ -62,7 +61,7 @@ private:
    std::shared_ptr<attribute> m_last_added_attribute;
    
    // temporary storage for the next state
-   std::unique_ptr<fluent_state_attribute_added> m_state_attribute_added;
+   std::unique_ptr<fluent_state_attribute> m_attribute_state;
    std::shared_ptr<fluent_state_filter_one> m_state_filter_one;
    
    std::shared_ptr<node> current_node()
@@ -102,14 +101,19 @@ public:
       return current_node()->name();
    }
    
-   fluent_state_attribute_added& add_attribute
+   fluent& add_attribute
       (std::string name, std::string value = "")
    {
       m_last_added_attribute = current_node()->add_attribute(name, value);
-      m_state_attribute_added = std::make_unique<fluent_state_attribute_added>(
+      return *this;
+   }
+   
+   fluent_state_attribute& use_attribute()
+   {
+      m_attribute_state = std::make_unique<fluent_state_attribute>(
          *this,
          m_last_added_attribute);
-      return *m_state_attribute_added.get();
+      return *m_attribute_state.get();
    }
    
    fluent& add_node(std::string name = "", std::string value = "")
@@ -186,8 +190,6 @@ private:
    
    std::shared_ptr<fluent> m_state_node;
    std::shared_ptr<node> m_filtered_one;
-   
-   std::shared_ptr<fluent_state_attribute_added> m_state_attribute_added;
    
 public:
    fluent_state_filter_one(std::shared_ptr<node> origin)
@@ -281,63 +283,6 @@ public:
    }
 };
         
-class fluent_state_attribute_added
-{
-private:
-   
-   // origin state for going back
-   fluent& m_state_node;
-   std::shared_ptr<attribute> m_attribute;
-   
-   // temporary storage for the next state
-   std::unique_ptr<fluent_state_attribute> m_attribute_state;
-   
-public:
-   
-   fluent_state_attribute_added(
-      fluent& origin,
-      std::shared_ptr<attribute> the_attribute) :
-         m_state_node(origin),
-         m_attribute(the_attribute)
-   {
-   }
-      
-   fluent& set_name(std::string name)
-   {
-      return m_state_node.set_name(name);
-   }
-   
-   fluent& set_value(std::string value)
-   {
-      return m_state_node.set_value(value);
-   }
-   
-   fluent_state_attribute_added& add_attribute(std::string name, std::string value = "")
-   {
-      return m_state_node.add_attribute(name, value);
-   }
-   
-   fluent& add_node(std::string name = "", std::string value = "")
-   {
-      return m_state_node.add_node(name, value);
-   }
-   
-   fluent_state_attribute& use()
-   {
-      m_attribute_state = std::make_unique<fluent_state_attribute>(
-         m_state_node,
-         m_attribute);
-      return *m_attribute_state.get();
-   }
-   
-   fluent& stop_using()
-   {
-      return m_state_node.stop_using();
-   }
-   
-};
-
-
 class fluent_state_attribute
 {
 private:
@@ -507,7 +452,7 @@ TEST_F(fixture_datashelf, fluent_using_attribute)
       .add_node("node1", "node_value1")
          .use()
          .add_attribute("att1", "att_value1")
-            .use()
+            .use_attribute()
             .set_name("att2")
             .set_value("att_value2")
             .stop_using()
