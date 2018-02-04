@@ -14,22 +14,10 @@
 #include <algorithm>
 #include <stack> // find_if
 
-namespace mzlib { 
-namespace ds {
-
-class fluent;
-class fluent_state_attribute;
-class fluent_state_filter_one;
-
-}
-}
-
 #include "datashelf_foundation.h"
 
 namespace mzlib {
 namespace ds {
-
-// when I grow up I am going to be a fluent interface
 
 // "Certainly chaining is a common technique to use with fluent interfaces, 
 // but true fluency is much more than that." (Martin Fowler)
@@ -50,6 +38,9 @@ namespace ds {
 //
 // Didn't expect fluent interface part of the project to be so interesting.
 
+class fluent_state_attribute;
+class fluent_state_filter_one;
+   
 class fluent
 {
 
@@ -60,9 +51,9 @@ private:
    std::shared_ptr<node> m_last_added_node;
    std::shared_ptr<attribute> m_last_added_attribute;
    
-   // temporary storage for the next state
+   // temporary storage for the next states
    std::unique_ptr<fluent_state_attribute> m_attribute_state;
-   std::shared_ptr<fluent_state_filter_one> m_state_filter_one;
+   std::unique_ptr<fluent_state_filter_one> m_state_filter_one;
    
    std::shared_ptr<node> current_node()
    {
@@ -289,7 +280,6 @@ private:
    
    // origin state for going back
    fluent& m_state_node;
-   
    std::shared_ptr<attribute> m_attribute;
    
 public:
