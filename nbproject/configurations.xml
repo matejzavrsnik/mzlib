@@ -98,10 +98,10 @@
         <itemPath>include/tools/add_to_tally.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
         <itemPath>include/tools/count_bits.h</itemPath>
-        <itemPath>include/tools/datashelf.h</itemPath>
         <itemPath>include/tools/datashelf_foundation.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
+        <itemPath>include/tools/fluent_datashelf.h</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
@@ -209,9 +209,9 @@
         <itemPath>tests/tools/add_to_tally.cpp</itemPath>
         <itemPath>tests/tools/copy_first_n_over_rest.cpp</itemPath>
         <itemPath>tests/tools/count_bits.cpp</itemPath>
-        <itemPath>tests/tools/datashelf.cpp</itemPath>
         <itemPath>tests/tools/equidistant_sequence.cpp</itemPath>
         <itemPath>tests/tools/fast_min.cpp</itemPath>
+        <itemPath>tests/tools/fluent_datashelf.cpp</itemPath>
         <itemPath>tests/tools/genetic.cpp</itemPath>
         <itemPath>tests/tools/index_coordinate_conversions.cpp</itemPath>
         <itemPath>tests/tools/next_lex_permutation.cpp</itemPath>
@@ -514,8 +514,6 @@
       </item>
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/datashelf_foundation.h"
             ex="false"
             tool="3"
@@ -527,6 +525,8 @@
             flavor2="0">
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/fluent_datashelf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -777,14 +777,14 @@
       </item>
       <item path="tests/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/tools/datashelf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/tools/equidistant_sequence.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="tests/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1095,8 +1095,6 @@
       </item>
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/datashelf_foundation.h"
             ex="false"
             tool="3"
@@ -1108,6 +1106,8 @@
             flavor2="0">
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/fluent_datashelf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1358,14 +1358,14 @@
       </item>
       <item path="tests/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/tools/datashelf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/tools/equidistant_sequence.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="tests/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
       </item>

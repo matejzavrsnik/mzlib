@@ -10,7 +10,7 @@
 
 #include "libxmlpp.h"
 
-#include "../tools/datashelf.h"
+#include "../tools/fluent_datashelf.h"
 
 namespace mzlib {
 

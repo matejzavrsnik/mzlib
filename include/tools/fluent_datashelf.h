@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_DATASHELF_H
-#define MZLIB_DATASHELF_H
+#ifndef MZLIB_FLUENT_DATASHELF_H
+#define MZLIB_FLUENT_DATASHELF_H
 
 #include "../string/is_just_whitespace.h"
 
@@ -389,8 +389,8 @@ public:
 
 #endif // MZLIB_DATASHELF_H
 
-#ifdef MZLIB_DATASHELF_TESTS_H
-#undef MZLIB_DATASHELF_TESTS_H
+#ifdef MZLIB_FLUENT_DATASHELF_TESTS_H
+#undef MZLIB_FLUENT_DATASHELF_TESTS_H
 
 class fixture_datashelf : public ::testing::Test 
 {
@@ -768,4 +768,4 @@ TEST_F(fixture_datashelf, all_attributes_iteration__root)
 
 
 
-#endif // MZLIB_DATASHELF_TESTS_H
+#endif // MZLIB_FLUENT_DATASHELF_H

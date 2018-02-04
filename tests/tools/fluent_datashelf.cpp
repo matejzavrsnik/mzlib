@@ -10,6 +10,6 @@
 // Tests are implemented where functionality is implemented so that they are 
 // easier to find while developing. This switch will turn on compilation of tests.
 
-#define MZLIB_DATASHELF_TESTS_H
-#include "../../include/tools/datashelf.h"
+#define MZLIB_FLUENT_DATASHELF_TESTS_H
+#include "../../include/tools/fluent_datashelf.h"
 
