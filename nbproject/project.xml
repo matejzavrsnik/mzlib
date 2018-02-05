@@ -17,6 +17,12 @@
                 <sourceRootElem>include/abstract</sourceRootElem>
                 <sourceRootElem>include/tools</sourceRootElem>
                 <sourceRootElem>include/joke</sourceRootElem>
+                <sourceRootElem>include/apps</sourceRootElem>
+                <sourceRootElem>include/extension</sourceRootElem>
+                <sourceRootElem>include/filesystem</sourceRootElem>
+                <sourceRootElem>include/iterators</sourceRootElem>
+                <sourceRootElem>include/laws</sourceRootElem>
+                <sourceRootElem>include/string</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

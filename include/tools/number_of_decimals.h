@@ -40,22 +40,3 @@ get_number_of_decimals (T num)
 } // namespace
 
 #endif // NUMBER_OF_DECIMALS_H
-
-#ifdef NUMBER_OF_DECIMALS_TESTS_H
-#undef NUMBER_OF_DECIMALS_TESTS_H
-
-TEST(get_number_of_decimals, basic) 
-{
-   double double_num = 0;
-   ASSERT_EQ(0, mzlib::get_number_of_decimals(double_num));
-   double_num = 1;
-   ASSERT_EQ(0, mzlib::get_number_of_decimals(double_num));
-   double_num = 0.111;
-   ASSERT_EQ(3, mzlib::get_number_of_decimals(double_num));
-   double_num = 0.11100;
-   ASSERT_EQ(3, mzlib::get_number_of_decimals(double_num));
-   double_num = 0.111001;
-   ASSERT_EQ(6, mzlib::get_number_of_decimals(double_num));
-}
-
-#endif // NUMBER_OF_DECIMALS_TESTS_H

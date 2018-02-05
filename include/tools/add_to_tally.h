@@ -22,23 +22,3 @@ void add_to_tally(std::map<Key, Value>& word_map, const Key& word)
 } // namespace
 
 #endif // MZLIB_ADD_TO_TALLY_H
-
-#ifdef MZLIB_ADD_TO_TALLY_TESTS_H
-#undef MZLIB_ADD_TO_TALLY_TESTS_H
-
-TEST(add_to_tally, basic) 
-{
-   std::map<std::string, int> map;
-   
-   mzlib::add_to_tally(map, std::string("word"));
-   ASSERT_EQ(1, map["word"]);
-   
-   mzlib::add_to_tally(map, std::string("word"));
-   ASSERT_EQ(2, map["word"]);
-   
-   mzlib::add_to_tally(map, std::string("another word"));
-   ASSERT_EQ(2, map["word"]);
-   ASSERT_EQ(1, map["another word"]);
-}
-
-#endif // MZLIB_ADD_TO_TALLY_TESTS_H

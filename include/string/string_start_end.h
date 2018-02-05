@@ -33,23 +33,3 @@ inline bool string_starts_with (const std::string& str, const std::string& start
 } // namespace
 
 #endif // MZLIB_STRING_START_END_H
-
-#ifdef MZLIB_STRING_START_END_TESTS_H
-#undef MZLIB_STRING_START_END_TESTS_H
-
-TEST(string_ends_with, demo)
-{
-   std::string test_string = "Fear is the little-death that brings total obliteration.";
-   ASSERT_TRUE (mzlib::string_ends_with(test_string, "obliteration."));
-   ASSERT_FALSE(mzlib::string_ends_with(test_string, "bliss."));
-}
-
-TEST(string_starts_with, demo)
-{
-   std::string test_string = "Fear is the little-death that brings total obliteration.";
-   ASSERT_TRUE (mzlib::string_starts_with(test_string, "Fear"));
-   ASSERT_FALSE(mzlib::string_starts_with(test_string, "Courage"));
-}
-
-#endif // MZLIB_STRING_START_END_TESTS_H
-

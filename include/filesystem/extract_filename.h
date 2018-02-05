@@ -20,12 +20,3 @@ inline std::string extract_filename_from_path (std::string path)
 } // namespace
 
 #endif // HEADER_H
-
-#ifdef MZLIB_EXTRACT_FILENAME_TESTS_H
-#undef MZLIB_EXTRACT_FILENAME_TESTS_H
-
-// Has no tests yet
-
-#endif // MZLIB_EXTRACT_FILENAME_TESTS_H
-
-

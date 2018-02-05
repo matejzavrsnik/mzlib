@@ -4,115 +4,193 @@
     <logicalFolder name="HeaderFiles" displayName="include" projectFiles="true">
       <logicalFolder name="abstract" displayName="abstract" projectFiles="true">
         <itemPath>include/abstract/direction.h</itemPath>
+        <itemPath>include/abstract/genetic_base.cpp</itemPath>
         <itemPath>include/abstract/genetic_base.h</itemPath>
+        <itemPath>include/abstract/genetic_container.cpp</itemPath>
         <itemPath>include/abstract/genetic_container.h</itemPath>
+        <itemPath>include/abstract/genetic_object.cpp</itemPath>
         <itemPath>include/abstract/genetic_object.h</itemPath>
+        <itemPath>include/abstract/markov_chain.cpp</itemPath>
         <itemPath>include/abstract/markov_chain.h</itemPath>
+        <itemPath>include/abstract/probabilator.cpp</itemPath>
         <itemPath>include/abstract/probabilator.h</itemPath>
+        <itemPath>include/abstract/quadtree.cpp</itemPath>
         <itemPath>include/abstract/quadtree.h</itemPath>
+        <itemPath>include/abstract/quadtree_it_bodies.cpp</itemPath>
         <itemPath>include/abstract/quadtree_it_bodies.h</itemPath>
+        <itemPath>include/abstract/quadtree_it_masscentres.cpp</itemPath>
         <itemPath>include/abstract/quadtree_it_masscentres.h</itemPath>
         <itemPath>include/abstract/quadtree_node.h</itemPath>
+        <itemPath>include/abstract/symbol_sequences_in_pattern.cpp</itemPath>
         <itemPath>include/abstract/symbol_sequences_in_pattern.h</itemPath>
+        <itemPath>include/abstract/unique.cpp</itemPath>
         <itemPath>include/abstract/unique.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="apps" projectFiles="true">
+        <itemPath>include/apps/aggregated_file_monitor.cpp</itemPath>
         <itemPath>include/apps/aggregated_file_monitor.h</itemPath>
+        <itemPath>include/apps/killer_sudoku.cpp</itemPath>
         <itemPath>include/apps/killer_sudoku.h</itemPath>
+        <itemPath>include/apps/sentence_o_matic.cpp</itemPath>
         <itemPath>include/apps/sentence_o_matic.h</itemPath>
+        <itemPath>include/apps/sudoku.cpp</itemPath>
         <itemPath>include/apps/sudoku.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="extension" projectFiles="true">
+        <itemPath>include/extension/libxmlpp.cpp</itemPath>
         <itemPath>include/extension/libxmlpp.h</itemPath>
+        <itemPath>include/extension/libxmlpp_datashelf.cpp</itemPath>
         <itemPath>include/extension/libxmlpp_datashelf.h</itemPath>
+        <itemPath>include/extension/sdl_image_texture.cpp</itemPath>
         <itemPath>include/extension/sdl_image_texture.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="filesystem" projectFiles="true">
+        <itemPath>include/filesystem/extract_filename.cpp</itemPath>
         <itemPath>include/filesystem/extract_filename.h</itemPath>
+        <itemPath>include/filesystem/filenamearise.cpp</itemPath>
         <itemPath>include/filesystem/filenamearise.h</itemPath>
+        <itemPath>include/filesystem/find_eof_position.cpp</itemPath>
         <itemPath>include/filesystem/find_eof_position.h</itemPath>
+        <itemPath>include/filesystem/is_meta_directory.cpp</itemPath>
         <itemPath>include/filesystem/is_meta_directory.h</itemPath>
+        <itemPath>include/filesystem/list_files.cpp</itemPath>
         <itemPath>include/filesystem/list_files.h</itemPath>
+        <itemPath>include/filesystem/read_write_file.cpp</itemPath>
         <itemPath>include/filesystem/read_write_file.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="iterators" projectFiles="true">
+        <itemPath>include/iterators/average.cpp</itemPath>
         <itemPath>include/iterators/average.h</itemPath>
+        <itemPath>include/iterators/circular_next.cpp</itemPath>
         <itemPath>include/iterators/circular_next.h</itemPath>
+        <itemPath>include/iterators/conditional_find.cpp</itemPath>
         <itemPath>include/iterators/conditional_find.h</itemPath>
+        <itemPath>include/iterators/copy.cpp</itemPath>
         <itemPath>include/iterators/copy.h</itemPath>
+        <itemPath>include/iterators/distance_comparison.cpp</itemPath>
         <itemPath>include/iterators/distance_comparison.h</itemPath>
+        <itemPath>include/iterators/fast_forward.cpp</itemPath>
         <itemPath>include/iterators/fast_forward.h</itemPath>
+        <itemPath>include/iterators/get_random.cpp</itemPath>
         <itemPath>include/iterators/get_random.h</itemPath>
+        <itemPath>include/iterators/index_conversion.cpp</itemPath>
         <itemPath>include/iterators/index_conversion.h</itemPath>
+        <itemPath>include/iterators/insert_if_unique.cpp</itemPath>
         <itemPath>include/iterators/insert_if_unique.h</itemPath>
+        <itemPath>include/iterators/is_last.cpp</itemPath>
         <itemPath>include/iterators/is_last.h</itemPath>
       </logicalFolder>
       <logicalFolder name="joke" displayName="joke" projectFiles="true">
+        <itemPath>include/joke/supersafe_number.cpp</itemPath>
         <itemPath>include/joke/supersafe_number.h</itemPath>
       </logicalFolder>
       <logicalFolder name="lang" displayName="lang" projectFiles="true">
         <itemPath>include/lang/binary_options.h</itemPath>
+        <itemPath>include/lang/c64_basic_for.cpp</itemPath>
         <itemPath>include/lang/c64_basic_for.h</itemPath>
         <itemPath>include/lang/cpucycle.h</itemPath>
+        <itemPath>include/lang/dbl.cpp</itemPath>
         <itemPath>include/lang/dbl.h</itemPath>
         <itemPath>include/lang/exceptions.h</itemPath>
+        <itemPath>include/lang/optional.cpp</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
         <itemPath>include/lang/stopwatch.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="laws" projectFiles="true">
+        <itemPath>include/laws/acceleration.cpp</itemPath>
         <itemPath>include/laws/acceleration.h</itemPath>
+        <itemPath>include/laws/constant_linear_acceleration.cpp</itemPath>
         <itemPath>include/laws/constant_linear_acceleration.h</itemPath>
+        <itemPath>include/laws/gravitation.cpp</itemPath>
         <itemPath>include/laws/gravitation.h</itemPath>
+        <itemPath>include/laws/screen_rectangles.cpp</itemPath>
         <itemPath>include/laws/screen_rectangles.h</itemPath>
+        <itemPath>include/laws/vector_operations.cpp</itemPath>
         <itemPath>include/laws/vector_operations.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="mocks" projectFiles="true">
+        <itemPath>include/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
       <logicalFolder name="nature" displayName="nature" projectFiles="true">
         <itemPath>include/nature/body.h</itemPath>
         <itemPath>include/nature/consts.h</itemPath>
         <itemPath>include/nature/factorial.h</itemPath>
+        <itemPath>include/nature/mass_centre.cpp</itemPath>
         <itemPath>include/nature/mass_centre.h</itemPath>
         <itemPath>include/nature/screen_rectangle.h</itemPath>
         <itemPath>include/nature/units.h</itemPath>
+        <itemPath>include/nature/units_strong_definitions.cpp</itemPath>
         <itemPath>include/nature/units_strong_definitions.h</itemPath>
         <itemPath>include/nature/units_strong_foundation.h</itemPath>
+        <itemPath>include/nature/universe.cpp</itemPath>
         <itemPath>include/nature/universe.h</itemPath>
         <itemPath>include/nature/universe_containers.h</itemPath>
+        <itemPath>include/nature/vector.cpp</itemPath>
         <itemPath>include/nature/vector.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="string" projectFiles="true">
+        <itemPath>include/string/extract_vocabulary.cpp</itemPath>
         <itemPath>include/string/extract_vocabulary.h</itemPath>
+        <itemPath>include/string/get_substring.cpp</itemPath>
         <itemPath>include/string/get_substring.h</itemPath>
+        <itemPath>include/string/is_just_whitespace.cpp</itemPath>
         <itemPath>include/string/is_just_whitespace.h</itemPath>
+        <itemPath>include/string/is_word_in_dictionary.cpp</itemPath>
         <itemPath>include/string/is_word_in_dictionary.h</itemPath>
+        <itemPath>include/string/remove_strings.cpp</itemPath>
         <itemPath>include/string/remove_strings.h</itemPath>
+        <itemPath>include/string/remove_substrings.cpp</itemPath>
         <itemPath>include/string/remove_substrings.h</itemPath>
+        <itemPath>include/string/sentence_assemblarator.cpp</itemPath>
         <itemPath>include/string/sentence_assemblarator.h</itemPath>
+        <itemPath>include/string/split_on_delimiter.cpp</itemPath>
         <itemPath>include/string/split_on_delimiter.h</itemPath>
-        <itemPath>include/string/split_on_puctuation.h</itemPath>
+        <itemPath>include/string/split_on_punctuation.cpp</itemPath>
+        <itemPath>include/string/split_on_punctuation.h</itemPath>
+        <itemPath>include/string/string_case.cpp</itemPath>
         <itemPath>include/string/string_case.h</itemPath>
+        <itemPath>include/string/string_replace.cpp</itemPath>
         <itemPath>include/string/string_replace.h</itemPath>
+        <itemPath>include/string/string_start_end.cpp</itemPath>
         <itemPath>include/string/string_start_end.h</itemPath>
+        <itemPath>include/string/trim_nonalpha.cpp</itemPath>
         <itemPath>include/string/trim_nonalpha.h</itemPath>
       </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
+        <itemPath>include/tools/add_to_tally.cpp</itemPath>
         <itemPath>include/tools/add_to_tally.h</itemPath>
+        <itemPath>include/tools/copy_first_n_over_rest.cpp</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
+        <itemPath>include/tools/count_bits.cpp</itemPath>
         <itemPath>include/tools/count_bits.h</itemPath>
         <itemPath>include/tools/datashelf_foundation.h</itemPath>
+        <itemPath>include/tools/equidistant_sequence.cpp</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
+        <itemPath>include/tools/fast_min.cpp</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
+        <itemPath>include/tools/fluent_datashelf.cpp</itemPath>
         <itemPath>include/tools/fluent_datashelf.h</itemPath>
+        <itemPath>include/tools/genetic.cpp</itemPath>
         <itemPath>include/tools/genetic.h</itemPath>
+        <itemPath>include/tools/index_coordinate_conversions.cpp</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
+        <itemPath>include/tools/next_lex_permutation.cpp</itemPath>
         <itemPath>include/tools/next_lex_permutation.h</itemPath>
+        <itemPath>include/tools/number_of_decimals.cpp</itemPath>
         <itemPath>include/tools/number_of_decimals.h</itemPath>
+        <itemPath>include/tools/parse_cli_arguments.cpp</itemPath>
         <itemPath>include/tools/parse_cli_arguments.h</itemPath>
+        <itemPath>include/tools/random.cpp</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
+        <itemPath>include/tools/some_long_operation.cpp</itemPath>
         <itemPath>include/tools/some_long_operation.h</itemPath>
+        <itemPath>include/tools/sort_map_by_value.cpp</itemPath>
         <itemPath>include/tools/sort_map_by_value.h</itemPath>
+        <itemPath>include/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
+        <itemPath>include/tools/wagner_fischer_distance.cpp</itemPath>
         <itemPath>include/tools/wagner_fischer_distance.h</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -123,106 +201,6 @@
       <itemPath>options.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
-      <logicalFolder name="f9" displayName="abstract" projectFiles="true">
-        <itemPath>tests/abstract/genetic_base.cpp</itemPath>
-        <itemPath>tests/abstract/genetic_container.cpp</itemPath>
-        <itemPath>tests/abstract/genetic_object.cpp</itemPath>
-        <itemPath>tests/abstract/markov_chain.cpp</itemPath>
-        <itemPath>tests/abstract/probabilator.cpp</itemPath>
-        <itemPath>tests/abstract/quadtree.cpp</itemPath>
-        <itemPath>tests/abstract/quadtree_it_bodies.cpp</itemPath>
-        <itemPath>tests/abstract/quadtree_it_masscentres.cpp</itemPath>
-        <itemPath>tests/abstract/symbol_sequences_in_pattern.cpp</itemPath>
-        <itemPath>tests/abstract/unique.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f8" displayName="apps" projectFiles="true">
-        <itemPath>tests/apps/aggregated_file_monitor.cpp</itemPath>
-        <itemPath>tests/apps/killer_sudoku.cpp</itemPath>
-        <itemPath>tests/apps/sentence_o_matic.cpp</itemPath>
-        <itemPath>tests/apps/sudoku.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f10" displayName="extension" projectFiles="true">
-        <itemPath>tests/extension/libxmlpp.cpp</itemPath>
-        <itemPath>tests/extension/libxmlpp_datashelf.cpp</itemPath>
-        <itemPath>tests/extension/sdl_image_texture.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f7" displayName="filesystem" projectFiles="true">
-        <itemPath>tests/filesystem/extract_filename.cpp</itemPath>
-        <itemPath>tests/filesystem/filenamearise.cpp</itemPath>
-        <itemPath>tests/filesystem/find_eof_position.cpp</itemPath>
-        <itemPath>tests/filesystem/is_meta_directory.cpp</itemPath>
-        <itemPath>tests/filesystem/list_files.cpp</itemPath>
-        <itemPath>tests/filesystem/read_write_file.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f6" displayName="iterators" projectFiles="true">
-        <itemPath>tests/iterators/average.cpp</itemPath>
-        <itemPath>tests/iterators/circular_next.cpp</itemPath>
-        <itemPath>tests/iterators/conditional_find.cpp</itemPath>
-        <itemPath>tests/iterators/copy.cpp</itemPath>
-        <itemPath>tests/iterators/distance_comparison.cpp</itemPath>
-        <itemPath>tests/iterators/fast_forward.cpp</itemPath>
-        <itemPath>tests/iterators/get_random.cpp</itemPath>
-        <itemPath>tests/iterators/index_conversion.cpp</itemPath>
-        <itemPath>tests/iterators/insert_if_unique.cpp</itemPath>
-        <itemPath>tests/iterators/is_last.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f11" displayName="joke" projectFiles="true">
-        <itemPath>tests/joke/supersafe_number.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f5" displayName="lang" projectFiles="true">
-        <itemPath>tests/lang/c64_basic_for.cpp</itemPath>
-        <itemPath>tests/lang/dbl.cpp</itemPath>
-        <itemPath>tests/lang/optional.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f4" displayName="laws" projectFiles="true">
-        <itemPath>tests/laws/acceleration.cpp</itemPath>
-        <itemPath>tests/laws/constant_linear_acceleration.cpp</itemPath>
-        <itemPath>tests/laws/gravitation.cpp</itemPath>
-        <itemPath>tests/laws/screen_rectangles.cpp</itemPath>
-        <itemPath>tests/laws/vector_operations.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="mocks" displayName="mocks" projectFiles="true">
-        <itemPath>tests/mocks/mock_sdl.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f3" displayName="nature" projectFiles="true">
-        <itemPath>tests/nature/mass_centre.cpp</itemPath>
-        <itemPath>tests/nature/units_strong_definitions.cpp</itemPath>
-        <itemPath>tests/nature/universe.cpp</itemPath>
-        <itemPath>tests/nature/vector.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f2" displayName="string" projectFiles="true">
-        <itemPath>tests/string/extract_vocabulary.cpp</itemPath>
-        <itemPath>tests/string/get_substring.cpp</itemPath>
-        <itemPath>tests/string/is_just_whitespace.cpp</itemPath>
-        <itemPath>tests/string/is_word_in_dictionary.cpp</itemPath>
-        <itemPath>tests/string/remove_strings.cpp</itemPath>
-        <itemPath>tests/string/remove_substrings.cpp</itemPath>
-        <itemPath>tests/string/sentence_assemblarator.cpp</itemPath>
-        <itemPath>tests/string/split_on_delimiter.cpp</itemPath>
-        <itemPath>tests/string/split_on_punctuation.cpp</itemPath>
-        <itemPath>tests/string/string_case.cpp</itemPath>
-        <itemPath>tests/string/string_replace.cpp</itemPath>
-        <itemPath>tests/string/string_start_end.cpp</itemPath>
-        <itemPath>tests/string/trim_nonalpha.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f1" displayName="tools" projectFiles="true">
-        <itemPath>tests/tools/add_to_tally.cpp</itemPath>
-        <itemPath>tests/tools/copy_first_n_over_rest.cpp</itemPath>
-        <itemPath>tests/tools/count_bits.cpp</itemPath>
-        <itemPath>tests/tools/equidistant_sequence.cpp</itemPath>
-        <itemPath>tests/tools/fast_min.cpp</itemPath>
-        <itemPath>tests/tools/fluent_datashelf.cpp</itemPath>
-        <itemPath>tests/tools/genetic.cpp</itemPath>
-        <itemPath>tests/tools/index_coordinate_conversions.cpp</itemPath>
-        <itemPath>tests/tools/next_lex_permutation.cpp</itemPath>
-        <itemPath>tests/tools/number_of_decimals.cpp</itemPath>
-        <itemPath>tests/tools/parse_cli_arguments.cpp</itemPath>
-        <itemPath>tests/tools/random.cpp</itemPath>
-        <itemPath>tests/tools/some_long_operation.cpp</itemPath>
-        <itemPath>tests/tools/sort_map_by_value.cpp</itemPath>
-        <itemPath>tests/tools/twoway_streambuf.cpp</itemPath>
-        <itemPath>tests/tools/wagner_fischer_distance.cpp</itemPath>
-      </logicalFolder>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -245,6 +223,12 @@
     <Elem>include/abstract</Elem>
     <Elem>include/tools</Elem>
     <Elem>include/joke</Elem>
+    <Elem>include/apps</Elem>
+    <Elem>include/extension</Elem>
+    <Elem>include/filesystem</Elem>
+    <Elem>include/iterators</Elem>
+    <Elem>include/laws</Elem>
+    <Elem>include/string</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -288,24 +272,52 @@
       </compileType>
       <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/genetic_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/genetic_container.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/abstract/genetic_container.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/abstract/genetic_object.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/abstract/genetic_object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_bodies.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/abstract/quadtree_it_bodies.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_masscentres.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/abstract/quadtree_it_masscentres.h"
@@ -315,29 +327,59 @@
       </item>
       <item path="include/abstract/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/symbol_sequences_in_pattern.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/abstract/symbol_sequences_in_pattern.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/aggregated_file_monitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/apps/aggregated_file_monitor.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/apps/killer_sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/apps/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/extension/libxmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp_datashelf.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/extension/libxmlpp_datashelf.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl_image_texture.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/extension/sdl_image_texture.h"
@@ -345,16 +387,36 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/filesystem/extract_filename.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/filesystem/extract_filename.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/filesystem/filenamearise.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/filesystem/filenamearise.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/filesystem/find_eof_position.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/filesystem/find_eof_position.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/filesystem/is_meta_directory.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/filesystem/is_meta_directory.h"
@@ -362,36 +424,76 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/filesystem/list_files.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/filesystem/list_files.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/filesystem/read_write_file.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/filesystem/read_write_file.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/average.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/average.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/circular_next.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/conditional_find.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/conditional_find.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/distance_comparison.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/distance_comparison.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/get_random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/index_conversion.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/index_conversion.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/insert_if_unique.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/iterators/insert_if_unique.h"
@@ -399,36 +501,61 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/constant_linear_acceleration.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/laws/constant_linear_acceleration.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/laws/gravitation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/laws/gravitation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/screen_rectangles.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/vector_operations.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/laws/vector_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -436,11 +563,18 @@
       </item>
       <item path="include/nature/factorial.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/units_strong_definitions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/nature/units_strong_definitions.h"
             ex="false"
@@ -452,6 +586,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/nature/universe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/nature/universe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/universe_containers.h"
@@ -459,18 +595,37 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/nature/vector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/extract_vocabulary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/string/extract_vocabulary.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/is_just_whitespace.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/string/is_just_whitespace.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/is_word_in_dictionary.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/string/is_word_in_dictionary.h"
@@ -478,13 +633,30 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/string/remove_strings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/remove_substrings.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/sentence_assemblarator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/string/sentence_assemblarator.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_on_delimiter.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/string/split_on_delimiter.h"
@@ -492,25 +664,50 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/split_on_puctuation.h"
+      <item path="include/string/split_on_punctuation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_on_punctuation.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/string/string_case.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/string/string_case.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/string_replace.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/string_start_end.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/trim_nonalpha.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/copy_first_n_over_rest.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -519,16 +716,32 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/equidistant_sequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/fluent_datashelf.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/index_coordinate_conversions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/index_coordinate_conversions.h"
             ex="false"
@@ -537,17 +750,34 @@
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/next_lex_permutation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/next_lex_permutation.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/number_of_decimals.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/number_of_decimals.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/parse_cli_arguments.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/parse_cli_arguments.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -556,14 +786,31 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/some_long_operation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/some_long_operation.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/sort_map_by_value.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/wagner_fischer_distance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/wagner_fischer_distance.h"
             ex="false"
@@ -574,249 +821,7 @@
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/genetic_container.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/genetic_object.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/quadtree_it_bodies.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/quadtree_it_masscentres.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/symbol_sequences_in_pattern.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/apps/aggregated_file_monitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/extension/libxmlpp_datashelf.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/extension/sdl_image_texture.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/extract_filename.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/filenamearise.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/filesystem/find_eof_position.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/is_meta_directory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/list_files.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/filesystem/read_write_file.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/average.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/circular_next.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/conditional_find.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/distance_comparison.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/index_conversion.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/insert_if_unique.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/lang/dbl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/lang/optional.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/constant_linear_acceleration.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/laws/gravitation.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/screen_rectangles.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/vector_operations.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/nature/units_strong_definitions.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/nature/universe.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/nature/vector.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/extract_vocabulary.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/is_just_whitespace.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/is_word_in_dictionary.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/remove_substrings.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/sentence_assemblarator.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/split_on_delimiter.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/split_on_punctuation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/string_case.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/string_start_end.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_universe_performance.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/copy_first_n_over_rest.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/equidistant_sequence.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/index_coordinate_conversions.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/next_lex_permutation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/number_of_decimals.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/parse_cli_arguments.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/random.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/some_long_operation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/sort_map_by_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/wagner_fischer_distance.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -869,24 +874,52 @@
       </compileType>
       <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/genetic_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/genetic_container.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/abstract/genetic_container.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/abstract/genetic_object.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/abstract/genetic_object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/probabilator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_bodies.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/abstract/quadtree_it_bodies.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/abstract/quadtree_it_masscentres.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/abstract/quadtree_it_masscentres.h"
@@ -896,29 +929,59 @@
       </item>
       <item path="include/abstract/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/abstract/symbol_sequences_in_pattern.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/abstract/symbol_sequences_in_pattern.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/aggregated_file_monitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/apps/aggregated_file_monitor.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/apps/killer_sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/apps/sudoku.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/extension/libxmlpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp_datashelf.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/extension/libxmlpp_datashelf.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl_image_texture.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/extension/sdl_image_texture.h"
@@ -926,16 +989,36 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/filesystem/extract_filename.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/filesystem/extract_filename.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/filesystem/filenamearise.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/filesystem/filenamearise.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/filesystem/find_eof_position.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/filesystem/find_eof_position.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/filesystem/is_meta_directory.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/filesystem/is_meta_directory.h"
@@ -943,36 +1026,76 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/filesystem/list_files.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/filesystem/list_files.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/filesystem/read_write_file.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/filesystem/read_write_file.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/average.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/average.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/circular_next.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/conditional_find.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/conditional_find.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/distance_comparison.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/distance_comparison.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/get_random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/index_conversion.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/index_conversion.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/insert_if_unique.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/iterators/insert_if_unique.h"
@@ -980,36 +1103,61 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/binary_options.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/dbl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/laws/acceleration.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/constant_linear_acceleration.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/laws/constant_linear_acceleration.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/laws/gravitation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/laws/gravitation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/screen_rectangles.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/vector_operations.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/laws/vector_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/body.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1017,11 +1165,18 @@
       </item>
       <item path="include/nature/factorial.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/units.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/units_strong_definitions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/nature/units_strong_definitions.h"
             ex="false"
@@ -1033,6 +1188,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/nature/universe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/nature/universe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/universe_containers.h"
@@ -1040,18 +1197,37 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/nature/vector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/extract_vocabulary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/string/extract_vocabulary.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/is_just_whitespace.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/string/is_just_whitespace.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/is_word_in_dictionary.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/string/is_word_in_dictionary.h"
@@ -1059,13 +1235,30 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/string/remove_strings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/remove_substrings.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/sentence_assemblarator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/string/sentence_assemblarator.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_on_delimiter.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="include/string/split_on_delimiter.h"
@@ -1073,25 +1266,50 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/split_on_puctuation.h"
+      <item path="include/string/split_on_punctuation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/split_on_punctuation.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/string/string_case.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/string/string_case.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/string_replace.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/string_start_end.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/trim_nonalpha.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/copy_first_n_over_rest.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1100,16 +1318,32 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/equidistant_sequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/equidistant_sequence.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/fluent_datashelf.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/index_coordinate_conversions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/index_coordinate_conversions.h"
             ex="false"
@@ -1118,17 +1352,34 @@
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/next_lex_permutation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/next_lex_permutation.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/number_of_decimals.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/number_of_decimals.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/parse_cli_arguments.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/parse_cli_arguments.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1137,14 +1388,31 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/some_long_operation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/some_long_operation.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/sort_map_by_value.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/wagner_fischer_distance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/wagner_fischer_distance.h"
             ex="false"
@@ -1155,249 +1423,7 @@
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/genetic_container.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/genetic_object.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/abstract/quadtree_it_bodies.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/quadtree_it_masscentres.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/symbol_sequences_in_pattern.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/apps/aggregated_file_monitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/extension/libxmlpp_datashelf.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/extension/sdl_image_texture.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/extract_filename.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/filenamearise.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/filesystem/find_eof_position.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/is_meta_directory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/filesystem/list_files.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/filesystem/read_write_file.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/average.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/circular_next.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/conditional_find.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/distance_comparison.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/iterators/index_conversion.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/insert_if_unique.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/lang/dbl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/lang/optional.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/constant_linear_acceleration.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/laws/gravitation.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/screen_rectangles.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/laws/vector_operations.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/nature/units_strong_definitions.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/nature/universe.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/nature/vector.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/extract_vocabulary.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/get_substring.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/is_just_whitespace.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/is_word_in_dictionary.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/remove_strings.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/remove_substrings.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/sentence_assemblarator.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/split_on_delimiter.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/split_on_punctuation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/string/string_case.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/string_start_end.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/test_universe_performance.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/copy_first_n_over_rest.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/count_bits.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/equidistant_sequence.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/genetic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/index_coordinate_conversions.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/next_lex_permutation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/number_of_decimals.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/parse_cli_arguments.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/random.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/some_long_operation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="tests/tools/sort_map_by_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/tools/wagner_fischer_distance.cpp"
             ex="false"
             tool="1"
             flavor2="0">

@@ -66,27 +66,3 @@ public:
 } // namespace
 
 #endif	/* MZLIB_UNIQUE_H */
-
-#ifdef MZLIB_UNIQUE_TESTS_H
-#undef MZLIB_UNIQUE_TESTS_H
-
-TEST(unique, demo) 
-{
-   mzlib::unique a;
-   mzlib::unique b;
-   ASSERT_NE(a.id(), b.id()); 
-}
-
-TEST(unique, unique_on_copy) 
-{
-   mzlib::unique a;
-   mzlib::unique b;
-   mzlib::unique c(a);
-   mzlib::unique d = a;
-   ASSERT_NE(a.id(), b.id());
-   ASSERT_EQ(a.id(), c.id());
-   ASSERT_EQ(a.id(), d.id());
-}
-
-#endif // MZLIB_UNIQUE_TESTS_H
-

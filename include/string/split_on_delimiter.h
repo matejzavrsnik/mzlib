@@ -29,9 +29,3 @@ std::vector<std::string> split_on_delimiter(std::string str, char delimiter)
 } // namespace
 
 #endif // MZLIB_STRING_SPLIT_H
-
-#ifdef MZLIB_STRING_SPLIT_TESTS_H
-#undef MZLIB_STRING_SPLIT_TESTS_H
-
-
-#endif // MZLIB_STRING_SPLIT_TESTS_H

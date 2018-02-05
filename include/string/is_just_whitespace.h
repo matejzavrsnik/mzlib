@@ -24,18 +24,3 @@ inline bool is_just_whitespaces(const std::string& s)
 } // namespace
 
 #endif /* MZLIB_IS_JUST_WHITESPACE_H */
-
-#ifdef MZLIB_IS_JUST_WHITESPACE_TESTS_H
-#undef MZLIB_IS_JUST_WHITESPACE_TESTS_H
-
-TEST(is_just_whitespaces, demo_case_true)
-{
-   ASSERT_TRUE(mzlib::is_just_whitespaces("\t\n \r\v\f"));
-}
-
-TEST(is_just_whitespaces, demo_case_false)
-{
-   ASSERT_FALSE(mzlib::is_just_whitespaces("\t\nnot just whitespaces\r\v\f"));
-}
-
-#endif // MZLIB_IS_JUST_WHITESPACE_TESTS_H

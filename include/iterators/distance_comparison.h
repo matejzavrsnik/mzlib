@@ -56,39 +56,3 @@ bool is_distance_equal(Iterator it1, Iterator it2, size_t distance)
 } // namespace
 
 #endif // MZLIB_ITERATOR_DISTANCE_COMPARISON_H
-
-#ifdef MZLIB_ITERATOR_DISTANCE_COMPARISON_TESTS_H
-#undef MZLIB_ITERATOR_DISTANCE_COMPARISON_TESTS_H
-
-TEST(is_distance_larger, basic)
-{
-   std::vector<int> v = {1,2,3,4,5};
-   
-   ASSERT_FALSE(mzlib::is_distance_larger(v.begin(), v.begin(), 2));
-   ASSERT_FALSE(mzlib::is_distance_larger(v.begin(), v.begin()+1, 2));
-   ASSERT_FALSE(mzlib::is_distance_larger(v.begin(), v.begin()+2, 2));
-   ASSERT_TRUE (mzlib::is_distance_larger(v.begin(), v.begin()+3, 2));
-}
-
-TEST(is_distance_smaller, basic)
-{
-   std::vector<int> v = {1,2,3,4,5};
-   
-   ASSERT_TRUE (mzlib::is_distance_smaller(v.begin(), v.begin(), 2));
-   ASSERT_TRUE (mzlib::is_distance_smaller(v.begin(), v.begin()+1, 2));
-   ASSERT_FALSE(mzlib::is_distance_smaller(v.begin(), v.begin()+2, 2));
-   ASSERT_FALSE(mzlib::is_distance_smaller(v.begin(), v.begin()+3, 2));
-}
-
-TEST(is_distance_equal, basic)
-{
-   std::vector<int> v = {1,2,3,4,5};
-   
-   ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin(), 2));
-   ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin()+1, 2));
-   ASSERT_TRUE (mzlib::is_distance_equal(v.begin(), v.begin()+2, 2));
-   ASSERT_FALSE(mzlib::is_distance_equal(v.begin(), v.begin()+3, 2));
-}
-
-#endif // MZLIB_ITERATOR_DISTANCE_COMPARISON_TESTS_H
-

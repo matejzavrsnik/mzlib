@@ -24,11 +24,3 @@ inline void string_replace (std::string& str, const std::string& replace_what, c
 } // namespace
 
 #endif // HEADER_H
-
-#ifdef MZLIB_STRING_REPLACE_TESTS_H
-#undef MZLIB_STRING_REPLACE_TESTS_H
-
-// No tests yet
-
-#endif // MZLIB_STRING_REPLACE_TESTS_H
-

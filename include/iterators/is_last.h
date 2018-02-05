@@ -19,11 +19,3 @@ bool is_last(const Iterator& i, const Container& c)
 } // namespace
 
 #endif // MZLIB_IS_LAST_H
-
-#ifdef MZLIB_IS_LAST_TESTS_H
-#undef MZLIB_IS_LAST_TESTS_H
-
-// No tests yet
-
-#endif // MZLIB_IS_LAST_TESTS_H
-

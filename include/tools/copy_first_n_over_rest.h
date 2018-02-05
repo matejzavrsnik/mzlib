@@ -21,19 +21,3 @@ template<class T> void copy_first_n_over_rest (T& v, size_t n)
 } // namespace
 
 #endif // MZLIB_COPY_FIRST_N_OVER_REST_H
-
-#ifdef MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
-#undef MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
-
-TEST(copy_first_n_over_rest, demo) 
-{
-   std::vector<int> v       {1,2,3, 4,5,6, 7,8,9, 10};
-   std::vector<int> expected{1,2,3, 1,2,3, 1,2,3, 1};
-   
-   mzlib::copy_first_n_over_rest(v, 3);
-   
-   ASSERT_EQ(expected, v);
-}
-
-#endif // MZLIB_COPY_FIRST_N_OVER_REST_TESTS_H
-
