@@ -19,6 +19,7 @@ void some_long_operation(std::chrono::milliseconds duration)
    volatile long double j = 3.8724365871627836;
    while (std::chrono::high_resolution_clock::now() < end_time)
       j /= 0.38064852124534;
+   j=j; // there, it is used now
 }
 
 } // namespace

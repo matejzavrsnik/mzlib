@@ -62,10 +62,9 @@ remove_strings_which_dont (const std::vector<std::string>& all_strings, paramete
    
    std::vector<std::string> filtered;
    for (const auto& full_string : all_strings) {
-      bool goes_on_the_list = false;
       for (const auto& edge_string : edge_strings) 
       {
-         goes_on_the_list = deciding_function(full_string, edge_string);
+         bool goes_on_the_list = deciding_function(full_string, edge_string);
          if(goes_on_the_list) 
          {
             filtered.push_back(full_string);

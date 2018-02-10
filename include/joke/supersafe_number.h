@@ -36,6 +36,7 @@ private:
 
 public:
 
+   // intentionally not explicit
    supersafe_number (const T number) :
       m_keys{
          get_random_double(),

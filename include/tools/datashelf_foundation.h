@@ -119,7 +119,12 @@ public:
    {
    }
    
-   std::vector<std::shared_ptr<node>> nodes ()
+   // In a way this const is a bit misleading. It is true that the
+   // caller can't change anything in this object, ie this node, but
+   // through the returned values they can change child nodes. On some
+   // level a node is defined by child nodes too, so in turn this did
+   // change it.
+   std::vector<std::shared_ptr<node>> nodes () const
    {
       std::vector<std::shared_ptr<node>> all(
          m_nodes.begin(), 
@@ -127,7 +132,7 @@ public:
       return all;
    }
    
-   std::vector<std::shared_ptr<attribute>> attributes ()
+   std::vector<std::shared_ptr<attribute>> attributes () const
    {
       std::vector<std::shared_ptr<attribute>> all(
          m_attributes.begin(), 
@@ -212,7 +217,6 @@ inline std::shared_ptr<node> first(
    for(auto n : all_nodes) {
       if(n->name() == name) {
          return n;
-         break;
       }
    }
    return node::empty();

@@ -31,7 +31,7 @@ private:
 
 public:
    
-   basic_twoway_streambuf (std::streamsize buffer_size) :
+   explicit basic_twoway_streambuf (std::streamsize buffer_size) :
       m_buffer_size(buffer_size)
    {
       m_buffer = m_allocator.allocate(m_buffer_size);

@@ -71,7 +71,7 @@ public:
       m_genome_pool.assign(generation_size, best);
    }
    
-   size_t get_generation_size ()
+   size_t get_generation_size () const
    {
       return m_genome_pool.size();
    }

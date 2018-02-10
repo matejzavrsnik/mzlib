@@ -36,12 +36,12 @@ TEST(markov_chain, basic_test)
    
    mzlib::markov_chain_traverser<int> markov_chain(mc);
    
-   int count = 0, repetitions = 10000, next_number;
+   int count = 0, repetitions = 10000;
    std::array<int,3> stats = {0,0,0};
    std::vector<int> sequence;
    do {
       ++count;
-      next_number = markov_chain.get_next();
+      int next_number = markov_chain.get_next();
       ++stats[next_number-1];
       sequence.push_back(next_number);
    }

@@ -23,7 +23,7 @@ private:
    typedef std::pair<T /*event*/, double /*probability level*/> event_t;
    std::vector<event_t> m_events;
         
-   void normalise () 
+   void normalise ()
    {
       double sum = 0;
       for(auto const& e : m_events) sum += e.second;

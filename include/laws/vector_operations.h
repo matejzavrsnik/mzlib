@@ -27,7 +27,7 @@ constexpr VectorT move_by (const VectorT& from, const VectorT& by)
    VectorT result(from);
    for (size_t i = 0; i<rank(from); ++i) 
       result[i] += by[i];
-   return std::move(result);
+   return result;
 }
 
 template<class VectorT> 
@@ -55,13 +55,13 @@ constexpr VectorT subtract (const VectorT& a, const VectorT& b)
    VectorT result(a);
    for (size_t i = 0; i<rank(a); ++i)
       result[i] -= b[i];
-   return std::move(result); 
+   return result; 
 }
 
 template<class VectorT>
 constexpr VectorT direction(const VectorT& from, const VectorT& to)
 {
-   return std::move( subtract(to, from) );
+   return subtract(to, from);
 }
 
 template<class VectorT> 
@@ -81,7 +81,7 @@ constexpr VectorT normalise (const VectorT& v)
    VectorT result(v);
    for (size_t i=0; i<rank(v); ++i)
       result[i] /= l;
-   return std::move(result);
+   return result;
 }
 
 template<class VectorT> 
@@ -115,7 +115,7 @@ constexpr VectorT add (const VectorT& a, const VectorT& b)
    VectorT result(a);
    for (size_t i = 0; i<rank(a); ++i)
       result[i] += b[i];
-   return std::move(result); 
+   return result; 
 }
 
 template<class VectorT> 
@@ -124,7 +124,7 @@ constexpr VectorT multiply_by_vector (const VectorT& a, const VectorT& b)
    VectorT result(a);
    for (size_t i = 0; i<rank(a); ++i)
       result[i] *= b[i];
-   return std::move(result); 
+   return result; 
 }
 
 template<class VectorT, class ScalarT> 
@@ -133,7 +133,7 @@ constexpr VectorT multiply_by_scalar (const VectorT& a, const ScalarT& b)
    VectorT result(a);
    for (size_t i = 0; i<rank(a); ++i)
       result[i] *= b;
-   return std::move(result); 
+   return result; 
 }
 
 template<class VectorT> 
@@ -142,7 +142,7 @@ constexpr VectorT divide_by_vector (const VectorT& a, const VectorT& b)
    VectorT result(a);
    for (size_t i = 0; i<rank(a); ++i)
       result[i] /= b[i];
-   return std::move(result); 
+   return result; 
 }
 
 template<class VectorT, class ScalarT> 
@@ -151,7 +151,7 @@ constexpr VectorT divide_by_scalar (const VectorT& a, const ScalarT& b)
    VectorT result(a);
    for (size_t i = 0; i<rank(a); ++i)
       result[i] /= b;
-   return std::move(result); 
+   return result; 
 }
 
 template<class VectorT> 
@@ -160,7 +160,7 @@ constexpr VectorT flip (const VectorT& v)
    VectorT result(v);
    for (size_t i = 0; i<rank(v); ++i)
       result[i] *= -1;
-   return std::move(result); 
+   return result; 
 }
 
 }}} // namespace mzlib::laws::vec_op

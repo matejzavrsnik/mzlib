@@ -26,15 +26,16 @@ private:
    
 public:
    
-   optional ()
+   optional () :
+      m_set(option::set::no)
    {
-      m_set = option::set::no;
    }
    
-   optional (const T& value)
+   // intentionally not explicit
+   optional (const T& value) :
+      m_set(option::set::yes),
+      m_value(value)
    {
-      m_value = value;
-      m_set = option::set::yes; 
    }
    
    bool is_set() const

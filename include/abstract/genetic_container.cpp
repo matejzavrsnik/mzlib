@@ -38,6 +38,6 @@ TEST(genetic_container, demo)
    // would still make a flaky test if I assert on it. Uncomment the code below
    // and put a breakpoint if you want to see the result
    
-   std::vector<int> numbers_after = genetic.get_best_genome();
+   //std::vector<int> numbers_after = genetic.get_best_genome();
    ASSERT_TRUE(true);
 }

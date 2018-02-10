@@ -12,7 +12,7 @@
 
 namespace mzlib {
 
-inline std::ifstream::pos_type find_eof_position(const std::string filename)
+inline std::ifstream::pos_type find_eof_position(const std::string& filename)
 {
    std::ifstream filestream(filename);
    filestream.seekg (0, filestream.end);

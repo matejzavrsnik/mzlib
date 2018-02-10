@@ -157,17 +157,7 @@ private:
       // don't copy from.m_texture pointer
    }
    
-   // This function is only needed because I used pointer wrapper that takes as
-   // a template parameter a function which destroys pointer. As I didn't know
-   // how to write a template parameter type so that a function can return any
-   // data type or void, I needed to change the signature of this call so that
-   // it is compatible with void(*func)(type*). When I learn more about templates
-   // I will do this last step.
-   static void free_surface(SDL_Surface* surface)
-   {
-      SDL_FreeSurface (surface);
-   }
-   
+  
    std::string m_image_path;
    uint m_image_width = 0;
    uint m_image_height = 0;

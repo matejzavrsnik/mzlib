@@ -41,7 +41,7 @@ inline void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xml
    }
 }
 
-inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::shared_ptr<ds::node> my_node)
+inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::node* const my_node)
 {
    //todo: this part is basically conversion. make function for that
    if (!my_node->has_empty_name()) {
@@ -64,7 +64,7 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const std::
    {
       if (!my_child->is_empty()) {
          xmlpp::Element* xmlpp_child = xmlpp_element->add_child("");
-         fill_xmlpp_node_from_mine(xmlpp_child, my_child);
+         fill_xmlpp_node_from_mine(xmlpp_child, my_child.get());
       }
    }
 
@@ -96,7 +96,7 @@ inline std::string save_datashelf_to_xml_string(std::shared_ptr<ds::node> shelf)
 {
    xmlpp::DomParser parser;
    auto root = parser.get_document()->create_root_node("");
-   fill_xmlpp_node_from_mine(root, shelf);
+   fill_xmlpp_node_from_mine(root, shelf.get());
    const std::string doc = parser.get_document()->write_to_string_formatted();
    return doc;
 }
@@ -105,7 +105,7 @@ inline void save_datashelf_to_xml_file(std::shared_ptr<ds::node> shelf, std::str
 {
    xmlpp::DomParser parser;
    auto root = parser.get_document()->create_root_node("");
-   fill_xmlpp_node_from_mine(root, shelf);
+   fill_xmlpp_node_from_mine(root, shelf.get());
    parser.get_document()->write_to_file_formatted(path_to_xml_file);
 }
 

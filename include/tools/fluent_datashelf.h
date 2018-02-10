@@ -62,7 +62,7 @@ private:
    
 public:
    
-   fluent(std::shared_ptr<node> shelf)
+   explicit fluent(std::shared_ptr<node> shelf)
    {
       m_using_nodes.push(shelf);
    }
@@ -180,9 +180,10 @@ private:
    std::shared_ptr<node> m_filtered_one;
    
 public:
-   fluent_state_filter_one(std::shared_ptr<node> origin)
+   
+   explicit fluent_state_filter_one(std::shared_ptr<node> origin) :
+      m_filtered_one(origin)
    {
-      m_filtered_one = origin;
    }
    
    std::shared_ptr<node> get()

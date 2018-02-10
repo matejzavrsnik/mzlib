@@ -25,7 +25,7 @@ public:
    using cell_coordinates = std::array<uint, 2>;
    const short has_no_value = 0;
     
-   sudoku(const std::initializer_list<short>& puzzle)
+   explicit sudoku(const std::initializer_list<short>& puzzle)
    {
       set_puzzle(puzzle);
    }
@@ -33,7 +33,7 @@ public:
    sudoku() = default;
    sudoku(const sudoku& orig) = default;
    sudoku& operator=(const sudoku& orig) = default;
-   ~sudoku() = default;
+   virtual ~sudoku() = default;
     
    void set_puzzle(const std::initializer_list<short>& puzzle)
    {
@@ -67,13 +67,13 @@ private:
     
    void solve(puzzle::iterator curr)
    {
-      short number = 1;
       if(curr == m_puzzle.end())
       {
          m_solved = true;
       }
       else
       {
+         short number = 1;
          while(number <= 9 && !m_solved)
          {
             *curr = number;
@@ -91,7 +91,7 @@ private:
       }
    }
    
-   void simple_out ()
+   void simple_out () const
    {
       for(uint i=0; i<80; ++i) {
          if(m_puzzle[i] == 0) break;

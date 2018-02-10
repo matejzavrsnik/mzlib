@@ -41,7 +41,7 @@ public:
    {
    }
    
-   relentless_file_reader(const std::string& filename) :
+   explicit relentless_file_reader(const std::string& filename) :
       relentless_file_reader(filename, nullptr)
    {
    }
@@ -51,7 +51,7 @@ public:
       m_callback = callback;
    }
    
-   void anything_new_what_about_now() 
+   void anything_new_what_about_now()
    {
       std::ifstream::pos_type file_eof_position = find_eof_position(m_filename);
       if (file_eof_position > m_last_read_position) {
