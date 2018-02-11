@@ -58,7 +58,7 @@ TEST_F(fixture_aggregated_file_monitor, basic_test)
 
       was_called = false;
       reader.set_callback( 
-         [&was_called] (const std::string&, const std::string&) {
+         [&was_called] (const std::string_view, const std::string_view) {
             was_called = true;
          });
       reader.anything_new_what_about_now();
@@ -67,7 +67,7 @@ TEST_F(fixture_aggregated_file_monitor, basic_test)
       std::string additional_content = "Fear is the mind-killer.";
       mzlib::append_file (m_test_file1, additional_content);
       reader.set_callback( 
-         [&content, &file] (const std::string& c, const std::string& f) {
+         [&content, &file] (const std::string_view c, const std::string_view f) {
             content = c;
             file = f;
          });
@@ -77,7 +77,7 @@ TEST_F(fixture_aggregated_file_monitor, basic_test)
 
       was_called = false;   
       reader.set_callback( 
-         [&was_called] (const std::string&, const std::string&) {
+         [&was_called] (const std::string_view, const std::string_view) {
             was_called = true;
          });
       reader.anything_new_what_about_now();
@@ -91,10 +91,13 @@ TEST_F(fixture_aggregated_file_monitor, basic_test)
 TEST_F(fixture_aggregated_file_monitor, aggregated_file_monitor_basic_test)
 {
    if (m_should_test_filesystem) {
-      std::vector<std::string> files;
+      std::vector<std::string_view> files;
       files.push_back(m_test_file1);
       files.push_back(m_test_file2);
 
+      //todo: replace this thing with google mocks. It was nice
+      // quick win at the time, but it's getting a bit embarrassing
+      // now.
       struct treturns {
          std::string file;
          std::string content;
@@ -106,7 +109,7 @@ TEST_F(fixture_aggregated_file_monitor, aggregated_file_monitor_basic_test)
 
       was_called = false;
       monitor.set_callback( 
-         [&was_called] (const std::string&, const std::string&) {
+         [&was_called] (const std::string_view, const std::string_view) {
             was_called = true;
          });
       monitor.inspect_all();
@@ -117,8 +120,8 @@ TEST_F(fixture_aggregated_file_monitor, aggregated_file_monitor_basic_test)
       additional_content = "I will face my fear.";
       mzlib::append_file (m_test_file2, additional_content);
       monitor.set_callback( 
-         [&returns] (const std::string& c, const std::string& f) {
-            returns.push_back(treturns{f,c});
+         [&returns] (const std::string_view c, const std::string_view f) {
+            returns.push_back(treturns{f.data(),c.data()});
          });
       monitor.inspect_all();
       ASSERT_EQ(2, returns.size());
@@ -129,7 +132,7 @@ TEST_F(fixture_aggregated_file_monitor, aggregated_file_monitor_basic_test)
 
       was_called = false;   
       monitor.set_callback( 
-         [&was_called] (const std::string&, const std::string&) {
+         [&was_called] (const std::string_view, const std::string_view) {
             was_called = true;
          });
       monitor.inspect_all();

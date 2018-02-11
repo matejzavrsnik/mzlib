@@ -24,24 +24,24 @@ class relentless_file_reader
 public:
    
    // First argument is new content, second is the filename
-   using type_callback = std::function<void(const std::string&, const std::string&)>;
+   using type_callback = std::function<void(const std::string_view, const std::string_view)>;
    
 private:
    
-   const std::string m_filename;
+   const std::string_view m_filename;
    std::streampos m_last_read_position;
    type_callback m_callback;
    
 public:
 
-   relentless_file_reader(const std::string& filename, type_callback callback) :
+   relentless_file_reader(const std::string_view filename, type_callback callback) :
       m_filename(filename),
       m_last_read_position(find_eof_position(filename)),
       m_callback(callback)
    {
    }
    
-   explicit relentless_file_reader(const std::string& filename) :
+   explicit relentless_file_reader(const std::string_view filename) :
       relentless_file_reader(filename, nullptr)
    {
    }

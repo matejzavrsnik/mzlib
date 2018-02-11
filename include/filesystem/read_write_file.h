@@ -15,21 +15,21 @@
 namespace mzlib {
 
 // Read file contents and return it in a string
-inline std::string read_file (const std::string& filename) 
+inline std::string read_file (const std::string_view filename) 
 {
-   std::ifstream filestream(filename);
+   std::ifstream filestream(filename.data());
    std::stringstream buffer;
    buffer << filestream.rdbuf();
    return buffer.str();
 }
 
 inline std::string read_file (
-   const std::string&   filename, 
+   const std::string_view filename, 
    const std::streampos read_from, 
    const std::streampos read_to)
 {
    if (read_to <= read_from) return std::string();
-   std::ifstream filestream(filename);
+   std::ifstream filestream(filename.data());
    filestream.seekg (read_from);
    const unsigned int chars_to_read = read_to - read_from;
    std::vector<char> vec_content(chars_to_read);
@@ -38,9 +38,9 @@ inline std::string read_file (
    return str_content;
 }
 
-inline std::vector<std::string> read_file_lines(std::string filename)
+inline std::vector<std::string> read_file_lines(std::string_view filename)
 {
-   std::ifstream file(filename);
+   std::ifstream file(filename.data());
    std::string line;
    std::vector<std::string> lines;
    while (std::getline(file, line))
@@ -49,18 +49,18 @@ inline std::vector<std::string> read_file_lines(std::string filename)
 }
 
 // Save string contents into a file
-inline void save_file (const std::string& filename, const std::string& content)
+inline void save_file (const std::string_view filename, const std::string_view content)
 {
-   std::ofstream out(filename);
+   std::ofstream out(filename.data());
    out << content;
    out.close();
 }
 
 // Append string contents to a file
-inline void append_file (const std::string& filename, const std::string& content)
+inline void append_file (const std::string_view filename, const std::string_view content)
 {
-   std::ofstream out(filename, std::ios::app);
-   out << content;
+   std::ofstream out(filename.data(), std::ios::app);
+   out << content.data();
    out.close();
 }
 

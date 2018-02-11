@@ -24,10 +24,10 @@ private:
 public:
    
    aggregated_file_monitor(
-      const std::vector<std::string>& files,
+      const std::vector<std::string_view>& files,
       relentless_file_reader::type_callback callback)
    {
-      for (const std::string& file : files) {
+      for (const std::string_view& file : files) {
          m_readers.emplace_back(file, callback);
       }
    }

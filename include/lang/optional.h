@@ -21,8 +21,8 @@ class [[deprecated]] optional
    
 private:
    
-   T m_value;
    option::set m_set;
+   T m_value;
    
 public:
    
