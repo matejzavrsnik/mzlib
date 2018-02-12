@@ -18,7 +18,7 @@ inline void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xml
 {
    // read common to all
    if (!is_empty_node(xmlpp_node)) {
-      my_node->set_name(xmlpp_node->get_name());
+      my_node->set_name(convert<std::string_view>(xmlpp_node->get_name()));
       my_node->set_value(mzlib::get_content_or_default(xmlpp_node));
    }
    

@@ -52,12 +52,12 @@ public:
       return m_value;
    }
 
-   void set_name(std::string name)
+   void set_name(std::string_view name)
    {
       m_name = name;
    }
    
-   void set_value(std::string value)
+   void set_value(std::string_view value)
    {
       m_value = value;
    }

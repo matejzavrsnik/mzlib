@@ -159,6 +159,7 @@
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <itemPath>include/tools/add_to_tally.cpp</itemPath>
         <itemPath>include/tools/add_to_tally.h</itemPath>
+        <itemPath>include/tools/converters.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.cpp</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
         <itemPath>include/tools/count_bits.cpp</itemPath>
@@ -696,6 +697,8 @@
       <item path="include/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/converters.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.cpp"
             ex="false"
@@ -1298,6 +1301,8 @@
       <item path="include/tools/add_to_tally.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/converters.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.cpp"
             ex="false"
