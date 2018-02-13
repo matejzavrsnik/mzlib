@@ -157,6 +157,10 @@
         <itemPath>include/string/trim_nonalpha.h</itemPath>
       </logicalFolder>
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
+        <logicalFolder name="f1" displayName="internal" projectFiles="true">
+          <itemPath>include/tools/internal/fluent_datashelf_state_attribute.h</itemPath>
+          <itemPath>include/tools/internal/fluent_datashelf_state_filter_one.h</itemPath>
+        </logicalFolder>
         <itemPath>include/tools/add_to_tally.cpp</itemPath>
         <itemPath>include/tools/add_to_tally.h</itemPath>
         <itemPath>include/tools/converters.h</itemPath>
@@ -164,7 +168,7 @@
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
         <itemPath>include/tools/count_bits.cpp</itemPath>
         <itemPath>include/tools/count_bits.h</itemPath>
-        <itemPath>include/tools/datashelf_foundation.h</itemPath>
+        <itemPath>include/tools/datashelf.h</itemPath>
         <itemPath>include/tools/equidistant_sequence.cpp</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.cpp</itemPath>
@@ -714,10 +718,7 @@
       </item>
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/datashelf_foundation.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.cpp"
             ex="false"
@@ -747,6 +748,16 @@
             flavor2="0">
       </item>
       <item path="include/tools/index_coordinate_conversions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/internal/fluent_datashelf_state_attribute.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/internal/fluent_datashelf_state_filter_one.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1318,10 +1329,7 @@
       </item>
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/datashelf_foundation.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.cpp"
             ex="false"
@@ -1351,6 +1359,16 @@
             flavor2="0">
       </item>
       <item path="include/tools/index_coordinate_conversions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/internal/fluent_datashelf_state_attribute.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/tools/internal/fluent_datashelf_state_filter_one.h"
             ex="false"
             tool="3"
             flavor2="0">

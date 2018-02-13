@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_DATASHELF_FOUNDATION_H
-#define MZLIB_DATASHELF_FOUNDATION_H
+#ifndef MZLIB_DATASHELF_H
+#define MZLIB_DATASHELF_H
 
 #include "../iterators/get_random.h"
 #include "../string/is_just_whitespace.h"

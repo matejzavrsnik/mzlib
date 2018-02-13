@@ -8,7 +8,9 @@
 #ifndef MZLIB_FLUENT_DATASHELF_H
 #define MZLIB_FLUENT_DATASHELF_H
 
-#include "datashelf_foundation.h"
+#include "datashelf.h"
+#include "internal/fluent_datashelf_state_attribute.h"
+#include "internal/fluent_datashelf_state_filter_one.h"
 
 #include <algorithm>
 #include <stack>
@@ -35,7 +37,6 @@ namespace ds {
 //
 // Didn't expect fluent interface part of the project to be so interesting.
 
-class fluent_state_attribute;
 class fluent_state_filter_one;
    
 class fluent
@@ -168,154 +169,11 @@ public:
       return current_node()->is_empty();
    }
    
-   friend class fluent_state_attribute_added;
    friend class fluent_state_attribute;
 };
 
-class fluent_state_filter_one
-{
-private:
-   
-   std::shared_ptr<fluent> m_state_node;
-   std::shared_ptr<node> m_filtered_one;
-   
-public:
-   
-   explicit fluent_state_filter_one(std::shared_ptr<node> origin) :
-      m_filtered_one(origin)
-   {
-   }
-   
-   std::shared_ptr<node> get()
-   {
-      return m_filtered_one;
-   }
-      
-   fluent_state_filter_one& first(std::string name)
-   {
-      m_filtered_one = ::mzlib::ds::first(
-         m_filtered_one->nodes(), 
-         name);
-      return *this;
-   }
-   
-   fluent_state_filter_one& random (
-      std::string name,
-      decltype(get_random_element<typename node::iterator>) rnd = 
-         get_random_element<typename node::iterator>)
-   {
-      m_filtered_one = ::mzlib::ds::random(
-         m_filtered_one->nodes(), 
-         name, 
-         rnd);
-      return *this;
-   }
-   
-   fluent_state_filter_one& next(std::string name)
-   {
-      m_filtered_one = ::mzlib::ds::next(
-         m_filtered_one,
-         name);
-      return *this;
-   }
-   
-   attribute& get_attribute(std::string name)
-   {
-      auto att = ::mzlib::ds::get_attribute(
-         m_filtered_one,
-         name);
-      return *att;
-   }
-   
-   std::string value()
-   {
-      return m_filtered_one->value();
-   }
-   
-   std::string name()
-   {
-      return m_filtered_one->name();
-   }
-   
-   fluent& use()
-   {
-      m_state_node = std::make_shared<fluent>(m_filtered_one);
-      return *m_state_node.get();
-   }
-   
-   fluent_state_filter_one& add_attribute
-      (std::string name, std::string value = "")
-   {
-      m_filtered_one->add_attribute(name, value);
-      return *this;
-   }
-   
-   fluent_state_filter_one& add_node(std::string name = "", std::string value = "")
-   {
-      m_filtered_one->add_node(name, value);
-      return *this;
-   }
-   
-   bool is_empty()
-   {
-      return m_filtered_one->is_empty();
-   }
-   
-   operator mzlib::ds::node& ()
-   {
-      return *m_filtered_one;
-   }
-   
-   operator std::shared_ptr<mzlib::ds::node> ()
-   {
-      return m_filtered_one;
-   }
-};
+
         
-class fluent_state_attribute
-{
-private:
-   
-   // origin state for going back
-   fluent& m_state_node;
-   std::shared_ptr<attribute> m_attribute;
-   
-public:
-
-   fluent_state_attribute(
-      fluent& origin,
-      std::shared_ptr<attribute> the_attribute) :
-         m_state_node(origin),
-         m_attribute(the_attribute)
-   {
-   }
-
-   
-   fluent_state_attribute& set_name(std::string name)
-   {
-      m_attribute->set_name(name);
-      return *this;
-   }
-   
-   fluent_state_attribute& set_value(std::string value)
-   {
-      m_attribute->set_value(value);
-      return *this;
-   }
-
-   attribute& get()
-   {
-      return *m_attribute;
-   }
-   
-   fluent& stop_using()
-   {
-      return m_state_node;
-   }
-   
-};
-
-
 } // namespace ds
 
 } // namespace mzlib

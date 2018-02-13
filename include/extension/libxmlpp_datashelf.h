@@ -10,7 +10,7 @@
 
 #include "libxmlpp.h"
 
-#include "../tools/fluent_datashelf.h"
+#include "../tools/datashelf.h"
 
 namespace mzlib {
 
@@ -27,7 +27,7 @@ inline void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xml
 
       // read attributes if any
       for (const xmlpp::Attribute* xmlpp_attribute : xmlpp_element->get_attributes()) {
-         ds::fluent(my_node).add_attribute(
+         my_node->add_attribute(
             xmlpp_attribute->get_name(), 
             xmlpp_attribute->get_value());
       }
@@ -35,7 +35,7 @@ inline void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xml
       // iteratively read child nodes if any
       for (const xmlpp::Node* xmlpp_child_node : xmlpp_element->get_children()) {
          fill_my_node_from_xmlpp(
-            ds::fluent(my_node).add_node().use().get(), 
+            my_node->add_node(), 
             xmlpp_child_node);
       }
    }
