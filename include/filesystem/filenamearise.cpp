@@ -9,4 +9,10 @@
 
 #include "filenamearise.h"
 
-//todo
+TEST(filenamearise, demo) 
+{
+   ASSERT_EQ("filename", mzlib::filenamearise("filename", '_'));
+   ASSERT_EQ("file_name", mzlib::filenamearise("file name", '_'));
+   ASSERT_EQ("file_name", mzlib::filenamearise("file  name", '_'));
+   ASSERT_EQ("filename", mzlib::filenamearise("#!""#$%&/filename", '_'));
+}

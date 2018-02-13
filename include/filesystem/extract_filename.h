@@ -8,12 +8,15 @@
 #ifndef MZLIB_EXTRACT_FILENAME_H
 #define MZLIB_EXTRACT_FILENAME_H
 
+#include <string_view>
+
+
 namespace mzlib {
 
-inline std::string extract_filename_from_path (std::string path)
+inline std::string_view extract_filename_from_path (std::string_view path)
 {
    size_t pos = path.find_last_of("/\\");
-   if (pos == std::string::npos) return "";
+   if (pos == std::string_view::npos) return "";
    return path.substr(pos+1, path.length()-pos);
 }   
 

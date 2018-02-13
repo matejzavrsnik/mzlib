@@ -70,23 +70,23 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
 
 }
 
-inline std::shared_ptr<ds::node> create_datashelf_from_xml_string(std::string xml_string)
+inline std::shared_ptr<ds::node> create_datashelf_from_xml_string(std::string_view xml_string)
 {
    xmlpp::DomParser parser;
    std::shared_ptr<ds::node> data_shelf = std::make_shared<ds::node>();
    // todo: when parsing doesn't succeed do something
-   parser.parse_memory(xml_string);
+   parser.parse_memory(xml_string.data());
    fill_my_node_from_xmlpp(data_shelf, parser.get_document()->get_root_node());
 
    return data_shelf;
 }
 
-inline std::shared_ptr<ds::node> create_data_shelf_from_xml_file(std::string path_to_xml_file)
+inline std::shared_ptr<ds::node> create_data_shelf_from_xml_file(std::string_view path_to_xml_file)
 {
    xmlpp::DomParser parser;
    std::shared_ptr<ds::node> data_shelf = std::make_shared<ds::node>();
    // todo: when parsing doesn't succeed do something
-   parser.parse_file(path_to_xml_file);
+   parser.parse_file(path_to_xml_file.data());
    fill_my_node_from_xmlpp(data_shelf, parser.get_document()->get_root_node());
 
    return data_shelf;
@@ -97,16 +97,16 @@ inline std::string save_datashelf_to_xml_string(std::shared_ptr<ds::node> shelf)
    xmlpp::DomParser parser;
    auto root = parser.get_document()->create_root_node("");
    fill_xmlpp_node_from_mine(root, shelf.get());
-   const std::string doc = parser.get_document()->write_to_string_formatted();
+   std::string doc = parser.get_document()->write_to_string_formatted();
    return doc;
 }
 
-inline void save_datashelf_to_xml_file(std::shared_ptr<ds::node> shelf, std::string path_to_xml_file)
+inline void save_datashelf_to_xml_file(std::shared_ptr<ds::node> shelf, std::string_view path_to_xml_file)
 {
    xmlpp::DomParser parser;
    auto root = parser.get_document()->create_root_node("");
    fill_xmlpp_node_from_mine(root, shelf.get());
-   parser.get_document()->write_to_file_formatted(path_to_xml_file);
+   parser.get_document()->write_to_file_formatted(path_to_xml_file.data());
 }
 
 } // namespace mzlib

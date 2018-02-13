@@ -121,7 +121,7 @@ inline std::string_view get_content_or_default(
     return default_value;
 }
 
-inline void delete_all_children_except (const std::vector<std::string>& names, xmlpp::Node* from_node) 
+inline void delete_all_children_except (const std::vector<std::string_view>& names, xmlpp::Node* from_node) 
 {
    if (has_children(from_node)) {
       std::list<xmlpp::Node*> children = from_node->get_children();
@@ -136,7 +136,7 @@ inline void delete_all_children_except (const std::vector<std::string>& names, x
    }
 }
 
-inline void delete_all_attributes_except (const std::vector<std::string>&  names, xmlpp::Node* from_node)
+inline void delete_all_attributes_except (const std::vector<std::string_view>&  names, xmlpp::Node* from_node)
 {
    if (has_attributes(from_node)) {
       xmlpp::Element* from_element = dynamic_cast<xmlpp::Element*>(from_node);

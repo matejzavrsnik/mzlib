@@ -8,16 +8,24 @@
 #ifndef MZLIB_IS_META_DIRECTORY_H
 #define MZLIB_IS_META_DIRECTORY_H
 
-namespace mzlib {
+#include <string_view>
+#include "../string/string_start_end.h"
 
+namespace mzlib {
+   
 // is one of those . or .. "meta-directories"?
-inline bool is_meta_directory(const char* directory_name)
+inline bool is_meta_directory(const std::string_view directory_name)
 {
-   // to exercise my C muscles a bit
-   int len_of_string = (int)strlen (directory_name);
-   const char* last_dot_pos = strrchr (directory_name, '.');
-   int len_to_last_dot = last_dot_pos - directory_name;
-   return len_of_string == (len_to_last_dot + 1);
+   if (directory_name == "." ||
+       directory_name == ".." ||
+       string_ends_with(directory_name, "/.")  ||
+       string_ends_with(directory_name, "/..") ||
+       string_ends_with(directory_name, "\\.") ||
+       string_ends_with(directory_name, "\\.."))
+   {
+      return true;
+   }
+   return false;
 }
 
 } // namespace

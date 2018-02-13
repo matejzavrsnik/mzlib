@@ -11,7 +11,7 @@
 namespace mzlib {
 
 // Change a string into one that is suitable for filename
-inline std::string filenamearise (const std::string& filename_candidate, char space_ch)
+inline std::string filenamearise (const std::string_view& filename_candidate, char space_ch)
 {
    std::string filenamearised = "";
    for (auto letter : filename_candidate) {
