@@ -80,12 +80,12 @@ public:
       return *this;
    }
    
-   std::string value()
+   std::string_view value()
    {
       return current_node()->value();
    }
    
-   std::string name()
+   std::string_view name()
    {
       return current_node()->name();
    }

@@ -97,6 +97,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/add_to_tally.o \
 	${OBJECTDIR}/include/tools/copy_first_n_over_rest.o \
 	${OBJECTDIR}/include/tools/count_bits.o \
+	${OBJECTDIR}/include/tools/datashelf_extended.o \
+	${OBJECTDIR}/include/tools/datashelf_foundation.o \
 	${OBJECTDIR}/include/tools/equidistant_sequence.o \
 	${OBJECTDIR}/include/tools/fast_min.o \
 	${OBJECTDIR}/include/tools/fluent_datashelf.o \
@@ -447,6 +449,16 @@ ${OBJECTDIR}/include/tools/count_bits.o: include/tools/count_bits.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/count_bits.o include/tools/count_bits.cpp
+
+${OBJECTDIR}/include/tools/datashelf_extended.o: include/tools/datashelf_extended.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/datashelf_extended.o include/tools/datashelf_extended.cpp
+
+${OBJECTDIR}/include/tools/datashelf_foundation.o: include/tools/datashelf_foundation.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/datashelf_foundation.o include/tools/datashelf_foundation.cpp
 
 ${OBJECTDIR}/include/tools/equidistant_sequence.o: include/tools/equidistant_sequence.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools

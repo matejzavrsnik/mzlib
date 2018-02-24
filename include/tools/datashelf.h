@@ -36,18 +36,18 @@ private:
    
 public:
    
-   base(std::string name = "", std::string value = "") :
+   base(std::string_view name = "", std::string_view value = "") :
       m_name(name),
       m_value(value)
    {
    }
    
-   std::string name() const
+   std::string_view name() const
    {
       return m_name;
    }
    
-   std::string value() const
+   std::string_view value() const
    {
       return m_value;
    }
@@ -111,8 +111,8 @@ public:
    }
    
    node(
-      std::string name = "", 
-      std::string value = "", 
+      std::string_view name = "", 
+      std::string_view value = "", 
       std::shared_ptr<node> parent = nullptr) :
          base(name, value), 
          m_parent(parent)
@@ -124,20 +124,14 @@ public:
    // through the returned values they can change child nodes. On some
    // level a node is defined by child nodes too, so in turn this did
    // change it.
-   std::vector<std::shared_ptr<node>> nodes () const
+   const std::vector<std::shared_ptr<node>>& nodes () const
    {
-      std::vector<std::shared_ptr<node>> all(
-         m_nodes.begin(), 
-         m_nodes.end());
-      return all;
+      return m_nodes;
    }
    
-   std::vector<std::shared_ptr<attribute>> attributes () const
+   const std::vector<std::shared_ptr<attribute>>& attributes () const
    {
-      std::vector<std::shared_ptr<attribute>> all(
-         m_attributes.begin(), 
-         m_attributes.end());
-      return all;
+      return m_attributes;
    }
    
    std::shared_ptr<node> parent ()
@@ -145,7 +139,7 @@ public:
       return m_parent;
    }
 
-   std::shared_ptr<node> add_node(std::string name = "", std::string value = "")
+   std::shared_ptr<node> add_node(std::string_view name = "", std::string_view value = "")
    {
       auto new_node = std::make_shared<node>(
          name, 
@@ -155,7 +149,7 @@ public:
       return new_node;
    }
    
-   std::shared_ptr<attribute> add_attribute(std::string name, std::string value)
+   std::shared_ptr<attribute> add_attribute(std::string_view name, std::string_view value)
    {
       auto new_attribute = std::make_shared<attribute>(name, value);
       m_attributes.push_back(new_attribute);
@@ -176,7 +170,7 @@ inline std::vector<std::shared_ptr<node>> get_peers(
 
 inline std::vector<std::shared_ptr<node>> filter_by_name(
    std::vector<std::shared_ptr<node>> all, 
-   std::string name)
+   std::string_view name)
 {
    std::vector<std::shared_ptr<node>> filtered_by_name;
    std::copy_if (
@@ -212,7 +206,7 @@ inline std::shared_ptr<node> find_next_of(
 
 inline std::shared_ptr<node> first(
    std::vector<std::shared_ptr<node>> all_nodes, 
-   std::string name)
+   std::string_view name)
 {
    for(auto n : all_nodes) {
       if(n->name() == name) {
@@ -224,7 +218,7 @@ inline std::shared_ptr<node> first(
 
 inline std::shared_ptr<node> random (
    std::vector<std::shared_ptr<node>> all_nodes,
-   std::string name,
+   std::string_view name,
    decltype(get_random_element<typename node::iterator>) rnd = 
       get_random_element<typename node::iterator>)
 {
@@ -236,18 +230,16 @@ inline std::shared_ptr<node> random (
    return *rnd(namesakes.begin(), namesakes.end());
 }
 
-inline std::shared_ptr<node> next (
-   std::shared_ptr<node> the_node,
-   std::string name)
+inline std::shared_ptr<node> next (std::shared_ptr<node> the_node)
 {
    auto all_peers = get_peers(the_node);
-   auto namesakes = filter_by_name(all_peers, name);
+   auto namesakes = filter_by_name(all_peers, the_node->name());
    return find_next_of(namesakes, the_node);
 }
 
 inline std::shared_ptr<attribute> get_attribute (
    std::shared_ptr<node> the_node,
-   std::string name)
+   std::string_view name)
 {
    auto all_attributes = the_node->attributes();
    

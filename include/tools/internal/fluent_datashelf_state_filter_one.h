@@ -57,9 +57,7 @@ public:
    
    fluent_state_filter_one& next(std::string name)
    {
-      m_filtered_one = ::mzlib::ds::next(
-         m_filtered_one,
-         name);
+      m_filtered_one = ::mzlib::ds::next(m_filtered_one);
       return *this;
    }
    
@@ -71,12 +69,12 @@ public:
       return *att;
    }
    
-   std::string value()
+   std::string_view value()
    {
       return m_filtered_one->value();
    }
    
-   std::string name()
+   std::string_view name()
    {
       return m_filtered_one->name();
    }

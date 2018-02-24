@@ -28,8 +28,8 @@ inline void fill_my_node_from_xmlpp(std::shared_ptr<ds::node> my_node, const xml
       // read attributes if any
       for (const xmlpp::Attribute* xmlpp_attribute : xmlpp_element->get_attributes()) {
          my_node->add_attribute(
-            xmlpp_attribute->get_name(), 
-            xmlpp_attribute->get_value());
+            convert<std::string_view>(xmlpp_attribute->get_name()), 
+            convert<std::string_view>(xmlpp_attribute->get_value()));
       }
 
       // iteratively read child nodes if any
@@ -45,18 +45,22 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
 {
    //todo: this part is basically conversion. make function for that
    if (!my_node->has_empty_name()) {
-      xmlpp_element->set_name(my_node->name());
+      xmlpp_element->set_name(
+         convert<Glib::ustring>(my_node->name()));
    }
    if (!my_node->has_empty_value()) {
-      xmlpp_element->set_child_text(my_node->value());
+      xmlpp_element->set_child_text(
+         convert<Glib::ustring>(my_node->value()));
    }
 
    // read attributes if any
    for(auto my_attribute : my_node->attributes()) 
    {
-      const std::string& name = my_attribute->name();
-      const std::string& value = my_attribute->value();
-      xmlpp_element->set_attribute(name, value);
+      const std::string_view& name = my_attribute->name();
+      const std::string_view& value = my_attribute->value();
+      xmlpp_element->set_attribute(
+         convert<Glib::ustring>(name), 
+         convert<Glib::ustring>(value));
    }
 
    // iteratively read child nodes if any

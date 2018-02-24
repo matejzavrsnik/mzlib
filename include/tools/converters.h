@@ -10,15 +10,14 @@
 
 namespace mzlib {
     
-// basic function template to be specialised
+// basic function template; meant to be specialised
 template<class To, class From>
-To convert(
-   const From& value)
+To convert(const From& value)
 {
    return To(value);
 };
 
-// these are for compatibility with libxml++ string
+// std::string_view <-> Glib::ustring (from libxml++)
 #ifdef _GLIBMM_USTRING_H
 
 #include <string_view>

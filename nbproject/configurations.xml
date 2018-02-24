@@ -169,6 +169,8 @@
         <itemPath>include/tools/count_bits.cpp</itemPath>
         <itemPath>include/tools/count_bits.h</itemPath>
         <itemPath>include/tools/datashelf.h</itemPath>
+        <itemPath>include/tools/datashelf_extended.cpp</itemPath>
+        <itemPath>include/tools/datashelf_foundation.cpp</itemPath>
         <itemPath>include/tools/equidistant_sequence.cpp</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.cpp</itemPath>
@@ -719,6 +721,16 @@
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/datashelf_extended.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/datashelf_foundation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.cpp"
             ex="false"
@@ -1330,6 +1342,16 @@
       <item path="include/tools/count_bits.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/datashelf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/datashelf_extended.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/datashelf_foundation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/tools/equidistant_sequence.cpp"
             ex="false"

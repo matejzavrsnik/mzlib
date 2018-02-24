@@ -325,7 +325,7 @@ TEST_F(fixture_datashelf, get_random_node)
       {
          return first;
       });
-   std::string first_random_book_title = first_random_book.get_attribute("title").value();
+   std::string_view first_random_book_title = first_random_book.get_attribute("title").value();
    
    // note: there is a node between two books that is not a book
    // getting random book should not return non-book nodes
@@ -336,7 +336,7 @@ TEST_F(fixture_datashelf, get_random_node)
       {
          return std::next(first);
       });
-   std::string second_random_book_title = second_random_book.get_attribute("title").value();
+   std::string_view second_random_book_title = second_random_book.get_attribute("title").value();
       
    ASSERT_EQ("Children of Time", first_random_book_title);
    ASSERT_EQ("Morning Star", second_random_book_title);
