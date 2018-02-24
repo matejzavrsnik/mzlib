@@ -35,7 +35,7 @@ public:
       return m_filtered_one;
    }
       
-   fluent_state_filter_one& first(std::string name)
+   fluent_state_filter_one& first(std::string_view name)
    {
       m_filtered_one = ::mzlib::ds::first(
          m_filtered_one->nodes(), 
@@ -44,7 +44,7 @@ public:
    }
    
    fluent_state_filter_one& random (
-      std::string name,
+      std::string_view name,
       decltype(get_random_element<typename node::iterator>) rnd = 
          get_random_element<typename node::iterator>)
    {
@@ -55,13 +55,13 @@ public:
       return *this;
    }
    
-   fluent_state_filter_one& next(std::string name)
+   fluent_state_filter_one& next(std::string_view name)
    {
       m_filtered_one = ::mzlib::ds::next(m_filtered_one);
       return *this;
    }
    
-   attribute& get_attribute(std::string name)
+   attribute& get_attribute(std::string_view name)
    {
       auto att = ::mzlib::ds::get_attribute(
          m_filtered_one,
@@ -85,14 +85,15 @@ public:
       return *m_state_node.get();
    }
    
-   fluent_state_filter_one& add_attribute
-      (std::string name, std::string value = "")
+   fluent_state_filter_one& add_attribute(
+      std::string_view name, std::string_view value = "")
    {
       m_filtered_one->add_attribute(name, value);
       return *this;
    }
    
-   fluent_state_filter_one& add_node(std::string name = "", std::string value = "")
+   fluent_state_filter_one& add_node(
+      std::string_view name = "", std::string_view value = "")
    {
       m_filtered_one->add_node(name, value);
       return *this;

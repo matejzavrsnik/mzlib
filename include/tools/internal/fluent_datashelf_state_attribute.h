@@ -34,13 +34,13 @@ public:
    {
    }
    
-   fluent_state_attribute& set_name(std::string name)
+   fluent_state_attribute& set_name(std::string_view name)
    {
       m_attribute->set_name(name);
       return *this;
    }
    
-   fluent_state_attribute& set_value(std::string value)
+   fluent_state_attribute& set_value(std::string_view value)
    {
       m_attribute->set_value(value);
       return *this;
