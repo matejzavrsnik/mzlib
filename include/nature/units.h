@@ -54,7 +54,7 @@ constexpr long double operator"" _day         (long double day)  { return day*86
 constexpr long double operator"" _julian_year (long double jy)   { return jy*31558152; }
 
 // mass
-constexpr long double operator"" _ug           (long double ug)  { return ug/1000000000; }
+constexpr long double operator"" _ug          (long double ug)   { return ug/1000000000; }
 constexpr long double operator"" _mg          (long double mg)   { return mg/1000000; }
 constexpr long double operator"" _g           (long double g)    { return g/1000; }
 constexpr long double operator"" _kg          (long double kg)   { return kg; }

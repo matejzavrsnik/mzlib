@@ -13,7 +13,7 @@
 
 namespace mzlib {
    
-inline bool is_just_whitespaces(const std::string& s)
+inline bool is_just_whitespaces(std::string_view s)
 {
    for(char c : s)
       if(!std::isspace(c))

@@ -13,12 +13,12 @@
 
 namespace mzlib {
         
-inline std::vector<std::string> split_on_puctuation (const std::string& str) 
+inline std::vector<std::string> split_on_puctuation (std::string_view str) 
 {
    std::vector<std::string> split_string;
    std::string new_candidate = "";
    char ch_prev = 0;
-   for (std::string::const_iterator ch_it = str.begin(); ch_it != str.end(); ++ch_it) {
+   for (auto ch_it = str.begin(); ch_it != str.end(); ++ch_it) {
       char ch = *ch_it;
       if (    !ispunct(ch)
            || (ch=='\'') // as in "isn't"

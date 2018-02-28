@@ -10,7 +10,7 @@
 
 namespace mzlib {
 
-inline bool string_ends_with (const std::string_view& str, const std::string_view& end) {
+inline bool string_ends_with (std::string_view str, std::string_view end) {
    if (str.length() >= end.length()) {
       const int comparisson = str.compare (str.length() - end.length(), end.length(), end);
       return (comparisson == 0);
@@ -20,7 +20,7 @@ inline bool string_ends_with (const std::string_view& str, const std::string_vie
    }
 }
 
-inline bool string_starts_with (const std::string_view& str, const std::string_view& start) {
+inline bool string_starts_with (std::string_view str, std::string_view start) {
    if (str.length() >= start.length()) {
       const int comparisson = str.compare (0, start.length(), start);
       return (comparisson == 0);

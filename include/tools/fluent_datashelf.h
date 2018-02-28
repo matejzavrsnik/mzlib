@@ -68,13 +68,13 @@ public:
       m_using_nodes.push(shelf);
    }
       
-   fluent& set_name(std::string name)
+   fluent& set_name(std::string_view name)
    {
       current_node()->set_name(name);
       return *this;
    }
    
-   fluent& set_value(std::string value)
+   fluent& set_value(std::string_view value)
    {
       current_node()->set_value(value);
       return *this;
@@ -91,7 +91,7 @@ public:
    }
    
    fluent& add_attribute
-      (std::string name, std::string value = "")
+      (std::string_view name, std::string_view value = "")
    {
       m_last_added_attribute = current_node()->add_attribute(name, value);
       return *this;
@@ -105,7 +105,7 @@ public:
       return *m_attribute_state.get();
    }
    
-   fluent& add_node(std::string name = "", std::string value = "")
+   fluent& add_node(std::string_view name = "", std::string_view value = "")
    {
       m_last_added_node = current_node()->add_node(name, value);
       return *this;
@@ -134,7 +134,7 @@ public:
       return current_node();
    }
    
-   fluent_state_filter_one& first(std::string name)
+   fluent_state_filter_one& first(std::string_view name)
    {
       m_state_filter_one = std::make_unique<fluent_state_filter_one>(
          ::mzlib::ds::first(
@@ -144,7 +144,7 @@ public:
    }
    
    fluent_state_filter_one& random (
-      std::string name,
+      std::string_view name,
       decltype(get_random_element<typename node::iterator>) rnd = 
          get_random_element<typename node::iterator>)
    {
@@ -156,7 +156,7 @@ public:
       return *m_state_filter_one.get();
    }
    
-   attribute& get_attribute(std::string name)
+   attribute& get_attribute(std::string_view name)
    {
       std::shared_ptr<attribute> att = ::mzlib::ds::get_attribute(
          current_node(),

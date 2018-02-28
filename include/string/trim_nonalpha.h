@@ -14,7 +14,7 @@ namespace mzlib {
 
 // strips all non-letter characters from end of string
 inline std::string 
-trim_nonalpha_from_end(const std::string& word)
+trim_nonalpha_from_end(std::string_view word)
 {
    auto last = std::find_if(word.rbegin(), word.rend(), isalpha);
    std::string stripped;
@@ -26,7 +26,7 @@ trim_nonalpha_from_end(const std::string& word)
 
 // strips all non-letter characters from beginning string
 inline std::string 
-trim_nonalpha_from_start(const std::string& word)
+trim_nonalpha_from_start(std::string_view word)
 {
    auto first = std::find_if(word.begin(), word.end(), isalpha);
    std::string stripped;
@@ -38,7 +38,7 @@ trim_nonalpha_from_start(const std::string& word)
 
 // strips all non-letter characters from beginning and end of string
 inline std::string 
-trim_nonalpha(const std::string& word)
+trim_nonalpha(std::string_view word)
 {
    std::string stripped = trim_nonalpha_from_end(word);
    stripped = trim_nonalpha_from_start(stripped);
@@ -53,7 +53,7 @@ trim_nonalpha(const std::string& word)
 
 // strips all non-letter characters from whole string
 inline std::string 
-trim_nonalpha_whole(const std::string& word)
+trim_nonalpha_whole(std::string_view word)
 {
    std::string trimmed;
    for(auto ch : word) {

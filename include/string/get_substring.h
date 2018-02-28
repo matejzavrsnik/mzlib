@@ -10,7 +10,7 @@
 
 namespace mzlib {
 
-inline std::string get_substring_between (const std::string& str, const std::string& start, const std::string& end)
+inline std::string get_substring_between (std::string_view str, std::string_view start, std::string_view end)
 {
    std::string result;
    

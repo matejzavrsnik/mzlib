@@ -68,7 +68,7 @@ public:
       return *this;
    }
    
-   void set_image(std::string image_path)
+   void set_image(std::string_view image_path)
    {
       m_image_path = image_path;
       cleanup();

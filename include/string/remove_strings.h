@@ -25,7 +25,7 @@ remove_strings_which (const std::vector<std::string>& all_strings, parameters::r
 {
    using namespace parameters::remove_strings_which;
    
-   std::function<bool(const std::string&, const std::string&)> deciding_function;
+   std::function<bool(std::string_view, std::string_view)> deciding_function;
    if (which == start_with)
       deciding_function = string_starts_with;
    else

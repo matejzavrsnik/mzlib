@@ -11,7 +11,7 @@
 namespace mzlib {
 
 // Replace all occurrences of a string in a string
-inline void string_replace (std::string& str, const std::string& replace_what, const std::string& replace_with) 
+inline void string_replace (std::string& str, std::string_view replace_what, std::string_view replace_with) 
 {
    for (size_t pos = 0; 
         (pos = str.find(replace_what, pos)) != std::string::npos; 

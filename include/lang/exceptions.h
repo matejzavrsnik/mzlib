@@ -32,7 +32,7 @@ public:
    {
    }
    
-   explicit generic(std::string explanation)
+   explicit generic(std::string_view explanation)
       : m_explanation(explanation) 
    {
    }

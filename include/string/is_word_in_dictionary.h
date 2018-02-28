@@ -17,10 +17,10 @@ namespace mzlib {
 // Pretty trivial version, still worth using for readability if nothing else.
 // Fast lookup, but doesn't find partial matches.
 inline mzlib::option::match is_word_in_dictionary(
-   const std::string& word, 
+   std::string_view word, 
    const std::unordered_set<std::string>& dictionary)
 {  
-   return dictionary.find(word) != dictionary.end();
+   return dictionary.find(word.data()) != dictionary.end();
 }
 
 // where it gets slightly more complicated is when partial matches count too.
@@ -39,13 +39,13 @@ struct word_match {
 // it doesn't need to be sorted.
 template<class Iterator>
 word_match is_word_in_dictionary_partial(
-   const std::string& word, 
+   std::string_view word, 
    const Iterator begin,
    const Iterator end)
 {
    word_match match_result;
    // matches entries that start with word
-   std::regex txt_regex ("\\b(" + word + ")([^ ]*)");   
+   std::regex txt_regex ("\\b(" + std::string(word) + ")([^ ]*)");   
    uint count_matches = 0;
    Iterator current_it = begin;
    
