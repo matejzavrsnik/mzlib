@@ -42,12 +42,6 @@ trim_nonalpha(std::string_view word)
 {
    std::string stripped = trim_nonalpha_from_end(word);
    stripped = trim_nonalpha_from_start(stripped);
-   //auto first = std::find_if(word.begin(), word.end(), isalpha);
-   //auto last = std::find_if(word.rbegin(), word.rend(), isalpha);
-   //std::string stripped;
-   //if (first != word.end() && last != word.rend()) {
-   //   stripped.assign(first, last.base());
-   //}
    return stripped;
 }
 

@@ -129,6 +129,8 @@
         <itemPath>include/nature/vector.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="string" projectFiles="true">
+        <itemPath>include/string/all_words_appear.cpp</itemPath>
+        <itemPath>include/string/all_words_appear.h</itemPath>
         <itemPath>include/string/extract_vocabulary.cpp</itemPath>
         <itemPath>include/string/extract_vocabulary.h</itemPath>
         <itemPath>include/string/get_substring.cpp</itemPath>
@@ -605,6 +607,13 @@
       <item path="include/nature/vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/all_words_appear.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/extract_vocabulary.cpp"
             ex="false"
@@ -1226,6 +1235,13 @@
       <item path="include/nature/vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/nature/vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/all_words_appear.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/extract_vocabulary.cpp"
             ex="false"
