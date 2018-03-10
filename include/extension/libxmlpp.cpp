@@ -137,3 +137,42 @@ TEST(delete_all_xpath, demo)
    ASSERT_TRUE(root->find("/show/characters/mormons").size() > 0);
    ASSERT_TRUE(root->find("/show/characters/unn").size() > 0);
 }
+
+TEST(get_content_or_default, demo)
+{
+   // todo: write fixtures for these at some point
+   xmlpp::Document* doc = new xmlpp::Document();
+   doc->create_root_node("root");
+   xmlpp::Node* root = doc->get_root_node();
+   xmlpp::Element* element = root->add_child("element");
+   element->set_child_text("Imperator Caesar Divi Filius Augustus");
+   
+   std::string_view sv = mzlib::get_content_or_default(element);
+   
+   ASSERT_EQ("Imperator Caesar Divi Filius Augustus", sv);
+}
+
+TEST(get_content_or_default, no_child_text_and_no_default_set)
+{
+   xmlpp::Document* doc = new xmlpp::Document();
+   doc->create_root_node("root");
+   xmlpp::Node* root = doc->get_root_node();
+   xmlpp::Element* element = root->add_child("element");
+   
+   std::string_view sv = mzlib::get_content_or_default(element);
+   
+   ASSERT_EQ("", sv);
+}
+
+TEST(get_content_or_default, no_child_text_but_default_set)
+{
+   xmlpp::Document* doc = new xmlpp::Document();
+   doc->create_root_node("root");
+   xmlpp::Node* root = doc->get_root_node();
+   xmlpp::Element* element = root->add_child("element");
+   
+   std::string_view sv = mzlib::get_content_or_default(element, "default");
+   
+   ASSERT_EQ("default", sv);
+}
+

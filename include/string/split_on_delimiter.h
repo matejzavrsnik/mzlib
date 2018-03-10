@@ -14,11 +14,12 @@
 
 namespace mzlib {
 
-std::vector<std::string> split_on_delimiter(std::string str, char delimiter)
+std::vector<std::string> split_on_delimiter(std::string_view str, char delimiter)
 {
+   //todo: could be refactored to return vector of string_views
    std::string token;
    std::vector<std::string> tokens;
-   std::istringstream iss(str);
+   std::istringstream iss(str.data());
    while(std::getline(iss, token, delimiter))
    {
        tokens.push_back(token);

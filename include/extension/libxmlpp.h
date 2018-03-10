@@ -98,27 +98,30 @@ inline bool has_text_node(const xmlpp::Node* node)
    return false;
 }
 
-inline std::string_view get_attribute_or_default(
+inline std::string get_attribute_or_default(
    const xmlpp::Node* node, 
    std::string_view attribute_name, 
    std::string_view default_value = "")
 {
    if (has_attribute(node, attribute_name)) {
       const auto element = dynamic_cast<const xmlpp::Element*>(node);
-      element->get_attribute(attribute_name.data())->get_value();
+      return element->get_attribute(attribute_name.data())->get_value();
    }
-   return default_value;
+   return std::string(default_value);
 }
 
-inline std::string_view get_content_or_default(
+// can't convert the return of this to std::string view because get_content()
+// will return a copy of it's internal string, so returning a string_view of
+// that is not safe.
+inline std::string get_content_or_default(
    const xmlpp::Node* node, 
    std::string_view default_value = "")
 {
    if (has_text_node(node)) {
         const auto element = dynamic_cast<const xmlpp::Element*>(node);
-        return convert<std::string_view>(element->get_child_text()->get_content());
+        return element->get_child_text()->get_content();
     }
-    return default_value;
+    return std::string(default_value);
 }
 
 inline void delete_all_children_except (const std::vector<std::string_view>& names, xmlpp::Node* from_node) 

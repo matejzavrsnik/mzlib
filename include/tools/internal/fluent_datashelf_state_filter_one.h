@@ -23,6 +23,8 @@ private:
    std::shared_ptr<fluent> m_state_node;
    std::shared_ptr<node> m_filtered_one;
    
+   std::shared_ptr<fluent_state_filter_one> m_state_filter_one;
+   
 public:
    
    explicit fluent_state_filter_one(std::shared_ptr<node> origin) :
@@ -37,10 +39,11 @@ public:
       
    fluent_state_filter_one& first(std::string_view name)
    {
-      m_filtered_one = ::mzlib::ds::first(
-         m_filtered_one->nodes(), 
-         name);
-      return *this;
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(
+         ::mzlib::ds::first(
+            m_filtered_one->nodes(), 
+            name));
+      return *m_state_filter_one.get();
    }
    
    fluent_state_filter_one& random (
@@ -48,17 +51,20 @@ public:
       decltype(get_random_element<typename node::iterator>) rnd = 
          get_random_element<typename node::iterator>)
    {
-      m_filtered_one = ::mzlib::ds::random(
-         m_filtered_one->nodes(), 
-         name, 
-         rnd);
-      return *this;
+      std::shared_ptr<node> random_node = 
+         ::mzlib::ds::random(
+            m_filtered_one->nodes(), 
+            name, 
+            rnd);
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(random_node);
+      return *m_state_filter_one.get();
    }
    
    fluent_state_filter_one& next(std::string_view name)
    {
-      m_filtered_one = ::mzlib::ds::next(m_filtered_one);
-      return *this;
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(
+         ::mzlib::ds::next(m_filtered_one));
+      return *m_state_filter_one.get();
    }
    
    attribute& get_attribute(std::string_view name)

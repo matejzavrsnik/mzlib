@@ -228,16 +228,60 @@ TEST_F(fixture_datashelf, querying_root_node)
 TEST_F(fixture_datashelf, get_first_node)
 {
    // note: first node is not a book
-   auto first_book_node_name = mzlib::ds::fluent(m_shelf)
+   auto fluent_shelf = mzlib::ds::fluent(m_shelf);
+   auto first_book_node_name = fluent_shelf
       .first("book")
       .name();
    
-   auto first_airplane_node_name = mzlib::ds::fluent(m_shelf)
+   auto first_airplane_node_name = fluent_shelf
       .first("airplane")
       .name();
    
    ASSERT_EQ("book", first_book_node_name);
    ASSERT_EQ("airplane", first_airplane_node_name);
+}
+
+TEST_F(fixture_datashelf, filter_one_get_first_doesnt_change_state)
+{
+   auto first_book = mzlib::ds::fluent(m_shelf).first("book");
+
+   auto book_author = first_book.first("author").value();
+   auto book_year = first_book.first("year").value();
+   
+   ASSERT_EQ("Adrian Tchaikovsky", book_author);
+   ASSERT_EQ("2016", book_year);
+}
+
+TEST_F(fixture_datashelf, filter_one_get_random_doesnt_change_state)
+{
+   auto first_book = mzlib::ds::fluent(m_shelf).random("book", 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
+      {
+         return first;
+      });
+
+   auto book_author = first_book.first("author").value();
+   auto book_year = first_book.first("year").value();
+   
+   ASSERT_EQ("Adrian Tchaikovsky", book_author);
+   ASSERT_EQ("2016", book_year);
+}
+
+TEST_F(fixture_datashelf, filter_one_get_next_doesnt_change_state)
+{
+   auto first_book = mzlib::ds::fluent(m_shelf).first("book");
+   auto next_book = first_book.next("book");
+
+   auto first_book_author = first_book.first("author").value();
+   auto first_book_year = first_book.first("year").value();
+   auto next_book_author = next_book.first("author").value();
+   auto next_book_rating = next_book.first("rating").value();
+
+   
+   ASSERT_EQ("Adrian Tchaikovsky", first_book_author);
+   ASSERT_EQ("2016", first_book_year);
+   ASSERT_EQ("Pierce Brown", next_book_author);
+   ASSERT_EQ("4.5", next_book_rating);
 }
 
 TEST_F(fixture_datashelf, get_first_node__no_such_node)

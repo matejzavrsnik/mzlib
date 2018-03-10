@@ -66,7 +66,7 @@ void to_uppercase_inplace(String& str)
 template<class String>
 String to_lowercase_copy(const String& str)
 {
-   String str_copy = str; // explicitely make copy
+   String str_copy(str); // explicitely make copy
    to_lowercase_inplace(str_copy);
    return str_copy; // rely on RVO
 }
@@ -74,7 +74,23 @@ String to_lowercase_copy(const String& str)
 template<class String>
 String to_uppercase_copy(const String& str)
 {
-   String str_copy = str; // explicitely make copy
+   String str_copy(str); // explicitely make copy
+   to_uppercase_inplace(str_copy);
+   return str_copy; // rely on RVO
+}
+
+template<class String, class StringView>
+String to_lowercase_copy(StringView str)
+{
+   String str_copy(str); // explicitely make copy
+   to_lowercase_inplace(str_copy);
+   return str_copy; // rely on RVO
+}
+
+template<class String, class StringView>
+String to_uppercase_copy(StringView str)
+{
+   String str_copy(str); // explicitely make copy
    to_uppercase_inplace(str_copy);
    return str_copy; // rely on RVO
 }

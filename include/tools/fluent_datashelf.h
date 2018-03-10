@@ -148,11 +148,12 @@ public:
       decltype(get_random_element<typename node::iterator>) rnd = 
          get_random_element<typename node::iterator>)
    {
-      m_state_filter_one = std::make_unique<fluent_state_filter_one>(
+      std::shared_ptr<node> random_node = 
          ::mzlib::ds::random(
             current_node()->nodes(), 
             name, 
-            rnd));
+            rnd);
+      m_state_filter_one = std::make_unique<fluent_state_filter_one>(random_node);
       return *m_state_filter_one.get();
    }
    

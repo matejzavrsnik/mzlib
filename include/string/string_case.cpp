@@ -76,3 +76,41 @@ TEST(to_uppercase_copy, works_on_wide_strings)
    ASSERT_EQ(L"I must not fear.", text_original);
    ASSERT_EQ(L"I MUST NOT FEAR.", text_upper);
 }
+
+
+
+TEST(to_lowercase_copy, string_view_demo)
+{
+   std::string_view text_original("I must not fear. Fear is the mind-killer.");
+   std::string text_lower = mzlib::to_lowercase_copy<std::string>(text_original);
+   
+   ASSERT_EQ("I must not fear. Fear is the mind-killer.", text_original);
+   ASSERT_EQ("i must not fear. fear is the mind-killer.", text_lower);
+}
+
+TEST(to_lowercase_copy, string_view_works_on_wide_strings)
+{
+   std::wstring_view text_original(L"I must not fear. Fear is the mind-killer.");
+   std::wstring text_lower = mzlib::to_lowercase_copy<std::wstring>(text_original);
+   
+   ASSERT_EQ(L"I must not fear. Fear is the mind-killer.", text_original);
+   ASSERT_EQ(L"i must not fear. fear is the mind-killer.", text_lower);
+}
+
+TEST(to_uppercase_copy, string_view_demo)
+{
+   std::string_view text_original("I must not fear.");
+   std::string text_upper = mzlib::to_uppercase_copy<std::string>(text_original);
+   
+   ASSERT_EQ("I must not fear.", text_original);
+   ASSERT_EQ("I MUST NOT FEAR.", text_upper);
+}
+
+TEST(to_uppercase_copy, string_view_works_on_wide_strings)
+{
+   std::wstring_view text_original(L"I must not fear.");
+   std::wstring text_upper = mzlib::to_uppercase_copy<std::wstring>(text_original);
+   
+   ASSERT_EQ(L"I must not fear.", text_original);
+   ASSERT_EQ(L"I MUST NOT FEAR.", text_upper);
+}

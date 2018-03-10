@@ -56,8 +56,8 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
    // read attributes if any
    for(auto my_attribute : my_node->attributes()) 
    {
-      const std::string_view& name = my_attribute->name();
-      const std::string_view& value = my_attribute->value();
+      std::string_view name = my_attribute->name();
+      std::string_view value = my_attribute->value();
       xmlpp_element->set_attribute(
          convert<Glib::ustring>(name), 
          convert<Glib::ustring>(value));
