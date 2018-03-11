@@ -10,9 +10,12 @@
 
 namespace mzlib {
 
-inline std::string get_substring_between (std::string_view str, std::string_view start, std::string_view end)
+inline std::string_view get_substring_between (
+   std::string_view str, 
+   std::string_view start, 
+   std::string_view end)
 {
-   std::string result;
+   std::string_view result;
    
    size_t pos_start = str.find(start);
    if (pos_start != std::string::npos)
