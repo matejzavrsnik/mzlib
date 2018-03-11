@@ -8,26 +8,17 @@
 #ifndef MZLIB_STRING_START_END_H
 #define MZLIB_STRING_START_END_H
 
+#include "../iterators/starts_with.h"
+
 namespace mzlib {
 
+// todo: remove. use starts_with from iterators lib
 inline bool string_ends_with (std::string_view str, std::string_view end) {
-   if (str.length() >= end.length()) {
-      const int comparisson = str.compare (str.length() - end.length(), end.length(), end);
-      return (comparisson == 0);
-   }
-   else {
-      return false;
-   }
+   return ends_with(str, end);
 }
 
 inline bool string_starts_with (std::string_view str, std::string_view start) {
-   if (str.length() >= start.length()) {
-      const int comparisson = str.compare (0, start.length(), start);
-      return (comparisson == 0);
-   }
-   else {
-      return false;
-   }
+   return starts_with(str, start);
 }
 
 } // namespace

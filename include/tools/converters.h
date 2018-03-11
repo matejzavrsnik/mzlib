@@ -15,7 +15,7 @@ template<class To, class From>
 To convert(const From& value)
 {
    return To(value);
-};
+}
 
 // std::string_view <-> Glib::ustring (from libxml++)
 #ifdef _GLIBMM_USTRING_H
@@ -27,14 +27,14 @@ inline std::string_view convert(
    const Glib::ustring& value)
 {
    return value.c_str();
-};
+}
 
 template<>
 inline Glib::ustring convert(
    const std::string_view& value)
 {
    return value.data();
-};
+}
 
 #endif // _GLIBMM_USTRING_H
 

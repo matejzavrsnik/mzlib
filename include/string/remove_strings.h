@@ -13,6 +13,8 @@
 
 namespace mzlib {
 
+//todo: refactor into fluent interface
+   
 namespace parameters {
 namespace remove_strings_which {
    
