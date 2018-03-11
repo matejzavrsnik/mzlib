@@ -19,10 +19,10 @@ namespace mzlib {
 template<class Iterator>
 void next_lex_permutation(Iterator begin, Iterator end)
 {
-   auto k = last_where_value_smaller_then_next(begin, end);
+   auto k = find_in(begin, end).last().smaller().than_next();
    if (k==end) return; // done, this was last permutation
    
-   auto l = last_where_value_larger_then_given(begin, end, *k);
+   auto l = find_in(begin, end).last().greater().than(*k);
    if (l==end) return; // done
    
    std::iter_swap(k, l);
