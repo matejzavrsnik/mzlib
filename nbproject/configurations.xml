@@ -145,8 +145,8 @@
         <itemPath>include/string/remove_substrings.h</itemPath>
         <itemPath>include/string/sentence_assemblarator.cpp</itemPath>
         <itemPath>include/string/sentence_assemblarator.h</itemPath>
-        <itemPath>include/string/split_on_delimiter.cpp</itemPath>
-        <itemPath>include/string/split_on_delimiter.h</itemPath>
+        <itemPath>include/string/split.cpp</itemPath>
+        <itemPath>include/string/split.h</itemPath>
         <itemPath>include/string/split_on_punctuation.cpp</itemPath>
         <itemPath>include/string/split_on_punctuation.h</itemPath>
         <itemPath>include/string/string_case.cpp</itemPath>
@@ -670,15 +670,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/split_on_delimiter.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="include/string/split.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/string/split_on_delimiter.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/string/split.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/split_on_punctuation.cpp"
             ex="false"
@@ -1298,15 +1292,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/split_on_delimiter.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="include/string/split.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/string/split_on_delimiter.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/string/split.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/split_on_punctuation.cpp"
             ex="false"

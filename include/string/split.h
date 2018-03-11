@@ -16,7 +16,7 @@
 
 namespace mzlib {
 
-inline std::vector<std::string_view> split_on_delimiter(
+inline std::vector<std::string_view> split(
    std::string_view str, 
    std::string_view delimiters)
 {

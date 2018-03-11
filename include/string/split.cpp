@@ -7,12 +7,12 @@
 
 #include "gtest/gtest.h"
 
-#include "split_on_delimiter.h"
+#include "split.h"
 
 TEST(split_on_delimiter, one_delimiter_space)
 {
    std::string str = "My uncle Everett plays_in_a_Beatles cover band;";
-   auto split = mzlib::split_on_delimiter(str, " ");
+   auto split = mzlib::split(str, " ");
    ASSERT_EQ(6, split.size());
    ASSERT_EQ(split[0], "My");
    ASSERT_EQ(split[1], "uncle");
@@ -25,7 +25,7 @@ TEST(split_on_delimiter, one_delimiter_space)
 TEST(split_on_delimiter, one_delimiter_comma)
 {
    std::string str = "My,uncle,Everett,plays in a Beatles,cover,band;";
-   auto split = mzlib::split_on_delimiter(str, ",");
+   auto split = mzlib::split(str, ",");
    ASSERT_EQ(6, split.size());
    ASSERT_EQ(split[0], "My");
    ASSERT_EQ(split[1], "uncle");
@@ -37,7 +37,7 @@ TEST(split_on_delimiter, one_delimiter_comma)
 
 TEST(split_on_delimiter, works_on_literals)
 {
-   auto split = mzlib::split_on_delimiter(
+   auto split = mzlib::split(
       "My uncle Everett plays_in_a_Beatles cover band;", " ");
    ASSERT_EQ(6, split.size());
    ASSERT_EQ(split[0], "My");
@@ -51,7 +51,7 @@ TEST(split_on_delimiter, works_on_literals)
 TEST(split_on_delimiter, two_delimiters_space_and_comma)
 {
    std::string str = "My uncle,Everett plays_in_a_Beatles,cover band;";
-   auto split = mzlib::split_on_delimiter(str, " ,");
+   auto split = mzlib::split(str, " ,");
    ASSERT_EQ(6, split.size());
    ASSERT_EQ(split[0], "My");
    ASSERT_EQ(split[1], "uncle");
@@ -64,7 +64,7 @@ TEST(split_on_delimiter, two_delimiters_space_and_comma)
 TEST(split_on_delimiter, two_delimiters_space_and_comma_starts_with_delimiter)
 {
    std::string str = ",My uncle,Everett plays_in_a_Beatles,cover band;";
-   auto split = mzlib::split_on_delimiter(str, " ,");
+   auto split = mzlib::split(str, " ,");
    ASSERT_EQ(6, split.size());
    ASSERT_EQ(split[0], "My");
    ASSERT_EQ(split[1], "uncle");
@@ -77,7 +77,7 @@ TEST(split_on_delimiter, two_delimiters_space_and_comma_starts_with_delimiter)
 TEST(split_on_delimiter, two_delimiters_space_and_comma_end_with_delimiter)
 {
    std::string str = "My uncle,Everett plays_in_a_Beatles,cover band,";
-   auto split = mzlib::split_on_delimiter(str, " ,");
+   auto split = mzlib::split(str, " ,");
    ASSERT_EQ(6, split.size());
    ASSERT_EQ(split[0], "My");
    ASSERT_EQ(split[1], "uncle");
@@ -90,13 +90,13 @@ TEST(split_on_delimiter, two_delimiters_space_and_comma_end_with_delimiter)
 TEST(split_on_delimiter, no_delimiters)
 {
    std::string str = "My uncle,Everett plays_in_a_Beatles,cover band;";
-   auto split = mzlib::split_on_delimiter(str, "");
+   auto split = mzlib::split(str, "");
    ASSERT_EQ(1, split.size());
    ASSERT_EQ(split[0], "My uncle,Everett plays_in_a_Beatles,cover band;");
 }
 
 TEST(split_on_delimiter, no_string)
 {
-   auto split = mzlib::split_on_delimiter("", " ,");
+   auto split = mzlib::split("", " ,");
    ASSERT_EQ(0, split.size());
 }

@@ -89,7 +89,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/remove_strings.o \
 	${OBJECTDIR}/include/string/remove_substrings.o \
 	${OBJECTDIR}/include/string/sentence_assemblarator.o \
-	${OBJECTDIR}/include/string/split_on_delimiter.o \
+	${OBJECTDIR}/include/string/split.o \
 	${OBJECTDIR}/include/string/split_on_punctuation.o \
 	${OBJECTDIR}/include/string/string_case.o \
 	${OBJECTDIR}/include/string/string_replace.o \
@@ -411,10 +411,10 @@ ${OBJECTDIR}/include/string/sentence_assemblarator.o: include/string/sentence_as
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/sentence_assemblarator.o include/string/sentence_assemblarator.cpp
 
-${OBJECTDIR}/include/string/split_on_delimiter.o: include/string/split_on_delimiter.cpp
+${OBJECTDIR}/include/string/split.o: include/string/split.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/split_on_delimiter.o include/string/split_on_delimiter.cpp
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/split.o include/string/split.cpp
 
 ${OBJECTDIR}/include/string/split_on_punctuation.o: include/string/split_on_punctuation.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
