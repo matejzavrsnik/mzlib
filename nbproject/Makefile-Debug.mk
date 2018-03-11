@@ -60,10 +60,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/filesystem/read_write_file.o \
 	${OBJECTDIR}/include/iterators/average.o \
 	${OBJECTDIR}/include/iterators/circular_next.o \
-	${OBJECTDIR}/include/iterators/conditional_find.o \
 	${OBJECTDIR}/include/iterators/copy.o \
 	${OBJECTDIR}/include/iterators/distance_comparison.o \
 	${OBJECTDIR}/include/iterators/fast_forward.o \
+	${OBJECTDIR}/include/iterators/find_in.o \
 	${OBJECTDIR}/include/iterators/get_random.o \
 	${OBJECTDIR}/include/iterators/index_conversion.o \
 	${OBJECTDIR}/include/iterators/insert_if_unique.o \
@@ -267,11 +267,6 @@ ${OBJECTDIR}/include/iterators/circular_next.o: include/iterators/circular_next.
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/circular_next.o include/iterators/circular_next.cpp
 
-${OBJECTDIR}/include/iterators/conditional_find.o: include/iterators/conditional_find.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/iterators
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/conditional_find.o include/iterators/conditional_find.cpp
-
 ${OBJECTDIR}/include/iterators/copy.o: include/iterators/copy.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
@@ -286,6 +281,11 @@ ${OBJECTDIR}/include/iterators/fast_forward.o: include/iterators/fast_forward.cp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/fast_forward.o include/iterators/fast_forward.cpp
+
+${OBJECTDIR}/include/iterators/find_in.o: include/iterators/find_in.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/find_in.o include/iterators/find_in.cpp
 
 ${OBJECTDIR}/include/iterators/get_random.o: include/iterators/get_random.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators

@@ -63,14 +63,14 @@
         <itemPath>include/iterators/average.h</itemPath>
         <itemPath>include/iterators/circular_next.cpp</itemPath>
         <itemPath>include/iterators/circular_next.h</itemPath>
-        <itemPath>include/iterators/conditional_find.cpp</itemPath>
-        <itemPath>include/iterators/conditional_find.h</itemPath>
         <itemPath>include/iterators/copy.cpp</itemPath>
         <itemPath>include/iterators/copy.h</itemPath>
         <itemPath>include/iterators/distance_comparison.cpp</itemPath>
         <itemPath>include/iterators/distance_comparison.h</itemPath>
         <itemPath>include/iterators/fast_forward.cpp</itemPath>
         <itemPath>include/iterators/fast_forward.h</itemPath>
+        <itemPath>include/iterators/find_in.cpp</itemPath>
+        <itemPath>include/iterators/find_in.h</itemPath>
         <itemPath>include/iterators/get_random.cpp</itemPath>
         <itemPath>include/iterators/get_random.h</itemPath>
         <itemPath>include/iterators/index_conversion.cpp</itemPath>
@@ -460,16 +460,6 @@
       </item>
       <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/iterators/conditional_find.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/iterators/conditional_find.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
@@ -487,6 +477,10 @@
       <item path="include/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1086,16 +1080,6 @@
       </item>
       <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/iterators/conditional_find.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/iterators/conditional_find.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
@@ -1113,6 +1097,10 @@
       <item path="include/iterators/fast_forward.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
       </item>

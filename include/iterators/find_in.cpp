@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-#include "conditional_find.h"
+#include "find_in.h"
 
 TEST(last_where_value_larger_then_given, basic)
 {

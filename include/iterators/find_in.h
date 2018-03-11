@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_CONDITIONAL_FIND_ITERATOR_H
-#define MZLIB_CONDITIONAL_FIND_ITERATOR_H
+#ifndef MZLIB_ITERATORS_FIND_IN_H
+#define MZLIB_ITERATORS_FIND_IN_H
 
 #include "distance_comparison.h"
 

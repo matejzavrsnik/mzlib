@@ -9,7 +9,7 @@
 #define MZLIB_NEXT_LEX_PERMUTATION_H
 
 #include <algorithm>
-#include "../iterators/conditional_find.h"
+#include "../iterators/find_in.h"
 
 namespace mzlib {
     
