@@ -13,12 +13,12 @@ TEST(fast_min, basic_lvalue)
 {
    int i1 = 1, i2 = 2, i3 = 3;
    // all permutations
-   ASSERT_EQ(1, mzlib::fast_min_ref(i1, i2, i3));
-   ASSERT_EQ(1, mzlib::fast_min_ref(i1, i3, i2));
-   ASSERT_EQ(1, mzlib::fast_min_ref(i2, i1, i3));
-   ASSERT_EQ(1, mzlib::fast_min_ref(i2, i3, i1));
-   ASSERT_EQ(1, mzlib::fast_min_ref(i3, i1, i2));
-   ASSERT_EQ(1, mzlib::fast_min_ref(i3, i2, i1));
+   ASSERT_EQ(1, mzlib::fast_min(i1, i2, i3));
+   ASSERT_EQ(1, mzlib::fast_min(i1, i3, i2));
+   ASSERT_EQ(1, mzlib::fast_min(i2, i1, i3));
+   ASSERT_EQ(1, mzlib::fast_min(i2, i3, i1));
+   ASSERT_EQ(1, mzlib::fast_min(i3, i1, i2));
+   ASSERT_EQ(1, mzlib::fast_min(i3, i2, i1));
 }
 
 TEST(lvalue, basic_rvalue) 
