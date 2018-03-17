@@ -83,6 +83,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/nature/universe.o \
 	${OBJECTDIR}/include/nature/vector.o \
 	${OBJECTDIR}/include/string/all_words_appear.o \
+	${OBJECTDIR}/include/string/are_substrings.o \
 	${OBJECTDIR}/include/string/case.o \
 	${OBJECTDIR}/include/string/extract_vocabulary.o \
 	${OBJECTDIR}/include/string/get_substring.o \
@@ -382,6 +383,11 @@ ${OBJECTDIR}/include/string/all_words_appear.o: include/string/all_words_appear.
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/all_words_appear.o include/string/all_words_appear.cpp
+
+${OBJECTDIR}/include/string/are_substrings.o: include/string/are_substrings.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/are_substrings.o include/string/are_substrings.cpp
 
 ${OBJECTDIR}/include/string/case.o: include/string/case.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string

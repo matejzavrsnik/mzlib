@@ -97,4 +97,4 @@ String to_uppercase_copy(StringView str)
 
 } // namespace
 
-#endif // HEADER_H
+#endif // MZLIB_STRING_CASE_H

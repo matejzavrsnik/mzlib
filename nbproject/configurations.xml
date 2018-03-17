@@ -133,6 +133,8 @@
       <logicalFolder name="f5" displayName="string" projectFiles="true">
         <itemPath>include/string/all_words_appear.cpp</itemPath>
         <itemPath>include/string/all_words_appear.h</itemPath>
+        <itemPath>include/string/are_substrings.cpp</itemPath>
+        <itemPath>include/string/are_substrings.h</itemPath>
         <itemPath>include/string/case.cpp</itemPath>
         <itemPath>include/string/case.h</itemPath>
         <itemPath>include/string/extract_vocabulary.cpp</itemPath>
@@ -616,6 +618,10 @@
             flavor2="0">
       </item>
       <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/are_substrings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/are_substrings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/case.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1237,6 +1243,10 @@
             flavor2="0">
       </item>
       <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/are_substrings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/are_substrings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/case.cpp" ex="false" tool="1" flavor2="0">
       </item>
