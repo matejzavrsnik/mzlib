@@ -8,28 +8,28 @@
 #ifndef MZLIB_REMOVE_SUBSTRINGS_H
 #define MZLIB_REMOVE_SUBSTRINGS_H
 
+#include <string_view>
+
 namespace mzlib {
 
 inline std::string 
-remove_all_occurences_of_substring(const std::string& str, const std::string& substring)
+remove_all_occurences_of_substring(
+   std::string_view full_string, 
+   std::string_view substring)
 {
-   if (str.length() == 0 || substring.length() == 0) 
-      return str;
+   std::string result = full_string.data();
    
-   std::string washed = str;
-   size_t substring_start;
+   if (full_string.length() == 0 || substring.length() == 0) 
+      return result;
    
-   substring_start = washed.find(substring);
-   
+   size_t substring_start = result.find(substring);
    while (substring_start != std::string::npos) {
-      washed.erase(substring_start, substring.length());
-      substring_start = washed.find(substring);
+      result.erase(substring_start, substring.length());
+      substring_start = result.find(substring);
    }
-     
    
-   return washed;
+   return result;
 }
-
 
 } // namespace
 
