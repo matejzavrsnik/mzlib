@@ -9,15 +9,19 @@
 #define MZLIB_IS_SUBSTRING_H
 
 #include "case.h"
+#include "../iterators/contains_range.h"
 #include <string_view>
 
 namespace mzlib {
    
+  
 inline bool is_substring(
    std::string_view full, 
    std::string_view sub)
 {
-   // Case sensitive version is easy.
+   // Case sensitive version is worth keeping this way. Using my is_substring
+   // implementation that works on general iterators is 4x slower and doesn't
+   // produce any beneficial side effects.
    return (full.find(sub) != std::string_view::npos);
 }
 
@@ -25,22 +29,24 @@ inline bool is_substring_ci(
    std::string_view full, 
    std::string_view sub)
 {
-   // to keep the same result as case sensitive version.
-   // Also, in a way, it is a substring.
-   if (sub.empty()) return true;
-   
    // I don't want to create new strings just to convert read-only
    // string_views to lowercase before comparing. I can do it char 
    // by char with just a little bit of work and spend minimum 
-   // extra memory as a benefit. And on some weird level I enjoy 
-   // watching this too :)
+   // extra memory as a benefit.
    
-   for(auto full_it = full.begin(); full_it != full.end(); ++full_it)
-   for(auto cmp_it = full_it, sub_it = sub.begin(); cmp_it != full.end(); ++cmp_it)
-      if (tolower(*cmp_it) != tolower(*sub_it)) break;
-      else if (++sub_it == sub.end()) return true; // found substring
-      
-   return false; // didn't find substring
+   // Measurements show it's still at least twice slower than creating temp
+   // std::strings, make them lower case, and find substring with .find,
+   // but it does at least save on memory.
+   
+   std::function<bool(std::string_view::iterator, std::string_view::iterator)> 
+      case_insensitive_equal = [](std::string_view::iterator a, std::string_view::iterator b){
+         return (tolower(*a) == tolower(*b));
+      };
+
+   return mzlib::contains_range(
+      full.begin(), full.end(),
+      sub.begin(), sub.end(),
+      case_insensitive_equal);
 }
 
 } // namespace
