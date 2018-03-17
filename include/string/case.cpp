@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-#include "string_case.h"
+#include "case.h"
 
 TEST(to_lowercase_inplace, demo)
 {

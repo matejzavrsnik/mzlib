@@ -9,7 +9,7 @@
 #define MZLIB_IS_META_DIRECTORY_H
 
 #include <string_view>
-#include "../string/string_start_end.h"
+#include "../string/start_end.h"
 
 namespace mzlib {
    

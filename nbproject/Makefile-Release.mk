@@ -83,6 +83,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/nature/universe.o \
 	${OBJECTDIR}/include/nature/vector.o \
 	${OBJECTDIR}/include/string/all_words_appear.o \
+	${OBJECTDIR}/include/string/case.o \
 	${OBJECTDIR}/include/string/extract_vocabulary.o \
 	${OBJECTDIR}/include/string/get_substring.o \
 	${OBJECTDIR}/include/string/is_just_whitespace.o \
@@ -90,12 +91,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/is_word_in_dictionary.o \
 	${OBJECTDIR}/include/string/remove_strings.o \
 	${OBJECTDIR}/include/string/remove_substrings.o \
+	${OBJECTDIR}/include/string/replace.o \
 	${OBJECTDIR}/include/string/sentence_assemblarator.o \
 	${OBJECTDIR}/include/string/split.o \
 	${OBJECTDIR}/include/string/split_on_punctuation.o \
-	${OBJECTDIR}/include/string/string_case.o \
-	${OBJECTDIR}/include/string/string_replace.o \
-	${OBJECTDIR}/include/string/string_start_end.o \
+	${OBJECTDIR}/include/string/start_end.o \
 	${OBJECTDIR}/include/string/trim_nonalpha.o \
 	${OBJECTDIR}/include/tools/add_to_tally.o \
 	${OBJECTDIR}/include/tools/copy_first_n_over_rest.o \
@@ -383,6 +383,11 @@ ${OBJECTDIR}/include/string/all_words_appear.o: include/string/all_words_appear.
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/all_words_appear.o include/string/all_words_appear.cpp
 
+${OBJECTDIR}/include/string/case.o: include/string/case.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/case.o include/string/case.cpp
+
 ${OBJECTDIR}/include/string/extract_vocabulary.o: include/string/extract_vocabulary.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
@@ -418,6 +423,11 @@ ${OBJECTDIR}/include/string/remove_substrings.o: include/string/remove_substring
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/remove_substrings.o include/string/remove_substrings.cpp
 
+${OBJECTDIR}/include/string/replace.o: include/string/replace.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/replace.o include/string/replace.cpp
+
 ${OBJECTDIR}/include/string/sentence_assemblarator.o: include/string/sentence_assemblarator.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
@@ -433,20 +443,10 @@ ${OBJECTDIR}/include/string/split_on_punctuation.o: include/string/split_on_punc
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/split_on_punctuation.o include/string/split_on_punctuation.cpp
 
-${OBJECTDIR}/include/string/string_case.o: include/string/string_case.cpp
+${OBJECTDIR}/include/string/start_end.o: include/string/start_end.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/string_case.o include/string/string_case.cpp
-
-${OBJECTDIR}/include/string/string_replace.o: include/string/string_replace.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/string
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/string_replace.o include/string/string_replace.cpp
-
-${OBJECTDIR}/include/string/string_start_end.o: include/string/string_start_end.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/string
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/string_start_end.o include/string/string_start_end.cpp
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/start_end.o include/string/start_end.cpp
 
 ${OBJECTDIR}/include/string/trim_nonalpha.o: include/string/trim_nonalpha.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string

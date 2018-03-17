@@ -7,6 +7,6 @@
 
 #include "gtest/gtest.h"
 
-#include "string_replace.h"
+#include "replace.h"
 
 //todo

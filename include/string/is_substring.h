@@ -5,15 +5,15 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_IS_JUST_WHITESPACE_H
-#define MZLIB_IS_JUST_WHITESPACE_H
+#ifndef MZLIB_IS_SUBSTRING_H
+#define MZLIB_IS_SUBSTRING_H
 
-#include "string_case.h"
+#include "case.h"
 #include <string_view>
 
 namespace mzlib {
    
-bool is_substring(
+inline bool is_substring(
    std::string_view full, 
    std::string_view sub)
 {
@@ -21,7 +21,7 @@ bool is_substring(
    return (full.find(sub) != std::string_view::npos);
 }
 
-bool is_substring_ci(
+inline bool is_substring_ci(
    std::string_view full, 
    std::string_view sub)
 {
@@ -45,4 +45,4 @@ bool is_substring_ci(
 
 } // namespace
 
-#endif /* MZLIB_IS_JUST_WHITESPACE_H */
+#endif /* MZLIB_IS_SUBSTRING_H */

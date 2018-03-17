@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-#include "string_start_end.h"
+#include "start_end.h"
 
 TEST(string_ends_with, demo)
 {

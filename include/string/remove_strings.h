@@ -8,7 +8,7 @@
 #ifndef MZLIB_REMOVE_STRINGS_H
 #define MZLIB_REMOVE_STRINGS_H
 
-#include "string_start_end.h"
+#include "start_end.h"
 #include <functional>
 
 namespace mzlib {

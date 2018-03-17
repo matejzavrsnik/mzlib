@@ -133,6 +133,8 @@
       <logicalFolder name="f5" displayName="string" projectFiles="true">
         <itemPath>include/string/all_words_appear.cpp</itemPath>
         <itemPath>include/string/all_words_appear.h</itemPath>
+        <itemPath>include/string/case.cpp</itemPath>
+        <itemPath>include/string/case.h</itemPath>
         <itemPath>include/string/extract_vocabulary.cpp</itemPath>
         <itemPath>include/string/extract_vocabulary.h</itemPath>
         <itemPath>include/string/get_substring.cpp</itemPath>
@@ -147,18 +149,16 @@
         <itemPath>include/string/remove_strings.h</itemPath>
         <itemPath>include/string/remove_substrings.cpp</itemPath>
         <itemPath>include/string/remove_substrings.h</itemPath>
+        <itemPath>include/string/replace.cpp</itemPath>
+        <itemPath>include/string/replace.h</itemPath>
         <itemPath>include/string/sentence_assemblarator.cpp</itemPath>
         <itemPath>include/string/sentence_assemblarator.h</itemPath>
         <itemPath>include/string/split.cpp</itemPath>
         <itemPath>include/string/split.h</itemPath>
         <itemPath>include/string/split_on_punctuation.cpp</itemPath>
         <itemPath>include/string/split_on_punctuation.h</itemPath>
-        <itemPath>include/string/string_case.cpp</itemPath>
-        <itemPath>include/string/string_case.h</itemPath>
-        <itemPath>include/string/string_replace.cpp</itemPath>
-        <itemPath>include/string/string_replace.h</itemPath>
-        <itemPath>include/string/string_start_end.cpp</itemPath>
-        <itemPath>include/string/string_start_end.h</itemPath>
+        <itemPath>include/string/start_end.cpp</itemPath>
+        <itemPath>include/string/start_end.h</itemPath>
         <itemPath>include/string/trim_nonalpha.cpp</itemPath>
         <itemPath>include/string/trim_nonalpha.h</itemPath>
       </logicalFolder>
@@ -617,6 +617,10 @@
       </item>
       <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/case.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/case.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/extract_vocabulary.cpp"
             ex="false"
             tool="1"
@@ -666,6 +670,10 @@
       </item>
       <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/replace.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/replace.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/sentence_assemblarator.cpp"
             ex="false"
             tool="1"
@@ -690,20 +698,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/string_case.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/string/start_end.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/string/string_case.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/string/string_replace.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/string/string_start_end.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
+      <item path="include/string/start_end.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1241,6 +1238,10 @@
       </item>
       <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/case.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/case.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/extract_vocabulary.cpp"
             ex="false"
             tool="1"
@@ -1290,6 +1291,10 @@
       </item>
       <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/replace.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/replace.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/sentence_assemblarator.cpp"
             ex="false"
             tool="1"
@@ -1314,20 +1319,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/string/string_case.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/string/start_end.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/string/string_case.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/string/string_replace.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/string/string_replace.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/string/string_start_end.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/string/string_start_end.h" ex="false" tool="3" flavor2="0">
+      <item path="include/string/start_end.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
