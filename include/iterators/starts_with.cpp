@@ -143,3 +143,10 @@ TEST(ends_with, whole_string_convenience_does_not_end_with)
    std::string_view v2 = "467";
    ASSERT_FALSE(mzlib::ends_with(v1, v2));
 }
+
+TEST(ends_with, whole_string_convenience_equal_size_does_begin_with_sub)
+{
+   std::string_view v1 = "467";
+   std::string_view v2 = "467";
+   ASSERT_TRUE(mzlib::ends_with(v1, v2));
+}

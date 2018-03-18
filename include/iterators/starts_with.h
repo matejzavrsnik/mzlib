@@ -38,8 +38,8 @@ bool starts_with(
 
 template<class Collection1, class Collection2>
 bool starts_with(
-   const Collection1& full, 
-   const Collection2& sub)
+   Collection1&& full, 
+   Collection2&& sub)
 {
    return starts_with(
       std::cbegin(full), std::cend(full),
@@ -48,8 +48,8 @@ bool starts_with(
 
 template<class Collection1, class Collection2>
 bool ends_with(
-   const Collection1& full, 
-   const Collection2& sub)
+   Collection1&& full, 
+   Collection2&& sub)
 {
    return starts_with(
       std::crbegin(full), std::crend(full),
