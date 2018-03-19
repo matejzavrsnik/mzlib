@@ -18,8 +18,9 @@ TEST(remove_strings, which_end_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   using namespace mzlib::parameters::remove_strings_which;
-   auto filtered = mzlib::remove_strings_which (list, end_with, {"mind-killer", "obliteration", "me"});
+   std::vector<std::string> endings = {"mind-killer", "obliteration", "me"};
+   auto filtered = mzlib::remove_from(list.begin(), list.end())
+      .which().end().with(endings.begin(), endings.end());
    
    auto not_found = filtered.end();
    ASSERT_EQ(2, filtered.size());
@@ -36,8 +37,9 @@ TEST(remove_strings, which_start_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   using namespace mzlib::parameters::remove_strings_which;
-   auto filtered = mzlib::remove_strings_which (list, start_with, {"I must", "Fear"});
+   std::vector<std::string> endings = {"I must", "Fear"};
+   auto filtered = mzlib::remove_from(list.begin(), list.end())
+      .which().start().with(endings.begin(), endings.end());
    
    auto not_found = filtered.end();
    ASSERT_EQ(2, filtered.size());
@@ -54,8 +56,9 @@ TEST(remove_strings, which_dont_start_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   using namespace mzlib::parameters::remove_strings_which;
-   auto filtered = mzlib::remove_strings_which_dont (list, start_with, {"I must", "Fear"});
+   std::vector<std::string> endings = {"I must", "Fear"};
+   auto filtered = mzlib::remove_from(list.begin(), list.end())
+      .which_do_not().start().with(endings.begin(), endings.end());
    
    auto not_found = filtered.end();
    ASSERT_EQ(3, filtered.size());
@@ -73,8 +76,9 @@ TEST(remove_strings, which_dont_end_with)
    list.push_back("I will face my fear");
    list.push_back("I will permit it to pass over me and through me");
    
-   using namespace mzlib::parameters::remove_strings_which;
-   auto filtered = mzlib::remove_strings_which_dont (list, end_with, {"mind-killer", "obliteration"});
+   std::vector<std::string> endings = {"mind-killer", "obliteration"};
+   auto filtered = mzlib::remove_from(list.begin(), list.end())
+      .which_do_not().end().with(endings.begin(), endings.end());
    
    auto not_found = filtered.end();
    ASSERT_EQ(2, filtered.size());
