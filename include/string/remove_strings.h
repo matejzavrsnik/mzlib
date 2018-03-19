@@ -8,7 +8,7 @@
 #ifndef MZLIB_REMOVE_STRINGS_H
 #define MZLIB_REMOVE_STRINGS_H
 
-#include "start_end.h"
+#include "../iterators/starts_with.h"
 #include <functional>
 #include <algorithm>
 
