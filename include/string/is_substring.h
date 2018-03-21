@@ -9,6 +9,7 @@
 #define MZLIB_IS_SUBSTRING_H
 
 #include "case.h"
+#include "case_insensitive_equal.h"
 #include "../iterators/contains_range.h"
 #include <string_view>
 
@@ -37,16 +38,11 @@ inline bool is_substring_ci(
    // Measurements show it's still at least twice slower than creating temp
    // std::strings, make them lower case, and find substring with .find,
    // but it does at least save on memory.
-   
-   std::function<bool(std::string_view::iterator, std::string_view::iterator)> 
-      case_insensitive_equal = [](std::string_view::iterator a, std::string_view::iterator b){
-         return (tolower(*a) == tolower(*b));
-      };
-
+     
    return mzlib::contains_range(
       full.begin(), full.end(),
       sub.begin(), sub.end(),
-      case_insensitive_equal);
+      mzlib::case_insensitive_equal<std::string_view::value_type>);
 }
 
 } // namespace

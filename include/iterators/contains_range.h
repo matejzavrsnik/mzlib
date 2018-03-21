@@ -13,15 +13,19 @@
 #define MZLIB_CONTAINS_RANGE_H
 
 #include <functional>
+#include <utility>
 
 namespace mzlib {
 
-template <class Iterator>
+template <class Iterator, class ValueType>
 inline bool contains_range(
    Iterator whole_begin, Iterator whole_end, 
    Iterator range_begin, Iterator range_end,
-   std::function<bool(Iterator, Iterator)> equal =
-      [](Iterator it1, Iterator it2) { return (*it1 == *it2); } )
+   // custom comparison functor comes handy in cases like
+   // case insensitive char equality comparator
+   bool (*equal)(const ValueType&, const ValueType&) =
+      [](const ValueType& el1, const ValueType& el2) 
+         { return (el1 == el2); } )
 {
    if (range_begin == range_end) return true;
    
@@ -29,7 +33,7 @@ inline bool contains_range(
    
    for(auto full_it = whole_begin; full_it != whole_end; ++full_it)
    for(auto cmp_it = full_it, sub_it = range_begin; cmp_it != whole_end; ++cmp_it)
-      if (!equal(cmp_it, sub_it)) break;
+      if (!equal(*cmp_it, *sub_it)) break;
       else if (++sub_it == range_end) return true; // found
       
    return false; // didn't find
