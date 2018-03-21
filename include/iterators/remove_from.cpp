@@ -85,3 +85,24 @@ TEST(remove_from, strings_which_dont_end_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the mind-killer"));
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
+
+TEST(remove_from, vectors_which_end_with)
+{
+   std::vector<std::vector<int>> list;
+   list.push_back({1,2,3,4,5}); 
+   list.push_back({6,7,8,9,10});
+   list.push_back({3,2,1,4,4});
+   list.push_back({1,1,1,1,1,4,5});
+   list.push_back({1,2,3,4,5,6,7});
+   
+   std::vector<std::string> endings = {{4,5}, {5,6,7}};
+   auto filtered = mzlib::remove_from(list.begin(), list.end())
+      .which().end().with(endings.begin(), endings.end());
+   
+   auto not_found = filtered.end();
+   ASSERT_EQ(2, filtered.size());
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), 
+      std::vector<int>({6,7,8,9,10})));
+   ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), 
+      std::vector<int>({3,2,1,4,4})));
+}

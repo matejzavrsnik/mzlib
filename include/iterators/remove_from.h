@@ -111,7 +111,7 @@ private:
    std::vector<ValueType> 
    dont_start(IteratorEdge begin, IteratorEdge end) 
    {
-      std::vector<std::string> result;
+      std::vector<ValueType> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
          for (auto edge = begin; edge != end; ++edge) {
             bool goes_on_the_list = starts_with(*full, *edge);
@@ -148,7 +148,7 @@ private:
    std::vector<ValueType> 
    dont_end(IteratorEdge begin, IteratorEdge end) 
    {
-      std::vector<std::string> result;
+      std::vector<ValueType> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
          for (auto edge = begin; edge != end; ++edge) {
             bool goes_on_the_list = ends_with(*full, *edge);
