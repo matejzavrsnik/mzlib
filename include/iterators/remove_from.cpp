@@ -7,9 +7,9 @@
 
 #include "gtest/gtest.h"
 
-#include "remove_strings.h"
+#include "remove_from.h"
 
-TEST(remove_strings, which_end_with)
+TEST(remove_from, strings_which_end_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -28,7 +28,7 @@ TEST(remove_strings, which_end_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will face my fear"));
 }
 
-TEST(remove_strings, which_start_with)
+TEST(remove_from, strings_which_start_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -47,7 +47,7 @@ TEST(remove_strings, which_start_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "I will permit it to pass over me and through me"));
 }
 
-TEST(remove_strings, which_dont_start_with)
+TEST(remove_from, strings_which_dont_start_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 
@@ -67,7 +67,7 @@ TEST(remove_strings, which_dont_start_with)
    ASSERT_NE(not_found, std::find(filtered.begin(), filtered.end(), "Fear is the little-death that brings total obliteration"));
 }
 
-TEST(remove_strings, which_dont_end_with)
+TEST(remove_from, strings_which_dont_end_with)
 {
    std::vector<std::string> list;
    list.push_back("I must not fear"); 

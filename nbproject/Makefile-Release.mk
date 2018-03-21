@@ -68,6 +68,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/iterators/index_conversion.o \
 	${OBJECTDIR}/include/iterators/insert_if_unique.o \
 	${OBJECTDIR}/include/iterators/is_last.o \
+	${OBJECTDIR}/include/iterators/remove_from.o \
 	${OBJECTDIR}/include/iterators/starts_with.o \
 	${OBJECTDIR}/include/joke/supersafe_number.o \
 	${OBJECTDIR}/include/lang/c64_basic_for.o \
@@ -91,7 +92,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/is_just_whitespace.o \
 	${OBJECTDIR}/include/string/is_substring.o \
 	${OBJECTDIR}/include/string/is_word_in_dictionary.o \
-	${OBJECTDIR}/include/string/remove_strings.o \
 	${OBJECTDIR}/include/string/remove_substrings.o \
 	${OBJECTDIR}/include/string/replace.o \
 	${OBJECTDIR}/include/string/sentence_assemblarator.o \
@@ -309,6 +309,11 @@ ${OBJECTDIR}/include/iterators/is_last.o: include/iterators/is_last.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/is_last.o include/iterators/is_last.cpp
 
+${OBJECTDIR}/include/iterators/remove_from.o: include/iterators/remove_from.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/remove_from.o include/iterators/remove_from.cpp
+
 ${OBJECTDIR}/include/iterators/starts_with.o: include/iterators/starts_with.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
@@ -423,11 +428,6 @@ ${OBJECTDIR}/include/string/is_word_in_dictionary.o: include/string/is_word_in_d
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/is_word_in_dictionary.o include/string/is_word_in_dictionary.cpp
-
-${OBJECTDIR}/include/string/remove_strings.o: include/string/remove_strings.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/string
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/remove_strings.o include/string/remove_strings.cpp
 
 ${OBJECTDIR}/include/string/remove_substrings.o: include/string/remove_substrings.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string

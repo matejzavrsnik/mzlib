@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_REMOVE_STRINGS_H
-#define MZLIB_REMOVE_STRINGS_H
+#ifndef MZLIB_REMOVE_FROM_H
+#define MZLIB_REMOVE_FROM_H
 
 #include "../iterators/starts_with.h"
 #include <functional>
@@ -21,7 +21,6 @@ class remove_from
    IteratorFull m_full_begin;
    IteratorFull m_full_end;
    enum class position {start, end} m_position;
-   enum class case_sensitivity {sensitive, insensitive} m_case;
    enum class modality {they_do, they_dont} m_modality;
    
 public:
@@ -30,21 +29,8 @@ public:
       m_full_begin(begin),
       m_full_end(end),
       m_position(position::start),
-      m_case(case_sensitivity::sensitive),
       m_modality(modality::they_do)
    {}
-      
-   remove_from& case_sensitive()
-   {
-      m_case = case_sensitivity::sensitive;
-      return *this;
-   }
-   
-   remove_from& case_insensitive()
-   {
-      m_case = case_sensitivity::insensitive;
-      return *this;
-   }
    
    remove_from& which()
    {
@@ -75,52 +61,24 @@ public:
    std::vector<ValueType> 
    with(IteratorEdge begin, IteratorEdge end)
    {
-      switch(m_case) {
-         case case_sensitivity::sensitive:
-            switch(m_position) {
-               case position::start:
-                  switch(m_modality) {
-                     case modality::they_do:
-                        return do_start_sensitive(begin, end);
-                        break;
-                     case modality::they_dont:
-                        return dont_start_sensitive(begin, end);
-                        break;
-                  }
+      switch(m_position) {
+         case position::start:
+            switch(m_modality) {
+               case modality::they_do:
+                  return do_start(begin, end);
                   break;
-               case position::end:
-                  switch(m_modality) {
-                     case modality::they_do:
-                        return do_end_sensitive(begin, end);
-                        break;
-                     case modality::they_dont:
-                        return dont_end_sensitive(begin, end);
-                        break;
-                  }
+               case modality::they_dont:
+                  return dont_start(begin, end);
                   break;
             }
             break;
-         case case_sensitivity::insensitive:
-            switch(m_position) {
-               case position::start:
-                  switch(m_modality) {
-                     case modality::they_do:
-                        return do_start_insensitive(begin, end);
-                        break;
-                     case modality::they_dont:
-                        return dont_start_insensitive(begin, end);
-                        break;
-                  }
+         case position::end:
+            switch(m_modality) {
+               case modality::they_do:
+                  return do_end(begin, end);
                   break;
-               case position::end:
-                  switch(m_modality) {
-                     case modality::they_do:
-                        return do_end_insensitive(begin, end);
-                        break;
-                     case modality::they_dont:
-                        return dont_end_insensitive(begin, end);
-                        break;
-                  }
+               case modality::they_dont:
+                  return dont_end(begin, end);
                   break;
             }
             break;
@@ -131,7 +89,7 @@ private:
    
    template<class IteratorEdge>
    std::vector<ValueType> 
-   do_start_sensitive(IteratorEdge begin, IteratorEdge end) 
+   do_start(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<ValueType> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
@@ -151,7 +109,7 @@ private:
 
    template<class IteratorEdge>
    std::vector<ValueType> 
-   dont_start_sensitive(IteratorEdge begin, IteratorEdge end) 
+   dont_start(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<std::string> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
@@ -168,7 +126,7 @@ private:
 
    template<class IteratorEdge>
    std::vector<ValueType> 
-   do_end_sensitive(IteratorEdge begin, IteratorEdge end) 
+   do_end(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<ValueType> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
@@ -188,7 +146,7 @@ private:
 
    template<class IteratorEdge>
    std::vector<ValueType> 
-   dont_end_sensitive(IteratorEdge begin, IteratorEdge end) 
+   dont_end(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<std::string> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
@@ -204,36 +162,8 @@ private:
       return result;
    }
 
-   template<class IteratorEdge>
-   std::vector<ValueType> 
-   do_start_insensitive(IteratorEdge begin, IteratorEdge end) 
-   {
-      return std::vector<ValueType> ();
-   }
-
-   template<class IteratorEdge>
-   std::vector<ValueType> 
-   dont_start_insensitive(IteratorEdge begin, IteratorEdge end) 
-   {
-      return std::vector<ValueType> ();
-   }
-
-   template<class IteratorEdge>
-   std::vector<ValueType> 
-   do_end_insensitive(IteratorEdge begin, IteratorEdge end) 
-   {
-      return std::vector<ValueType> ();
-   }
-
-   template<class IteratorEdge>
-   std::vector<ValueType> 
-   dont_end_insensitive(IteratorEdge begin, IteratorEdge end) 
-   {
-      return std::vector<ValueType> ();
-   }
-
 };
    
 } // namespace
 
-#endif // MZLIB_REMOVE_STRINGS_H
+#endif // MZLIB_REMOVE_FROM_H
