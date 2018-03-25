@@ -82,6 +82,8 @@
         <itemPath>include/iterators/is_last.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
+        <itemPath>include/iterators/set_intersection.cpp</itemPath>
+        <itemPath>include/iterators/set_intersection.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
         <itemPath>include/iterators/starts_with.h</itemPath>
       </logicalFolder>
@@ -520,6 +522,16 @@
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/set_intersection.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/set_intersection.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/starts_with.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1153,6 +1165,16 @@
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/set_intersection.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/set_intersection.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/starts_with.cpp" ex="false" tool="1" flavor2="0">
       </item>

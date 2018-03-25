@@ -69,6 +69,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/iterators/insert_if_unique.o \
 	${OBJECTDIR}/include/iterators/is_last.o \
 	${OBJECTDIR}/include/iterators/remove_from.o \
+	${OBJECTDIR}/include/iterators/set_intersection.o \
 	${OBJECTDIR}/include/iterators/starts_with.o \
 	${OBJECTDIR}/include/joke/supersafe_number.o \
 	${OBJECTDIR}/include/lang/c64_basic_for.o \
@@ -313,6 +314,11 @@ ${OBJECTDIR}/include/iterators/remove_from.o: include/iterators/remove_from.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/remove_from.o include/iterators/remove_from.cpp
+
+${OBJECTDIR}/include/iterators/set_intersection.o: include/iterators/set_intersection.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/set_intersection.o include/iterators/set_intersection.cpp
 
 ${OBJECTDIR}/include/iterators/starts_with.o: include/iterators/starts_with.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
