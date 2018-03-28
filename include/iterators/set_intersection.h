@@ -23,43 +23,41 @@ namespace mzlib {
 // so that you could still apply std lib sets operations on them?
 
 template<
-   class InputIt, class OutputIt,
+   class InputIt, 
+   class OutputIt,
+   class EqualFun,
+   class ValueType = std::remove_reference_t<decltype(std::declval<InputIt>().operator*())>
+>
+void set_intersection_if(
+   InputIt a_begin, InputIt a_end,
+   InputIt b_begin, InputIt b_end,
+   OutputIt inserter,
+   EqualFun equal)
+{
+   for(auto a_it = a_begin; a_it != a_end; ++a_it)
+   for(auto b_it = b_begin; b_it != b_end; ++b_it)
+      if(equal(*a_it, *b_it))
+         *inserter = *a_it;
+}
+
+template<
+   class InputIt, 
+   class OutputIt,
    class ValueType = std::remove_reference_t<decltype(std::declval<InputIt>().operator*())>
 >
 void set_intersection(
    InputIt a_begin, InputIt a_end,
    InputIt b_begin, InputIt b_end,
-   OutputIt inserter,
-   bool (*equal)(const ValueType&, const ValueType&) =
-      [](const ValueType& el1, const ValueType& el2) 
-         { return (el1 == el2); } )
+   OutputIt inserter)
 {
-   for(auto a_it = a_begin; a_it != a_end; ++a_it)
-   for(auto b_it = b_begin; b_it != b_end; ++b_it)
-      if(equal(*a_it, *b_it))
-         *inserter = *b_it;
+   set_intersection_if(
+      a_begin, a_end,
+      b_begin, b_end,
+      inserter,
+      [](const ValueType& el1, const ValueType& el2)
+         { return (el1 == el2); });
 }
          
-template<
-   class InputIt,
-   class ValueType = std::remove_reference_t<decltype(std::declval<InputIt>().operator*())>
->
-std::set<ValueType> set_intersection(
-   InputIt a_begin, InputIt a_end,
-   InputIt b_begin, InputIt b_end,
-   bool (*equal)(const ValueType&, const ValueType&) =
-      [](const ValueType& el1, const ValueType& el2) 
-         { return (el1 == el2); } )
-{
-   std::set<ValueType> result;
-   set_intersection(
-      a_begin, a_end, 
-      b_begin, b_end, 
-      std::inserter(result, result.end()),
-      equal);
-   return result;
-}
-
 }
 
 #endif /* SET_INTERSECTION_H */
