@@ -22,15 +22,10 @@ namespace mzlib {
 // equal when one contains the other as substring. How do you sort them
 // so that you could still apply std lib sets operations on them?
 
-template<
-   class InputIt, 
-   class OutputIt,
-   class EqualFun,
-   class ValueType = std::remove_reference_t<decltype(std::declval<InputIt>().operator*())>
->
+template<class InputIt1, class InputIt2, class OutputIt, class EqualFun>
 void set_intersection_if(
-   InputIt a_begin, InputIt a_end,
-   InputIt b_begin, InputIt b_end,
+   InputIt1 a_begin, InputIt1 a_end,
+   InputIt2 b_begin, InputIt2 b_end,
    OutputIt inserter,
    EqualFun equal)
 {
@@ -40,21 +35,20 @@ void set_intersection_if(
          *inserter = *a_it;
 }
 
-template<
-   class InputIt, 
-   class OutputIt,
-   class ValueType = std::remove_reference_t<decltype(std::declval<InputIt>().operator*())>
->
+template<class InputIt1, class InputIt2, class OutputIt>
 void set_intersection(
-   InputIt a_begin, InputIt a_end,
-   InputIt b_begin, InputIt b_end,
+   InputIt1 a_begin, InputIt1 a_end,
+   InputIt2 b_begin, InputIt2 b_end,
    OutputIt inserter)
 {
+   using ValueType1 = std::remove_reference_t<decltype(std::declval<InputIt1>().operator*())>;
+   using ValueType2 = std::remove_reference_t<decltype(std::declval<InputIt2>().operator*())>;
+   
    set_intersection_if(
       a_begin, a_end,
       b_begin, b_end,
       inserter,
-      [](const ValueType& el1, const ValueType& el2)
+      [](const ValueType1& el1, const ValueType2& el2)
          { return (el1 == el2); });
 }
          
