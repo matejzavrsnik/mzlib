@@ -78,6 +78,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/laws/constant_linear_acceleration.o \
 	${OBJECTDIR}/include/laws/gravitation.o \
 	${OBJECTDIR}/include/laws/screen_rectangles.o \
+	${OBJECTDIR}/include/laws/set_difference.o \
 	${OBJECTDIR}/include/laws/set_intersection.o \
 	${OBJECTDIR}/include/laws/vector_operations.o \
 	${OBJECTDIR}/include/nature/mass_centre.o \
@@ -359,6 +360,11 @@ ${OBJECTDIR}/include/laws/screen_rectangles.o: include/laws/screen_rectangles.cp
 	${MKDIR} -p ${OBJECTDIR}/include/laws
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/screen_rectangles.o include/laws/screen_rectangles.cpp
+
+${OBJECTDIR}/include/laws/set_difference.o: include/laws/set_difference.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/set_difference.o include/laws/set_difference.cpp
 
 ${OBJECTDIR}/include/laws/set_intersection.o: include/laws/set_intersection.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/laws

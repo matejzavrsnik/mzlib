@@ -10,6 +10,7 @@
 
 #include "starts_with.h"
 #include "../laws/set_intersection.h"
+#include "../laws/set_difference.h"
 
 #include <functional>
 #include <algorithm>
@@ -94,18 +95,14 @@ private:
    do_start(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<ValueType> result;
-      for (auto full = m_full_begin; full != m_full_end; ++full) {
-         bool goes_on_the_list = false;
-         for (auto edge = begin; edge != end; ++edge) {
-            if (starts_with_c(*full, *edge)) {
-               goes_on_the_list = true;
-               break;
-            }
-         }
-         if(!goes_on_the_list) {
-            result.push_back(*full);
-         }
-      };
+      using ValueEdge = typename IteratorEdge::value_type;
+      
+      set_difference_if(
+         m_full_begin, m_full_end,
+         begin, end,
+         std::inserter(result, result.end()),
+         starts_with_c<ValueType, ValueEdge>);
+      
       return result;
    }
 
@@ -130,18 +127,14 @@ private:
    do_end(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<ValueType> result;
-      for (auto full = m_full_begin; full != m_full_end; ++full) {
-         bool goes_on_the_list = false;
-         for (auto edge = begin; edge != end; ++edge) {
-            if (ends_with_c(*full, *edge)) {
-               goes_on_the_list = true;
-               break;
-            }
-         }
-         if(!goes_on_the_list) {
-            result.push_back(*full);
-         }
-      };
+      using ValueEdge = typename IteratorEdge::value_type;
+      
+      set_difference_if(
+         m_full_begin, m_full_end,
+         begin, end,
+         std::inserter(result, result.end()),
+         ends_with_c<ValueType, ValueEdge>);
+      
       return result;
    }
 
