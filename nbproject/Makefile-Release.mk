@@ -69,7 +69,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/iterators/insert_if_unique.o \
 	${OBJECTDIR}/include/iterators/is_last.o \
 	${OBJECTDIR}/include/iterators/remove_from.o \
-	${OBJECTDIR}/include/iterators/set_intersection.o \
 	${OBJECTDIR}/include/iterators/starts_with.o \
 	${OBJECTDIR}/include/joke/supersafe_number.o \
 	${OBJECTDIR}/include/lang/c64_basic_for.o \
@@ -79,6 +78,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/laws/constant_linear_acceleration.o \
 	${OBJECTDIR}/include/laws/gravitation.o \
 	${OBJECTDIR}/include/laws/screen_rectangles.o \
+	${OBJECTDIR}/include/laws/set_intersection.o \
 	${OBJECTDIR}/include/laws/vector_operations.o \
 	${OBJECTDIR}/include/nature/mass_centre.o \
 	${OBJECTDIR}/include/nature/units_strong_definitions.o \
@@ -315,11 +315,6 @@ ${OBJECTDIR}/include/iterators/remove_from.o: include/iterators/remove_from.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/remove_from.o include/iterators/remove_from.cpp
 
-${OBJECTDIR}/include/iterators/set_intersection.o: include/iterators/set_intersection.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/iterators
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/set_intersection.o include/iterators/set_intersection.cpp
-
 ${OBJECTDIR}/include/iterators/starts_with.o: include/iterators/starts_with.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
@@ -364,6 +359,11 @@ ${OBJECTDIR}/include/laws/screen_rectangles.o: include/laws/screen_rectangles.cp
 	${MKDIR} -p ${OBJECTDIR}/include/laws
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/screen_rectangles.o include/laws/screen_rectangles.cpp
+
+${OBJECTDIR}/include/laws/set_intersection.o: include/laws/set_intersection.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/set_intersection.o include/laws/set_intersection.cpp
 
 ${OBJECTDIR}/include/laws/vector_operations.o: include/laws/vector_operations.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/laws

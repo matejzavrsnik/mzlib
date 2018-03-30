@@ -9,7 +9,7 @@
 #define MZLIB_REMOVE_FROM_H
 
 #include "starts_with.h"
-#include "set_intersection.h"
+#include "../laws/set_intersection.h"
 
 #include <functional>
 #include <algorithm>
