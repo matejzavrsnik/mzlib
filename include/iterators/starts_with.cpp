@@ -92,61 +92,61 @@ TEST(starts_with, whole_collection_convenience_does_start_with)
 {
    std::vector<int> v1 = {1,2,3,4,5,6,7};
    std::vector<int> v2 = {1,2,3};
-   ASSERT_TRUE(mzlib::starts_with(v1, v2));
+   ASSERT_TRUE(mzlib::starts_with_c(v1, v2));
 }
 
 TEST(starts_with, whole_collection_convenience_does_not_start_with)
 {
    std::vector<int> v1 = {1,2,3,4,5,6,7};
    std::vector<int> v2 = {1,2,4};
-   ASSERT_FALSE(mzlib::starts_with(v1, v2));
+   ASSERT_FALSE(mzlib::starts_with_c(v1, v2));
 }
 
 TEST(ends_with, whole_collection_convenience_does_end_with)
 {
    std::vector<int> v1 = {1,2,3,4,5,6,7};
    std::vector<int> v2 = {5,6,7};
-   ASSERT_TRUE(mzlib::ends_with(v1, v2));
+   ASSERT_TRUE(mzlib::ends_with_c(v1, v2));
 }
 
 TEST(ends_with, whole_collection_convenience_does_not_end_with)
 {
    std::vector<int> v1 = {1,2,3,4,5,6,7};
    std::vector<int> v2 = {4,6,7};
-   ASSERT_FALSE(mzlib::ends_with(v1, v2));
+   ASSERT_FALSE(mzlib::ends_with_c(v1, v2));
 }
 
 TEST(starts_with, whole_string_convenience_does_start_with)
 {
    std::string_view v1 = "1234567";
    std::string_view v2 = "123";
-   ASSERT_TRUE(mzlib::starts_with(v1, v2));
+   ASSERT_TRUE(mzlib::starts_with_c(v1, v2));
 }
 
 TEST(starts_with, whole_string_convenience_does_not_start_with)
 {
    std::string_view v1 = "1234567";
    std::string_view v2 = "124";
-   ASSERT_FALSE(mzlib::starts_with(v1, v2));
+   ASSERT_FALSE(mzlib::starts_with_c(v1, v2));
 }
 
 TEST(ends_with, whole_string_convenience_does_end_with)
 {
    std::string_view v1 = "1234567";
    std::string_view v2 = "567";
-   ASSERT_TRUE(mzlib::ends_with(v1, v2));
+   ASSERT_TRUE(mzlib::ends_with_c(v1, v2));
 }
 
 TEST(ends_with, whole_string_convenience_does_not_end_with)
 {
    std::string_view v1 = "1234567";
    std::string_view v2 = "467";
-   ASSERT_FALSE(mzlib::ends_with(v1, v2));
+   ASSERT_FALSE(mzlib::ends_with_c(v1, v2));
 }
 
 TEST(ends_with, whole_string_convenience_equal_size_does_begin_with_sub)
 {
    std::string_view v1 = "467";
    std::string_view v2 = "467";
-   ASSERT_TRUE(mzlib::ends_with(v1, v2));
+   ASSERT_TRUE(mzlib::ends_with_c(v1, v2));
 }

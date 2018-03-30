@@ -95,7 +95,7 @@ private:
       for (auto full = m_full_begin; full != m_full_end; ++full) {
          bool goes_on_the_list = false;
          for (auto edge = begin; edge != end; ++edge) {
-            if (starts_with(*full, *edge)) {
+            if (starts_with_c(*full, *edge)) {
                goes_on_the_list = true;
                break;
             }
@@ -114,7 +114,7 @@ private:
       std::vector<ValueType> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
          for (auto edge = begin; edge != end; ++edge) {
-            bool goes_on_the_list = starts_with(*full, *edge);
+            bool goes_on_the_list = starts_with_c(*full, *edge);
             if(goes_on_the_list) {
                result.push_back(*full);
                break;
@@ -132,7 +132,7 @@ private:
       for (auto full = m_full_begin; full != m_full_end; ++full) {
          bool goes_on_the_list = false;
          for (auto edge = begin; edge != end; ++edge) {
-            if (ends_with(*full, *edge)) {
+            if (ends_with_c(*full, *edge)) {
                goes_on_the_list = true;
                break;
             }
@@ -151,7 +151,7 @@ private:
       std::vector<ValueType> result;
       for (auto full = m_full_begin; full != m_full_end; ++full) {
          for (auto edge = begin; edge != end; ++edge) {
-            bool goes_on_the_list = ends_with(*full, *edge);
+            bool goes_on_the_list = ends_with_c(*full, *edge);
             if(goes_on_the_list) 
             {
                result.push_back(*full);

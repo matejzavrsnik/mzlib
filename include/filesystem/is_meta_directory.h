@@ -23,10 +23,10 @@ inline bool is_meta_directory(std::string_view directory_name)
    // for string_views and returns last "visible" character.
    if (directory_name == "." ||
        directory_name == ".." ||
-       ends_with(directory_name, std::string_view("/."))  ||
-       ends_with(directory_name, std::string_view("/..")) ||
-       ends_with(directory_name, std::string_view("\\.")) ||
-       ends_with(directory_name, std::string_view("\\..")))
+       ends_with_c(directory_name, std::string_view("/."))  ||
+       ends_with_c(directory_name, std::string_view("/..")) ||
+       ends_with_c(directory_name, std::string_view("\\.")) ||
+       ends_with_c(directory_name, std::string_view("\\..")))
    {
       return true;
    }

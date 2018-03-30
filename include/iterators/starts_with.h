@@ -34,22 +34,23 @@ bool starts_with(
    return true;
 }
 
-// Overloads for convenience
+// Overloads for convenience: work on containers directly
 
 template<class Collection1, class Collection2>
-bool starts_with(
-   Collection1&& full, 
-   Collection2&& sub)
+bool starts_with_c(
+   const Collection1& full, 
+   const Collection2& sub)
 {
-   return starts_with(
+   bool does_it = starts_with(
       std::cbegin(full), std::cend(full),
       std::cbegin(sub), std::cend(sub));
+   return does_it;
 }
 
 template<class Collection1, class Collection2>
-bool ends_with(
-   Collection1&& full, 
-   Collection2&& sub)
+bool ends_with_c(
+   const Collection1& full, 
+   const Collection2& sub)
 {
    return starts_with(
       std::crbegin(full), std::crend(full),
