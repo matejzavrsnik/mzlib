@@ -8,7 +8,9 @@
 #ifndef MZLIB_REMOVE_FROM_H
 #define MZLIB_REMOVE_FROM_H
 
-#include "../iterators/starts_with.h"
+#include "starts_with.h"
+#include "set_intersection.h"
+
 #include <functional>
 #include <algorithm>
 
@@ -112,15 +114,14 @@ private:
    dont_start(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<ValueType> result;
-      for (auto full = m_full_begin; full != m_full_end; ++full) {
-         for (auto edge = begin; edge != end; ++edge) {
-            bool goes_on_the_list = starts_with_c(*full, *edge);
-            if(goes_on_the_list) {
-               result.push_back(*full);
-               break;
-            }
-         }
-      }
+      using ValueEdge = typename IteratorEdge::value_type;
+      
+      set_intersection_if(
+         m_full_begin, m_full_end,
+         begin, end,
+         std::inserter(result, result.end()),
+         starts_with_c<ValueType, ValueEdge>);
+      
       return result;
    }
 
@@ -149,16 +150,14 @@ private:
    dont_end(IteratorEdge begin, IteratorEdge end) 
    {
       std::vector<ValueType> result;
-      for (auto full = m_full_begin; full != m_full_end; ++full) {
-         for (auto edge = begin; edge != end; ++edge) {
-            bool goes_on_the_list = ends_with_c(*full, *edge);
-            if(goes_on_the_list) 
-            {
-               result.push_back(*full);
-               break;
-            }
-         }
-      }
+      using ValueEdge = typename IteratorEdge::value_type;
+      
+      set_intersection_if(
+         m_full_begin, m_full_end,
+         begin, end,
+         std::inserter(result, result.end()),
+         ends_with_c<ValueType, ValueEdge>);
+
       return result;
    }
 

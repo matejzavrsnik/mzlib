@@ -8,10 +8,7 @@
 #ifndef SET_INTERSECTION_H
 #define SET_INTERSECTION_H
 
-#include <set>
 #include <type_traits>
-#include <utility>
-#include <iterator>
 
 namespace mzlib {
 
