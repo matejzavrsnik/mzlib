@@ -64,6 +64,41 @@ TEST(set_intersection, element_is_present_in_second_set)
    ASSERT_THAT(c, UnorderedElementsAre(4));
 }
 
+TEST(set_intersection, element_is_present_twice_in_second_set)
+{
+   std::vector<int> a = {2};
+   std::vector<int> b = {1,2,2,3,4};
+   std::vector<int> c;
+   
+   mzlib::set_intersection(
+      a.begin(), a.end(),
+      b.begin(), b.end(),
+      std::inserter(c, c.end()));
+   
+   ASSERT_THAT(c, UnorderedElementsAre(2));
+}
+
+TEST(set_intersection, element_is_present_twice_in_first_set)
+{
+   // A custom equality function will make 4 == 2.
+   // Simply adding two 2s in the first set would not demonstrate
+   // that it didn't just copy the first value from first set.
+   std::vector<int> a = {1,2,4};
+   std::vector<int> b = {1,2,3};
+   std::vector<int> c;
+   
+   mzlib::set_intersection_if(
+      a.begin(), a.end(),
+      b.begin(), b.end(),
+      std::inserter(c, c.end()),
+      [](const int& i1, const int& i2) {
+         if (i1==4 && i2==2) return true;
+         return i1==i2;
+      });
+   
+   ASSERT_THAT(c, UnorderedElementsAre(1,2,4));
+}
+
 TEST(set_intersection, element_is_not_present_in_second_set)
 {
    std::vector<int> a = {5};

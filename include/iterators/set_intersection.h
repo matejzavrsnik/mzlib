@@ -32,7 +32,10 @@ void set_intersection_if(
    for(auto a_it = a_begin; a_it != a_end; ++a_it)
    for(auto b_it = b_begin; b_it != b_end; ++b_it)
       if(equal(*a_it, *b_it))
+      {
          *inserter = *a_it;
+         break; // stop on first equal
+      }
 }
 
 template<class InputIt1, class InputIt2, class OutputIt>
