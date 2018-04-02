@@ -119,6 +119,14 @@ TEST_F(fixture_ds_extended, first_no_subnodes)
    ASSERT_TRUE(first->is_empty());
 }
 
+TEST_F(fixture_ds_extended, first_with_attribute)
+{
+   auto book = mzlib::ds::first_with_attribute(
+      m_shelf->nodes(), "book", "title", "Morning Star");
+   ASSERT_EQ(m_book2, book);
+}
+
+
 TEST_F(fixture_ds_extended, random)
 {
    auto first_book = mzlib::ds::random(m_shelf->nodes(), "book",

@@ -216,6 +216,24 @@ inline std::shared_ptr<node> first(
    return node::empty();
 }
 
+inline std::shared_ptr<node> first_with_attribute(
+   std::vector<std::shared_ptr<node>> all_nodes, 
+   std::string_view node_name,
+   std::string_view attr_name,
+   std::string_view attr_value)
+{
+   for(auto n : all_nodes) {
+      if(n->name() == node_name) {
+         for(auto a : n->attributes()) {
+            if(a->name() == attr_name && a->value() == attr_value) {
+               return n;
+            }
+         }
+      }
+   }
+   return node::empty();
+}
+
 inline std::shared_ptr<node> random (
    std::vector<std::shared_ptr<node>> all_nodes,
    std::string_view name,
