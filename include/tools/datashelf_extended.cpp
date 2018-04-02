@@ -126,7 +126,6 @@ TEST_F(fixture_ds_extended, first_with_attribute)
    ASSERT_EQ(m_book2, book);
 }
 
-
 TEST_F(fixture_ds_extended, random)
 {
    auto first_book = mzlib::ds::random(m_shelf->nodes(), "book",
@@ -172,4 +171,28 @@ TEST_F(fixture_ds_extended, get_attribute_no_attributes)
 {
    auto attribute = mzlib::ds::get_attribute(m_shelf, "doesn't exist");
    ASSERT_TRUE(attribute->is_empty());
+}
+
+TEST_F(fixture_ds_extended, add_or_edit_attribute_did_exist)
+{
+   auto att1 = mzlib::ds::add_or_edit_attribute(
+      m_book1, "title", "Children of Space");
+   
+   auto att2 = mzlib::ds::get_attribute(
+      m_book1, "title");
+   
+   ASSERT_EQ(att1, att2);
+   ASSERT_EQ("Children of Space", att2->value());
+}
+
+TEST_F(fixture_ds_extended, add_or_edit_attribute_didnt_exist)
+{
+   auto att1 = mzlib::ds::add_or_edit_attribute(
+      m_book1, "pages", "600 or so");
+   
+   auto att2 = mzlib::ds::get_attribute(
+      m_book1, "pages");
+   
+   ASSERT_EQ(att1, att2);
+   ASSERT_EQ("600 or so", att2->value());
 }
