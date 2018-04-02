@@ -76,6 +76,7 @@ MZLIB_GENERATE_NEW_BINARY_OPTION( forward        )
 MZLIB_GENERATE_NEW_BINARY_OPTION( match          )
 MZLIB_GENERATE_NEW_BINARY_OPTION( alphanumeric   )
 MZLIB_GENERATE_NEW_BINARY_OPTION( case_sensitive )
+MZLIB_GENERATE_NEW_BINARY_OPTION( correct        )
         
 // Did you come here to add something like larger/smaller option? Think again. 
 // Imagine the function that takes type larger as an argument. The meaning of 
