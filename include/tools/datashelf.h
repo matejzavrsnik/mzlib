@@ -158,6 +158,14 @@ public:
 
 };
 
+// for convenience, because std::shared_ptr<mzlib::ds::node> is a mouthful
+// in any code that uses this, so I see no point in every client code to
+// define their own usings.
+using pnode = std::shared_ptr<node>;
+using pattribute = std::shared_ptr<attribute>;
+
+
+
 inline std::vector<std::shared_ptr<node>> get_peers(
    std::shared_ptr<node> the_node)
 {

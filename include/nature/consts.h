@@ -20,18 +20,13 @@ namespace consts {
 using namespace units; 
    
 //
-// math
-//
-
-constexpr long double operator"" _pi          (long double pi)   { return pi*3.1415926535; }
-
-//
 // measured
 //
 
 // physical constants of universe
 const double gravitational_constant = 6.67384e-11;
 const double light_speed            = 299792458.0_m_per_s;
+const double pi                     = 3.1415926535;
 
 // distances of solar system bodies to sun
 const double mercury_distance_sun  =   57.9e6_km;
@@ -70,7 +65,7 @@ const double neptune_mass   = 1.024e26_kg;
 const double moon_mass      = 7.34767309e22_kg;
     
 // derived
-const double earth_orbit_length            = earth_distance_sun * 2.0_pi;
+const double earth_orbit_length            = earth_distance_sun * 2.0 * pi;
 
 } } // namespace
 
