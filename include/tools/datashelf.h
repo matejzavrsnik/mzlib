@@ -294,6 +294,17 @@ inline std::shared_ptr<attribute> add_or_edit_attribute(
    return att;
 }
 
+inline std::shared_ptr<attribute> get_or_add_attribute(
+   std::shared_ptr<node> the_node,
+   std::string_view attribute_name, 
+   std::string_view attribute_value)
+{
+   auto att = get_attribute(the_node, attribute_name);
+   if (att->is_empty())
+      att = the_node->add_attribute(attribute_name, attribute_value);
+   return att;
+}
+
 } // namespace ds
 } // namespace mzlib
 

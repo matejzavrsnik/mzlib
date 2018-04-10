@@ -196,3 +196,27 @@ TEST_F(fixture_ds_extended, add_or_edit_attribute_didnt_exist)
    ASSERT_EQ(att1, att2);
    ASSERT_EQ("600 or so", att2->value());
 }
+
+TEST_F(fixture_ds_extended, get_or_add_attribute_did_exist)
+{
+   auto att1 = mzlib::ds::get_or_add_attribute(
+      m_book1, "title", "this would become title if it didn't exist");
+   
+   auto att2 = mzlib::ds::get_attribute(
+      m_book1, "title");
+   
+   ASSERT_EQ(att1, att2);
+   ASSERT_EQ("Children of Time", att2->value());
+}
+
+TEST_F(fixture_ds_extended, get_or_add_attribute_didnt_exist)
+{
+   auto att1 = mzlib::ds::get_or_add_attribute(
+      m_book1, "pages", "600 or so");
+   
+   auto att2 = mzlib::ds::get_attribute(
+      m_book1, "pages");
+   
+   ASSERT_EQ(att1, att2);
+   ASSERT_EQ("600 or so", att2->value());
+}
