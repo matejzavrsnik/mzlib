@@ -80,6 +80,8 @@
         <itemPath>include/iterators/insert_if_unique.h</itemPath>
         <itemPath>include/iterators/is_last.cpp</itemPath>
         <itemPath>include/iterators/is_last.h</itemPath>
+        <itemPath>include/iterators/iterator_value_type.cpp</itemPath>
+        <itemPath>include/iterators/iterator_value_type.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
@@ -520,6 +522,16 @@
       <item path="include/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/iterator_value_type.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/iterator_value_type.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1161,6 +1173,16 @@
       <item path="include/iterators/is_last.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/iterator_value_type.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/iterator_value_type.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>

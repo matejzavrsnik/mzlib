@@ -8,7 +8,7 @@
 #ifndef SET_INTERSECTION_H
 #define SET_INTERSECTION_H
 
-#include <type_traits>
+#include "../iterators/iterator_value_type.h"
 
 namespace mzlib {
 
@@ -41,14 +41,11 @@ void set_intersection(
    InputIt2 b_begin, InputIt2 b_end,
    OutputIt inserter)
 {
-   using ValueType1 = std::remove_reference_t<decltype(std::declval<InputIt1>().operator*())>;
-   using ValueType2 = std::remove_reference_t<decltype(std::declval<InputIt2>().operator*())>;
-   
    set_intersection_if(
       a_begin, a_end,
       b_begin, b_end,
       inserter,
-      [](const ValueType1& el1, const ValueType2& el2)
+      [](const ItValueType<InputIt1>& el1, const ItValueType<InputIt2>& el2)
          { return (el1 == el2); });
 }
          
