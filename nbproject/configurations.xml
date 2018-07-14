@@ -162,6 +162,8 @@
         <itemPath>include/string/remove_substrings.h</itemPath>
         <itemPath>include/string/replace.cpp</itemPath>
         <itemPath>include/string/replace.h</itemPath>
+        <itemPath>include/string/replace_all_between.cpp</itemPath>
+        <itemPath>include/string/replace_all_between.h</itemPath>
         <itemPath>include/string/sentence_assemblarator.cpp</itemPath>
         <itemPath>include/string/sentence_assemblarator.h</itemPath>
         <itemPath>include/string/split.cpp</itemPath>
@@ -710,6 +712,16 @@
       <item path="include/string/replace.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/replace.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/replace_all_between.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/replace_all_between.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/string/sentence_assemblarator.cpp"
             ex="false"
@@ -1355,6 +1367,16 @@
       <item path="include/string/replace.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/replace.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/replace_all_between.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/replace_all_between.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/string/sentence_assemblarator.cpp"
             ex="false"

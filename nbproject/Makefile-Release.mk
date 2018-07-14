@@ -97,6 +97,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/is_word_in_dictionary.o \
 	${OBJECTDIR}/include/string/remove_substrings.o \
 	${OBJECTDIR}/include/string/replace.o \
+	${OBJECTDIR}/include/string/replace_all_between.o \
 	${OBJECTDIR}/include/string/sentence_assemblarator.o \
 	${OBJECTDIR}/include/string/split.o \
 	${OBJECTDIR}/include/string/split_on_punctuation.o \
@@ -456,6 +457,11 @@ ${OBJECTDIR}/include/string/replace.o: include/string/replace.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/replace.o include/string/replace.cpp
+
+${OBJECTDIR}/include/string/replace_all_between.o: include/string/replace_all_between.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/replace_all_between.o include/string/replace_all_between.cpp
 
 ${OBJECTDIR}/include/string/sentence_assemblarator.o: include/string/sentence_assemblarator.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string

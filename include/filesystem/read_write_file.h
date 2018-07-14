@@ -9,6 +9,7 @@
 #define MZLIB_READ_WRITE_FILE_H
 
 #include <string>
+#include <string_view>
 #include <fstream>
 #include <sstream>
 

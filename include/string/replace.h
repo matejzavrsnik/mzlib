@@ -8,6 +8,8 @@
 #ifndef MZLIB_STRING_REPLACE_H
 #define MZLIB_STRING_REPLACE_H
 
+#include <string>
+
 namespace mzlib {
 
 // Replace all occurrences of a string in a string
