@@ -80,8 +80,6 @@
         <itemPath>include/iterators/insert_if_unique.h</itemPath>
         <itemPath>include/iterators/is_last.cpp</itemPath>
         <itemPath>include/iterators/is_last.h</itemPath>
-        <itemPath>include/iterators/iterator_value_type.cpp</itemPath>
-        <itemPath>include/iterators/iterator_value_type.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
@@ -102,6 +100,8 @@
         <itemPath>include/lang/optional.cpp</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
         <itemPath>include/lang/stopwatch.h</itemPath>
+        <itemPath>include/lang/value_type.cpp</itemPath>
+        <itemPath>include/lang/value_type.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="laws" projectFiles="true">
         <itemPath>include/laws/acceleration.cpp</itemPath>
@@ -523,16 +523,6 @@
       </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/iterators/iterator_value_type.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/iterators/iterator_value_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
@@ -564,6 +554,10 @@
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/value_type.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/lang/value_type.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1174,16 +1168,6 @@
       </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/iterators/iterator_value_type.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/iterators/iterator_value_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
@@ -1215,6 +1199,10 @@
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/value_type.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/lang/value_type.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/laws/acceleration.cpp" ex="false" tool="1" flavor2="0">
       </item>

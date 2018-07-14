@@ -8,7 +8,7 @@
 #ifndef SET_DIFFERENCE_H
 #define SET_DIFFERENCE_H
 
-#include "../iterators/iterator_value_type.h"
+#include "../lang/value_type.h"
 
 namespace mzlib {
 
@@ -49,7 +49,7 @@ void set_difference(
       a_begin, a_end,
       b_begin, b_end,
       inserter,
-      [](const ItValueType<InputIt1>& el1, const ItValueType<InputIt2>& el2)
+      [](const ValueType<InputIt1>& el1, const ValueType<InputIt2>& el2)
          { return (el1 == el2); });
 }
          

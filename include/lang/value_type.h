@@ -5,18 +5,18 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_ITERATOR_VALUE_TYPE_H
-#define MZLIB_ITERATOR_VALUE_TYPE_H
+#ifndef MZLIB_VALUE_TYPE_H
+#define MZLIB_VALUE_TYPE_H
 
 #include <type_traits>
 
 namespace mzlib {
 
-template<class Iterator> 
-   using ItValueType = 
+template<class T> 
+   using ValueType = 
       std::remove_reference_t<
          decltype(
-            std::declval<Iterator>().operator*()
+            std::declval<T>().operator*()
          )
       >;
 
