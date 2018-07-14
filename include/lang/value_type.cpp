@@ -17,7 +17,7 @@ TEST(value_type, vector_iterator_int)
 {
    bool is_same = 
       std::is_same<
-         mzlib::ValueType<std::vector<int>::iterator>,
+         mzlib::value_type<std::vector<int>::iterator>,
          int>
       ::value;
    ASSERT_TRUE(is_same);
@@ -27,7 +27,7 @@ TEST(value_type, shared_ptr_string)
 {
    bool is_same = 
       std::is_same<
-         mzlib::ValueType<std::shared_ptr<std::string>>,
+         mzlib::value_type<std::shared_ptr<std::string>>,
          std::string>
       ::value;
    ASSERT_TRUE(is_same);
@@ -37,7 +37,7 @@ TEST(value_type, optional_double)
 {
    bool is_same = 
       std::is_same<
-         mzlib::ValueType<std::optional<double>>,
+         mzlib::value_type<std::optional<double>>,
          double>
       ::value;
    ASSERT_TRUE(is_same);

@@ -49,7 +49,7 @@ void set_difference(
       a_begin, a_end,
       b_begin, b_end,
       inserter,
-      [](const ValueType<InputIt1>& el1, const ValueType<InputIt2>& el2)
+      [](const value_type<InputIt1>& el1, const value_type<InputIt2>& el2)
          { return (el1 == el2); });
 }
          

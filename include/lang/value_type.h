@@ -13,7 +13,7 @@
 namespace mzlib {
 
 template<class T> 
-   using ValueType = 
+   using value_type = 
       std::remove_reference_t<
          decltype(
             std::declval<T>().operator*()
