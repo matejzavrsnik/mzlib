@@ -64,3 +64,30 @@ TEST(get_substring_between, empty_end_str)
       "value=", "");
    ASSERT_EQ("", res);
 }
+
+TEST(get_substring_between, get_second_substring)
+{
+   auto res = mzlib::get_substring_between(
+      "<p>first</p> <p>second</p> <p>third</p>",
+      "<p>", "</p>",
+      1);
+   ASSERT_EQ("second", res);
+}
+
+TEST(get_substring_between, get_last_substring)
+{
+   auto res = mzlib::get_substring_between(
+      "<p>first</p> <p>second</p> <p>third</p>",
+      "<p>", "</p>",
+      2);
+   ASSERT_EQ("third", res);
+}
+
+TEST(get_substring_between, get_beyond_last_substring)
+{
+   auto res = mzlib::get_substring_between(
+      "<p>first</p> <p>second</p> <p>third</p>",
+      "<p>", "</p>",
+      3);
+   ASSERT_EQ("", res);
+}

@@ -13,13 +13,18 @@ namespace mzlib {
 inline std::string_view get_substring_between (
    std::string_view str, 
    std::string_view start, 
-   std::string_view end)
+   std::string_view end,
+   size_t occurrence = 0)
 {
    std::string_view result;
    
-   size_t pos_start = str.find(start);
+   size_t pos_start = 0;
+   do {
+   pos_start = str.find(start, pos_start);
    if (pos_start != std::string::npos)
       pos_start += start.length();
+   }
+   while(occurrence--);
    
    size_t pos_end = str.find(end, pos_start);
    
