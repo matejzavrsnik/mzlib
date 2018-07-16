@@ -11,14 +11,12 @@
 #include <type_traits>
 
 namespace mzlib {
-
+   
 template<class T> 
-   using value_type = 
-      std::remove_reference_t<
-         decltype(
-            std::declval<T>().operator*()
-         )
-      >;
+using value_type = 
+   std::remove_reference_t<
+      decltype(*std::declval<T>())
+   >;
 
 } // namespace
 
