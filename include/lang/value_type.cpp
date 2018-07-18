@@ -68,8 +68,10 @@ namespace
 {
    // silly function to test if it really works
    
-   template<class Iterator, class ValueType = std::remove_reference_t<decltype(*std::declval<Iterator>())>>
-   ValueType fun (Iterator it, ValueType val)
+   template<class Wrapper>
+   mzlib::value_type<Wrapper> fun (
+      Wrapper it, 
+      mzlib::value_type<Wrapper> val)
    {
       return *it+val;
    }
