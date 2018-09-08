@@ -19,9 +19,17 @@ namespace mzlib {
 // Seems a bit superfluous to call std::min in this case, when you can just
 // check if any of the iterators are at position "last" instead of just the
 // input range, as std::copy does. Or am I missing something?
-   
+
+// returns where it had to stop
 template<class OutputIt, class InputIt>
-constexpr OutputIt copy(
+struct copied
+{
+   InputIt input_it;
+   OutputIt output_it;
+};
+
+template<class OutputIt, class InputIt>
+constexpr copied<OutputIt, InputIt> copy(
    InputIt  in_first,  const InputIt  in_last,
    OutputIt out_first, const OutputIt out_last)
 {
@@ -30,7 +38,7 @@ constexpr OutputIt copy(
       out_first = std::next(out_first);
       in_first = std::next(in_first);
    }
-   return out_first;
+   return {in_first, out_first};
 }
 
 } // namespace
