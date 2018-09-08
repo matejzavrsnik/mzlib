@@ -66,6 +66,8 @@
         <itemPath>include/iterators/contains_range.h</itemPath>
         <itemPath>include/iterators/copy.cpp</itemPath>
         <itemPath>include/iterators/copy.h</itemPath>
+        <itemPath>include/iterators/copy_to_nested.cpp</itemPath>
+        <itemPath>include/iterators/copy_to_nested.h</itemPath>
         <itemPath>include/iterators/distance_comparison.cpp</itemPath>
         <itemPath>include/iterators/distance_comparison.h</itemPath>
         <itemPath>include/iterators/fast_forward.cpp</itemPath>
@@ -110,6 +112,9 @@
         <itemPath>include/laws/constant_linear_acceleration.h</itemPath>
         <itemPath>include/laws/gravitation.cpp</itemPath>
         <itemPath>include/laws/gravitation.h</itemPath>
+        <itemPath>include/laws/matrix_operations.cpp</itemPath>
+        <itemPath>include/laws/matrix_operations.h</itemPath>
+        <itemPath>include/laws/matrix_operations_alternative.cpp</itemPath>
         <itemPath>include/laws/screen_rectangles.cpp</itemPath>
         <itemPath>include/laws/screen_rectangles.h</itemPath>
         <itemPath>include/laws/set_difference.cpp</itemPath>
@@ -128,6 +133,8 @@
         <itemPath>include/nature/factorial.h</itemPath>
         <itemPath>include/nature/mass_centre.cpp</itemPath>
         <itemPath>include/nature/mass_centre.h</itemPath>
+        <itemPath>include/nature/matrix.cpp</itemPath>
+        <itemPath>include/nature/matrix.h</itemPath>
         <itemPath>include/nature/screen_rectangle.h</itemPath>
         <itemPath>include/nature/units.h</itemPath>
         <itemPath>include/nature/units_strong_definitions.cpp</itemPath>
@@ -479,6 +486,13 @@
       </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/copy_to_nested.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/copy_to_nested.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/iterators/distance_comparison.cpp"
             ex="false"
             tool="1"
@@ -579,6 +593,15 @@
       </item>
       <item path="include/laws/gravitation.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/matrix_operations.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/laws/matrix_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/matrix_operations_alternative.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/laws/screen_rectangles.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
@@ -606,6 +629,10 @@
       <item path="include/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/matrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/nature/matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1134,6 +1161,13 @@
       </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/copy_to_nested.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/copy_to_nested.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/iterators/distance_comparison.cpp"
             ex="false"
             tool="1"
@@ -1234,6 +1268,15 @@
       </item>
       <item path="include/laws/gravitation.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/laws/matrix_operations.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/laws/matrix_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/laws/matrix_operations_alternative.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="include/laws/screen_rectangles.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/laws/screen_rectangles.h" ex="false" tool="3" flavor2="0">
@@ -1261,6 +1304,10 @@
       <item path="include/nature/mass_centre.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/nature/mass_centre.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/matrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/nature/matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>

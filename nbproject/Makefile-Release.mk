@@ -61,6 +61,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/iterators/average.o \
 	${OBJECTDIR}/include/iterators/circular_next.o \
 	${OBJECTDIR}/include/iterators/copy.o \
+	${OBJECTDIR}/include/iterators/copy_to_nested.o \
 	${OBJECTDIR}/include/iterators/distance_comparison.o \
 	${OBJECTDIR}/include/iterators/fast_forward.o \
 	${OBJECTDIR}/include/iterators/find_in.o \
@@ -78,11 +79,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/laws/acceleration.o \
 	${OBJECTDIR}/include/laws/constant_linear_acceleration.o \
 	${OBJECTDIR}/include/laws/gravitation.o \
+	${OBJECTDIR}/include/laws/matrix_operations.o \
+	${OBJECTDIR}/include/laws/matrix_operations_alternative.o \
 	${OBJECTDIR}/include/laws/screen_rectangles.o \
 	${OBJECTDIR}/include/laws/set_difference.o \
 	${OBJECTDIR}/include/laws/set_intersection.o \
 	${OBJECTDIR}/include/laws/vector_operations.o \
 	${OBJECTDIR}/include/nature/mass_centre.o \
+	${OBJECTDIR}/include/nature/matrix.o \
 	${OBJECTDIR}/include/nature/units_strong_definitions.o \
 	${OBJECTDIR}/include/nature/universe.o \
 	${OBJECTDIR}/include/nature/vector.o \
@@ -278,6 +282,11 @@ ${OBJECTDIR}/include/iterators/copy.o: include/iterators/copy.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/copy.o include/iterators/copy.cpp
 
+${OBJECTDIR}/include/iterators/copy_to_nested.o: include/iterators/copy_to_nested.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/copy_to_nested.o include/iterators/copy_to_nested.cpp
+
 ${OBJECTDIR}/include/iterators/distance_comparison.o: include/iterators/distance_comparison.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
@@ -363,6 +372,16 @@ ${OBJECTDIR}/include/laws/gravitation.o: include/laws/gravitation.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/gravitation.o include/laws/gravitation.cpp
 
+${OBJECTDIR}/include/laws/matrix_operations.o: include/laws/matrix_operations.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/matrix_operations.o include/laws/matrix_operations.cpp
+
+${OBJECTDIR}/include/laws/matrix_operations_alternative.o: include/laws/matrix_operations_alternative.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/matrix_operations_alternative.o include/laws/matrix_operations_alternative.cpp
+
 ${OBJECTDIR}/include/laws/screen_rectangles.o: include/laws/screen_rectangles.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/laws
 	${RM} "$@.d"
@@ -387,6 +406,11 @@ ${OBJECTDIR}/include/nature/mass_centre.o: include/nature/mass_centre.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/nature
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/nature/mass_centre.o include/nature/mass_centre.cpp
+
+${OBJECTDIR}/include/nature/matrix.o: include/nature/matrix.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/nature/matrix.o include/nature/matrix.cpp
 
 ${OBJECTDIR}/include/nature/units_strong_definitions.o: include/nature/units_strong_definitions.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/nature
