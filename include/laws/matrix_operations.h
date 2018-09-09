@@ -58,6 +58,7 @@ template<class> struct value {};
 // determining what the result type of an operation is in order to 
 // enforce it.
 template<class,class> struct mult {};
+template<class> struct transposed {};
 // this is just underlying type. What is stored in the matrix. Most
 // often int, double, that sort of thing.
 template<class> struct value_type {};
@@ -81,6 +82,24 @@ constexpr bool equals(const MatrixT& a, const MatrixT& b)
    }
    return true;
 }
+
+template<class MatrixT>
+constexpr MatrixT add(const MatrixT& left, const MatrixT& right)
+{
+   MatrixT res = left;
+   
+   const auto all_cols = cols<MatrixT>::count(left);
+   const auto all_rows = rows<MatrixT>::count(left);
+
+   for(int row = 0; row < all_rows; ++row)
+   for(int col = 0; col < all_cols; ++col)
+   {
+      value<MatrixT>::get(res, row, col) += 
+         value<MatrixT>::get(right, row, col);
+   }
+   
+   return res;
+};
 
 template<
    class MatrixLeft,
@@ -107,6 +126,55 @@ constexpr Result multiply(MatrixLeft left, MatrixRight right)
       }
    }
    
+   return res;
+};
+
+template<class MatrixT, class Scalar>
+constexpr MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
+{
+   MatrixT res = matrix;
+   const auto all_cols = cols<MatrixT>::count(matrix);
+   const auto all_rows = rows<MatrixT>::count(matrix);
+
+   for(int row = 0; row < all_rows; ++row)
+   for(int col = 0; col < all_cols; ++col)
+   {
+      value<MatrixT>::get(res, row, col) *= scalar;
+   }
+   
+   return res;
+};
+
+template<
+   class MatrixT,
+   class Result = decltype(transposed<MatrixT>::type)>
+constexpr Result transpose(const MatrixT& matrix)
+{
+   Result res;
+   const auto all_cols = cols<MatrixT>::count(matrix);
+   const auto all_rows = rows<MatrixT>::count(matrix);
+
+   for(int row = 0; row < all_rows; ++row)
+   for(int col = 0; col < all_cols; ++col)
+   {
+      value<Result>::get(res, col, row) = 
+         value<MatrixT>::get(matrix, row, col);
+   }
+   
+   return res;
+};
+
+template<class MatrixT>
+constexpr MatrixT negate(const MatrixT& matrix)
+{
+   MatrixT res = scalar_multiply(matrix, -1);   
+   return res;
+};
+
+template<class MatrixT>
+constexpr MatrixT subtract(const MatrixT& left, const MatrixT& right)
+{
+   MatrixT res = add(left, negate(right));   
    return res;
 };
 
