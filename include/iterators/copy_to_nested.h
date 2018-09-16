@@ -17,7 +17,7 @@ namespace mzlib {
 // when copying into container of containers
    
 template<class OutputIt, class InputIt>
-constexpr auto copy_to_nested(
+auto copy_to_nested(
    InputIt  in_first,  const InputIt  in_last,
    OutputIt out_first, const OutputIt out_last)
       // return whatever type mzlib::copy returns

@@ -66,7 +66,7 @@ template<class> struct value_type {};
 // Now for the actual algos on matrices.
 
 template<class MatrixT> 
-constexpr bool equals(const MatrixT& a, const MatrixT& b)
+bool equals(const MatrixT& a, const MatrixT& b)
 {
    if (std::is_integral<decltype(value_type<MatrixT>::type)>::value) {
       for (size_t m = 0; m < rows<MatrixT>::count(a); ++m)
@@ -84,7 +84,7 @@ constexpr bool equals(const MatrixT& a, const MatrixT& b)
 }
 
 template<class MatrixT>
-constexpr MatrixT add(const MatrixT& left, const MatrixT& right)
+MatrixT add(const MatrixT& left, const MatrixT& right)
 {
    MatrixT res = left;
    
@@ -105,7 +105,7 @@ template<
    class MatrixLeft,
    class MatrixRight,
    class Result = decltype(mult<MatrixLeft,MatrixRight>::type)>
-constexpr Result multiply(MatrixLeft left, MatrixRight right)
+Result multiply(MatrixLeft left, MatrixRight right)
 {
    Result res;
    
@@ -130,7 +130,7 @@ constexpr Result multiply(MatrixLeft left, MatrixRight right)
 };
 
 template<class MatrixT, class Scalar>
-constexpr MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
+MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
 {
    MatrixT res = matrix;
    const auto all_cols = cols<MatrixT>::count(matrix);
@@ -148,7 +148,7 @@ constexpr MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
 template<
    class MatrixT,
    class Result = decltype(transposed<MatrixT>::type)>
-constexpr Result transpose(const MatrixT& matrix)
+Result transpose(const MatrixT& matrix)
 {
    Result res;
    const auto all_cols = cols<MatrixT>::count(matrix);
@@ -165,14 +165,14 @@ constexpr Result transpose(const MatrixT& matrix)
 };
 
 template<class MatrixT>
-constexpr MatrixT negate(const MatrixT& matrix)
+MatrixT negate(const MatrixT& matrix)
 {
    MatrixT res = scalar_multiply(matrix, -1);   
    return res;
 };
 
 template<class MatrixT>
-constexpr MatrixT subtract(const MatrixT& left, const MatrixT& right)
+MatrixT subtract(const MatrixT& left, const MatrixT& right)
 {
    MatrixT res = add(left, negate(right));   
    return res;

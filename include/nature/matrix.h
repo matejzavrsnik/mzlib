@@ -29,37 +29,37 @@ private:
    
 public:
    
-   constexpr matrix (const matrix&) = default;
-   constexpr matrix (matrix &&) = default;
-   constexpr matrix& operator= (const matrix&) = default;
-   constexpr matrix& operator= (matrix&&) = default;
+   matrix (const matrix&) = default;
+   matrix (matrix &&) = default;
+   matrix& operator= (const matrix&) = default;
+   matrix& operator= (matrix&&) = default;
    ~matrix () = default;
 
-   constexpr matrix () :
+   matrix () :
       m_matrix{{0}}
    {
    }
    
    // implicit conversion from std::initializer_list
-   constexpr matrix (const std::initializer_list<TypeT>& list) :
+   matrix (const std::initializer_list<TypeT>& list) :
       matrix()
    {
       copy_to_nested(list.begin(), list.end(), m_matrix.begin(), m_matrix.end());
    }
 
    // implicit conversion from std::vector
-   constexpr matrix (const std::vector<TypeT>& vec) :
+   matrix (const std::vector<TypeT>& vec) :
       matrix()
    {
       copy_to_nested(vec.begin(), vec.end(), m_matrix.begin(), m_matrix.end());
    }
 
-   constexpr TypeT& operator() (size_t row, size_t col) 
+   TypeT& operator() (size_t row, size_t col) 
    { 
       return m_matrix[row][col]; 
    }
     
-   constexpr const TypeT& operator() (size_t row, size_t col) const 
+   const TypeT& operator() (size_t row, size_t col) const 
    { 
       return m_matrix[row][col]; 
    }
@@ -74,7 +74,7 @@ using matrix3x3 = matrix<double, 3, 3>;
 // operator overloads
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr bool 
+bool 
 operator== (
    const mzlib::matrix<T,Rows,Cols>& left, 
    const mzlib::matrix<T,Rows,Cols>& right)
@@ -83,7 +83,7 @@ operator== (
 }
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr bool 
+bool 
 operator!= (
    const mzlib::matrix<T,Rows,Cols>& left, 
    const mzlib::matrix<T,Rows,Cols>& right)
@@ -95,7 +95,7 @@ template<
    typename T, 
    size_t LeftRows, size_t LeftCols, 
    size_t RightRows, size_t RightCols> 
-constexpr auto
+auto
 operator* (
    const mzlib::matrix<T,LeftRows,LeftCols>& left, 
    const mzlib::matrix<T,RightRows,RightCols>& right)
@@ -107,7 +107,7 @@ operator* (
 template<
    typename T, size_t Rows, size_t Cols, 
    typename Scalar> 
-constexpr auto 
+auto 
 operator* (
    const mzlib::matrix<T,Rows,Cols>& m, 
    const Scalar& s)
@@ -119,7 +119,7 @@ operator* (
 template<
    typename T, size_t Rows, size_t Cols, 
    typename Scalar> 
-constexpr mzlib::matrix<T,Rows,Cols>& 
+mzlib::matrix<T,Rows,Cols>& 
 operator*= (
    mzlib::matrix<T,Rows,Cols>& m, 
    const Scalar& s)
@@ -130,7 +130,7 @@ operator*= (
 template<
    typename T, size_t Rows, size_t Cols, 
    typename Scalar> 
-constexpr auto 
+auto 
 operator* (
    const Scalar& s,
    const mzlib::matrix<T,Rows,Cols>& m)
@@ -140,7 +140,7 @@ operator* (
 }
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr mzlib::matrix<T,Rows,Cols> 
+mzlib::matrix<T,Rows,Cols> 
 operator+ (
    const mzlib::matrix<T,Rows,Cols>& left, 
    const mzlib::matrix<T,Rows,Cols>& right)
@@ -149,7 +149,7 @@ operator+ (
 }
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr mzlib::matrix<T,Rows,Cols>& 
+mzlib::matrix<T,Rows,Cols>& 
 operator+= (
    mzlib::matrix<T,Rows,Cols>& left, 
    const mzlib::matrix<T,Rows,Cols>& right)
@@ -158,7 +158,7 @@ operator+= (
 }
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr mzlib::matrix<T,Rows,Cols> 
+mzlib::matrix<T,Rows,Cols> 
 operator- (
    const mzlib::matrix<T,Rows,Cols>& left, 
    const mzlib::matrix<T,Rows,Cols>& right)
@@ -167,7 +167,7 @@ operator- (
 }
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr mzlib::matrix<T,Rows,Cols>& 
+mzlib::matrix<T,Rows,Cols>& 
 operator-= (
    mzlib::matrix<T,Rows,Cols>& left, 
    const mzlib::matrix<T,Rows,Cols>& right)
@@ -176,7 +176,7 @@ operator-= (
 }
 
 template<typename T, size_t Rows, size_t Cols> 
-constexpr mzlib::matrix<T,Rows,Cols> 
+mzlib::matrix<T,Rows,Cols> 
 operator- (const mzlib::matrix<T,Rows,Cols>& m)
 {
    return law::matrix::negate(m);
