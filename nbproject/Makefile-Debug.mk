@@ -60,6 +60,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/filesystem/read_write_file.o \
 	${OBJECTDIR}/include/iterators/average.o \
 	${OBJECTDIR}/include/iterators/circular_next.o \
+	${OBJECTDIR}/include/iterators/contains_range.o \
 	${OBJECTDIR}/include/iterators/copy.o \
 	${OBJECTDIR}/include/iterators/copy_to_nested.o \
 	${OBJECTDIR}/include/iterators/distance_comparison.o \
@@ -276,6 +277,11 @@ ${OBJECTDIR}/include/iterators/circular_next.o: include/iterators/circular_next.
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/circular_next.o include/iterators/circular_next.cpp
+
+${OBJECTDIR}/include/iterators/contains_range.o: include/iterators/contains_range.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/contains_range.o include/iterators/contains_range.cpp
 
 ${OBJECTDIR}/include/iterators/copy.o: include/iterators/copy.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators

@@ -63,6 +63,7 @@
         <itemPath>include/iterators/average.h</itemPath>
         <itemPath>include/iterators/circular_next.cpp</itemPath>
         <itemPath>include/iterators/circular_next.h</itemPath>
+        <itemPath>include/iterators/contains_range.cpp</itemPath>
         <itemPath>include/iterators/contains_range.h</itemPath>
         <itemPath>include/iterators/copy.cpp</itemPath>
         <itemPath>include/iterators/copy.h</itemPath>
@@ -479,6 +480,11 @@
             flavor2="0">
       </item>
       <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/contains_range.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/contains_range.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1154,6 +1160,11 @@
             flavor2="0">
       </item>
       <item path="include/iterators/circular_next.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/contains_range.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="include/iterators/contains_range.h" ex="false" tool="3" flavor2="0">
       </item>

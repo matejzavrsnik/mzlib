@@ -38,11 +38,13 @@ inline bool is_substring_ci(
    // Measurements show it's still at least twice slower than creating temp
    // std::strings, make them lower case, and find substring with .find,
    // but it does at least save on memory.
-     
-   return mzlib::contains_range(
+   
+   const auto& range_start_it = mzlib::contains_range(
       full.begin(), full.end(),
       sub.begin(), sub.end(),
       mzlib::case_insensitive_equal<std::string_view::value_type>);
+   
+   return range_start_it != full.end();
 }
 
 } // namespace
