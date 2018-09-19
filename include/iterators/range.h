@@ -33,12 +33,12 @@ public:
       m_end(end)
    {}
       
-   const It& beg() 
+   const It& beg() const
    {
       return m_begin;
    }
    
-   const It& end() 
+   const It& end() const
    { 
       return m_end; 
    }

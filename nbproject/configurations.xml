@@ -85,6 +85,8 @@
         <itemPath>include/iterators/is_last.h</itemPath>
         <itemPath>include/iterators/range.cpp</itemPath>
         <itemPath>include/iterators/range.h</itemPath>
+        <itemPath>include/iterators/range_iterator.cpp</itemPath>
+        <itemPath>include/iterators/range_iterator.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
@@ -550,6 +552,13 @@
       <item path="include/iterators/range.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/range.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/range_iterator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/range_iterator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1234,6 +1243,13 @@
       <item path="include/iterators/range.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/range.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/range_iterator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/range_iterator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>

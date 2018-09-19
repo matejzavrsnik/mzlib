@@ -71,6 +71,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/iterators/insert_if_unique.o \
 	${OBJECTDIR}/include/iterators/is_last.o \
 	${OBJECTDIR}/include/iterators/range.o \
+	${OBJECTDIR}/include/iterators/range_iterator.o \
 	${OBJECTDIR}/include/iterators/remove_from.o \
 	${OBJECTDIR}/include/iterators/starts_with.o \
 	${OBJECTDIR}/include/joke/supersafe_number.o \
@@ -333,6 +334,11 @@ ${OBJECTDIR}/include/iterators/range.o: include/iterators/range.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/range.o include/iterators/range.cpp
+
+${OBJECTDIR}/include/iterators/range_iterator.o: include/iterators/range_iterator.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/iterators
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/iterators/range_iterator.o include/iterators/range_iterator.cpp
 
 ${OBJECTDIR}/include/iterators/remove_from.o: include/iterators/remove_from.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
