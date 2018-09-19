@@ -37,7 +37,7 @@ TEST(range, advance)
    mzlib::range<it> r(range_begin, range_end);
    r.advance(1);
    
-   ASSERT_EQ(++range_begin, r.beg());
+   ASSERT_EQ(++range_begin, r.begin());
    ASSERT_EQ(++range_end, r.end());
 }
 

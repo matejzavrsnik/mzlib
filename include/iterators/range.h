@@ -33,7 +33,7 @@ public:
       m_end(end)
    {}
       
-   const It& beg() const
+   const It& begin() const
    {
       return m_begin;
    }

@@ -37,8 +37,8 @@ public:
    {
       if (r.end() != m_end) {
          range<It> new_r = r;
-         r.advance(1);
-         return r;
+         new_r.advance(1);
+         return new_r;
       }
       else if (r.distance() > 0){
          It begin = m_begin;
