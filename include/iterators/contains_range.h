@@ -23,16 +23,17 @@ namespace mzlib {
 // if not found, returns end iterator of the collection
    
 template <
-   class Iterator, 
-   class ValueType = mzlib::value_type<Iterator>
+   typename Iterator, typename IteratorRange,
+   typename ValueType = mzlib::value_type<Iterator>,
+   typename ValueTypeRange = mzlib::value_type<IteratorRange>
 >
 inline Iterator contains_range(
    Iterator whole_begin, Iterator whole_end, 
-   Iterator range_begin, Iterator range_end,
+   IteratorRange range_begin, IteratorRange range_end,
    // custom comparison functor comes handy in cases like
    // case insensitive char equality comparator
    bool (*equal)(const ValueType&, const ValueType&) =
-      [](const ValueType& el1, const ValueType& el2) 
+      [](const ValueType& el1, const ValueTypeRange& el2) 
          { return (el1 == el2); } )
 {
    if (range_begin == range_end) return whole_begin;
