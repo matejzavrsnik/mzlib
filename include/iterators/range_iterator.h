@@ -17,20 +17,34 @@ class range_iterator
 {
    const It m_begin, m_end;
    const int m_min_distance;
+   const int m_max_distance;
    
 public:
    
-   range_iterator(It begin, It end, int min_distance) :
+   range_iterator(
+      It begin, It end, 
+      int min_distance, int max_distance
+      ) :
       m_begin(begin),
       m_end(end),
-      m_min_distance(min_distance > 0 ? min_distance : 1)
+      m_min_distance(min_distance > 0 ? min_distance : 1),
+      m_max_distance(max_distance > 0 ? max_distance : 1)
+   {}
+      
+   range_iterator (
+      It begin, It end, 
+      int min_distance
+      ) :
+      range_iterator (
+         begin, end, min_distance,
+         std::distance(begin, end)-1)
    {}
 
    range<It> first() 
    {
-      It end_copy = m_end;
-      std::advance(end_copy, -1);
-      return { m_begin,  end_copy };
+      It end = m_begin;
+      std::advance(end, m_max_distance);
+      return { m_begin,  end };
    }
    
    range<It> next(const range<It>& r) 

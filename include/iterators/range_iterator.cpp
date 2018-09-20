@@ -124,3 +124,46 @@ TEST(range_iterator, complete_run)
    ASSERT_EQ(ranges[8].begin(), v4);
    ASSERT_EQ(ranges[8].end(), v_end);
 }
+
+TEST(range_iterator, complete_run_maximum_range_size)
+{
+   std::vector<int> v = {1,2,3,4,5};
+   mzlib::range_iterator rit(v.begin(), v.end(), 2, 3);
+   auto v1 = v.begin();
+   auto v2 = v.begin()+1;
+   auto v3 = v.begin()+2;
+   auto v4 = v.begin()+3;
+   auto v5 = v.begin()+4;
+   auto v_end = v.end();
+   
+   using range_type = mzlib::range<std::vector<int>::iterator>;
+   std::vector<range_type> ranges;
+   for (auto r = rit.first(); !rit.end(r); r = rit.next(r)) {
+      ranges.push_back(r);
+   }
+   
+   ASSERT_EQ(7, ranges.size());
+   
+   // 3 x range size 3
+   ASSERT_EQ(ranges[0].begin(), v1);
+   ASSERT_EQ(ranges[0].end(), v4);
+   
+   ASSERT_EQ(ranges[1].begin(), v2);
+   ASSERT_EQ(ranges[1].end(), v5);
+   
+   ASSERT_EQ(ranges[2].begin(), v3);
+   ASSERT_EQ(ranges[2].end(), v_end);
+   
+   // 5 x range size 2
+   ASSERT_EQ(ranges[3].begin(), v1);
+   ASSERT_EQ(ranges[3].end(), v3);
+   
+   ASSERT_EQ(ranges[4].begin(), v2);
+   ASSERT_EQ(ranges[4].end(), v4);
+   
+   ASSERT_EQ(ranges[5].begin(), v3);
+   ASSERT_EQ(ranges[5].end(), v5);
+   
+   ASSERT_EQ(ranges[6].begin(), v4);
+   ASSERT_EQ(ranges[6].end(), v_end);
+}
