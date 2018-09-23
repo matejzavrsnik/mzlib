@@ -8,8 +8,9 @@
 #ifndef MZLIB_RANGE_H
 #define MZLIB_RANGE_H
 
-namespace mzlib {
+#include <iterator>
 
+namespace mzlib {
 
 // for when you want to:
 // - the function to return begin and end at the same time
@@ -24,6 +25,9 @@ private:
       
    mutable int m_distance = -1;
    It m_begin, m_end;
+   
+   using distance_type = 
+      typename std::iterator_traits<It>::difference_type;
    
 public:
    
@@ -43,13 +47,13 @@ public:
       return m_end; 
    }
    
-   void advance(size_t distance)
+   void advance(distance_type distance)
    {
       std::advance(m_begin, distance);
       std::advance(m_end, distance);
    }
    
-   size_t distance()  const
+   distance_type distance() const
    {
       // lazy evaluate and remember
       if(m_distance<0)

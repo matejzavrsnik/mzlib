@@ -73,6 +73,7 @@
         <itemPath>include/iterators/distance_comparison.h</itemPath>
         <itemPath>include/iterators/fast_forward.cpp</itemPath>
         <itemPath>include/iterators/fast_forward.h</itemPath>
+        <itemPath>include/iterators/find.h</itemPath>
         <itemPath>include/iterators/find_in.cpp</itemPath>
         <itemPath>include/iterators/find_in.h</itemPath>
         <itemPath>include/iterators/get_random.cpp</itemPath>
@@ -85,6 +86,8 @@
         <itemPath>include/iterators/is_last.h</itemPath>
         <itemPath>include/iterators/range.cpp</itemPath>
         <itemPath>include/iterators/range.h</itemPath>
+        <itemPath>include/iterators/range_is_within.cpp</itemPath>
+        <itemPath>include/iterators/range_is_within.h</itemPath>
         <itemPath>include/iterators/range_iterator.cpp</itemPath>
         <itemPath>include/iterators/range_iterator.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
@@ -517,6 +520,8 @@
       </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/find.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
@@ -552,6 +557,16 @@
       <item path="include/iterators/range.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/range.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/range_is_within.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/range_is_within.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/range_iterator.cpp"
             ex="false"
@@ -1208,6 +1223,8 @@
       </item>
       <item path="include/iterators/fast_forward.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/find.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
@@ -1243,6 +1260,16 @@
       <item path="include/iterators/range.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/range.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/range_is_within.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/range_is_within.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/range_iterator.cpp"
             ex="false"
