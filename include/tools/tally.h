@@ -8,8 +8,6 @@
 #ifndef MZLIB_TALLY_H
 #define MZLIB_TALLY_H
 
-#include <map>
-
 namespace mzlib {
     
 // Useful for when you need a name for counter for some Thing
@@ -21,23 +19,23 @@ class tally
 private:
    
    const Thing& m_itself;
-   size_t m_count;
+   unsigned m_count;
    
 public:
    
-   tally(const Thing& thing, size_t count = 0) :
+   tally(const Thing& thing, unsigned count = 0) :
       m_itself(thing),
       m_count(count)
    {}
       
-   const Thing& itself()
+   const Thing& itself() const
    {
       return m_itself;
    }
    
-   size_t count()
+   unsigned count() const
    {
-      m_count;
+      return m_count;
    }
    
 };
