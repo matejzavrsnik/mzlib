@@ -84,6 +84,8 @@
         <itemPath>include/iterators/insert_if_unique.h</itemPath>
         <itemPath>include/iterators/is_last.cpp</itemPath>
         <itemPath>include/iterators/is_last.h</itemPath>
+        <itemPath>include/iterators/is_trivial_repetition.cpp</itemPath>
+        <itemPath>include/iterators/is_trivial_repetition.h</itemPath>
         <itemPath>include/iterators/range.cpp</itemPath>
         <itemPath>include/iterators/range.h</itemPath>
         <itemPath>include/iterators/range_is_within.cpp</itemPath>
@@ -92,6 +94,7 @@
         <itemPath>include/iterators/range_iterator.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
+        <itemPath>include/iterators/sequence_sightings.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
         <itemPath>include/iterators/starts_with.h</itemPath>
       </logicalFolder>
@@ -555,6 +558,16 @@
       </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/is_trivial_repetition.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/is_trivial_repetition.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/iterators/range.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/range.h" ex="false" tool="3" flavor2="0">
@@ -579,6 +592,11 @@
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/sequence_sightings.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/starts_with.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1260,6 +1278,16 @@
       </item>
       <item path="include/iterators/is_last.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/is_trivial_repetition.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/is_trivial_repetition.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/iterators/range.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/range.h" ex="false" tool="3" flavor2="0">
@@ -1284,6 +1312,11 @@
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/sequence_sightings.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/starts_with.cpp" ex="false" tool="1" flavor2="0">
       </item>
