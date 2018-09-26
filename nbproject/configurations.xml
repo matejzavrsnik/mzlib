@@ -210,6 +210,8 @@
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.cpp</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
+        <itemPath>include/iterators/find_subsequence.cpp</itemPath>
+        <itemPath>include/iterators/find_subsequence.h</itemPath>
         <itemPath>include/tools/fluent_datashelf.cpp</itemPath>
         <itemPath>include/tools/fluent_datashelf.h</itemPath>
         <itemPath>include/tools/genetic.cpp</itemPath>
@@ -529,6 +531,16 @@
       <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/find_subsequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/find_subsequence.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1249,6 +1261,16 @@
       <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/find_subsequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/find_subsequence.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/iterators/get_random.cpp" ex="false" tool="1" flavor2="0">
       </item>
