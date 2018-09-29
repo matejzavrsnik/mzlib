@@ -67,11 +67,10 @@ std::vector<sequence_sightings<It>> repeated_sequences(
             repeated.push_back(
                std::move(additional));
 
-         tally<range<It>> repeated_range_count{r, repeated.size()};
+         tally repeated_range_count{r, repeated.size()};
          
          if (!is_trivial_repetition(bookkeeping, repeated_range_count))
          {
-   
             bookkeeping.push_back(repeated_range_count);
 
             result.push_back(sequence_sightings<It>{ 
