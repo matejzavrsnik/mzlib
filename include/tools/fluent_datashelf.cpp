@@ -179,7 +179,7 @@ TEST_F(fixture_datashelf, add_node_to_empty_shelf)
  
    ASSERT_EQ("Morning Star", mzlib::ds::fluent(root)
       .first("book")
-      .next("book")
+      .next()
       .value());
 }
 
@@ -270,7 +270,7 @@ TEST_F(fixture_datashelf, filter_one_get_random_doesnt_change_state)
 TEST_F(fixture_datashelf, filter_one_get_next_doesnt_change_state)
 {
    auto first_book = mzlib::ds::fluent(m_shelf).first("book");
-   auto next_book = first_book.next("book");
+   auto next_book = first_book.next();
 
    auto first_book_author = first_book.first("author").value();
    auto first_book_year = first_book.first("year").value();
@@ -319,7 +319,7 @@ TEST_F(fixture_datashelf, get_next_node)
 {
    auto next_book_title = mzlib::ds::fluent(m_shelf)
       .first("book")
-      .next("book")
+      .next()
       .get_attribute("title")
       .value();
    
@@ -330,7 +330,7 @@ TEST_F(fixture_datashelf, get_next_node__no_such_node)
 {
    auto next_airplane_node_name = mzlib::ds::fluent(m_shelf)
       .first("airplane")
-      .next("airplane")
+      .next()
       .name();
    
    // there is just one airplane on my shelf

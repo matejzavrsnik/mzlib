@@ -60,7 +60,7 @@ public:
       return *m_state_filter_one.get();
    }
    
-   fluent_state_filter_one& next(std::string_view name)
+   fluent_state_filter_one& next()
    {
       m_state_filter_one = std::make_unique<fluent_state_filter_one>(
          ::mzlib::ds::next(m_filtered_one));
