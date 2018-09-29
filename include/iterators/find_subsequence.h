@@ -12,6 +12,7 @@
 
 #include <iterator>
 #include <vector>
+#include <algorithm>
 
 namespace mzlib {
 
@@ -30,6 +31,29 @@ std::vector<Iterator> find_subsequence(
    do 
    {
       found_at = contains_range(found_at, full_end, sub_begin, sub_end);
+      
+      if(found_at != full_end)
+      {
+         locations.push_back(found_at);
+         std::advance(found_at, sub_length);
+      }
+      
+   } while (found_at != full_end);
+   
+   return locations;
+}
+
+template<typename Iterator, typename Searcher>
+std::vector<Iterator> find_subsequence(
+   Iterator full_begin, Iterator full_end,
+   const Searcher& searcher, unsigned sub_length)
+{
+   std::vector<Iterator> locations;
+   auto found_at = full_begin;
+   
+   do 
+   {
+      found_at = std::search(found_at, full_end, searcher);
       
       if(found_at != full_end)
       {

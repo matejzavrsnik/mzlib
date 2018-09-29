@@ -18,7 +18,7 @@ class tally
    
 private:
    
-   const Thing& m_itself;
+   const Thing m_itself;
    unsigned m_count;
    
 public:

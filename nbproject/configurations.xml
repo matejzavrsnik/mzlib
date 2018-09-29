@@ -94,6 +94,8 @@
         <itemPath>include/iterators/range_iterator.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
+        <itemPath>include/iterators/repeated_ranges.cpp</itemPath>
+        <itemPath>include/iterators/repeated_ranges.h</itemPath>
         <itemPath>include/iterators/sequence_sightings.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
         <itemPath>include/iterators/starts_with.h</itemPath>
@@ -246,6 +248,7 @@
       <itemPath>options.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
+      <itemPath>tests/test_repeated_ranges_performance.cpp</itemPath>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -605,6 +608,16 @@
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/repeated_ranges.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/repeated_ranges.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/iterators/sequence_sightings.h"
             ex="false"
             tool="3"
@@ -993,6 +1006,11 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_repeated_ranges_performance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"
@@ -1335,6 +1353,16 @@
       </item>
       <item path="include/iterators/remove_from.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/repeated_ranges.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/repeated_ranges.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/iterators/sequence_sightings.h"
             ex="false"
             tool="3"
@@ -1723,6 +1751,11 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="options.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_repeated_ranges_performance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="tests/test_universe_performance.cpp"
             ex="false"

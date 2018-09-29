@@ -17,11 +17,8 @@ namespace mzlib {
 template<typename It> 
 struct sequence_sightings 
 {
-   using distance_type = 
-      typename std::iterator_traits<It>::difference_type;
-   
    std::vector<It> locations;
-   distance_type length; 
+   unsigned length; 
 };
 
 } // namespace
