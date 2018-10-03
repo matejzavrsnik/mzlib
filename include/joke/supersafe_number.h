@@ -39,8 +39,8 @@ public:
    // intentionally not explicit
    supersafe_number (const T number) :
       m_keys{
-         get_random_double(),
-         get_random_double()},
+         get_random<double>(),
+         get_random<double>()},
       m_number{number},
       m_controls{
          calculate_control_value(0),

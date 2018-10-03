@@ -119,8 +119,8 @@ private:
       for(unsigned rate=0; rate<m_mutation_rate; ++rate)
       {
          tgenome_info genome_info = get_zap_info(genome);
-         size_t zap_byte = get_random_integer_between (0, genome_info.genome_size);
-         size_t zap_bit = get_random_integer_between (0, 8);
+         size_t zap_byte = get_random_between<int> (0, genome_info.genome_size);
+         size_t zap_bit = get_random_between<int> (0, 8);
          genome_info.genome_pointer[zap_byte] ^= (1 << zap_bit); // engage radiation beam!
          genome.penalty = m_fitness_function (genome.genome); // calculate new penalty
       }

@@ -44,7 +44,7 @@ private:
    virtual tgenome_info get_zap_info (tgenome& genome) override 
    {
       tgenome_info info;
-      size_t zap_object = get_random_integer_between (0, m_object_count);
+      size_t zap_object = get_random_between<size_t> (0, m_object_count);
       info.genome_size = m_object_size;
       info.genome_pointer = reinterpret_cast<char*>(&genome.genome[zap_object]);;
       return info;

@@ -16,7 +16,7 @@ template<class Iterator>
 Iterator get_random_element (const Iterator& start, const Iterator& end) 
 {
    const size_t& size = std::distance(start, end);
-   unsigned random = get_random_integer_between(0, size);
+   unsigned random = get_random_between<unsigned>(0, size);
    Iterator result = start;
    std::advance(result, random);
    return result;

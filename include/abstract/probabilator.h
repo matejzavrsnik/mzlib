@@ -77,7 +77,7 @@ public:
         
    const T get_event () 
    {
-      double random = get_random_double_between_0_1();
+      double random = get_random_between_0_1();
       for (auto event_it = m_events.begin(); event_it != m_events.end(); ++event_it) {
          if (random < event_it->second) {
             return event_it->first;

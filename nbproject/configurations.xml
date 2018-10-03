@@ -301,7 +301,7 @@
             <pElem>/usr/include/libxml++-2.6</pElem>
             <pElem>/usr/lib64/libxml++-2.6/include</pElem>
           </incDir>
-          <commandLine>-std=c++1z</commandLine>
+          <commandLine>-std=c++17</commandLine>
         </ccTool>
         <asmTool>
           <warningLevel>2</warningLevel>
@@ -1041,7 +1041,7 @@
             <pElem>/usr/include/libxml++-2.6</pElem>
             <pElem>/usr/lib64/libxml++-2.6/include</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic -std=c++1z</commandLine>
+          <commandLine>-Wall -Wextra -Wpedantic -std=c++17</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>

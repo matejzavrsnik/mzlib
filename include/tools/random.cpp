@@ -11,10 +11,10 @@
 
 TEST(get_random_integer, demo) 
 {
-   unsigned int a = mzlib::get_random_integer();
-   unsigned int b = mzlib::get_random_integer();
-   unsigned int c = mzlib::get_random_integer();
-   unsigned int d = mzlib::get_random_integer();
+   unsigned int a = mzlib::get_random<unsigned>();
+   unsigned int b = mzlib::get_random<unsigned>();
+   unsigned int c = mzlib::get_random<unsigned>();
+   unsigned int d = mzlib::get_random<unsigned>();
    ASSERT_NE(a, b);
    ASSERT_NE(b, c);
    ASSERT_NE(c, d);
@@ -25,7 +25,7 @@ TEST(get_random_integer_between, distribution_test_whole_range)
    int repetitions = 100000;
    std::vector<int> event_occurences(100, 0);
    for(int i=0; i<repetitions; ++i) {
-      int event = mzlib::get_random_integer_between(0, 100);
+      int event = mzlib::get_random_between<int>(0, 100);
       event_occurences[event]++;
    }
 
@@ -40,7 +40,7 @@ TEST(get_random_integer_between, distribution_test_range_without_zero)
    int repetitions = 100000;
    std::vector<int> event_occurences(100, 0);
    for(int i=0; i<repetitions; ++i) {
-      int event = mzlib::get_random_integer_between(50, 100);
+      int event = mzlib::get_random_between<int>(50, 100);
       event_occurences[event]++;
    }
    
@@ -56,10 +56,10 @@ TEST(get_random_integer_between, distribution_test_range_without_zero)
 
 TEST(random, get_random_double_between_0_1) 
 {
-   double a = mzlib::get_random_double_between_0_1();
-   double b = mzlib::get_random_double_between_0_1();
-   double c = mzlib::get_random_double_between_0_1();
-   double d = mzlib::get_random_double_between_0_1();
+   double a = mzlib::get_random_between_0_1();
+   double b = mzlib::get_random_between_0_1();
+   double c = mzlib::get_random_between_0_1();
+   double d = mzlib::get_random_between_0_1();
    ASSERT_NE(a, b);
    ASSERT_NE(b, c);
    ASSERT_NE(c, d);

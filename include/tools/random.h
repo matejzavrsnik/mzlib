@@ -11,42 +11,48 @@
 #include <map>
 #include <chrono>
 #include <random>
+#include <type_traits>
 
 namespace mzlib {
     
-inline unsigned int get_random_integer ()
+template<typename T>
+T get_random ()
 {
-   static unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-   static std::mt19937 generator(seed);
-   return generator();
+   if constexpr (std::is_integral<T>::value)
+   {
+      static T seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+      static std::mt19937 generator(seed);
+      return generator();
+   }
+   else
+   {
+      // rand() will never return completely random type T when T is a floating point type, 
+      // because the integer value will be converted to a floating point value with all 
+      // decimal digits 0, I invented the following trick.
+
+      // cast to double immediately to make sure the division will be cast properly
+      double numerator = get_random<unsigned>();
+      double denominator = get_random<unsigned>();
+      // collect some decimal digits
+      double decimals = numerator / denominator;
+      // collect whole digits too
+      double final_rand = get_random<unsigned>() + decimals;
+      return final_rand;
+   }
+   
 }
-    
-inline double get_random_double_between_0_1 ()
+
+inline double get_random_between_0_1 ()
 {
-   unsigned random_number = get_random_integer();
+   unsigned random_number = get_random<unsigned>();
    return (double)random_number / (double)std::mt19937::max();
 }
-
-inline double get_random_double ()
-{
-   // rand() will never return completely random type T when T is a floating point type, 
-   // because the integer value will be converted to a floating point value with all 
-   // decimal digits 0, I invented the following trick.
-
-   // cast to double immediately to make sure the division will be cast properly
-   double numerator = get_random_integer();
-   double denominator = get_random_integer();
-   // collect some decimal digits
-   double decimals = numerator / denominator;
-   // collect whole digits too
-   double final_rand = get_random_integer() + decimals;
-   return final_rand;
-}
  
-inline unsigned get_random_integer_between (unsigned from, unsigned to)
+template<typename T>
+inline unsigned get_random_between (T from, T to)
 {
-   const double random_number = get_random_double_between_0_1();
-   return static_cast<unsigned>(random_number * static_cast<double>(to - from) + static_cast<double>(from));
+   const double random_number = get_random_between_0_1();
+   return static_cast<T>(random_number * static_cast<double>(to - from) + static_cast<double>(from));
 }
 
 } // namespace
