@@ -9,6 +9,7 @@
 #define MATRIX_OPERATIONS_H
 
 #include "../lang/dbl.h"
+#include "../tools/random.h"
 
 namespace mzlib {
 namespace law {
@@ -176,6 +177,20 @@ MatrixT subtract(const MatrixT& left, const MatrixT& right)
 {
    MatrixT res = add(left, negate(right));   
    return res;
+};
+
+template<class MatrixT>
+void randomise(MatrixT& matrix)
+{  
+   const auto all_cols = cols<MatrixT>::count(matrix);
+   const auto all_rows = rows<MatrixT>::count(matrix);
+
+   for(int row = 0; row < all_rows; ++row)
+   for(int col = 0; col < all_cols; ++col)
+   {
+      value<MatrixT>::get(matrix, row, col) = 
+         get_random<decltype(value_type<MatrixT>::type)>();
+   }
 };
 
 }}} // namespace mzlib::law::matrix

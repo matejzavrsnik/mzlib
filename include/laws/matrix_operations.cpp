@@ -76,3 +76,17 @@ TEST(law_matrix_operations, transpose)
       mzlib::law::matrix::transpose(m);
    ASSERT_EQ(expected, actual);
 }
+
+TEST(law_matrix_operations, random_matrix) 
+{
+   mzlib::matrix<int,4,4> im;
+   mzlib::law::matrix::randomise(im);
+   
+   mzlib::matrix<double,5,4> dm;
+   mzlib::law::matrix::randomise(dm);
+
+   mzlib::matrix<char,4,5> cm;
+   mzlib::law::matrix::randomise(cm);
+   
+   ASSERT_TRUE(true);
+}
