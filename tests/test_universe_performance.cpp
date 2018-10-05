@@ -46,12 +46,12 @@ protected:
          mzlib::body2d object;
          object.core.centre.mass = 1000000000000;
          object.core.centre.location = mzlib::vector2d {
-            (double)mzlib::get_random_integer_between(0,5000),
-            (double)mzlib::get_random_integer_between(0,5000)
+            (double)mzlib::get_random_between<int>(0,5000),
+            (double)mzlib::get_random_between<int>(0,5000)
          };
          object.properties.velocity = mzlib::vector2d {
-            (double)mzlib::get_random_integer_between(0,6)-3,
-            (double)mzlib::get_random_integer_between(0,6)-3
+            (double)mzlib::get_random_between<int>(0,6)-3,
+            (double)mzlib::get_random_between<int>(0,6)-3
          };
          bodies.push_back(object);
       }
