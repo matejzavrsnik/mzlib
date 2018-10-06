@@ -26,10 +26,10 @@ namespace mzlib {
 
 // The following function identifies such trivially repeated substrings.
 
-template<typename Range>
+template<typename Range, typename SizeT = long unsigned>
 bool is_trivial_repetition(
-   const std::vector<tally<Range>>& bookkeeping, 
-   const tally<Range>& range)
+   const std::vector<tally<Range, SizeT>>& bookkeeping, 
+   const tally<Range, SizeT>& range)
 {
    for(const auto& booked_range : bookkeeping)
       if (is_within(booked_range.itself(), range.itself())

@@ -91,9 +91,9 @@ MatrixT add(const MatrixT& left, const MatrixT& right)
    
    const auto all_cols = cols<MatrixT>::count(left);
    const auto all_rows = rows<MatrixT>::count(left);
-
-   for(int row = 0; row < all_rows; ++row)
-   for(int col = 0; col < all_cols; ++col)
+   
+   for(size_t row = 0; row < all_rows; ++row)
+   for(size_t col = 0; col < all_cols; ++col)
    {
       value<MatrixT>::get(res, row, col) += 
          value<MatrixT>::get(right, row, col);
@@ -113,13 +113,12 @@ Result multiply(MatrixLeft left, MatrixRight right)
    const auto left_cols = cols<MatrixLeft>::count(left);
    const auto left_rows = rows<MatrixLeft>::count(left);
    const auto right_cols = cols<MatrixRight>::count(right);
-   const auto right_rows = rows<MatrixRight>::count(right);
    
-   for(int left_row = 0; left_row < left_rows; ++left_row)
-   for(int right_col = 0; right_col < right_cols; ++right_col)
+   for(size_t left_row = 0; left_row < left_rows; ++left_row)
+   for(size_t right_col = 0; right_col < right_cols; ++right_col)
    {
       value<Result>::get(res, left_row, right_col) = 0;
-      for(int index  = 0; index < left_cols; ++index)
+      for(size_t index  = 0; index < left_cols; ++index)
       {
          const auto left_cell = value<MatrixLeft>::get(left, left_row, index);
          const auto right_cell = value<MatrixRight>::get(right, index, right_col);
@@ -137,8 +136,8 @@ MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
    const auto all_cols = cols<MatrixT>::count(matrix);
    const auto all_rows = rows<MatrixT>::count(matrix);
 
-   for(int row = 0; row < all_rows; ++row)
-   for(int col = 0; col < all_cols; ++col)
+   for(size_t row = 0; row < all_rows; ++row)
+   for(size_t col = 0; col < all_cols; ++col)
    {
       value<MatrixT>::get(res, row, col) *= scalar;
    }
@@ -155,8 +154,8 @@ Result transpose(const MatrixT& matrix)
    const auto all_cols = cols<MatrixT>::count(matrix);
    const auto all_rows = rows<MatrixT>::count(matrix);
 
-   for(int row = 0; row < all_rows; ++row)
-   for(int col = 0; col < all_cols; ++col)
+   for(size_t row = 0; row < all_rows; ++row)
+   for(size_t col = 0; col < all_cols; ++col)
    {
       value<Result>::get(res, col, row) = 
          value<MatrixT>::get(matrix, row, col);
@@ -185,8 +184,8 @@ void randomise(MatrixT& matrix)
    const auto all_cols = cols<MatrixT>::count(matrix);
    const auto all_rows = rows<MatrixT>::count(matrix);
 
-   for(int row = 0; row < all_rows; ++row)
-   for(int col = 0; col < all_cols; ++col)
+   for(size_t row = 0; row < all_rows; ++row)
+   for(size_t col = 0; col < all_cols; ++col)
    {
       value<MatrixT>::get(matrix, row, col) = 
          get_random<decltype(value_type<MatrixT>::type)>();

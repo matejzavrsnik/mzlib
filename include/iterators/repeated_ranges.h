@@ -15,6 +15,7 @@
 #include "find_subsequence.h"
 
 #include <optional>
+#include <iterator>
 
 namespace mzlib {
 
@@ -22,19 +23,22 @@ namespace mzlib {
 // returns which range is repeated how many times.
    
 template<typename It> 
-std::vector<sequence_sightings<It>> repeated_sequences(
+std::vector<sequence_sightings<It, typename std::iterator_traits<It>::difference_type>>
+repeated_sequences(
    It begin, It end,
    std::optional<int> minimum_length = std::nullopt,
    std::optional<int> maximum_length = std::nullopt) 
 {
-   std::vector<sequence_sightings<It>> result;
+   using sightings_t = sequence_sightings<It, typename std::iterator_traits<It>::difference_type>;
+   std::vector<sightings_t> result;
    
    range_iterator<It> rit(
       begin, end, 
       minimum_length.value_or(2),
       maximum_length.value_or(std::distance(begin, end)/2));
-   
-   std::vector<tally<range<It>>> bookkeeping;
+
+   using tally_t = tally<range<It>, size_t>;
+   std::vector<tally_t> bookkeeping;
    
    // for each possible subsequence in this sequence
    for (auto r = rit.first(); !rit.end(r); r = rit.next(r)) 
@@ -67,13 +71,13 @@ std::vector<sequence_sightings<It>> repeated_sequences(
             repeated.push_back(
                std::move(additional));
 
-         tally repeated_range_count{r, repeated.size()};
+         tally_t repeated_range_count{r, repeated.size()};
          
          if (!is_trivial_repetition(bookkeeping, repeated_range_count))
          {
             bookkeeping.push_back(repeated_range_count);
 
-            result.push_back(sequence_sightings<It>{ 
+            result.push_back(sightings_t{ 
                std::move(repeated),
                std::distance(r.begin(), r.end())});
          }

@@ -255,7 +255,7 @@ TEST_F(fixture_datashelf, filter_one_get_first_doesnt_change_state)
 TEST_F(fixture_datashelf, filter_one_get_random_doesnt_change_state)
 {
    auto first_book = mzlib::ds::fluent(m_shelf).random("book", 
-      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator&) -> mzlib::ds::node::iterator 
       {
          return first;
       });
@@ -365,7 +365,7 @@ TEST_F(fixture_datashelf, get_random_node)
 {
    auto first_random_book = mzlib::ds::fluent(m_shelf).random("book", 
       // in-place mock
-      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator&) -> mzlib::ds::node::iterator 
       {
          return first;
       });
@@ -376,7 +376,7 @@ TEST_F(fixture_datashelf, get_random_node)
    
    auto second_random_book = mzlib::ds::fluent(m_shelf).random("book", 
       // in-place mock
-      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator&) -> mzlib::ds::node::iterator 
       {
          return std::next(first);
       });
@@ -390,7 +390,7 @@ TEST_F(fixture_datashelf, get_random_node_when_empty)
 {
    auto random_ufo_evidence = mzlib::ds::fluent(m_shelf).random("ufo evidence", 
       // in-place mock
-      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator& last) -> mzlib::ds::node::iterator 
+      [](const mzlib::ds::node::iterator& first, const mzlib::ds::node::iterator&) -> mzlib::ds::node::iterator 
       {
          return first;
       });

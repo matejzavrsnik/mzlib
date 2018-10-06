@@ -12,7 +12,7 @@ namespace mzlib {
     
 // Useful for when you need a name for counter for some Thing
    
-template<typename Thing, typename SizeT = long unsigned> 
+template<typename Thing, typename SizeT = unsigned> 
 class tally
 {
    
@@ -23,7 +23,7 @@ private:
    
 public:
    
-   tally(const Thing& thing, unsigned count = 0) :
+   tally(const Thing& thing, SizeT count = 0) :
       m_itself(thing),
       m_count(count)
    {}

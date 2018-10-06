@@ -16,7 +16,7 @@ template<class CharType>
 bool case_insensitive_equal(const CharType& a, const CharType& b)
 {
    return (tolower(a) == tolower(b));
-};
+}
 
 }
 
