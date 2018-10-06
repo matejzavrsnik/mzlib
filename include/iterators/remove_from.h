@@ -86,6 +86,7 @@ public:
             }
             break;
       }
+      return std::vector<ValueType>();
    }
    
 private:

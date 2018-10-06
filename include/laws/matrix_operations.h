@@ -100,7 +100,7 @@ MatrixT add(const MatrixT& left, const MatrixT& right)
    }
    
    return res;
-};
+}
 
 template<
    class MatrixLeft,
@@ -128,7 +128,7 @@ Result multiply(MatrixLeft left, MatrixRight right)
    }
    
    return res;
-};
+}
 
 template<class MatrixT, class Scalar>
 MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
@@ -144,7 +144,7 @@ MatrixT scalar_multiply(const MatrixT& matrix, const Scalar& scalar)
    }
    
    return res;
-};
+}
 
 template<
    class MatrixT,
@@ -163,21 +163,21 @@ Result transpose(const MatrixT& matrix)
    }
    
    return res;
-};
+}
 
 template<class MatrixT>
 MatrixT negate(const MatrixT& matrix)
 {
    MatrixT res = scalar_multiply(matrix, -1);   
    return res;
-};
+}
 
 template<class MatrixT>
 MatrixT subtract(const MatrixT& left, const MatrixT& right)
 {
    MatrixT res = add(left, negate(right));   
    return res;
-};
+}
 
 template<class MatrixT>
 void randomise(MatrixT& matrix)
@@ -191,7 +191,7 @@ void randomise(MatrixT& matrix)
       value<MatrixT>::get(matrix, row, col) = 
          get_random<decltype(value_type<MatrixT>::type)>();
    }
-};
+}
 
 }}} // namespace mzlib::law::matrix
 
