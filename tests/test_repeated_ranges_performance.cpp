@@ -6,7 +6,6 @@
 //
 
 #include "../include/iterators/repeated_ranges.h"
-
 #include "../include/apps/sentence_o_matic.h"
 #include "../include/lang/stopwatch.h"
 
@@ -18,7 +17,7 @@
 
 namespace
 {
-   std::string generate_text(int length)
+   std::string generate_text(size_t length)
    {
       mzlib::sentence_o_matic_builder builder;
       std::stringstream ss(
@@ -112,9 +111,5 @@ TEST(repeated_ranges_performance, DISABLED_perform)
    //3200    2755
    //6400    15244
 
-
-
-   
    ASSERT_TRUE(true);
 }
-

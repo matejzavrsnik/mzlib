@@ -132,6 +132,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/twoway_streambuf.o \
 	${OBJECTDIR}/include/tools/wagner_fischer_distance.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/tests/matrix_operations_performance.o \
 	${OBJECTDIR}/tests/test_repeated_ranges_performance.o \
 	${OBJECTDIR}/tests/test_universe_performance.o
 
@@ -644,6 +645,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/tests/matrix_operations_performance.o: tests/matrix_operations_performance.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/matrix_operations_performance.o tests/matrix_operations_performance.cpp
 
 ${OBJECTDIR}/tests/test_repeated_ranges_performance.o: tests/test_repeated_ranges_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests
