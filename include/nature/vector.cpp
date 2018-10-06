@@ -131,6 +131,12 @@ TEST_F(fixture_vector, assignment_from_std_vector_too_big)
    ASSERT_EQ(v_should_be, v);
 }
 
+TEST_F(fixture_vector, large_fits_on_stack)
+{
+   mzlib::vector<double, 1000000> large;
+   ASSERT_TRUE(true);
+}
+
 TEST_F(fixture_vector, operator_equals) 
 {
    ASSERT_TRUE(mzlib::vector3d({1.1,2.2,3.3}) == v123);

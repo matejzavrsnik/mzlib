@@ -31,7 +31,6 @@ private:
 public:
    
    matrix (matrix &&) = default;
-   matrix& operator= (const matrix&) = default;
    matrix& operator= (matrix&&) = default;
    ~matrix () = default;
 
@@ -44,6 +43,12 @@ public:
       matrix()
    {
       *m_matrix = *other.m_matrix;
+   }
+
+   matrix& operator= (const matrix& other)
+   {
+      *m_matrix = *other.m_matrix;
+      return *this;
    }
    
    // implicit conversion from std::initializer_list

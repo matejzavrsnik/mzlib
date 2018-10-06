@@ -22,7 +22,6 @@ namespace mzlib {
 // Fixed size mathematical vector.
    
 // Motivation to write own class (goals):
-//   - boost::ublas::c_vector can't be constexpr
 //   - std::vector is dynamic and can't fail compilation if used with mixed dimensions
 //   - I couldn't find a way to construct and fill std::array in constexpr context.
 //     For example: something like std::array({1,1,1,1}) but templetised for any array size.
@@ -38,57 +37,69 @@ class vector
 
 private:
 
-   std::array<TypeT, DimT> m_array;
+   using vector_type = std::array<TypeT, DimT>;
+   std::unique_ptr<vector_type> m_array;
    
 public:
    
-   vector (const vector<TypeT,DimT>&) = default;
    vector (vector<TypeT,DimT> &&) = default;
-   vector& operator= (const vector<TypeT,DimT>&) = default;
    vector& operator= (vector<TypeT,DimT>&&) = default;
    ~vector () = default;
 
-   constexpr vector () : 
-      m_array{0} // all will be zero
+   vector () : 
+      m_array(std::make_unique<vector_type>())
    {
    };
    
-   // implicit conversion from std::initializer_list
-   constexpr vector (const std::initializer_list<TypeT>& list) : 
-      m_array{0}
+   vector (const vector<TypeT,DimT>& other) :
+      vector()
    {
-      copy(list.begin(), list.end(), m_array.begin(), m_array.end());
+      *m_array = *other.m_array;
+   }
+
+   vector& operator= (const vector<TypeT,DimT>& other)
+   {
+      *m_array = *other.m_array;
+      return *this;
+   }
+   
+   // implicit conversion from std::initializer_list
+   vector (const std::initializer_list<TypeT>& list) : 
+      vector()
+   {
+      copy(list.begin(), list.end(), m_array->begin(), m_array->end());
    }
     
    // implicit conversion from std::vector
-   constexpr vector (const std::vector<TypeT>& vec)
+   vector (const std::vector<TypeT>& vec) :
+      vector()
    {
-      copy(vec.begin(), vec.end(), m_array.begin(), m_array.end());
+      copy(vec.begin(), vec.end(), m_array->begin(), m_array->end());
    }
     
-   constexpr vector<TypeT,DimT>& operator= (const std::vector<TypeT>& vec) 
+   vector<TypeT,DimT>& operator= (const std::vector<TypeT>& vec) 
    {    
-      copy(vec.begin(), vec.end(), m_array.begin(), m_array.end());
+      copy(vec.begin(), vec.end(), m_array->begin(), m_array->end());
       return *this;
    }
     
-   constexpr vector<TypeT,DimT>& operator= (const std::initializer_list<TypeT>& list) 
+   vector<TypeT,DimT>& operator= (const std::initializer_list<TypeT>& list) 
    { 
-      copy(list.begin(), list.end(), m_array.begin(), m_array.end());
+      copy(list.begin(), list.end(), m_array->begin(), m_array->end());
       return *this;
    }
         
-   constexpr TypeT& operator[] (size_t n) 
+   TypeT& operator[] (size_t n) 
    { 
-      return m_array[n]; 
+      return (*m_array)[n]; 
    }
     
-   constexpr const TypeT& operator[] (size_t n) const 
+   const TypeT& operator[] (size_t n) const 
    { 
-      return m_array[n];
+      return (*m_array)[n];
    }
     
-   constexpr static size_t size()
+   static size_t size()
    {
       return DimT;
    }
@@ -206,8 +217,8 @@ using point3d  = vector<double, 3>;
 
 // convenient values
 
-constexpr vector2d unit_vector2d = law::vector::create_unit_vector<vector2d>();
-constexpr vector3d unit_vector3d = law::vector::create_unit_vector<vector3d>();
+static const vector2d unit_vector2d = law::vector::create_unit_vector<vector2d>();
+static const vector3d unit_vector3d = law::vector::create_unit_vector<vector3d>();
 
 } // namespace
 
