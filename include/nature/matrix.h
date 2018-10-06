@@ -8,11 +8,12 @@
 #ifndef MZLIB_MATRIX_H
 #define MZLIB_MATRIX_H
 
-#include <initializer_list>
-#include <array>
-
 #include "../laws/matrix_operations.h"
 #include "../iterators/copy_to_nested.h"
+
+#include <initializer_list>
+#include <array>
+#include <memory>
 
 namespace mzlib {
 
@@ -25,43 +26,48 @@ class matrix
 private:
 
    using matrix_type = std::array<std::array<TypeT, DimCols>, DimRows>;
-   matrix_type m_matrix;
+   std::unique_ptr<matrix_type> m_matrix;
    
 public:
    
-   matrix (const matrix&) = default;
    matrix (matrix &&) = default;
    matrix& operator= (const matrix&) = default;
    matrix& operator= (matrix&&) = default;
    ~matrix () = default;
 
    matrix () :
-      m_matrix{{0}}
+      m_matrix(std::make_unique<matrix_type>())
    {
+   }
+
+   matrix (const matrix& other) :
+      matrix()
+   {
+      *m_matrix = *other.m_matrix;
    }
    
    // implicit conversion from std::initializer_list
    matrix (const std::initializer_list<TypeT>& list) :
       matrix()
    {
-      copy_to_nested(list.begin(), list.end(), m_matrix.begin(), m_matrix.end());
+      copy_to_nested(list.begin(), list.end(), m_matrix->begin(), m_matrix->end());
    }
 
    // implicit conversion from std::vector
    matrix (const std::vector<TypeT>& vec) :
       matrix()
    {
-      copy_to_nested(vec.begin(), vec.end(), m_matrix.begin(), m_matrix.end());
+      copy_to_nested(vec.begin(), vec.end(), m_matrix->begin(), m_matrix->end());
    }
 
    TypeT& operator() (size_t row, size_t col) 
    { 
-      return m_matrix[row][col]; 
+      return (*m_matrix)[row][col]; 
    }
     
    const TypeT& operator() (size_t row, size_t col) const 
    { 
-      return m_matrix[row][col]; 
+      return (*m_matrix)[row][col]; 
    }
 
 };

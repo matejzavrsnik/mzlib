@@ -39,6 +39,37 @@ TEST(matrix, construction_from_std_initializer_list)
    ASSERT_DOUBLE_EQ(9, m(2,2));
 }
 
+TEST(matrix, copy_construction) 
+{
+   mzlib::matrix3x3 m1 = {1,2,3,4,5,6,7,8,9};
+   mzlib::matrix3x3 m2(m1);
+   ASSERT_DOUBLE_EQ(1, m2(0,0));
+   ASSERT_DOUBLE_EQ(2, m2(0,1));
+   ASSERT_DOUBLE_EQ(3, m2(0,2));
+   ASSERT_DOUBLE_EQ(4, m2(1,0));
+   ASSERT_DOUBLE_EQ(5, m2(1,1));
+   ASSERT_DOUBLE_EQ(6, m2(1,2));
+   ASSERT_DOUBLE_EQ(7, m2(2,0));
+   ASSERT_DOUBLE_EQ(8, m2(2,1));
+   ASSERT_DOUBLE_EQ(9, m2(2,2));
+}
+
+TEST(matrix, assignment) 
+{
+   mzlib::matrix3x3 m1 = {1,2,3,4,5,6,7,8,9};
+   mzlib::matrix3x3 m2;
+   m2 = m1;
+   ASSERT_DOUBLE_EQ(1, m2(0,0));
+   ASSERT_DOUBLE_EQ(2, m2(0,1));
+   ASSERT_DOUBLE_EQ(3, m2(0,2));
+   ASSERT_DOUBLE_EQ(4, m2(1,0));
+   ASSERT_DOUBLE_EQ(5, m2(1,1));
+   ASSERT_DOUBLE_EQ(6, m2(1,2));
+   ASSERT_DOUBLE_EQ(7, m2(2,0));
+   ASSERT_DOUBLE_EQ(8, m2(2,1));
+   ASSERT_DOUBLE_EQ(9, m2(2,2));
+}
+
 TEST(matrix, construction_from_std_initializer_list_too_small) 
 {
    mzlib::matrix3x3 m = {1,2,3};
@@ -71,6 +102,12 @@ TEST(matrix, construction_from_std_vector_too_big)
    std::vector<double> standard_vector = {1,2,3,4,5};
    mzlib::matrix2x2 m = standard_vector;
    ASSERT_EQ(mzlib::matrix2x2({1,2,3,4}), m);
+}
+
+TEST(matrix, large_fits_on_stack)
+{
+   mzlib::matrix<double,10000,10000> large;
+   ASSERT_TRUE(true);
 }
 
 TEST(matrix, operator_equals) 
