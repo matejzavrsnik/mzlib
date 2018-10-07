@@ -19,7 +19,7 @@
 namespace 
 {
    template<typename Function>
-   double run_and_measure2(Function fun)
+   double run_and_measure(Function fun)
    {
       mzlib::stopwatch stopwatch;
       auto start = stopwatch.start();
@@ -30,49 +30,135 @@ namespace
       return stopwatch.get_wall_clock(start, end);
    }
    
-   template<size_t N, size_t M>
-   void run_and_measure_matrix_multiply()
+   template<typename T, size_t N, size_t M>
+   auto make_random_matrix()
    {
-      auto m1 = std::make_shared<mzlib::matrix<double, N, M>>();
-      auto m2 = std::make_shared<mzlib::matrix<double, N, M>>();
-
-      mzlib::law::matrix::randomise(*m1);
-      mzlib::law::matrix::randomise(*m2);
-
+      auto m = std::make_shared<mzlib::matrix<T, N, M>>();      
+      mzlib::law::matrix::randomise(*m);
+      return m;
+   }
+   
+   template<typename Function>
+   double get_average_operation_time(Function fun, const size_t repetitions)
+   {
       std::vector<double> times;
-      for (int reps=0; reps<10; ++reps)
+      for (size_t reps=0; reps<repetitions; ++reps)
       {
-         times.push_back( 
-            run_and_measure2([&](){
-                  return mzlib::law::matrix::multiply(*m1, *m2); }));
+         times.push_back(run_and_measure(fun));
       }
+      return mzlib::average(times.begin(), times.end());
+   }
 
-      double avg_time_to_complete = mzlib::average(times.begin(), times.end());
-
-      // neatly aligned output
+   void display_header()
+   {
+      std::cout << "NxM\t\tms\t" << std::endl;
+   }
+   
+   void display_results(int n, int m, double avg)
+   {
       std::cout << std::fixed << std::setprecision(0)
-         << N << "x" << M << "\t" 
-         << avg_time_to_complete << "\t"
+         << n << "x" << m << "\t\t" 
+         << avg << "\t"
          << std::endl;
+   }
+   
+   template<size_t N, size_t M>
+   double run_and_measure_matrix_multiply()
+   {
+      auto m1 = make_random_matrix<double, N, M>();
+      auto m2 = make_random_matrix<double, N, M>();
+
+      return get_average_operation_time(
+         [&](){
+            return mzlib::law::matrix::multiply(*m1, *m2); 
+         },
+         10
+      );
+   }
+   
+   template<size_t N, size_t M>
+   double run_and_measure_matrix_add()
+   {
+      auto m1 = make_random_matrix<double, N, M>();
+      auto m2 = make_random_matrix<double, N, M>();
+
+      return get_average_operation_time(
+         [&](){
+            return mzlib::law::matrix::add(*m1, *m2); 
+         },
+         10
+      );
    }
 }
 
-TEST(matrix_multiplication_performance, DISABLED_perform)
+TEST(matrix_performance, DISABLED_multiply)
 {
-   std::cout << "N*M\tms\t" << std::endl;
+   display_header();
+   double result;
    
-   run_and_measure_matrix_multiply<100, 100>();
-   run_and_measure_matrix_multiply<200, 200>();
-   run_and_measure_matrix_multiply<400, 400>();
-   run_and_measure_matrix_multiply<800, 800>();
-   run_and_measure_matrix_multiply<1600, 1600>();
+   result = run_and_measure_matrix_multiply<100, 100>();
+   display_results(100, 100, result);
    
-   // N*M        ms
-   // 100x100    1
-   // 200x200    7
-   // 400x400    52
-   // 800x800    2035
-   // 1600x1600  19873
+   result = run_and_measure_matrix_multiply<200, 200>();
+   display_results(200, 200, result);
+   
+   result = run_and_measure_matrix_multiply<400, 400>();
+   display_results(400, 400, result);
+   
+   result = run_and_measure_matrix_multiply<800, 800>();
+   display_results(800, 800, result);
+
+   result = run_and_measure_matrix_multiply<1600, 1600>();
+   display_results(1600, 1600, result);
+   
+//   NxM             ms
+//   100x100         0
+//   200x200         6
+//   400x400         51
+//   800x800         909
+//   1600x1600       7070
+   
+   ASSERT_TRUE(true);
+}
+
+TEST(matrix_performance, DISABLED_add)
+{
+   display_header();
+   double result;
+   
+   result = run_and_measure_matrix_add<100, 100>();
+   display_results(100, 100, result);
+   
+   result = run_and_measure_matrix_add<200, 200>();
+   display_results(200, 200, result);
+   
+   result = run_and_measure_matrix_add<400, 400>();
+   display_results(400, 400, result);
+   
+   result = run_and_measure_matrix_add<800, 800>();
+   display_results(800, 800, result);
+
+   result = run_and_measure_matrix_add<1600, 1600>();
+   display_results(1600, 1600, result);
+
+   result = run_and_measure_matrix_add<3200, 3200>();
+   display_results(3200, 3200, result);
+
+   result = run_and_measure_matrix_add<6400, 6400>();
+   display_results(6400, 6400, result);
+   
+   result = run_and_measure_matrix_add<12800, 12800>();
+   display_results(12800, 12800, result);
+   
+//   NxM             ms
+//   100x100         0
+//   200x200         0
+//   400x400         0
+//   800x800         2
+//   1600x1600       8
+//   3200x3200       44
+//   6400x6400       272
+//   12800x12800     1201
    
    ASSERT_TRUE(true);
 }
