@@ -122,6 +122,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/fast_min.o \
 	${OBJECTDIR}/include/tools/fluent_datashelf.o \
 	${OBJECTDIR}/include/tools/genetic.o \
+	${OBJECTDIR}/include/tools/get_if_exists.o \
 	${OBJECTDIR}/include/tools/index_coordinate_conversions.o \
 	${OBJECTDIR}/include/tools/next_lex_permutation.o \
 	${OBJECTDIR}/include/tools/number_of_decimals.o \
@@ -595,6 +596,11 @@ ${OBJECTDIR}/include/tools/genetic.o: include/tools/genetic.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/genetic.o include/tools/genetic.cpp
+
+${OBJECTDIR}/include/tools/get_if_exists.o: include/tools/get_if_exists.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/get_if_exists.o include/tools/get_if_exists.cpp
 
 ${OBJECTDIR}/include/tools/index_coordinate_conversions.o: include/tools/index_coordinate_conversions.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
