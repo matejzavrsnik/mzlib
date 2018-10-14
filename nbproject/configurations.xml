@@ -33,6 +33,7 @@
         <itemPath>include/apps/killer_sudoku.h</itemPath>
         <itemPath>include/apps/sentence_o_matic.cpp</itemPath>
         <itemPath>include/apps/sentence_o_matic.h</itemPath>
+        <itemPath>include/apps/sentence_o_matic_from_file.h</itemPath>
         <itemPath>include/apps/sudoku.cpp</itemPath>
         <itemPath>include/apps/sudoku.h</itemPath>
       </logicalFolder>
@@ -411,6 +412,11 @@
       <item path="include/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/sentence_o_matic_from_file.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1175,6 +1181,11 @@
       <item path="include/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/sentence_o_matic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/sentence_o_matic_from_file.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
