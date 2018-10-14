@@ -98,69 +98,68 @@ constexpr std::optional<T> negate (
 // Comparisons
 
 // Should two undefined be equal?
-// Should one undefined and other defined be not equal?
 // For now I will not make the code attempt to be too clever.
 // The demand stays: both need to be defined in order to get
 // defined result. This way it's symmetric to other operations.
 
 template<typename T>
-constexpr std::optional<bool> equal_to (
+constexpr bool equal_to (
    const std::optional<T>& lhs, 
    const std::optional<T>& rhs)
 {
    return (lhs && rhs) ?
-      std::optional<bool>(*lhs == *rhs) :
-      std::nullopt;
+      *lhs == *rhs :
+      false;
 }
 
 template<typename T>
-constexpr std::optional<bool> not_equal_to (
+constexpr bool not_equal_to (
    const std::optional<T>& lhs, 
    const std::optional<T>& rhs)
 {
    return (lhs && rhs) ?
-      std::optional<bool>(*lhs != *rhs) :
-      std::nullopt;
+      *lhs != *rhs :
+      false;
 }
 
 template<typename T>
-constexpr std::optional<bool> greater (
+constexpr bool greater (
    const std::optional<T>& lhs, 
    const std::optional<T>& rhs)
 {
    return (lhs && rhs) ?
-      std::optional<bool>(*lhs > *rhs) :
-      std::nullopt;
+      *lhs > *rhs :
+      false;
 }
 
 template<typename T>
-constexpr std::optional<bool> less (
+constexpr bool less (
    const std::optional<T>& lhs, 
    const std::optional<T>& rhs)
 {
    return (lhs && rhs) ?
-      std::optional<bool>(*lhs < *rhs) :
-      std::nullopt;
+      *lhs < *rhs :
+      false;
 }
 
 template<typename T>
-constexpr std::optional<bool> greater_equal (
+constexpr bool greater_equal (
    const std::optional<T>& lhs, 
    const std::optional<T>& rhs)
 {
    return (lhs && rhs) ?
-      std::optional<bool>(*lhs >= *rhs) :
-      std::nullopt;
+      *lhs >= *rhs :
+      false;
 }
 
 template<typename T>
-constexpr std::optional<bool> less_equal (
+constexpr bool less_equal (
    const std::optional<T>& lhs, 
    const std::optional<T>& rhs)
 {
    return (lhs && rhs) ?
-      std::optional<bool>(*lhs <= *rhs) :
-      std::nullopt;
+      *lhs <= *rhs :
+      false;
 }
 
 } // namespace

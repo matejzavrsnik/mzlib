@@ -205,307 +205,216 @@ TEST(optionally_functional, equal_to_is)
 {
    oi a = 4;
    oi b = 4;
-   ob c = mzlib::equal_to(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::equal_to(a, b));
 }
 
 TEST(optionally_functional, equal_to_isnt) 
 {
    oi a = 3;
    oi b = 4;
-   ob c = mzlib::equal_to(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_FALSE(*c);
+   ASSERT_FALSE(mzlib::equal_to(a, b));
 }
 
 TEST(optionally_functional, equal_to_lhs_no_value) 
 {
    oi a;
    oi b = 4;
-   ob c = mzlib::equal_to(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::equal_to(a, b));
 }
 
 TEST(optionally_functional, equal_to_rhs_no_value) 
 {
    oi a = 3;
    oi b;
-   ob c = mzlib::equal_to(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::equal_to(a, b));
 }
 
 TEST(optionally_functional, equal_to_both_no_value) 
 {
    oi a, b;
-   ob c = mzlib::equal_to(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::equal_to(a, b));
 }
-
-
-
-
-
-
-
-
-
-
 
 TEST(optionally_functional, not_equal_to_is) 
 {
    oi a = 3;
    oi b = 4;
-   ob c = mzlib::not_equal_to(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::not_equal_to(a, b));
 }
 
 TEST(optionally_functional, not_equal_to_isnt) 
 {
    oi a = 4;
    oi b = 4;
-   ob c = mzlib::not_equal_to(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_FALSE(*c);
+   ASSERT_FALSE(mzlib::not_equal_to(a, b));
 }
 
 TEST(optionally_functional, not_equal_to_lhs_no_value) 
 {
    oi a;
    oi b = 4;
-   ob c = mzlib::not_equal_to(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::not_equal_to(a, b));
 }
 
 TEST(optionally_functional, not_equal_to_rhs_no_value) 
 {
    oi a = 3;
    oi b;
-   ob c = mzlib::not_equal_to(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::not_equal_to(a, b));
 }
 
 TEST(optionally_functional, not_equal_to_both_no_value) 
 {
    oi a, b;
-   ob c = mzlib::not_equal_to(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::not_equal_to(a, b));
 }
-
-
-
-
-
-
-
-
 
 TEST(optionally_functional, greater_is) 
 {
    oi a = 5;
    oi b = 4;
-   ob c = mzlib::greater(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::greater(a, b));
 }
 
 TEST(optionally_functional, greater_isnt) 
 {
    oi a = 4;
    oi b = 4;
-   ob c = mzlib::greater(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_FALSE(*c);
+   ASSERT_FALSE(mzlib::greater(a, b));
 }
 
 TEST(optionally_functional, greater_lhs_no_value) 
 {
    oi a;
    oi b = 4;
-   ob c = mzlib::greater(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::greater(a, b));
 }
 
 TEST(optionally_functional, greater_rhs_no_value) 
 {
    oi a = 3;
    oi b;
-   ob c = mzlib::greater(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::greater(a, b));
 }
 
 TEST(optionally_functional, greater_both_no_value) 
 {
    oi a, b;
-   ob c = mzlib::greater(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::greater(a, b));
 }
-
-
-
-
-
-
-
-
-
-
-
 
 TEST(optionally_functional, less_is) 
 {
    oi a = 3;
    oi b = 4;
-   ob c = mzlib::less(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::less(a, b));
 }
 
 TEST(optionally_functional, less_isnt) 
 {
    oi a = 4;
    oi b = 4;
-   ob c = mzlib::less(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_FALSE(*c);
+   ASSERT_FALSE(mzlib::less(a, b));
 }
 
 TEST(optionally_functional, less_lhs_no_value) 
 {
    oi a;
    oi b = 4;
-   ob c = mzlib::less(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::less(a, b));
 }
 
 TEST(optionally_functional, less_rhs_no_value) 
 {
    oi a = 3;
    oi b;
-   ob c = mzlib::less(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::less(a, b));
 }
 
 TEST(optionally_functional, less_both_no_value) 
 {
    oi a, b;
-   ob c = mzlib::less(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::less(a, b));
 }
-
-
-
-
-
-
-
-
 
 TEST(optionally_functional, greater_equal_greater) 
 {
    oi a = 5;
    oi b = 4;
-   ob c = mzlib::greater_equal(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::greater_equal(a, b));
 }
 
 TEST(optionally_functional, greater_equal_equal) 
 {
    oi a = 4;
    oi b = 4;
-   ob c = mzlib::greater_equal(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::greater_equal(a, b));
 }
 
 TEST(optionally_functional, greater_equal_less) 
 {
    oi a = 3;
    oi b = 4;
-   ob c = mzlib::greater_equal(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_FALSE(*c);
+   ASSERT_FALSE(mzlib::greater_equal(a, b));
 }
 
 TEST(optionally_functional, greater_equal_lhs_no_value) 
 {
    oi a;
    oi b = 4;
-   ob c = mzlib::greater_equal(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::greater_equal(a, b));
 }
 
 TEST(optionally_functional, greater_equal_rhs_no_value) 
 {
    oi a = 3;
    oi b;
-   ob c = mzlib::greater_equal(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::greater_equal(a, b));
 }
 
 TEST(optionally_functional, greater_equal_both_no_value) 
 {
    oi a, b;
-   ob c = mzlib::greater_equal(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::greater_equal(a, b));
 }
-
-
-
-
-
-
-
-
 
 TEST(optionally_functional, less_equal_greater) 
 {
    oi a = 5;
    oi b = 4;
-   ob c = mzlib::less_equal(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_FALSE(*c);
+   ASSERT_FALSE(mzlib::less_equal(a, b));
 }
 
 TEST(optionally_functional, less_equal_equal) 
 {
    oi a = 4;
    oi b = 4;
-   ob c = mzlib::less_equal(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::less_equal(a, b));
 }
 
 TEST(optionally_functional, less_equal_less) 
 {
    oi a = 3;
    oi b = 4;
-   ob c = mzlib::less_equal(a, b);
-   ASSERT_TRUE(c.has_value());
-   ASSERT_TRUE(*c);
+   ASSERT_TRUE(mzlib::less_equal(a, b));
 }
 
 TEST(optionally_functional, less_equal_lhs_no_value) 
 {
    oi a;
    oi b = 4;
-   ob c = mzlib::less_equal(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::less_equal(a, b));
 }
 
 TEST(optionally_functional, less_equal_rhs_no_value) 
 {
    oi a = 3;
    oi b;
-   ob c = mzlib::less_equal(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::less_equal(a, b));
 }
 
 TEST(optionally_functional, less_equal_both_no_value) 
 {
    oi a, b;
-   ob c = mzlib::less_equal(a, b);
-   ASSERT_FALSE(c.has_value());
+   ASSERT_FALSE(mzlib::less_equal(a, b));
 }
