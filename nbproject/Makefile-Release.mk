@@ -82,6 +82,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/lang/c64_basic_for.o \
 	${OBJECTDIR}/include/lang/dbl.o \
 	${OBJECTDIR}/include/lang/optional.o \
+	${OBJECTDIR}/include/lang/optionally_functional.o \
 	${OBJECTDIR}/include/lang/value_type.o \
 	${OBJECTDIR}/include/laws/acceleration.o \
 	${OBJECTDIR}/include/laws/constant_linear_acceleration.o \
@@ -396,6 +397,11 @@ ${OBJECTDIR}/include/lang/optional.o: include/lang/optional.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/lang
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/lang/optional.o include/lang/optional.cpp
+
+${OBJECTDIR}/include/lang/optionally_functional.o: include/lang/optionally_functional.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/lang
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/lang/optionally_functional.o include/lang/optionally_functional.cpp
 
 ${OBJECTDIR}/include/lang/value_type.o: include/lang/value_type.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/lang
