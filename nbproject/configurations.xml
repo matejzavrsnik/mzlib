@@ -36,6 +36,7 @@
         <itemPath>include/apps/sentence_o_matic_from_file.h</itemPath>
         <itemPath>include/apps/sudoku.cpp</itemPath>
         <itemPath>include/apps/sudoku.h</itemPath>
+        <itemPath>include/apps/syllables.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="extension" projectFiles="true">
         <itemPath>include/extension/libxmlpp.cpp</itemPath>
@@ -421,6 +422,8 @@
       <item path="include/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/syllables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1190,6 +1193,8 @@
       <item path="include/apps/sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/syllables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
       </item>
