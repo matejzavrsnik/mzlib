@@ -12,12 +12,15 @@
 #include "../tools/get_if_exists.h"
 #include "../string/trim_nonalpha.h"
 #include "../string/case.h"
+#include "../string/split.h"
 
 #include <string>
 #include <optional>
 #include <map>
 #include <list>
 #include <algorithm>
+#include <iterator>
+#include <string_view>
 
 namespace mzlib {
    
@@ -34,9 +37,7 @@ public:
 
    template<typename Iterator>
    static syllables from_collection(
-      const Iterator begin,
-      const Iterator end,
-      char delimiter)
+      const Iterator begin, const Iterator end, char delimiter)
    {
       syllables result;
       for(Iterator it = begin; it != end; ++it)
@@ -51,34 +52,32 @@ public:
       return result;
    }
    
-   static syllables from_file(
-      std::string_view filename, 
-      char delimiter)
+   static syllables from_file (std::string_view filename, char delimiter)
    {
       const auto dictionary = mzlib::read_file_lines(filename);
-      
-      return from_collection(
-         dictionary.begin(), 
-         dictionary.end(),
-         delimiter);
+      return from_collection(dictionary.begin(), dictionary.end(), delimiter);
    }
    
-   std::optional<int> count(std::string word) const
+   std::optional<int> count_word(std::string_view word) const
    {
-      mzlib::to_lowercase_inplace(word);
-      return mzlib::get_if_exists(
-         mzlib::trim_nonalpha(word), 
-         m_syllables);
+      auto word_str = mzlib::to_lowercase_copy<std::string>(word);
+      return mzlib::get_if_exists(mzlib::trim_nonalpha(word_str), m_syllables);
    }
    
-   std::optional<int> count(const std::list<std::string>& sentence) const
+   std::optional<int> count_sentence(std::string sentence) const
+   {
+      std::vector<std::string_view> collection = mzlib::split(sentence, " ");
+      return count_collection(collection.begin(), collection.end());
+   }
+   
+   template<typename Iterator>
+   std::optional<int> count_collection(
+      const Iterator begin, const Iterator end) const
    {
       int count = 0;
-      for(const auto& word : sentence)
+      for(Iterator it = begin; it != end; ++it)
       {
-         auto syllables = mzlib::get_if_exists(
-            mzlib::trim_nonalpha(word), 
-            m_syllables);
+         auto syllables = count_word(*it);
          
          // if syllable count for this word is unknown, then 
          // syllable count for the whole sentence is not known

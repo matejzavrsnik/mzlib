@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <list>
 
 class fixture_syllables : public ::testing::Test 
 {
@@ -36,43 +37,56 @@ protected:
 
 TEST_F(fixture_syllables, counts_syllables_in_word) 
 {
-   std::optional<int> count = m_syllables.count("mama");
+   std::optional<int> count = m_syllables.count_word("mama");
    ASSERT_TRUE(count.has_value());
    ASSERT_EQ(2, *count);
 }
 
 TEST_F(fixture_syllables, counts_syllables_in_monosyllabic_word) 
 {
-   std::optional<int> count = m_syllables.count("no");
+   std::optional<int> count = m_syllables.count_word("no");
    ASSERT_TRUE(count.has_value());
    ASSERT_EQ(1, *count);
 }
 
 TEST_F(fixture_syllables, returns_empty_optional_when_not_found) 
 {
-   std::optional<int> count = m_syllables.count("empire");
+   std::optional<int> count = m_syllables.count_word("empire");
    ASSERT_FALSE(count);
 }
 
 TEST_F(fixture_syllables, counts_syllables_if_word_with_punctiation) 
 {
-   std::optional<int> count = m_syllables.count(" papa,?");
+   std::optional<int> count = m_syllables.count_word(" papa,?");
    ASSERT_TRUE(count.has_value());
    ASSERT_EQ(2, *count);
 }
 
 TEST_F(fixture_syllables, counts_syllables_if_word_with_capitals) 
 {
-   std::optional<int> count = m_syllables.count("WhIskY");
+   std::optional<int> count = m_syllables.count_word("WhIskY");
    ASSERT_TRUE(count.has_value());
    ASSERT_EQ(2, *count);
 }
 
-TEST_F(fixture_syllables, counts_syllables_in_sentence_list) 
+TEST_F(fixture_syllables, counts_syllables_in_collection) 
 {
    std::list<std::string> sentence = {
       "no", "mama", "no", "papa", "no", "whisky", "soda"};
-   std::optional<int> count = m_syllables.count(sentence);
+   
+   std::optional<int> count = m_syllables.count_collection(
+      sentence.begin(), sentence.end());
+   
+   ASSERT_TRUE(count.has_value());
+   ASSERT_EQ(11, *count);
+}
+
+TEST_F(fixture_syllables, counts_syllables_in_sentence) 
+{
+   std::string sentence = "No mama, no papa, no whisky soda!";
+   
+   std::optional<int> count = m_syllables.count_sentence(sentence);
+   
    ASSERT_TRUE(count.has_value());
    ASSERT_EQ(11, *count);
 }
