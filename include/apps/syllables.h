@@ -11,6 +11,7 @@
 #include "../filesystem/read_write_file.h"
 #include "../tools/get_if_exists.h"
 #include "../string/trim_nonalpha.h"
+#include "../string/case.h"
 
 #include <string>
 #include <optional>
@@ -31,14 +32,16 @@ private:
 
 public:
 
-   static syllables from_dictionary(
-      std::string_view dictionary_filename, 
+   template<typename Iterator>
+   static syllables from_collection(
+      const Iterator begin,
+      const Iterator end,
       char delimiter)
    {
       syllables result;
-      auto dictionary_lines = mzlib::read_file_lines(dictionary_filename);
-      for(std::string word : dictionary_lines)
+      for(Iterator it = begin; it != end; ++it)
       {
+         auto word = *it;
          int syllables_count = 1;
          syllables_count += std::count(word.begin(), word.end(), delimiter);
          word.erase(std::remove(word.begin(), word.end(), delimiter), word.end());
@@ -48,8 +51,21 @@ public:
       return result;
    }
    
+   static syllables from_file(
+      std::string_view filename, 
+      char delimiter)
+   {
+      const auto dictionary = mzlib::read_file_lines(filename);
+      
+      return from_collection(
+         dictionary.begin(), 
+         dictionary.end(),
+         delimiter);
+   }
+   
    std::optional<int> count(std::string word) const
    {
+      mzlib::to_lowercase_inplace(word);
       return mzlib::get_if_exists(
          mzlib::trim_nonalpha(word), 
          m_syllables);
