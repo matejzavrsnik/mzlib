@@ -17,6 +17,8 @@ namespace mzlib {
 inline std::string 
 remove_words_beginning(std::string sentence)
 {
+   sentence = mzlib::trim_nonalpha_from_start(sentence);
+   
    auto next_space = sentence.find_first_of(' ');
    
    // no more spaces -> at most one word -> return empty

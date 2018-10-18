@@ -15,6 +15,12 @@ TEST(remove_words, remove_words_beginning)
    ASSERT_EQ("second third", left);
 }
 
+TEST(remove_words, remove_words_beginning_space_first_char)
+{
+   std::string left = mzlib::remove_words_beginning(" first second third");
+   ASSERT_EQ("second third", left);
+}
+
 TEST(remove_words, remove_words_beginning_one_word)
 {
    std::string left = mzlib::remove_words_beginning("first");
