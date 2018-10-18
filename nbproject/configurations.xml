@@ -185,6 +185,8 @@
         <itemPath>include/string/is_word_in_dictionary.h</itemPath>
         <itemPath>include/string/remove_substrings.cpp</itemPath>
         <itemPath>include/string/remove_substrings.h</itemPath>
+        <itemPath>include/string/remove_words.cpp</itemPath>
+        <itemPath>include/string/remove_words.h</itemPath>
         <itemPath>include/string/replace.cpp</itemPath>
         <itemPath>include/string/replace.h</itemPath>
         <itemPath>include/string/replace_all_between.cpp</itemPath>
@@ -842,6 +844,10 @@
             flavor2="0">
       </item>
       <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/remove_words.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/remove_words.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/replace.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1615,6 +1621,10 @@
             flavor2="0">
       </item>
       <item path="include/string/remove_substrings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/string/remove_words.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/remove_words.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/replace.cpp" ex="false" tool="1" flavor2="0">
       </item>
