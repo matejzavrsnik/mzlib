@@ -29,6 +29,8 @@
       <logicalFolder name="f4" displayName="apps" projectFiles="true">
         <itemPath>include/apps/aggregated_file_monitor.cpp</itemPath>
         <itemPath>include/apps/aggregated_file_monitor.h</itemPath>
+        <itemPath>include/apps/filter_haikus.cpp</itemPath>
+        <itemPath>include/apps/filter_haikus.h</itemPath>
         <itemPath>include/apps/killer_sudoku.cpp</itemPath>
         <itemPath>include/apps/killer_sudoku.h</itemPath>
         <itemPath>include/apps/sentence_o_matic.cpp</itemPath>
@@ -207,6 +209,8 @@
         </logicalFolder>
         <itemPath>include/tools/add_to_tally.cpp</itemPath>
         <itemPath>include/tools/add_to_tally.h</itemPath>
+        <itemPath>include/tools/all_equal.cpp</itemPath>
+        <itemPath>include/tools/all_equal.h</itemPath>
         <itemPath>include/tools/converters.h</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.cpp</itemPath>
         <itemPath>include/tools/copy_first_n_over_rest.h</itemPath>
@@ -239,11 +243,14 @@
         <itemPath>include/tools/random.cpp</itemPath>
         <itemPath>include/tools/random.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
+        <itemPath>include/tools/rememberator.cpp</itemPath>
+        <itemPath>include/tools/rememberator.h</itemPath>
         <itemPath>include/tools/some_long_operation.cpp</itemPath>
         <itemPath>include/tools/some_long_operation.h</itemPath>
         <itemPath>include/tools/sort_map_by_value.cpp</itemPath>
         <itemPath>include/tools/sort_map_by_value.h</itemPath>
         <itemPath>include/tools/tally.h</itemPath>
+        <itemPath>include/tools/try_convert_to_haiku.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
         <itemPath>include/tools/wagner_fischer_distance.cpp</itemPath>
@@ -409,6 +416,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/apps/filter_haikus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/apps/filter_haikus.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/killer_sudoku.h" ex="false" tool="3" flavor2="0">
@@ -895,6 +906,10 @@
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/all_equal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/all_equal.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/converters.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.cpp"
@@ -1007,6 +1022,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/rememberator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/some_long_operation.cpp"
             ex="false"
             tool="1"
@@ -1025,6 +1044,11 @@
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/try_convert_to_haiku.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1186,6 +1210,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/apps/filter_haikus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/apps/filter_haikus.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/killer_sudoku.h" ex="false" tool="3" flavor2="0">
@@ -1672,6 +1700,10 @@
       </item>
       <item path="include/tools/add_to_tally.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/all_equal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/all_equal.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/converters.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/copy_first_n_over_rest.cpp"
@@ -1784,6 +1816,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/rememberator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/some_long_operation.cpp"
             ex="false"
             tool="1"
@@ -1802,6 +1838,11 @@
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/try_convert_to_haiku.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>

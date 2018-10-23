@@ -46,6 +46,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/abstract/symbol_sequences_in_pattern.o \
 	${OBJECTDIR}/include/abstract/unique.o \
 	${OBJECTDIR}/include/apps/aggregated_file_monitor.o \
+	${OBJECTDIR}/include/apps/filter_haikus.o \
 	${OBJECTDIR}/include/apps/killer_sudoku.o \
 	${OBJECTDIR}/include/apps/sentence_o_matic.o \
 	${OBJECTDIR}/include/apps/sudoku.o \
@@ -117,6 +118,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/split_on_punctuation.o \
 	${OBJECTDIR}/include/string/trim_nonalpha.o \
 	${OBJECTDIR}/include/tools/add_to_tally.o \
+	${OBJECTDIR}/include/tools/all_equal.o \
 	${OBJECTDIR}/include/tools/copy_first_n_over_rest.o \
 	${OBJECTDIR}/include/tools/count_bits.o \
 	${OBJECTDIR}/include/tools/datashelf_extended.o \
@@ -131,6 +133,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/number_of_decimals.o \
 	${OBJECTDIR}/include/tools/parse_cli_arguments.o \
 	${OBJECTDIR}/include/tools/random.o \
+	${OBJECTDIR}/include/tools/rememberator.o \
 	${OBJECTDIR}/include/tools/some_long_operation.o \
 	${OBJECTDIR}/include/tools/sort_map_by_value.o \
 	${OBJECTDIR}/include/tools/twoway_streambuf.o \
@@ -219,6 +222,11 @@ ${OBJECTDIR}/include/apps/aggregated_file_monitor.o: include/apps/aggregated_fil
 	${MKDIR} -p ${OBJECTDIR}/include/apps
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/apps/aggregated_file_monitor.o include/apps/aggregated_file_monitor.cpp
+
+${OBJECTDIR}/include/apps/filter_haikus.o: include/apps/filter_haikus.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/apps
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/apps/filter_haikus.o include/apps/filter_haikus.cpp
 
 ${OBJECTDIR}/include/apps/killer_sudoku.o: include/apps/killer_sudoku.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/apps
@@ -575,6 +583,11 @@ ${OBJECTDIR}/include/tools/add_to_tally.o: include/tools/add_to_tally.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/add_to_tally.o include/tools/add_to_tally.cpp
 
+${OBJECTDIR}/include/tools/all_equal.o: include/tools/all_equal.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/all_equal.o include/tools/all_equal.cpp
+
 ${OBJECTDIR}/include/tools/copy_first_n_over_rest.o: include/tools/copy_first_n_over_rest.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
@@ -644,6 +657,11 @@ ${OBJECTDIR}/include/tools/random.o: include/tools/random.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/random.o include/tools/random.cpp
+
+${OBJECTDIR}/include/tools/rememberator.o: include/tools/rememberator.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/rememberator.o include/tools/rememberator.cpp
 
 ${OBJECTDIR}/include/tools/some_long_operation.o: include/tools/some_long_operation.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
