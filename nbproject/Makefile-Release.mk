@@ -134,6 +134,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/number_of_decimals.o \
 	${OBJECTDIR}/include/tools/parse_cli_arguments.o \
 	${OBJECTDIR}/include/tools/random.o \
+	${OBJECTDIR}/include/tools/random_with_parity.o \
 	${OBJECTDIR}/include/tools/rememberator.o \
 	${OBJECTDIR}/include/tools/some_long_operation.o \
 	${OBJECTDIR}/include/tools/sort_map_by_value.o \
@@ -663,6 +664,11 @@ ${OBJECTDIR}/include/tools/random.o: include/tools/random.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/random.o include/tools/random.cpp
+
+${OBJECTDIR}/include/tools/random_with_parity.o: include/tools/random_with_parity.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/random_with_parity.o include/tools/random_with_parity.cpp
 
 ${OBJECTDIR}/include/tools/rememberator.o: include/tools/rememberator.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools

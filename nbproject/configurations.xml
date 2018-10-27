@@ -244,6 +244,8 @@
         <itemPath>include/tools/parse_cli_arguments.h</itemPath>
         <itemPath>include/tools/random.cpp</itemPath>
         <itemPath>include/tools/random.h</itemPath>
+        <itemPath>include/tools/random_with_parity.cpp</itemPath>
+        <itemPath>include/tools/random_with_parity.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
         <itemPath>include/tools/rememberator.cpp</itemPath>
         <itemPath>include/tools/rememberator.h</itemPath>
@@ -1022,6 +1024,13 @@
       <item path="include/tools/random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/random_with_parity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/random_with_parity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/relentless_file_reader.h"
             ex="false"
@@ -1820,6 +1829,13 @@
       <item path="include/tools/random.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/random.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/random_with_parity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/random_with_parity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/relentless_file_reader.h"
             ex="false"

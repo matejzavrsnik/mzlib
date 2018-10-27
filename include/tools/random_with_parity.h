@@ -1,59 +1,54 @@
 //
-// Copyright (c) 2015 Matej Zavrsnik
+// Copyright (c) 2018 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_UTILS_RANDOM_H
-#define MZLIB_UTILS_RANDOM_H
+#ifndef MZLIB_RANDOM_WITH_PARITY_H
+#define MZLIB_RANDOM_WITH_PARITY_H
 
-#include <chrono>
-#include <random>
-#include <type_traits>
+#include "random.h"
+#include "../nature/parity.h"
 
 namespace mzlib {
     
 template<typename T>
-T get_random ()
+T get_random_even ()
 {
-   if constexpr (std::is_integral<T>::value)
-   {
-      static T seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-      static std::mt19937 generator(seed);
-      return generator();
-   }
-   else
-   {
-      // rand() will never return completely random type T when T is a floating point type, 
-      // because the integer value will be converted to a floating point value with all 
-      // decimal digits 0, I invented the following trick.
-
-      // cast to double immediately to make sure the division will be cast properly
-      double numerator = get_random<unsigned>();
-      double denominator = get_random<unsigned>();
-      // collect some decimal digits
-      double decimals = numerator / denominator;
-      // collect whole digits too
-      double final_rand = get_random<unsigned>() + decimals;
-      return final_rand;
-   }
-   
+   T r = get_random<T>();
+   if(!is_even(r)) ++r;
+   return r;
 }
 
-inline double get_random_between_0_1 ()
+template<typename T>
+T get_random_odd ()
 {
-   unsigned random_number = get_random<unsigned>();
-   return (double)random_number / (double)std::mt19937::max();
+   T r = get_random<T>();
+   if(!is_odd(r)) --r;
+   return r;
 }
  
 template<typename T>
-inline unsigned get_random_between (T from, T to)
+inline unsigned get_random_even_between (T from, T to)
 {
-   const double random_number = get_random_between_0_1();
-   return static_cast<T>(random_number * static_cast<double>(to - from) + static_cast<double>(from));
+   T r = get_random_between(
+      is_even(from) ? from-1 : from, 
+      to);
+   
+   return is_even(r) ? r : ++r;
+}
+
+template<typename T>
+inline unsigned get_random_odd_between (T from, T to)
+{
+   T r = get_random_between(
+      is_odd(from) ? from-1 : from, 
+      is_odd(to) ? to+1 : to);
+   
+   return is_odd(r) ? r : ++r;
 }
 
 } // namespace
 
-#endif // MZLIB_UTILS_RANDOM_H
+#endif // MZLIB_RANDOM_WITH_PARITY_H
