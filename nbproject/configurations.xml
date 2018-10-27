@@ -155,6 +155,8 @@
         <itemPath>include/nature/mass_centre.h</itemPath>
         <itemPath>include/nature/matrix.cpp</itemPath>
         <itemPath>include/nature/matrix.h</itemPath>
+        <itemPath>include/nature/parity.cpp</itemPath>
+        <itemPath>include/nature/parity.h</itemPath>
         <itemPath>include/nature/screen_rectangle.h</itemPath>
         <itemPath>include/nature/units.h</itemPath>
         <itemPath>include/nature/units_strong_definitions.cpp</itemPath>
@@ -753,6 +755,10 @@
       <item path="include/nature/matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/nature/matrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/parity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/nature/parity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1547,6 +1553,10 @@
       <item path="include/nature/matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/nature/matrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nature/parity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/nature/parity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/nature/screen_rectangle.h" ex="false" tool="3" flavor2="0">
       </item>

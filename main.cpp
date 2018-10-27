@@ -11,7 +11,17 @@
 
 std::map<std::string, std::string> g_arguments;
 
+
+
+
+
+
+
 int main(int argc, char **argv) {
+   
+
+
+   
    ::testing::InitGoogleTest(&argc, argv);
    ::testing::InitGoogleMock(&argc, argv);
    g_arguments = mzlib::parse_arguments(argc, argv);
