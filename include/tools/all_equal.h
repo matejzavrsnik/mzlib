@@ -20,7 +20,7 @@ bool all_equal(const Container& container, T value)
    return std::all_of(
       container.cbegin(), 
       container.cend(), 
-      std::equal_to(value));
+      std::bind(std::equal_to<T>(), std::placeholders::_1, value));
 }
 
 } // namespace

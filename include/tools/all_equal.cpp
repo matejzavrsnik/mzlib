@@ -12,11 +12,11 @@
 TEST(all_equal, are) 
 {
    std::vector<std::string> words{"nana", "nana", "nana", "nana"};
-   ASSERT_TRUE(mzlib::all_equal(words, "nana"));
+   ASSERT_TRUE(mzlib::all_equal(words, std::string("nana")));
 }
 
 TEST(all_equal, arent) 
 {
    std::vector<std::string> words{"nana", "nana", "nana", "batman"};
-   ASSERT_FALSE(mzlib::all_equal(words, "nana"));
+   ASSERT_FALSE(mzlib::all_equal(words, std::string("nana")));
 }
