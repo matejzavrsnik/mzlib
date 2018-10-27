@@ -9,7 +9,7 @@
 
 #include "random.h"
 
-TEST(get_random_integer, demo) 
+TEST(get_random, demo) 
 {
    unsigned int a = mzlib::get_random<unsigned>();
    unsigned int b = mzlib::get_random<unsigned>();
@@ -20,7 +20,7 @@ TEST(get_random_integer, demo)
    ASSERT_NE(c, d);
 }
 
-TEST(get_random_integer_between, distribution_test_whole_range) 
+TEST(get_random_between, distribution_test_whole_range) 
 {
    int repetitions = 100000;
    std::vector<int> event_occurences(100, 0);
@@ -35,7 +35,7 @@ TEST(get_random_integer_between, distribution_test_whole_range)
    }
 }
 
-TEST(get_random_integer_between, distribution_test_range_without_zero) 
+TEST(get_random_between, distribution_test_range_without_zero) 
 {
    int repetitions = 100000;
    std::vector<int> event_occurences(100, 0);
@@ -54,7 +54,7 @@ TEST(get_random_integer_between, distribution_test_range_without_zero)
    }
 }
 
-TEST(random, get_random_double_between_0_1) 
+TEST(random, get_random_between_0_1) 
 {
    double a = mzlib::get_random_between_0_1();
    double b = mzlib::get_random_between_0_1();
