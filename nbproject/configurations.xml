@@ -91,6 +91,8 @@
         <itemPath>include/iterators/is_last.h</itemPath>
         <itemPath>include/iterators/is_trivial_repetition.cpp</itemPath>
         <itemPath>include/iterators/is_trivial_repetition.h</itemPath>
+        <itemPath>include/iterators/nested_iteration.cpp</itemPath>
+        <itemPath>include/iterators/nested_iteration.h</itemPath>
         <itemPath>include/iterators/range.cpp</itemPath>
         <itemPath>include/iterators/range.h</itemPath>
         <itemPath>include/iterators/range_is_within.cpp</itemPath>
@@ -613,6 +615,16 @@
             flavor2="0">
       </item>
       <item path="include/iterators/is_trivial_repetition.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/nested_iteration.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/nested_iteration.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1418,6 +1430,16 @@
             flavor2="0">
       </item>
       <item path="include/iterators/is_trivial_repetition.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/nested_iteration.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/nested_iteration.h"
             ex="false"
             tool="3"
             flavor2="0">
