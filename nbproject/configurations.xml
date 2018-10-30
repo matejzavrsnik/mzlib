@@ -251,6 +251,8 @@
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
         <itemPath>include/tools/rememberator.cpp</itemPath>
         <itemPath>include/tools/rememberator.h</itemPath>
+        <itemPath>include/tools/resize_nested_vector.cpp</itemPath>
+        <itemPath>include/tools/resize_nested_vector.h</itemPath>
         <itemPath>include/tools/some_long_operation.cpp</itemPath>
         <itemPath>include/tools/some_long_operation.h</itemPath>
         <itemPath>include/tools/sort_map_by_value.cpp</itemPath>
@@ -1052,6 +1054,16 @@
       <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/rememberator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/resize_nested_vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/resize_nested_vector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/some_long_operation.cpp"
             ex="false"
@@ -1867,6 +1879,16 @@
       <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/rememberator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/resize_nested_vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/resize_nested_vector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/some_long_operation.cpp"
             ex="false"
