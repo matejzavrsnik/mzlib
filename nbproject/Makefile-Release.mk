@@ -133,13 +133,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/genetic.o \
 	${OBJECTDIR}/include/tools/get_if_exists.o \
 	${OBJECTDIR}/include/tools/index_coordinate_conversions.o \
+	${OBJECTDIR}/include/tools/nested_vector.o \
 	${OBJECTDIR}/include/tools/next_lex_permutation.o \
 	${OBJECTDIR}/include/tools/number_of_decimals.o \
 	${OBJECTDIR}/include/tools/parse_cli_arguments.o \
 	${OBJECTDIR}/include/tools/random.o \
 	${OBJECTDIR}/include/tools/random_with_parity.o \
 	${OBJECTDIR}/include/tools/rememberator.o \
-	${OBJECTDIR}/include/tools/resize_nested_vector.o \
 	${OBJECTDIR}/include/tools/some_long_operation.o \
 	${OBJECTDIR}/include/tools/sort_map_by_value.o \
 	${OBJECTDIR}/include/tools/twoway_streambuf.o \
@@ -664,6 +664,11 @@ ${OBJECTDIR}/include/tools/index_coordinate_conversions.o: include/tools/index_c
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/index_coordinate_conversions.o include/tools/index_coordinate_conversions.cpp
 
+${OBJECTDIR}/include/tools/nested_vector.o: include/tools/nested_vector.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/nested_vector.o include/tools/nested_vector.cpp
+
 ${OBJECTDIR}/include/tools/next_lex_permutation.o: include/tools/next_lex_permutation.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
@@ -693,11 +698,6 @@ ${OBJECTDIR}/include/tools/rememberator.o: include/tools/rememberator.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/rememberator.o include/tools/rememberator.cpp
-
-${OBJECTDIR}/include/tools/resize_nested_vector.o: include/tools/resize_nested_vector.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/tools
-	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/resize_nested_vector.o include/tools/resize_nested_vector.cpp
 
 ${OBJECTDIR}/include/tools/some_long_operation.o: include/tools/some_long_operation.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
