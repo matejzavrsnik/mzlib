@@ -8,6 +8,7 @@
 #ifndef MZLIB_NECKLACE_SPLITTING_H
 #define MZLIB_NECKLACE_SPLITTING_H
 
+#include "../tools/find_index_insert.h"
 #include "../iterators/nested_iteration.h"
 #include "../lang/value_type.h"
 
@@ -23,18 +24,6 @@ namespace necklace {
 void switch_thief(int& thief)
 {
    thief = thief == 0 ? 1 : 0;
-}
-   
-template<typename T>
-unsigned find_index_insert(std::vector<T>& vec, T val)
-{
-   for (unsigned i=0; i<vec.size(); ++i)
-      if (vec[i] == val)
-         return i;
-   
-   vec.push_back(val);
-   
-   return vec.size()-1;
 }
 
 // given solution candidate, confirm if solution or not

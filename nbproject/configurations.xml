@@ -229,6 +229,8 @@
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
         <itemPath>include/tools/fast_min.cpp</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
+        <itemPath>include/tools/find_index_insert.cpp</itemPath>
+        <itemPath>include/tools/find_index_insert.h</itemPath>
         <itemPath>include/iterators/find_subsequence.cpp</itemPath>
         <itemPath>include/iterators/find_subsequence.h</itemPath>
         <itemPath>include/tools/fluent_datashelf.cpp</itemPath>
@@ -982,6 +984,13 @@
       <item path="include/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/find_index_insert.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/find_index_insert.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1814,6 +1823,13 @@
       <item path="include/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/find_index_insert.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/find_index_insert.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/fluent_datashelf.cpp" ex="false" tool="1" flavor2="0">
       </item>

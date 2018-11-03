@@ -128,6 +128,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/datashelf_foundation.o \
 	${OBJECTDIR}/include/tools/equidistant_sequence.o \
 	${OBJECTDIR}/include/tools/fast_min.o \
+	${OBJECTDIR}/include/tools/find_index_insert.o \
 	${OBJECTDIR}/include/tools/fluent_datashelf.o \
 	${OBJECTDIR}/include/tools/genetic.o \
 	${OBJECTDIR}/include/tools/get_if_exists.o \
@@ -637,6 +638,11 @@ ${OBJECTDIR}/include/tools/fast_min.o: include/tools/fast_min.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/fast_min.o include/tools/fast_min.cpp
+
+${OBJECTDIR}/include/tools/find_index_insert.o: include/tools/find_index_insert.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/find_index_insert.o include/tools/find_index_insert.cpp
 
 ${OBJECTDIR}/include/tools/fluent_datashelf.o: include/tools/fluent_datashelf.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
