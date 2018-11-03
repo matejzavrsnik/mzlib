@@ -48,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/apps/aggregated_file_monitor.o \
 	${OBJECTDIR}/include/apps/filter_haikus.o \
 	${OBJECTDIR}/include/apps/killer_sudoku.o \
+	${OBJECTDIR}/include/apps/necklace_splitting.o \
 	${OBJECTDIR}/include/apps/sentence_o_matic.o \
 	${OBJECTDIR}/include/apps/sudoku.o \
 	${OBJECTDIR}/include/apps/syllables.o \
@@ -236,6 +237,11 @@ ${OBJECTDIR}/include/apps/killer_sudoku.o: include/apps/killer_sudoku.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/apps
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/apps/killer_sudoku.o include/apps/killer_sudoku.cpp
+
+${OBJECTDIR}/include/apps/necklace_splitting.o: include/apps/necklace_splitting.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/apps
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/apps/necklace_splitting.o include/apps/necklace_splitting.cpp
 
 ${OBJECTDIR}/include/apps/sentence_o_matic.o: include/apps/sentence_o_matic.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/apps

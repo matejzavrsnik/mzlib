@@ -33,6 +33,8 @@
         <itemPath>include/apps/filter_haikus.h</itemPath>
         <itemPath>include/apps/killer_sudoku.cpp</itemPath>
         <itemPath>include/apps/killer_sudoku.h</itemPath>
+        <itemPath>include/apps/necklace_splitting.cpp</itemPath>
+        <itemPath>include/apps/necklace_splitting.h</itemPath>
         <itemPath>include/apps/sentence_o_matic.cpp</itemPath>
         <itemPath>include/apps/sentence_o_matic.h</itemPath>
         <itemPath>include/apps/sentence_o_matic_from_file.h</itemPath>
@@ -431,6 +433,13 @@
       <item path="include/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/killer_sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/necklace_splitting.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/apps/necklace_splitting.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1256,6 +1265,13 @@
       <item path="include/apps/killer_sudoku.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/apps/killer_sudoku.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/apps/necklace_splitting.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/apps/necklace_splitting.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/apps/sentence_o_matic.cpp" ex="false" tool="1" flavor2="0">
       </item>
