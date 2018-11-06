@@ -8,6 +8,8 @@
 #ifndef MZLIB_FACTORIAL_H
 #define MZLIB_FACTORIAL_H
 
+#include "../lang/exceptions.h"
+
 namespace mzlib {
 
 // All things considered, this is not a bad way to implement naive factorial

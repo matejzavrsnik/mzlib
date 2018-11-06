@@ -74,6 +74,7 @@
         <itemPath>include/iterators/contains_range.h</itemPath>
         <itemPath>include/iterators/copy.cpp</itemPath>
         <itemPath>include/iterators/copy.h</itemPath>
+        <itemPath>include/iterators/copy_modify.h</itemPath>
         <itemPath>include/iterators/copy_to_nested.cpp</itemPath>
         <itemPath>include/iterators/copy_to_nested.h</itemPath>
         <itemPath>include/iterators/distance_comparison.cpp</itemPath>
@@ -556,6 +557,8 @@
       <item path="include/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/copy_modify.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/copy_to_nested.cpp"
             ex="false"
@@ -1389,6 +1392,8 @@
       <item path="include/iterators/copy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/copy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/copy_modify.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/copy_to_nested.cpp"
             ex="false"

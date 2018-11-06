@@ -1,6 +1,3 @@
-
-#include <vector>
-
 //
 // Copyright (c) 2015 Matej Zavrsnik
 //

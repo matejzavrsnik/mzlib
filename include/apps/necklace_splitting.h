@@ -12,10 +12,19 @@
 #include "../iterators/nested_iteration.h"
 #include "../lang/value_type.h"
 
+#include "../tools/random_with_parity.h"
+#include "../tools/random.h"
+#include "../lang/binary_options.h"
+#include "../tools/rememberator.h"
+#include "../iterators/index_conversion.h"
+#include "../iterators/copy_modify.h"
 
 #include <vector>
 #include <optional>
 #include <numeric>
+
+#include <algorithm>
+#include <functional>
 
 namespace mzlib {
 
@@ -93,8 +102,110 @@ solve(Iterator begin, Iterator end)
    return std::vector<Iterator>(); 
 }
 
+std::string make_readable(
+   std::string puzzle, 
+   const std::vector<size_t>& solution)
+{
+   for(auto vec_it = solution.rbegin(); 
+      vec_it != solution.rend(); 
+      ++vec_it)
+   {
+      const int cut_position = *vec_it;
+      puzzle.insert(cut_position, 1, '|');
+   }
+   return puzzle;
+}
+
+std::string generate_foundation_necklace(int size)
+{
+   int count_a = mzlib::get_random_even_between(1, size);
+   int count_b = size - count_a;
+   
+   std::string necklace = 
+      std::string(count_a, 'a') + 
+      std::string(count_b, 'b');
+   
+   return necklace;
+}
+
+std::optional<std::string> generate_random_necklace(
+   int size,
+   mzlib::rememberator<std::string>& already_done)
+{
+   int attempts = 0;
+   const int max_attempts = 100;
+   std::string necklace;
+   
+   do
+   {
+      // generate an appropriate number of each type of gems,
+      // in this case letters a and b ...
+      necklace = generate_foundation_necklace(size);
+      // ... and then reshuffle
+      std::shuffle(
+         necklace.begin(), necklace.end(),
+         mzlib::get_generator());
+
+      ++attempts;
+   }
+   while(
+      already_done.can_recall(necklace) 
+      && attempts < max_attempts);
+
+   // if you had to try many times it means probability to generate
+   // new necklaces is below meaningful percent; let's just throw in the towel
+   if (attempts >= max_attempts) 
+      return std::nullopt;
+
+   // don't do this one again
+   already_done.remember(necklace);
+   
+   return necklace;
+}
+
+template<typename HandlerFunction>
+void generate_puzzles(
+   int size, 
+   HandlerFunction handler_fun)
+{
+   if (size % 2 != 0) --size;
+   if (size < 4) return;
+   
+   mzlib::option::stop stop;
+   mzlib::rememberator<std::string> already_done;
+   
+   do
+   {
+      std::optional<std::string> necklace = 
+         generate_random_necklace(size, already_done);
+      
+      // Can't find anymore? Give up.
+      if (!necklace) return;
+      
+      std::vector<std::string::iterator> iter_cuts = solve(
+         necklace->begin(), 
+         necklace->end());
+      
+      if (!iter_cuts.empty())
+      {
+         std::vector<size_t> int_cuts;
+
+         auto to_index_in_necklace =
+            std::bind(
+               get_index<std::string::iterator>, 
+                  necklace->begin(), 
+                  std::placeholders::_1);
+         
+         copy_modify(iter_cuts, int_cuts, to_index_in_necklace);
+      
+         stop = handler_fun(necklace.value(), int_cuts);
+      }
+   }
+   while(!stop);
 }
 
 }
 
-#endif // MZLIB_STOLEN_NECKLACE_H
+}
+
+#endif // MZLIB_NECKLACE_SPLITTING_H

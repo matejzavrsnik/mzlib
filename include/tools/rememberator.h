@@ -40,6 +40,11 @@ public:
       if (!recalled) remember(thing);
       return recalled;
    }
+   
+   long unsigned int count_seen() const
+   {
+      return m_seen.size();
+   }
 };
 
 } // namespace

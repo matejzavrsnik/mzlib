@@ -13,15 +13,27 @@
 #include <type_traits>
 
 namespace mzlib {
-    
+
+inline std::mt19937& get_generator()
+{
+   static auto seed = 
+      std::chrono
+         ::high_resolution_clock::now()
+         .time_since_epoch()
+         .count();
+   
+   static std::mt19937 generator(seed);
+   
+   return generator;
+}
+   
 template<typename T>
 T get_random ()
 {
    if constexpr (std::is_integral<T>::value)
    {
-      static T seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-      static std::mt19937 generator(seed);
-      return generator();
+      std::mt19937& gen = get_generator();
+      return gen();
    }
    else
    {
