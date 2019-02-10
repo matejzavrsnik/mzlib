@@ -22,7 +22,7 @@ class time_probe_interface
    
 public:
    
-   virtual std::tm get_today_local() = 0;
+   virtual std::tm get_today_local() const = 0;
    
 };
 
@@ -31,7 +31,7 @@ class time_probe : public time_probe_interface
    
 public:
    
-   std::tm get_today_local() override
+   std::tm get_today_local() const override
    {
       std::time_t today = std::time(nullptr);
       return *std::localtime(&today);
