@@ -263,6 +263,7 @@
         <itemPath>include/tools/sort_map_by_value.cpp</itemPath>
         <itemPath>include/tools/sort_map_by_value.h</itemPath>
         <itemPath>include/tools/tally.h</itemPath>
+        <itemPath>include/tools/time_probe.h</itemPath>
         <itemPath>include/tools/try_convert_to_haiku.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
@@ -1099,6 +1100,8 @@
       </item>
       <item path="include/tools/tally.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/time_probe.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"
             tool="3"
@@ -1933,6 +1936,8 @@
       <item path="include/tools/sort_map_by_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/tally.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/time_probe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"

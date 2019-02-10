@@ -53,6 +53,7 @@ protected:
    std::shared_ptr<mzlib::ds::node> m_shelf;
    std::shared_ptr<mzlib::ds::node> m_book1;
    std::shared_ptr<mzlib::ds::node> m_book2;
+
 };
 
 std::vector<std::shared_ptr<mzlib::ds::node>>::const_iterator 
