@@ -49,6 +49,7 @@ constexpr long double operator"" _N           (long double N)    { return N; }
 
 // time
 constexpr long double operator"" _s           (long double s)    { return s; }
+constexpr long double operator"" _min         (long double min)  { return min*60; }
 constexpr long double operator"" _h           (long double h)    { return h*3600; }
 constexpr long double operator"" _day         (long double day)  { return day*86400; }
 constexpr long double operator"" _julian_year (long double jy)   { return jy*31558152; }

@@ -19,7 +19,7 @@
 
 namespace mzlib {
 
-std::tm reset_except_local(std::tm time)
+inline std::tm reset_except_local(std::tm time)
 {
    // leave these alone:
    //time.tm_gmtoff;
@@ -38,7 +38,7 @@ std::tm reset_except_local(std::tm time)
    return time;
 }
    
-std::string convert_to_string(
+inline std::string convert_to_string(
    std::tm date, 
    std::string_view date_format)
 {
@@ -48,7 +48,7 @@ std::string convert_to_string(
    return today;
 }
 
-std::tm convert_from_string(
+inline std::tm convert_from_string(
    std::string_view str_date, 
    std::string_view date_format,
    const mzlib::time_probe_interface& time_probe)
@@ -64,14 +64,14 @@ std::tm convert_from_string(
    return tm_date;
 }
 
-std::tm convert_to_local_time(
+inline std::tm convert_to_local_time(
    std::tm utc_time)
 {
-   std::time_t utc_time_t = mktime(&utc_time);
+   std::time_t utc_time_t = std::mktime(&utc_time);
    return *std::localtime(&utc_time_t);
 }
 
-double days_between(
+inline double days_between(
    std::tm time_end, 
    std::tm time_beg)
 {
@@ -79,14 +79,14 @@ double days_between(
    
    double passed_time = 
       std::difftime(
-         mktime(&time_beg), 
-         mktime(&time_end));
+         std::mktime(&time_beg), 
+         std::mktime(&time_end));
    
    double days = passed_time / 1.0_day;
    return days;
 }
 
-bool equals(
+inline bool equals(
    std::tm t1, 
    std::tm t2)
 {

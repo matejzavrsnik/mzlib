@@ -266,6 +266,7 @@
         <itemPath>include/tools/time_operations.cpp</itemPath>
         <itemPath>include/tools/time_operations.h</itemPath>
         <itemPath>include/tools/time_probe.h</itemPath>
+        <itemPath>include/tools/tm_calc.h</itemPath>
         <itemPath>include/tools/try_convert_to_haiku.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
@@ -1108,6 +1109,8 @@
       </item>
       <item path="include/tools/time_probe.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tools/tm_calc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"
             tool="3"
@@ -1948,6 +1951,8 @@
       <item path="include/tools/time_operations.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/time_probe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/tm_calc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"
