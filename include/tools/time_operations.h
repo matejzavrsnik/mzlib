@@ -72,15 +72,15 @@ inline std::tm convert_to_local_time(
 }
 
 inline double days_between(
-   std::tm time_end, 
-   std::tm time_beg)
+   std::tm time_beg, 
+   std::tm time_end)
 {
    using namespace units;
    
    double passed_time = 
       std::difftime(
-         std::mktime(&time_beg), 
-         std::mktime(&time_end));
+         std::mktime(&time_end), 
+         std::mktime(&time_beg));
    
    double days = passed_time / 1.0_day;
    return days;

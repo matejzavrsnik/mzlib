@@ -256,6 +256,8 @@
         <itemPath>include/tools/random_with_parity.cpp</itemPath>
         <itemPath>include/tools/random_with_parity.h</itemPath>
         <itemPath>include/tools/relentless_file_reader.h</itemPath>
+        <itemPath>include/tools/relocate.cpp</itemPath>
+        <itemPath>include/tools/relocate.h</itemPath>
         <itemPath>include/tools/rememberator.cpp</itemPath>
         <itemPath>include/tools/rememberator.h</itemPath>
         <itemPath>include/tools/some_long_operation.cpp</itemPath>
@@ -1079,6 +1081,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/relocate.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/relocate.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1922,6 +1928,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/tools/relocate.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/relocate.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
       </item>
