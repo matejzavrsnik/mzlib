@@ -22,3 +22,17 @@ TEST(relocate, demo)
    ASSERT_EQ(a, new_a);
    ASSERT_EQ(b, new_b);
 }
+
+TEST(relocate, if_not_there) 
+{
+   std::vector<int> a{1,2,3,4,5,6};
+   std::vector<int> b{1,2,3};
+   
+   mzlib::relocate(7, a, b);
+   
+   std::vector<int> new_a{a};
+   std::vector<int> new_b{b};
+   
+   ASSERT_EQ(a, new_a);
+   ASSERT_EQ(b, new_b);
+}

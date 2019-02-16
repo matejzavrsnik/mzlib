@@ -16,9 +16,12 @@ namespace mzlib {
 template<class T>
 void relocate(T item, std::vector<T>& from, std::vector<T>& to)
 {
-   to.push_back(item);
    auto it = std::find(from.begin(), from.end(), item);
-   from.erase(it);
+   if (it != from.end())
+   {
+      to.push_back(item);
+      from.erase(it);
+   }
 }
 
 } // namespace
