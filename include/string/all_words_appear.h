@@ -15,14 +15,15 @@
 
 namespace mzlib {
 
-inline bool all_words_appear(std::string_view from, std::string_view in)
+inline bool all_words_appear(
+   std::string_view from, 
+   std::string_view in,
+   const std::string_view words_separator = " .,!?:;\"-()[]")
 {
-   const std::string_view punctuation_marks = " .,!?:;\"-()[]";
-   
-   auto split_from = split(from, punctuation_marks);
+   auto split_from = split(from, words_separator);
    std::sort(split_from.begin(), split_from.end());
    
-   auto  split_in = split(in, punctuation_marks);
+   auto  split_in = split(in, words_separator);
    std::sort(split_in.begin(), split_in.end());
    
    bool appear = std::includes(

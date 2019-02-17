@@ -57,3 +57,17 @@ TEST(all_words_appear, small_sets_word_does_not_appear)
    std::string from = "Here";
    ASSERT_FALSE(mzlib::all_words_appear(from, in));
 }
+
+TEST(all_words_appear, custom_words_separator_all_words_appear)
+{
+   std::string in = "one two,three four,five six seven";
+   std::string from = "three four,five six seven,one two";
+   ASSERT_TRUE(mzlib::all_words_appear(from, in, ","));
+}
+
+TEST(all_words_appear, custom_words_separator_not_all_words_appear)
+{
+   std::string in = "one two,three four,five six seven";
+   std::string from = "three four,six five seven,one two";
+   ASSERT_FALSE(mzlib::all_words_appear(from, in, ","));
+}
