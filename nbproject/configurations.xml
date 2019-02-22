@@ -337,7 +337,7 @@
             <pElem>/usr/include/libxml++-2.6</pElem>
             <pElem>/usr/lib64/libxml++-2.6/include</pElem>
           </incDir>
-          <commandLine>-std=c++17</commandLine>
+          <commandLine>-std=c++2a</commandLine>
         </ccTool>
         <asmTool>
           <warningLevel>2</warningLevel>
@@ -1179,7 +1179,7 @@
             <pElem>/usr/include/libxml++-2.6</pElem>
             <pElem>/usr/lib64/libxml++-2.6/include</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic -std=c++17</commandLine>
+          <commandLine>-Wall -Wextra -Wpedantic -std=c++2a</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
