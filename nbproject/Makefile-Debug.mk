@@ -120,6 +120,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/split.o \
 	${OBJECTDIR}/include/string/split_on_punctuation.o \
 	${OBJECTDIR}/include/string/string_view_find.o \
+	${OBJECTDIR}/include/string/trim.o \
 	${OBJECTDIR}/include/string/trim_nonalpha.o \
 	${OBJECTDIR}/include/tools/add_to_tally.o \
 	${OBJECTDIR}/include/tools/all_equal.o \
@@ -601,6 +602,11 @@ ${OBJECTDIR}/include/string/string_view_find.o: include/string/string_view_find.
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/string_view_find.o include/string/string_view_find.cpp
+
+${OBJECTDIR}/include/string/trim.o: include/string/trim.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/trim.o include/string/trim.cpp
 
 ${OBJECTDIR}/include/string/trim_nonalpha.o: include/string/trim_nonalpha.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string

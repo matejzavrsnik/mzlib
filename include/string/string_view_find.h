@@ -25,7 +25,7 @@ namespace mzlib {
 // std::isalpha in std::string_view, so I am writing my own algos.
 
 
-// foundation: all options open
+// foundational overload: all bells and whistles
 template<typename StringView, typename CharGroupIdentifier>
 typename StringView::size_type find_first_of(
    StringView str,
