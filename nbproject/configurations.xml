@@ -206,6 +206,8 @@
         <itemPath>include/string/split.h</itemPath>
         <itemPath>include/string/split_on_punctuation.cpp</itemPath>
         <itemPath>include/string/split_on_punctuation.h</itemPath>
+        <itemPath>include/string/string_view_find.cpp</itemPath>
+        <itemPath>include/string/string_view_find.h</itemPath>
         <itemPath>include/string/trim_nonalpha.cpp</itemPath>
         <itemPath>include/string/trim_nonalpha.h</itemPath>
       </logicalFolder>
@@ -939,6 +941,13 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/string/string_view_find.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/string_view_find.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1786,6 +1795,13 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/string/string_view_find.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/string_view_find.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/trim_nonalpha.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -8,6 +8,8 @@
 #ifndef MZLIB_CONVERTERS_H
 #define MZLIB_CONVERTERS_H
 
+#include <string_view>
+
 namespace mzlib {
     
 // basic function template; meant to be specialised
@@ -19,8 +21,6 @@ To convert(const From& value)
 
 // std::string_view <-> Glib::ustring (from libxml++)
 #ifdef _GLIBMM_USTRING_H
-
-#include <string_view>
 
 template<>
 inline std::string_view convert(
@@ -38,6 +38,10 @@ inline Glib::ustring convert(
 
 #endif // _GLIBMM_USTRING_H
 
-} // namespace
+
+
+} // namespace mzlib
+
+
 
 #endif // MZLIB_CONVERTERS_H

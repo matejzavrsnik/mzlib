@@ -61,7 +61,9 @@ public:
    std::optional<int> count_word(std::string_view word) const
    {
       auto word_str = mzlib::to_lowercase_copy<std::string>(word);
-      return mzlib::get_if_exists(mzlib::trim_nonalpha(word_str), m_syllables);
+      return mzlib::get_if_exists(
+         std::string{mzlib::trim_nonalpha(word_str)}, 
+         m_syllables);
    }
    
    std::optional<int> count_sentence(std::string sentence) const
