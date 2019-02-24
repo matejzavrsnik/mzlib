@@ -8,25 +8,13 @@
 #ifndef COPY_MODIFY_H
 #define COPY_MODIFY_H
 
+#include <algorithm>
+
 namespace mzlib
 {
 
 // function to copy to another container after modifying each
 // element using provided function
-   
-template<
-   typename InputIterator, 
-   typename OutputIterator, 
-   typename ModifierFunction>
-void copy_modify(
-   InputIterator begin,
-   InputIterator end,
-   OutputIterator output,
-   ModifierFunction modifier)
-{
-   for(auto it=begin; it!=end; ++it)
-      *output++ = modifier(*it);
-}
 
 template<
    typename InputContainer,
@@ -37,10 +25,10 @@ void copy_modify(
    OutputContainer& output,
    ModifierFunction modifier)
 {
-   copy_modify(
-      input.begin(),
-      input.end(),
-      std::back_inserter(output),
+   std::transform(
+      input.begin(), 
+      input.end(), 
+      std::back_inserter(output), 
       modifier);
 }
    
