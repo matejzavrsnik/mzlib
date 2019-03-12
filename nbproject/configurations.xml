@@ -124,6 +124,7 @@
         <itemPath>include/lang/exceptions.h</itemPath>
         <itemPath>include/lang/optional.cpp</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
+        <itemPath>include/lang/optional_string.h</itemPath>
         <itemPath>include/lang/optionally_functional.cpp</itemPath>
         <itemPath>include/lang/optionally_functional.h</itemPath>
         <itemPath>include/lang/stopwatch.h</itemPath>
@@ -720,6 +721,8 @@
       <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/optional_string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/optionally_functional.cpp"
             ex="false"
@@ -1578,6 +1581,8 @@
       <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/optional_string.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/optionally_functional.cpp"
             ex="false"
