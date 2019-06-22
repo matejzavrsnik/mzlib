@@ -12,6 +12,11 @@
 
 namespace mzlib {
 
+// For when you need all possible combinations of N elements in a collection
+// of size M. For example, if the collection is {1,2,3,4,5}, you might
+// need {1,2,3}, {1,2,4}, {1,2,5}, {1,3,4}, {1,3,5}, etc. If that is the case,
+// you can use this class.
+   
 template<typename Iterator>
 class nested_iteration
 {
