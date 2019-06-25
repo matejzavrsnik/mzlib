@@ -16,7 +16,7 @@ namespace mzlib {
 template<class Iterator>
 double average(Iterator first, Iterator last)
 {
-   double sum = std::accumulate(first, last, 0);
+   double sum = std::accumulate(first, last, 0.0);
    double avg = sum / std::distance(first, last);
    return avg;
 }
