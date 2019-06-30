@@ -91,15 +91,18 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/laws/acceleration.o \
 	${OBJECTDIR}/include/laws/constant_linear_acceleration.o \
 	${OBJECTDIR}/include/laws/gravitation.o \
+	${OBJECTDIR}/include/laws/linear_interpolation.o \
 	${OBJECTDIR}/include/laws/matrix_operations.o \
 	${OBJECTDIR}/include/laws/matrix_operations_alternative.o \
 	${OBJECTDIR}/include/laws/screen_rectangles.o \
 	${OBJECTDIR}/include/laws/set_difference.o \
 	${OBJECTDIR}/include/laws/set_intersection.o \
 	${OBJECTDIR}/include/laws/vector_operations.o \
+	${OBJECTDIR}/include/nature/average_plot.o \
 	${OBJECTDIR}/include/nature/mass_centre.o \
 	${OBJECTDIR}/include/nature/matrix.o \
 	${OBJECTDIR}/include/nature/parity.o \
+	${OBJECTDIR}/include/nature/plot_operations.o \
 	${OBJECTDIR}/include/nature/units_strong_definitions.o \
 	${OBJECTDIR}/include/nature/universe.o \
 	${OBJECTDIR}/include/nature/vector.o \
@@ -458,6 +461,11 @@ ${OBJECTDIR}/include/laws/gravitation.o: include/laws/gravitation.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/gravitation.o include/laws/gravitation.cpp
 
+${OBJECTDIR}/include/laws/linear_interpolation.o: include/laws/linear_interpolation.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/laws
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/linear_interpolation.o include/laws/linear_interpolation.cpp
+
 ${OBJECTDIR}/include/laws/matrix_operations.o: include/laws/matrix_operations.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/laws
 	${RM} "$@.d"
@@ -488,6 +496,11 @@ ${OBJECTDIR}/include/laws/vector_operations.o: include/laws/vector_operations.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/laws/vector_operations.o include/laws/vector_operations.cpp
 
+${OBJECTDIR}/include/nature/average_plot.o: include/nature/average_plot.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/nature/average_plot.o include/nature/average_plot.cpp
+
 ${OBJECTDIR}/include/nature/mass_centre.o: include/nature/mass_centre.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/nature
 	${RM} "$@.d"
@@ -502,6 +515,11 @@ ${OBJECTDIR}/include/nature/parity.o: include/nature/parity.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/nature
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/nature/parity.o include/nature/parity.cpp
+
+${OBJECTDIR}/include/nature/plot_operations.o: include/nature/plot_operations.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/nature
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-2.6 -I/usr/lib64/libxml++-2.6/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/nature/plot_operations.o include/nature/plot_operations.cpp
 
 ${OBJECTDIR}/include/nature/units_strong_definitions.o: include/nature/units_strong_definitions.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/nature
