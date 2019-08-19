@@ -90,7 +90,7 @@ inline bool has_text_node(const xmlpp::Node* node)
 {
    if (is_element(node)) {
       const auto element = dynamic_cast<const xmlpp::Element*>(node);
-      const auto text_node = element->get_child_text();
+      const auto text_node = element->get_first_child_text();
       if (text_node) {
          return true;
       }
@@ -119,7 +119,7 @@ inline std::string get_content_or_default(
 {
    if (has_text_node(node)) {
         const auto element = dynamic_cast<const xmlpp::Element*>(node);
-        return element->get_child_text()->get_content();
+        return element->get_first_child_text()->get_content();
     }
     return std::string(default_value);
 }
@@ -133,7 +133,7 @@ inline void delete_all_children_except (const std::vector<std::string_view>& nam
             convert<std::string_view>(child->get_name());
          bool found = (std::find(names.begin(), names.end(), child_name) != names.end());
          if (!found) {
-             from_node->remove_child(child);
+             from_node->remove_node(child);
          }
       }
    }
@@ -149,7 +149,7 @@ inline void delete_all_attributes_except (const std::vector<std::string_view>&  
             convert<std::string_view>(attribute->get_name());
          bool found = (std::find(names.begin(), names.end(), attribute_name) != names.end());
          if (!found) {
-            from_node->remove_child(attribute);
+            from_node->remove_node(attribute);
          }
       }
    }
@@ -165,7 +165,7 @@ inline void delete_all_xpath (const std::string_view xpath, xmlpp::Node* from_no
    std::vector<xmlpp::Node*> nodes_found = from_node->find(xpath.data());
    for (xmlpp::Node* node_found : nodes_found) {
       xmlpp::Node* parent = node_found->get_parent();
-      parent->remove_child(node_found);
+      parent->remove_node(node_found);
    }
 }
 

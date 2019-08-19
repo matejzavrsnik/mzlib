@@ -143,36 +143,36 @@ TEST(get_content_or_default, demo)
    // todo: write fixtures for these at some point
    xmlpp::Document* doc = new xmlpp::Document();
    doc->create_root_node("root");
-   xmlpp::Node* root = doc->get_root_node();
-   xmlpp::Element* element = root->add_child("element");
-   element->set_child_text("Imperator Caesar Divi Filius Augustus");
+   xmlpp::Element* root = doc->get_root_node();
+   xmlpp::Element* element = root->add_child_element("element");
+   element->set_first_child_text("Imperator Caesar Divi Filius Augustus");
    
-   std::string_view sv = mzlib::get_content_or_default(element);
+   std::string s = mzlib::get_content_or_default(element);
    
-   ASSERT_EQ("Imperator Caesar Divi Filius Augustus", sv);
+   ASSERT_EQ("Imperator Caesar Divi Filius Augustus", s);
 }
 
 TEST(get_content_or_default, no_child_text_and_no_default_set)
 {
    xmlpp::Document* doc = new xmlpp::Document();
    doc->create_root_node("root");
-   xmlpp::Node* root = doc->get_root_node();
-   xmlpp::Element* element = root->add_child("element");
+   xmlpp::Element* root = doc->get_root_node();
+   xmlpp::Element* element = root->add_child_element("");
    
-   std::string_view sv = mzlib::get_content_or_default(element);
+   std::string s = mzlib::get_content_or_default(element);
    
-   ASSERT_EQ("", sv);
+   ASSERT_EQ("", s);
 }
 
 TEST(get_content_or_default, no_child_text_but_default_set)
 {
    xmlpp::Document* doc = new xmlpp::Document();
    doc->create_root_node("root");
-   xmlpp::Node* root = doc->get_root_node();
-   xmlpp::Element* element = root->add_child("element");
+   xmlpp::Element* root = doc->get_root_node();
+   xmlpp::Element* element = root->add_child_element("");
    
-   std::string_view sv = mzlib::get_content_or_default(element, "default");
+   std::string s = mzlib::get_content_or_default(element, "default");
    
-   ASSERT_EQ("default", sv);
+   ASSERT_EQ("default", s);
 }
 

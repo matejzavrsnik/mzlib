@@ -49,7 +49,7 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
          convert<Glib::ustring>(my_node->name()));
    }
    if (!my_node->has_empty_value()) {
-      xmlpp_element->set_child_text(
+      xmlpp_element->set_first_child_text(
          convert<Glib::ustring>(my_node->value()));
    }
 
@@ -67,7 +67,7 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
    for(auto my_child : my_node->nodes()) 
    {
       if (!my_child->is_empty()) {
-         xmlpp::Element* xmlpp_child = xmlpp_element->add_child("");
+         xmlpp::Element* xmlpp_child = xmlpp_element->add_child_element("");
          fill_xmlpp_node_from_mine(xmlpp_child, my_child.get());
       }
    }
