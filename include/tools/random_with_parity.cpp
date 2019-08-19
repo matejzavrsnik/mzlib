@@ -158,7 +158,7 @@ TEST(get_random_even_between, distribution_test_from_even_to_odd)
 
 TEST(get_random_even_between, distribution_test_from_odd_to_odd) 
 {
-   const int repetitions = 100000;
+   const int repetitions = 500000;
    const int buckets = 100;
    const int from = 1;
    const int to = 97;
