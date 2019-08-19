@@ -171,7 +171,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lpthread -lgtest -lgtest_main -lgmock -lglib-2.0 -lglibmm-2.4 -lxml++-2.6
+LDLIBSOPTIONS=-lpthread -lgtest -lgtest_main -lgmock -lglib-2.0 -lglibmm-2.4 -lxml++-3.0
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

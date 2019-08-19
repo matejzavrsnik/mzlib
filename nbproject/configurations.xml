@@ -1239,7 +1239,7 @@
             <linkerLibLibItem>gmock</linkerLibLibItem>
             <linkerLibLibItem>glib-2.0</linkerLibLibItem>
             <linkerLibLibItem>glibmm-2.4</linkerLibLibItem>
-            <linkerLibLibItem>xml++-2.6</linkerLibLibItem>
+            <linkerLibLibItem>xml++-3.0</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
