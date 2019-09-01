@@ -81,9 +81,6 @@ TEST(average_plot, x_axis_doesnt_exactly_match)
    const std::vector<mzlib::point2d>& average_plot = 
       avgplot.get();
    
-   for(auto& dp : average_plot)
-      std::cout << dp << std::endl;
-   
    ASSERT_EQ(17, average_plot.size());
    assert_point2d_near( {0.15, 1.68333}, average_plot[0],  {0.01, 0.00001});
    assert_point2d_near( {0.98, 2.23667}, average_plot[1],  {0.01, 0.00001});
