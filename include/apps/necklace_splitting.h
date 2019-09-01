@@ -47,10 +47,11 @@ bool evaluate_solution(
    
    std::vector<std::vector<int>> loot = {{0,0},{0,0}};
    int thief = 0;
-   int cut = 0;
+   auto cut = cuts.begin();
    for(auto it = begin; it != end; ++it)
    {
-      if (it == cuts[cut])
+      // if crossing a cut
+      if (cut != cuts.end() && it == *cut)
       {
          switch_thief(thief); // other thiefs loot from this point on
          ++cut; // wait for next suggested cut to come along
