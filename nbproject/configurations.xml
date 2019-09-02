@@ -118,6 +118,7 @@
         <itemPath>include/lang/binary_options.h</itemPath>
         <itemPath>include/lang/c64_basic_for.cpp</itemPath>
         <itemPath>include/lang/c64_basic_for.h</itemPath>
+        <itemPath>include/lang/concepts.h</itemPath>
         <itemPath>include/lang/cpucycle.h</itemPath>
         <itemPath>include/lang/dbl.cpp</itemPath>
         <itemPath>include/lang/dbl.h</itemPath>
@@ -348,7 +349,7 @@
             <pElem>/usr/include/libxml++-3.0</pElem>
             <pElem>/usr/lib64/libxml++-3.0/include</pElem>
           </incDir>
-          <commandLine>-std=c++2a</commandLine>
+          <commandLine>-std=c++2a -fconcepts</commandLine>
         </ccTool>
         <asmTool>
           <warningLevel>2</warningLevel>
@@ -715,6 +716,8 @@
       <item path="include/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/concepts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1221,7 +1224,7 @@
             <pElem>/usr/include/libxml++-3.0</pElem>
             <pElem>/usr/lib64/libxml++-3.0/include</pElem>
           </incDir>
-          <commandLine>-Wall -Wextra -Wpedantic -std=c++2a</commandLine>
+          <commandLine>-Wall -Wextra -Wpedantic -std=c++2a -fconcepts</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
@@ -1593,6 +1596,8 @@
       <item path="include/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/concepts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/cpucycle.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -9,11 +9,12 @@
 #define MZLIB_ARE_SUBSTRINGS_H
 
 #include "is_substring.h"
+#include "../lang/concepts.h"
 #include <string_view>
 
 namespace mzlib {
    
-template<class Iterator>
+template<IteratorConcept Iterator> 
 bool all_are_substrings_ci(
    std::string_view str,
    const Iterator subs_begin,
@@ -27,7 +28,7 @@ bool all_are_substrings_ci(
    return true;
 }
 
-template<class Iterator>
+template<IteratorConcept Iterator>
 bool none_are_substrings_ci(
    std::string_view str,
    const Iterator subs_begin,
