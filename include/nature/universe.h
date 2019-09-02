@@ -225,9 +225,7 @@ private:
       {
          body_properties2d& body_properties = body_pair.second.properties;
          body_core2d& body_core = body_pair.second.core;
-         vector2d location_final, velocity_final;
-         // can't wait for "auto [location, velocity]" feature of C++17 !!
-         std::tie(location_final, velocity_final) = calculate_final_velocity_and_position (
+         auto [location_final, velocity_final] = calculate_final_velocity_and_position (
             body_properties.gravity, body_properties.velocity, body_core.centre.location, body_core.centre.mass, time_pixel);
          m_body_cores->move (body_core.tag, location_final);
          body_core.centre.location = location_final;
