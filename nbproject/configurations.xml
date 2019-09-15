@@ -123,6 +123,8 @@
         <itemPath>include/lang/dbl.cpp</itemPath>
         <itemPath>include/lang/dbl.h</itemPath>
         <itemPath>include/lang/exceptions.h</itemPath>
+        <itemPath>include/lang/loop.cpp</itemPath>
+        <itemPath>include/lang/loop.h</itemPath>
         <itemPath>include/lang/optional.cpp</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
         <itemPath>include/lang/optional_string.h</itemPath>
@@ -154,6 +156,7 @@
         <itemPath>include/laws/vector_operations.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f7" displayName="mocks" projectFiles="true">
+        <itemPath>include/mocks/mock_methods.h</itemPath>
         <itemPath>include/mocks/mock_sdl.h</itemPath>
       </logicalFolder>
       <logicalFolder name="nature" displayName="nature" projectFiles="true">
@@ -727,6 +730,10 @@
       </item>
       <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/lang/loop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/lang/loop.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
@@ -801,6 +808,8 @@
       <item path="include/laws/vector_operations.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/laws/vector_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mocks/mock_methods.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1607,6 +1616,10 @@
       </item>
       <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/lang/loop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/lang/loop.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/optional.h" ex="false" tool="3" flavor2="0">
@@ -1681,6 +1694,8 @@
       <item path="include/laws/vector_operations.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/laws/vector_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mocks/mock_methods.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/mocks/mock_sdl.h" ex="false" tool="3" flavor2="0">
       </item>

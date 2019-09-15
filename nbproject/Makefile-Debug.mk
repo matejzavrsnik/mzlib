@@ -85,6 +85,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/joke/supersafe_number.o \
 	${OBJECTDIR}/include/lang/c64_basic_for.o \
 	${OBJECTDIR}/include/lang/dbl.o \
+	${OBJECTDIR}/include/lang/loop.o \
 	${OBJECTDIR}/include/lang/optional.o \
 	${OBJECTDIR}/include/lang/optionally_functional.o \
 	${OBJECTDIR}/include/lang/value_type.o \
@@ -430,6 +431,11 @@ ${OBJECTDIR}/include/lang/dbl.o: include/lang/dbl.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/lang
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/lang/dbl.o include/lang/dbl.cpp
+
+${OBJECTDIR}/include/lang/loop.o: include/lang/loop.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/lang
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/lang/loop.o include/lang/loop.cpp
 
 ${OBJECTDIR}/include/lang/optional.o: include/lang/optional.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/lang
