@@ -47,7 +47,7 @@ public:
    void create (
       const screen_rectangle2d& rectangle, 
       const double smallest_node_width, 
-      const direction which_quadrant = direction::centre, // root by default: no direction
+      const direction which_quadrant = direction::centre,  // root by default: no direction
       std::shared_ptr<quadnode> parent = nullptr)          // root by default: no parent
    {
       m_parent = parent;
@@ -326,7 +326,7 @@ private:
         
    screen_rectangle2d m_rectangle;
    std::optional<double> m_diagonal_length;
-   direction m_which_quadrant;
+   direction m_which_quadrant = direction::centre; // root by default: no direction
    
 #ifdef FRIEND_TEST
    FRIEND_TEST(fixture_cquadtree, tree_is_built_correctly);

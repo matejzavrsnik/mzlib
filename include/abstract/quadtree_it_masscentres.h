@@ -25,10 +25,10 @@ private:
 
    std::vector<mass_centre2d> m_mass_centres_queue;
 
-   const body_core2d* m_body;
+   const body_core2d* m_body = nullptr;
    
    std::vector<const quadnode*> m_nodes_queue;
-   double m_quotient;
+   double m_quotient = 0.25;
    mass_centre2d m_next_mass_centre;
    bool m_done = false;
    

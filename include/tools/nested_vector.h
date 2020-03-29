@@ -46,7 +46,7 @@ type<T> construct(
 {
    type<T> v(row_count, std::vector<T>(col_count, val));
    return v;
-};
+}
 
 template<typename T>
 T& access(

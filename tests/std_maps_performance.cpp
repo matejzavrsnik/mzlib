@@ -14,7 +14,7 @@
 #include "gtest/gtest.h"
 
 
-TEST(maps_performance, test)
+TEST(maps_performance, DISABLED_test)
 {
    const int top_level = 1100000;
    const int repetitions = 100000;

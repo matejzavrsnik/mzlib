@@ -47,13 +47,13 @@ namespace
       ParityDeterminer parity_determiner,
       const std::vector<int>& event_occurences,
       int repetitions, int buckets,
-      int from, int to)
+      size_t from, size_t to)
    {
       const int evenodd_buckets = buckets / 2;
       const int expected_events_in_bucket = repetitions / evenodd_buckets;
       const double acceptable_error = repetitions * 0.002;
 
-      for(int i=0; i<event_occurences.size(); ++i)
+      for(size_t i=0; i<event_occurences.size(); ++i)
          if (i >= from && i <= to && parity_determiner(i))
          {
             ASSERT_NEAR(event_occurences[i], expected_events_in_bucket, acceptable_error)
