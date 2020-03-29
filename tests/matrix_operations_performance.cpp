@@ -7,8 +7,7 @@
 
 #include "../include/laws/matrix_operations.h"
 #include "../include/nature/matrix.h"
-#include "../include/lang/stopwatch.h"
-#include "../include/iterators/average.h"
+#include "../include/lang/measure_operation.h"
 
 #include <thread>
 #include <numeric>
@@ -18,35 +17,12 @@
 
 namespace 
 {
-   template<typename Function>
-   double run_and_measure(Function fun)
-   {
-      mzlib::stopwatch stopwatch;
-      auto start = stopwatch.start();
-      
-      fun();
-      
-      auto end = stopwatch.stop();
-      return stopwatch.get_wall_clock(start, end);
-   }
-   
    template<typename T, size_t N, size_t M>
    auto make_random_matrix()
    {
       auto m = std::make_shared<mzlib::matrix<T, N, M>>();      
       mzlib::law::matrix::randomise(*m);
       return m;
-   }
-   
-   template<typename Function>
-   double get_average_operation_time(Function fun, const size_t repetitions)
-   {
-      std::vector<double> times;
-      for (size_t reps=0; reps<repetitions; ++reps)
-      {
-         times.push_back(run_and_measure(fun));
-      }
-      return mzlib::average(times.begin(), times.end());
    }
 
    void display_header()
@@ -68,7 +44,7 @@ namespace
       auto m1 = make_random_matrix<double, N, M>();
       auto m2 = make_random_matrix<double, N, M>();
 
-      return get_average_operation_time(
+      return mzlib::get_average_operation_time(
          [&](){
             return mzlib::law::matrix::multiply(*m1, *m2); 
          },
@@ -82,7 +58,7 @@ namespace
       auto m1 = make_random_matrix<double, N, M>();
       auto m2 = make_random_matrix<double, N, M>();
 
-      return get_average_operation_time(
+      return mzlib::get_average_operation_time(
          [&](){
             return mzlib::law::matrix::add(*m1, *m2); 
          },

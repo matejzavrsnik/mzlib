@@ -125,6 +125,7 @@
         <itemPath>include/lang/exceptions.h</itemPath>
         <itemPath>include/lang/loop.cpp</itemPath>
         <itemPath>include/lang/loop.h</itemPath>
+        <itemPath>include/lang/measure_operation.h</itemPath>
         <itemPath>include/lang/optional.cpp</itemPath>
         <itemPath>include/lang/optional.h</itemPath>
         <itemPath>include/lang/optional_string.h</itemPath>
@@ -733,6 +734,8 @@
       <item path="include/lang/loop.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/loop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/measure_operation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1619,6 +1622,8 @@
       <item path="include/lang/loop.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/loop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/measure_operation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/optional.cpp" ex="false" tool="1" flavor2="0">
       </item>

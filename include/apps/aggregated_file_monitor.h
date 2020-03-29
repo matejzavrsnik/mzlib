@@ -9,7 +9,7 @@
 #define MZLIB_AGGREGATED_FILE_MONITOR_H
 
 #include "../tools/relentless_file_reader.h"
-#include <string>
+#include <string_view>
 
 namespace mzlib {
 
