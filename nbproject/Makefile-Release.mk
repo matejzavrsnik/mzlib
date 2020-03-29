@@ -154,6 +154,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/wagner_fischer_distance.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests/matrix_operations_performance.o \
+	${OBJECTDIR}/tests/std_maps_performance.o \
 	${OBJECTDIR}/tests/test_repeated_ranges_performance.o \
 	${OBJECTDIR}/tests/test_universe_performance.o
 
@@ -776,6 +777,11 @@ ${OBJECTDIR}/tests/matrix_operations_performance.o: tests/matrix_operations_perf
 	${MKDIR} -p ${OBJECTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/matrix_operations_performance.o tests/matrix_operations_performance.cpp
+
+${OBJECTDIR}/tests/std_maps_performance.o: tests/std_maps_performance.cpp
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/std_maps_performance.o tests/std_maps_performance.cpp
 
 ${OBJECTDIR}/tests/test_repeated_ranges_performance.o: tests/test_repeated_ranges_performance.cpp
 	${MKDIR} -p ${OBJECTDIR}/tests

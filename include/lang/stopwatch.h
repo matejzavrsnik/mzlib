@@ -9,6 +9,7 @@
 #define MZLIB_STOPWATCH_H
 
 #include <chrono>
+#include <vector>
 
 namespace mzlib {
 
@@ -67,6 +68,7 @@ public:
              / CLOCKS_PER_SEC) * 1000.0;
    }
    
+   //todo: why not return chrono::duration
    double get_wall_clock (size_t start_marker, size_t stop_marker)
    {
       return std::chrono::duration<double, std::milli>

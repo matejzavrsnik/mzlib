@@ -300,6 +300,7 @@
     </logicalFolder>
     <logicalFolder name="f1" displayName="tests" projectFiles="true">
       <itemPath>tests/matrix_operations_performance.cpp</itemPath>
+      <itemPath>tests/std_maps_performance.cpp</itemPath>
       <itemPath>tests/test_repeated_ranges_performance.cpp</itemPath>
       <itemPath>tests/test_universe_performance.cpp</itemPath>
     </logicalFolder>
@@ -1202,6 +1203,8 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="tests/std_maps_performance.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/test_repeated_ranges_performance.cpp"
             ex="false"
             tool="1"
@@ -2089,6 +2092,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/std_maps_performance.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_repeated_ranges_performance.cpp"
             ex="false"
