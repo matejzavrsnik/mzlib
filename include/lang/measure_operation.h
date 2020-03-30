@@ -9,12 +9,13 @@
 #define MZLIB_MEASURE_OPERATION_H
 
 #include "stopwatch.h"
-#include "../iterators/average.h"
+
+#include <algorithm> // std::max_element
 
 namespace mzlib {
-
+   
 template<typename Function>
-double run_and_measure(Function fun)
+std::chrono::nanoseconds run_and_measure(Function fun)
 {
    mzlib::stopwatch stopwatch;
    auto start = stopwatch.start();
@@ -26,7 +27,7 @@ double run_and_measure(Function fun)
 }
 
 template<typename Function>
-double get_average_operation_time(Function fun, const size_t repetitions)
+std::chrono::nanoseconds get_average_operation_time(Function fun, const size_t repetitions)
 {
    // learn how long it takes for the loop itself
    auto loop_duration = mzlib::run_and_measure([&](){
@@ -45,6 +46,23 @@ double get_average_operation_time(Function fun, const size_t repetitions)
    auto fun_duration = all_duration - loop_duration;
    
    return fun_duration / repetitions;
+}
+
+template<typename Function>
+std::chrono::nanoseconds get_maximum_operation_time(Function fun, const size_t repetitions)
+{
+   std::vector<std::chrono::nanoseconds> times;
+   for (size_t reps=0; reps<repetitions; ++reps)
+   {
+      times.push_back( 
+         mzlib::run_and_measure([&](){
+            fun();
+         })
+      );
+   }
+
+   return *std::max_element(
+      times.begin(), times.end());
 }
 
 } // namespaces

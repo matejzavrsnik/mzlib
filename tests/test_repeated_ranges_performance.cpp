@@ -7,11 +7,11 @@
 
 #include "../include/iterators/repeated_ranges.h"
 #include "../include/apps/sentence_o_matic.h"
-#include "../include/lang/stopwatch.h"
+#include "../include/lang/measure_operation.h"
+#include "../include/lang/out_operators_time.h"
 
 #include <thread>
 #include <numeric>
-#include <algorithm>
 
 #include "gtest/gtest.h"
 
@@ -49,17 +49,6 @@ namespace
       return generated;
    }
    
-   double run_and_measure(const std::string& text)
-   {
-      mzlib::stopwatch stopwatch;
-      auto start = stopwatch.start();
-      
-      auto repeats = mzlib::repeated_sequences(
-         text.begin(), text.end());
-      
-      auto end = stopwatch.stop();
-      return stopwatch.get_wall_clock(start, end);
-   }
 }
 
 TEST(repeated_ranges_performance, DISABLED_perform)
@@ -70,14 +59,13 @@ TEST(repeated_ranges_performance, DISABLED_perform)
    {
       std::string text = generate_text(text_length);
       
-      std::vector<double> times;
-      for (int reps=0; reps<1; ++reps)
-      {
-         times.push_back( run_and_measure(text) );
-      }
-
-      double max_time_to_complete = *std::max_element(
-         times.begin(), times.end());
+      const int repetitions = 1;
+      std::chrono::nanoseconds max_time_to_complete = mzlib::get_maximum_operation_time(
+         [&](){
+            return mzlib::repeated_sequences(text.begin(), text.end());
+         },
+         repetitions
+      );
       
       // neatly aligned output
       std::cout << std::fixed << std::setprecision(0)
@@ -86,6 +74,7 @@ TEST(repeated_ranges_performance, DISABLED_perform)
          << std::endl;
    }
    
+   // comment from when code measured milliseconds
    // original
    //l       t
    //100     6

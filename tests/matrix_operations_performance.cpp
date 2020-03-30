@@ -8,6 +8,7 @@
 #include "../include/laws/matrix_operations.h"
 #include "../include/nature/matrix.h"
 #include "../include/lang/measure_operation.h"
+#include "../include/lang/out_operators_time.h"
 
 #include <thread>
 #include <numeric>
@@ -30,7 +31,7 @@ namespace
       std::cout << "NxM\t\tms\t" << std::endl;
    }
    
-   void display_results(int n, int m, double avg)
+   void display_results(int n, int m, std::chrono::nanoseconds avg)
    {
       std::cout << std::fixed << std::setprecision(0)
          << n << "x" << m << "\t\t" 
@@ -39,7 +40,7 @@ namespace
    }
    
    template<size_t N, size_t M>
-   double run_and_measure_matrix_multiply()
+   std::chrono::nanoseconds run_and_measure_matrix_multiply()
    {
       auto m1 = make_random_matrix<double, N, M>();
       auto m2 = make_random_matrix<double, N, M>();
@@ -53,7 +54,7 @@ namespace
    }
    
    template<size_t N, size_t M>
-   double run_and_measure_matrix_add()
+   std::chrono::nanoseconds run_and_measure_matrix_add()
    {
       auto m1 = make_random_matrix<double, N, M>();
       auto m2 = make_random_matrix<double, N, M>();
@@ -70,7 +71,7 @@ namespace
 TEST(matrix_performance, DISABLED_multiply)
 {
    display_header();
-   double result;
+   std::chrono::nanoseconds result;
    
    result = run_and_measure_matrix_multiply<100, 100>();
    display_results(100, 100, result);
@@ -100,7 +101,7 @@ TEST(matrix_performance, DISABLED_multiply)
 TEST(matrix_performance, DISABLED_add)
 {
    display_header();
-   double result;
+   std::chrono::nanoseconds result;
    
    result = run_and_measure_matrix_add<100, 100>();
    display_results(100, 100, result);

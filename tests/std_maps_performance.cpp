@@ -6,6 +6,7 @@
 //
 
 #include "../include/lang/measure_operation.h"
+#include "../include/lang/out_operators_time.h"
 
 #include <map>
 #include <unordered_map>
@@ -36,43 +37,43 @@ TEST(maps_performance, DISABLED_test)
       }
 
       
-      double ms;
-      ms = mzlib::get_average_operation_time(
+      std::chrono::nanoseconds duration;
+      duration = mzlib::get_average_operation_time(
          [&](){
             return justmap["WorstCase"];
          },
          repetitions
       );
-      std::cout << ms << ",";
+      std::cout << duration << ",";
 
       
-      ms = mzlib::get_average_operation_time(
+      duration = mzlib::get_average_operation_time(
          [&](){
             return unordered["WorstCase"];
          },
          repetitions
       );
-      std::cout << ms << ",";
+      std::cout << duration << ",";
 
 
-      ms = mzlib::get_average_operation_time(
+      duration = mzlib::get_average_operation_time(
          [&](){
             justmap["WorstCaseKey"] = "WorstCase";
             justmap.erase("WorstCaseKey");
          },
          repetitions
       );
-      std::cout << ms << ",";
+      std::cout << duration << ",";
 
       
-      ms = mzlib::get_average_operation_time(
+      duration = mzlib::get_average_operation_time(
          [&](){
             unordered["WorstCaseKey"] = "WorstCase";
             unordered.erase("WorstCaseKey");
          },
          repetitions
       );
-      std::cout << ms << std::endl;
+      std::cout << duration << std::endl;
 
 
       // clear maps

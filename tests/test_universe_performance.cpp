@@ -12,7 +12,8 @@
 #include "../include/nature/universe.h"
 #include "../include/nature/units.h"
 #include "../include/tools/random.h"
-#include "../include/lang/stopwatch.h"
+#include "../include/lang/measure_operation.h"
+#include "../include/lang/out_operators_time.h"
 #include "../include/lang/c64_basic_for.h"
 
 #include "gtest/gtest.h"
@@ -79,19 +80,16 @@ protected:
       return std::move(local_universe);
    }
    
-   double run_simulation(mzlib::universe local_universe)
+   std::chrono::nanoseconds run_simulation(mzlib::universe local_universe)
    {
-      mzlib::stopwatch stopwatch;
-      auto start = stopwatch.start();
-      local_universe.forward_time(1,1);
-      auto end = stopwatch.stop();
-      return stopwatch.get_wall_clock(start, end);
+      return mzlib::run_and_measure(
+         [&](){ local_universe.forward_time(1,1); });
    }
    
-   double run_simulation_async(mzlib::universe& universe, std::chrono::milliseconds timeout)
+   std::chrono::nanoseconds run_simulation_async(mzlib::universe& universe, std::chrono::milliseconds timeout)
    {
       auto fut = std::async(std::launch::async,&fixture_universe_performance::run_simulation, this, std::move(universe));
-      auto duration = timeout.count();
+      std::chrono::nanoseconds duration = timeout;
       if(fut.wait_for(timeout) != std::future_status::timeout) {
          duration = fut.get();
       }
@@ -119,27 +117,27 @@ TEST_F(fixture_universe_performance, DISABLED_perform)
 
       // naive
       auto universe_vector = prepare_the_universe(bodies_vector, mzlib::universe::implementation::naive);
-      auto duration_naive = run_simulation_async(universe_vector, timeout);
+      std::chrono::nanoseconds duration_naive = run_simulation_async(universe_vector, timeout);
       
       // barnes-hut, theta=0      
       auto universe_barnes_0 = prepare_the_universe(bodies_barnes0, mzlib::universe::implementation::barnes_hut, 0);
-      double duration_barnes_0 = run_simulation_async(universe_barnes_0, timeout);
+      std::chrono::nanoseconds duration_barnes_0 = run_simulation_async(universe_barnes_0, timeout);
       
       // barnes-hut, theta=0.25
       auto universe_barnes_1 = prepare_the_universe(bodies_barnes1, mzlib::universe::implementation::barnes_hut, 0.25);
-      auto duration_barnes_1 = run_simulation_async(universe_barnes_1, timeout);
+      std::chrono::nanoseconds duration_barnes_1 = run_simulation_async(universe_barnes_1, timeout);
       
       // barnes-hut, theta=0.5
       auto universe_barnes_2 = prepare_the_universe(bodies_barnes2, mzlib::universe::implementation::barnes_hut, 0.5);
-      auto duration_barnes_2 = run_simulation_async(universe_barnes_2, timeout);
+      std::chrono::nanoseconds duration_barnes_2 = run_simulation_async(universe_barnes_2, timeout);
       
       // barnes-hut, theta=0.75
       auto universe_barnes_3 = prepare_the_universe(bodies_barnes3, mzlib::universe::implementation::barnes_hut, 0.75);
-      auto duration_barnes_3 = run_simulation_async(universe_barnes_3, timeout);
+      std::chrono::nanoseconds duration_barnes_3 = run_simulation_async(universe_barnes_3, timeout);
 
       // barnes-hut, theta=1
       auto universe_barnes_4 = prepare_the_universe(bodies_barnes4, mzlib::universe::implementation::barnes_hut, 1.0);
-      auto duration_barnes_4 = run_simulation_async(universe_barnes_4, timeout);
+      std::chrono::nanoseconds duration_barnes_4 = run_simulation_async(universe_barnes_4, timeout);
       
       // neatly aligned output
       std::cout << std::fixed << std::setprecision(0)

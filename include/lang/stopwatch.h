@@ -50,7 +50,7 @@ public:
       return mark();
    }
    
-   double get_duration ()
+   std::chrono::nanoseconds get_duration ()
    {
       return get_wall_clock (0, get_last_entry_marker() );
    }
@@ -61,19 +61,20 @@ public:
       return get_last_entry_marker();
    }
    
-   double get_cpu_clock (size_t start_marker, size_t stop_marker)
+   std::clock_t get_cpu_clock (size_t start_marker, size_t stop_marker)
    {
       return ((m_moments[stop_marker] .m_cpu_clock - 
                m_moments[start_marker].m_cpu_clock)
              / CLOCKS_PER_SEC) * 1000.0;
    }
-   
-   //todo: why not return chrono::duration
-   double get_wall_clock (size_t start_marker, size_t stop_marker)
+
+   std::chrono::nanoseconds get_wall_clock (size_t start_marker, size_t stop_marker)
    {
-      return std::chrono::duration<double, std::milli>
-             (m_moments[stop_marker] .m_wall_clock - 
-              m_moments[start_marker].m_wall_clock).count();
+      std::chrono::nanoseconds duration = 
+         m_moments[stop_marker] .m_wall_clock - 
+         m_moments[start_marker].m_wall_clock;
+      
+      return duration;
    }
 
 };

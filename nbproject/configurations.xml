@@ -131,6 +131,7 @@
         <itemPath>include/lang/optional_string.h</itemPath>
         <itemPath>include/lang/optionally_functional.cpp</itemPath>
         <itemPath>include/lang/optionally_functional.h</itemPath>
+        <itemPath>include/lang/out_operators_time.h</itemPath>
         <itemPath>include/lang/stopwatch.h</itemPath>
         <itemPath>include/lang/value_type.cpp</itemPath>
         <itemPath>include/lang/value_type.h</itemPath>
@@ -753,6 +754,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/lang/out_operators_time.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1643,6 +1646,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/lang/out_operators_time.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/stopwatch.h" ex="false" tool="3" flavor2="0">
       </item>
