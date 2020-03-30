@@ -24,10 +24,10 @@ inline std::vector<std::string_view> split(
 
    std::vector<std::string_view> tokens;
    size_t size = str.size();
-   size_t begin = 0, end;
+   size_t begin = 0;
    
    do {
-      end = str.find_first_of(delimiters, begin);
+      size_t end = str.find_first_of(delimiters, begin);
       if(end == begin) {
          // Delimiter immediately found; skip this char.
          ++begin;

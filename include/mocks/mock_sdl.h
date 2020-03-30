@@ -41,7 +41,7 @@ typedef enum {
 struct SDL_Rect { int x, y, w, h; };
 struct SDL_Point { int x, y; };
 struct SDL_PixelFormat {};
-struct SDL_Surface { SDL_PixelFormat* format; int w, h; };
+struct SDL_Surface { SDL_PixelFormat* format = nullptr; int w = 0, h = 0; };
 struct SDL_Texture {};
 struct SDL_Renderer {};
 

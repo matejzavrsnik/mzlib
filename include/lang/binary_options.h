@@ -28,18 +28,21 @@ public:
    }
    
    // create from option
+   // cppcheck-suppress noExplicitConstructor
    binary_option (named_options named_value) : 
       m_named_value(named_value)
    {
    }
    
    // compare to option
+   // cppcheck-suppress noExplicitConstructor
    bool operator== (named_options named_value) const
    {
       return m_named_value == named_value;
    }
 
    // convert from bool
+   // cppcheck-suppress noExplicitConstructor
    binary_option (bool boolean_value) :
       m_named_value(boolean_value ? yes : no)
    {

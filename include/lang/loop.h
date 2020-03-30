@@ -30,7 +30,7 @@ friend class mzlib::loop;
 private:
 
    int m_times = 0;
-   loop_runner_times(int times) : m_times(times) {}
+   explicit loop_runner_times(int times) : m_times(times) {}
 
 public:
 

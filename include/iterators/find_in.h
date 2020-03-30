@@ -25,6 +25,8 @@ private:
 public:
    
    find_in(Iterator begin, Iterator end) :
+      m_position(position::first),
+      m_comparison(comparison::smaller),
       m_begin(begin),
       m_end(end)
    {}

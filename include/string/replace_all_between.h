@@ -31,8 +31,8 @@ struct replacement
 // any of string delimiters
 inline void string_replace_all_between (
    std::string& original, 
-   const std::vector<delimiting_tag<std::string_view>> replace_between, 
-   const std::vector<replacement<std::string_view>> replacements) 
+   const std::vector<delimiting_tag<std::string_view>>& replace_between, 
+   const std::vector<replacement<std::string_view>>& replacements) 
 {
    for(auto& fence : replace_between)
    {

@@ -48,6 +48,7 @@ public:
       const screen_rectangle2d& rectangle, 
       const double smallest_node_width, 
       const direction which_quadrant = direction::centre,  // root by default: no direction
+      // cppcheck-suppress passedByValue
       std::shared_ptr<quadnode> parent = nullptr)          // root by default: no parent
    {
       m_parent = parent;

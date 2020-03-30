@@ -19,6 +19,7 @@ std::optional<Container> create_equidistant_sequence(
    Iterator end,
    uint desired_sequence_length,
    const uint elements_to_skip_between,
+   // cppcheck-suppress passedByValue
    std::function<bool(const Letter&)> counts_as_letter)
 {
    Container result_candidate;

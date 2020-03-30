@@ -44,7 +44,7 @@ TEST(repeated_ranges, demo)
    auto repeats = mzlib::repeated_sequences(
       text.begin(), text.end(), minimum_range_size);
    
-   std::string::iterator from, to;
+   std::string::iterator from;
    
    // there were three different repetitions
    ASSERT_EQ(3, repeats.size());

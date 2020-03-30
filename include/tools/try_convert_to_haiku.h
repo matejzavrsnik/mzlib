@@ -32,7 +32,7 @@ struct haiku_conversion
 
 namespace internal
 {
-   haiku_conversion success(std::string haiku)
+   haiku_conversion success(std::string_view haiku)
    {
       haiku_conversion hc;
       hc.status = haiku_conversion::e_status::succeeded;
@@ -40,7 +40,7 @@ namespace internal
       return hc;
    }
    
-   haiku_conversion too_long(std::string haiku)
+   haiku_conversion too_long(std::string_view haiku)
    {
       haiku_conversion hc;
       hc.status = haiku_conversion::e_status::too_long;

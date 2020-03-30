@@ -64,6 +64,7 @@ public:
    }
    
    // implicit conversion from std::initializer_list
+   // cppcheck-suppress noExplicitConstructor
    vector (const std::initializer_list<TypeT>& list) : 
       vector()
    {
@@ -71,6 +72,7 @@ public:
    }
     
    // implicit conversion from std::vector
+   // cppcheck-suppress noExplicitConstructor
    vector (const std::vector<TypeT>& vec) :
       vector()
    {

@@ -15,7 +15,9 @@
 #include "../laws/constant_linear_acceleration.h"
 #include "../laws/acceleration.h"
 #include "../laws/gravitation.h"
+
 #include <map>
+#include <optional>
 
 namespace mzlib {
    
@@ -76,7 +78,7 @@ public:
       return m_properties;
    }
    
-   void set_properties (tproperties properties) 
+   void set_properties (const tproperties& properties) 
    {
       m_properties = properties;
       apply_properties ();
@@ -272,7 +274,7 @@ private:
 
    std::unique_ptr<iuniverse_container> m_body_cores;
    std::map<unique, body2d> m_full_bodies;
-   tproperties m_properties;
+   tproperties m_properties{};
 
 };
 
