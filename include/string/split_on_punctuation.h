@@ -8,7 +8,7 @@
 #ifndef MZLIB_SPLIT_STRING_PUNCTUATION_H
 #define MZLIB_SPLIT_STRING_PUNCTUATION_H
 
-#include "isworddelimiter.h"
+#include "is_word_delimiter.h"
 
 #include <string>
 #include <vector>
@@ -22,7 +22,7 @@ inline std::vector<std::string> split_on_puctuation (std::string_view str)
    char ch_prev = 0;
    for (auto ch_it = str.begin(); ch_it != str.end(); ++ch_it) {
       char ch = *ch_it;
-      if ( !isworddelimiter(ch_prev, ch) )
+      if ( !is_word_delimiter(ch_prev, ch) )
       {
          new_candidate += ch;
       }

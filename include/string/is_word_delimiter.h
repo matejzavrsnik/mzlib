@@ -12,7 +12,7 @@
 
 namespace mzlib {
         
-inline bool isworddelimiter(int ch_prev, int ch)
+inline bool is_word_delimiter(int ch_prev, int ch)
 {
    return isspace( ch ) // space is an obvious delimiter, but also
           || ( ispunct( ch )     // punctuations, but not

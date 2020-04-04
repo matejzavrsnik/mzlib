@@ -115,6 +115,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/string/get_substring.o \
 	${OBJECTDIR}/include/string/is_just_whitespace.o \
 	${OBJECTDIR}/include/string/is_substring.o \
+	${OBJECTDIR}/include/string/is_word_delimiter.o \
 	${OBJECTDIR}/include/string/is_word_in_dictionary.o \
 	${OBJECTDIR}/include/string/remove_substrings.o \
 	${OBJECTDIR}/include/string/remove_words.o \
@@ -582,6 +583,11 @@ ${OBJECTDIR}/include/string/is_substring.o: include/string/is_substring.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/is_substring.o include/string/is_substring.cpp
+
+${OBJECTDIR}/include/string/is_word_delimiter.o: include/string/is_word_delimiter.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/string
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/string/is_word_delimiter.o include/string/is_word_delimiter.cpp
 
 ${OBJECTDIR}/include/string/is_word_in_dictionary.o: include/string/is_word_in_dictionary.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/string
