@@ -189,6 +189,8 @@
       <logicalFolder name="f5" displayName="string" projectFiles="true">
         <itemPath>include/string/all_words_appear.cpp</itemPath>
         <itemPath>include/string/all_words_appear.h</itemPath>
+        <itemPath>include/string/are_subsentences.cpp</itemPath>
+        <itemPath>include/string/are_subsentences.h</itemPath>
         <itemPath>include/string/are_substrings.cpp</itemPath>
         <itemPath>include/string/are_substrings.h</itemPath>
         <itemPath>include/string/case.cpp</itemPath>
@@ -199,8 +201,12 @@
         <itemPath>include/string/extract_vocabulary.h</itemPath>
         <itemPath>include/string/get_substring.cpp</itemPath>
         <itemPath>include/string/get_substring.h</itemPath>
+        <itemPath>include/string/is_end_start_of_the_word.cpp</itemPath>
+        <itemPath>include/string/is_end_start_of_word.h</itemPath>
         <itemPath>include/string/is_just_whitespace.cpp</itemPath>
         <itemPath>include/string/is_just_whitespace.h</itemPath>
+        <itemPath>include/string/is_subsentence.cpp</itemPath>
+        <itemPath>include/string/is_subsentence.h</itemPath>
         <itemPath>include/string/is_substring.cpp</itemPath>
         <itemPath>include/string/is_substring.h</itemPath>
         <itemPath>include/string/is_word_delimiter.cpp</itemPath>
@@ -887,6 +893,13 @@
       </item>
       <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/are_subsentences.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/are_subsentences.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/are_substrings.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/are_substrings.h" ex="false" tool="3" flavor2="0">
@@ -919,6 +932,16 @@
       </item>
       <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/is_end_start_of_the_word.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/is_end_start_of_word.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/string/is_just_whitespace.cpp"
             ex="false"
             tool="1"
@@ -928,6 +951,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/string/is_subsentence.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/is_subsentence.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/is_substring.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1786,6 +1813,13 @@
       </item>
       <item path="include/string/all_words_appear.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/are_subsentences.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/are_subsentences.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/string/are_substrings.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/string/are_substrings.h" ex="false" tool="3" flavor2="0">
@@ -1818,6 +1852,16 @@
       </item>
       <item path="include/string/get_substring.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/string/is_end_start_of_the_word.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/string/is_end_start_of_word.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/string/is_just_whitespace.cpp"
             ex="false"
             tool="1"
@@ -1827,6 +1871,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/string/is_subsentence.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/is_subsentence.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/is_substring.cpp" ex="false" tool="1" flavor2="0">
       </item>

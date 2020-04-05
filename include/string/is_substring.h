@@ -10,11 +10,12 @@
 
 #include "case.h"
 #include "case_insensitive_equal.h"
+#include "is_word_delimiter.h"
 #include "../iterators/contains_range.h"
+
 #include <string_view>
 
 namespace mzlib {
-   
   
 inline bool is_substring(
    std::string_view full, 
