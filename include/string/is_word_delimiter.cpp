@@ -9,67 +9,23 @@
 
 #include "is_word_delimiter.h"
 
-TEST(is_word_delimiter, letter_then_delimiter)
+TEST(is_word_delimiter, delimiters)
 {
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', ' '));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', '!'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', '?'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', '.'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', ','));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', ';'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', ':'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', '\"'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', '('));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', ')'));
-   ASSERT_TRUE(mzlib::is_word_delimiter('a', '\n'));
+   ASSERT_TRUE(mzlib::is_word_delimiter(' '));
+   ASSERT_TRUE(mzlib::is_word_delimiter('!'));
+   ASSERT_TRUE(mzlib::is_word_delimiter('?'));
+   ASSERT_TRUE(mzlib::is_word_delimiter('.'));
+   ASSERT_TRUE(mzlib::is_word_delimiter(','));
+   ASSERT_TRUE(mzlib::is_word_delimiter(';'));
+   ASSERT_TRUE(mzlib::is_word_delimiter(':'));
+   ASSERT_TRUE(mzlib::is_word_delimiter('\"'));
+   ASSERT_TRUE(mzlib::is_word_delimiter('('));
+   ASSERT_TRUE(mzlib::is_word_delimiter(')'));
+   ASSERT_TRUE(mzlib::is_word_delimiter('\n'));
 }
 
-TEST(is_word_delimiter, space_then_delimiter)
+TEST(is_word_delimiter, hyphen_and_apostrophe)
 {
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', ' '));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '!'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '?'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '.'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', ','));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', ';'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', ':'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '\"'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '('));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', ')'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '\n'));
-}
-
-TEST(is_word_delimiter, delimiter_then_delimiter)
-{
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', ' '));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', '!'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', '?'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', '.'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', ','));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', ';'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', ':'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', '\"'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', '('));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', ')'));
-   ASSERT_TRUE(mzlib::is_word_delimiter(',', '\n'));
-}
-
-TEST(is_word_delimiter, hyphen)
-{
-   // after letter
-   ASSERT_FALSE(mzlib::is_word_delimiter('a', '-'));
-   // before letter
-   ASSERT_FALSE(mzlib::is_word_delimiter('-', 'a'));
-   // after space
-   ASSERT_TRUE(mzlib::is_word_delimiter(' ', '-'));
-}
-
-TEST(is_word_delimiter, apostrophe)
-{
-   // after letter
-   ASSERT_FALSE(mzlib::is_word_delimiter('a', '\''));
-   // before letter
-   ASSERT_FALSE(mzlib::is_word_delimiter('\'', 'a'));
-   // after space
-   ASSERT_FALSE(mzlib::is_word_delimiter(' ', '\''));
+   ASSERT_FALSE(mzlib::is_word_delimiter('-'));
+   ASSERT_FALSE(mzlib::is_word_delimiter('\''));
 }

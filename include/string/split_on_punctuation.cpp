@@ -109,15 +109,14 @@ TEST(split_on_puctuation, splits_sentence_split_hyphens_at_start_of_the_word)
 {
    std::string test = "Singing -tis the season";
    std::vector<std::string> result = mzlib::split_on_puctuation(test);
-   ASSERT_EQ(result.size(), 8);
+   ASSERT_EQ(result.size(), 7);
    ASSERT_EQ(result[0], "Singing");
    ASSERT_EQ(result[1], " ");
-   ASSERT_EQ(result[2], "-");
-   ASSERT_EQ(result[3], "tis");
-   ASSERT_EQ(result[4], " ");
-   ASSERT_EQ(result[5], "the");
-   ASSERT_EQ(result[6], " ");
-   ASSERT_EQ(result[7], "season");
+   ASSERT_EQ(result[2], "-tis");
+   ASSERT_EQ(result[3], " ");
+   ASSERT_EQ(result[4], "the");
+   ASSERT_EQ(result[5], " ");
+   ASSERT_EQ(result[6], "season");
 }
 
 TEST(split_on_puctuation, splits_sentence_skip_apostrophe_at_start_of_the_word) 
