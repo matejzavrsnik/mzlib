@@ -213,6 +213,8 @@
         <itemPath>include/string/is_word_delimiter.h</itemPath>
         <itemPath>include/string/is_word_in_dictionary.cpp</itemPath>
         <itemPath>include/string/is_word_in_dictionary.h</itemPath>
+        <itemPath>include/string/join.cpp</itemPath>
+        <itemPath>include/string/join.h</itemPath>
         <itemPath>include/string/remove_substrings.cpp</itemPath>
         <itemPath>include/string/remove_substrings.h</itemPath>
         <itemPath>include/string/remove_words.cpp</itemPath>
@@ -976,6 +978,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/string/join.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/join.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/remove_substrings.cpp"
             ex="false"
@@ -1896,6 +1902,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/string/join.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/string/join.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/string/remove_substrings.cpp"
             ex="false"
