@@ -118,6 +118,7 @@
         <itemPath>include/lang/binary_options.h</itemPath>
         <itemPath>include/lang/c64_basic_for.cpp</itemPath>
         <itemPath>include/lang/c64_basic_for.h</itemPath>
+        <itemPath>include/lang/concepts.cpp</itemPath>
         <itemPath>include/lang/concepts.h</itemPath>
         <itemPath>include/lang/cpucycle.h</itemPath>
         <itemPath>include/lang/dbl.cpp</itemPath>
@@ -732,6 +733,8 @@
       <item path="include/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/concepts.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/concepts.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1656,6 +1659,8 @@
       <item path="include/lang/c64_basic_for.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/c64_basic_for.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/concepts.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/lang/concepts.h" ex="false" tool="3" flavor2="0">
       </item>

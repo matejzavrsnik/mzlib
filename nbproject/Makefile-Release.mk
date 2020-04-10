@@ -84,6 +84,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/iterators/starts_with.o \
 	${OBJECTDIR}/include/joke/supersafe_number.o \
 	${OBJECTDIR}/include/lang/c64_basic_for.o \
+	${OBJECTDIR}/include/lang/concepts.o \
 	${OBJECTDIR}/include/lang/dbl.o \
 	${OBJECTDIR}/include/lang/loop.o \
 	${OBJECTDIR}/include/lang/optional.o \
@@ -432,6 +433,11 @@ ${OBJECTDIR}/include/lang/c64_basic_for.o: include/lang/c64_basic_for.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/lang
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/lang/c64_basic_for.o include/lang/c64_basic_for.cpp
+
+${OBJECTDIR}/include/lang/concepts.o: include/lang/concepts.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/lang
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/lang/concepts.o include/lang/concepts.cpp
 
 ${OBJECTDIR}/include/lang/dbl.o: include/lang/dbl.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/lang

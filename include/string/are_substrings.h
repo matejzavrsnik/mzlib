@@ -14,13 +14,12 @@
 
 namespace mzlib {
    
-template<IteratorConcept Iterator> 
 bool all_are_substrings_ci(
    std::string_view str,
-   const Iterator subs_begin,
-   const Iterator subs_end)
+   const iterable subs_begin,
+   const iterable subs_end)
 {
-   for(Iterator subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
+   for(iterable subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
       if (!is_substring_ci(str, *subs_it)) {
          return false;
       }
@@ -28,13 +27,12 @@ bool all_are_substrings_ci(
    return true;
 }
 
-template<IteratorConcept Iterator>
 bool none_are_substrings_ci(
    std::string_view str,
-   const Iterator subs_begin,
-   const Iterator subs_end)
+   const iterable subs_begin,
+   const iterable subs_end)
 {
-   for(Iterator subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
+   for(iterable subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
       if (is_substring_ci(str, *subs_it)) {
          return false;
       }
