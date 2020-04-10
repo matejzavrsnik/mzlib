@@ -10,6 +10,7 @@
 
 #include "../filesystem/read_write_file.h"
 #include "../tools/get_if_exists.h"
+#include "../tools/converters.h"
 #include "../string/trim_nonalpha.h"
 #include "../string/case.h"
 #include "../string/split.h"
@@ -60,7 +61,9 @@ public:
    
    std::optional<int> count_word(std::string_view word) const
    {
-      auto word_str = mzlib::to_lowercase_copy<std::string>(word);
+      auto word_str = mzlib::to_lowercase_copy(
+         mzlib::convert<std::string>(word));
+      
       return mzlib::get_if_exists(
          std::string{mzlib::trim_nonalpha(word_str)}, 
          m_syllables);
