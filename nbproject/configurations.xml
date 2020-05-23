@@ -82,6 +82,7 @@
         <itemPath>include/iterators/fast_forward.cpp</itemPath>
         <itemPath>include/iterators/fast_forward.h</itemPath>
         <itemPath>include/iterators/find.h</itemPath>
+        <itemPath>include/iterators/find_if_iterator.h</itemPath>
         <itemPath>include/iterators/find_in.cpp</itemPath>
         <itemPath>include/iterators/find_in.h</itemPath>
         <itemPath>include/iterators/get_random.cpp</itemPath>
@@ -109,6 +110,7 @@
         <itemPath>include/iterators/sequence_sightings.h</itemPath>
         <itemPath>include/iterators/starts_with.cpp</itemPath>
         <itemPath>include/iterators/starts_with.h</itemPath>
+        <itemPath>include/iterators/transform_to_values.h</itemPath>
       </logicalFolder>
       <logicalFolder name="joke" displayName="joke" projectFiles="true">
         <itemPath>include/joke/supersafe_number.cpp</itemPath>
@@ -124,6 +126,8 @@
         <itemPath>include/lang/dbl.cpp</itemPath>
         <itemPath>include/lang/dbl.h</itemPath>
         <itemPath>include/lang/exceptions.h</itemPath>
+        <itemPath>include/lang/hash_combine.h</itemPath>
+        <itemPath>include/lang/hashable_set.h</itemPath>
         <itemPath>include/lang/loop.cpp</itemPath>
         <itemPath>include/lang/loop.h</itemPath>
         <itemPath>include/lang/measure_operation.h</itemPath>
@@ -256,6 +260,7 @@
         <itemPath>include/tools/datashelf_foundation.cpp</itemPath>
         <itemPath>include/tools/equidistant_sequence.cpp</itemPath>
         <itemPath>include/tools/equidistant_sequence.h</itemPath>
+        <itemPath>include/tools/extract_keys.h</itemPath>
         <itemPath>include/tools/fast_min.cpp</itemPath>
         <itemPath>include/tools/fast_min.h</itemPath>
         <itemPath>include/tools/find_index_insert.cpp</itemPath>
@@ -268,6 +273,10 @@
         <itemPath>include/tools/genetic.h</itemPath>
         <itemPath>include/tools/get_if_exists.cpp</itemPath>
         <itemPath>include/tools/get_if_exists.h</itemPath>
+        <itemPath>include/tools/graph.h</itemPath>
+        <itemPath>include/tools/graph_edge.h</itemPath>
+        <itemPath>include/tools/graph_operations.h</itemPath>
+        <itemPath>include/tools/graph_vertex.h</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.cpp</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
@@ -297,6 +306,8 @@
         <itemPath>include/tools/time_operations.h</itemPath>
         <itemPath>include/tools/time_probe.h</itemPath>
         <itemPath>include/tools/tm_calc.h</itemPath>
+        <itemPath>include/tools/travelling_salesman_problem.cpp</itemPath>
+        <itemPath>include/tools/travelling_salesman_problem.h</itemPath>
         <itemPath>include/tools/try_convert_to_haiku.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
@@ -618,6 +629,11 @@
       </item>
       <item path="include/iterators/find.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/find_if_iterator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
@@ -724,6 +740,11 @@
       </item>
       <item path="include/iterators/starts_with.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/transform_to_values.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -745,6 +766,10 @@
       <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/hash_combine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/hashable_set.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/loop.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1096,6 +1121,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/extract_keys.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
@@ -1118,6 +1145,14 @@
       <item path="include/tools/get_if_exists.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/get_if_exists.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph_edge.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph_vertex.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/index_coordinate_conversions.cpp"
             ex="false"
@@ -1222,6 +1257,16 @@
       <item path="include/tools/time_probe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/tm_calc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/travelling_salesman_problem.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/travelling_salesman_problem.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"
@@ -1544,6 +1589,11 @@
       </item>
       <item path="include/iterators/find.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/find_if_iterator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/iterators/find_in.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/iterators/find_in.h" ex="false" tool="3" flavor2="0">
@@ -1650,6 +1700,11 @@
       </item>
       <item path="include/iterators/starts_with.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/iterators/transform_to_values.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="include/joke/supersafe_number.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/joke/supersafe_number.h" ex="false" tool="3" flavor2="0">
@@ -1671,6 +1726,10 @@
       <item path="include/lang/dbl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/hash_combine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lang/hashable_set.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lang/loop.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2022,6 +2081,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/tools/extract_keys.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/tools/fast_min.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/fast_min.h" ex="false" tool="3" flavor2="0">
@@ -2044,6 +2105,14 @@
       <item path="include/tools/get_if_exists.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/get_if_exists.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph_edge.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph_operations.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/graph_vertex.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/index_coordinate_conversions.cpp"
             ex="false"
@@ -2148,6 +2217,16 @@
       <item path="include/tools/time_probe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/tm_calc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/travelling_salesman_problem.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/tools/travelling_salesman_problem.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"

@@ -156,6 +156,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/some_long_operation.o \
 	${OBJECTDIR}/include/tools/sort_map_by_value.o \
 	${OBJECTDIR}/include/tools/time_operations.o \
+	${OBJECTDIR}/include/tools/travelling_salesman_problem.o \
 	${OBJECTDIR}/include/tools/twoway_streambuf.o \
 	${OBJECTDIR}/include/tools/wagner_fischer_distance.o \
 	${OBJECTDIR}/main.o \
@@ -793,6 +794,11 @@ ${OBJECTDIR}/include/tools/time_operations.o: include/tools/time_operations.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/time_operations.o include/tools/time_operations.cpp
+
+${OBJECTDIR}/include/tools/travelling_salesman_problem.o: include/tools/travelling_salesman_problem.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/travelling_salesman_problem.o include/tools/travelling_salesman_problem.cpp
 
 ${OBJECTDIR}/include/tools/twoway_streambuf.o: include/tools/twoway_streambuf.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
