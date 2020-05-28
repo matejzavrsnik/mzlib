@@ -4,23 +4,8 @@
     <logicalFolder name="HeaderFiles" displayName="include" projectFiles="true">
       <logicalFolder name="abstract" displayName="abstract" projectFiles="true">
         <itemPath>include/abstract/direction.h</itemPath>
-        <itemPath>include/abstract/genetic_base.cpp</itemPath>
-        <itemPath>include/abstract/genetic_base.h</itemPath>
-        <itemPath>include/abstract/genetic_container.cpp</itemPath>
-        <itemPath>include/abstract/genetic_container.h</itemPath>
-        <itemPath>include/abstract/genetic_object.cpp</itemPath>
-        <itemPath>include/abstract/genetic_object.h</itemPath>
-        <itemPath>include/abstract/markov_chain.cpp</itemPath>
-        <itemPath>include/abstract/markov_chain.h</itemPath>
         <itemPath>include/abstract/probabilator.cpp</itemPath>
         <itemPath>include/abstract/probabilator.h</itemPath>
-        <itemPath>include/abstract/quadtree.cpp</itemPath>
-        <itemPath>include/abstract/quadtree.h</itemPath>
-        <itemPath>include/abstract/quadtree_it_bodies.cpp</itemPath>
-        <itemPath>include/abstract/quadtree_it_bodies.h</itemPath>
-        <itemPath>include/abstract/quadtree_it_masscentres.cpp</itemPath>
-        <itemPath>include/abstract/quadtree_it_masscentres.h</itemPath>
-        <itemPath>include/abstract/quadtree_node.h</itemPath>
         <itemPath>include/abstract/symbol_sequences_in_pattern.cpp</itemPath>
         <itemPath>include/abstract/symbol_sequences_in_pattern.h</itemPath>
         <itemPath>include/abstract/unique.cpp</itemPath>
@@ -64,6 +49,33 @@
         <itemPath>include/filesystem/list_files.h</itemPath>
         <itemPath>include/filesystem/read_write_file.cpp</itemPath>
         <itemPath>include/filesystem/read_write_file.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f8" displayName="greatest_hits" projectFiles="true">
+        <itemPath>include/greatest_hits/genetic_base.cpp</itemPath>
+        <itemPath>include/greatest_hits/genetic_base.h</itemPath>
+        <itemPath>include/greatest_hits/genetic_container.cpp</itemPath>
+        <itemPath>include/greatest_hits/genetic_container.h</itemPath>
+        <itemPath>include/greatest_hits/genetic_object.cpp</itemPath>
+        <itemPath>include/greatest_hits/genetic_object.h</itemPath>
+        <itemPath>include/greatest_hits/graph.h</itemPath>
+        <itemPath>include/greatest_hits/graph_edge.h</itemPath>
+        <itemPath>include/greatest_hits/graph_operations.h</itemPath>
+        <itemPath>include/greatest_hits/graph_vertex.h</itemPath>
+        <itemPath>include/greatest_hits/markov_chain.cpp</itemPath>
+        <itemPath>include/greatest_hits/markov_chain.h</itemPath>
+        <itemPath>include/greatest_hits/next_lex_permutation.cpp</itemPath>
+        <itemPath>include/greatest_hits/next_lex_permutation.h</itemPath>
+        <itemPath>include/greatest_hits/quadtree.cpp</itemPath>
+        <itemPath>include/greatest_hits/quadtree.h</itemPath>
+        <itemPath>include/greatest_hits/quadtree_it_bodies.cpp</itemPath>
+        <itemPath>include/greatest_hits/quadtree_it_bodies.h</itemPath>
+        <itemPath>include/greatest_hits/quadtree_it_masscentres.cpp</itemPath>
+        <itemPath>include/greatest_hits/quadtree_it_masscentres.h</itemPath>
+        <itemPath>include/greatest_hits/quadtree_node.h</itemPath>
+        <itemPath>include/greatest_hits/travelling_salesman_problem.cpp</itemPath>
+        <itemPath>include/greatest_hits/travelling_salesman_problem.h</itemPath>
+        <itemPath>include/greatest_hits/wagner_fischer_distance.cpp</itemPath>
+        <itemPath>include/greatest_hits/wagner_fischer_distance.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="iterators" projectFiles="true">
         <itemPath>include/iterators/average.cpp</itemPath>
@@ -273,17 +285,11 @@
         <itemPath>include/tools/genetic.h</itemPath>
         <itemPath>include/tools/get_if_exists.cpp</itemPath>
         <itemPath>include/tools/get_if_exists.h</itemPath>
-        <itemPath>include/tools/graph.h</itemPath>
-        <itemPath>include/tools/graph_edge.h</itemPath>
-        <itemPath>include/tools/graph_operations.h</itemPath>
-        <itemPath>include/tools/graph_vertex.h</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.cpp</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
         <itemPath>include/tools/nested_vector.cpp</itemPath>
         <itemPath>include/tools/nested_vector.h</itemPath>
-        <itemPath>include/tools/next_lex_permutation.cpp</itemPath>
-        <itemPath>include/tools/next_lex_permutation.h</itemPath>
         <itemPath>include/tools/number_of_decimals.cpp</itemPath>
         <itemPath>include/tools/number_of_decimals.h</itemPath>
         <itemPath>include/tools/parse_cli_arguments.cpp</itemPath>
@@ -306,13 +312,9 @@
         <itemPath>include/tools/time_operations.h</itemPath>
         <itemPath>include/tools/time_probe.h</itemPath>
         <itemPath>include/tools/tm_calc.h</itemPath>
-        <itemPath>include/tools/travelling_salesman_problem.cpp</itemPath>
-        <itemPath>include/tools/travelling_salesman_problem.h</itemPath>
         <itemPath>include/tools/try_convert_to_haiku.h</itemPath>
         <itemPath>include/tools/twoway_streambuf.cpp</itemPath>
         <itemPath>include/tools/twoway_streambuf.h</itemPath>
-        <itemPath>include/tools/wagner_fischer_distance.cpp</itemPath>
-        <itemPath>include/tools/wagner_fischer_distance.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -396,60 +398,9 @@
       </compileType>
       <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_base.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_container.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_container.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_object.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_object.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/abstract/probabilator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_bodies.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_bodies.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_masscentres.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_masscentres.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/abstract/symbol_sequences_in_pattern.cpp"
             ex="false"
@@ -578,6 +529,119 @@
             flavor2="0">
       </item>
       <item path="include/filesystem/read_write_file.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_base.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_base.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_container.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_container.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_object.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_object.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph_edge.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph_operations.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph_vertex.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/markov_chain.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/markov_chain.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/next_lex_permutation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/next_lex_permutation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_bodies.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_bodies.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_masscentres.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_masscentres.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_node.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/travelling_salesman_problem.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/travelling_salesman_problem.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/wagner_fischer_distance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/wagner_fischer_distance.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1146,14 +1210,6 @@
       </item>
       <item path="include/tools/get_if_exists.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/graph.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/graph_edge.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/graph_operations.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/graph_vertex.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/index_coordinate_conversions.cpp"
             ex="false"
             tool="1"
@@ -1179,16 +1235,6 @@
       <item path="include/tools/nested_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/nested_vector.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/next_lex_permutation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/tools/next_lex_permutation.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="include/tools/number_of_decimals.cpp"
             ex="false"
@@ -1258,16 +1304,6 @@
       </item>
       <item path="include/tools/tm_calc.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/travelling_salesman_problem.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/tools/travelling_salesman_problem.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"
             tool="3"
@@ -1276,16 +1312,6 @@
       <item path="include/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/wagner_fischer_distance.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/tools/wagner_fischer_distance.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1356,60 +1382,9 @@
       </compileType>
       <item path="include/abstract/direction.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/abstract/genetic_base.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_base.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_container.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_container.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_object.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/genetic_object.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/markov_chain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/abstract/markov_chain.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/abstract/probabilator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/abstract/probabilator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_bodies.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_bodies.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_masscentres.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_it_masscentres.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/abstract/quadtree_node.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/abstract/symbol_sequences_in_pattern.cpp"
             ex="false"
@@ -1538,6 +1513,119 @@
             flavor2="0">
       </item>
       <item path="include/filesystem/read_write_file.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_base.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_base.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_container.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_container.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_object.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/genetic_object.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph_edge.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph_operations.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/graph_vertex.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/markov_chain.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/markov_chain.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/next_lex_permutation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/next_lex_permutation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_bodies.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_bodies.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_masscentres.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_it_masscentres.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/quadtree_node.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/travelling_salesman_problem.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/travelling_salesman_problem.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/wagner_fischer_distance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/wagner_fischer_distance.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2106,14 +2194,6 @@
       </item>
       <item path="include/tools/get_if_exists.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/graph.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/graph_edge.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/graph_operations.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/graph_vertex.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/tools/index_coordinate_conversions.cpp"
             ex="false"
             tool="1"
@@ -2139,16 +2219,6 @@
       <item path="include/tools/nested_vector.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/nested_vector.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/next_lex_permutation.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/tools/next_lex_permutation.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="include/tools/number_of_decimals.cpp"
             ex="false"
@@ -2218,16 +2288,6 @@
       </item>
       <item path="include/tools/tm_calc.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/travelling_salesman_problem.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/tools/travelling_salesman_problem.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="include/tools/try_convert_to_haiku.h"
             ex="false"
             tool="3"
@@ -2236,16 +2296,6 @@
       <item path="include/tools/twoway_streambuf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/twoway_streambuf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/tools/wagner_fischer_distance.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/tools/wagner_fischer_distance.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

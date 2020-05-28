@@ -9,7 +9,7 @@
 #define MZLIB_GRAPH_OPERATIONS_H
 
 #include "graph.h"
-#include "extract_keys.h"
+#include "../tools/extract_keys.h"
 
 namespace mzlib {
 namespace graph {

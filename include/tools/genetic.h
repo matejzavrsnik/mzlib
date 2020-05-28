@@ -8,7 +8,7 @@
 #ifndef MZLIB_UTILS_GENETIC_H
 #define	MZLIB_UTILS_GENETIC_H
 
-#include "../abstract/genetic_container.h"
+#include "../greatest_hits/genetic_container.h"
 
 namespace mzlib {
 

@@ -10,7 +10,7 @@
 
 #include <set>
 
-#include "../abstract/markov_chain.h"
+#include "../greatest_hits/markov_chain.h"
 #include "../string/sentence_assemblarator.h"
 #include "../string/split_on_punctuation.h"
 #include "../string/remove_substrings.h"

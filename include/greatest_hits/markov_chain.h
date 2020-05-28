@@ -8,7 +8,7 @@
 #ifndef MZLIB_MARKOV_CHAIN_H
 #define MZLIB_MARKOV_CHAIN_H
 
-#include "probabilator.h"
+#include "../abstract/probabilator.h"
 #include "../iterators/get_random.h"
 #include <map>
 #include <optional>

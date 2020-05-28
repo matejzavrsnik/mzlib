@@ -9,7 +9,7 @@
 #define MZLIB_UNIVERSE_CONTAINERS_H
 
 #include "body.h"
-#include "../abstract/quadtree.h"
+#include "../greatest_hits/quadtree.h"
 #include <vector>
 #include <functional>
 

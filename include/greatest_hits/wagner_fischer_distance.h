@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <algorithm>
-#include "fast_min.h"
+#include "../tools/fast_min.h"
 
 namespace mzlib {
         

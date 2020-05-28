@@ -35,14 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/include/abstract/genetic_base.o \
-	${OBJECTDIR}/include/abstract/genetic_container.o \
-	${OBJECTDIR}/include/abstract/genetic_object.o \
-	${OBJECTDIR}/include/abstract/markov_chain.o \
 	${OBJECTDIR}/include/abstract/probabilator.o \
-	${OBJECTDIR}/include/abstract/quadtree.o \
-	${OBJECTDIR}/include/abstract/quadtree_it_bodies.o \
-	${OBJECTDIR}/include/abstract/quadtree_it_masscentres.o \
 	${OBJECTDIR}/include/abstract/symbol_sequences_in_pattern.o \
 	${OBJECTDIR}/include/abstract/unique.o \
 	${OBJECTDIR}/include/apps/aggregated_file_monitor.o \
@@ -61,6 +54,16 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/filesystem/is_meta_directory.o \
 	${OBJECTDIR}/include/filesystem/list_files.o \
 	${OBJECTDIR}/include/filesystem/read_write_file.o \
+	${OBJECTDIR}/include/greatest_hits/genetic_base.o \
+	${OBJECTDIR}/include/greatest_hits/genetic_container.o \
+	${OBJECTDIR}/include/greatest_hits/genetic_object.o \
+	${OBJECTDIR}/include/greatest_hits/markov_chain.o \
+	${OBJECTDIR}/include/greatest_hits/next_lex_permutation.o \
+	${OBJECTDIR}/include/greatest_hits/quadtree.o \
+	${OBJECTDIR}/include/greatest_hits/quadtree_it_bodies.o \
+	${OBJECTDIR}/include/greatest_hits/quadtree_it_masscentres.o \
+	${OBJECTDIR}/include/greatest_hits/travelling_salesman_problem.o \
+	${OBJECTDIR}/include/greatest_hits/wagner_fischer_distance.o \
 	${OBJECTDIR}/include/iterators/average.o \
 	${OBJECTDIR}/include/iterators/circular_next.o \
 	${OBJECTDIR}/include/iterators/contains_range.o \
@@ -146,7 +149,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/get_if_exists.o \
 	${OBJECTDIR}/include/tools/index_coordinate_conversions.o \
 	${OBJECTDIR}/include/tools/nested_vector.o \
-	${OBJECTDIR}/include/tools/next_lex_permutation.o \
 	${OBJECTDIR}/include/tools/number_of_decimals.o \
 	${OBJECTDIR}/include/tools/parse_cli_arguments.o \
 	${OBJECTDIR}/include/tools/random.o \
@@ -156,9 +158,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/some_long_operation.o \
 	${OBJECTDIR}/include/tools/sort_map_by_value.o \
 	${OBJECTDIR}/include/tools/time_operations.o \
-	${OBJECTDIR}/include/tools/travelling_salesman_problem.o \
 	${OBJECTDIR}/include/tools/twoway_streambuf.o \
-	${OBJECTDIR}/include/tools/wagner_fischer_distance.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/tests/matrix_operations_performance.o \
 	${OBJECTDIR}/tests/std_maps_performance.o \
@@ -190,45 +190,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mzlib ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/include/abstract/genetic_base.o: include/abstract/genetic_base.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/genetic_base.o include/abstract/genetic_base.cpp
-
-${OBJECTDIR}/include/abstract/genetic_container.o: include/abstract/genetic_container.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/genetic_container.o include/abstract/genetic_container.cpp
-
-${OBJECTDIR}/include/abstract/genetic_object.o: include/abstract/genetic_object.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/genetic_object.o include/abstract/genetic_object.cpp
-
-${OBJECTDIR}/include/abstract/markov_chain.o: include/abstract/markov_chain.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/markov_chain.o include/abstract/markov_chain.cpp
-
 ${OBJECTDIR}/include/abstract/probabilator.o: include/abstract/probabilator.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/abstract
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/probabilator.o include/abstract/probabilator.cpp
-
-${OBJECTDIR}/include/abstract/quadtree.o: include/abstract/quadtree.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/quadtree.o include/abstract/quadtree.cpp
-
-${OBJECTDIR}/include/abstract/quadtree_it_bodies.o: include/abstract/quadtree_it_bodies.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/quadtree_it_bodies.o include/abstract/quadtree_it_bodies.cpp
-
-${OBJECTDIR}/include/abstract/quadtree_it_masscentres.o: include/abstract/quadtree_it_masscentres.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/abstract
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/abstract/quadtree_it_masscentres.o include/abstract/quadtree_it_masscentres.cpp
 
 ${OBJECTDIR}/include/abstract/symbol_sequences_in_pattern.o: include/abstract/symbol_sequences_in_pattern.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/abstract
@@ -319,6 +284,56 @@ ${OBJECTDIR}/include/filesystem/read_write_file.o: include/filesystem/read_write
 	${MKDIR} -p ${OBJECTDIR}/include/filesystem
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/filesystem/read_write_file.o include/filesystem/read_write_file.cpp
+
+${OBJECTDIR}/include/greatest_hits/genetic_base.o: include/greatest_hits/genetic_base.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/genetic_base.o include/greatest_hits/genetic_base.cpp
+
+${OBJECTDIR}/include/greatest_hits/genetic_container.o: include/greatest_hits/genetic_container.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/genetic_container.o include/greatest_hits/genetic_container.cpp
+
+${OBJECTDIR}/include/greatest_hits/genetic_object.o: include/greatest_hits/genetic_object.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/genetic_object.o include/greatest_hits/genetic_object.cpp
+
+${OBJECTDIR}/include/greatest_hits/markov_chain.o: include/greatest_hits/markov_chain.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/markov_chain.o include/greatest_hits/markov_chain.cpp
+
+${OBJECTDIR}/include/greatest_hits/next_lex_permutation.o: include/greatest_hits/next_lex_permutation.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/next_lex_permutation.o include/greatest_hits/next_lex_permutation.cpp
+
+${OBJECTDIR}/include/greatest_hits/quadtree.o: include/greatest_hits/quadtree.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/quadtree.o include/greatest_hits/quadtree.cpp
+
+${OBJECTDIR}/include/greatest_hits/quadtree_it_bodies.o: include/greatest_hits/quadtree_it_bodies.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/quadtree_it_bodies.o include/greatest_hits/quadtree_it_bodies.cpp
+
+${OBJECTDIR}/include/greatest_hits/quadtree_it_masscentres.o: include/greatest_hits/quadtree_it_masscentres.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/quadtree_it_masscentres.o include/greatest_hits/quadtree_it_masscentres.cpp
+
+${OBJECTDIR}/include/greatest_hits/travelling_salesman_problem.o: include/greatest_hits/travelling_salesman_problem.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/travelling_salesman_problem.o include/greatest_hits/travelling_salesman_problem.cpp
+
+${OBJECTDIR}/include/greatest_hits/wagner_fischer_distance.o: include/greatest_hits/wagner_fischer_distance.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/wagner_fischer_distance.o include/greatest_hits/wagner_fischer_distance.cpp
 
 ${OBJECTDIR}/include/iterators/average.o: include/iterators/average.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/iterators
@@ -745,11 +760,6 @@ ${OBJECTDIR}/include/tools/nested_vector.o: include/tools/nested_vector.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/nested_vector.o include/tools/nested_vector.cpp
 
-${OBJECTDIR}/include/tools/next_lex_permutation.o: include/tools/next_lex_permutation.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/tools
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/next_lex_permutation.o include/tools/next_lex_permutation.cpp
-
 ${OBJECTDIR}/include/tools/number_of_decimals.o: include/tools/number_of_decimals.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
@@ -795,20 +805,10 @@ ${OBJECTDIR}/include/tools/time_operations.o: include/tools/time_operations.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/time_operations.o include/tools/time_operations.cpp
 
-${OBJECTDIR}/include/tools/travelling_salesman_problem.o: include/tools/travelling_salesman_problem.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/tools
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/travelling_salesman_problem.o include/tools/travelling_salesman_problem.cpp
-
 ${OBJECTDIR}/include/tools/twoway_streambuf.o: include/tools/twoway_streambuf.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/twoway_streambuf.o include/tools/twoway_streambuf.cpp
-
-${OBJECTDIR}/include/tools/wagner_fischer_distance.o: include/tools/wagner_fischer_distance.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/tools
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/wagner_fischer_distance.o include/tools/wagner_fischer_distance.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
