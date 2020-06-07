@@ -18,10 +18,40 @@ namespace mzlib {
 namespace graph {
    
 template<typename VertexKey>
-struct graph
+class graph
 {
-   std::unordered_map<VertexKey, vertex<VertexKey>> vertices;
-   std::unordered_set<edge<VertexKey>> edges;
+   
+private:
+   
+   std::unordered_map<VertexKey, vertex<VertexKey>> m_vertices;
+   std::unordered_set<edge<VertexKey>> m_edges;
+   
+public:
+   
+   const std::unordered_map<VertexKey, vertex<VertexKey>>& vertices() const
+   {
+      return m_vertices;
+   }
+   
+   const std::unordered_set<edge<VertexKey>>& edges() const
+   {
+      return m_edges;
+   }
+   
+   void add (const vertex<VertexKey>& v)
+   {
+      m_vertices[v.key] = v;
+   }
+   
+   void add (const edge<VertexKey>& e)
+   {
+      for(const auto& v : e.vertices)
+         if (m_vertices.count(v) == 0)
+            add(vertex<VertexKey>{v});
+      
+      m_edges.insert(e);
+   }
+   
 };
 
 using sgraph = graph<std::string>;

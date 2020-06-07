@@ -15,22 +15,6 @@ namespace mzlib {
 namespace graph {
 
 template<typename VertexKey>
-void add (
-   graph<VertexKey>& g,
-   const vertex<VertexKey>& v)
-{
-   g.vertices[v.key] = v;
-}
-
-template<typename VertexKey>
-void add (
-   graph<VertexKey>& g,
-   const edge<VertexKey> e)
-{
-   g.edges.insert(e);
-}
-
-template<typename VertexKey>
 bool is_incident (
    const graph<VertexKey>& g, 
    const vertex<VertexKey>& v, 
@@ -93,14 +77,14 @@ template<typename VertexKey>
 std::size_t size(
    const graph<VertexKey>& g)
 {
-   return g.edges.count();
+   return g.edges().count();
 }
 
 template<typename VertexKey>
 std::size_t order(
    const graph<VertexKey>& g)
 {
-   return g.vertices.size();
+   return g.vertices().size();
 }
 
 template<typename VertexKey>
@@ -112,7 +96,7 @@ bool exists_edge(
    if (from == to) 
       return false;
    
-   for(const auto& edge : g.edges)
+   for(const auto& edge : g.edges())
       if(edge.vertices[0] == from && edge.vertices[1] == to)
          return true;
    
@@ -127,7 +111,7 @@ std::optional<edge<VertexKey>> get_cheapest_edge(
 {
    std::optional<edge<VertexKey>> cheapest_edge;
    
-   for(const auto& edge : g.edges)
+   for(const auto& edge : g.edges())
       if(edge.vertices[0] == from && edge.vertices[1] == to)
          if(!cheapest_edge || cheapest_edge->cost > edge.cost)
          cheapest_edge = edge;
@@ -158,7 +142,7 @@ template<typename VertexKey>
 std::set<VertexKey> get_vertices_keys(
    const graph<VertexKey>& g)
 {
-   std::set<VertexKey> keys = extract_keys(g.vertices);
+   std::set<VertexKey> keys = extract_keys(g.vertices());
    return keys;
 }
 

@@ -135,7 +135,7 @@ tsp_subproblems<VertexKey> bellman_held_karp(
          subproblems[{city_from}][city_to] = graph::get_cheapest_direct_path_cost(g, city_from, city_to);
          
    // fill in for problem size >= 2
-   for(int problem_size=2; problem_size<order(g); ++problem_size) // for each subproblem size,
+   for(size_t problem_size=2; problem_size<order(g); ++problem_size) // for each subproblem size,
    {
       // for each subset of cities of size problem size
       mzlib::nested_iteration subset_iteration{ cities.begin(), cities.end(), problem_size };

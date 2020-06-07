@@ -70,7 +70,7 @@ bool evaluate_solution(
 // given number of cuts, try out all candidate solutions
 template<typename Iterator>
 std::optional<std::vector<Iterator>>
-try_combinatorial(Iterator begin, Iterator end, int num_cuts)
+try_combinatorial(Iterator begin, Iterator end, size_t num_cuts)
 {  
    mzlib::nested_iteration niter{begin, end, num_cuts};
    for(; !niter.end(); niter.next())

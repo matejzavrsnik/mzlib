@@ -18,7 +18,6 @@ namespace std
       std::size_t operator()(const std::set<T>& s) const noexcept
       {
          std::size_t hash = 112358;
-         std::hash<T> hasher;
          
          for(const auto& element : s)
             ::mzlib::hash_combine(hash, element);
