@@ -77,7 +77,7 @@ protected:
          local_universe.add_copy(body);
       }
       
-      return std::move(local_universe);
+      return local_universe;
    }
    
    std::chrono::nanoseconds run_simulation(mzlib::universe local_universe)

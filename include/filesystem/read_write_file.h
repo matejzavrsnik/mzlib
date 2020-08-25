@@ -47,7 +47,7 @@ inline std::vector<std::string> read_file_lines(std::string_view filename)
    std::vector<std::string> lines;
    while (std::getline(file, line))
       lines.push_back(line);
-   return std::move(lines);
+   return lines;
 }
 
 // Save string contents into a file
