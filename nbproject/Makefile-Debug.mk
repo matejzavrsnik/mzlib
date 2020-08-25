@@ -57,6 +57,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/greatest_hits/genetic_base.o \
 	${OBJECTDIR}/include/greatest_hits/genetic_container.o \
 	${OBJECTDIR}/include/greatest_hits/genetic_object.o \
+	${OBJECTDIR}/include/greatest_hits/longest_common_subsequence.o \
 	${OBJECTDIR}/include/greatest_hits/markov_chain.o \
 	${OBJECTDIR}/include/greatest_hits/next_lex_permutation.o \
 	${OBJECTDIR}/include/greatest_hits/quadtree.o \
@@ -299,6 +300,11 @@ ${OBJECTDIR}/include/greatest_hits/genetic_object.o: include/greatest_hits/genet
 	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/genetic_object.o include/greatest_hits/genetic_object.cpp
+
+${OBJECTDIR}/include/greatest_hits/longest_common_subsequence.o: include/greatest_hits/longest_common_subsequence.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/greatest_hits/longest_common_subsequence.o include/greatest_hits/longest_common_subsequence.cpp
 
 ${OBJECTDIR}/include/greatest_hits/markov_chain.o: include/greatest_hits/markov_chain.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/greatest_hits

@@ -61,6 +61,8 @@
         <itemPath>include/greatest_hits/graph_edge.h</itemPath>
         <itemPath>include/greatest_hits/graph_operations.h</itemPath>
         <itemPath>include/greatest_hits/graph_vertex.h</itemPath>
+        <itemPath>include/greatest_hits/longest_common_subsequence.cpp</itemPath>
+        <itemPath>include/greatest_hits/longest_common_subsequence.h</itemPath>
         <itemPath>include/greatest_hits/markov_chain.cpp</itemPath>
         <itemPath>include/greatest_hits/markov_chain.h</itemPath>
         <itemPath>include/greatest_hits/next_lex_permutation.cpp</itemPath>
@@ -573,6 +575,16 @@
             flavor2="0">
       </item>
       <item path="include/greatest_hits/graph_vertex.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/longest_common_subsequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/longest_common_subsequence.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1557,6 +1569,16 @@
             flavor2="0">
       </item>
       <item path="include/greatest_hits/graph_vertex.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/longest_common_subsequence.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/longest_common_subsequence.h"
             ex="false"
             tool="3"
             flavor2="0">
