@@ -65,6 +65,8 @@
         <itemPath>include/greatest_hits/longest_common_subsequence.h</itemPath>
         <itemPath>include/greatest_hits/markov_chain.cpp</itemPath>
         <itemPath>include/greatest_hits/markov_chain.h</itemPath>
+        <itemPath>include/greatest_hits/median_maintenance.cpp</itemPath>
+        <itemPath>include/greatest_hits/median_maintenance.h</itemPath>
         <itemPath>include/greatest_hits/next_lex_permutation.cpp</itemPath>
         <itemPath>include/greatest_hits/next_lex_permutation.h</itemPath>
         <itemPath>include/greatest_hits/quadtree.cpp</itemPath>
@@ -595,6 +597,16 @@
             flavor2="0">
       </item>
       <item path="include/greatest_hits/markov_chain.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/median_maintenance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/median_maintenance.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1589,6 +1601,16 @@
             flavor2="0">
       </item>
       <item path="include/greatest_hits/markov_chain.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/median_maintenance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/greatest_hits/median_maintenance.h"
             ex="false"
             tool="3"
             flavor2="0">
