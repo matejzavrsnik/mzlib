@@ -33,6 +33,7 @@
         <itemPath>include/extension/libxmlpp.h</itemPath>
         <itemPath>include/extension/libxmlpp_datashelf.cpp</itemPath>
         <itemPath>include/extension/libxmlpp_datashelf.h</itemPath>
+        <itemPath>include/extension/sdl_exceptions.h</itemPath>
         <itemPath>include/extension/sdl_image_texture.cpp</itemPath>
         <itemPath>include/extension/sdl_image_texture.h</itemPath>
       </logicalFolder>
@@ -475,6 +476,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/extension/sdl_exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/extension/sdl_image_texture.cpp"
             ex="false"
@@ -1479,6 +1482,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/extension/sdl_exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/extension/sdl_image_texture.cpp"
             ex="false"

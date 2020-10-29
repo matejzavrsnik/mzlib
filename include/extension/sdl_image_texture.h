@@ -11,18 +11,11 @@
 // if included SDL.h and SDL_image.h from SDL2 library
 #if defined(_SDL_H) && defined(_SDL_IMAGE_H)
 
-#include "../lang/exceptions.h"
+#include "sdl_exceptions.h"
 #include <string>
 #include <memory>
 
 namespace mzlib {
-
-namespace exception { namespace sdl {
-   class sdl : public mzlib::exception::generic { public: using generic::generic; };
-   class render_failure : public sdl { public: using sdl::sdl; };
-   class image_load_failure : public sdl { public: using sdl::sdl; };
-   class texture_create_failure : public sdl { public: using sdl::sdl; };
-}}
 
 // Purpose of this class is to be a wrapper for SDL library's SDL_Texture that
 // defines moving and copying. SDL only exposes C API.
