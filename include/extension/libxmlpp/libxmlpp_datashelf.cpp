@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "libxmlpp_datashelf.h"
-#include "../tools/fluent_datashelf.h"
+#include "../../tools/fluent_datashelf.h"
 
 class fixture_datashelf_former : public ::testing::Test 
 {

@@ -29,13 +29,22 @@
         <itemPath>include/apps/syllables.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="extension" projectFiles="true">
-        <itemPath>include/extension/libxmlpp.cpp</itemPath>
-        <itemPath>include/extension/libxmlpp.h</itemPath>
-        <itemPath>include/extension/libxmlpp_datashelf.cpp</itemPath>
-        <itemPath>include/extension/libxmlpp_datashelf.h</itemPath>
-        <itemPath>include/extension/sdl_exceptions.h</itemPath>
-        <itemPath>include/extension/sdl_image_texture.cpp</itemPath>
-        <itemPath>include/extension/sdl_image_texture.h</itemPath>
+        <logicalFolder name="f3" displayName="imgui" projectFiles="true">
+          <itemPath>include/extension/imgui/imgui_sdl_init.h</itemPath>
+          <itemPath>include/extension/imgui/imgui_tools.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="libxml" projectFiles="true">
+          <itemPath>include/extension/libxmlpp/libxmlpp.cpp</itemPath>
+          <itemPath>include/extension/libxmlpp/libxmlpp.h</itemPath>
+          <itemPath>include/extension/libxmlpp/libxmlpp_datashelf.cpp</itemPath>
+          <itemPath>include/extension/libxmlpp/libxmlpp_datashelf.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="sdl" projectFiles="true">
+          <itemPath>include/extension/sdl/sdl_exceptions.h</itemPath>
+          <itemPath>include/extension/sdl/sdl_image_texture.cpp</itemPath>
+          <itemPath>include/extension/sdl/sdl_image_texture.h</itemPath>
+          <itemPath>include/extension/sdl/sdl_init.h</itemPath>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="filesystem" projectFiles="true">
         <itemPath>include/filesystem/extract_filename.cpp</itemPath>
@@ -463,31 +472,52 @@
       </item>
       <item path="include/apps/syllables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/extension/libxmlpp.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/extension/libxmlpp_datashelf.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/extension/libxmlpp_datashelf.h"
+      <item path="include/extension/imgui/imgui_sdl_init.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/extension/sdl_exceptions.h" ex="false" tool="3" flavor2="0">
+      <item path="include/extension/imgui/imgui_tools.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="include/extension/sdl_image_texture.cpp"
+      <item path="include/extension/libxmlpp/libxmlpp.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="include/extension/sdl_image_texture.h"
+      <item path="include/extension/libxmlpp/libxmlpp.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp/libxmlpp_datashelf.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp/libxmlpp_datashelf.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_exceptions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_image_texture.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_image_texture.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_init.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/filesystem/extract_filename.cpp"
             ex="false"
@@ -1469,31 +1499,52 @@
       </item>
       <item path="include/apps/syllables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/extension/libxmlpp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/extension/libxmlpp.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/extension/libxmlpp_datashelf.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="include/extension/libxmlpp_datashelf.h"
+      <item path="include/extension/imgui/imgui_sdl_init.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/extension/sdl_exceptions.h" ex="false" tool="3" flavor2="0">
+      <item path="include/extension/imgui/imgui_tools.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="include/extension/sdl_image_texture.cpp"
+      <item path="include/extension/libxmlpp/libxmlpp.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="include/extension/sdl_image_texture.h"
+      <item path="include/extension/libxmlpp/libxmlpp.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp/libxmlpp_datashelf.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/extension/libxmlpp/libxmlpp_datashelf.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_exceptions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_image_texture.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_image_texture.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/extension/sdl/sdl_init.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/filesystem/extract_filename.cpp"
             ex="false"

@@ -45,9 +45,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/apps/sentence_o_matic.o \
 	${OBJECTDIR}/include/apps/sudoku.o \
 	${OBJECTDIR}/include/apps/syllables.o \
-	${OBJECTDIR}/include/extension/libxmlpp.o \
-	${OBJECTDIR}/include/extension/libxmlpp_datashelf.o \
-	${OBJECTDIR}/include/extension/sdl_image_texture.o \
+	${OBJECTDIR}/include/extension/libxmlpp/libxmlpp.o \
+	${OBJECTDIR}/include/extension/libxmlpp/libxmlpp_datashelf.o \
+	${OBJECTDIR}/include/extension/sdl/sdl_image_texture.o \
 	${OBJECTDIR}/include/filesystem/extract_filename.o \
 	${OBJECTDIR}/include/filesystem/filenamearise.o \
 	${OBJECTDIR}/include/filesystem/find_eof_position.o \
@@ -242,20 +242,20 @@ ${OBJECTDIR}/include/apps/syllables.o: include/apps/syllables.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/apps/syllables.o include/apps/syllables.cpp
 
-${OBJECTDIR}/include/extension/libxmlpp.o: include/extension/libxmlpp.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/extension
+${OBJECTDIR}/include/extension/libxmlpp/libxmlpp.o: include/extension/libxmlpp/libxmlpp.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/extension/libxmlpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/extension/libxmlpp.o include/extension/libxmlpp.cpp
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/extension/libxmlpp/libxmlpp.o include/extension/libxmlpp/libxmlpp.cpp
 
-${OBJECTDIR}/include/extension/libxmlpp_datashelf.o: include/extension/libxmlpp_datashelf.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/extension
+${OBJECTDIR}/include/extension/libxmlpp/libxmlpp_datashelf.o: include/extension/libxmlpp/libxmlpp_datashelf.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/extension/libxmlpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/extension/libxmlpp_datashelf.o include/extension/libxmlpp_datashelf.cpp
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/extension/libxmlpp/libxmlpp_datashelf.o include/extension/libxmlpp/libxmlpp_datashelf.cpp
 
-${OBJECTDIR}/include/extension/sdl_image_texture.o: include/extension/sdl_image_texture.cpp
-	${MKDIR} -p ${OBJECTDIR}/include/extension
+${OBJECTDIR}/include/extension/sdl/sdl_image_texture.o: include/extension/sdl/sdl_image_texture.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/extension/sdl
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/extension/sdl_image_texture.o include/extension/sdl_image_texture.cpp
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/extension/sdl/sdl_image_texture.o include/extension/sdl/sdl_image_texture.cpp
 
 ${OBJECTDIR}/include/filesystem/extract_filename.o: include/filesystem/extract_filename.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/filesystem
