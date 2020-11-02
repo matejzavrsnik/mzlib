@@ -10,11 +10,24 @@
 
 #include <string_view>
 
-namespace mzlib
-{
+namespace mzlib {
+namespace imgui {
 
-bool standalone_button(std::string_view button_text)
+///
+/// If delta is negative, that is interpreted as this much from the right or bottom.
+/// If delta is negative, that is interpreted as this much from the left or top.
+///
+void set_next_window_relative_position(const float delta_x, const float delta_y)
 {
+   auto displaySize = ImGui::GetIO().DisplaySize;
+
+   displaySize.x = delta_x > 0 ? delta_x : displaySize.x + delta_x;
+   displaySize.y = delta_y > 0 ? delta_y : displaySize.y + delta_y;
+
+   ImGui::SetNextWindowPos(displaySize);
+}
+
+bool standalone_button(std::string_view button_text) {
    bool show = true;
    bool pressed = false;
    auto flags_invisible_window =
@@ -32,6 +45,7 @@ bool standalone_button(std::string_view button_text)
    return pressed;
 }
 
+}
 }
 
 #endif

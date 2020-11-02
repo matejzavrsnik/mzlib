@@ -23,37 +23,33 @@
 
 #include "../sdl/sdl_init.h"
 
-namespace mzlib
-{
+namespace mzlib {
+namespace imgui {
 
 // Purpose: give raii capabilities to imgui+sdl init/destroy procedures
-class imgui_sdl_init
-{
+class imgui_sdl_init {
 public:
 
-   imgui_sdl_init(std::string_view window_title) :
-      m_sdl(window_title)
-   {
+   imgui_sdl_init(std::string_view window_title) : m_sdl(window_title) {
       // Initialize OpenGL loader
-      #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-         bool err = gl3wInit() != 0;
-      #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-         bool err = glewInit() != GLEW_OK;
-      #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-         bool err = gladLoadGL() == 0;
-      #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD2)
-         bool err = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress) == 0; // glad2 recommend using the windowing library loader instead of the (optionally) bundled one.
-      #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING2)
-         bool err = false;
-         glbinding::Binding::initialize();
-      #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING3)
-         bool err = false;
-         glbinding::initialize([](const char* name) { return (glbinding::ProcAddress)SDL_GL_GetProcAddress(name); });
-      #else
-         bool err = false; // If you use IMGUI_IMPL_OPENGL_LOADER_CUSTOM, your loader is likely to requires some form of initialization.
-      #endif
-      if (err)
-      {
+#if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
+      bool err = gl3wInit() != 0;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
+      bool err = glewInit() != GLEW_OK;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
+      bool err = gladLoadGL() == 0;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD2)
+      bool err = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress) == 0; // glad2 recommend using the windowing library loader instead of the (optionally) bundled one.
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING2)
+      bool err = false;
+      glbinding::Binding::initialize();
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING3)
+      bool err = false;
+      glbinding::initialize([](const char* name) { return (glbinding::ProcAddress)SDL_GL_GetProcAddress(name); });
+#else
+      bool err = false; // If you use IMGUI_IMPL_OPENGL_LOADER_CUSTOM, your loader is likely to requires some form of initialization.
+#endif
+      if (err) {
          throw mzlib::exception::sdl::init_failure("failed to initialize OpenGL loader.");
       }
 
@@ -88,24 +84,21 @@ public:
       //IM_ASSERT(font != NULL);
    }
 
-   ~imgui_sdl_init()
-   {
+   ~imgui_sdl_init() {
       // Cleanup
       ImGui_ImplOpenGL3_Shutdown();
       ImGui_ImplSDL2_Shutdown();
       ImGui::DestroyContext();
    }
 
-   void start_frame()
-   {
+   void start_frame() {
       // Start the Dear ImGui frame
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplSDL2_NewFrame(m_sdl.get_window());
       ImGui::NewFrame();
    }
 
-   void end_frame(const ImVec4& clear_color)
-   {
+   void end_frame(const ImVec4 &clear_color) {
       // Rendering
       ImGui::Render();
 
@@ -113,35 +106,34 @@ public:
 
       // the glViewport function sets the viewport. No clue what it does.
       // if I comment it out everything works the same.
-      glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
+      glViewport(0, 0, (int) ImGui::GetIO().DisplaySize.x, (int) ImGui::GetIO().DisplaySize.y);
 
       // what color to clear the surface with
       glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 
       // clears old surface, for example when resizing
-      glClear(GL_COLOR_BUFFER_BIT); 
+      glClear(GL_COLOR_BUFFER_BIT);
 
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
       SDL_GL_SwapWindow(m_sdl.get_window());
    }
 
-   bool should_quit()
-   {
-     // Poll and handle events (inputs, window resize, etc.)
-     // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-     // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-     // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-     // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-     SDL_Event event;
-     while (SDL_PollEvent(&event))
-     {
+   bool should_quit() {
+      // Poll and handle events (inputs, window resize, etc.)
+      // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
+      // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
+      // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
+      // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
+      SDL_Event event;
+      while (SDL_PollEvent(&event)) {
          ImGui_ImplSDL2_ProcessEvent(&event);
          if (event.type == SDL_QUIT)
-             return true;
-         if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(m_sdl.get_window()))
-             return true;
-     }
-     return false;
+            return true;
+         if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE &&
+             event.window.windowID == SDL_GetWindowID(m_sdl.get_window()))
+            return true;
+      }
+      return false;
    }
 
 private:
@@ -150,8 +142,7 @@ private:
 
 };
 
-
-
+}
 }
 
 #endif // MZLIB_IMGUI_SDL_RAII_H
