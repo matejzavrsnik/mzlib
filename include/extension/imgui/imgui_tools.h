@@ -27,23 +27,29 @@ void set_next_window_relative_position(const float delta_x, const float delta_y)
    ImGui::SetNextWindowPos(displaySize);
 }
 
-bool standalone_button(std::string_view button_text) {
+bool DisplayControlButton(const std::string_view &button_text);
+
+/**
+ * @brief Begins an invisible window.
+ * @details Begins a window without background, title bar or resize option. Window title doesn't seem necessary, but
+ * I think ImGui is using them as an ID because if not provided, the rest of the layout doesn't work correctly anymore.
+ * You need to call ImGui::End yourself after this.
+ * @return Void, window created.
+ */
+void BeginInvisibleWindow(
+   std::string_view window_title /**< Invisible title of the window. */)
+{
    bool show = true;
-   bool pressed = false;
    auto flags_invisible_window =
       ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground |
       ImGuiWindowFlags_::ImGuiWindowFlags_NoTitleBar |
       ImGuiWindowFlags_::ImGuiWindowFlags_NoResize;
 
-   // I don't need window title here, but if left empty it crashes on Windows
-   ImGui::Begin("_", &show, flags_invisible_window);
-
-   if (ImGui::Button(button_text.data()))
-      pressed = true;
-
-   ImGui::End();
-   return pressed;
+   ImGui::Begin(window_title.data(), &show, flags_invisible_window);
 }
+
+
+
 
 }
 }
