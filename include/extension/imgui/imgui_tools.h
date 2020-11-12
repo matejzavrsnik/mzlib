@@ -5,6 +5,9 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
+#ifndef MZLIB_IMGUI_TOOLS_H
+#define MZLIB_IMGUI_TOOLS_H
+
 // this file requires that <imgui.h> is included from imgui library
 #if defined(IMGUI_VERSION)
 
@@ -54,4 +57,5 @@ void BeginInvisibleWindow(
 }
 }
 
-#endif
+#endif // defined(IMGUI_VERSION)
+#endif // #ifndef MZLIB_IMGUI_TOOLS_H
