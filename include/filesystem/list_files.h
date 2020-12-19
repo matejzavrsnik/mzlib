@@ -12,6 +12,7 @@
 #include "../lang/binary_options.h"
 #include <dirent.h>
 #include <string_view>
+#include <vector>
 
 namespace mzlib {
 

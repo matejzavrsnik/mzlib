@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../mocks/mock_sdl.h"
+#include "../../mocks/mock_sdl.h"
 #include "sdl_image_texture.h"
 
 using namespace ::testing;
