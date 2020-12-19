@@ -157,6 +157,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/include/tools/random_with_parity.o \
 	${OBJECTDIR}/include/tools/relocate.o \
 	${OBJECTDIR}/include/tools/rememberator.o \
+	${OBJECTDIR}/include/tools/simple_datetime.o \
 	${OBJECTDIR}/include/tools/some_long_operation.o \
 	${OBJECTDIR}/include/tools/sort_map_by_value.o \
 	${OBJECTDIR}/include/tools/time_operations.o \
@@ -801,6 +802,11 @@ ${OBJECTDIR}/include/tools/rememberator.o: include/tools/rememberator.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools
 	${RM} "$@.d"
 	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/rememberator.o include/tools/rememberator.cpp
+
+${OBJECTDIR}/include/tools/simple_datetime.o: include/tools/simple_datetime.cpp
+	${MKDIR} -p ${OBJECTDIR}/include/tools
+	${RM} "$@.d"
+	$(COMPILE.cc) -O3 -Wall -I/usr/include/gtest -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/glibmm-2.4 -I/usr/lib64/glibmm-2.4/include -I/usr/include/libxml++-3.0 -I/usr/lib64/libxml++-3.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/tools/simple_datetime.o include/tools/simple_datetime.cpp
 
 ${OBJECTDIR}/include/tools/some_long_operation.o: include/tools/some_long_operation.cpp
 	${MKDIR} -p ${OBJECTDIR}/include/tools

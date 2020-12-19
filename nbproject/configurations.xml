@@ -308,6 +308,8 @@
         <itemPath>include/tools/relocate.h</itemPath>
         <itemPath>include/tools/rememberator.cpp</itemPath>
         <itemPath>include/tools/rememberator.h</itemPath>
+        <itemPath>include/tools/simple_datetime.cpp</itemPath>
+        <itemPath>include/tools/simple_datetime.h</itemPath>
         <itemPath>include/tools/some_long_operation.cpp</itemPath>
         <itemPath>include/tools/some_long_operation.h</itemPath>
         <itemPath>include/tools/sort_map_by_value.cpp</itemPath>
@@ -1303,6 +1305,10 @@
       <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/rememberator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/simple_datetime.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/simple_datetime.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/some_long_operation.cpp"
             ex="false"
@@ -2309,6 +2315,10 @@
       <item path="include/tools/rememberator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/tools/rememberator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tools/simple_datetime.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/tools/simple_datetime.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/some_long_operation.cpp"
             ex="false"
