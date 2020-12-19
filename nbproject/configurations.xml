@@ -29,17 +29,17 @@
         <itemPath>include/apps/syllables.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="extension" projectFiles="true">
-        <logicalFolder name="f3" displayName="imgui" projectFiles="true">
+        <logicalFolder name="f2" displayName="imgui" projectFiles="true">
           <itemPath>include/extension/imgui/imgui_sdl_init.h</itemPath>
           <itemPath>include/extension/imgui/imgui_tools.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="f2" displayName="libxml" projectFiles="true">
+        <logicalFolder name="f1" displayName="libxmlpp" projectFiles="true">
           <itemPath>include/extension/libxmlpp/libxmlpp.cpp</itemPath>
           <itemPath>include/extension/libxmlpp/libxmlpp.h</itemPath>
           <itemPath>include/extension/libxmlpp/libxmlpp_datashelf.cpp</itemPath>
           <itemPath>include/extension/libxmlpp/libxmlpp_datashelf.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="f1" displayName="sdl" projectFiles="true">
+        <logicalFolder name="f3" displayName="sdl" projectFiles="true">
           <itemPath>include/extension/sdl/sdl_exceptions.h</itemPath>
           <itemPath>include/extension/sdl/sdl_image_texture.cpp</itemPath>
           <itemPath>include/extension/sdl/sdl_image_texture.h</itemPath>
