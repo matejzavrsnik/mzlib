@@ -129,6 +129,8 @@
         <itemPath>include/iterators/range_is_within.h</itemPath>
         <itemPath>include/iterators/range_iterator.cpp</itemPath>
         <itemPath>include/iterators/range_iterator.h</itemPath>
+        <itemPath>include/iterators/remove_element.cpp</itemPath>
+        <itemPath>include/iterators/remove_element.h</itemPath>
         <itemPath>include/iterators/remove_from.cpp</itemPath>
         <itemPath>include/iterators/remove_from.h</itemPath>
         <itemPath>include/iterators/repeated_ranges.cpp</itemPath>
@@ -839,6 +841,13 @@
             flavor2="0">
       </item>
       <item path="include/iterators/range_iterator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/remove_element.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/remove_element.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1870,6 +1879,13 @@
             flavor2="0">
       </item>
       <item path="include/iterators/range_iterator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/iterators/remove_element.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="include/iterators/remove_element.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/iterators/remove_from.cpp" ex="false" tool="1" flavor2="0">
       </item>
