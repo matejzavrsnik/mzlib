@@ -13,7 +13,8 @@
 namespace mzlib {
 
 // Replace all occurrences of a string in a string
-inline void string_replace (std::string& str, std::string_view replace_what, std::string_view replace_with) 
+template<typename Char = char>
+inline void string_replace (std::basic_string<Char>& str, std::basic_string_view<Char> replace_what, std::basic_string_view<Char> replace_with)
 {
    for (size_t pos = 0; 
         (pos = str.find(replace_what, pos)) != std::string::npos; 
