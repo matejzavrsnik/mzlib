@@ -8,8 +8,8 @@
         <itemPath>include/abstract/probabilator.h</itemPath>
         <itemPath>include/abstract/symbol_sequences_in_pattern.cpp</itemPath>
         <itemPath>include/abstract/symbol_sequences_in_pattern.h</itemPath>
-        <itemPath>include/abstract/unique.cpp</itemPath>
-        <itemPath>include/abstract/unique.h</itemPath>
+        <itemPath>include/abstract/m_unique.cpp</itemPath>
+        <itemPath>include/abstract/m_unique.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="apps" projectFiles="true">
         <itemPath>include/apps/aggregated_file_monitor.cpp</itemPath>
@@ -430,9 +430,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/abstract/m_unique.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
+      <item path="include/abstract/m_unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/apps/aggregated_file_monitor.cpp"
             ex="false"
@@ -1468,9 +1468,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/abstract/unique.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/abstract/m_unique.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/abstract/unique.h" ex="false" tool="3" flavor2="0">
+      <item path="include/abstract/m_unique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/apps/aggregated_file_monitor.cpp"
             ex="false"

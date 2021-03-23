@@ -55,7 +55,7 @@ public:
       return !(*this == other);
    }
    
-   // To enable "native" use od mzlib::unique with std::map
+   // To enable "native" use od mzlib::m_unique with std::map
    bool operator <(const unique& rhs) const
    {
       return id() < rhs.id();
