@@ -24,6 +24,13 @@ inline void string_replace (std::basic_string<Char>& str, std::basic_string_view
    }
 }
 
+// When string_replace is invoked with std::string rather than std::string_view it doesn't know how to resolve, hence this
+template<typename Char = char>
+inline void string_replace (std::basic_string<Char>& str, std::basic_string<Char> replace_what, std::basic_string<Char> replace_with)
+{
+   string_replace(str, std::basic_string_view<Char>{replace_what}, std::basic_string_view<Char>{replace_with});
+}
+
 } // namespace
 
 #endif // HEADER_H
