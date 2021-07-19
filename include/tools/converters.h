@@ -58,6 +58,19 @@ inline std::pair<double,double> convert(
 
 #endif // MZLIB_VECTOR_H
 
+#ifdef QSTRING_H
+
+template<>
+inline QString convert(
+   const std::wstring_view& value)
+{
+   // inefficient but I don't know how else to do it...
+   return QString::fromStdWString(std::wstring(value));
+}
+
+
+#endif // QSTRING_H
+
 } // namespace mzlib
 
 
