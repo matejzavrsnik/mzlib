@@ -27,18 +27,18 @@ std::unique_ptr<T> make_unique( Args&& ...args )
 // should be in <concepts>
 namespace detail {
     template< class T, class U >
-    concept bool SameHelper = std::is_same_v<T, U>;
+    concept SameHelper = std::is_same_v<T, U>;
 }
 
 template <class From, class To>
-concept bool convertible_to =
+concept convertible_to =
    std::is_convertible_v<From, To> &&
    requires(std::add_rvalue_reference_t<From> (&f)()) {
       static_cast<To>(f());
    };
    
 template< class T, class U >
-concept bool same_as = detail::SameHelper<T, U> && detail::SameHelper<U, T>;
+concept same_as = detail::SameHelper<T, U> && detail::SameHelper<U, T>;
 
 } // namespace
 

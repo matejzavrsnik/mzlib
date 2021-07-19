@@ -11,6 +11,8 @@
 #include "graph.h"
 #include "../tools/extract_keys.h"
 
+#include <optional>
+
 namespace mzlib {
 namespace graph {
 

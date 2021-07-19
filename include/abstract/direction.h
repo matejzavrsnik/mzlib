@@ -41,26 +41,25 @@ inline direction the_opposite_direction (direction direction)
    }
 }
 
-
-} // namespace
-
 inline std::ostream& operator<< (std::ostream& os, const mzlib::direction& direction)
 {
    switch(direction) {
-      case mzlib::direction::ne: os << "ne"; break;
-      case mzlib::direction::nw: os << "nw"; break;
-      case mzlib::direction::se: os << "se"; break;
-      case mzlib::direction::sw: os << "sw"; break;
-      case mzlib::direction::n:  os <<  "n"; break;
-      case mzlib::direction::s:  os <<  "s"; break;
-      case mzlib::direction::w:  os <<  "w"; break;
-      case mzlib::direction::e:  os <<  "e"; break;
-      case mzlib::direction::centre: os << "centre"; break;
-      
-      default: os << "unknown"; break;
+   case mzlib::direction::ne: os << "ne"; break;
+   case mzlib::direction::nw: os << "nw"; break;
+   case mzlib::direction::se: os << "se"; break;
+   case mzlib::direction::sw: os << "sw"; break;
+   case mzlib::direction::n:  os <<  "n"; break;
+   case mzlib::direction::s:  os <<  "s"; break;
+   case mzlib::direction::w:  os <<  "w"; break;
+   case mzlib::direction::e:  os <<  "e"; break;
+   case mzlib::direction::centre: os << "centre"; break;
+
+   default: os << "unknown"; break;
    };
    return os;
 }
+
+} // namespace
 
 #endif	/* MZLIB_DIRECTION_H */
 

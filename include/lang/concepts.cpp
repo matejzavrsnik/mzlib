@@ -17,12 +17,12 @@ enum class work_on_string_overload
    writable
 };
 
-work_on_string_overload work_on_string(mzlib::readable_string)
+work_on_string_overload work_on_string(mzlib::readable_string auto)
 {
    return work_on_string_overload::readable;
 }
 
-work_on_string_overload work_on_string(mzlib::writable_string)
+work_on_string_overload work_on_string(mzlib::writable_string auto)
 {
    return work_on_string_overload::writable;
 }

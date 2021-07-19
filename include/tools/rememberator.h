@@ -9,6 +9,7 @@
 #define MZLIB_REMEMBERATOR_H
 
 #include <set>
+#include <functional>
 
 namespace mzlib {
 

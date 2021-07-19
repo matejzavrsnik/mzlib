@@ -17,29 +17,29 @@ namespace mzlib {
 // to be used
 
 template<class T> 
-concept bool incrementable =
+concept incrementable =
    requires (T a) { 
-      { ++a } -> T;
-      { a++ } -> T;
-      { a+1 } -> T;
+      { ++a } -> std::same_as<T>;
+      { a++ } -> std::same_as<T>;
+      { a+1 } -> std::same_as<T>;
       { a+=1 };
 };
 
 template<typename T>
-concept bool assignable = 
+concept assignable =
    requires (T a, T b) { 
-      { a = b } -> T; 
+      { a = b } -> std::same_as<T>;
 };
    
-template<class T, class U>
-concept bool dereferencable = 
-   requires (T a, U b) { 
-      { *a } -> U; 
+template<class T>
+concept dereferencable =
+   requires (T a) {
+      { *a } -> std::same_as<T>;
 };
 
 // TODO: specialise iterable 
 template<typename T>
-concept bool iterable = 
+concept iterable =
    requires (T a) {
       incrementable<T> && 
       assignable<T> &&
@@ -47,14 +47,14 @@ concept bool iterable =
 };
 
 template<typename String>
-concept bool readable_string =
+concept readable_string =
    requires (String s)
    {   
       s[0];
    };
    
 template<typename String>
-concept bool writable_string =
+concept writable_string =
    readable_string<String> &&
    requires (String s1, String s2)
    {   

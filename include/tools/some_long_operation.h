@@ -18,7 +18,7 @@ void some_long_operation(std::chrono::milliseconds duration)
    auto end_time = std::chrono::high_resolution_clock::now() + duration;
    volatile long double j = 3.8724365871627836;
    while (std::chrono::high_resolution_clock::now() < end_time)
-      j /= 0.38064852124534;
+      j = j / 0.38064852124534;
 }
 
 } // namespace

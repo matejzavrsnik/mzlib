@@ -64,13 +64,13 @@ TEST(join, set_of_wstrings_delimiter_char_dash)
 TEST(join, set_of_u16strings_delimiter_char_dash)
 {
    std::set<std::u16string> tokens{u"a", u"b", u"c", u"d"};
-   ASSERT_EQ(u"a-b-c-d", mzlib::u16join(tokens, '-'));
+   ASSERT_TRUE(u"a-b-c-d" == mzlib::u16join(tokens, '-'));
 }
 
 TEST(join, set_of_u32strings_delimiter_char_dash)
 {
    std::set<std::u32string> tokens{U"a", U"b", U"c", U"d"};
-   ASSERT_EQ(U"a-b-c-d", mzlib::u32join(tokens, '-'));
+   ASSERT_TRUE(U"a-b-c-d" == mzlib::u32join(tokens, '-'));
 }
 
 TEST(join, set_of_wstringsviews_delimiter_char_dash)
@@ -82,11 +82,11 @@ TEST(join, set_of_wstringsviews_delimiter_char_dash)
 TEST(join, set_of_u16stringviews_delimiter_char_dash)
 {
    std::set<std::u16string_view> tokens{u"a", u"b", u"c", u"d"};
-   ASSERT_EQ(u"a-b-c-d", mzlib::u16join(tokens, '-'));
+   ASSERT_TRUE(u"a-b-c-d" == mzlib::u16join(tokens, '-'));
 }
 
 TEST(join, set_of_u32stringviews_delimiter_char_dash)
 {
    std::set<std::u32string_view> tokens{U"a", U"b", U"c", U"d"};
-   ASSERT_EQ(U"a-b-c-d", mzlib::u32join(tokens, '-'));
+   ASSERT_TRUE(U"a-b-c-d" == mzlib::u32join(tokens, '-'));
 }
