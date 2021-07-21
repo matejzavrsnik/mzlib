@@ -51,6 +51,7 @@ concept readable_string =
    requires (String s)
    {   
       s[0];
+      { s.length() } -> std::integral;
    };
    
 template<typename String>

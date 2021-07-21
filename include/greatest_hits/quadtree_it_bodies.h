@@ -30,7 +30,7 @@ public:
 
    explicit quadtree_it_bodies (iterator_type it) : 
       m_body_it(it) 
-   { 
+   {
    }
 
    quadtree_it_bodies (quadtree_it_bodies&&) = default;

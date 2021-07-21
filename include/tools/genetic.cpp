@@ -10,7 +10,7 @@
 #include "genetic.h"
 
 // Delete DISABLED_ to see the function in action
-TEST(genetic_tools, DISABLED_mendel_smart_demo) 
+TEST(genetic_tools, DISABLED_mendel_smart_demo)
 {
    std::vector<int> numbers(10);
    

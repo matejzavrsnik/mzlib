@@ -15,6 +15,9 @@ file(GLOB Source
    include/abstract/*.*
    include/apps/*.*
    include/extension/*.*
+   include/extension/libxmlpp/*.*
+   include/extension/sdl/*.*
+   include/extension/imgui/*.*
    include/filesystem/*.*
    include/greatest_hits/*.*
    include/iterators/*.*
@@ -25,7 +28,9 @@ file(GLOB Source
    include/nature/*.*
    include/string/*.*
    include/tools/*.*
+   include/tools/internal/*.*
    )
+
 file(GLOB Runner main.cpp)
 
 set(SOURCES ${Source} ${Runner})

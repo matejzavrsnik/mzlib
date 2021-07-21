@@ -37,7 +37,7 @@ inline void string_replace_all_between (
    for(auto& fence : replace_between)
    {
       int which_one = 0;
-      std::string_view to_fix;
+      std::string to_fix;
       while(
          to_fix = get_substring_between(
             original, 
@@ -52,7 +52,9 @@ inline void string_replace_all_between (
          {
             string_replace(fixed, replace.what, replace.with);
          }
-         string_replace(original, to_fix, fixed);
+         std::string to_fix_with_fences = std::string(fence.open) + to_fix + std::string(fence.close);
+         std::string fixed_with_fences = std::string(fence.open) + fixed + std::string(fence.close);
+         string_replace(original, to_fix_with_fences, fixed_with_fences);
       }
    }
 }

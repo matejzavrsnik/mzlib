@@ -24,10 +24,10 @@ namespace
 
 TEST(string_replace_all_between, demo)
 {
-   std::string html = "<html><p>replace < and > here, but not elsewhere.</p></html>";
+   std::string html = "<html><p>replace < and > here</p><h1>but dont replace < and > here</h1></html>";
    mzlib::string_replace_all_between(html, between_tags, replacements);
    ASSERT_EQ(
-      "<html><p>replace &lt; and &gt; here, but not elsewhere.</p></html>",
+      "<html><p>replace &lt; and &gt; here</p><h1>but dont replace < and > here</h1></html>",
       html);
 }
 
@@ -40,7 +40,25 @@ TEST(string_replace_all_between, many_sections)
       html);
 }
 
+TEST(string_replace_all_between, many_sections_one_isnt_included)
+{
+   std::string html = "<html><p>replace <></p><p>replace <></p><h1>replace <></h1></html>";
+   mzlib::string_replace_all_between(html, between_tags, replacements);
+   ASSERT_EQ(
+      "<html><p>replace &lt;&gt;</p><p>replace &lt;&gt;</p><h1>replace <></h1></html>",
+      html);
+}
+
 TEST(string_replace_all_between, many_sections_many_replacements)
+{
+   std::string html = "<html><p>replace <></p><code>replace <></code></html>";
+   mzlib::string_replace_all_between(html, between_tags, replacements);
+   ASSERT_EQ(
+      "<html><p>replace &lt;&gt;</p><code>replace &lt;&gt;</code></html>",
+      html);
+}
+
+TEST(string_replace_all_between, many_sections_many_replacements_one_repeated)
 {
    std::string html = "<html><p>replace <></p><code>replace <></code><p>replace <></p></html>";
    mzlib::string_replace_all_between(html, between_tags, replacements);
