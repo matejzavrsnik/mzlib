@@ -11,7 +11,7 @@
 
 TEST(all_words_appear, all_appear)
 {
-   std::string in = "\"There was a button,\" Holden said. \"I pushed it.\"";
+   std::string in = R"("There was a button," Holden said. "I pushed it.")";
    std::string from = "There was a button,\" Holden said.";
    ASSERT_TRUE(mzlib::all_words_appear(from, in));
 }

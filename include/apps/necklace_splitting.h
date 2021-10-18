@@ -193,8 +193,8 @@ void generate_puzzles(
 
          auto to_index_in_necklace =
             std::bind(
-               get_index<std::string::iterator>, 
-                  necklace->begin(), 
+               get_index<std::string::iterator>,
+                  necklace->begin(),
                   std::placeholders::_1);
          
          copy_modify(iter_cuts, int_cuts, to_index_in_necklace);
