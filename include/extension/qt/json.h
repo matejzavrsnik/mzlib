@@ -13,6 +13,10 @@
 
 // Needs a bunch of QT includes before this compiles, I am using QJSONDOCUMENT_H, which defined
 // when you include <QJsonDocument> as a hint that QT includes were done.
+// Required includes in target project:
+// #include <QJsonDocument>
+// #include <QJsonArray>
+// #include <QJsonObject>
 #ifdef QJSONDOCUMENT_H
 
 namespace mzlib
