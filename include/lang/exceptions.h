@@ -50,6 +50,7 @@ class invalid_values  : public generic { public: using generic::generic; };
 class not_implemented : public generic { public: using generic::generic; };
 class meaningless     : public generic { public: using generic::generic; };
 class out_of_range    : public generic { public: using generic::generic; };
+class parse_error     : public generic { public: using generic::generic; };
 
 } } // namespace
 
