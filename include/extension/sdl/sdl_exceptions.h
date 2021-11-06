@@ -6,7 +6,7 @@
 //
 
 #ifndef MZLIB_SDL_EXCEPTIONS_H
-#define	MZLIB_SDL_EXCEPTIONS_H
+#define MZLIB_SDL_EXCEPTIONS_H
 
 // if included SDL.h and SDL_image.h from SDL2 library
 #if defined(SDL_h_) || defined(_SDL_IMAGE_H)
