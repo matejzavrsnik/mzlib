@@ -9,6 +9,7 @@
 #define MZLIB_QT_JSON_H
 
 #include "../../lang/exceptions.h"
+#include "../../tools/converters.h"
 #include <string>
 
 // Needs a bunch of QT includes before this compiles, I am using QJSONDOCUMENT_H, which defined
@@ -25,7 +26,7 @@ namespace mzlib
 inline QJsonObject
 get_json_object (const std::wstring& json_string)
 {
-   auto byteArray = QString::fromStdWString(json_string).toUtf8();
+   auto byteArray = mzlib::convert<QByteArray>(json_string);
    QJsonParseError parseError;
    QJsonDocument json_document = QJsonDocument::fromJson(byteArray, &parseError);
    if (parseError.error != QJsonParseError::NoError)
