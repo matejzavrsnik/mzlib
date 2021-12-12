@@ -68,8 +68,44 @@ inline QString convert(
    return QString::fromStdWString(std::wstring(value));
 }
 
+template<>
+inline QString convert(
+   const std::wstring& value)
+{
+   // inefficient but I don't know how else to do it...
+   return QString::fromStdWString(value);
+}
+
+template<>
+inline std::wstring convert(
+   const QByteArray& value)
+{
+   // is QByteArray always UTF8? There is no fromUtf16 ...
+   QString q_string = QString::fromUtf8(value);
+   return q_string.toStdWString();
+}
+
+template<>
+inline QByteArray convert(
+   const std::wstring& value)
+{
+   QByteArray converted = QString::fromStdWString(value).toUtf8();
+   return converted;
+}
 
 #endif // QSTRING_H
+
+#ifdef QJSONVALUE_H
+
+template<>
+inline QJsonValue convert(
+   const std::wstring& value
+   )
+{
+   return QJsonValue(QString::fromStdWString(value));
+}
+
+#endif // QJSONVALUE_H
 
 } // namespace mzlib
 
