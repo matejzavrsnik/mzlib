@@ -9,6 +9,7 @@
 #define MZLIB_CONVERTERS_H
 
 #include <string_view>
+#include <filesystem>
 
 namespace mzlib {
     
@@ -77,6 +78,20 @@ inline QString convert(
 }
 
 template<>
+inline std::filesystem::path convert(
+   const QString& value)
+{
+   return std::filesystem::path{value.toStdWString()};
+}
+
+template<>
+inline QString convert(
+   const std::filesystem::path& path)
+{
+   return QString::fromStdWString(path.wstring());
+}
+
+template<>
 inline std::wstring convert(
    const QByteArray& value)
 {
@@ -86,10 +101,27 @@ inline std::wstring convert(
 }
 
 template<>
+inline std::string convert(
+   const QByteArray& value)
+{
+   // is QByteArray always UTF8? There is no fromUtf16 ...
+   QString q_string = QString::fromUtf8(value);
+   return q_string.toStdString();
+}
+
+template<>
 inline QByteArray convert(
    const std::wstring& value)
 {
    QByteArray converted = QString::fromStdWString(value).toUtf8();
+   return converted;
+}
+
+template<>
+inline QByteArray convert(
+   const std::string& value)
+{
+   QByteArray converted = QString::fromStdString(value).toUtf8();
    return converted;
 }
 

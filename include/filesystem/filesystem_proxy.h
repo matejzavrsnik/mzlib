@@ -30,20 +30,16 @@ public:
 
    // interface to filesystem functionality from mzlib
 
-   virtual std::vector<std::string>
-   get_files(
-      const std::filesystem::path& folder,
-      mzlib::option::recursive recursive,
-      mzlib::option::include_hidden include_hidden) const
+   virtual std::string
+   read_file (const std::string_view filename) const
    {
-      return mzlib::list_files2(folder.generic_string(), recursive, include_hidden);
+      return mzlib::read_file(filename);
    }
 
    virtual std::string
-   read_file (
-      const std::string_view filename) const
+   read_file (const std::filesystem::path& filepath) const
    {
-      return mzlib::read_file(filename);
+      return mzlib::read_file(filepath);
    }
 
    virtual std::string
@@ -56,14 +52,32 @@ public:
    }
 
    virtual std::vector<std::string>
-      read_file_lines(std::string_view filename) const
+   read_file_lines(
+      std::string_view filename) const
    {
       return mzlib::read_file_lines(filename);
+   }
+
+   virtual std::vector<std::string>
+   get_files(
+      const std::filesystem::path& folder,
+      mzlib::option::recursive recursive,
+      mzlib::option::include_hidden include_hidden) const
+   {
+      return mzlib::list_files2(folder.generic_string(), recursive, include_hidden);
    }
 
    virtual void
    save_file (
       const std::string_view filename,
+      const std::string_view content) const
+   {
+      mzlib::save_file(filename, content);
+   }
+
+   virtual void
+   save_file (
+      const std::filesystem::path& filename,
       const std::string_view content) const
    {
       mzlib::save_file(filename, content);

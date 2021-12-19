@@ -24,7 +24,7 @@ namespace mzlib
 {
 
 inline QJsonObject
-get_json_object (const std::wstring& json_string)
+get_json_object (const std::string& json_string)
 {
    auto byteArray = mzlib::convert<QByteArray>(json_string);
    QJsonParseError parseError;
