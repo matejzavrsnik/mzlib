@@ -19,13 +19,13 @@
 namespace mzlib {
 
 // Read file contents and return it in a string
-inline std::string read_file (const std::string_view filename) 
-{
-   std::ifstream filestream(filename.data());
-   std::stringstream buffer;
-   buffer << filestream.rdbuf();
-   return buffer.str();
-}
+//inline std::string read_file (const std::string_view filename)
+//{
+//   std::ifstream filestream(filename.data());
+//   std::stringstream buffer;
+//   buffer << filestream.rdbuf();
+//   return buffer.str();
+//}
 
 inline std::string read_file (const std::filesystem::path& filepath)
 {
@@ -68,13 +68,13 @@ inline std::vector<std::string> read_file_lines(std::string_view filename)
 }
 
 // Save string contents into a file
-inline void save_file (const std::string_view filename, const std::string_view content)
-{
-   std::ofstream out(filename.data());
-   out << content;
-   out.flush();
-   out.close();
-}
+//inline void save_file (const std::string_view filename, const std::string_view content)
+//{
+//   std::ofstream out(filename.data());
+//   out << content;
+//   //out.flush();
+//   out.close();
+//}
 
 inline void save_file (const std::filesystem::path& filename, const std::string_view content)
 {

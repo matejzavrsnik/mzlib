@@ -30,11 +30,11 @@ public:
 
    // interface to filesystem functionality from mzlib
 
-   virtual std::string
-   read_file (const std::string_view filename) const
-   {
-      return mzlib::read_file(filename);
-   }
+   //virtual std::string
+   //read_file (const std::string_view filename) const
+   //{
+   //   return mzlib::read_file(filename);
+   //}
 
    virtual std::string
    read_file (const std::filesystem::path& filepath) const
@@ -67,13 +67,13 @@ public:
       return mzlib::list_files2(folder.generic_string(), recursive, include_hidden);
    }
 
-   virtual void
-   save_file (
-      const std::string_view filename,
-      const std::string_view content) const
-   {
-      mzlib::save_file(filename, content);
-   }
+   //virtual void
+   //save_file (
+   //   const std::string_view filename,
+   //   const std::string_view content) const
+   //{
+   //   mzlib::save_file(filename, content);
+   //}
 
    virtual void
    save_file (
