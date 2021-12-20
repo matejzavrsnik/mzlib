@@ -22,7 +22,7 @@ inline std::mt19937& get_generator()
          .time_since_epoch()
          .count();
    
-   static std::mt19937 generator(seed);
+   static std::mt19937 generator(static_cast<unsigned long>(seed));
    
    return generator;
 }
@@ -33,7 +33,7 @@ T get_random ()
    if constexpr (std::is_integral<T>::value)
    {
       std::mt19937& gen = get_generator();
-      return gen();
+      return static_cast<T>(gen());
    }
    else
    {
@@ -56,11 +56,11 @@ T get_random ()
 inline double get_random_between_0_1 ()
 {
    unsigned random_number = get_random<unsigned>();
-   return (double)random_number / (double)std::mt19937::max();
+   return static_cast<double>(random_number) / static_cast<double>(std::mt19937::max());
 }
  
 template<typename T>
-inline unsigned get_random_between (T from, T to)
+inline T get_random_between (T from, T to)
 {
    const double random_number = get_random_between_0_1();
    return static_cast<T>(random_number * static_cast<double>(to - from) + static_cast<double>(from));
