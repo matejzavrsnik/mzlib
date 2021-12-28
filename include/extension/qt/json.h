@@ -67,6 +67,26 @@ read_string (
    return value;
 }
 
+inline int
+read_int (
+   const QJsonObject& json_object,
+   const QString key
+)
+{
+   QJsonValue json_value = read_json_value(json_object, key);
+
+   if (!json_value.isDouble())
+      throw mzlib::exception::parse_error(
+         std::string("Tried to read ") + key.toStdString() + std::string(" as number, but it isn't a number.")
+      );
+
+   // There is toInt function available, but it doesn't fail if it's not an int. It instead returns default value.
+   // I reckon that in cases where int is expected it's still better to ger rounded int than to get a default value.
+   // Could use the default value as an error value, but perhaps exactly that one will be wanted.
+   int value = static_cast<int>(json_value.toDouble());
+   return value;
+}
+
 inline QJsonArray
 read_array (
    const QJsonObject& json_object,
