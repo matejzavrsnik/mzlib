@@ -50,7 +50,7 @@ read_json_value (
    return json_object.value(key);
 }
 
-inline std::wstring
+inline std::string
 read_string (
    const QJsonObject& json_object,
    const QString key
@@ -63,7 +63,7 @@ read_string (
          std::string("Tried to read ") + key.toStdString() + std::string(" as string, but it isn't a string.")
       );
 
-   std::wstring value = json_value.toString().toStdWString();
+   std::string value = json_value.toString().toStdString();
    return value;
 }
 

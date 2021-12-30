@@ -78,6 +78,22 @@ inline QString convert(
 }
 
 template<>
+inline QString convert(
+   const std::string_view& value)
+{
+   // inefficient but I don't know how else to do it...
+   return QString::fromStdString(std::string(value));
+}
+
+template<>
+inline QString convert(
+   const std::string& value)
+{
+   // inefficient but I don't know how else to do it...
+   return QString::fromStdString(value);
+}
+
+template<>
 inline std::filesystem::path convert(
    const QString& value)
 {
@@ -135,6 +151,14 @@ inline QJsonValue convert(
    )
 {
    return QJsonValue(QString::fromStdWString(value));
+}
+
+template<>
+inline QJsonValue convert(
+   const std::string& value
+)
+{
+   return QJsonValue(QString::fromStdString(value));
 }
 
 #endif // QJSONVALUE_H
