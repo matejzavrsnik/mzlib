@@ -29,6 +29,15 @@ get_if_exists(
    return std::nullopt;
 }
 
+template<typename Key, typename Value>
+bool
+exists(
+   const Key& what,
+   const std::map<Key, Value>& where)
+{
+   return where.find(what) != where.end();
+}
+
 } // namespace
 
 #endif // MZLIB_GET_IF_EXISTS_H
