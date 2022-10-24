@@ -10,7 +10,7 @@
 #ifndef MZLIB_CPUCYCLE_H
 #define	MZLIB_CPUCYCLE_H
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace mzlib { 
 

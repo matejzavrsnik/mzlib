@@ -41,7 +41,7 @@ private:
    {
       tgenome_info info;
       info.genome_size = sizeof(TYPE);
-      info.genome_pointer = reinterpret_cast<char*>(&genome.genome);;
+      info.genome_pointer = reinterpret_cast<char*>(&genome.genome);
       return info;
    }
     

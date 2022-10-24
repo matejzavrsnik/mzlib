@@ -76,7 +76,7 @@ private:
             return true;
          }
          ++region_it;
-      };
+      }
       
       return false;
    }

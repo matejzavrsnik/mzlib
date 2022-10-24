@@ -232,7 +232,7 @@ private:
          m_body_cores->move (body_core.tag, location_final);
          body_core.centre.location = location_final;
          body_properties.velocity = velocity_final;
-      };
+      }
    }
    
    void apply_properties () 

@@ -40,7 +40,7 @@ TEST(all_are_substrings_ci, one_is_not)
 
 TEST(all_are_substrings_ci, empty_full_string)
 {
-   std::string full_string = "";
+   std::string full_string;
    std::vector<std::string> substrings =
    {
       "The Himalayas",
@@ -102,7 +102,7 @@ TEST(none_are_substrings_ci, one_is)
 
 TEST(none_are_substrings_ci, empty_full_string)
 {
-   std::string full_string = "";
+   std::string full_string;
    std::vector<std::string> substrings =
    {
       "The Himalayas",

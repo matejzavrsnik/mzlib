@@ -308,7 +308,7 @@ private:
          case direction::sw: m_child_sw = node; break;
          case direction::se: m_child_se = node; break;
          default: throw exception::meaningless(); break;
-      };
+      }
       node->m_parent = this->shared_from_this(); 
    }
    

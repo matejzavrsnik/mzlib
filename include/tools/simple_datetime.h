@@ -128,12 +128,12 @@ bool operator> (const simple_datetime& lhs, const simple_datetime& rhs)
 bool operator== (const simple_datetime& lhs, const simple_datetime& rhs)
 {
    return
-      lhs.year == lhs.year &
-         lhs.month == lhs.month &&
-         lhs.day == lhs.day &&
-         lhs.hour == lhs.hour &&
-         lhs.minute == lhs.minute &&
-         lhs.second == lhs.second;
+      lhs.year == rhs.year &
+         lhs.month == rhs.month &&
+         lhs.day == rhs.day &&
+         lhs.hour == rhs.hour &&
+         lhs.minute == rhs.minute &&
+         lhs.second == rhs.second;
 }
 
 bool operator!= (const simple_datetime& lhs, const simple_datetime& rhs)

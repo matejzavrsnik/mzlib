@@ -154,7 +154,6 @@ public:
             break;
          default:
             throw exception::not_implemented();
-            break;
       }
       screen_rectangle<VectorT> new_rectangle(new_top_left, new_bottom_right);
       return new_rectangle;
@@ -212,7 +211,6 @@ public:
             break;
          default:
             throw exception::not_implemented();
-            break;
       }
       screen_rectangle<VectorT> new_rectangle;
       new_rectangle.set_top_left(new_top_left);

@@ -55,7 +55,7 @@ inline std::ostream& operator<< (std::ostream& os, const mzlib::direction& direc
    case mzlib::direction::centre: os << "centre"; break;
 
    default: os << "unknown"; break;
-   };
+   }
    return os;
 }
 

@@ -23,9 +23,9 @@ protected:
          m_should_test_filesystem = true;
       }
    }
-   virtual ~fixture_aggregated_file_monitor() {}
+   ~fixture_aggregated_file_monitor() override = default;
    
-   virtual void SetUp() 
+   void SetUp() override
    {
       m_test_file1 = m_test_dir + "/temp_file1";
       std::string sample_content = "I must not fear.";
@@ -35,7 +35,7 @@ protected:
       sample_content = "Fear is the little-death that brings total obliteration.";
       mzlib::save_file (m_test_file2, sample_content);
    }
-   virtual void TearDown() 
+   void TearDown() override
    {
       std::remove (m_test_file1.c_str());
       std::remove (m_test_file2.c_str());

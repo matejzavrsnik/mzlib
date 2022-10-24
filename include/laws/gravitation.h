@@ -28,7 +28,7 @@ public:
    
    void solve_for_force ()
    {
-      VectorT m1_force = {0};
+      VectorT m1_force;
       double sqare_distance = vector::sqr_distance(m_1.value().location, m_2.value().location); 
       m1_force = vector::normalise(vector::direction(m_1.value().location, m_2.value().location)); 
       m1_force *= m_1.value().mass * m_2.value().mass; // masses
@@ -42,7 +42,7 @@ public:
    // grasp second order polynomials like in accelerated motion or gravity force.
    void solve_for_fun_force ()
    {
-      VectorT m1_force = {0};
+      VectorT m1_force;
       // todo: what when the distance is zero?
       double sqare_distance = vector::sqr_distance(m_1.value().location, m_2.value().location); 
       m1_force = vector::normalise(vector::direction( m_1.value().location, m_2.value().location)); 

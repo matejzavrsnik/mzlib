@@ -43,12 +43,12 @@ TEST(datashelf_foundation, node_add_node)
    node->add_node("name2", "value2");
    
    auto node1 = std::find_if (node->nodes().begin(), node->nodes().end(), 
-      [] (std::shared_ptr<mzlib::ds::node> n)
+      [] (const std::shared_ptr<mzlib::ds::node>& n)
       {
          return n->name() == "name1";
       });
    auto node2 = std::find_if (node->nodes().begin(), node->nodes().end(), 
-      [] (std::shared_ptr<mzlib::ds::node> n)
+      [] (const std::shared_ptr<mzlib::ds::node>& n)
       {
          return n->name() == "name2";
       });
@@ -83,9 +83,9 @@ TEST(datashelf_foundation, node_add_node_returns_new_node)
    std::shared_ptr<mzlib::ds::node> node = 
       std::make_shared<mzlib::ds::node>();
    auto new_node = node->add_node("name1", "value1");
-   
-   auto node1 = std::find_if (node->nodes().begin(), node->nodes().end(), 
-      [] (std::shared_ptr<mzlib::ds::node> n)
+
+   auto node1 = std::find_if (node->nodes().begin(), node->nodes().end(),
+      [] (const std::shared_ptr<mzlib::ds::node>& n)
       {
          return n->name() == "name1";
       });
@@ -101,12 +101,12 @@ TEST(datashelf_foundation, node_add_attribute)
    node->add_attribute("name2", "value2");
    
    auto attr1 = std::find_if (node->attributes().begin(), node->attributes().end(), 
-      [] (std::shared_ptr<mzlib::ds::attribute> n)
+      [] (const std::shared_ptr<mzlib::ds::attribute>& n)
       {
          return n->name() == "name1";
       });
    auto attr2 = std::find_if (node->attributes().begin(), node->attributes().end(), 
-      [] (std::shared_ptr<mzlib::ds::attribute> n)
+      [] (const std::shared_ptr<mzlib::ds::attribute>& n)
       {
          return n->name() == "name2";
       });
@@ -127,7 +127,7 @@ TEST(datashelf_foundation, node_add_attribute_returns_attribute)
    auto new_attr = node->add_attribute("name1", "value1");
    
    auto attr = std::find_if (node->attributes().begin(), node->attributes().end(), 
-      [] (std::shared_ptr<mzlib::ds::attribute> n)
+      [] (const std::shared_ptr<mzlib::ds::attribute>& n)
       {
          return n->name() == "name1";
       });

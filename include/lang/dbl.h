@@ -36,7 +36,7 @@ public:
       return *this;
    }
         
-   operator bool () const 
+   explicit operator bool () const
    {
       const double delta = std::abs(m_val-m_compared_to);
       const double magnitude_candidate = std::abs(m_val+m_compared_to);
@@ -46,7 +46,7 @@ public:
       return delta < allowed_delta || delta < std::numeric_limits<double>::min();
    }
         
-   bool within_epsilon (double eps = 1e-10) const 
+   [[nodiscard]] bool within_epsilon (double eps = 1e-10) const
    {
       return std::abs(m_val-m_compared_to) <= eps;
    }

@@ -47,7 +47,7 @@ public:
       create_plot(points);
    }
    
-   const std::vector<mzlib::point2d>& get() const
+   [[nodiscard]] const std::vector<mzlib::point2d>& get() const
    {
       return m_average_plot;
    }
@@ -83,7 +83,7 @@ private:
    void create_plot(
       const std::map<double, double>& average_points)
    {
-      for(const std::pair<double,double>& average_point : average_points)
+      for(const std::pair<double, double> average_point : average_points)
       {
          m_average_plot.push_back(convert<mzlib::point2d>(average_point));
       }

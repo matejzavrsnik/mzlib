@@ -27,12 +27,15 @@ public:
    {
    }
    
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "google-explicit-constructor"
    // create from option
    // cppcheck-suppress noExplicitConstructor
-   binary_option (named_options named_value) : 
+   binary_option (named_options named_value) :
       m_named_value(named_value)
    {
    }
+#pragma clang diagnostic pop
    
    // compare to option
    // cppcheck-suppress noExplicitConstructor
@@ -41,18 +44,25 @@ public:
       return m_named_value == named_value;
    }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "clion-misra-cpp2008-12-1-3"
+#pragma ide diagnostic ignored "google-explicit-constructor"
    // convert from bool
    // cppcheck-suppress noExplicitConstructor
    binary_option (bool boolean_value) :
       m_named_value(boolean_value ? yes : no)
    {
    }
+#pragma clang diagnostic pop
    
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "google-explicit-constructor"
    // convert to bool
    operator bool () const
    {
       return m_named_value == yes;
    }
+#pragma clang diagnostic pop
 
 };
 

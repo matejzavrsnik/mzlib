@@ -14,9 +14,9 @@ class fixture_ds_extended : public ::testing::Test
 
 protected:
 
-   fixture_ds_extended () {}
-   virtual ~fixture_ds_extended () {}
-   virtual void SetUp () 
+   fixture_ds_extended () = default;
+   ~fixture_ds_extended () override {}
+   void SetUp () override
    {
       m_shelf = std::make_shared<mzlib::ds::node>();
       m_shelf->set_name("shelf");
@@ -48,7 +48,7 @@ protected:
          m_book2->add_node("author", "Pierce Brown");
    }
    
-   virtual void TearDown () {}
+   void TearDown () override {}
    
    std::shared_ptr<mzlib::ds::node> m_shelf;
    std::shared_ptr<mzlib::ds::node> m_book1;

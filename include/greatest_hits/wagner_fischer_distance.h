@@ -29,7 +29,7 @@ int wagner_fischer_distance (const TYPE& str1, const TYPE& str2)
    for(size_t i = 1; i<str1.size()+1; i++) {
       // Some maintenance due to the fact there are only two lines available
       prev_row = curr_row;
-      std::fill (curr_row.begin(), curr_row.end(), 0);;
+      std::fill (curr_row.begin(), curr_row.end(), 0);
       curr_row [0] = i;
       
       for(size_t j = 1; j<str2.size()+1; j++) {

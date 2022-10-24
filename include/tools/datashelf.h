@@ -11,6 +11,7 @@
 #include "../iterators/get_random.h"
 #include "../string/is_just_whitespace.h"
 
+#include <utility>
 #include <vector>
 #include <memory> // for smart ptrs
 #include <algorithm>
@@ -23,8 +24,7 @@
 // easy to persist that back on the xml file, either during the process
 // or in the end.
 
-namespace mzlib {
-namespace ds {
+namespace mzlib::ds {
    
 class base
 {
@@ -36,18 +36,18 @@ private:
    
 public:
    
-   base(std::string_view name = "", std::string_view value = "") :
+   explicit base(std::string_view name = "", std::string_view value = "") :
       m_name(name),
       m_value(value)
    {
    }
    
-   std::string_view name() const
+   [[nodiscard]] std::string_view name() const
    {
       return m_name;
    }
    
-   std::string_view value() const
+   [[nodiscard]] std::string_view value() const
    {
       return m_value;
    }
@@ -62,17 +62,17 @@ public:
       m_value = value;
    }
    
-   bool has_empty_name() const
+   [[nodiscard]] bool has_empty_name() const
    {
       return (m_name.empty()  || mzlib::is_just_whitespaces(m_name));
    }
 
-   bool has_empty_value() const
+   [[nodiscard]] bool has_empty_value() const
    {
       return (m_value.empty()  || mzlib::is_just_whitespaces(m_value));
    }
 
-   bool is_empty() const
+   [[nodiscard]] bool is_empty() const
    {
       return (has_empty_name() && has_empty_value());
    }
@@ -85,7 +85,7 @@ class attribute : public base
    
 public:
    
-   static const std::shared_ptr<attribute> empty()
+   static std::shared_ptr<attribute> empty()
    {
       return std::make_shared<attribute>();
    }
@@ -105,17 +105,17 @@ public:
    
    using iterator = std::vector<std::shared_ptr<node>>::iterator;
 
-   static const std::shared_ptr<node> empty()
+   static std::shared_ptr<node> empty()
    {
       return std::make_shared<node>();
    }
    
-   node(
+   explicit node(
       std::string_view name = "", 
       std::string_view value = "", 
       std::shared_ptr<node> parent = nullptr) :
          base(name, value), 
-         m_parent(parent)
+         m_parent(std::move(parent))
    {
    }
    
@@ -167,7 +167,7 @@ using pattribute = std::shared_ptr<attribute>;
 
 
 inline std::vector<std::shared_ptr<node>> get_peers(
-   std::shared_ptr<node> the_node)
+   const std::shared_ptr<node>& the_node)
 {
    std::vector<std::shared_ptr<node>> no_peers;
    if (the_node == nullptr) return no_peers;
@@ -197,7 +197,7 @@ inline std::shared_ptr<node> find_next_of(
    
    auto this_node_it = std::find_if(
       all_nodes.begin(), all_nodes.end(),
-      [&](std::shared_ptr<node> n) {
+      [&](const std::shared_ptr<node>& n) {
          return n == this_node;
       });
 
@@ -213,7 +213,7 @@ inline std::shared_ptr<node> find_next_of(
 }
 
 inline std::shared_ptr<node> first(
-   std::vector<std::shared_ptr<node>> all_nodes, 
+   const std::vector<std::shared_ptr<node>>& all_nodes,
    std::string_view name)
 {
    for(auto n : all_nodes) {
@@ -225,14 +225,14 @@ inline std::shared_ptr<node> first(
 }
 
 inline std::shared_ptr<node> first_with_attribute(
-   std::vector<std::shared_ptr<node>> all_nodes, 
+   const std::vector<std::shared_ptr<node>>& all_nodes,
    std::string_view node_name,
    std::string_view attr_name,
    std::string_view attr_value)
 {
    for(auto n : all_nodes) {
       if(n->name() == node_name) {
-         for(auto a : n->attributes()) {
+         for(const auto& a : n->attributes()) {
             if(a->name() == attr_name && a->value() == attr_value) {
                return n;
             }
@@ -248,15 +248,15 @@ inline std::shared_ptr<node> random (
    decltype(get_random_element<typename node::iterator>) rnd = 
       get_random_element<typename node::iterator>)
 {
-   auto namesakes = filter_by_name(all_nodes, name);
+   auto namesakes = filter_by_name(std::move(all_nodes), name);
 
-   if (namesakes.size() == 0)
+   if (namesakes.empty())
       return node::empty();
 
    return *rnd(namesakes.begin(), namesakes.end());
 }
 
-inline std::shared_ptr<node> next (std::shared_ptr<node> the_node)
+inline std::shared_ptr<node> next (const std::shared_ptr<node>& the_node)
 {
    auto all_peers = get_peers(the_node);
    auto namesakes = filter_by_name(all_peers, the_node->name());
@@ -264,7 +264,7 @@ inline std::shared_ptr<node> next (std::shared_ptr<node> the_node)
 }
 
 inline std::shared_ptr<attribute> get_attribute (
-   std::shared_ptr<node> the_node,
+   const std::shared_ptr<node>& the_node,
    std::string_view name)
 {
    auto all_attributes = the_node->attributes();
@@ -272,7 +272,7 @@ inline std::shared_ptr<attribute> get_attribute (
    auto attribute_it = std::find_if(
       all_attributes.begin(), 
       all_attributes.end(),
-      [&name] (const std::shared_ptr<attribute> a) {
+      [&name] (const std::shared_ptr<attribute>& a) {
          return a->name() == name;
       });
       
@@ -283,7 +283,7 @@ inline std::shared_ptr<attribute> get_attribute (
 }
 
 inline std::shared_ptr<attribute> add_or_edit_attribute(
-   std::shared_ptr<node> the_node,
+   const std::shared_ptr<node>& the_node,
    std::string_view attribute_name, 
    std::string_view attribute_value)
 {
@@ -295,7 +295,7 @@ inline std::shared_ptr<attribute> add_or_edit_attribute(
 }
 
 inline std::shared_ptr<attribute> get_or_add_attribute(
-   std::shared_ptr<node> the_node,
+   const std::shared_ptr<node>& the_node,
    std::string_view attribute_name, 
    std::string_view attribute_value)
 {
@@ -305,7 +305,6 @@ inline std::shared_ptr<attribute> get_or_add_attribute(
    return att;
 }
 
-} // namespace ds
 } // namespace mzlib
 
 #endif // MZLIB_DATASHELF_FOUNDATION_H
