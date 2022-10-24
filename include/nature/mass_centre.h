@@ -16,8 +16,8 @@ namespace mzlib {
 template <class VectorT>
 struct mass_centre
 {
-   VectorT location;
-   double mass;
+   VectorT location{0};
+   double mass{0};
 };
 
 template<class VectorT>
