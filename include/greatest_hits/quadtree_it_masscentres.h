@@ -18,8 +18,15 @@
 namespace mzlib {
 
 // Const iterator through all mass centres
-class quadtree_it_masscentres : public std::iterator<std::forward_iterator_tag, body_core2d>
+class quadtree_it_masscentres
 {
+public:
+
+   using iterator_category = std::forward_iterator_tag;
+   using value_type = body_core2d;
+   // using difference_type = meaningless in this case
+   using pointer = body_core2d*;
+   using reference = body_core2d&;
 
 private:
 

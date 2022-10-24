@@ -32,7 +32,7 @@ private:
    void generate_initial_iterators(
       const Iterator begin, 
       const Iterator end, 
-      size_t num)
+      std::size_t num)
    {
       for(auto it = begin; it != end && num > 0; ++it, --num)
          m_iterators.push_back(it);
@@ -41,8 +41,8 @@ private:
    void generate_end_iterators(
       Iterator begin, 
       const Iterator end,
-      const size_t distance,
-      const size_t count)
+      const std::size_t distance,
+      const std::size_t count)
    {
       std::advance(begin, distance - count);
       do
@@ -92,11 +92,11 @@ public:
    nested_iteration(
       const Iterator begin, 
       const Iterator end, 
-      const size_t count) 
+      const std::size_t count)
       :
       m_end_flag(false)
    {
-      const size_t distance = std::distance(begin, end);
+      const std::size_t distance = std::distance(begin, end);
       if (count > distance) 
       {
          m_end_flag = true;

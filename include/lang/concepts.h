@@ -18,33 +18,31 @@ namespace mzlib {
 
 template<class T> 
 concept incrementable =
-   requires (T a) { 
-      { ++a } -> std::same_as<T>;
+   requires (T a) {
+      { ++a } -> std::same_as<T&>;
       { a++ } -> std::same_as<T>;
       { a+1 } -> std::same_as<T>;
-      { a+=1 };
+      { a+=1 } -> std::same_as<T&>;
 };
 
 template<typename T>
 concept assignable =
-   requires (T a, T b) { 
+   requires (T a, T b) {
       { a = b } -> std::same_as<T>;
 };
    
 template<class T>
 concept dereferencable =
-   requires (T a) {
-      { *a } -> std::same_as<T>;
-};
+   requires (T a) { *a; };
 
 // TODO: specialise iterable 
 template<typename T>
 concept iterable =
    requires (T a) {
-      incrementable<T> && 
-      assignable<T> &&
-      dereferencable<T>;
-};
+         requires incrementable<T>;
+         requires dereferencable<T>;
+         requires assignable<decltype(*a)>;
+      };
 
 template<typename String>
 concept readable_string =

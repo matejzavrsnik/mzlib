@@ -18,7 +18,7 @@ namespace mzlib {
 // Const iterator through all bodies
 // The purpouse if this custom iterator is to peel object reference out of 
 // unique_ptr structure that is actually stored in vector
-class quadtree_it_bodies : public std::iterator<std::forward_iterator_tag, body_core2d>
+class quadtree_it_bodies
 {
 
 private:
@@ -27,6 +27,12 @@ private:
    iterator_type m_body_it;
 
 public:
+
+   using iterator_category = std::forward_iterator_tag;
+   using value_type = body_core2d;
+   // using difference_type = meaningless in this case
+   using pointer = body_core2d*;
+   using reference = body_core2d&;
 
    explicit quadtree_it_bodies (iterator_type it) : 
       m_body_it(it) 

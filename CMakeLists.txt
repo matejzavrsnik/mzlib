@@ -1,7 +1,9 @@
 cmake_minimum_required (VERSION 3.19)
 project (mzlib)
 
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 23)
+
+add_compile_options(-fconcepts-diagnostics-depth=5)
 
 # Set output directory of all projects to be somewhere sensible
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

@@ -22,9 +22,9 @@ using type = std::vector<std::vector<T>>;
    
 template<typename T>
 void enlarge(
-   type<T>& vv, 
-   size_t row_count, 
-   size_t col_count)
+   type<T>& vv,
+   std::size_t row_count,
+   std::size_t col_count)
 {
    if(vv.size()<row_count)
       vv.resize(row_count);
@@ -40,8 +40,8 @@ void enlarge(
 // moving.
 template<typename T>
 type<T> construct(
-   size_t row_count, 
-   size_t col_count,
+   std::size_t row_count,
+   std::size_t col_count,
    const T& val)
 {
    type<T> v(row_count, std::vector<T>(col_count, val));
@@ -51,8 +51,8 @@ type<T> construct(
 template<typename T>
 T& access(
    type<T>& vv,
-   size_t row_index, 
-   size_t col_index)
+   std::size_t row_index,
+   std::size_t col_index)
 {
    // Nothing guarantees it's correct height so it needs
    // to be enlarged to this size just in case.
