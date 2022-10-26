@@ -18,5 +18,6 @@
 .directory
 *.original
 *.dia~
+*.backup
 
 
