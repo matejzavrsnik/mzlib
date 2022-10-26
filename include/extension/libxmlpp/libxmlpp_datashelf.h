@@ -46,11 +46,11 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
    //todo: this part is basically conversion. make function for that
    if (!my_node->has_empty_name()) {
       xmlpp_element->set_name(
-         convert<Glib::ustring>(my_node->name()));
+         convert<xmlpp::ustring>(my_node->name()));
    }
    if (!my_node->has_empty_value()) {
       xmlpp_element->set_first_child_text(
-         convert<Glib::ustring>(my_node->value()));
+         convert<xmlpp::ustring>(my_node->value()));
    }
 
    // read attributes if any
@@ -59,8 +59,8 @@ inline void fill_xmlpp_node_from_mine(xmlpp::Element* xmlpp_element, const ds::n
       std::string_view name = my_attribute->name();
       std::string_view value = my_attribute->value();
       xmlpp_element->set_attribute(
-         convert<Glib::ustring>(name), 
-         convert<Glib::ustring>(value));
+         convert<xmlpp::ustring>(name),
+         convert<xmlpp::ustring>(value));
    }
 
    // iteratively read child nodes if any

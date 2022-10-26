@@ -32,7 +32,7 @@ bool none_are_subsentences_ci(
    const iterable auto subs_begin,
    const iterable auto subs_end)
 {
-   for(auto subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
+   for(iterable auto subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
       if (is_subsentence_ci(str, *subs_it)) {
          return false;
       }
