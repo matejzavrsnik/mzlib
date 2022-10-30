@@ -152,8 +152,8 @@ private:
    
   
    std::string m_image_path;
-   uint m_image_width = 0;
-   uint m_image_height = 0;
+   unsigned int m_image_width = 0;
+   unsigned int m_image_height = 0;
    SDL_Renderer* m_renderer = nullptr;
    SDL_Texture* m_texture = nullptr;
            

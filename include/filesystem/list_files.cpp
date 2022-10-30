@@ -11,6 +11,9 @@
 #include "../../options.h"
 #include <algorithm>
 
+//  Windows
+#ifndef _WIN32
+
 class fixture_list_files: public ::testing::Test 
 {
 
@@ -106,3 +109,5 @@ TEST_F(fixture_list_files, list_files_norecursive_hidden)
       ASSERT_TRUE(true);
    }
 }
+
+#endif

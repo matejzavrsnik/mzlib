@@ -46,7 +46,7 @@ word_match is_word_in_dictionary_partial(
    word_match match_result;
    // matches entries that start with word
    std::regex txt_regex ("\\b(" + std::string(word) + ")([^ ]*)");   
-   uint count_matches = 0;
+   unsigned int count_matches = 0;
    Iterator current_it = begin;
    
    while(current_it != end) {

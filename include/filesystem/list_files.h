@@ -10,12 +10,17 @@
 
 #include "is_meta_directory.h"
 #include "../lang/binary_options.h"
-#include <dirent.h>
+//  Windows
+#ifndef _WIN32
+   #include <dirent.h>
+#endif
 #include <string_view>
 #include <vector>
 
 namespace mzlib {
 
+//  Windows
+#ifndef _WIN32
 namespace old {
 // List all files in a directory
 inline std::vector<std::string> list_files (std::string_view directory, bool include_hidden = true)
@@ -69,6 +74,7 @@ list_files2 (const std::string_view directory, option::recursive recursive = opt
    }
    return files;
 }
+#endif
 
 // defined in boost/filesystem.hpp
 // if project includes that, it will see, compile, and be able to use the following functions

@@ -17,8 +17,8 @@ template<class Container, class Letter, class Iterator>
 std::optional<Container> create_equidistant_sequence(
    Iterator begin,
    Iterator end,
-   uint desired_sequence_length,
-   const uint elements_to_skip_between,
+   unsigned int desired_sequence_length,
+   const unsigned int elements_to_skip_between,
    // cppcheck-suppress passedByValue
    std::function<bool(const Letter&)> counts_as_letter)
 {

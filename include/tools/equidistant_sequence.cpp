@@ -19,8 +19,8 @@ TEST(create_equidistant_sequence, basic_forward)
    struct t_cases {
       std::string::iterator begin;
       std::string::iterator end;
-      uint desired_sequence_length;
-      uint letters_to_skip_in_between;
+      unsigned int desired_sequence_length;
+      unsigned int letters_to_skip_in_between;
       std::function<bool(const char&)> counts_as_letter;
       std::string expected_result;
    } test_cases_forward[] = {
@@ -68,8 +68,8 @@ TEST(create_equidistant_sequence, basic_backward)
    struct t_cases {
       std::string::reverse_iterator begin;
       std::string::reverse_iterator end;
-      uint desired_sequence_length;
-      uint letters_to_skip_in_between;
+      unsigned int desired_sequence_length;
+      unsigned int letters_to_skip_in_between;
       std::function<bool(const char&)> counts_as_letter;
       std::string expected_result;
    } test_cases_backward[] = {

@@ -12,7 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <string_view>
-#include <bits/stl_vector.h>
+#include <vector>
 
 namespace mzlib {
 

@@ -10,6 +10,7 @@
 #include "gtest/gtest.h"
 #include <vector>
 #include <string_view>
+#include <array>
 
 TEST(starts_with, full_collection_larger_does_begin_with_sub)
 {

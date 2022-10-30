@@ -24,7 +24,7 @@ TEST(get_index_from_coordinates, basic)
 
 TEST(get_coordinates_from_index, basic)
 {
-   using coor = std::array<uint,2>;
+   using coor = std::array<unsigned int,2>;
    ASSERT_EQ(coor({0,0}), mzlib::get_coordinates_from_index(0,3));
    ASSERT_EQ(coor({1,0}), mzlib::get_coordinates_from_index(1,3));
    ASSERT_EQ(coor({2,0}), mzlib::get_coordinates_from_index(2,3));

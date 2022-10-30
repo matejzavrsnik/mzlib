@@ -12,6 +12,7 @@
 #include "../tools/all_equal.h"
 
 #include <string>
+#include <array>
 
 namespace mzlib {
 

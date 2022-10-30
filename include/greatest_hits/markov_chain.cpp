@@ -9,6 +9,8 @@
 
 #include "markov_chain.h"
 
+#include <array>
+
 TEST(markov_chain_builder, basic_test) 
 {
    mzlib::markov_chain_builder<int> markov_chain_builder;

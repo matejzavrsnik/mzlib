@@ -12,7 +12,6 @@
 std::tm create_some_time()
 {
    std::tm some_time;
-   some_time.tm_gmtoff = 0;	
    some_time.tm_hour = 19;	
    some_time.tm_isdst = 0;	
    some_time.tm_mday = 10;	
@@ -21,8 +20,12 @@ std::tm create_some_time()
    some_time.tm_sec = 21;	
    some_time.tm_wday = 0;
    some_time.tm_yday = 40;	
-   some_time.tm_year = 119;	
+   some_time.tm_year = 119;
+//  Windows
+#ifndef _WIN32
+   some_time.tm_gmtoff = 0;
    some_time.tm_zone = "GMT";
+#endif
    return some_time;
 }
 

@@ -44,22 +44,22 @@ public:
       return m_genome_pool[0].penalty;
    }
     
-   void set_survivers_count (uint survivers_count)
+   void set_survivers_count (unsigned int survivers_count)
    {
       m_survivers_count = survivers_count;
    }
     
-   uint get_survivers_count () const
+   unsigned int get_survivers_count () const
    {
       return m_survivers_count;
    }
     
-   void set_mutation_rate (uint mutation_rate)
+   void set_mutation_rate (unsigned int mutation_rate)
    {
       m_mutation_rate = mutation_rate;
    }
     
-   uint get_mutation_rate () const
+   unsigned int get_mutation_rate () const
    {
       return m_mutation_rate;
    }
@@ -139,8 +139,8 @@ private:
    }
 
    std::vector<tgenome> m_genome_pool;
-   uint m_mutation_rate = 1; // how many bits to mutate
-   uint m_survivers_count = 1; // how many genomes should survive generation and multiply
+   unsigned int m_mutation_rate = 1; // how many bits to mutate
+   unsigned int m_survivers_count = 1; // how many genomes should survive generation and multiply
    ifitness_function m_fitness_function;
    
 };

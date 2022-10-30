@@ -5,6 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
+#include <algorithm>
+
 #ifndef MZLIB_TRANSFORM_TO_VALUES_H
 #define MZLIB_TRANSFORM_TO_VALUES_H
 

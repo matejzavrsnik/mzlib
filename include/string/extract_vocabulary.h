@@ -11,6 +11,7 @@
 #include "trim_nonalpha.h"
 #include "split_on_punctuation.h"
 #include "../tools/add_to_tally.h"
+#include <algorithm>
 
 namespace mzlib {
 

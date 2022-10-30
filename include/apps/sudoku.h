@@ -9,10 +9,12 @@
 #define MZLIB_SUDOKU_H
 
 #include "../tools/index_coordinate_conversions.h"
+
 #include <vector>
 #include <iostream>
 #include <initializer_list>
 #include <algorithm>
+#include <array>
 
 namespace mzlib {
    
@@ -22,7 +24,7 @@ class sudoku
 public:
    
    using puzzle = std::vector<short>;
-   using cell_coordinates = std::array<uint, 2>;
+   using cell_coordinates = std::array<unsigned int, 2>;
    const short has_no_value = 0;
     
    explicit sudoku(const std::initializer_list<short>& puzzle)
@@ -93,7 +95,7 @@ private:
    
    void simple_out () const
    {
-      for(uint i=0; i<80; ++i) {
+      for(unsigned int i=0; i<80; ++i) {
          if(m_puzzle[i] == 0) break;
          std::cout << m_puzzle[i];
          if((i+1)%3==0) std::cout << " ";
@@ -137,9 +139,9 @@ private:
    
    bool is_number_repeated_in_row_or_column(cell_coordinates coordinates) const
    {
-      uint i = coordinates[0];
-      uint j = coordinates[1];
-      for(uint k=0; k<9; ++k)
+      unsigned int i = coordinates[0];
+      unsigned int j = coordinates[1];
+      for(unsigned int k=0; k<9; ++k)
       {
          if( ( k != i && get_cell({k,j}) == get_cell(coordinates) ) ||
              ( k != j && get_cell({i,k}) == get_cell(coordinates) ) ) 
@@ -152,20 +154,20 @@ private:
    
    bool is_number_repeated_inside_square(cell_coordinates coordinates) const
    {
-      uint i = coordinates[0];
-      uint j = coordinates[1];
+      unsigned int i = coordinates[0];
+      unsigned int j = coordinates[1];
       // which square in sudoku do these coordinate fall into?
       int row = i / 3;
       int col = j / 3;
       // what are the edges of this square?
-      uint row_from, row_to, col_from, col_to;
+      unsigned int row_from, row_to, col_from, col_to;
       row_from = row*3;
       row_to = row_from + 3 - 1;
       col_from = col*3;
       col_to = col_from + 3 - 1;
       // is there a number repeated inside this square?
-      for( uint k = row_from; k <= row_to; k++ ) {
-         for ( uint l = col_from; l <= col_to; l++ ) {
+      for( unsigned int k = row_from; k <= row_to; k++ ) {
+         for ( unsigned int l = col_from; l <= col_to; l++ ) {
             if( k != i && l != j && get_cell({k,l}) == get_cell(coordinates) ) {
                return true;
             }
@@ -185,8 +187,8 @@ private:
 
 inline bool operator== (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzle2)
 {
-   for(uint j=0; j<9; ++j) {
-      for(uint i=0; i<9; ++i) {
+   for(unsigned int j=0; j<9; ++j) {
+      for(unsigned int i=0; i<9; ++i) {
          mzlib::sudoku::cell_coordinates coordinates{i,j};
          if(puzzle1.get_cell(coordinates) != puzzle2.get_cell(coordinates)) {
             return false;
@@ -203,8 +205,8 @@ inline bool operator!= (const mzlib::sudoku& puzzle1, const mzlib::sudoku& puzzl
 
 inline std::ostream& operator<< (std::ostream& os, const mzlib::sudoku& puzzle)
 {
-   for(uint j=0; j<9; ++j) {
-      for(uint i=0; i<9; ++i) {
+   for(unsigned int j=0; j<9; ++j) {
+      for(unsigned int i=0; i<9; ++i) {
          short val = puzzle.get_cell({i,j});
          if(i==0) {
             os << std::endl;

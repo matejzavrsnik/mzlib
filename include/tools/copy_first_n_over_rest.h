@@ -13,7 +13,7 @@ namespace mzlib {
 template<class T> void copy_first_n_over_rest (T& v, size_t n)
 {
    if (n >= v.size()) return;
-   for (uint to = n, from = 0; to < v.size(); ++to, from = to % n) {
+   for (unsigned int to = n, from = 0; to < v.size(); ++to, from = to % n) {
       v[to] = v[from];
    }
 }
