@@ -12,6 +12,7 @@
 #include <initializer_list>
 #include <array>
 #include <ostream>
+#include <memory> // for unique_ptr
 
 #include "../lang/dbl.h"
 #include "../laws/vector_operations.h"
@@ -216,6 +217,8 @@ using vector2d = vector<double, 2>;
 using vector3d = vector<double, 3>;
 using point2d  = vector<double, 2>;
 using point3d  = vector<double, 3>;
+using coordinates2d  = vector<long, 2>;
+using coordinates3d  = vector<long, 3>;
 
 // convenient values
 

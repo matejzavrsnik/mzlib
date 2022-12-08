@@ -79,7 +79,7 @@ public:
       return height.value();
    }
    
-   bool is_in (const vector2d& location) const
+   bool is_in (const VectorT& location) const
    {  
       if (location[0] >  top_left.value()[0] && 
           location[1] >  top_left.value()[1] &&   // left and top are exclusive
@@ -90,6 +90,15 @@ public:
       }
       
       return false;
+   }
+
+   inline bool is_in_inclusive(const VectorT& location) const
+   {
+      return (
+         location[0] >= top_left.value()[0] &&
+            location[0] <= bottom_right.value()[0] &&
+            location[1] >= top_left.value()[1] &&
+            location[1] <= bottom_right.value()[1]);
    }
    
    VectorT solve_for_centre_point () const

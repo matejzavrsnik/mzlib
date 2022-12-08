@@ -82,13 +82,59 @@ TEST_F(fixture_law_screen_rectangle, is_in)
       { 500, -500, false}, // top-right direction
       {   0, -500, false}  // centre-top direction 
    };
-   
+
    for (auto coor : coordinates_of_interest)
    {
 
       ASSERT_EQ(coor.should_be_in, law.is_in({coor.x, coor.y})) 
          << "for coordinates: " << coor.x << "," << coor.y;
    }
+}
+
+TEST_F(fixture_law_screen_rectangle, is_in_can_work_with_integer_vectors)
+{
+   mzlib::screen_rectangle<mzlib::vector<long, 2>> rect{{0,0},{1,1}};
+   mzlib::law::screen_rectangles<mzlib::vector<long, 2>> law;
+   law.consider(rect);
+
+   ASSERT_FALSE(law.is_in({0,0}));
+   ASSERT_FALSE(law.is_in({0,1}));
+   ASSERT_FALSE(law.is_in({1,0}));
+   ASSERT_TRUE(law.is_in({1,1}));
+
+   ASSERT_FALSE(law.is_in({-1,-1}));
+   ASSERT_FALSE(law.is_in({0,-1}));
+   ASSERT_FALSE(law.is_in({-1,0}));
+
+   ASSERT_FALSE(law.is_in({-1,1}));
+   ASSERT_FALSE(law.is_in({1,2}));
+
+   ASSERT_FALSE(law.is_in({2,2}));
+   ASSERT_FALSE(law.is_in({1,2}));
+   ASSERT_FALSE(law.is_in({2,1}));
+}
+
+TEST_F(fixture_law_screen_rectangle, is_in_inclusive)
+{
+   mzlib::screen_rectangle<mzlib::coordinates2d> rect{{0,0},{1,1}};
+   mzlib::law::screen_rectangles<mzlib::coordinates2d> law;
+   law.consider(rect);
+
+   ASSERT_TRUE(law.is_in_inclusive({0,0}));
+   ASSERT_TRUE(law.is_in_inclusive({0,1}));
+   ASSERT_TRUE(law.is_in_inclusive({1,0}));
+   ASSERT_TRUE(law.is_in_inclusive({1,1}));
+
+   ASSERT_FALSE(law.is_in_inclusive({-1,-1}));
+   ASSERT_FALSE(law.is_in_inclusive({0,-1}));
+   ASSERT_FALSE(law.is_in_inclusive({-1,0}));
+
+   ASSERT_FALSE(law.is_in_inclusive({-1,1}));
+   ASSERT_FALSE(law.is_in_inclusive({1,2}));
+
+   ASSERT_FALSE(law.is_in_inclusive({2,2}));
+   ASSERT_FALSE(law.is_in_inclusive({1,2}));
+   ASSERT_FALSE(law.is_in_inclusive({2,1}));
 }
 
 TEST_F(fixture_law_screen_rectangle, get_diagonal_length) 
