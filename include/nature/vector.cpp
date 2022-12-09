@@ -8,6 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "vector.h"
+#include <unordered_set>
 
 namespace mzlib {
 
@@ -237,6 +238,41 @@ TEST_F(fixture_vector, dimensions)
    ASSERT_EQ(2, (mzlib::vector<double, 2>::size()));
    ASSERT_EQ(3, (mzlib::vector<double, 3>::size()));
    ASSERT_EQ(4, (mzlib::vector<double, 4>::size()));
+}
+
+TEST_F(fixture_vector, can_store_it_in_set)
+{
+   mzlib::vector<int, 2> v1{0,0};
+   mzlib::vector<int, 2> v2{0,1};
+   mzlib::vector<int, 2> v3{1,0};
+   mzlib::vector<int, 2> v4{1,1};
+   mzlib::vector<int, 2> v5{1,1};
+   std::set<mzlib::vector<int, 2>> s{v1, v2, v3, v4, v5};
+   ASSERT_EQ(4, s.size());
+}
+
+TEST_F(fixture_vector, can_store_in_unordered_set)
+{
+   mzlib::vector<int, 2> v1{0,0};
+   mzlib::vector<int, 2> v2{0,1};
+   mzlib::vector<int, 2> v3{1,0};
+   mzlib::vector<int, 2> v4{1,1};
+   mzlib::vector<int, 2> v5{1,1};
+   std::unordered_set<mzlib::vector<int, 2>> s{v1, v2, v3, v4, v5};
+   ASSERT_EQ(4, s.size());
+}
+
+TEST_F(fixture_vector, can_use_as_key_in_map)
+{
+   mzlib::vector<int, 2> v1{0,0};
+   mzlib::vector<int, 2> v2{0,1};
+   mzlib::vector<int, 2> v3{0,1};
+   std::map<mzlib::vector<int, 2>, std::string> m;
+   m[v1] = "v1";
+   m[v2] = "v2";
+   m[v3] = "v3";
+   ASSERT_EQ(2, m.size());
+   ASSERT_EQ("v3", m[v2]);
 }
 
 } // namespace mzlib::vecns
