@@ -19,6 +19,12 @@ Most of this library was written either tired in the evening or overexcited duri
 - sharing code with others to aid discussion about specific programming topics
 - a backup location for some of my code
 
+# How to use it
+
+Doesn't need to be compiled because it's meant as a header-only library. That makes it easier to transfer the code to other contexts. Just copy paste the code into your project, or copy the files across and include them. Or get the whole repo and include from there.
+
+You can compile mzlib, but that will compile the unit tests rather than create an .so or an .dll to be linked.
+
 # Design guidelines
 
   - It is as copy/pastable to another context as possible. Like a collection of code snippets, but organised.
