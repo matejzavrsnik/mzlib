@@ -13,6 +13,7 @@
 #include <array>
 #include <ostream>
 #include <memory> // for unique_ptr
+#include <concepts> // for integral
 
 #include "../lang/dbl.h"
 #include "../laws/vector_operations.h"
@@ -222,14 +223,24 @@ constexpr auto operator<(const mzlib::vector<T,D> lhs, const mzlib::vector<T,D> 
    return false;
 }
 
-// Convenient types
+// convenient partial templates
+// using _t postfix to save more convenient name for the application code
 
-using vector2d = vector<double, 2>;
-using vector3d = vector<double, 3>;
-using point2d  = vector<double, 2>;
-using point3d  = vector<double, 3>;
-using coordinates2d  = vector<long, 2>;
-using coordinates3d  = vector<long, 3>;
+template<typename T> using vector2_t = mzlib::vector<T, 2>;
+template<typename T> using vector3_t = mzlib::vector<T, 3>;
+template<std::integral T> using grid_t = vector2_t<vector2_t<T>>;
+template<std::integral T> using lattice_t = vector3_t<vector3_t<T>>;
+template<std::floating_point T> using field_t = vector2_t<vector2_t<T>>;
+template<std::floating_point T> using space_t = vector3_t<vector3_t<T>>;
+
+// convenient types
+
+using vector2d = vector2_t<double>;
+using vector3d = vector3_t<double>;
+using point2d  = vector2_t<double>;
+using point3d  = vector3_t<double>;
+using coordinates2d  = vector2_t<long>;
+using coordinates3d  = vector3_t<long>;
 
 // convenient values
 
