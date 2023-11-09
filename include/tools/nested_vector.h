@@ -11,6 +11,7 @@
 // This collection of convenient functions to better 
 // handle vectors of vectors that pop up every now and then
 
+#include "../lang/exceptions.h"
 #include <vector>
 
 namespace mzlib {
