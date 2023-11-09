@@ -17,6 +17,7 @@
 #include "../lang/dbl.h"
 #include "../laws/vector_operations.h"
 #include "../iterators/copy.h"
+#include "../lang/hash_combine.h"
 
 namespace mzlib {
 
@@ -210,7 +211,17 @@ constexpr mzlib::vector<T,D> operator/ (const S& scalar, const mzlib::vector<T,D
 {
    return law::vector::divide_by_scalar(vec, scalar); 
 }
-   
+
+template<typename T, size_t D>
+constexpr auto operator<(const mzlib::vector<T,D> lhs, const mzlib::vector<T,D> rhs)
+{
+   for (size_t i = 0; i<D; ++i)
+      if(lhs[i] < rhs[i]) return true;
+      else if(lhs[i] > rhs[i]) return false;
+
+   return false;
+}
+
 // Convenient types
 
 using vector2d = vector<double, 2>;
@@ -237,6 +248,25 @@ constexpr std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,D
    }
    os << "]";
    return os;
+}
+
+namespace std
+{
+template <typename T, size_t D>
+struct hash<mzlib::vector<T, D>>
+{
+   size_t
+   operator() (const mzlib::vector<T, D>& v) const noexcept
+   {
+      size_t hash = 112358;
+
+      for (size_t i = 0; i<D; ++i)
+         ::mzlib::hash_combine(hash, v[i]);
+
+      return hash;
+   }
+};
+
 }
 
 #endif // MZLIB_VECTOR_H
