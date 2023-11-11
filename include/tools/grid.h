@@ -12,11 +12,12 @@
 // handle vectors of vectors that pop up every now and then
 
 #include "../lang/exceptions.h"
+#include "../nature/vector.h"
 #include <vector>
 
 namespace mzlib {
    
-namespace nested_vector {
+namespace grid {
 
 template<typename T>
 using type = std::vector<std::vector<T>>;
@@ -61,8 +62,8 @@ type<T> construct(
 template<typename T>
 T& access(
    type<T>& vv,
-   std::size_t row_index,
-   std::size_t col_index)
+   std::size_t col_index,
+   std::size_t row_index)
 {
    // Nothing guarantees it's correct height so it needs
    // to be enlarged to this size just in case.
@@ -76,8 +77,8 @@ T& access(
 template<typename T>
 const T& access(
    const type<T>& vv,
-   std::size_t row_index,
-   std::size_t col_index)
+   std::size_t col_index,
+   std::size_t row_index)
 {
    // Read-only version cannot enlarge
    if (vv.size() == 0 || row_index >= vv.size() || col_index >= vv[0].size())
@@ -85,15 +86,12 @@ const T& access(
    return vv[row_index][col_index];
 }
 
-// Overload for using coordinates (x,y)-system to access field (row, col)-system
 template<typename T>
 T& access(
    type<T>& vv,
    const mzlib::coordinates2d& coordinates)
 {
-   // Tricky: they are swapped. In normal coordinate system, second dimension, y, is up-down, whereas
-   // in nested vectors, up-down is the first dimension.
-   return access(vv, coordinates[1], coordinates[0]);
+   return access(vv, coordinates[0], coordinates[1]);
 }
 
 // When you need this overload for read-only
@@ -102,9 +100,8 @@ const T& access(
    const type<T>& vv,
    const mzlib::coordinates2d& coordinates)
 {
-   // Tricky: they are swapped. In normal coordinate system, second dimension, y, is up-down, whereas
-   // in nested vectors, up-down is the first dimension.
-   return access(vv, coordinates[1], coordinates[0]);
+
+   return access(vv, coordinates[0], coordinates[1]);
 }
 
 // It's good to have these things named and implemented in one
@@ -135,7 +132,7 @@ mzlib::coordinates2d size(
    return mzlib::coordinates2d{(int)width(vv), (int)height(vv)};
 }
 
-} // namespace nested_vector
+} // namespace grid
 
 } // namespace mzlib
 
