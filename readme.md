@@ -82,6 +82,7 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
   - **extension** snippets that are extending other libraries rather than just standard one. There will be a sub-folder for each such other library.
   - **filesystem** snippets to do with filesystem
   - **greatest_hits** textbook algorithms
+  - **grid** 2D grids of stuff is a common problem; all closely related functionality is here.
   - **iterators** operations on iterators
   - **joke** bare jokes man
   - **lang** snippets that improve (or otherwise) the use of the language itself rather than perform any useful extrinsic operation

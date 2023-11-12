@@ -26,6 +26,7 @@ file(GLOB Source
    include/extension/imgui/*.*
    include/filesystem/*.*
    include/greatest_hits/*.*
+   include/grid/*.*
    include/iterators/*.*
    include/joke/*.*
    include/lang/*.*
