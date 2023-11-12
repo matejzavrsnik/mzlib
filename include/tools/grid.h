@@ -21,7 +21,10 @@ namespace grid {
 
 template<typename T>
 using type = std::vector<std::vector<T>>;
-   
+
+using cell = mzlib::vector<long, 2>;
+using rect = mzlib::vector<long, 2>;
+
 template<typename T>
 void enlarge(
    type<T>& vv,
@@ -98,10 +101,10 @@ T& access(
 template<typename T>
 const T& access(
    const type<T>& vv,
-   const mzlib::coordinates2d& coordinates)
+   const cell& c)
 {
 
-   return access(vv, coordinates[0], coordinates[1]);
+   return access(vv, c[0], c[1]);
 }
 
 // It's good to have these things named and implemented in one
@@ -125,11 +128,11 @@ auto height(
 
 // useful because you can add the coordinates vector to other vectors
 template<typename T>
-mzlib::coordinates2d size(
+rect size(
    const type<T>& vv)
 {
    // todo: avoid narrowing
-   return mzlib::coordinates2d{(int)width(vv), (int)height(vv)};
+   return rect{(int)width(vv), (int)height(vv)};
 }
 
 } // namespace grid
