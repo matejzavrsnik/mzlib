@@ -5,8 +5,8 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_NESTED_VECTOR_H
-#define MZLIB_NESTED_VECTOR_H
+#ifndef MZLIB_GRID_H
+#define MZLIB_GRID_H
 
 // This collection of convenient functions to better 
 // handle vectors of vectors that pop up every now and then
@@ -56,7 +56,7 @@ template<typename T>
 type<T> construct(
    std::size_t row_count,
    std::size_t col_count,
-   const T& val)
+   const T& val = 0)
 {
    type<T> v(row_count, std::vector<T>(col_count, val));
    return v;
@@ -139,4 +139,4 @@ rect size(
 
 } // namespace mzlib
 
-#endif // MZLIB_NESTED_VECTOR_H
+#endif // MZLIB_GRID_H
