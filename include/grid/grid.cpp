@@ -6,7 +6,6 @@
 //
 
 #include "grid.h"
-
 #include "gtest/gtest.h"
 
 using namespace ::testing;
