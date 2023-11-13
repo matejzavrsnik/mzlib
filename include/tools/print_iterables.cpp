@@ -22,7 +22,21 @@ TEST(print_iterables, vector_grid_cells)
 {
    std::stringstream ss;
    mzlib::print(std::vector<mzlib::grid::cell>({{1,2},{3,4},{5,6}}), ss);
-   ASSERT_EQ("[[1,2],[3,4],[5,6]]\n", ss.view());
+   ASSERT_EQ("[[1,2]\n,[3,4]\n,[5,6]\n]\n", ss.view());
+}
+
+TEST(print_iterables, set_grid_cells)
+{
+   std::stringstream ss;
+   mzlib::print(std::set<mzlib::grid::cell>({{1,2},{3,4},{5,6}}), ss);
+   ASSERT_EQ("[[1,2]\n,[3,4]\n,[5,6]\n]\n", ss.view());
+}
+
+TEST(print_iterables, grid_cell)
+{
+   std::stringstream ss;
+   mzlib::print(mzlib::grid::cell{1,2}, ss);
+   ASSERT_EQ("[1,2]\n", ss.view());
 }
 
 TEST(print_iterables, map_int_string)
