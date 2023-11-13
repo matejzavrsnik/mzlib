@@ -63,6 +63,14 @@ type<T> construct(
 }
 
 template<typename T>
+type<T> construct(
+   const rect& r,
+   const T& val = 0)
+{
+   return construct(r[1], r[0], val);
+}
+
+template<typename T>
 T& access(
    type<T>& vv,
    std::size_t col_index,

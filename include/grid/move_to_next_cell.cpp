@@ -8,7 +8,7 @@
 #include "move_to_next_cell.h"
 #include <gtest/gtest.h>
 
-TEST(reusables, iterate)
+TEST(move_to_next_cell, cases)
 {
    mzlib::grid::cell c{5,7};
 

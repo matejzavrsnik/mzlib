@@ -242,24 +242,26 @@ TEST_F(fixture_vector, dimensions)
 
 TEST_F(fixture_vector, can_store_it_in_set)
 {
-   mzlib::vector<int, 2> v1{0,0};
-   mzlib::vector<int, 2> v2{0,1};
-   mzlib::vector<int, 2> v3{1,0};
-   mzlib::vector<int, 2> v4{1,1};
-   mzlib::vector<int, 2> v5{1,1};
-   std::set<mzlib::vector<int, 2>> s{v1, v2, v3, v4, v5};
-   ASSERT_EQ(4, s.size());
+   std::set<mzlib::vector<int, 2>> s;
+
+   for(int i=0; i<100; i++)
+      for(int j=0; j<100; j++)
+         s.insert({i,j});
+   s.insert({1,1});
+
+   ASSERT_EQ(10'000, s.size());
 }
 
 TEST_F(fixture_vector, can_store_in_unordered_set)
 {
-   mzlib::vector<int, 2> v1{0,0};
-   mzlib::vector<int, 2> v2{0,1};
-   mzlib::vector<int, 2> v3{1,0};
-   mzlib::vector<int, 2> v4{1,1};
-   mzlib::vector<int, 2> v5{1,1};
-   std::unordered_set<mzlib::vector<int, 2>> s{v1, v2, v3, v4, v5};
-   ASSERT_EQ(4, s.size());
+   std::unordered_set<mzlib::vector<int, 2>> s;
+
+   for(int i=0; i<100; i++)
+      for(int j=0; j<100; j++)
+         s.insert({i,j});
+   s.insert({1,1});
+
+   ASSERT_EQ(10'000, s.size());
 }
 
 TEST_F(fixture_vector, can_use_as_key_in_map)

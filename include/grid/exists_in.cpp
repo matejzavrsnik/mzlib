@@ -9,7 +9,7 @@
 #include "../lang/equal_to.h"
 #include <gtest/gtest.h>
 
-TEST(reusables, exists_in_middle)
+TEST(exists_in, middle)
 {
    const mzlib::grid::type<int> g = {
       {0,0,0},
@@ -20,7 +20,7 @@ TEST(reusables, exists_in_middle)
    ASSERT_TRUE(mzlib::grid::exists_in(g, mzlib::equal_to(3)));
 }
 
-TEST(reusables, exists_in_tl)
+TEST(exists_in, tl)
 {
    const mzlib::grid::type<int> g = {
       {1,0,0},
@@ -31,7 +31,7 @@ TEST(reusables, exists_in_tl)
    ASSERT_TRUE(mzlib::grid::exists_in(g, mzlib::equal_to(1)));
 }
 
-TEST(reusables, exists_in_tr)
+TEST(exists_in, tr)
 {
    const mzlib::grid::type<int> g = {
       {1,0,200},
@@ -42,7 +42,7 @@ TEST(reusables, exists_in_tr)
    ASSERT_TRUE(mzlib::grid::exists_in(g, mzlib::equal_to(200)));
 }
 
-TEST(reusables, exists_in_bl)
+TEST(exists_in, bl)
 {
    const mzlib::grid::type<int> g = {
       {1,0,200},
@@ -53,7 +53,7 @@ TEST(reusables, exists_in_bl)
    ASSERT_TRUE(mzlib::grid::exists_in(g, mzlib::equal_to(201)));
 }
 
-TEST(reusables, exists_in_br)
+TEST(exists_in, br)
 {
    const mzlib::grid::type<int> g = {
       {1,0,200},
