@@ -13,7 +13,7 @@
 namespace mzlib {
 
 // To see if a collection starts with other collection or not. First meant to
-// be used for strings, but why not make it for all iterable collections. Even
+// be used for strings, but why not make it for all iterator collections. Even
 // for strings this is more useful then .find and check if it returned 0, because
 // if it does not start with, it can stop searching immediately as opposed to
 // .find which would search to the end of the string. For general collections 
