@@ -52,6 +52,20 @@ requires (Container a) {
    std::end(a);
 };
 
+template<typename Container>
+concept nonnested_iterable =
+requires {
+   requires iterable<Container> &&
+   !iterable<typename Container::value_type>;
+};
+
+template<typename Container>
+concept nested_iterable =
+requires {
+   requires iterable<Container> &&
+   iterable<typename Container::value_type>;
+};
+
 template<typename Type>
 concept stream_outable =
 requires (Type t) {

@@ -8,6 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "concepts.h"
+#include "../grid/grid.h"
 
 #include <string>
 #include <unordered_set>
@@ -91,4 +92,40 @@ TEST(concepts, stream_outable)
 
    // so uness my printer for std::pair is included, there is no operator<< for std::pair
    ASSERT_FALSE(resolved_as_concept_iterable(std::make_pair(1, "str")));
+}
+
+// -----------------------
+
+enum class resolved_concept
+{
+   none,
+   iterable,
+   nested_iterable,
+   nonnested_iterable
+};
+
+template<typename T>
+resolved_concept resolved_as(T arg)
+{
+   return resolved_concept::none;
+}
+
+resolved_concept resolved_as(mzlib::nested_iterable auto arg)
+{
+   return resolved_concept::nested_iterable;
+}
+
+resolved_concept resolved_as(mzlib::nonnested_iterable auto arg)
+{
+   return resolved_concept::nonnested_iterable;
+}
+
+TEST(concepts, nested_iterable)
+{
+   ASSERT_EQ(resolved_concept::nested_iterable, resolved_as(std::vector<std::vector<int>>()));
+   ASSERT_EQ(resolved_concept::nested_iterable, resolved_as(mzlib::grid::type<long>()));
+
+   ASSERT_EQ(resolved_concept::none, resolved_as(std::make_pair(1, "str")));
+   ASSERT_EQ(resolved_concept::none, resolved_as(1));
+   ASSERT_EQ(resolved_concept::none, resolved_as("a string"));
 }

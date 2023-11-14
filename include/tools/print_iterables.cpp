@@ -45,3 +45,17 @@ TEST(print_iterables, map_int_string)
    mzlib::print(std::map<int, std::string>({{1,"one"},{2,"two"},{3,"three"}}), ss);
    ASSERT_EQ("[[1,one]\n,[2,two]\n,[3,three]\n]\n", ss.view());
 }
+
+TEST(print_iterables, grid_of_integers)
+{
+   std::stringstream ss;
+   mzlib::grid::type<long> grid = {
+      {1, 2, 3, 4, 5},
+      {2, 3, 4, 5, 6},
+      {3, 4, 5, 6, 7},
+      {4, 5, 6, 7, 8},
+      {5, 6, 7, 8, 9}
+   };
+   mzlib::print(grid, ss);
+   ASSERT_EQ("[[1,2,3,4,5]\n,[2,3,4,5,6]\n,[3,4,5,6,7]\n,[4,5,6,7,8]\n,[5,6,7,8,9]\n]\n", ss.view());
+}
