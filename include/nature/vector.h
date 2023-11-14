@@ -44,7 +44,9 @@ private:
    std::unique_ptr<vector_type> m_array;
    
 public:
-   
+
+   using value_type = TypeT;
+
    vector (vector<TypeT,DimT> &&) = default;
    vector& operator= (vector<TypeT,DimT>&&) = default;
    ~vector () = default;

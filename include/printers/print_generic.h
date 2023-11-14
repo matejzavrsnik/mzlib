@@ -9,6 +9,7 @@
 
 #include "../lang/concepts.h"
 #include <iostream>
+#include <iomanip>
 
 namespace mzlib
 {
@@ -17,11 +18,17 @@ template <mzlib::stream_outable StreamOutableType>
 std::ostream&
 print (
    const StreamOutableType& obj,
-   std::ostream& os = std::cout
+   const mzlib::print_parameters<StreamOutableType, std::string>& params
 )
 {
-   os << obj;
-   return os;
+   params.stream << std::setfill(' ') << std::setw(params.align);
+
+   if (params.substitutions.contains(obj))
+      params.stream << params.substitutions.at(obj);
+   else
+      params.stream << obj;
+
+   return params.stream;
 }
 
 }
