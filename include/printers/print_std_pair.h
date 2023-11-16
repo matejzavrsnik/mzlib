@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <utility>
-#include "print_parameters.h"
+#include "print_iterables.h"
 
 namespace mzlib
 {
@@ -18,10 +18,12 @@ template <typename First, typename Second>
 std::ostream&
 print (
    const std::pair<First, Second>& p,
-   const mzlib::print_parameters<std::pair<First, Second>, std::string>& params
+   const mzlib::print_parameters& params
 )
 {
-   params.stream << "[" << p.first << "," << p.second << "]" << std::endl;
+   params.stream << "[";
+   print(p.first, params) << ",";
+   print(p.second, params) << "]" << std::endl;
    return params.stream;
 }
 

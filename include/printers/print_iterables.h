@@ -15,14 +15,17 @@
 namespace mzlib
 {
 
-namespace internal
-{
-
-template <mzlib::iterable IterableContainer, typename ElementType>
+template <typename IterableContainer>
+requires (
+   // only iterable containers to be printed with this function
+   mzlib::iterable<IterableContainer>
+   // but don't print strings same as vectors
+   && !std::same_as<std::string, IterableContainer>
+)
 std::ostream&
-print_impl (
+print (
    const IterableContainer& c,
-   const mzlib::print_parameters<ElementType, std::string>& params
+   const mzlib::print_parameters& params
 )
 {
    bool first = true;
@@ -36,32 +39,6 @@ print_impl (
    }
    params.stream << "]" << std::endl;
    return params.stream;
-}
-
-}
-
-// The only reason for above is that I couldn't find other way to specify the template for mzlib::print_parameters.
-// When non-nested iterator, the element type is Container::value_type.
-// When nested iterator, the element type is Container::value_type::value_type.
-// Other than that it's the same code, hense two equivalent calls to internal::print_impl.
-template <mzlib::nonnested_iterable IterableContainer>
-std::ostream&
-print (
-   const IterableContainer& c,
-   const mzlib::print_parameters<typename IterableContainer::value_type, std::string>& p
-)
-{
-   return internal::print_impl(c, p);
-}
-
-template <mzlib::nested_iterable IterableContainer>
-std::ostream&
-print (
-   const IterableContainer& c,
-   const mzlib::print_parameters<typename IterableContainer::value_type::value_type, std::string>& p
-)
-{
-   return internal::print_impl(c, p);
 }
 
 }

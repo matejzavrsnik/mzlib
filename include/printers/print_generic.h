@@ -15,19 +15,28 @@
 namespace mzlib
 {
 
+std::string print_to_string(const mzlib::stream_outable auto& obj)
+{
+   std::stringstream ss;
+   ss << obj;
+   return ss.str();
+}
+
 template <mzlib::stream_outable StreamOutableType>
 std::ostream&
 print (
    const StreamOutableType& obj,
-   const mzlib::print_parameters<StreamOutableType, std::string>& params
+   const mzlib::print_parameters& params
 )
 {
-   params.stream << std::setfill(' ') << std::setw(params.align);
+   std::string string_representation = print_to_string(obj);
 
-   if (params.substitutions.contains(obj))
-      params.stream << params.substitutions.at(obj);
-   else
-      params.stream << obj;
+   params.stream
+      << std::setfill(' ')
+      << std::setw(params.align)
+      << (params.substitutions.contains(string_representation)
+         ? params.substitutions.at(string_representation)
+         : string_representation);
 
    return params.stream;
 }

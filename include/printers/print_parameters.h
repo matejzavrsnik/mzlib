@@ -13,12 +13,11 @@
 namespace mzlib
 {
 
-template<typename ElementType, typename SubstituteType>
 struct print_parameters
 {
    int align = 0;
    std::ostream& stream = std::cout;
-   std::map<ElementType,SubstituteType> substitutions = {};
+   std::map<std::string,std::string> substitutions = {};
 };
 
 }
