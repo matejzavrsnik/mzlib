@@ -26,7 +26,7 @@ template <mzlib::stream_outable StreamOutableType>
 std::ostream&
 print (
    const StreamOutableType& obj,
-   const mzlib::print_parameters& params
+   mzlib::print_parameters params
 )
 {
    std::string string_representation = print_to_string(obj);

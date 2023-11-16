@@ -8,6 +8,7 @@
 #ifndef MZLIB_CONVERTERS_H
 #define MZLIB_CONVERTERS_H
 
+#include "../lang/concepts.h"
 #include <string_view>
 #include <filesystem>
 
@@ -162,6 +163,20 @@ inline QJsonValue convert(
 }
 
 #endif // QJSONVALUE_H
+
+#ifdef _UNORDERED_SET_H
+
+// I give up on making this fully generic :(
+template<
+   mzlib::iterable IterableContainer,
+   typename T = IterableContainer::value_type>
+std::unordered_set<T>
+to_unordered_set(const IterableContainer& v)
+{
+   return std::unordered_set<T>(v.begin(), v.end());
+}
+
+#endif
 
 } // namespace mzlib
 

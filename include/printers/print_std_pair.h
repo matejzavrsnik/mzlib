@@ -18,7 +18,7 @@ template <typename First, typename Second>
 std::ostream&
 print (
    const std::pair<First, Second>& p,
-   const mzlib::print_parameters& params
+   mzlib::print_parameters params
 )
 {
    params.stream << "[";

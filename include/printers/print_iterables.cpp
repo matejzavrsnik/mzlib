@@ -74,7 +74,7 @@ TEST(print_iterables, vector_of_pairs_of_vector_string)
       {{7, 8, 9},"GHI"}
    };
    mzlib::print(the_abomination, {.stream=ss});
-   mzlib::print(the_abomination, {.stream=std::cout});
+   //mzlib::print(the_abomination, {.stream=std::cout});
    ASSERT_EQ(
       "[[[1,2,3]\n"
       ",ABC]\n"
