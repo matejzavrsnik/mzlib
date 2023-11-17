@@ -166,14 +166,17 @@ inline QJsonValue convert(
 
 #ifdef _UNORDERED_SET_H
 
-// I give up on making this fully generic :(
+#endif
+
+#ifdef _STD_VECTOR_H
+
 template<
    mzlib::iterable IterableContainer,
    typename T = IterableContainer::value_type>
-std::unordered_set<T>
-to_unordered_set(const IterableContainer& v)
+std::vector<T>
+to_vector(const IterableContainer& v)
 {
-   return std::unordered_set<T>(v.begin(), v.end());
+   return std::vector<T>(v.begin(), v.end());
 }
 
 #endif

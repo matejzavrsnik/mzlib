@@ -25,7 +25,7 @@ requires (
 std::ostream&
 print (
    const IterableContainer& c,
-   mzlib::print_parameters params
+   mzlib::print_parameters params = mzlib::print_parameters()
 )
 {
    bool first = true;
