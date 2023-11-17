@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2018 Matej Zavrsnik
+// Copyright (c) 2023 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
@@ -10,7 +10,7 @@
 #include "apply_drawing.h"
 #include <gtest/gtest.h>
 
-TEST(reusables, move_unless__by_one__right__can)
+TEST(move_unless, by_one__right__can)
 {
    mzlib::grid::type<long> grid = mzlib::grid::construct<long>(5, 8);
    mzlib::grid::type<long> grid_expected = mzlib::grid::construct<long>(5, 8);
@@ -40,7 +40,7 @@ TEST(reusables, move_unless__by_one__right__can)
    ASSERT_EQ(grid, grid_expected);
 }
 
-TEST(reusables, move_unless__by_one__right__cannot)
+TEST(move_unless, by_one__right__cannot)
 {
    mzlib::grid::type<long> grid = mzlib::grid::construct<long>(5, 8);
    mzlib::grid::type<long> grid_expected = mzlib::grid::construct<long>(5, 8);

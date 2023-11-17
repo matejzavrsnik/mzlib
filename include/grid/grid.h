@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2018 Matej Zavrsnik
+// Copyright (c) 2023 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
@@ -60,6 +60,14 @@ type<T> construct(
 {
    type<T> v(row_count, std::vector<T>(col_count, val));
    return v;
+}
+
+template<typename T>
+type<T> construct(
+   const rect& r,
+   const T& val = 0)
+{
+   return construct(r[1], r[0], val);
 }
 
 template<typename T>

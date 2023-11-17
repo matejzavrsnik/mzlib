@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2018 Matej Zavrsnik
+// Copyright (c) 2023 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
@@ -8,7 +8,7 @@
 #include "move_to_next_cell.h"
 #include <gtest/gtest.h>
 
-TEST(reusables, iterate)
+TEST(move_to_next_cell, cases)
 {
    mzlib::grid::cell c{5,7};
 

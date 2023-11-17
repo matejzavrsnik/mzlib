@@ -33,6 +33,7 @@ file(GLOB Source
    include/laws/*.*
    include/mocks/*.*
    include/nature/*.*
+   include/printers/*.*
    include/string/*.*
    include/tools/*.*
    include/tools/internal/*.*

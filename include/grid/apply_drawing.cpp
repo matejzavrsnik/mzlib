@@ -8,7 +8,7 @@
 #include "apply_drawing.h"
 #include <gtest/gtest.h>
 
-TEST(reusables, apply_drawing)
+TEST(apply_drawing, basic)
 {
    auto canvas = mzlib::grid::construct(40, 7, 0);
 

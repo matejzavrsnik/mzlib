@@ -16,10 +16,10 @@ namespace mzlib {
    
 bool all_are_subsentences_ci(
    std::string_view str,
-   const iterable auto subs_begin,
-   const iterable auto subs_end)
+   const iterator auto subs_begin,
+   const iterator auto subs_end)
 {
-   for(iterable auto subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
+   for(iterator auto subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
       if (!is_subsentence_ci(str, *subs_it)) {
          return false;
       }
@@ -29,10 +29,10 @@ bool all_are_subsentences_ci(
 
 bool none_are_subsentences_ci(
    std::string_view str,
-   const iterable auto subs_begin,
-   const iterable auto subs_end)
+   const iterator auto subs_begin,
+   const iterator auto subs_end)
 {
-   for(iterable auto subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
+   for(iterator auto subs_it = subs_begin; subs_it != subs_end; ++subs_it) {
       if (is_subsentence_ci(str, *subs_it)) {
          return false;
       }

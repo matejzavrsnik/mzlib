@@ -44,7 +44,9 @@ private:
    std::unique_ptr<vector_type> m_array;
    
 public:
-   
+
+   using value_type = TypeT;
+
    vector (vector<TypeT,DimT> &&) = default;
    vector& operator= (vector<TypeT,DimT>&&) = default;
    ~vector () = default;
@@ -108,7 +110,38 @@ public:
    {
       return DimT;
    }
-  
+
+   // iteration
+   // todo: ideally I wouldn't leak internal implementation here, but that would require writing own iterator
+   vector_type::iterator begin() noexcept
+   {
+      return m_array->begin();
+   }
+
+   vector_type::const_iterator begin() const noexcept
+   {
+      return m_array->begin();
+   }
+
+   vector_type::const_iterator cbegin() const noexcept
+   {
+      return m_array->cbegin();
+   }
+
+   vector_type::iterator end() noexcept
+   {
+      return m_array->end();
+   }
+
+   vector_type::const_iterator end() const noexcept
+   {
+      return m_array->end();
+   }
+
+   vector_type::const_iterator cend() const noexcept
+   {
+      return m_array->cend();
+   }
 };
 
 template<typename T, size_t D> 
@@ -223,6 +256,30 @@ constexpr auto operator<(const mzlib::vector<T,D> lhs, const mzlib::vector<T,D> 
    return false;
 }
 
+template<typename T, size_t D>
+auto begin(mzlib::vector<T,D>& v) -> decltype(v.begin())
+{
+   return v.begin();
+}
+
+template<typename T, size_t D>
+std::array<T, D>::const_iterator cbegin(const mzlib::vector<T,D>& v)
+{
+   return v.cbegin();
+}
+
+template<typename T, size_t D>
+auto end(mzlib::vector<T,D>& v) -> decltype(v.end())
+{
+   return v.end();
+}
+
+template<typename T, size_t D>
+std::array<T, D>::const_iterator cend(const mzlib::vector<T,D>& v)
+{
+   return v.cend();
+}
+
 // convenient partial templates
 // using _t postfix to save more convenient name for the application code
 
@@ -248,18 +305,6 @@ static const vector2d unit_vector2d = law::vector::create_unit_vector<vector2d>(
 static const vector3d unit_vector3d = law::vector::create_unit_vector<vector3d>();
 
 } // namespace
-
-template<class TYPE, size_t DIM>
-constexpr std::ostream& operator<< (std::ostream& os, const mzlib::vector<TYPE,DIM>& vector)
-{
-   os << "[";
-   for (size_t i=0; i<vector.size(); ++i) {
-      if (i!=0) os << ",";
-      os << vector[i];
-   }
-   os << "]";
-   return os;
-}
 
 namespace std
 {

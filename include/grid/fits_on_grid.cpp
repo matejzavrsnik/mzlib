@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2018 Matej Zavrsnik
+// Copyright (c) 2023 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
@@ -8,7 +8,7 @@
 #include "fits_on_grid.h"
 #include <gtest/gtest.h>
 
-TEST(reusables, fits_on_grid__does)
+TEST(fits_on_grid, does)
 {
    mzlib::grid::type<long> grid = mzlib::grid::construct<long>(5, 8);
 
@@ -26,7 +26,7 @@ TEST(reusables, fits_on_grid__does)
    // 0 0 0 0 0 0 1 0
 }
 
-TEST(reusables, fits_on_grid__does_not)
+TEST(fits_on_grid, does_not)
 {
    mzlib::grid::type<long> grid = mzlib::grid::construct<long>(5, 8);
 
