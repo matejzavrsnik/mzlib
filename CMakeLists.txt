@@ -27,6 +27,7 @@ file(GLOB Source
    include/filesystem/*.*
    include/greatest_hits/*.*
    include/grid/*.*
+   include/interval/*.*
    include/iterators/*.*
    include/joke/*.*
    include/lang/*.*
