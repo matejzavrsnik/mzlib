@@ -26,12 +26,15 @@ file(GLOB Source
    include/extension/imgui/*.*
    include/filesystem/*.*
    include/greatest_hits/*.*
+   include/grid/*.*
+   include/interval/*.*
    include/iterators/*.*
    include/joke/*.*
    include/lang/*.*
    include/laws/*.*
    include/mocks/*.*
    include/nature/*.*
+   include/printers/*.*
    include/string/*.*
    include/tools/*.*
    include/tools/internal/*.*

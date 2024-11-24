@@ -8,6 +8,7 @@
 #ifndef MZLIB_CONVERTERS_H
 #define MZLIB_CONVERTERS_H
 
+#include "../lang/concepts.h"
 #include <string_view>
 #include <filesystem>
 
@@ -162,6 +163,23 @@ inline QJsonValue convert(
 }
 
 #endif // QJSONVALUE_H
+
+#ifdef _UNORDERED_SET_H
+
+#endif
+
+#ifdef _STD_VECTOR_H
+
+template<
+   mzlib::iterable IterableContainer,
+   typename T = IterableContainer::value_type>
+std::vector<T>
+to_vector(const IterableContainer& v)
+{
+   return std::vector<T>(v.begin(), v.end());
+}
+
+#endif
 
 } // namespace mzlib
 

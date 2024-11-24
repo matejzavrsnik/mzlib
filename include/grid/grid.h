@@ -1,25 +1,30 @@
 //
-// Copyright (c) 2018 Matej Zavrsnik
+// Copyright (c) 2023 Matej Zavrsnik
 //
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
 //
 
-#ifndef MZLIB_NESTED_VECTOR_H
-#define MZLIB_NESTED_VECTOR_H
+#ifndef MZLIB_GRID_H
+#define MZLIB_GRID_H
 
 // This collection of convenient functions to better 
 // handle vectors of vectors that pop up every now and then
 
+#include "../lang/exceptions.h"
+#include "../nature/vector.h"
 #include <vector>
 
 namespace mzlib {
    
-namespace nested_vector {
+namespace grid {
 
 template<typename T>
 using type = std::vector<std::vector<T>>;
-   
+
+using cell = mzlib::vector<long, 2>;
+using rect = mzlib::vector<long, 2>;
+
 template<typename T>
 void enlarge(
    type<T>& vv,
@@ -51,17 +56,25 @@ template<typename T>
 type<T> construct(
    std::size_t row_count,
    std::size_t col_count,
-   const T& val)
+   const T& val = 0)
 {
    type<T> v(row_count, std::vector<T>(col_count, val));
    return v;
 }
 
 template<typename T>
+type<T> construct(
+   const rect& r,
+   const T& val = 0)
+{
+   return construct(r[1], r[0], val);
+}
+
+template<typename T>
 T& access(
    type<T>& vv,
-   std::size_t row_index,
-   std::size_t col_index)
+   std::size_t col_index,
+   std::size_t row_index)
 {
    // Nothing guarantees it's correct height so it needs
    // to be enlarged to this size just in case.
@@ -75,8 +88,8 @@ T& access(
 template<typename T>
 const T& access(
    const type<T>& vv,
-   std::size_t row_index,
-   std::size_t col_index)
+   std::size_t col_index,
+   std::size_t row_index)
 {
    // Read-only version cannot enlarge
    if (vv.size() == 0 || row_index >= vv.size() || col_index >= vv[0].size())
@@ -84,26 +97,22 @@ const T& access(
    return vv[row_index][col_index];
 }
 
-// Overload for using coordinates (x,y)-system to access field (row, col)-system
 template<typename T>
 T& access(
    type<T>& vv,
    const mzlib::coordinates2d& coordinates)
 {
-   // Tricky: they are swapped. In normal coordinate system, second dimension, y, is up-down, whereas
-   // in nested vectors, up-down is the first dimension.
-   return access(vv, coordinates[1], coordinates[0]);
+   return access(vv, coordinates[0], coordinates[1]);
 }
 
 // When you need this overload for read-only
 template<typename T>
 const T& access(
    const type<T>& vv,
-   const mzlib::coordinates2d& coordinates)
+   const cell& c)
 {
-   // Tricky: they are swapped. In normal coordinate system, second dimension, y, is up-down, whereas
-   // in nested vectors, up-down is the first dimension.
-   return access(vv, coordinates[1], coordinates[0]);
+
+   return access(vv, c[0], c[1]);
 }
 
 // It's good to have these things named and implemented in one
@@ -127,15 +136,15 @@ auto height(
 
 // useful because you can add the coordinates vector to other vectors
 template<typename T>
-mzlib::coordinates2d size(
+rect size(
    const type<T>& vv)
 {
    // todo: avoid narrowing
-   return mzlib::coordinates2d{(int)width(vv), (int)height(vv)};
+   return rect{(int)width(vv), (int)height(vv)};
 }
 
-} // namespace nested_vector
+} // namespace grid
 
 } // namespace mzlib
 
-#endif // MZLIB_NESTED_VECTOR_H
+#endif // MZLIB_GRID_H

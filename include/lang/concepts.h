@@ -9,6 +9,7 @@
 #define MZLIB_CONCEPTS_H
 
 #include "../tools/missing_std.h"
+#include <iostream>
 
 namespace mzlib {
    
@@ -35,14 +36,41 @@ template<class T>
 concept dereferencable =
    requires (T a) { *a; };
 
-// TODO: specialise iterable 
+// TODO: specialise iterator
 template<typename T>
-concept iterable =
+concept iterator =
    requires (T a) {
          requires incrementable<T>;
          requires dereferencable<T>;
          requires assignable<decltype(*a)>;
       };
+
+template<typename Container>
+concept iterable =
+requires (Container a) {
+   std::begin(a);
+   std::end(a);
+};
+
+template<typename Container>
+concept nonnested_iterable =
+requires {
+   requires iterable<Container> &&
+   !iterable<typename Container::value_type>;
+};
+
+template<typename Container>
+concept nested_iterable =
+requires {
+   requires iterable<Container> &&
+   iterable<typename Container::value_type>;
+};
+
+template<typename Type>
+concept stream_outable =
+requires (Type t) {
+   std::cout << t; // must have an operator<< defined somewhere
+};
 
 template<typename String>
 concept readable_string =

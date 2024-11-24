@@ -8,6 +8,7 @@
 #ifndef MZLIB_ALL_EQUAL_H
 #define MZLIB_ALL_EQUAL_H
 
+#include "../lang/equal_to.h"
 #include <algorithm>
 #include <functional>
 
@@ -19,8 +20,8 @@ bool all_equal(const Container& container, T value)
 {
    return std::all_of(
       container.cbegin(), 
-      container.cend(), 
-      std::bind(std::equal_to<T>(), std::placeholders::_1, value));
+      container.cend(),
+      equal_to(value));
 }
 
 } // namespace

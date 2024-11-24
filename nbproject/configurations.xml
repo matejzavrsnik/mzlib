@@ -304,8 +304,8 @@
         <itemPath>include/tools/index_coordinate_conversions.cpp</itemPath>
         <itemPath>include/tools/index_coordinate_conversions.h</itemPath>
         <itemPath>include/tools/missing_std.h</itemPath>
-        <itemPath>include/tools/nested_vector.cpp</itemPath>
-        <itemPath>include/tools/nested_vector.h</itemPath>
+        <itemPath>include/tools/grid.cpp</itemPath>
+        <itemPath>include/tools/grid.h</itemPath>
         <itemPath>include/tools/number_of_decimals.cpp</itemPath>
         <itemPath>include/tools/number_of_decimals.h</itemPath>
         <itemPath>include/tools/parse_cli_arguments.cpp</itemPath>
@@ -1300,9 +1300,9 @@
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/nested_vector.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/tools/grid.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/tools/nested_vector.h" ex="false" tool="3" flavor2="0">
+      <item path="include/tools/grid.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/number_of_decimals.cpp"
             ex="false"
@@ -2338,9 +2338,9 @@
       </item>
       <item path="include/tools/missing_std.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/tools/nested_vector.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/tools/grid.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/tools/nested_vector.h" ex="false" tool="3" flavor2="0">
+      <item path="include/tools/grid.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tools/number_of_decimals.cpp"
             ex="false"
