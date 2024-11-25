@@ -2,5 +2,5 @@
 # To keep your changes, remove these comment lines, but the plugin won't be able to modify your requirements
 
 requirements:
-  - "gtest/1.14.0"
-  - "libxmlpp/5.0.3"
+  - "libxmlpp/5.4.0"
+  - "gtest/1.15.0"

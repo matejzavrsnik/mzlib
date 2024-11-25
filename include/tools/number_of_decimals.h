@@ -4,9 +4,9 @@
 // Web:  matejzavrsnik.com
 // Mail: matejzavrsnik@gmail.com
 //
-
 #ifndef NUMBER_OF_DECIMALS_H
 #define NUMBER_OF_DECIMALS_H
+#include <iomanip>
 
 namespace mzlib {
 
