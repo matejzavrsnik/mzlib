@@ -36,6 +36,33 @@ get_neighbouring_cells (
    return results;
 }
 
+template <typename T>
+std::vector<cell>
+get_neighbouring_cells_star (
+   const type<T>& grid,
+   const cell& c
+)
+{
+   std::vector<cell> v{
+      cell{c[0] + 1, c[1]},
+      cell{c[0] + 1, c[1] + 1},
+      cell{c[0] + 1, c[1] - 1},
+
+      cell{c[0] - 1, c[1]},
+      cell{c[0] - 1, c[1] + 1},
+      cell{c[0] - 1, c[1] - 1},
+
+      cell{c[0], c[1] + 1},
+      cell{c[0], c[1] - 1}
+   };
+
+   std::vector<cell> results;
+   for (auto it = v.begin(); it != v.end(); ++it)
+      if (is_in(grid, *it))
+         results.push_back(*it);
+   return results;
+}
+
 }
 
 }

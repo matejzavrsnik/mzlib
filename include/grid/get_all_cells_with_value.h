@@ -13,9 +13,10 @@
 namespace mzlib::grid
 {
 
+template <typename T>
 inline std::vector<mzlib::grid::cell>
 get_all_cells_with_value (
-   const mzlib::grid::type<int>& field,
+   const mzlib::grid::type<T>& field,
    int value
 )
 {
