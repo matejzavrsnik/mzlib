@@ -9,12 +9,18 @@
 
 #include "../lang/concepts.h"
 #include <iostream>
+#include <ranges>
+
 #include "print_generic.h"
 #include "print_parameters.h"
 
 namespace mzlib
 {
 
+/*
+ * Won't work with filter_view and I don't know how to fix it.
+ * You can't iterate const filter_view because it caches.
+ */
 template <typename IterableContainer>
 requires (
    // only iterable containers to be printed with this function

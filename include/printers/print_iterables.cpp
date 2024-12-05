@@ -9,6 +9,8 @@
 #include <vector>
 #include "print_std_pair.h" // operator<< for std::pair
 #include "print_iterables.h"
+
+#include <ranges>
 #include <gtest/gtest.h>
 
 TEST(print_iterables, vector_integers)
@@ -16,6 +18,20 @@ TEST(print_iterables, vector_integers)
    std::stringstream ss;
    mzlib::print(std::vector{1,2,3,4,5,6}, {.stream=ss});
    ASSERT_EQ("[1,2,3,4,5,6]\n", ss.view());
+}
+
+TEST(print_iterables, vector_strings)
+{
+   std::stringstream ss;
+   mzlib::print(std::vector<std::string>{"123","456"}, {.stream=ss});
+   ASSERT_EQ("[123,456]\n", ss.view());
+}
+
+TEST(print_iterables, vector_string_views)
+{
+   std::stringstream ss;
+   mzlib::print(std::vector<std::string_view>{"123","456"}, {.stream=ss});
+   ASSERT_EQ("[123,456]\n", ss.view());
 }
 
 TEST(print_iterables, not_necessary_to_provide_parameters)
@@ -171,6 +187,33 @@ TEST(print_iterables, grid_of_integers_can_set_substitutions)
       ",[X,Y,6,7,8]\n"
       ",[Y,6,7,8,9]\n]\n", ss.view());
 }
+
+TEST(print_iterables, iota_view)
+{
+   std::stringstream ss;
+   auto view = std::ranges::views::iota(1,5);
+   mzlib::print(view, {.stream=ss});
+   ASSERT_EQ("[1,2,3,4]\n", ss.view());
+}
+
+TEST(print_iterables, transform_view)
+{
+   std::stringstream ss;
+   auto view = std::ranges::views::iota(1,5) | std::views::transform([](auto it){ return it*2; });
+   mzlib::print(view, {.stream=ss});
+   ASSERT_EQ("[2,4,6,8]\n", ss.view());
+}
+
+// Can't. Not a feature of filter_view. See comment in code for more details.
+// Need to convert to vector first if you want to do that.
+TEST(print_iterables, filter_view)
+{
+   std::stringstream ss;
+   auto view = std::ranges::views::iota(1,5) | std::views::filter([](const int it){ return it % 2 == 0; });
+   mzlib::print(view | std::ranges::to<std::vector<int>>(), {.stream=ss});
+   ASSERT_EQ("[2,4]\n", ss.view());
+}
+
 
 TEST(print_iterables, yeah_but_can_you_print_simple_text)
 {
