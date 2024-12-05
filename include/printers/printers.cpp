@@ -219,7 +219,7 @@ TEST(print_iterables, std_tuple_int_string)
 {
    std::stringstream ss;
    mzlib::print(std::make_tuple(12, std::string{"santa"}), {.stream=ss});
-   ASSERT_EQ("[12,santa]\n", ss.view());
+   ASSERT_EQ("[12,santa,]\n", ss.view());
 }
 
 TEST(print_iterables, std_tuple_int_vector_string)
@@ -227,7 +227,34 @@ TEST(print_iterables, std_tuple_int_vector_string)
    std::stringstream ss;
    mzlib::print(std::make_tuple(12, std::vector<std::string>{"santa", "klaus"}), {.stream=ss});
    ASSERT_EQ("[12,[santa,klaus]\n"
-             "]\n", ss.view());
+             ",]\n", ss.view());
+}
+
+TEST(print_iterables, std_tuple_of_more_than_two)
+{
+   std::stringstream ss;
+   mzlib::print(std::make_tuple(12, 12.3, "santa", std::vector<char>{'k','l','a','u','s'}), {.stream=ss});
+   ASSERT_EQ("[12,12.3,santa,[k,l,a,u,s]\n"
+             ",]\n", ss.view());
+}
+
+TEST(print_iterables, vector_of_tuples_of_three_including_vector_of_strings)
+{
+   std::stringstream ss;
+   std::vector v{
+      std::make_tuple(12, 13, std::vector<std::string>{"santa", "🎅🏿"}),
+      std::make_tuple(13, 14, std::vector<std::string>{"klaus", "🎄"}),
+      std::make_tuple(14, 15, std::vector<std::string>{"elf", "🧝‍♂️"})
+   };
+   mzlib::print(v, {.stream=ss});
+   ASSERT_EQ("[[12,13,[santa,🎅🏿]\n"
+             ",]\n"
+             ",[13,14,[klaus,🎄]\n"
+             ",]\n"
+             ",[14,15,[elf,🧝‍♂️]\n"
+             ",]\n"
+             "]\n"
+             , ss.view());
 }
 
 TEST(print_iterables, yeah_but_can_you_print_simple_text)

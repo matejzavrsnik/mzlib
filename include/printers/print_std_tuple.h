@@ -14,16 +14,16 @@
 namespace mzlib
 {
 
-template <typename First, typename Second>
+template <typename... TupleArgs>
 std::ostream&
 print (
-   const std::tuple<First, Second>& p,
+   const std::tuple<TupleArgs...>& tpl,
    mzlib::print_parameters params = mzlib::print_parameters()
 )
 {
    params.stream << "[";
-   print(std::get<0>(p), params) << ",";
-   print(std::get<1>(p), params) << "]" << std::endl;
+   std::apply([&params](auto&&... element){((print(element, params) << ","), ...);}, tpl);
+   params.stream << "]" << std::endl;
    return params.stream;
 }
 
