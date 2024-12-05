@@ -21,6 +21,7 @@ requires (
    mzlib::iterable<IterableContainer>
    // but don't print strings same as vectors
    && !std::same_as<std::string, IterableContainer>
+   && !std::same_as<std::string_view, IterableContainer>
 )
 std::ostream&
 print (
