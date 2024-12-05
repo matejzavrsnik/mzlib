@@ -5,12 +5,13 @@
 // Mail: matejzavrsnik@gmail.com
 //
 
-#include "../grid/grid.h" // definition of grid::cell
-#include <vector>
-#include "print_std_pair.h" // operator<< for std::pair
-#include "print_iterables.h"
+#include "all.h"
 
+#include "../grid/grid.h" // definition of grid::cell
+
+#include <vector>
 #include <ranges>
+
 #include <gtest/gtest.h>
 
 TEST(print_iterables, vector_integers)
@@ -214,6 +215,20 @@ TEST(print_iterables, filter_view)
    ASSERT_EQ("[2,4]\n", ss.view());
 }
 
+TEST(print_iterables, std_tuple_int_string)
+{
+   std::stringstream ss;
+   mzlib::print(std::make_tuple(12, std::string{"santa"}), {.stream=ss});
+   ASSERT_EQ("[12,santa]\n", ss.view());
+}
+
+TEST(print_iterables, std_tuple_int_vector_string)
+{
+   std::stringstream ss;
+   mzlib::print(std::make_tuple(12, std::vector<std::string>{"santa", "klaus"}), {.stream=ss});
+   ASSERT_EQ("[12,[santa,klaus]\n"
+             "]\n", ss.view());
+}
 
 TEST(print_iterables, yeah_but_can_you_print_simple_text)
 {
